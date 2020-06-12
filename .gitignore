@@ -12,6 +12,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+tests/**/coverage/
+tests/e2e/reports
+selenium-debug.log
+
 # Editor directories and files
 .idea
 .vscode
@@ -20,3 +24,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.local
+
+package-lock.json
+yarn.lock
