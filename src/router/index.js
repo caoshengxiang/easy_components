@@ -30,6 +30,11 @@ const routes = [
     path: '/icons',
     component: () => import('@/views/icons/index'),
     meta: { title: '项目图标' }
+  },
+  {
+    path: '/workflow/design',
+    component: () => import('@/views/workflow/Design'),
+    meta: { title: '流程设计' }
   }
 ]
 
