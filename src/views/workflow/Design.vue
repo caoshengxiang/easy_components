@@ -1,24 +1,23 @@
 <template>
   <div>
-    <ProgressItem></ProgressItem>
+    <y-work-f-design :id="id"></y-work-f-design>
   </div>
 </template>
 
 <script>
-  import API from '@/api'
-  import ProgressItem from '@/components/ProgressItem'
+  import YWorkFDesign from '@/components/yWorkFDesign/Index'
     export default {
       name: 'Design',
-      components:{ProgressItem},
+      components:{YWorkFDesign},
+      data(){
+        return{
+          id:'1'
+        }
+      },
       created() {
-        const that = this
-        API.workflow.getDetail().then(data => {
-        })
+        const that = this;
       },
       methods: {
-        test() {
-          const that = this
-        }
       }
     }
 </script>
