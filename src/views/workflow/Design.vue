@@ -1,18 +1,18 @@
 <template>
-  <div id="canvas" />
+  <div>
+    <ProgressItem></ProgressItem>
+  </div>
 </template>
 
 <script>
-  import Modeler from 'bpmn-js/lib/Modeler'
   import API from '@/api'
+  import ProgressItem from '@/components/ProgressItem'
     export default {
       name: 'Design',
+      components:{ProgressItem},
       created() {
-          const that = this
+        const that = this
         API.workflow.getDetail().then(data => {
-          var modeler = new Modeler({ container: '#canvas' })
-            modeler.importXML(data, function(err) {
-          })
         })
       },
       methods: {
@@ -22,7 +22,3 @@
       }
     }
 </script>
-
-<style scoped>
-
-</style>
