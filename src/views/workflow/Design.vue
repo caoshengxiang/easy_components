@@ -11,7 +11,7 @@
       components:{YWorkFDesign},
       data(){
         return{
-          id:''
+          id:'1'
         }
       },
       created() {
