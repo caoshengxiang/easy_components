@@ -1,6 +1,6 @@
-/* eslint-disable */
-var is = ''
-
+/* 禁用F12功能 */
+// import noDebuger from '@/utils/noDebuger'
+// noDebuger()
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -22,7 +22,7 @@ import './icons' // icon
 // import './permission' // permission control
 
 // vueConfig
-// import './VueConfig'
+import './VueConfig'
 
 // 混入
 // import mixin from './VueConfig/mixin'

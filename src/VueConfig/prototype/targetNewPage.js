@@ -4,7 +4,7 @@
 * */
 
 import Vue from 'vue'
-import { targetNewPage } from '@/router/routerUtil'
+import { targetNewPage } from '@/utils/routerUtil'
 
 Object.defineProperty(Vue.prototype, '$targetNewPage', {
   value: targetNewPage
