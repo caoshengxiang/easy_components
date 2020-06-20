@@ -11,7 +11,7 @@
         <el-button type="danger">返回</el-button>
       </div>
     </div>
-    <div id="canvas"></div>
+    <div id="canvas" :class="{'disabledUpdateText':disabledUpdateTextStatus}"></div>
   </div>
 </template>
 
@@ -31,7 +31,7 @@
         bpmnModeler:null,
         loading:true,
         loadingText:'正在初始化控件...',
-        testName:'1111111111111111111'
+        disabledUpdateTextStatus:false
       }
     },
     mounted(){
@@ -46,7 +46,18 @@
         that.$api.workflow.getDetail().then(data => {
           that.loading = false;
           that.bpmnModeler.importXML(data, function(err) {
-            if (err) {
+            if (!err) {
+              // const elementRegistry = that.bpmnModeler.get('elementRegistry');
+              // that.nodeList = elementRegistry.filter (
+              //   (item) => item.type === 'bpmn:UserTask' || item.type === 'bpmn:ServiceTask'
+              // );
+              // let modeling = that.bpmnModeler.get('modeling');
+              // modeling.setColor(that.nodeList[0], {
+              //   stroke: 'green',
+              //   fill: 'yellow'
+              // });
+              that.addEventBusListener();
+            }else{
               that.$message.info('初始化数据错误');
             }
           })
@@ -57,6 +68,25 @@
       }
     },
     methods: {
+      addEventBusListener() {
+        // 监听 element
+        let that = this
+        const eventBus = this.bpmnModeler.get('eventBus')
+        const modeling = this.bpmnModeler.get('modeling')
+        const elementRegistry = this.bpmnModeler.get('elementRegistry')
+        const eventTypes = ['element.click', 'element.changed']
+        eventTypes.forEach(function(eventType) {
+          eventBus.on(eventType, function(e) {
+            that.disabledUpdateTextStatus = false;
+            if (!e || e.element.type == 'bpmn:Process'){
+              return false;
+            }
+            if (e.element.type == 'bpmn:StartEvent'|| e.element.type == 'bpmn:EndEvent'){
+              that.disabledUpdateTextStatus = true;
+            }
+          })
+        })
+      },
       resetDesign() {
         const that = this;
         that.bpmnModeler.createDiagram(err => {
@@ -85,10 +115,27 @@
 
 <style scoped lang="scss">
   $assets:'~@/components/yWorkFDesign/assets/';
-  @import "./assets/css/main.scss";
   /*左边工具栏以及编辑节点的样式*/
   @import '~bpmn-js/dist/assets/diagram-js.css' ;
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+  @import "./assets/css/main.scss";
+</style>
+<style lang="scss">
+  .workflow-design #canvas{
+    .djs-label{
+      fill: #0e76a8 !important;
+    }
+    &.disabledUpdateText .djs-direct-editing-parent{
+      display: none;
+    }
+    .djs-connection path{
+      stroke: #0e76a8 !important;
+    }
+    defs marker path{
+      fill: #0e76a8 !important;
+      stroke: #0e76a8 !important;
+    }
+  }
 </style>
