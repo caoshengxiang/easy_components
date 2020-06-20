@@ -1,26 +1,51 @@
 <template>
-  <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+  <div class="navbar" style="background-color: #2A8FE3">
+    <div class="logclass">
+      <img src="../../assets/log1.png" style="height: 50px;margin-top: 5px;margin-left: 10px">
+    </div>
+    <div class="titleDiv">教师端管理平台</div>
+    <el-menu
+      router
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+      background-color="rgba(42,143,227,1)"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      font-weight="bold"
+      style="float: left">
+      <el-menu-item index="/dormitory/index">首页</el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">宿舍管理</template>
+        <el-menu-item index="/dormitory/index" >宿舍列表</el-menu-item>
+        <el-menu-item index="/dormitory/classRecord" >班级宿舍考核统计</el-menu-item>
+        <el-menu-item index="/dormitory/checkIndex" >宿舍考核</el-menu-item>
+        <el-submenu index="2-4">
+          <template slot="title">其他菜单</template>
+          <el-menu-item index="2-4-1">选项1</el-menu-item>
+          <el-menu-item index="2-4-2">选项2</el-menu-item>
+          <el-menu-item index="2-4-3">选项3</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="/workflow/design">审批流管理</el-menu-item>
+    </el-menu>
+    <div class="right-menu" background-color="rgba(42,143,227,1)">
+      <!--  <template v-if="device!=='mobile'">
+                 <search id="header-search" class="right-menu-item" />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+             <error-log class="errLog-container right-menu-item hover-effect" />
 
-    <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <search id="header-search" class="right-menu-item" />
+             <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-        <error-log class="errLog-container right-menu-item hover-effect" />
-
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-        <!--        <el-tooltip content="Global Size" effect="dark" placement="bottom">-->
+                 <el-tooltip content="Global Size" effect="dark" placement="bottom">-->
         <!--          <size-select id="size-select" class="right-menu-item hover-effect" />-->
-        <!--        </el-tooltip>-->
+        <!--        </el-tooltip>
 
-      </template>
-
+      </template>-->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -36,6 +61,9 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+  <!--<breadcrumb id="breadcrumb-container" class="breadcrumb-container" />-->
+
+
   </div>
 </template>
 
@@ -49,6 +77,12 @@ import Screenfull from '@/components/Screenfull'
 import Search from '@/components/HeaderSearch'
 
 export default {
+  data() {
+    return {
+      activeIndex: '1',
+      activeIndex2: '1'
+    };
+  },
   components: {
     Breadcrumb,
     Hamburger,
@@ -65,6 +99,9 @@ export default {
     ])
   },
   methods: {
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
@@ -77,8 +114,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .logclass{
+    width:39px;
+    height:26px;
+    padding-left: 10px;
+    float: left;
+    margin-right: 20px;
+  }
+  .titleDiv{
+    margin-top: 22px;
+    margin-right: 50px;
+    width:200px;
+    height:14px;
+    font-size:18px;
+    font-family:Source Han Sans CN;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+    line-height:13px;
+    float: left;
+    letter-spacing:3px;
+  }
 .navbar {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -137,14 +194,14 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        margin-top: 10px;
         position: relative;
 
         .user-avatar {
           cursor: pointer;
           width: 40px;
           height: 40px;
-          border-radius: 10px;
+          border-radius: 50%;
         }
 
         .el-icon-caret-bottom {
