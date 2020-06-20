@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div style="width: 100%;float: right;border-bottom:1px solid #e4ecf9;">
+    <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
     </div>
     <div class="filter-container" style=";margin-top: 10px;float: left">
@@ -306,3 +306,8 @@
     }
   }
 </script>
+<style>
+  .download-button{
+    margin-bottom: 5px;margin-top: 5px;float: right
+  }
+</style>

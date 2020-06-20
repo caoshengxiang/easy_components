@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <div style="width: 100%;float: right;border-bottom:1px solid #e4ecf9;">
+    <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-      <el-button class="filter-item" type="primary" style="margin-left: 10px;margin-bottom: 5px;margin-top: 5px;float: right"  icon="el-icon-edit" @click="handleCreate">
+      <el-button class="filter-item download-button" type="primary"   icon="el-icon-edit" @click="handleCreate">
         导出班级宿舍考核
       </el-button>
     </div>
@@ -412,3 +412,8 @@
     }
   }
 </script>
+<style>
+  .download-button{
+    margin-bottom: 5px;margin-top: 5px;float: right
+  }
+</style>

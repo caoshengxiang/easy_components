@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
-      <div style="width: 100%;float: right;border-bottom:1px solid #e4ecf9;">
+    <div class="title-container">
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-        <el-button class="filter-item" style="margin-left: 10px;margin-bottom: 5px;margin-top: 5px;float: right"  icon="el-icon-edit" @click="handleCreate">
+        <el-button class="filter-item download-button" style="margin-left: 10px;"  icon="el-icon-edit" @click="handleCreate">
           导入模板下载
         </el-button>
-        <el-button class="filter-item" style="margin-bottom: 5px;margin-top: 5px;float: right"  type="primary" icon="el-icon-edit" @click="handleCreate">
+        <el-button class="filter-item download-button"  type="primary" icon="el-icon-edit" @click="handleCreate">
           导入
         </el-button>
       </div>
@@ -415,3 +415,8 @@
     }
   }
 </script>
+<style>
+  .download-button{
+    margin-bottom: 5px;margin-top: 5px;float: right
+  }
+</style>

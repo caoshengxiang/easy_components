@@ -121,7 +121,11 @@ aside {
 
 //main-container全局样式
 .app-container {
-  padding: 10px;
+  padding: 20px;
+
+  .title-container{
+    width: 100%;float: right;border-bottom:1px solid #e4ecf9;
+  }
 }
 
 .components-container {
@@ -173,6 +177,7 @@ aside {
 
 .filter-container {
   padding-bottom: 10px;
+  margin-top: 10px;
 
   .filter-item {
     display: inline-block;
@@ -180,6 +185,8 @@ aside {
     margin-bottom: 10px;
     margin-left: 20px;
   }
+
+
 }
 
 //refine vue-multiselect plugin
