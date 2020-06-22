@@ -15,7 +15,7 @@
       active-text-color="#ffd04b"
       font-weight="bold"
       style="float: left">
-      <el-menu-item index="/dormitory/index">首页</el-menu-item>
+      <el-menu-item index="/table/index">首页</el-menu-item>
       <el-submenu index="2">
         <template slot="title">宿舍管理</template>
         <el-menu-item index="/dormitory/index" >宿舍列表</el-menu-item>

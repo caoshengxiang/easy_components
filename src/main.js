@@ -1,6 +1,8 @@
-/* eslint-disable */
-var is = ''
-
+/* 禁用F12功能 */
+import noDebuger from '@/utils/noDebuger'
+if (process.env.NODE_ENV === 'production') { // 生产环境禁用调试
+  noDebuger()
+}
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -22,7 +24,7 @@ import './icons' // icon
 // import './permission' // permission control
 
 // vueConfig
-// import './VueConfig'
+import './VueConfig'
 
 // 混入
 // import mixin from './VueConfig/mixin'
@@ -31,8 +33,7 @@ Vue.use(Element, {
 })
 
 //引入API接口
-import api from '@/api'
-Vue.prototype.$api= api
+
 
 import EVueContextmenu from 'e-vue-contextmenu'
 import '@/assets/css/contextMenu.scss'
