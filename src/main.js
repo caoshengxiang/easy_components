@@ -1,6 +1,8 @@
 /* 禁用F12功能 */
-// import noDebuger from '@/utils/noDebuger'
-// noDebuger()
+import noDebuger from '@/utils/noDebuger'
+if (process.env.NODE_ENV === 'production') { // 生产环境禁用调试
+  noDebuger()
+}
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
