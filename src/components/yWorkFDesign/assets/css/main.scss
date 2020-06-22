@@ -1,0 +1,37 @@
+.workflow-design{
+  -moz-user-select:none; /*火狐*/
+  -webkit-user-select:none; /*webkit浏览器*/
+  -ms-user-select:none; /*IE10*/
+  -khtml-user-select:none; /*早期浏览器*/
+  user-select:none;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(58, 65, 68) url($assets + "images/grid.png") repeat;
+  padding-top: 60px;
+  .header{
+    .title{
+      font-size: 18px;
+    }
+    background-color: #1b1b1b;
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    color: #999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+  }
+  .option-btn{
+    position: absolute;
+    right: 50px;
+  }
+  #canvas{
+    height: 100%;
+  }
+}

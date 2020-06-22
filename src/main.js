@@ -28,12 +28,17 @@ import './VueConfig'
 
 // 混入
 // import mixin from './VueConfig/mixin'
-
 Vue.use(Element, {
   size: Cookies.get('size') || settings.elDefaultSize // set element-ui default size
 })
 
+//引入API接口
+import api from '@/api'
+Vue.prototype.$api= api
+
 Vue.config.productionTip = false
+
+
 
 new Vue({
   // mixins: [mixin],
