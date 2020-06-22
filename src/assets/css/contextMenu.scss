@@ -1,0 +1,24 @@
+.ctx-menu-container{
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    margin: 0px;
+    color: rgb(51, 51, 51);
+    display: block;
+    cursor: default;
+    padding: 5px 40px 5px 20px;
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: verdana;
+    i{
+      font-size: 18px;
+    }
+    &:hover{
+      background-color: rgb(90,99,119);
+      color: #fff;
+    }
+  }
+}

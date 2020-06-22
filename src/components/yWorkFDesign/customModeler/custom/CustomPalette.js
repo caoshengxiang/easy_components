@@ -27,7 +27,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) { // 此方法�
     }
   }
   return {
-    'create.lindaidai-task': {
+    'create.user-task': {
       group: 'model',
       className: 'el-icon-guide',
       title: '添加用户步骤',

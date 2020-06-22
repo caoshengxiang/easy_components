@@ -34,6 +34,10 @@ Vue.use(Element, {
 import api from '@/api'
 Vue.prototype.$api= api
 
+import EVueContextmenu from 'e-vue-contextmenu'
+import '@/assets/css/contextMenu.scss'
+Vue.use(EVueContextmenu)
+
 Vue.config.productionTip = false
 
 
