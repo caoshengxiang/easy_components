@@ -1,19 +1,10 @@
 import request2 from '@/utils/request2'
 import md5 from 'js-md5'
-import { platformType } from '@/utils/config'
-
 export default {
   login(params) {
-    let userType = null
-    if (platformType === 1) {
-      userType = 2
-    } else {
-      userType = 3
-    }
     return request2.post('auth/loginV2', {
       username: params.username,
-      password: md5(params.password),
-      userType: userType
+      password: md5(params.password)
     }, {
       headers: {
         pos: 3
