@@ -33,8 +33,7 @@ Vue.use(Element, {
 })
 
 //引入API接口
-import api from '@/api'
-Vue.prototype.$api= api
+
 
 Vue.config.productionTip = false
 

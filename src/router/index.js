@@ -56,6 +56,12 @@ const routes = [
         component: () => import('@/views/table/detail'),
         meta: { title: ' 表单详情' },
 
+      },
+      {
+        path: 'detailNew',
+        component: () => import('@/views/table/detail1'),
+        meta: { title: ' 表单详情' },
+
       }]
   },
   {

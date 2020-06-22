@@ -93,6 +93,9 @@
           <el-button type="primary" size="mini" @click="edit(row.id)">
             编辑
           </el-button>
+          <el-button type="primary" size="mini" @click="detail1(row.id)">
+            详情new
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -209,6 +212,16 @@
         let that =this;
         that.$router.push({
           path:"/table/detail",
+          query: {
+            id:id,
+            type: "detail"
+          }
+        })
+      },
+      detail1(id){
+        let that =this;
+        that.$router.push({
+          path:"/table/detailNew",
           query: {
             id:id,
             type: "detail"
