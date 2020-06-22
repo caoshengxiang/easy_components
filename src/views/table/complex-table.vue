@@ -87,17 +87,11 @@
       </el-table-column>
       <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            Edit
+          <el-button type="primary" size="mini" @click="detail(row.id)">
+            详情
           </el-button>
-          <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
-            Publish
-          </el-button>
-          <el-button v-if="row.status!='draft'" size="mini" @click="handleModifyStatus(row,'draft')">
-            Draft
-          </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            Delete
+          <el-button type="primary" size="mini" @click="edit(row.id)">
+            编辑
           </el-button>
         </template>
       </el-table-column>
@@ -201,6 +195,26 @@
       that.getList();
     },
     methods:{
+      edit(id){
+        let that =this;
+        that.$router.push({
+          path:"/table/detail",
+          query: {
+            id:id,
+            type: "add"
+          }
+        })
+      },
+      detail(id){
+        let that =this;
+        that.$router.push({
+          path:"/table/detail",
+          query: {
+            id:id,
+            type: "detail"
+          }
+        })
+      },
       getList(){
         let that = this;
         console.log(that.listQuery);
