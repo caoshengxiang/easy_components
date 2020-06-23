@@ -127,10 +127,13 @@
                 <span  class="link-type" @click="productInnerQR=true">查看</span>
       </template>
     </el-table-column>
-      <el-table-column label="二维码下载" class-name="status-col" width="100">
+      <el-table-column label="二维码下载" class-name="status-col" width="200">
         <template slot-scope="{row}">
           <el-button type="primary" @click="downloadCodeImg(row)">
             下载
+          </el-button>
+          <el-button type="primary" size="mini" @click="detail(row.id)">
+            详情
           </el-button>
         </template>
       </el-table-column>
@@ -250,6 +253,16 @@
       that.getList();
     },
     methods:{
+      detail(id){
+        let that =this;
+        that.$router.push({
+          path:"/baseinfo/detail",
+          query: {
+            id:id,
+            type: "detail"
+          }
+        })
+      },
       downloadCodeImg(row){
         QRCode.toDataURL(this.innerUrl, {
           width: 390
