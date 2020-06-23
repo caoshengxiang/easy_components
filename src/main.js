@@ -35,6 +35,10 @@ Vue.use(Element, {
   size: Cookies.get('size') || settings.elDefaultSize // set element-ui default size
 })
 
+import EVueContextmenu from 'e-vue-contextmenu'
+import '@/assets/css/contextMenu.scss'
+Vue.use(EVueContextmenu)
+
 Vue.config.productionTip = false
 
 new Vue({

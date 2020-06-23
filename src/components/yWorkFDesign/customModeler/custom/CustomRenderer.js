@@ -91,5 +91,5 @@ CustomRenderer.prototype.drawShape = function(p, element) {
 }
 
 CustomRenderer.prototype.getShapePath = function(shape) {
-  console.log(shape)
+
 }

@@ -2,21 +2,27 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-      <el-button class="filter-item download-button" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
-        导出扣分记录
-      </el-button>
-      <el-button class="filter-item download-button"   type="primary" icon="el-icon-edit" @click="handleCreate">
-        导出宿舍考核
+
+
+
+      <el-button class="filter-item download-button"  style="margin-left: 10px;"   type="primary" icon="el-icon-edit" @click="handleCreate">
+        学生信息模板下载
       </el-button>
       <el-button class="filter-item download-button"   type="primary"  icon="el-icon-edit" @click="handleCreate">
-        导出当天宿舍得分
+        学籍号模板下载
+      </el-button>
+      <el-button class="filter-item download-button"   type="primary" icon="el-icon-edit" @click="handleCreate">
+        更新学生信息
+      </el-button>
+      <el-button class="filter-item download-button" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
+        更新学籍号
+      </el-button>
+      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit" @click="handleCreate">
+        导出
       </el-button>
     </div>
     <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
-        新增周宿舍考核
-      </el-button>
-      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:20px;width: 100px" class="filter-item">
+      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:0px;width: 100px" class="filter-item">
         <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
       <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
@@ -25,14 +31,11 @@
       <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
       <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
-      <el-select v-model="listQuery.full" placeholder="年份" clearable class="filter-item" style="margin-left: 20px;width: 100px">
+      <el-select v-model="listQuery.full" placeholder="班级" clearable class="filter-item" style="margin-left: 20px;width: 100px">
         <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
-      <el-select v-model="listQuery.full" placeholder="学期" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.full" placeholder="周数" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="listQuery.jiudu" placeholder="就读" clearable class="filter-item" style="margin-left: 20px;width: 100px">
+        <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
       </div>
     <div class="filter-container" style="margin-top: 10px;float: right">
@@ -53,24 +56,24 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="姓名" prop="id" sortable="custom" align="center" width="150">
+      <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
           <span >
                                               {{ row.content2 }}
                   </span>
         </template>
       </el-table-column>
-      <el-table-column label="学期" width="150px" align="center">
+      <el-table-column label="姓名" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="周数" min-width="150px"  align="center">
+      <el-table-column label="性别" min-width="150px"  align="center">
         <template slot-scope="{row}">
           <span>{{ row.title }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍编号" width="110px" align="center">
+      <el-table-column label="专业" width="110px" align="center">
         <template slot-scope="{row}">
             <span  class="link-type">
           <router-link tag="a" :to="{path:'/dormitory/userManage',query:{id: row.id}}"
@@ -79,50 +82,68 @@
             </span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍类别"  width="110px" align="center">
+      <el-table-column label="年级"  width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍位置" width="80px">
+      <el-table-column label="行政班级" width="80px">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.content1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="容纳人数" align="center" width="95">
+      <el-table-column label="学籍班级" align="center" width="95">
         <template slot-scope="{row}">
           <span >{{ row.content2 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="入住人数" class-name="status-col" width="100">
+      <el-table-column label="就读方式" class-name="status-col" width="100">
         <template slot-scope="{row}">
           <span >{{ row.content3 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="负责人" class-name="status-col" width="100">
+      <el-table-column label="状态" class-name="status-col" width="100">
+        <template slot-scope="{row}">
+          <span >{{ row.content3 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="学生类型" class-name="status-col" width="100">
+        <template slot-scope="{row}">
+          <span >{{ row.content3 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="证件号" class-name="status-col" width="100">
         <template slot-scope="{row}">
           <span >{{ row.content3 }}</span>
         </template>
       </el-table-column>
       <el-table-column label="联系电话" class-name="status-col" width="100">
+      <template slot-scope="{row}">
+        <span >{{ row.content3 }}</span>
+      </template>
+    </el-table-column>
+      <el-table-column label="二维码" class-name="status-col" width="100">
+      <template slot-scope="{row}">
+                <span  class="link-type" @click="productInnerQR=true">查看</span>
+      </template>
+    </el-table-column>
+      <el-table-column label="二维码下载" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="本周得分" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
+          <el-button type="primary" @click="downloadCodeImg(row)">
+            下载
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
+    <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
+      <div class="qcode-wrap">
+        <div class="qcode-item" v-loading="loading">
+          <img style="width: 100%" src="../../../assets/ercode.png" />
+        </div>
+      </div>
+    </el-dialog>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
         <el-form-item label="年份：" prop="type">
@@ -154,6 +175,7 @@
 </template>
 <script>
   import Pagination from '@/components/Pagination'
+  import QRCode from 'qrcode';
 
   import Breadcrumb from '@/components/Breadcrumb'
   export default {
@@ -171,13 +193,16 @@
     },
     data() {
       return {
+        innerUrl:'../../../assets/ercode.png',
+        productInnerQR:false,
         calendarTypeOptions1: [
           { key: 1, display_name: '春季' },
           { key: 2, display_name: '秋季' }
         ],
         displayTime:'',
         tableKey: 0,
-        list: [],
+        list: [
+        ],
         total: 20,
         listLoading: true,
         listQuery: {
@@ -187,14 +212,17 @@
           grade: undefined,
           major: undefined,
           full: undefined,
+          jiudu: undefined,
           sort: '+id',
           description:'',
-          displayTime:''
+          displayTime:'',
+          qrname:'二维码名称'
         },
         gradeInfo: [{label:"全部",value:0},{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
         classInfo:[{label:"全部",value:0},{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
         majorInfo:[{label:"全部",value:0},{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        IsFull:[{label:"全部",value:0},{label:"未住",value:1}, {label:"未住满",value:2}, {label:"已住满",value:3}],
+        IsFull:[{label:"全部",value:0},{label:"按行政班级",value:1}, {label:"按学籍班级",value:2}],
+        jiudu:[{label:"全部",value:0},{label:"在读",value:1}, {label:"离校",value:2}],
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
@@ -222,6 +250,16 @@
       that.getList();
     },
     methods:{
+      downloadCodeImg(row){
+        QRCode.toDataURL(this.innerUrl, {
+          width: 390
+        }, function(err, url) {
+          let a = document.createElement('a');
+          a.href = url;
+          a.download = row.qrname +".png";
+          a.click();
+        });
+      },
       resetTemp() {
         this.temp = {
           id: undefined,
@@ -230,7 +268,8 @@
           timestamp: 1,
           title: 1,
           status: '',
-          type: ''
+          type: '',
+          qrname:'二维码名称'
         }
       },
       handleCreate() {
@@ -298,7 +337,8 @@
           "content": 8,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 22,
           "timestamp": '男生宿舍',
@@ -309,7 +349,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 23,
           "timestamp": '男生宿舍',
@@ -320,7 +361,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 24,
           "timestamp": '男生宿舍',
@@ -331,7 +373,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 25,
           "timestamp": '男生宿舍',
@@ -342,7 +385,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 26,
           "timestamp": '男生宿舍',
@@ -353,7 +397,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 27,
           "timestamp": '男生宿舍',
@@ -364,7 +409,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 28,
           "timestamp": '男生宿舍',
@@ -375,7 +421,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 29,
           "timestamp": '男生宿舍',
@@ -386,7 +433,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         },
           {
             "id": 30,
@@ -398,7 +446,8 @@
             "content": 7,
             "content1": '未住满',
             "content2": '杨再林',
-            "content3": '15196637504'
+            "content3": '15196637504',
+            'qrname':'二维码名称'
           }]
 
         that.listLoading = false;
@@ -426,5 +475,14 @@
 <style>
   .download-button{
     margin-bottom: 5px;margin-top: 5px;float: right
+  }
+  .qcode-wrap {
+    display: flex;
+
+    .qcode-item {
+      width: 200px;
+      height: 200px;
+
+    }
   }
 </style>

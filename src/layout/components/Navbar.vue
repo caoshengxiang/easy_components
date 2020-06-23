@@ -16,6 +16,7 @@
       @select="handleSelect"
     >
       <el-menu-item index="/home/index">首页</el-menu-item>
+      <el-menu-item index="/table/index">首页</el-menu-item>
       <el-submenu index="2">
         <template slot="title">宿舍管理</template>
         <el-menu-item index="/dormitory/index">宿舍列表</el-menu-item>
@@ -39,7 +40,13 @@
           <el-menu-item index="/set/checkIndex">系统配置</el-menu-item>
         </div>
       </el-submenu>
+
       <el-menu-item index="/workflow/design">审批流管理</el-menu-item>
+
+      <el-submenu index="3">
+        <template slot="title">基础信息</template>
+        <el-menu-item index="/baseinfo/index" >学生信息</el-menu-item>
+      </el-submenu>
     </el-menu>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
       <!--  <template v-if="device!=='mobile'">
