@@ -155,6 +155,11 @@ const routes = [
         path: 'index',
         component: () => import('@/views/baseinfo/userinfo/list'),
         meta: { title: ' 学生列表' }
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/baseinfo/userinfo/detail'),
+        meta: { title: ' 学生信息采集' }
       }
     ]
   }
