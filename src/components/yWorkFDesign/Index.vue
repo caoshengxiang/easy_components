@@ -227,6 +227,9 @@
       save(){
         const that = this;
         that.$refs.ctxshow.hideMenu();
+        that.saveDiagram(function (err,xml) {
+          console.log(xml);
+        });
         that.$message.success('保存成功');
       },
       connectLine(){
@@ -239,6 +242,13 @@
       },
       edit(){
         this.dialogFormVisible = true;
+      },
+      // 下载为bpmn格式,done是个函数，调用的时候传入的
+      saveDiagram(done) {
+        // 把传入的done再传给bpmn原型的saveXML函数调用
+        this.bpmnModeler.saveXML({ format: true }, function(err, xml) {
+          done(err, xml)
+        })
       }
     }
   }
