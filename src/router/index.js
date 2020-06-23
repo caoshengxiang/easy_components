@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 /* Layout */
 import Layout from '@/layout'
 
@@ -9,17 +8,21 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Layout,
-    redirect: '/dormitory/index'
+    name: 'root',
+    redirect: '/home'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/home',
+    component: Layout,
+    redirect: '/home/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/home/index'),
+        meta: { title: '首页' },
+        name: 'setIndex'
+      }
+    ]
   },
   {
     path: '/404',
@@ -43,6 +46,19 @@ const routes = [
     path: '/table/index',
     component: () => import('@/views/table/complex-table'),
     meta: { title: '表单' }
+  },
+  {
+    path: '/set',
+    component: Layout,
+    redirect: '/set/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/set/menu'),
+        meta: { title: '系统设置' },
+        name: 'setIndex'
+      }
+    ]
   },
   {
     path: '/dormitory',
@@ -90,6 +106,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
   routes
 })
 

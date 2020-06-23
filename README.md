@@ -84,8 +84,20 @@ rule规则修改还是在 .eslintrc.js
 #### 7. 禁用调试功能
 在main.js 的头部调用
 
+### 8. 全局引入
+    * element
+    * 接口 this.$api.文件名.function
+    * this.$moment
+    * this.$qs
+    * this.$vueCookies
+    * this.$webStorage
+    
+### 9. mixin
+    * 用户信息 userInfo
+    
 
 #### 999.开发注意
        1. 设计审批的新增编辑页面 都新开页面 使用弹窗， 需要 从审批哪里调整回来查看详情
        1.  列表查询 统一 点击搜索时查询，查询条件多的列表需要加一个重置按钮
        1. 移动端涉及到导入导出的都去掉
+       1. vue style 要加 scoped， 不能加得情况也必须有命名空间。避免污染其他页面
