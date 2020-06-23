@@ -76,7 +76,7 @@
       <el-table-column label="专业" width="110px" align="center">
         <template slot-scope="{row}">
             <span  class="link-type">
-          <router-link tag="a" :to="{path:'/dormitory/userManage',query:{id: row.id}}"
+          <router-link tag="a" :to="{path:'/baseinfo/detail',query:{id: row.id}}"
                        class="routerWork">{{ row.id }}
           </router-link>
             </span>
