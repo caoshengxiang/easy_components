@@ -28,7 +28,13 @@
           <el-menu-item index="2-4-3">选项3</el-menu-item>
         </el-submenu>
       </el-submenu>
+
       <el-menu-item index="/workflow/design">审批流管理</el-menu-item>
+
+      <el-submenu index="3">
+        <template slot="title">基础信息</template>
+        <el-menu-item index="/baseinfo/index" >学生信息</el-menu-item>
+      </el-submenu>
     </el-menu>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
       <!--  <template v-if="device!=='mobile'">

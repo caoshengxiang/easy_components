@@ -103,6 +103,19 @@ const routes = [
     ]
   },
 
+  {
+    path: '/baseinfo',
+    component: Layout,
+    redirect: '/baseinfo/index',
+    meta: { title: '基础信息' },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/baseinfo/userinfo/list'),
+        meta: { title: ' 学生列表' },
+      },
+    ]
+  },
 ]
 
 const router = new VueRouter({
