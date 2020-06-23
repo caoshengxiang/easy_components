@@ -54,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
   setTimeout(() => {
     NProgress.done()
     next()
-  }, 1000)
+  }, 200)
 })
 
 router.afterEach(() => {

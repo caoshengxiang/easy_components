@@ -5,7 +5,7 @@
     </div>
     <div class="titleDiv">教师端管理平台</div>
     <el-menu
-      :default-active="activeIndex2"
+      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       background-color="rgba(42,143,227,1)"
@@ -13,54 +13,18 @@
       active-text-color="#ffd04b"
       font-weight="bold"
       style="float: left"
-      @select="handleSelect"
     >
-      <el-menu-item index="/home/index">首页</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">宿舍管理</template>
-        <el-menu-item index="/dormitory/index">宿舍列表</el-menu-item>
-        <el-menu-item index="/dormitory/classRecord">班级宿舍考核统计</el-menu-item>
-        <el-menu-item index="/dormitory/checkIndex">宿舍考核</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">其他菜单</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">系统管理</template>
-        <div>
-          <el-menu-item index="/set/index">菜单管理</el-menu-item>
-          <el-menu-item index="/set/classRecord">岗位管理</el-menu-item>
-          <el-menu-item index="/set/checkIndex">数据字典</el-menu-item>
-          <el-menu-item index="/set/checkIndex">基础信息</el-menu-item>
-          <el-menu-item index="/set/checkIndex">教学相关</el-menu-item>
-          <el-menu-item index="/set/checkIndex">系统配置</el-menu-item>
-        </div>
-      </el-submenu>
-      <el-menu-item index="/workflow/design">审批流管理</el-menu-item>
+      <el-menu-item v-if="activeIndex !== '/home/index'" index="/home/index" @click="handleSelect('/home/index')">首页</el-menu-item>
+      <menu-tree v-for="item in currentMenus" :key="item.id" :menu="item"></menu-tree>
     </el-menu>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
-      <!--  <template v-if="device!=='mobile'">
-                 <search id="header-search" class="right-menu-item" />
-
-             <error-log class="errLog-container right-menu-item hover-effect" />
-
-             <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-                 <el-tooltip content="Global Size" effect="dark" placement="bottom">-->
-      <!--          <size-select id="size-select" class="right-menu-item hover-effect" />-->
-      <!--        </el-tooltip>
-
-    </template>-->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img
             src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
             class="user-avatar"
           >
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-caret-bottom"/>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
@@ -81,45 +45,54 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Breadcrumb from '@/components/Breadcrumb'
-  import Hamburger from '@/components/Hamburger'
-  import ErrorLog from '@/components/ErrorLog'
-  import Screenfull from '@/components/Screenfull'
-  // import SizeSelect from '@/components/SizeSelect'
-  import Search from '@/components/HeaderSearch'
+  import menuTree from './menuTree'
 
   export default {
     components: {
-      // Breadcrumb,
-      // Hamburger,
-      // ErrorLog,
-      // Screenfull,
-      // SizeSelect,
-      // Search
+      menuTree
     },
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex: '',
+        parentMenuId: null,
+        menus: [],
+        currentMenus: []
       }
     },
     computed: {
-      ...mapGetters([
-        'sidebar',
-        'avatar',
-        'device'
-      ])
+      ...mapGetters([])
+    },
+    watch: {
+      '$route'() {
+        this.menus = this.$webStorage.getItem('menus')
+        this.parentMenuId = this.$route.query.parentMenuId
+        this.activeIndex = this.$route.path
+        this.currentMenus = []
+        this.getCurrentMenu(this.menus)
+      }
+    },
+    created() {
+      this.menus = this.$webStorage.getItem('menus')
+      this.parentMenuId = this.$route.query.parentMenuId
+      this.activeIndex = this.$route.path
+      this.currentMenus = []
+      this.getCurrentMenu(this.menus)
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath)
-        this.$router.push({
-          path: key,
-          query: {
-            parentMenuId: 1,
-            menuId: 101
+      getCurrentMenu(menus) {
+        menus = menus || []
+        menus.forEach(item => {
+          if (parseInt(item.id, 10) === parseInt(this.parentMenuId, 10)) {
+            this.currentMenus = item.children
+          } else {
+            if (item.children && item.children.length) {
+              this.getCurrentMenu(item.children)
+            }
           }
         })
+      },
+      handleSelect(url) {
+        this.$router.push(url)
       },
       toggleSideBar() {
         this.$store.dispatch('app/toggleSideBar')

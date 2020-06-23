@@ -4,7 +4,7 @@
     <!--  <sidebar class="sidebar-container" />-->
     <div class="main-container">
       <div :class="{'fixed-header':true}">
-        <navbar />
+        <navbar-copy />
 <!--        <tags-view v-if="needTagsView" />-->
       </div>
       <app-main />
@@ -20,10 +20,12 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
+import NavbarCopy from './components/NavbarCopy'
 
 export default {
   name: 'Layout',
   components: {
+    NavbarCopy,
     AppMain,
     Navbar,
     // RightPanel,

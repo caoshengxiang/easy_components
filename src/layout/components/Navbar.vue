@@ -111,11 +111,11 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'sidebar',
-        'avatar',
-        'device'
-      ])
+      // ...mapGetters([
+      //   'sidebar',
+      //   'avatar',
+      //   'device'
+      // ])
     },
     methods: {
       handleSelect(key, keyPath) {
