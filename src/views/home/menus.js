@@ -101,7 +101,14 @@ export default [
           name: '设施管理',
           url: '/baseinfo/facilitiesindex'
         }]
-      }
+      },
+      {
+        id: 14,
+        icon: '',
+        name: '工作流',
+        url: '/workflow/design',
+        children: null
+      },
     ]
   },
   {
