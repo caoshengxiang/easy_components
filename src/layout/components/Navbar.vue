@@ -34,6 +34,14 @@
       <el-submenu index="3">
         <template slot="title">基础信息</template>
         <el-menu-item index="/baseinfo/index" >学生信息</el-menu-item>
+        <el-submenu index="2-4">
+          <template slot="title">资产管理</template>
+          <el-menu-item index="/baseinfo/assetindex">用地管理</el-menu-item>
+          <el-menu-item index="/baseinfo/roomindex">教室管理</el-menu-item>
+          <el-menu-item index="/baseinfo/buildingindex">建筑物管理</el-menu-item>
+          <el-menu-item index="/baseinfo/trainingindex">实训室管理</el-menu-item>
+          <el-menu-item index="/baseinfo/facilitiesindex">设施管理</el-menu-item>
+        </el-submenu>
       </el-submenu>
     </el-menu>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
