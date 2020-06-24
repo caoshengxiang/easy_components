@@ -2,9 +2,6 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-
-
-
       <el-button class="filter-item download-button"  style="margin-left: 10px;"   type="primary" icon="el-icon-edit" @click="handleCreate">
         学生信息模板下载
       </el-button>
@@ -312,7 +309,10 @@
       },
       getList(){
         let that = this;
-        console.log(that.listQuery);
+        that.$api.student.getPage().then(data => {
+          that.loading = false;
+          })
+
         that.list =[{
           "id": 21,
           "timestamp": '男生宿舍',
