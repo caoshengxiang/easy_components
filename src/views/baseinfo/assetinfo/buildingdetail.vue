@@ -170,14 +170,14 @@
             <el-row style="margin-left: 150px">
               <el-col :span="8">
                 <el-form-item label="建筑物平面图："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
+                  <fileUpload v-if="type=='add'" :isdisabled="false" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                  <fileUpload v-else :isdisabled="true" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="建筑物图片："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
+                  <fileUpload v-if="type=='add'" :isdisabled="false" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                  <fileUpload v-else :isdisabled="true" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -218,7 +218,7 @@
 
           </el-row>
             <el-row style="margin-left: 150px">
-              <el-col :span="18" style="padding-top: 30px">
+              <el-col :span="18" style="padding-top: 30px;text-align:center">
                 <el-button class="filter-item " v-if="type=='detail'" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="type='add'">
                   编辑
                 </el-button>
@@ -239,6 +239,7 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
+  import fileUpload from '@/components/FileUpload'
 
   const defaultForm = {
     status: 'draft',
@@ -257,9 +258,11 @@
 
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb},
+    components: {Breadcrumb,fileUpload},
     data() {
       return {
+
+        editCourseChapterForm:{ path:'/creative/vcg/veer/800water/veer-133190023.jpg' },
         gradeInfo: [{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
         classInfo:[{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
         majorInfo:[{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
@@ -344,6 +347,6 @@
   }
 
   .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right;margin-right: 50px;
+    margin-bottom: 5px;margin-top: 5px;float: right;
   }
 </style>

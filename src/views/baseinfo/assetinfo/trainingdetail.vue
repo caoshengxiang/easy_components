@@ -2,10 +2,10 @@
   <div class="app-container">
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
 
-    <div class="createPost-container">
+    <div class="createPost-container" >
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 
-        <div class="createPost-main-container">
+        <div class="createPost-main-container" >
           <div class="postInfo-container">
             <el-row style="margin-left: 150px">
               <el-col :span="8">
@@ -81,7 +81,7 @@
 
           </el-row>
             <el-row style="margin-left: 150px">
-              <el-col :span="18" style="padding-top: 30px">
+              <el-col :span="18" style="padding-top: 30px;text-align:center">
                 <el-button class="filter-item " v-if="type=='detail'" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="type='add'">
                   编辑
                 </el-button>
@@ -207,6 +207,6 @@
   }
 
   .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right;margin-right: 50px;
+    margin-bottom: 5px;margin-top: 5px;float: right;
   }
 </style>

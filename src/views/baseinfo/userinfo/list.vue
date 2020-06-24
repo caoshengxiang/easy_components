@@ -2,9 +2,6 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-
-
-
       <el-button class="filter-item download-button"  style="margin-left: 10px;"   type="primary" icon="el-icon-edit" @click="handleCreate">
         学生信息模板下载
       </el-button>
@@ -45,7 +42,23 @@
       </el-button>
 
     </div>
+    <div class="right">
+      <div class="menu-2-box">
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">在读学生总数12000</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">在读学生男女比例11：9</span>
+        </div>
+      </div>
 
+    </div>
     <el-table
 
       v-loading="listLoading"
@@ -312,7 +325,10 @@
       },
       getList(){
         let that = this;
-        console.log(that.listQuery);
+        that.$api.student.getPage().then(data => {
+          that.loading = false;
+          })
+
         that.list =[{
           "id": 21,
           "timestamp": '男生宿舍',
@@ -458,6 +474,44 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+      .right {
+        flex: 1;
+        .title {
+          font-size: 16px;
+          font-weight: 500;
+          color: rgba(51, 51, 51, 1);
+          line-height: 35px;
+          margin-bottom: 8px;
+        }
+
+        .menu-2-box {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+        }
+
+        .menu-2-item {
+          display: flex;
+          align-items: center;
+          color: #656565;
+          font-size: 12px;
+          width: 230px;
+          height: 101px;
+          background: rgb(255, 185, 129);
+          border-radius: 3px;
+          padding-left: 20px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          cursor: pointer;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+
+          .text {
+            margin-left: 16px;
+          }
+        }
+      }
+</style>
 <style>
   .download-button{
     margin-bottom: 5px;margin-top: 5px;float: right

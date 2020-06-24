@@ -33,6 +33,42 @@
         搜索
       </el-button>
     </div>
+
+    <div class="right">
+      <div class="menu-2-box">
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">当前床位总数男生 100 女生80</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">当前入住总数男生 100 女生80</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">当前已满寝室数男生 100 女生80</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">当前未满寝室数男生 100 女生80</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar" /> <span class="text">当前空寝室数男生 100 女生80</span>
+        </div>
+      </div>
+
+    </div>
     <el-table
 
       v-loading="listLoading"
@@ -418,5 +454,43 @@
 <style>
   .download-button{
     margin-bottom: 5px;margin-top: 5px;float: right
+  }
+</style>
+<style lang="scss" scoped>
+  .right {
+    flex: 1;
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 35px;
+      margin-bottom: 8px;
+    }
+
+    .menu-2-box {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .menu-2-item {
+      display: flex;
+      align-items: center;
+      color: #656565;
+      font-size: 12px;
+      width: 230px;
+      height: 101px;
+      background: rgb(255, 185, 129);
+      border-radius: 3px;
+      padding-left: 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+
+      .text {
+        margin-left: 16px;
+      }
+    }
   }
 </style>
