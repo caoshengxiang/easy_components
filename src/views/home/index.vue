@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import menus from './menus'
+  import menus from '../../router/menus'
   export default {
     name: 'Home',
     components: {},

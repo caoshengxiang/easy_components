@@ -5,11 +5,17 @@ import Layout from '@/layout'
 
 Vue.use(VueRouter)
 
-const routes = [
+// todo 定义无菜单权限得页面， 角色权限页面只会在菜单配置得列表页面，其他都定义在这里如详情页面
+// 目前都定义在这里
+const constantRoutes = [
   {
     path: '/',
     name: 'root',
-    redirect: '/home'
+    redirect: '/login'
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index')
   },
   {
     path: '/home',
@@ -165,9 +171,18 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
+const createRouter = () => new VueRouter({
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
 
 export default router
