@@ -117,6 +117,7 @@
   .titleDiv {
     margin-top: 22px;
     margin-right: 50px;
+    margin-left: 20px;
     width: 200px;
     height: 14px;
     font-size: 18px;

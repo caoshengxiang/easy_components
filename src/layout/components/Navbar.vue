@@ -129,6 +129,7 @@
     line-height: 13px;
     float: left;
     letter-spacing: 3px;
+    margin-left: 20px;
   }
 
   .navbar {
