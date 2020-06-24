@@ -2,44 +2,17 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-
-
-
-      <el-button class="filter-item download-button"  style="margin-left: 10px;"   type="primary" icon="el-icon-edit" @click="handleCreate">
-        学生信息模板下载
-      </el-button>
-      <el-button class="filter-item download-button"   type="primary"  icon="el-icon-edit" @click="handleCreate">
-        学籍号模板下载
-      </el-button>
-      <el-button class="filter-item download-button"   type="primary" icon="el-icon-edit" @click="handleCreate">
-        更新学生信息
-      </el-button>
-      <el-button class="filter-item download-button" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
-        更新学籍号
-      </el-button>
-      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit" @click="handleCreate">
-        导出
-      </el-button>
     </div>
-    <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:0px;width: 100px" class="filter-item">
-        <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+    <div class="filter-container" style="margin-top: 10px;float: left">
+      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" icon="el-icon-edit" @click="handleAdd">
+        新增设施
+      </el-button>
+      <el-select v-model="listQuery.importance" placeholder="使用部门" clearable style=" width: 200px" class="filter-item">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-        <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-      <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
-    </el-select>
-      <el-select v-model="listQuery.full" placeholder="班级" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.jiudu" placeholder="就读" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      </div>
+    </div>
     <div class="filter-container" style="margin-top: 10px;float: right">
-      <el-input v-model="listQuery.description" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.description" placeholder="设施名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button class="filter-item" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="getList">
         搜索
       </el-button>
@@ -56,97 +29,55 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
+      <el-table-column label="设施名称" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
           <span >
                                               {{ row.content2 }}
                   </span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名" width="150px" align="center">
+      <el-table-column label="建成年月" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" min-width="150px"  align="center">
+      <el-table-column label="设施产权" min-width="150px"  align="center">
         <template slot-scope="{row}">
           <span>{{ row.title }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="专业" width="110px" align="center">
+      <el-table-column label="使用部门" width="110px" align="center">
         <template slot-scope="{row}">
-            <span  class="link-type">
-          <router-link tag="a" :to="{path:'/baseinfo/detail',query:{id: row.id}}"
-                       class="routerWork">{{ row.id }}
-          </router-link>
+            <span >
+         {{ row.id }}
+
             </span>
         </template>
       </el-table-column>
-      <el-table-column label="年级"  width="110px" align="center">
+      <el-table-column label="建设费用"  width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="行政班级" width="80px">
+      <el-table-column label="经费来源"  width="110px" align="center">
         <template slot-scope="{row}">
-          <span style="color:red;">{{ row.content1 }}</span>
+          <span style="color:red;">{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="学籍班级" align="center" width="95">
+      <el-table-column label="操作" class-name="status-col" width="200">
         <template slot-scope="{row}">
-          <span >{{ row.content2 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="就读方式" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学生类型" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="证件号" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="联系电话" class-name="status-col" width="100">
-      <template slot-scope="{row}">
-        <span >{{ row.content3 }}</span>
-      </template>
-    </el-table-column>
-      <el-table-column label="二维码" class-name="status-col" width="100">
-      <template slot-scope="{row}">
-                <span  class="link-type" @click="productInnerQR=true">查看</span>
-      </template>
-    </el-table-column>
-      <el-table-column label="二维码下载" class-name="status-col" width="200">
-        <template slot-scope="{row}">
-          <el-button type="primary" @click="downloadCodeImg(row)">
-            下载
-          </el-button>
           <el-button type="primary" size="mini" @click="detail(row.id)">
-            详情
+            编辑
+          </el-button>
+          <el-button type="primary" size="mini">
+            删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-    <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
-      <div class="qcode-wrap">
-        <div class="qcode-item" v-loading="loading">
-          <img style="width: 100%" src="../../../assets/ercode.png" />
-        </div>
-      </div>
-    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -229,7 +160,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/detail",
+          path:"/baseinfo/facilitiesdetail",
           query: {
             id:id,
             type: "detail"
@@ -465,10 +396,10 @@
   .qcode-wrap {
     display: flex;
 
-    .qcode-item {
-      width: 200px;
-      height: 200px;
+  .qcode-item {
+    width: 200px;
+    height: 200px;
 
-    }
+  }
   }
 </style>

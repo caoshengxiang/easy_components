@@ -393,7 +393,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
   @import "~@/styles/mixin.scss";
 
   .createPost-container {

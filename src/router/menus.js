@@ -69,13 +69,64 @@ export default [
       url: 'http://www.baidu.com',
       external: true, // 外部系统
       children: null
-    }]
+    },
+      {
+        id: 13,
+        icon: '',
+        name: '资产管理',
+        children: [{
+          id: 131,
+          icon: '',
+          name: '用地管理',
+          url: '/baseinfo/assetindex',
+          external: false // 外部系统
+        }, {
+          id: 132,
+          icon: '',
+          name: '教室管理',
+          url:  '/baseinfo/roomindex',
+        }, {
+          id: 133,
+          icon: '',
+          name: '建筑物管理',
+          url: '/baseinfo/buildingindex'
+        }, {
+          id: 134,
+          icon: '',
+          name: '实训室管理',
+          url: '/baseinfo/trainingindex'
+        }, {
+          id: 135,
+          icon: '',
+          name: '设施管理',
+          url: '/baseinfo/facilitiesindex'
+        }]
+      },
+      {
+        id: 14,
+        icon: '',
+        name: '工作流',
+        url: '/workflow/design',
+        children: null
+      },
+    ]
   },
   {
     id: 2,
     icon: '',
     name: '学生管理',
     children: [
+      {
+        id: 22,
+        icon: '',
+        name: '学生信息',
+        children: [{
+          id: 221,
+          icon: '',
+          name: '学生信息',
+          url: '/baseinfo/index'
+        }]
+      },
       {
         id: 21,
         icon: '',
