@@ -84,7 +84,7 @@ export default [
           id: 132,
           icon: '',
           name: '教室管理',
-          url:  '/baseinfo/roomindex',
+          url: '/baseinfo/roomindex',
         }, {
           id: 133,
           icon: '',
