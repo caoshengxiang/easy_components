@@ -9,9 +9,6 @@ import './prototype/qs'
 import './prototype/targetNewPage'
 import './prototype/webStorage'
 
-// styles
-import './styles'
-
 // globalComponents
 // import './globalComponents/video'
 // import './globalComponents/dataView'

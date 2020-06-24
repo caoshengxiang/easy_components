@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 /* Layout */
 import Layout from '@/layout'
 
@@ -9,17 +8,21 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Layout,
-    redirect: '/table/index',
+    name: 'root',
+    redirect: '/home'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/home',
+    component: Layout,
+    redirect: '/home/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/home/index'),
+        meta: { title: '首页' },
+        name: 'setIndex'
+      }
+    ]
   },
   {
     path: '/404',
@@ -49,20 +52,58 @@ const routes = [
         path: 'index',
         component: () => import('@/views/table/complex-table'),
         meta: { title: '基础表单' },
-        name:'表单',
+        name: '表单'
       },
       {
         path: 'detail',
         component: () => import('@/views/table/detail'),
-        meta: { title: ' 表单详情' },
+        meta: { title: ' 表单详情' }
 
       },
       {
         path: 'detailNew',
         component: () => import('@/views/table/detail1'),
-        meta: { title: ' 表单详情' },
+        meta: { title: ' 表单详情' }
 
       }]
+  },
+  {
+    path: '/set',
+    component: Layout,
+    redirect: '/set/menu',
+    children: [
+      {
+        path: 'menu',
+        component: () => import('@/views/set/menu'),
+        meta: { title: '系统设置' },
+        name: 'setIndex'
+      }, {
+        path: 'post',
+        component: () => import('@/views/set/post'),
+        meta: { title: '岗位管理' },
+        name: 'setPost'
+      }, {
+        path: 'data',
+        component: () => import('@/views/set/data'),
+        meta: { title: '数据字典' },
+        name: 'setData'
+      }, {
+        path: 'info',
+        component: () => import('@/views/set/info'),
+        meta: { title: '基础信息' },
+        name: 'setInfo'
+      }, {
+        path: 'teaching',
+        component: () => import('@/views/set/teaching'),
+        meta: { title: '教学相关' },
+        name: 'setTeaching'
+      }, {
+        path: 'cof',
+        component: () => import('@/views/set/cof'),
+        meta: { title: '系统配置' },
+        name: 'setCof'
+      }
+    ]
   },
   {
     path: '/dormitory',
@@ -73,7 +114,7 @@ const routes = [
       {
         path: 'index',
         component: () => import('@/views/dormitory/dormitoryInfo/list'),
-        meta: { title: ' 宿舍列表' },
+        meta: { title: ' 宿舍列表' }
       },
       {
         path: 'userIndex',
@@ -93,7 +134,8 @@ const routes = [
       {
         path: 'checkRecord',
         component: () => import('@/views/dormitory/dormitoryCheck/checkRecord'),
-        meta: { title: ' 扣分记录' }
+        meta: { title: ' 扣分记录' },
+        name: '宿舍管理'
       },
       {
         path: 'classRecord',
@@ -103,9 +145,85 @@ const routes = [
     ]
   },
 
+  {
+    path: '/baseinfo',
+    component: Layout,
+    redirect: '/baseinfo/index',
+    meta: { title: '基础信息' },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/baseinfo/userinfo/list'),
+        meta: { title: ' 学生列表' }
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/baseinfo/userinfo/detail'),
+        meta: { title: ' 学生信息采集' }
+      },
+      {
+        path: 'assetindex',
+        component: () => import('@/views/baseinfo/assetinfo/list'),
+        meta: { title: ' 用地管理' },
+      },
+      {
+        path: 'assetdetail',
+        component: () => import('@/views/baseinfo/assetinfo/detail'),
+        meta: { title: ' 用地登记信息' },
+      },
+
+
+      {
+        path: 'roomindex',
+        component: () => import('@/views/baseinfo/assetinfo/roomlist'),
+        meta: { title: ' 教室管理' },
+      },
+      {
+        path: 'roomdetail',
+        component: () => import('@/views/baseinfo/assetinfo/roomdetail'),
+        meta: { title: ' 建筑物信息登记' },
+      },
+
+
+
+      {
+        path: 'buildingindex',
+        component: () => import('@/views/baseinfo/assetinfo/buildinglist'),
+        meta: { title: ' 建筑物管理' },
+      },
+      {
+        path: 'buildingdetail',
+        component: () => import('@/views/baseinfo/assetinfo/buildingdetail'),
+        meta: { title: ' 建筑物详情' },
+      },
+
+      {
+        path: 'trainingindex',
+        component: () => import('@/views/baseinfo/assetinfo/traininglist'),
+        meta: { title: ' 实训室管理' },
+      },
+      {
+        path: 'trainingdetail',
+        component: () => import('@/views/baseinfo/assetinfo/trainingdetail'),
+        meta: { title: ' 实训室详情' },
+      },
+
+      {
+        path: 'facilitiesindex',
+        component: () => import('@/views/baseinfo/assetinfo/facilitieslist'),
+        meta: { title: ' 设施管理' },
+      },
+      {
+        path: 'facilitiesdetail',
+        component: () => import('@/views/baseinfo/assetinfo/facilitiesdetail'),
+        meta: { title: ' 设施详情' },
+      },
+    ]
+  }
 ]
 
 const router = new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
   routes
 })
 

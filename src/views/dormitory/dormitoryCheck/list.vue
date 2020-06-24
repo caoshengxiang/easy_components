@@ -13,7 +13,7 @@
       </el-button>
     </div>
     <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-button class="filter-item" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
         新增周宿舍考核
       </el-button>
       <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:20px;width: 100px" class="filter-item">

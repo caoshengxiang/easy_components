@@ -250,7 +250,7 @@ aside {
         .demo-ruleForm {
           .el-form-item__label {
             font-weight: normal !important;
-            font-size: 12px;
+            font-size: 9px;
           }
         }
       }
@@ -299,4 +299,9 @@ aside {
   outline: none;
   padding: 0 15px;
   width: 100%;
+}
+
+
+#nprogress .bar {
+  background: #64d9d6 !important; //自定义颜色
 }

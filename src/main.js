@@ -20,28 +20,27 @@ import './styles/element-variables.scss'
 
 import '@/styles/index.scss' // global css
 
+import '@/styles/lib/hover.css'
+import '@/styles/lib/animate.css'
+
 import './icons' // icon
-// import './permission' // permission control
+import './router/permission' // permission control
 
 // vueConfig
 import './VueConfig'
 
 // 混入
 // import mixin from './VueConfig/mixin'
+
 Vue.use(Element, {
   size: Cookies.get('size') || settings.elDefaultSize // set element-ui default size
 })
-
-//引入API接口
-
 
 import EVueContextmenu from 'e-vue-contextmenu'
 import '@/assets/css/contextMenu.scss'
 Vue.use(EVueContextmenu)
 
 Vue.config.productionTip = false
-
-
 
 new Vue({
   // mixins: [mixin],

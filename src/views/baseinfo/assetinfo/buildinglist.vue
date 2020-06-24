@@ -1,70 +1,36 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-        <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-        <el-button class="filter-item download-button" style="margin-left: 10px;"  icon="el-icon-edit" @click="handleCreate">
-          导入模板下载
-        </el-button>
-        <el-button class="filter-item download-button"  type="primary" icon="el-icon-edit" @click="handleCreate">
-          导入
-        </el-button>
-      </div>
-    <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" @click="handleCreate">
-        新增宿舍
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
+    </div>
+    <div class="filter-container" style="margin-top: 10px;float: left">
+      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" icon="el-icon-edit" @click="handleAdd">
+        新增建筑物
       </el-button>
-      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:20px;width: 100px" class="filter-item">
-        <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="listQuery.importance" placeholder="部门" clearable style=" width: 200px" class="filter-item">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-        <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-      <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
-    </el-select>
-      <el-select v-model="listQuery.full" placeholder="是否住满" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-     </div>
-    <div class="filter-container" style="float: right;margin-top: 10px;">
-      <el-input v-model="listQuery.description" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-
+    </div>
+    <div class="filter-container" style="margin-top: 10px;float: right">
+      <el-input v-model="listQuery.description" placeholder="建筑物名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button class="filter-item" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="getList">
         搜索
       </el-button>
-    </div>
 
+    </div>
     <div class="right">
       <div class="menu-2-box">
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前床位总数男生 100 女生80</span>
+          <i class="icon icon-avatar" /> <span class="text">建筑物总数100</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前入住总数男生 100 女生80</span>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="icon icon-avatar" /> <span class="text">当前已满寝室数男生 100 女生80</span>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="icon icon-avatar" /> <span class="text">当前未满寝室数男生 100 女生80</span>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="icon icon-avatar" /> <span class="text">当前空寝室数男生 100 女生80</span>
+          <i class="icon icon-avatar" /> <span class="text">十年以上建筑物数量100</span>
         </div>
       </div>
 
@@ -77,114 +43,67 @@
       border
       fit
       highlight-current-row
+      style="width: 100%;"
     >
-      <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center" width="150">
+      <el-table-column label="校区" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
-          <span  class="link-type"><router-link tag="a"  :to="{path:'/dormitory/userIndex',query:{id: row.id}}"
-                                                class="routerWork">{{ row.id }}
-                  </router-link></span>
+          <span >
+                                              {{ row.content2 }}
+                  </span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍类别" width="150px" align="center">
+      <el-table-column label="建筑物名称" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍位置" min-width="150px"  align="center">
+      <el-table-column label="简写名称" min-width="150px"  align="center">
         <template slot-scope="{row}">
           <span>{{ row.title }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="容纳人数" width="110px" align="center">
+      <el-table-column label="建筑物地址" width="110px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.content_short }}</span>
+            <span >
+         {{ row.id }}
+
+            </span>
         </template>
       </el-table-column>
-      <el-table-column label="入住人数"  width="110px" align="center">
+      <el-table-column label="建成年月"  width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="宿舍状态" width="80px">
+      <el-table-column label="使用年限" width="80px">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.content1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="负责人" align="center" width="95">
+      <el-table-column label="操作" class-name="status-col" width="200">
         <template slot-scope="{row}">
-          <span >{{ row.content2 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="联系电话" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="编辑" align="center" width="230" class-name="small-padding fixed-width">
-        <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
+          <el-button type="primary" size="mini" @click="detail(row.id)">
             编辑
+          </el-button>
+          <el-button type="primary" size="mini">
+            删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="宿舍编号：" prop="type">
-          <el-input v-model="temp.type"  class="filter-item"/>
-
-        </el-form-item>
-        <!--  <el-form-item label="Date" prop="timestamp">
-            <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
-          </el-form-item>-->
-        <el-form-item label="宿舍类型：" >
-          <el-select v-model="temp.timestamp" class="filter-item" style="float: left;" placeholder="请选择">
-            <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name" :value="item.key"  />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="宿舍负责人：" prop="status">
-          <el-input v-model="temp.status"  class="filter-item"/>
-
-        </el-form-item>
-        <el-form-item label="负责人电话：">
-        <el-input v-model="temp.status"  class="filter-item"/>
-
-      </el-form-item>
-        <el-form-item label="宿舍位置：" >
-          <el-input v-model="temp.status"  class="filter-item"/>
-
-        </el-form-item>
-        <el-form-item label="容纳人数：" >
-          <el-input v-model="temp.status"  class="filter-item"/>
-
-        </el-form-item>
-         <el-form-item label="备注：">
-           <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请填写备注" />
-         </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer" style="text-align: center" >
-        <el-button @click="dialogFormVisible = false">
-          取消
-        </el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          保存
-        </el-button>
-      </div>
-    </el-dialog>
 
   </div>
 </template>
 <script>
   import Pagination from '@/components/Pagination'
+  import QRCode from 'qrcode';
 
   import Breadcrumb from '@/components/Breadcrumb'
   export default {
     name: 'ComplexTable',
-    components: {
-      Breadcrumb,
-      Pagination},
+    components: {Breadcrumb,Pagination},
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -196,15 +115,17 @@
       },
     },
     data() {
-
       return {
+        innerUrl:'../../../assets/ercode.png',
+        productInnerQR:false,
         calendarTypeOptions1: [
-          { key: 1, display_name: '男生宿舍' },
-          { key: 2, display_name: '女生宿舍' }
+          { key: 1, display_name: '春季' },
+          { key: 2, display_name: '秋季' }
         ],
         displayTime:'',
         tableKey: 0,
-        list: [],
+        list: [
+        ],
         total: 20,
         listLoading: true,
         listQuery: {
@@ -214,14 +135,17 @@
           grade: undefined,
           major: undefined,
           full: undefined,
+          jiudu: undefined,
           sort: '+id',
           description:'',
-          displayTime:''
+          displayTime:'',
+          qrname:'二维码名称'
         },
         gradeInfo: [{label:"全部",value:0},{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
         classInfo:[{label:"全部",value:0},{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
         majorInfo:[{label:"全部",value:0},{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        IsFull:[{label:"全部",value:0},{label:"未住",value:1}, {label:"未住满",value:2}, {label:"已住满",value:3}],
+        IsFull:[{label:"全部",value:0},{label:"按行政班级",value:1}, {label:"按学籍班级",value:2}],
+        jiudu:[{label:"全部",value:0},{label:"在读",value:1}, {label:"离校",value:2}],
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
@@ -230,16 +154,17 @@
           title: 1,
           type: '',
           status: '',
-          timestamp:''
+          timestamp:'',
+          week:''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
           update: '编辑宿舍',
-          create: '新增宿舍'
+          create: '新增宿舍周考核'
         },
         rules: {
-          type: [{ required: true, message: '请填写宿舍编号', trigger: 'change' }],
-          status: [{ required: true, message: '请填写宿舍联系人', trigger: 'blur' }],
+          type: [{ required: true, message: '请填写年份', trigger: 'change' }],
+          week: [{ required: true, message: '请填写考核周数', trigger: 'blur' }],
         },
       }
     },
@@ -248,15 +173,36 @@
       that.getList();
     },
     methods:{
+      detail(id){
+        let that =this;
+        that.$router.push({
+          path:"/baseinfo/buildingdetail",
+          query: {
+            id:id,
+            type: "detail"
+          }
+        })
+      },
+      downloadCodeImg(row){
+        QRCode.toDataURL(this.innerUrl, {
+          width: 390
+        }, function(err, url) {
+          let a = document.createElement('a');
+          a.href = url;
+          a.download = row.qrname +".png";
+          a.click();
+        });
+      },
       resetTemp() {
         this.temp = {
           id: undefined,
           importance: 1,
           remark: '',
-          timestamp: new Date(),
+          timestamp: 1,
           title: 1,
           status: '',
-          type: ''
+          type: '',
+          qrname:'二维码名称'
         }
       },
       handleCreate() {
@@ -283,7 +229,6 @@
       },
       handleAdd() {
         this.temp = Object.assign({}) // copy obj
-        this.temp.timestamp = new Date(this.temp.timestamp)
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
         this.$nextTick(() => {
@@ -302,7 +247,6 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             const tempData = Object.assign({}, this.temp)
-            tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -326,7 +270,8 @@
           "content": 8,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 22,
           "timestamp": '男生宿舍',
@@ -337,7 +282,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 23,
           "timestamp": '男生宿舍',
@@ -348,7 +294,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 24,
           "timestamp": '男生宿舍',
@@ -359,7 +306,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 25,
           "timestamp": '男生宿舍',
@@ -370,7 +318,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 26,
           "timestamp": '男生宿舍',
@@ -381,7 +330,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 27,
           "timestamp": '男生宿舍',
@@ -392,7 +342,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 28,
           "timestamp": '男生宿舍',
@@ -403,7 +354,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         }, {
           "id": 29,
           "timestamp": '男生宿舍',
@@ -414,7 +366,8 @@
           "content": 7,
           "content1": '未住满',
           "content2": '杨再林',
-          "content3": '15196637504'
+          "content3": '15196637504',
+          'qrname':'二维码名称'
         },
           {
             "id": 30,
@@ -426,7 +379,8 @@
             "content": 7,
             "content1": '未住满',
             "content2": '杨再林',
-            "content3": '15196637504'
+            "content3": '15196637504',
+            'qrname':'二维码名称'
           }]
 
         that.listLoading = false;
@@ -454,6 +408,15 @@
 <style>
   .download-button{
     margin-bottom: 5px;margin-top: 5px;float: right
+  }
+  .qcode-wrap {
+    display: flex;
+
+  .qcode-item {
+    width: 200px;
+    height: 200px;
+
+  }
   }
 </style>
 <style lang="scss" scoped>

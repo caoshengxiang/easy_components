@@ -393,7 +393,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
   @import "~@/styles/mixin.scss";
 
   .createPost-container {
@@ -451,6 +451,6 @@
   }
 
   .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right;margin-right: 50px;
+    margin-bottom: 5px;margin-top: 5px;float: right;
   }
 </style>

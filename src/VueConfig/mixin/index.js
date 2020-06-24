@@ -2,11 +2,13 @@
 const mixin = {
   data() {
     return {
-      userInfo: {}
+      userInfo: {},
+      menus: []
     }
   },
   created: function() {
     this.userInfo = this.$webStorage.getItem('userInfo') || {}
+    this.menus = this.$webStorage.getItem('menus')
   }
 }
 
