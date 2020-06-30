@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
 
       <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">
         导出
@@ -68,7 +68,7 @@
           <el-button type="danger" size="mini" @click="handleDelete(row)">
             删除
           </el-button>
-          <el-button type="warning" size="mini">
+          <el-button type="warning" size="mini" @click="handleSetAuth(row)">
             权限
           </el-button>
         </template>
@@ -92,11 +92,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="岗位编码：" prop="num">
-          <el-input v-model="temp.num" class="filter-item" />
+          <el-input v-model="temp.num" class="filter-item"/>
 
         </el-form-item>
         <el-form-item label="岗位名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item" />
+          <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
 
         <el-form-item label="所属部门：" filterable prop="part">
@@ -111,7 +111,7 @@
         </el-form-item>
 
         <el-form-item label="主要职责：">
-          <el-input v-model="temp.word" class="filter-item" />
+          <el-input v-model="temp.word" class="filter-item"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -132,7 +132,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
-    name: 'ComplexTable',
+    name: 'PostIndex',
     components: {
       Breadcrumb,
       Pagination
@@ -190,12 +190,30 @@
           }]
         },
         partOptions: [
-          { name: '园区实训基地', id: 1 },
-          { name: '综合部', id: 2 },
-          { name: '电子机械部', id: 6 },
-          { name: '信息部', id: 3 },
-          { name: '财务室', id: 4 },
-          { name: '教职工', id: 5 }
+          {
+            name: '园区实训基地',
+            id: 1
+          },
+          {
+            name: '综合部',
+            id: 2
+          },
+          {
+            name: '电子机械部',
+            id: 6
+          },
+          {
+            name: '信息部',
+            id: 3
+          },
+          {
+            name: '财务室',
+            id: 4
+          },
+          {
+            name: '教职工',
+            id: 5
+          }
         ]
       }
     },
@@ -288,7 +306,7 @@
           work: '',
           created: '2020-06-24 11:12:00'
         }, {
-          id: 2,
+          id: 3,
           num: 'P002',
           name: '招就合作企业',
           part: '招生就业处',
@@ -305,7 +323,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
             that.list.splice(index, 1)
             this.$message({
               type: 'success',
@@ -313,6 +331,14 @@
             })
           })
           .catch(err => { console.error(err) })
+      },
+      handleSetAuth(row) {
+        this.$router.push({ name: 'postAuth',
+          query: {
+            parentMenuId: this.$route.query.parentMenuId,
+            id: row.id
+          }
+        })
       }
     }
   }

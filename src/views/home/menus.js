@@ -109,6 +109,28 @@ export default [
         url: '/workflow/design',
         children: null
       },
+      {
+        id: 15,
+        icon: '',
+        name: '表单',
+        url: '',
+        children: [{
+          id: 151,
+          icon: '',
+          name: '基础表单',
+          url: '/table/index'
+        }, {
+          id: 152,
+          icon: '',
+          name: '表单详情',
+          url: '/table/detail'
+        }, {
+          id: 153,
+          icon: '',
+          name: '表单详情1',
+          url: '/table/detailNew'
+        }]
+      },
     ]
   },
   {
@@ -154,7 +176,21 @@ export default [
     id: 3,
     icon: '',
     name: '人事办公',
-    children: []
+    children: [
+      {
+        id: 31,
+        icon: '',
+        name: '信息管理',
+        children: [
+          {
+            id: 301,
+            icon: '',
+            name: '教职工信息',
+            url: '/staff/list',
+          }
+        ]
+      }
+    ]
   },
   {
     id: 4,

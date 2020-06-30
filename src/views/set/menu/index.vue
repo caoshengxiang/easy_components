@@ -63,6 +63,7 @@
           <el-tabs type="card">
             <el-tab-pane :label="(menuItem.label ? menuItem.label + '-':'') + '菜单设置'">
               <el-form
+                v-loading="loading"
                 v-if="menuItem.label"
                 ref="dataForm"
                 :model="temp"
@@ -286,6 +287,7 @@
     name: 'Index',
     data() {
       return {
+        loading: false,
         textMap: {
           update: '编辑',
           create: '新增'
@@ -443,6 +445,10 @@
       nodeClick(data, node, it) {
         console.log(data, node, it)
         this.menuItem = data
+        this.loading = true
+        setTimeout(() => {
+          this.loading = false
+        }, 500)
         if (!data.children || data.children.length === 0) {
           console.log('最后一级')
         }
