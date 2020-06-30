@@ -372,6 +372,6 @@
     margin-bottom: 5px;
     margin-top: 5px;
     float: right;
-    margin-right: 50px;
+
   }
 </style>
