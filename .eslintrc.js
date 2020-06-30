@@ -13,6 +13,7 @@ module.exports = {
 
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
+  // 0的意思是off关闭,1是warning警告,2是error 报错
   rules: {
     'vue/max-attributes-per-line': [2, {
       'singleline': 10,
@@ -37,7 +38,7 @@ module.exports = {
     'camelcase': [0, {
       'properties': 'always'
     }],
-    'comma-dangle': [2, 'never'],
+    'comma-dangle': [0, 'never'],
     'comma-spacing': [2, {
       'before': false,
       'after': true

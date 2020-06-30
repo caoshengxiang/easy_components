@@ -283,7 +283,7 @@
 
 <script>
   export default {
-    name: 'Index',
+    name: 'Auth',
     data() {
       return {
         textMap: {
