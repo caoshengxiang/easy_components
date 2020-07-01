@@ -21,9 +21,9 @@
       </el-button>
     </div>
     <div class="filter-container" style="margin-top: 10px;float: left">
-<!--      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
-<!--        新增-->
-<!--      </el-button>-->
+      <!--      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+      <!--        新增-->
+      <!--      </el-button>-->
       <el-select
         v-model="listQuery.grade"
         placeholder="专业"
@@ -71,18 +71,12 @@
     </div>
     <div class="right">
       <div class="menu-2-box">
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="icon icon-avatar" /> <span class="text">占地面积100 平方米</span>-->
-        <!--        </div>-->
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="icon icon-avatar" /> <span class="text">独立产权面积100 平方米</span>-->
-        <!--        </div>-->
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="icon icon-avatar"/> <span class="text">总班级数  100</span>
+        </div>
       </div>
 
     </div>

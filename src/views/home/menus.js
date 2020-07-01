@@ -131,6 +131,13 @@ export default [
           url: '/table/detailNew'
         }]
       },
+      {
+        id: 16,
+        icon: '',
+        name: '图标管理',
+        url: '/icons',
+        children: null
+      }
     ]
   },
   {
