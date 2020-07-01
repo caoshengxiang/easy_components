@@ -1,0 +1,160 @@
+<template>
+  <div class="app-container staff-detail">
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+
+    <div class="createPost-container">
+      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
+        <div class="createPost-main-container">
+          <el-row>
+            <el-col :span="24">
+              <el-form-item label="年级名称：" prop="type" label-width="120px" class="postInfo-container-item">
+                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
+                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="24">
+              <el-form-item label="年级编号：" prop="type" label-width="120px" class="postInfo-container-item">
+                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
+                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </div>
+      </el-form>
+    </div>
+  </div>
+</template>
+<script>
+  import Breadcrumb from '@/components/Breadcrumb'
+  import { validURL } from '@/utils/validate'
+
+  const defaultForm = {
+    type: '',
+    tableData: [{ key: 'xxx' }, { key: 'xxxx' }],
+    tableData2: [],
+    tableData3: [],
+    tableData4: [],
+    tableData5: [],
+    tableData6: [],
+  }
+
+  export default {
+    name: 'ComplexTable',
+    components: { Breadcrumb },
+    data() {
+      return {
+        type: 'detail',
+        postForm: Object.assign({}, defaultForm),
+        rules: {
+          type: [{
+            required: true,
+            message: '请填写年份',
+            trigger: 'change'
+          }],
+        },
+      }
+    },
+    created() {
+    },
+    methods: {
+      handleCreate() {
+        this.$refs.postForm.validate(valid => {
+          if (valid) {
+            //
+          }
+        })
+      },
+      handleAdd() {
+        this.postForm.tableData.push({ key: '' })
+      },
+      handleAdd2() {
+        this.postForm.tableData2.push({ key: '' })
+      },
+      handleAdd3() {
+        this.postForm.tableData3.push({ key: '' })
+      },
+      handleAdd4() {
+        this.postForm.tableData4.push({ key: '' })
+      },
+      handleAdd5() {
+        this.postForm.tableData5.push({ key: '' })
+      },
+      handleAdd6() {
+        this.postForm.tableData6.push({ key: '' })
+      }
+    }
+  }
+</script>
+<style lang="scss">
+  @import "~@/styles/mixin.scss";
+
+  .staff-detail {
+  }
+
+  .createPost-container {
+
+    .createPost-main-container {
+      padding: 40px 45px 20px 50px;
+
+      .postInfo-container {
+        position: relative;
+        @include clearfix;
+        margin-bottom: 10px;
+
+        .postInfo-container-item {
+          .el-form-item__label {
+            width: 21px;
+            height: 9px;
+            font-size: 9px;
+            font-weight: 500;
+            color: rgba(102, 102, 102, 1);
+          }
+        }
+      }
+    }
+
+    .word-counter {
+      width: 40px;
+      position: absolute;
+      right: 10px;
+      top: 0px;
+    }
+
+    .avatar-wrapper {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      border-radius: 50%;
+      background-color: #2A8FE3;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .viewTable .title {
+      text-align: left
+    }
+
+    .icon-title {
+      font-size: 10px;
+      float: left;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .icon-info {
+      text-align: left;
+      padding-top: 5px;
+      margin-left: 30px;
+      height: 10px;
+      font-size: 10px;
+      font-weight: bold;
+      color: rgba(51, 51, 51, 1);
+    }
+
+  }
+
+  .download-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right;
+  }
+</style>

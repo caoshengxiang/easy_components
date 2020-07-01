@@ -2,68 +2,38 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-      <el-button
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        icon="el-icon-download"
-        @click="handleCreate"
-      >
-        导入模板下载
-      </el-button>
-      <el-button
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-upload2"
-        @click="handleCreate"
-      >
-        导入
-      </el-button>
+      <!--      <el-button-->
+      <!--        class="filter-item download-button"-->
+      <!--        style="margin-left: 10px;"-->
+      <!--        icon="el-icon-download"-->
+      <!--        @click="handleCreate"-->
+      <!--      >-->
+      <!--        导入模板下载-->
+      <!--      </el-button>-->
+      <!--      <el-button-->
+      <!--        class="filter-item download-button"-->
+      <!--        style="margin-left: 10px;"-->
+      <!--        type="primary"-->
+      <!--        icon="el-icon-upload2"-->
+      <!--        @click="handleCreate"-->
+      <!--      >-->
+      <!--        导入-->
+      <!--      </el-button>-->
     </div>
     <div class="filter-container" style="margin-top: 10px;float: left">
       <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">
-        新增教职工
+        新增年级
       </el-button>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="管理员类型"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="部门"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="岗位"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="性别"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
+      <!--      <el-select-->
+      <!--        v-model="listQuery.grade"-->
+      <!--        placeholder=""-->
+      <!--        clearable-->
+      <!--        filterable-->
+      <!--        style="margin-left: 20px;width: 100px"-->
+      <!--        class="filter-item"-->
+      <!--      >-->
+      <!--        &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+      <!--      </el-select>-->
     </div>
     <div class="filter-container" style="margin-top: 10px;float: right">
       <el-input
@@ -106,56 +76,26 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="职工编号" align="center">
+      <el-table-column label="年级名称" align="center">
         <template slot-scope="{row}">
           <span>{{ row.num }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名" align="center">
+      <el-table-column label="创建人" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" align="center">
+      <el-table-column label="创建时间" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="管理员类型" align="center">
+      <el-table-column label="操作" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属部门" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="岗位" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="基本信息" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon
-            icon-class="edit"
-            style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
-            @click.native="handleBaseInfo(row)"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="学历证书" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleEduInfo(row)"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="工资情况" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>
+          <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
+          <el-button type="primary" @click="edit(row)">编辑</el-button>
+          <el-button type="primary" @click="detail(row)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -211,13 +151,23 @@
       that.getList()
     },
     methods: {
-      detail(id) {
+      detail(row) {
         const that = this
         that.$router.push({
-          path: '/baseinfo/assetdetail',
+          path: '/baseinfo/grade/detail',
           query: {
-            id: id,
-            type: 'detail'
+            id: row.id,
+            parentMenuId: this.$route.query.parentMenuId
+          }
+        })
+      },
+      edit(row) {
+        const that = this
+        that.$router.push({
+          path: '/baseinfo/grade/edit',
+          query: {
+            id: row.id,
+            parentMenuId: this.$route.query.parentMenuId
           }
         })
       },
@@ -229,9 +179,9 @@
       },
       handleAdd() {
         this.$router.push({
-          path: '/staff/detail',
+          path: '/baseinfo/grade/edit',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            parentMenuId: this.$route.query.parentMenuId
           }
         })
       },

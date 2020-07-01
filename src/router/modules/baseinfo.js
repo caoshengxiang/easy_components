@@ -71,5 +71,65 @@ export default {
       component: () => import('@/views/baseinfo/assetinfo/facilitiesdetail'),
       meta: { title: ' 设施详情' },
     },
+    {
+      path: 'department/list',
+      component: () => import('@/views/baseinfo/department/list'),
+      meta: { title: '系部信息管理' },
+    },
+    {
+      path: 'department/detail',
+      component: () => import('@/views/baseinfo/department/detail'),
+      meta: { title: ' 系部信息管理' },
+    },
+    {
+      path: 'department/edit',
+      component: () => import('@/views/baseinfo/department/edit'),
+      meta: { title: ' 系部信息管理' },
+    },
+    {
+      path: 'major/list',
+      component: () => import('@/views/baseinfo/major/list'),
+      meta: { title: '专业信息管理' },
+    },
+    {
+      path: 'major/detail',
+      component: () => import('@/views/baseinfo/major/detail'),
+      meta: { title: ' 专业信息管理' },
+    },
+    {
+      path: 'major/edit',
+      component: () => import('@/views/baseinfo/major/edit'),
+      meta: { title: ' 专业信息管理' },
+    },
+    {
+      path: 'grade/list',
+      component: () => import('@/views/baseinfo/grade/list'),
+      meta: { title: '年级信息管理' },
+    },
+    {
+      path: 'grade/detail',
+      component: () => import('@/views/baseinfo/grade/detail'),
+      meta: { title: ' 年级信息管理' },
+    },
+    {
+      path: 'grade/edit',
+      component: () => import('@/views/baseinfo/grade/edit'),
+      meta: { title: ' 年级信息管理' },
+    },
+    {
+      path: 'class/list',
+      component: () => import('@/views/baseinfo/class/list'),
+      meta: { title: '班级信息管理' },
+    },
+    {
+      path: 'class/detail',
+      component: () => import('@/views/baseinfo/class/detail'),
+      meta: { title: ' 班级信息管理' },
+    },
+    {
+      path: 'class/edit',
+      component: () => import('@/views/baseinfo/class/edit'),
+      meta: { title: ' 班级信息管理' },
+    },
   ]
 }

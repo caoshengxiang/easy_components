@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
       <el-button
         class="filter-item download-button"
         style="margin-left: 10px;"
@@ -21,12 +21,12 @@
       </el-button>
     </div>
     <div class="filter-container" style="margin-top: 10px;float: left">
-      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">
-        新增教职工
-      </el-button>
+<!--      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+<!--        新增-->
+<!--      </el-button>-->
       <el-select
         v-model="listQuery.grade"
-        placeholder="管理员类型"
+        placeholder="专业"
         clearable
         filterable
         style="margin-left: 20px;width: 100px"
@@ -36,7 +36,7 @@
       </el-select>
       <el-select
         v-model="listQuery.grade"
-        placeholder="部门"
+        placeholder="年级"
         clearable
         filterable
         style="margin-left: 20px;width: 100px"
@@ -46,17 +46,7 @@
       </el-select>
       <el-select
         v-model="listQuery.grade"
-        placeholder="岗位"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="性别"
+        placeholder="校区"
         clearable
         filterable
         style="margin-left: 20px;width: 100px"
@@ -106,56 +96,56 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="职工编号" align="center">
+      <el-table-column label="班级名称" align="center">
         <template slot-scope="{row}">
           <span>{{ row.num }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名" align="center">
+      <el-table-column label="所在校区" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" align="center">
+      <el-table-column label="预分配人数" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="管理员类型" align="center">
+      <el-table-column label="所属专业" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="所属部门" align="center">
+      <el-table-column label="所属年级" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="岗位" align="center">
+      <el-table-column label="班主任" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="基本信息" align="center">
+      <el-table-column label="联系方式" align="center">
         <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon
-            icon-class="edit"
-            style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
-            @click.native="handleBaseInfo(row)"
-          />
+          <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="学历证书" align="center">
+      <el-table-column label="创建人" align="center">
         <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleEduInfo(row)"/>
+          <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="工资情况" align="center">
+      <el-table-column label="创建时间" align="center">
         <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>
+          <span>{{ row.name }} </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center">
+        <template slot-scope="{row}">
+          <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
+          <el-button type="primary" @click="edit(row)">编辑</el-button>
+          <el-button type="primary" @click="detail(row)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -211,13 +201,23 @@
       that.getList()
     },
     methods: {
-      detail(id) {
+      detail(row) {
         const that = this
         that.$router.push({
-          path: '/baseinfo/assetdetail',
+          path: '/baseinfo/class/detail',
           query: {
-            id: id,
-            type: 'detail'
+            id: row.id,
+            parentMenuId: this.$route.query.parentMenuId
+          }
+        })
+      },
+      edit(row) {
+        const that = this
+        that.$router.push({
+          path: '/baseinfo/class/edit',
+          query: {
+            id: row.id,
+            parentMenuId: this.$route.query.parentMenuId
           }
         })
       },
@@ -229,9 +229,9 @@
       },
       handleAdd() {
         this.$router.push({
-          path: '/staff/detail',
+          path: '/baseinfo/class/edit',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            parentMenuId: this.$route.query.parentMenuId
           }
         })
       },
@@ -240,27 +240,27 @@
         console.log(that.listQuery)
         that.list = [{
           id: 1,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }, {
           id: 2,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }, {
           id: 3,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }, {
           id: 4,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }, {
           id: 5,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }, {
           id: 6,
-          num: 'JYXG00121',
+          num: '2018级电商1班',
           name: 'xxx'
         }]
 

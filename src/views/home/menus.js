@@ -143,6 +143,26 @@ export default [
         icon: '',
         name: '学生信息',
         children: [{
+          id: 222,
+          icon: '',
+          name: '系部信息管理',
+          url: '/baseinfo/department/list'
+        }, {
+          id: 223,
+          icon: '',
+          name: '专业信息管理',
+          url: '/baseinfo/major/list'
+        }, {
+          id: 224,
+          icon: '',
+          name: '年级信息管理',
+          url: '/baseinfo/grade/list'
+        }, {
+          id: 225,
+          icon: '',
+          name: '班级信息管理',
+          url: '/baseinfo/class/list'
+        }, {
           id: 221,
           icon: '',
           name: '学生信息',
@@ -208,7 +228,21 @@ export default [
     id: 6,
     icon: '',
     name: '教务管理',
-    children: []
+    children: [
+      {
+        id: 61,
+        icon: '',
+        name: '教务管理',
+        children: [
+          {
+            id: 601,
+            icon: '',
+            name: '学期管理',
+            url: '/teachingAffairs/semester/list',
+          }
+        ]
+      }
+    ]
   },
   {
     id: 7,
