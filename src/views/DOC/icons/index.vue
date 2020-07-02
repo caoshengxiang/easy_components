@@ -13,7 +13,7 @@
                 {{ generatePngCode(item) }}
               </div>
               <div class="icon-item">
-                <i :class="'icon icon-' + item" />
+                <i :class="'easy-icon easy-icon-' + item" />
                 <span>{{ item }}</span>
               </div>
             </el-tooltip>
@@ -107,7 +107,7 @@
         return `<img src="${symbol}" />`
       },
       generatePngCode(symbol) {
-        return `<i class="icon icon-${symbol}" />`
+        return `<i class="easy-icon easy-icon-${symbol}" />`
       },
       handleClipboard(text, event) {
         clipboard(text, event)

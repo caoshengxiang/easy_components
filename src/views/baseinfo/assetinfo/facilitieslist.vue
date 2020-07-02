@@ -24,13 +24,13 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">设施总数100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总数100</span>
         </div>
         <div
         :key="index"
         class="menu-2-item hvr-underline-from-center"
       >
-        <i class="icon icon-avatar" /> <span class="text">设施建设总费100</span>
+        <i class="easy-icon easy-icon-avatar" /> <span class="text">设施建设总费100</span>
       </div>
       </div>
 

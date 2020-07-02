@@ -24,7 +24,7 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">总工位数100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">总工位数100</span>
         </div>
       </div>
 

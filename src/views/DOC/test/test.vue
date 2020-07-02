@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="./avatar.png" alt="">
+    <img src="avatar.png" alt="">
     <div class="bg" />
   </div>
 </template>
@@ -13,7 +13,7 @@
 
 <style scoped lang="scss">
   .bg {
-    background-image: url("./avatar.png");
+    background-image: url("avatar.png");
     width: 100px;
     height: 100px;
   }

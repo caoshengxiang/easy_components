@@ -24,13 +24,13 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">建筑物总数100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">建筑物总数100</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">十年以上建筑物数量100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">十年以上建筑物数量100</span>
         </div>
       </div>
 

@@ -22,7 +22,7 @@
             class="menu-2-item hvr-underline-from-center"
             @click="jumpMenu(item)"
           >
-            <i class="icon icon-avatar" /> <span class="text">{{ item.name }}</span>
+            <i class="easy-icon easy-icon-avatar" /> <span class="text">{{ item.name }}</span>
           </div>
         </div>
       </div>

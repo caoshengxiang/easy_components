@@ -184,11 +184,11 @@ module.exports = {
 我们可以在这里修改，可以自己打印一下 data里面的参数，看着就会大概明白（先看下面的配置，最后看这个模板）
 */
 var templateFunction = function(data) {
-  var shared = '.icon { background-image: url(I);background-size: Wpx Hpx;display: inline-block;}'.replace('I', data.sprites[0].image).replace('W', data.spritesheet.width)
+  var shared = '.easy-icon { background-image: url(I);background-size: Wpx Hpx;display: inline-block;}'.replace('I', data.sprites[0].image).replace('W', data.spritesheet.width)
     .replace('H', data.spritesheet.height)
 
   var perSprite = data.sprites.map(function(sprite) {
-    return '.icon-N { width: Wpx; height: Hpx; background-position: Xpx Ypx; }'
+    return '.easy-icon-N { width: Wpx; height: Hpx; background-position: Xpx Ypx; }'
       .replace('N', sprite.name)
       .replace('W', sprite.width)
       .replace('H', sprite.height)

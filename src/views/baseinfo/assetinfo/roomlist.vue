@@ -24,25 +24,25 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">有网教教室总量100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">有网教教室总量100</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">多媒体教教室总量100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">多媒体教教室总量100</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">总容量100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">总容量100</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">总最大排课量100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">总最大排课量100</span>
         </div>
       </div>
 

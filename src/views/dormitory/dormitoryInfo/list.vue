@@ -40,31 +40,31 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前床位总数男生 100 女生80</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前床位总数男生 100 女生80</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前入住总数男生 100 女生80</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前入住总数男生 100 女生80</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前已满寝室数男生 100 女生80</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前已满寝室数男生 100 女生80</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前未满寝室数男生 100 女生80</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前未满寝室数男生 100 女生80</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">当前空寝室数男生 100 女生80</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前空寝室数男生 100 女生80</span>
         </div>
       </div>
 

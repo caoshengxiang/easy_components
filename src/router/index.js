@@ -40,7 +40,7 @@ const constantRoutes = [
   },
   {
     path: '/icons',
-    component: () => import('@/views/icons/index'),
+    component: () => import('../views/DOC/icons/index'),
     meta: { title: '项目图标' }
   },
   {

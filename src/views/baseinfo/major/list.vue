@@ -75,13 +75,13 @@
         <!--          :key="index"-->
         <!--          class="menu-2-item hvr-underline-from-center"-->
         <!--        >-->
-        <!--          <i class="icon icon-avatar" /> <span class="text">占地面积100 平方米</span>-->
+        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>-->
         <!--        </div>-->
         <!--        <div-->
         <!--          :key="index"-->
         <!--          class="menu-2-item hvr-underline-from-center"-->
         <!--        >-->
-        <!--          <i class="icon icon-avatar" /> <span class="text">独立产权面积100 平方米</span>-->
+        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>-->
         <!--        </div>-->
       </div>
 

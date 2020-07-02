@@ -48,13 +48,13 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">在读学生总数12000</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生总数12000</span>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="icon icon-avatar" /> <span class="text">在读学生男女比例11：9</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生男女比例11：9</span>
         </div>
       </div>
 
