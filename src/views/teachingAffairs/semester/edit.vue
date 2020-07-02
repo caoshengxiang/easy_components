@@ -1,36 +1,36 @@
 <template>
   <div class="app-container staff-detail">
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-<!--    <el-button-->
-<!--      v-if="type==='detail'"-->
-<!--      class="filter-item download-button"-->
-<!--      style="margin-left: 10px;"-->
-<!--      type="primary"-->
-<!--      icon="el-icon-edit"-->
-<!--      @click="type='add'"-->
-<!--    >-->
-<!--      编辑-->
-<!--    </el-button>-->
-<!--    <el-button-->
-<!--      v-if="type==='add'"-->
-<!--      class="filter-item download-button"-->
-<!--      style="margin-left: 10px;"-->
-<!--      type="primary"-->
-<!--      icon="el-icon-edit"-->
-<!--      @click="type='detail'"-->
-<!--    >-->
-<!--      取消-->
-<!--    </el-button>-->
-<!--    <el-button-->
-<!--      v-if="type==='add'"-->
-<!--      class="filter-item download-button"-->
-<!--      style="margin-left: 10px;margin-right: 0px"-->
-<!--      type="primary"-->
-<!--      icon="el-icon-edit"-->
-<!--      @click="handleCreate"-->
-<!--    >-->
-<!--      保存-->
-<!--    </el-button>-->
+    <el-button
+      v-if="type==='detail'"
+      class="filter-item download-button"
+      style="margin-left: 10px;"
+      type="primary"
+      icon="el-icon-edit"
+      @click="type='add'"
+    >
+      编辑
+    </el-button>
+    <el-button
+      v-if="type==='add'"
+      class="filter-item download-button"
+      style="margin-left: 10px;"
+      type="primary"
+      icon="el-icon-edit"
+      @click="type='detail'"
+    >
+      取消
+    </el-button>
+    <el-button
+      v-if="type==='add'"
+      class="filter-item download-button"
+      style="margin-left: 10px;margin-right: 0px"
+      type="primary"
+      icon="el-icon-edit"
+      @click="handleCreate"
+    >
+      保存
+    </el-button>
     <div class="createPost-container">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
         <div class="createPost-main-container">

@@ -1,39 +1,39 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-<!--      <el-button-->
-<!--        class="filter-item download-button"-->
-<!--        style="margin-left: 10px;"-->
-<!--        icon="el-icon-download"-->
-<!--        @click="handleCreate"-->
-<!--      >-->
-<!--        导入模板下载-->
-<!--      </el-button>-->
-<!--      <el-button-->
-<!--        class="filter-item download-button"-->
-<!--        style="margin-left: 10px;"-->
-<!--        type="primary"-->
-<!--        icon="el-icon-upload2"-->
-<!--        @click="handleCreate"-->
-<!--      >-->
-<!--        导入-->
-<!--      </el-button>-->
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+      <!--      <el-button-->
+      <!--        class="filter-item download-button"-->
+      <!--        style="margin-left: 10px;"-->
+      <!--        icon="el-icon-download"-->
+      <!--        @click="handleCreate"-->
+      <!--      >-->
+      <!--        导入模板下载-->
+      <!--      </el-button>-->
+      <!--      <el-button-->
+      <!--        class="filter-item download-button"-->
+      <!--        style="margin-left: 10px;"-->
+      <!--        type="primary"-->
+      <!--        icon="el-icon-upload2"-->
+      <!--        @click="handleCreate"-->
+      <!--      >-->
+      <!--        导入-->
+      <!--      </el-button>-->
     </div>
     <div class="filter-container" style="margin-top: 10px;float: left">
       <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">
         新增学期
       </el-button>
-<!--      <el-select-->
-<!--        v-model="listQuery.grade"-->
-<!--        placeholder=""-->
-<!--        clearable-->
-<!--        filterable-->
-<!--        style="margin-left: 20px;width: 100px"-->
-<!--        class="filter-item"-->
-<!--      >-->
-<!--        &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-<!--      </el-select>-->
+      <!--      <el-select-->
+      <!--        v-model="listQuery.grade"-->
+      <!--        placeholder=""-->
+      <!--        clearable-->
+      <!--        filterable-->
+      <!--        style="margin-left: 20px;width: 100px"-->
+      <!--        class="filter-item"-->
+      <!--      >-->
+      <!--        &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+      <!--      </el-select>-->
     </div>
     <div class="filter-container" style="margin-top: 10px;float: right">
       <el-input
@@ -108,7 +108,7 @@
       </el-table-column>
       <el-table-column label="上课时间设置" align="center">
         <template slot-scope="{row}">
-          <el-button type="text">设置</el-button>
+          <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>
         </template>
       </el-table-column>
       <el-table-column label="创建人" align="center">
@@ -121,10 +121,11 @@
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="220">
         <template slot-scope="{row}">
-<!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
-          <el-button type="primary">编辑</el-button>
+          <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
+          <el-button type="primary" @click="detail(row)">详情</el-button>
+          <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
           <el-button type="danger">删除</el-button>
         </template>
       </el-table-column>
@@ -181,13 +182,13 @@
       that.getList()
     },
     methods: {
-      detail(id) {
+      detail(row) {
         const that = this
         that.$router.push({
-          path: '/baseinfo/assetdetail',
+          path: '/teachingAffairs/semester/detail',
           query: {
-            id: id,
-            type: 'detail'
+            parentMenuId: this.$route.query.parentMenuId,
+            id: row.id,
           }
         })
       },
@@ -199,9 +200,29 @@
       },
       handleAdd() {
         this.$router.push({
-          path: '/staff/detail',
+          path: '/teachingAffairs/semester/detail',
           query: {
             parentMenuId: this.$route.query.parentMenuId,
+          }
+        })
+      },
+      handleEdit(row) {
+        const that = this
+        that.$router.push({
+          path: '/teachingAffairs/semester/edit',
+          query: {
+            parentMenuId: this.$route.query.parentMenuId,
+            id: row.id,
+          }
+        })
+      },
+      handleSetClassTime(row) {
+        const that = this
+        that.$router.push({
+          path: '/teachingAffairs/semester/classTime',
+          query: {
+            parentMenuId: this.$route.query.parentMenuId,
+            id: row.id,
           }
         })
       },

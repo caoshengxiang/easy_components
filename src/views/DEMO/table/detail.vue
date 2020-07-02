@@ -338,7 +338,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
 
   .avatar-wrapper {
     width: 20px;

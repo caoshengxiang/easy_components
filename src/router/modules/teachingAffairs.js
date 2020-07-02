@@ -16,6 +16,16 @@ export default {
       path: 'semester/detail',
       component: () => import('@/views/teachingAffairs/semester/detail'),
       meta: { title: ' 学期管理' }
+    },
+    {
+      path: 'semester/edit',
+      component: () => import('@/views/teachingAffairs/semester/edit'),
+      meta: { title: ' 学期管理' }
+    },
+    {
+      path: 'semester/classTime',
+      component: () => import('@/views/teachingAffairs/semester/classTime'),
+      meta: { title: ' 上课时间设置' }
     }
   ]
 }

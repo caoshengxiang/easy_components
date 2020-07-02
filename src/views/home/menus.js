@@ -112,40 +112,50 @@ export default [
       {
         id: 15,
         icon: '',
-        name: '表格',
+        name: '页面框架',
         url: '',
         children: [{
           id: 151,
           icon: '',
           name: '基础表单',
-          url: '/doc/table/base'
+          url: '/demo/table/base'
         }, {
           id: 152,
           icon: '',
           name: '表单详情',
-          url: '/doc/table/detail'
+          url: '/demo/table/detail'
         }, {
           id: 153,
           icon: '',
           name: '表单详情1',
-          url: '/doc/table/detailNew'
+          url: '/demo/table/detailNew'
         }, {
           id: 154,
           icon: '',
           name: '表格 demo',
-          url: '/doc/table/list'
+          url: '/demo/table/list'
         }, {
           id: 155,
           icon: '',
           name: '表格详情 demo',
-          url: '/doc/table/list/detail'
+          url: '/demo/table/list/detail'
+        }, {
+          id: 156,
+          icon: '',
+          name: '表单详情 demo',
+          url: '/demo/table/list/form'
+        }, {
+          id: 157,
+          icon: '',
+          name: '可编辑表格 demo',
+          url: '/demo/table/list/edit'
         }]
       },
       {
         id: 16,
         icon: '',
         name: '图标管理',
-        url: '/icons',
+        url: '/demo/icons',
         children: null
       }
     ]
