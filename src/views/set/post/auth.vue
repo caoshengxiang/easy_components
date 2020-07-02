@@ -285,7 +285,7 @@
     }
   }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
   .set-menu {
     .el-tree-node__content {
       margin-bottom: 5px;

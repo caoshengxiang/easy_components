@@ -114,7 +114,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   @import "~@/styles/mixin.scss";
 
   .staff-detail {

@@ -818,7 +818,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @charset "UTF-8";
 @-webkit-keyframes vicp_progress {
   0% {

@@ -112,23 +112,33 @@ export default [
       {
         id: 15,
         icon: '',
-        name: '表单',
+        name: '表格',
         url: '',
         children: [{
           id: 151,
           icon: '',
           name: '基础表单',
-          url: '/table/index'
+          url: '/doc/table/base'
         }, {
           id: 152,
           icon: '',
           name: '表单详情',
-          url: '/table/detail'
+          url: '/doc/table/detail'
         }, {
           id: 153,
           icon: '',
           name: '表单详情1',
-          url: '/table/detailNew'
+          url: '/doc/table/detailNew'
+        }, {
+          id: 154,
+          icon: '',
+          name: '表格 demo',
+          url: '/doc/table/list'
+        }, {
+          id: 155,
+          icon: '',
+          name: '表格详情 demo',
+          url: '/doc/table/list/detail'
         }]
       },
       {

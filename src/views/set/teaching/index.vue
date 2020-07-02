@@ -511,7 +511,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   @import "~@/styles/mixin.scss";
 
   .createPost-container {
@@ -582,7 +582,7 @@
 
   }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
   .teaching-index {
     .el-form-item--small .el-form-item__label {
       line-height: 18px !important;
