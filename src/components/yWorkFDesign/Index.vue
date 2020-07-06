@@ -334,7 +334,7 @@
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
   @import "./assets/css/main.scss";
 </style>
-<style lang="scss" scoped>
+<style lang="scss">
   .workflow-design #canvas{
     .djs-label{
       fill: #0e76a8 !important;
