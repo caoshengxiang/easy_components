@@ -1,36 +1,39 @@
 <template>
   <div class="app-container">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-    <el-button
-      v-if="type=='detail'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='add'"
-    >
-      编辑
-    </el-button>
-    <el-button
-      v-if="type=='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='detail'"
-    >
-      取消
-    </el-button>
-    <el-button
-      v-if="type=='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;margin-right: 0px"
-      type="primary"
-      icon="el-icon-edit"
-      @click="handleCreate"
-    >
-      保存
-    </el-button>
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+
+    <div style="position: fixed;right: 0;z-index: 999">
+      <el-button
+        v-if="type=='detail'"
+        class="filter-item download-button"
+        style="margin-left: 10px;"
+        type="primary"
+        icon="el-icon-edit"
+        @click="type='add'"
+      >
+        编辑
+      </el-button>
+      <el-button
+        v-if="type=='add'"
+        class="filter-item download-button"
+        style="margin-left: 10px;"
+        type="primary"
+        icon="el-icon-edit"
+        @click="type='detail'"
+      >
+        取消
+      </el-button>
+      <el-button
+        v-if="type=='add'"
+        class="filter-item download-button"
+        style="margin-left: 10px;margin-right: 0px"
+        type="primary"
+        icon="el-icon-edit"
+        @click="handleCreate"
+      >
+        保存
+      </el-button>
+    </div>
     <div class="createPost-container">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 
@@ -45,26 +48,26 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="学籍号：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="学号：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="姓名：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="姓名拼音：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -79,10 +82,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -95,30 +98,30 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                    <el-option key="1" label="身份证" value="1"/>
+                    <el-option key="2" label="护照" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="身份证件号：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="出生日期：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="联系电话：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -131,10 +134,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="中国" value="1" />
-                    <el-option key="2" label="其他" value="2" />
+                    <el-option key="1" label="中国" value="1"/>
+                    <el-option key="2" label="其他" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -147,10 +150,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="港澳台" value="1" />
-                    <el-option key="2" label="侨外" value="2" />
+                    <el-option key="1" label="港澳台" value="1"/>
+                    <el-option key="2" label="侨外" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -163,10 +166,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="已婚" value="1" />
-                    <el-option key="2" label="未婚" value="2" />
+                    <el-option key="1" label="已婚" value="1"/>
+                    <el-option key="2" label="未婚" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -181,15 +184,15 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="汉族" value="1" />
-                    <el-option key="2" label="回族" value="2" />
+                    <el-option key="1" label="汉族" value="1"/>
+                    <el-option key="2" label="回族" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">基</div>
@@ -207,10 +210,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -223,22 +226,22 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="英文姓名：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="所属派出所：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -253,10 +256,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -269,10 +272,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                    <el-option key="1" label="身份证" value="1"/>
+                    <el-option key="2" label="护照" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -285,10 +288,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                    <el-option key="1" label="身份证" value="1"/>
+                    <el-option key="2" label="护照" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -301,18 +304,18 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                    <el-option key="1" label="身份证" value="1"/>
+                    <el-option key="2" label="护照" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="乘火车区间：" prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -325,10 +328,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="是" value="1" />
-                    <el-option key="2" label="否" value="2" />
+                    <el-option key="1" label="是" value="1"/>
+                    <el-option key="2" label="否" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -341,10 +344,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="港澳台" value="1" />
-                    <el-option key="2" label="侨外" value="2" />
+                    <el-option key="1" label="港澳台" value="1"/>
+                    <el-option key="2" label="侨外" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -357,15 +360,15 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="已婚" value="1" />
-                    <el-option key="2" label="未婚" value="2" />
+                    <el-option key="1" label="已婚" value="1"/>
+                    <el-option key="2" label="未婚" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#FD774B">行</div>
@@ -384,9 +387,9 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -399,9 +402,9 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -414,15 +417,15 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
 
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#FF687B">学</div>
@@ -441,9 +444,9 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -456,9 +459,9 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -471,14 +474,14 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#43D6B3">户</div>
@@ -497,34 +500,34 @@
                     class="filter-item"
                     style=" width: 100%"
                   >
-                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in gradeInfo" :key="item.value" :label="item.label" :value="item.value"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="户口所在地区县以下详细地址：" prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="出生地行政区划码：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="籍贯地行政区划码：" prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">联</div>
@@ -542,27 +545,27 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="联招合作学校代码：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="校外教学点：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">学</div>
@@ -572,31 +575,31 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="电子邮箱：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭现地址：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭邮政编码：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭电话：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">家</div>
@@ -606,8 +609,8 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1姓名：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -620,10 +623,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -636,16 +639,16 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1出生年月：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -660,16 +663,16 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1身份证件号：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -682,10 +685,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -698,18 +701,18 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1电话：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -722,33 +725,33 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1工作或学习单位：" prop="type" label-width="170px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1职务：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
 
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2姓名：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -761,10 +764,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -777,16 +780,16 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2出生年月：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -801,16 +804,16 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2身份证件号：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -823,10 +826,10 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -839,18 +842,18 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2电话：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -863,27 +866,27 @@
                     class="filter-item"
                     style="width: 100%"
                   >
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                    <el-option key="1" label="男" value="1"/>
+                    <el-option key="2" label="女" value="2"/>
                   </el-select>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2工作或学习单位：" prop="type" label-width="170px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2职务：" prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">志</div>
