@@ -121,10 +121,14 @@ aside {
 
 //main-container全局样式
 .app-container {
-  padding: 20px;
+  padding:20px;
+  background-color: #EBECED;
 
   .title-container{
-    width: 100%;float: right;border-bottom:1px solid #e4ecf9;
+    width: 100%;
+    float: right;
+    background-color: white;
+    border-bottom:1px solid #e4ecf9;
   }
 }
 
@@ -134,7 +138,7 @@ aside {
 }
 
 .pagination-container {
-  margin-top: 30px;
+  //margin-top: 30px;
 }
 
 .text-center {
@@ -174,16 +178,21 @@ aside {
     color: rgb(32, 160, 255);
   }
 }
-
+.filter-main-div{
+  margin-top: 1px;
+  background-color: white
+}
 .filter-container {
-  padding-bottom: 10px;
   margin-top: 10px;
+  background-color: white;
 
+  margin-top: 10px;
   .filter-item {
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
+    border-radius:15px;
   }
 
 

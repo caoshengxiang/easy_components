@@ -1,48 +1,10 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-      <el-button class="filter-item download-button"  style="margin-left: 10px;"   type="primary" icon="el-icon-edit" @click="handleCreate">
-        学生信息模板下载
-      </el-button>
-      <el-button class="filter-item download-button"   type="primary"  icon="el-icon-edit" @click="handleCreate">
-        学籍号模板下载
-      </el-button>
-      <el-button class="filter-item download-button"   type="primary" icon="el-icon-edit" @click="handleCreate">
-        更新学生信息
-      </el-button>
-      <el-button class="filter-item download-button" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="handleCreate">
-        更新学籍号
-      </el-button>
-      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit" @click="handleCreate">
-        导出
-      </el-button>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:0px;width: 100px" class="filter-item">
-        <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-        <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="margin-left: 20px; width: 200px">
-      <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
-    </el-select>
-      <el-select v-model="listQuery.full" placeholder="班级" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.jiudu" placeholder="就读" clearable class="filter-item" style="margin-left: 20px;width: 100px">
-        <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      </div>
-    <div class="filter-container" style="margin-top: 10px;float: right">
-      <el-input v-model="listQuery.description" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button class="filter-item" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="getList">
-        搜索
-      </el-button>
 
-    </div>
-    <div class="right">
+    <div class="analysis">
       <div class="menu-2-box">
         <div
           :key="index"
@@ -59,15 +21,55 @@
       </div>
 
     </div>
-    <el-table
+    <div class="filter-main-div">
+    <div class="filter-container" style="width:60%; float: left;">
+      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+        <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
+        <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="width: 200px">
+      <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
+    </el-select>
+      <el-select v-model="listQuery.full" placeholder="班级" clearable class="filter-item" style="width: 100px">
+        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-select v-model="listQuery.jiudu" placeholder="就读" clearable class="filter-item" style="width: 100px">
+        <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-input v-model="listQuery.description" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      </div>
+    <div class="filter-container" style="width:40%;float: right;text-align: right">
 
+      <el-button class="filter-item"   type="primary" @click="getList">
+        搜索
+      </el-button>
+      <el-button class="filter-item"   type="primary"  @click="handleCreate">
+        学生信息模板下载
+      </el-button>
+      <el-button class="filter-item"  type="primary"   @click="handleCreate">
+        学籍号模板下载
+      </el-button>
+      <el-button class="filter-item"   type="primary"  @click="handleCreate">
+        更新学生信息
+      </el-button>
+      <el-button class="filter-item" type="primary" @click="handleCreate">
+        更新学籍号
+      </el-button>
+      <el-button class="filter-item"style="margin-right: 10px" type="primary"  @click="handleCreate">
+        导出
+      </el-button>
+    </div>
+    <el-table
       v-loading="listLoading"
       :key="tableKey"
       :data="list"
       border
       fit
       highlight-current-row
-      style="width: 100%;"
+      style="width:99%;margin-left: 10px"
+      :header-cell-style="{backgroundColor:'#EFF1F6'}"
     >
       <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
@@ -151,8 +153,8 @@
         </template>
       </el-table-column>
     </el-table>
-
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    </div>
     <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
       <div class="qcode-wrap">
         <div class="qcode-item" v-loading="loading">
@@ -475,7 +477,10 @@
   }
 </script>
 <style lang="scss" scoped>
-      .right {
+
+      .analysis {
+        background-color: white;
+        margin-top: 50px;
         flex: 1;
         .title {
           font-size: 16px;
@@ -489,6 +494,8 @@
           display: flex;
           flex-wrap: wrap;
           width: 100%;
+          padding-left: 2px;
+          padding-top: 2px;
         }
 
         .menu-2-item {
@@ -502,7 +509,8 @@
           border-radius: 3px;
           padding-left: 20px;
           margin-right: 10px;
-          margin-bottom: 10px;
+          padding-top: 2px;
+          margin-bottom: 2px;
           cursor: pointer;
           box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 
