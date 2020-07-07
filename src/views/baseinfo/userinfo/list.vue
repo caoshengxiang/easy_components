@@ -144,10 +144,10 @@
     </el-table-column>
       <el-table-column label="二维码下载" class-name="status-col" width="200">
         <template slot-scope="{row}">
-          <el-button type="primary" @click="downloadCodeImg(row)">
+          <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">
             下载
           </el-button>
-          <el-button type="primary" size="mini" @click="detail(row.id)">
+          <el-button style="border-radius:15px;" type="primary" size="mini" @click="detail(row.id)">
             详情
           </el-button>
         </template>
