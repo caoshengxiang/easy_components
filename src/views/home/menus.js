@@ -239,18 +239,18 @@ export default [
       }
     ]
   },
-  {
-    id: 4,
-    icon: '',
-    name: '德育管理',
-    children: []
-  },
-  {
-    id: 5,
-    icon: '',
-    name: '实习实训',
-    children: []
-  },
+  // {
+  //   id: 4,
+  //   icon: '',
+  //   name: '德育管理',
+  //   children: []
+  // },
+  // {
+  //   id: 5,
+  //   icon: '',
+  //   name: '实习实训',
+  //   children: []
+  // },
   {
     id: 6,
     icon: '',
