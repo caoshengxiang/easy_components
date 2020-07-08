@@ -10,13 +10,17 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生总数12000</span>
+          <i class="easy-icon easy-icon-avatar" /> <div class="text"><div class="analysis-text">12000</div>
+          <div class="analysis-text-small">在读学生总数</div></div>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生男女比例11：9</span>
+          <i class="easy-icon easy-icon-avatar" /> <div class="text">
+          <div class="analysis-text">11：9</div>
+          <div class="analysis-text-small">在读学生男女比例</div>
+        </div>
         </div>
       </div>
 

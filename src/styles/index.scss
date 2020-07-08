@@ -162,7 +162,12 @@ aside {
     right: 10px;
     top: 0px;
   }
-
+.analysis-text{
+   color: #242530;font-weight: bold;font-size: 18px;text-align: center
+ }
+.analysis-text-small{
+ font-size: 14px;text-align: center;margin-top: 3px;
+}
 //main-container全局样式
 .app-container {
   padding:20px;
