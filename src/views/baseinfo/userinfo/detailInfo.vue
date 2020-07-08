@@ -1,18 +1,21 @@
 <template>
   <div class="app-container" >
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-    <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+    <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
+
+      <div style="position: absolute;right: 10px;top:5px;z-index: 999">
+        <el-button class="filter-item " v-if="type=='detail'" style="border-radius:15px;float: right"  type="primary"  @click="type='add'">
+          编辑
+        </el-button>
+        <el-button class="filter-item " v-if="type=='add'" style="border-radius:15px;margin-left: 10px;float: right"  type="primary"  @click="type='detail'">
+          取消
+        </el-button>
+        <el-button class="filter-item " type="primary" v-if="type=='add'" style="border-radius:15px;margin-left: 10px;margin-right: 0px;float: right" @click="handleCreate">
+          保存
+        </el-button>
+      </div>
     <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
 
-      <el-button class="filter-item " v-if="type=='detail'" style="float: right"  type="primary" icon="el-icon-edit" @click="type='add'">
-        编辑
-      </el-button>
-      <el-button class="filter-item " v-if="type=='add'" style="margin-left: 10px;float: right"  type="primary" icon="el-icon-edit" @click="type='detail'">
-        取消
-      </el-button>
-      <el-button class="filter-item " v-if="type=='add'" style="margin-left: 10px;margin-right: 0px;float: right"  type="primary" icon="el-icon-edit" @click="handleCreate">
-        保存
-      </el-button>
 
       <el-tab-pane label="基本信息" name="first">
         <div style="margin-bottom: 30px">
