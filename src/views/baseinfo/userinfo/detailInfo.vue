@@ -1,6 +1,8 @@
 <template>
   <div class="app-container" >
+    <div style="background-color: white;">
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    </div>
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
 
       <div style="position: absolute;right: 10px;top:5px;z-index: 999">
