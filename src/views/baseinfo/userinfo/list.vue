@@ -78,13 +78,13 @@
       <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
           <span >
-                                              {{ row.content2 }}
+                                              {{ row.id }}
                   </span>
         </template>
       </el-table-column>
       <el-table-column label="姓名" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.name  }}</span>
         </template>
       </el-table-column>
       <el-table-column label="性别" min-width="150px"  align="center">
@@ -96,39 +96,39 @@
         <template slot-scope="{row}">
             <span  class="link-type">
           <router-link tag="a" :to="{path:'/baseinfo/detail',query:{id: row.id}}"
-                       class="routerWork">{{ row.id }}
+                       class="routerWork">{{ row.schoolSpecialtyName }}
           </router-link>
             </span>
         </template>
       </el-table-column>
       <el-table-column label="年级"  width="110px" align="center">
         <template slot-scope="{row}">
-          <span style="color:red;">{{ row.content }}</span>
+          <span style="color:red;">{{ row.schoolGradeName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="行政班级" width="80px">
         <template slot-scope="{row}">
-          <span style="color:red;">{{ row.content1 }}</span>
+          <span style="color:red;">{{ row.administrativeClbumName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="学籍班级" align="center" width="95">
         <template slot-scope="{row}">
-          <span >{{ row.content2 }}</span>
+          <span >{{ row.schoolClbumName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="就读方式" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
+          <span >{{ row.studyWay }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
+          <span >{{ row.state }}</span>
         </template>
       </el-table-column>
       <el-table-column label="学生类型" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
+          <span >{{ row.studentType }}</span>
         </template>
       </el-table-column>
       <el-table-column label="证件号" class-name="status-col" width="100">
@@ -138,7 +138,7 @@
       </el-table-column>
       <el-table-column label="联系电话" class-name="status-col" width="100">
       <template slot-scope="{row}">
-        <span >{{ row.content3 }}</span>
+        <span >{{ row.homePhone }}</span>
       </template>
     </el-table-column>
       <el-table-column label="二维码" class-name="status-col" width="100">
@@ -160,7 +160,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.current" :limit.sync="listQuery.size" @pagination="getList" />
     </div>
     <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
       <div class="qcode-wrap">
@@ -204,8 +204,8 @@
         total: 20,
         listLoading: true,
         listQuery: {
-          page: 1,
-          limit: 10,
+          current: 1,
+          size: 10,
           class: undefined,
           grade: undefined,
           major: undefined,
@@ -346,130 +346,19 @@
         let that = this;
         that.$api.student.getPage().then(data => {
           that.loading = false;
-          })
-
-        that.list =[{
-          "id": 21,
-          "timestamp": '男生宿舍',
-          "author": "Karen",
-          "reviewer": "Frank",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 8,
-          "content": 8,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 22,
-          "timestamp": '男生宿舍',
-          "author": "Linda",
-          "reviewer": "Edward",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 7,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 23,
-          "timestamp": '男生宿舍',
-          "author": "Patricia",
-          "reviewer": "Steven",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 6,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 24,
-          "timestamp": '男生宿舍',
-          "author": "Shirley",
-          "reviewer": "Brian",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 5,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 25,
-          "timestamp": '男生宿舍',
-          "author": "Richard",
-          "reviewer": "Cynthia",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 9,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 26,
-          "timestamp": '男生宿舍',
-          "author": "Thomas",
-          "reviewer": "Edward",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 7,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 27,
-          "timestamp": '男生宿舍',
-          "author": "Mary",
-          "reviewer": "William",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 6,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 28,
-          "timestamp": '男生宿舍',
-          "author": "Angela",
-          "reviewer": "Laura",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 8,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 29,
-          "timestamp": '男生宿舍',
-          "author": "Steven",
-          "reviewer": "Cynthia",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 10,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        },
-          {
-            "id": 30,
-            "timestamp": '男生宿舍',
-            "author": "David",
-            "reviewer": "Margaret",
-            "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-            "content_short": 10,
-            "content": 7,
-            "content1": '未住满',
-            "content2": '杨再林',
-            "content3": '15196637504',
-            'qrname':'二维码名称'
-          }]
+          if(data.code === 200){
+            //返回成功
+            that.list = data.data.records
+            this.total = data.data.total
+            
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
 
         that.listLoading = false;
       },
