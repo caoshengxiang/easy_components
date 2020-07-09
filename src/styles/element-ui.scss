@@ -87,6 +87,31 @@
 .el-table--striped .el-table__body tr.el-table__row--striped td {
   background: #ecf4ff;
 }
+.el-table__body tr.current-row>td{
+  /*todo 这个色彩怎么优化下 border-right*/
+  background-color: #79b2ff;
+  //border-right: 0;
+}
 .el-table tbody tr:hover>td {
   background: rgba(0, 158, 250, 0.219) !important;
 }
+
+/*表格斑马，高亮样式 end*/
+///*表格斑马，高亮样式 start*/
+//.el-table--border td {
+//  //border-right-color: rgba(42, 143, 227, 0.4);
+//}
+//
+//.el-table--striped .el-table__body tr.el-table__row--striped td {
+//  //background: #ecf4ff;
+//}
+//
+//.el-table__body tr.current-row > td {
+//  background: rgba(0, 158, 250, 0.219) !important;
+//}
+//
+//.el-table tbody tr:hover > td {
+//  background-color: rgba(42, 143, 227, 0.4) !important;
+//}
+//
+///*表格斑马，高亮样式 end*/
