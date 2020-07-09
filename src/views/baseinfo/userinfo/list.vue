@@ -27,22 +27,22 @@
     </div>
     <div class="filter-main-div">
     <div class="filter-container" style="width:60%; float: left;">
-      <el-select v-model="listQuery.grade" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
-        <el-option v-for="item in  gradeInfo" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="width: 100px">
+        <el-option v-for="item in  IsFull" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
-      <el-select v-model="listQuery.major" placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
-        <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="listQuery.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+        <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
-      <el-select v-model="listQuery.class" placeholder="班级（根据班级加载）" clearable class="filter-item" style="width: 200px">
-      <el-option v-for="item in classInfo" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="listQuery.schoolSpecialtyId" placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
+        <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
+      </el-select>
+      <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" clearable class="filter-item" style="width: 200px">
+        <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
     </el-select>
-      <el-select v-model="listQuery.full" placeholder="班级" clearable class="filter-item" style="width: 100px">
-        <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select v-model="listQuery.jiudu" placeholder="就读" clearable class="filter-item" style="width: 100px">
+      <el-select v-model="listQuery.state" placeholder="就读" clearable class="filter-item" style="width: 100px">
         <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
-      <el-input v-model="listQuery.description" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.keyword" placeholder="学号或者姓名" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       </div>
     <div class="filter-container" style="width:40%;float: right;text-align: right">
 
@@ -78,7 +78,7 @@
       <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
         <template slot-scope="{row}">
           <span >
-                                              {{ row.id }}
+                                              {{ row.studyCode }}
                   </span>
         </template>
       </el-table-column>
@@ -89,7 +89,7 @@
       </el-table-column>
       <el-table-column label="性别" min-width="150px"  align="center">
         <template slot-scope="{row}">
-          <span>{{ row.title }}</span>
+          <span>{{ row.sex }}</span>
         </template>
       </el-table-column>
       <el-table-column label="专业" width="110px" align="center">
@@ -133,7 +133,7 @@
       </el-table-column>
       <el-table-column label="证件号" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span >{{ row.content3 }}</span>
+          <span >{{ row.certificateCode }}</span>
         </template>
       </el-table-column>
       <el-table-column label="联系电话" class-name="status-col" width="100">
@@ -204,22 +204,22 @@
         total: 20,
         listLoading: true,
         listQuery: {
+          type:1,
           current: 1,
           size: 10,
-          class: undefined,
-          grade: undefined,
-          major: undefined,
-          full: undefined,
-          jiudu: undefined,
-          sort: '+id',
-          description:'',
-          displayTime:'',
-          qrname:'二维码名称'
+          schoolGradeId: '',
+          schoolSpecialtyId: '',
+          schoolClbumId: '',
+          administrativeGradeId: '',
+          administrativeSpecialtyId: '',
+          administrativeClbumId: '',
+          state: '',
+          keyword:''
         },
-        gradeInfo: [{label:"全部",value:0},{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
-        classInfo:[{label:"全部",value:0},{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
-        majorInfo:[{label:"全部",value:0},{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        IsFull:[{label:"全部",value:0},{label:"按行政班级",value:1}, {label:"按学籍班级",value:2}],
+        gradeInfo: [],
+        classInfo:[],
+        majorInfo:[],
+        IsFull:[{name:"按行政班级",id:2}, {name:"按学籍班级",id:1}],
         jiudu:[{label:"全部",value:0},{label:"在读",value:1}, {label:"离校",value:2}],
         dialogFormVisible: false,
         dialogStatus: '',
@@ -245,7 +245,10 @@
     },
     created(){
       let that = this;
-      that.getList();
+      that.getList();//分页列表
+      that.getGradeList();//赛选框年级
+      that.getSpecialtyList();
+      that.getClbumList();
     },
     methods:{
       detail(id){
@@ -342,15 +345,13 @@
           }
         })
       },
-      getList(){
+      getGradeList(){
         let that = this;
-        that.$api.student.getPage().then(data => {
+        that.$api.baseInfo.getGradeList().then(data => {
           that.loading = false;
           if(data.code === 200){
             //返回成功
-            that.list = data.data.records
-            this.total = data.data.total
-            
+            that.classInfo = data.data
           }
           else{
             this.$message({
@@ -359,7 +360,65 @@
             })
           }
         })
+        that.listLoading = false;
+      },
+      getSpecialtyList(){
+        let that = this;
+        that.$api.baseInfo.getSpecialtyList().then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.majorInfo = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+        that.listLoading = false;
+      },
+      getClbumList(){
+        let that = this;
+        that.$api.baseInfo.getClbumList().then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.gradeInfo = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+        that.listLoading = false;
+      },
+      getList(){
+        let that = this;
 
+        if(that.listQuery.type == 2){
+          that.listQuery.administrativeGradeId =  that.listQuery.schoolGradeId
+          that.listQuery.administrativeSpecialtyId =  that.listQuery.schoolSpecialtyId
+          that.listQuery.administrativeClbumId =  that.listQuery.schoolClbumId
+        }
+        that.$api.student.getPage().then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.list = data.data.records
+            this.total = data.data.total
+
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
         that.listLoading = false;
       },
       handleDelete(row, index) {

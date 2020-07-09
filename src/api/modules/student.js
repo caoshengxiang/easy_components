@@ -10,13 +10,4 @@ export default {
   getDetail(params) {
     return request.get('/diagram.bpmn', { params: params })
   },
-  saveInfo(params) {
-    return request.post('/diagram.bpmn', { params: params })
-  },
-  deleteInfo(params) {
-    return request.post('/diagram.bpmn', { params: params })
-  },
-  updateInfo(params) {
-    return request.post('/diagram.bpmn', { params: params })
-  },
 }
