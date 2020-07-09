@@ -18,6 +18,11 @@ export default {
       meta: { title: ' 学生信息采集' }
     },
     {
+      path: 'detailInfo',
+      component: () => import('@/views/baseinfo/userinfo/detailInfo'),
+      meta: { title: ' 学生信息采集' }
+    },
+    {
       path: 'assetindex',
       component: () => import('@/views/baseinfo/assetinfo/list'),
       meta: { title: ' 用地管理' },

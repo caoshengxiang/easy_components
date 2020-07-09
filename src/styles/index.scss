@@ -118,12 +118,60 @@ aside {
     }
   }
 }
+.avatar-wrapper {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border-radius: 50%;
+  background-color: #2A8FE3;
+  text-align: center;
+  line-height: 20px;
+}
+.viewTable .title{
+  text-align: left
+}
+.icon-title{
+  font-size:10px;float: left;color:rgba(255,255,255,1);
+}
 
+.icon-info{
+  text-align:left;
+  margin-left:30px;
+  height:10px;
+  font-size:10px;
+  padding-top:5px;
+  font-weight:bold;color:rgba(51,51,51,1);
+}
+
+
+
+
+
+      .postInfo-container-item {
+        .el-form-item__label{
+          width:21px;
+          height:9px;
+          font-size:9px;
+          font-weight:500;
+          color:rgba(102,102,102,1);
+        }
+      }
+  .word-counter {
+    width: 40px;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+  }
+.analysis-text{
+   color: #242530;font-weight: bold;font-size: 18px;text-align: center
+ }
+.analysis-text-small{
+ font-size: 14px;text-align: center;margin-top: 3px;
+}
 //main-container全局样式
 .app-container {
   padding:20px;
   background-color: #EBECED;
-
   .title-container{
     width: 100%;
     float: right;
