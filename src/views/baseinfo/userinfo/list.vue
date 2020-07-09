@@ -193,15 +193,9 @@
       return {
         innerUrl:'../../../assets/ercode.png',
         productInnerQR:false,
-        calendarTypeOptions1: [
-          { key: 1, display_name: '春季' },
-          { key: 2, display_name: '秋季' }
-        ],
-        displayTime:'',
         tableKey: 0,
-        list: [
-        ],
-        total: 20,
+        list: [],
+        total: 0,
         listLoading: true,
         listQuery: {
           type:1,
