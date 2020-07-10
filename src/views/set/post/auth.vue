@@ -1,39 +1,5 @@
 <template>
   <div class="set-menu">
-    <div
-      class="btn-box"
-    >
-      <el-button
-        v-if="type=='detail'"
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="type='add'"
-      >
-        编辑
-      </el-button>
-      <el-button
-        v-if="type=='add'"
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="type='detail'"
-      >
-        取消
-      </el-button>
-      <el-button
-        v-if="type=='add'"
-        class="filter-item download-button"
-        style="margin-left: 10px;margin-right: 0px"
-        type="primary"
-        icon="el-icon-edit"
-        @click="handleCreate"
-      >
-        保存
-      </el-button>
-    </div>
     <div class="set-menu-box">
       <div class="left">
         <div style="margin-bottom: 10px;text-align: right;">
@@ -66,7 +32,7 @@
                 :model="temp"
                 label-position="right"
                 label-width="140px"
-                style="width: 500px; margin-left:50px;"
+                style="width: 500px; margin-left:50px;margin-top: 40px;"
               >
                 <el-form-item label="按钮配置：">
                   <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">
@@ -87,6 +53,42 @@
               </el-form>
             </el-tab-pane>
           </el-tabs>
+
+          <div
+            class="btn-box"
+            style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"
+          >
+            <el-button
+              v-if="type=='detail'"
+              class="filter-item download-button"
+              style="margin-left: 10px;"
+              type="primary"
+              icon="el-icon-edit"
+              @click="type='add'"
+            >
+              编辑
+            </el-button>
+            <el-button
+              v-if="type=='add'"
+              class="filter-item download-button"
+              style="margin-left: 10px;"
+              type="primary"
+              icon="el-icon-edit"
+              @click="type='detail'"
+            >
+              取消
+            </el-button>
+            <el-button
+              v-if="type=='add'"
+              class="filter-item download-button"
+              style="margin-left: 10px;margin-right: 0px"
+              type="primary"
+              icon="el-icon-edit"
+              @click="handleCreate"
+            >
+              保存
+            </el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -238,17 +240,18 @@
   .set-menu-box {
     display: flex;
     width: 1300px;
-    margin: auto;
-    padding-top: 10px;
+    margin: 30px auto;
+    border: 1px solid #f0f0f0;
 
     .left {
       width: 360px;
+      padding: 10px;
+      border-right: 1px solid #f0f0f0;
     }
 
     .right {
       flex: 1;
       min-height: 500px;
-      border: 1px solid #f0f0f0;
 
       .btn-set {
         padding: 10px 10px 30px 10px;

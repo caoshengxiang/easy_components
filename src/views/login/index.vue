@@ -15,11 +15,11 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
+          v-model="loginForm.account"
           placeholder="请输入账号"
           name="username"
           type="text"
@@ -31,12 +31,12 @@
       <el-tooltip v-model="capsTooltip" content="大写字母" placement="right" manual>
         <el-form-item prop="password">
           <span class="svg-container">
-            <svg-icon icon-class="password" />
+            <svg-icon icon-class="password"/>
           </span>
           <el-input
             :key="passwordType"
             ref="password"
-            v-model="loginForm.password"
+            v-model="loginForm.pwd"
             :type="passwordType"
             placeholder="请输入密码"
             name="password"
@@ -47,7 +47,7 @@
             @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
           </span>
         </el-form-item>
       </el-tooltip>
@@ -84,12 +84,21 @@
       }
       return {
         loginForm: {
-          username: '',
-          password: ''
+          account: 'test001',
+          pwd: 'school123456',
+          userType: '教职工'
         },
         loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          account: [{
+            required: true,
+            trigger: 'blur',
+            validator: validateUsername
+          }],
+          pwd: [{
+            required: true,
+            trigger: 'blur',
+            validator: validatePassword
+          }]
         },
         passwordType: 'password',
         capsTooltip: false,
@@ -101,7 +110,7 @@
     },
     watch: {
       $route: {
-        handler: function(route) {
+        handler: function (route) {
           const query = route.query
           if (query) {
             this.redirect = query.redirect
@@ -115,9 +124,9 @@
       // window.addEventListener('storage', this.afterQRScan)
     },
     mounted() {
-      if (this.loginForm.username === '') {
+      if (this.loginForm.account === '') {
         this.$refs.username.focus()
-      } else if (this.loginForm.password === '') {
+      } else if (this.loginForm.pws === '') {
         this.$refs.password.focus()
       }
     },
@@ -143,20 +152,22 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
-
-            this.$vueCookies.set('token', 123, '2h')
-            // this.$store.dispatch('user/login', this.loginForm)
-            //   .then(() => {
-                if (this.redirect && this.redirect !== 'undefined' && this.redirect !== undefined) {
-                  this.$router.push({ path: this.redirect, query: this.otherQuery })
-                } else {
-                  this.$router.push({ path: '/home', query: this.otherQuery })
-                }
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              if (this.redirect && this.redirect !== 'undefined' && this.redirect !== undefined) {
+                this.$router.push({
+                  path: this.redirect,
+                  query: this.otherQuery
+                })
+              } else {
+                this.$router.push({
+                  path: '/home',
+                  query: this.otherQuery
+                })
+              }
+              this.loading = false
+            }).catch(() => {
                 this.loading = false
-            // })
-            // .catch(() => {
-            //   this.loading = false
-            // })
+              })
           } else {
             console.log('error submit!!')
             return false

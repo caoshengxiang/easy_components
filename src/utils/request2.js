@@ -25,6 +25,7 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['token'] = getToken()
     }
+
     return config
   },
   error => {
@@ -48,27 +49,33 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
+    // console.log(res)
 
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 200) {
+    if (res.code && res.code !== 200) {
       Message({
         message: res.msg || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 401) {
+      if (res.code === 401 && res.msg === '登录过期') {
         // to re-login
         MessageBox.confirm('登录已过期，请重新登录', '登录验证', {
           confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
+          showCancelButton: false,
+          // cancelButtonText: '取消',
           type: 'warning',
           closeOnClickModal: false
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
             // location.reload()
-            const href = location.href.split('#')
-            $router.push(`/login?redirect=${href[1]}`)
+            if (location.href.indexOf('#') > -1) {
+              const href = location.href.split('#')
+              $router.push(`/login?redirect=${href[1]}`)
+            } else {
+              $router.push(`/login`)
+            }
           })
         })
       }
@@ -78,30 +85,13 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    // console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      // message: error.message,
+      message: '网络错误，请稍后再试！',
       type: 'error',
       duration: 5 * 1000
     })
-    if (error.message.indexOf('401') > -1) {
-      MessageBox.confirm('登录已过期，请重新登录', '登录验证', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning',
-        closeOnClickModal: false
-      }).then(() => {
-        store.dispatch('user/resetToken').then(() => {
-          // location.reload()
-          if (location.href.indexOf('#') > -1) {
-            const href = location.href.split('#')
-            $router.push(`/login?redirect=${href[1]}`)
-          } else {
-            $router.push(`/login`)
-          }
-        })
-      })
-    }
     return Promise.reject(error)
   }
 )
