@@ -4,6 +4,11 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-page-list-layout>
+      <template slot="left">
+        <el-button class="filter-item"   type="primary">
+          新增
+        </el-button>
+      </template>
       <template slot="right">
         <el-button class="filter-item"   type="primary">
           新增

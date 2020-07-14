@@ -13,4 +13,7 @@ export default {
   editStudent(params){
     return request.put('student/' +  params.id, params )
   },
+  getStdNoBedList(params){
+    return request.get('student/list/noBed', { params: params })
+  },
 }
