@@ -10,4 +10,7 @@ export default {
   getClbumList(params){ ////班级列表
     return request.get('clbum/list/base', { params: params })
   },
+  getStaffList(params){ ////教职工列表
+    return request.get('staff', { params: params })
+  },
 }
