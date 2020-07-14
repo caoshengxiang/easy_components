@@ -41,7 +41,7 @@ export default {
     {
       path: 'roomdetail',
       component: () => import('@/views/baseinfo/assetinfo/roomdetail'),
-      meta: { title: ' 建筑物信息登记' },
+      meta: { title: ' 教室信息登记' },
     },
 
     {

@@ -15,10 +15,10 @@
           <span style="color: #666666;font-size: 10px;padding-left: 10px;">(菜单可拖拽排序、点击编辑)</span>
         </div>
 
+        <!--default-expand-all-->
         <el-tree
           :data="treeData"
           node-key="id"
-          default-expand-all
           draggable
           :allow-drop="allowDrop"
           :allow-drag="allowDrag"
@@ -87,6 +87,11 @@
                 style="width: 640px; margin-left:50px;margin-top: 20px;"
               >
                 <el-form-item label="菜单类型：">
+                  <span slot="label">菜单类型
+                    <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端的选择按钮类型" placement="top-start">
+                      <i class="el-icon-question" /></el-tooltip>
+                    ：
+                  </span>
                   <el-radio-group v-model="temp.menuType">
                     <el-radio label="目录">目录</el-radio>
                     <el-radio label="菜单">菜单</el-radio>
@@ -145,11 +150,11 @@
                   ]"
                 >
                   <span slot="label">URL
-                    <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径" placement="top-start">
+                    <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径， 可以试试把编码粘贴这里，失去焦点" placement="top-start">
                       <i class="el-icon-question" /></el-tooltip>
                     ：
                   </span>
-                  <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" />
+                  <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" @change="autoFormat" />
                 </el-form-item>
                 <el-form-item v-if="port_pc" label="图标：">
                   <el-input v-model="temp.pcIcon" :disabled="type!=='add'" class="filter-item" />
@@ -283,6 +288,11 @@
           <span>{{ temp.parentName }}</span>
         </el-form-item>
         <el-form-item label="菜单类型：">
+          <span slot="label">菜单类型
+            <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端的选择按钮类型" placement="top-start">
+              <i class="el-icon-question" /></el-tooltip>
+            ：
+          </span>
           <el-radio-group v-model="temp.menuType">
             <el-radio label="目录">目录</el-radio>
             <el-radio label="菜单">菜单</el-radio>
@@ -339,11 +349,11 @@
           ]"
         >
           <span slot="label">URL
-            <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径" placement="top-start">
+            <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
               <i class="el-icon-question" /></el-tooltip>
             ：
           </span>
-          <el-input v-model="temp.pcUrl" class="filter-item" />
+          <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat" />
         </el-form-item>
         <el-form-item v-if="port_pc" label="图标：">
           <el-input v-model="temp.pcIcon" class="filter-item" />
@@ -432,6 +442,9 @@
       this.getMenuTreeData()
     },
     methods: {
+      autoFormat(val) {
+        this.temp.pcUrl = val.replace(/_/g, '/')
+      },
       // traverseTree(data, newTree) {
       //   const dataTree = JSON.parse(JSON.stringify(data))
       //

@@ -1,12 +1,18 @@
 /*
-url 和 路由文件映射
+url/编码 和 路由文件映射
 
 方便后面维护做一些 约定/说明
 
 url 和 编码 都和组件路径对应
-（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。
+
+编码必须唯一：
+编码和组件对应
 菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,
 按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）
+
+新增编辑同一个页面的情况：
+编码按上面的规则设置成一样，URL 做区分（新增页面 path 在加一级 /add, 如：新增 /views/baseinfo/assetinfo/detail/add 编辑 /views/baseinfo/assetinfo/detail）
+注意 URL 在同一个系统下 是不能重复！ URL 为router的path，因此切记不能重复
 * */
 
 import _views_set_menu from '@/views/set/menu'
@@ -88,7 +94,7 @@ export default {
   _views_baseinfo_assetinfo_list, // 用地管理
   _views_baseinfo_assetinfo_detail, // 用地登记信息
   _views_baseinfo_assetinfo_roomlist, // 教室管理
-  _views_baseinfo_assetinfo_roomdetail, // 建筑物信息登记
+  _views_baseinfo_assetinfo_roomdetail, // 教室信息登记
   _views_baseinfo_assetinfo_buildinglist, // 建筑物管理
   _views_baseinfo_assetinfo_buildingdetail, // 建筑物详情
   _views_baseinfo_assetinfo_traininglist, // 实训室管理
