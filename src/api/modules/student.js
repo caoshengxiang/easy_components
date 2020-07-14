@@ -10,4 +10,7 @@ export default {
   getDetail(params) {
     return request.get('/student/'+ params)
   },
+  editStudent(params){
+    return request.put('student/' +  params.id, params )
+  },
 }
