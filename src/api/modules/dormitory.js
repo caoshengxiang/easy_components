@@ -29,7 +29,10 @@ export default {
     return request.post('dormitoryBed' , params )
   },
   deleteDormitoryBed(params){
-    alert(123)
     return request.delete('dormitoryBed/'+  params.id , params )
   },
+  exchangeDormitoryBed(params){
+    return request.put('/dormitoryBed/exchange', params )
+  },
+
 }

@@ -29,9 +29,9 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="床位号" prop="id" sortable="custom" align="center" width="150">
+        <el-table-column label="床位号" prop="bedNo" sortable="custom" align="center" width="150">
           <template slot-scope="{row}">
-            <span  class="link-type">{{ row.id }}</span>
+            <span  class="link-type">{{ row.bedNo }}</span>
           </template>
         </el-table-column>
         <el-table-column label="学号" width="150px" align="center">
@@ -87,7 +87,7 @@
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
         <el-form-item label="宿舍编号：">
           <el-input v-model="dormitoryDetail.code" v-if="dialogStatus=='create'"   class="filter-item" disabled/>
-          <el-input v-model="dormitoryDetail.code" v-else  class="filter-item" />
+          <el-input v-model="dormitoryDetail.code" v-else @blur="changeDo"   class="filter-item" />
 
         </el-form-item>
         <!--  <el-form-item label="Date" prop="timestamp">
@@ -125,8 +125,8 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="床位："  v-if="dialogStatus!='create'">
-          <el-select v-model="listQuery.bedInfo" placeholder="床位"  style="float: left;" class="filter-item">
-            <el-option v-for="item in  bedInfo" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select v-model="desBed" placeholder="床位"  style="float: left;" class="filter-item">
+            <el-option  :label="item" :value="item" v-for="item in bedInfo1" />
           </el-select>
         </el-form-item>
 
@@ -166,7 +166,8 @@
     },
     data() {
       return {
-        bedInfo:[{label:"1号床-刘大大",value:0},{label:"二号床-李大大",value:1}, {label:"三号床",value:2}, {label:"四号床",value:3}],
+        detailNew:{},
+        bedInfo:[{label:"1床-刘大大",value:0},{label:"二床-李大大",value:1}, {label:"三床",value:2}, {label:"四床",value:3}],
         bedInfo1:[],
         importance:[],
         beds:[],
@@ -180,6 +181,8 @@
           limit: 10,
           dormitoryId:0
         },
+        source:{},
+        desBed:{},
         managerName:'',
         dormitoryDetail:{},
         gradeInfo: [],
@@ -399,6 +402,8 @@
         })
       },
       handleUpdate(row) {
+        let that = this
+        that.source = row
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
@@ -406,11 +411,51 @@
           this.$refs['dataForm'].clearValidate()
         })
       },
+      changeDo(){
+        //// 根据宿舍编号查询出床位列表
+        let that = this
+        let ss = that.dormitoryDetail.code;
+        that.detailNew = {id:5}
+      },
       updateData() {
+        let that = this
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            const tempData = Object.assign({}, this.temp)
-            tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+
+            let change ={
+              source:{
+                id: that.source.id,
+                dormitoryId: that.listQuery.dormitoryId,
+                bedNo:that.source.bedNo,
+                studentId: that.source.studentId
+              },
+              target:{
+                dormitoryId: that.detailNew.id,
+                bedNo: this.desBed,
+                studentId: that.source.studentId
+              }
+            }
+
+
+            that.$api.dormitory.exchangeDormitoryBed({...change}).then(data => {
+              that.loading = false;
+              if(data.code === 200){
+                this.$notify({
+                  title: '成功',
+                  message: '调换床位成功',
+                  type: 'success',
+                  duration: 2000
+                })
+
+                this.getList()
+              }
+              else{
+                this.$message({
+                  type: 'error',
+                  message: data.msg
+                })
+              }
+            })
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -429,7 +474,7 @@
           type: 'warning'
         })
           .then(async() => {
-            alert(123)
+
             that.$api.dormitory.deleteDormitoryBed({id:row.id}).then(data => {
               that.loading = false;
               if(data.code === 200){
