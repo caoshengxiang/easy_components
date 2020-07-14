@@ -8,19 +8,19 @@ import Layout from '@/layout'
  * @param roles
  */
 export function filterAsyncRoutes(menusData) {
-  const res = {
-    // path: '/auth',
+  const res = [{
+    path: '/auth',
     component: Layout,
     children: []
-  }
+  }]
   menusData.forEach(item => {
     const tmp = { ...item }
     if (tmp.children && tmp.children.length) {
       filterAsyncRoutes(tmp.children)
     } else {
-      res.children.push({
-        path: tmp.url,
-        component: () => urlMap[tmp.url],
+      res[0].children.push({
+        path: tmp.pcUrl,
+        component: urlMap[tmp.menuNo],
         meta: {
           title: tmp.name,
           icon: tmp.icon
@@ -47,9 +47,8 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, menusData) {
     return new Promise(resolve => {
-      // const accessedRoutes = filterAsyncRoutes(menusData) // todo
-      const accessedRoutes = []
-      // commit('SET_ROUTES', accessedRoutes)
+      const accessedRoutes = filterAsyncRoutes(menusData)
+      commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
   }

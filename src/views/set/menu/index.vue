@@ -20,7 +20,6 @@
           node-key="id"
           default-expand-all
           draggable
-          :props="defaultProps"
           :allow-drop="allowDrop"
           :allow-drag="allowDrag"
           :destroy-on-close="true"
@@ -39,8 +38,9 @@
               <i v-if="data.menuType==='菜单'" class="el-icon-document" />
               <i v-if="data.menuType==='按钮'" class="el-icon-thumb" />
             </el-tooltip>
-<!--            <span class="tips">{{ node.level }}</span>-->
-            <span style="margin-left: 5px;">{{ node.label }}</span>
+            <!--            <span class="tips">{{ node.level }}</span>-->
+            <!--            <span>{{ data }}</span>-->
+            <span style="margin-left: 5px;">{{ data.name }}</span>
             <span class="btns">
               <el-button
                 type="text"
@@ -106,6 +106,11 @@
                   label="编码："
                   prop="menuNo"
                 >
+                  <span slot="label">编码
+                    <el-tooltip class="item" effect="dark" content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）" placement="top-start">
+                      <i class="el-icon-question" /></el-tooltip>
+                    ：
+                  </span>
                   <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item" />
                 </el-form-item>
                 <el-form-item label="状态：">
@@ -139,6 +144,11 @@
                     { required: true, message: '请输入URL', trigger: 'blur' }
                   ]"
                 >
+                  <span slot="label">URL
+                    <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径" placement="top-start">
+                      <i class="el-icon-question" /></el-tooltip>
+                    ：
+                  </span>
                   <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" />
                 </el-form-item>
                 <el-form-item v-if="port_pc" label="图标：">
@@ -160,36 +170,36 @@
                   <el-input v-model="temp.mobileIcon" :disabled="type!=='add'" class="filter-item" />
                 </el-form-item>
                 <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;" />
-                <el-form-item label="权限按钮：">
-                  <div>
-                    <el-button v-if="type==='add'" type="success">添加</el-button>
-                  </div>
-                  <el-table
-                    :data="btnTableData"
-                    stripe
-                    style="width: 500px"
-                  >
-                    <el-table-column
-                      prop="name"
-                      label="按钮名称"
-                    />
-                    <el-table-column
-                      prop="num"
-                      label="按钮编码"
-                    />
-                    <el-table-column
-                      prop="page"
-                      label="关联页面"
-                    />
-                    <el-table-column label="操作" width="160">
-                      <template slot-scope="scope">
-                        <el-button v-if="type==='add'" size="mini" type="text">编辑</el-button>
-                        <el-button v-if="type==='add'" style="color: red;" size="mini" type="text">删除</el-button>
-                        <el-button v-if="type==='add'" size="mini" type="text" @click="handleAdd">关联页面</el-button>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </el-form-item>
+                <!--                <el-form-item label="权限按钮：">-->
+                <!--                  <div>-->
+                <!--&lt;!&ndash;                    <el-button v-if="type==='add'" type="success">添加</el-button>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                  <el-table-->
+                <!--                    :data="btnTableData"-->
+                <!--                    stripe-->
+                <!--                    style="width: 500px"-->
+                <!--                  >-->
+                <!--                    <el-table-column-->
+                <!--                      prop="name"-->
+                <!--                      label="按钮名称"-->
+                <!--                    />-->
+                <!--                    <el-table-column-->
+                <!--                      prop="num"-->
+                <!--                      label="按钮编码"-->
+                <!--                    />-->
+                <!--                    <el-table-column-->
+                <!--                      prop="page"-->
+                <!--                      label="关联页面"-->
+                <!--                    />-->
+                <!--                    <el-table-column label="操作" width="160">-->
+                <!--                      <template slot-scope="scope">-->
+                <!--&lt;!&ndash;                        <el-button v-if="type==='add'" size="mini" type="text">编辑</el-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <el-button v-if="type==='add'" style="color: red;" size="mini" type="text">删除</el-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <el-button v-if="type==='add'" size="mini" type="text" @click="handleAdd">关联页面</el-button>&ndash;&gt;-->
+                <!--                      </template>-->
+                <!--                    </el-table-column>-->
+                <!--                  </el-table>-->
+                <!--                </el-form-item>-->
                 <el-form-item label="是否有数据权限：">
                   <el-radio-group v-model="temp.radio" :disabled="type!=='add'">
                     <el-radio label="1">无</el-radio>
@@ -292,6 +302,11 @@
           label="编码："
           prop="menuNo"
         >
+          <span slot="label">编码
+            <el-tooltip class="item" effect="dark" content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）" placement="top-start">
+              <i class="el-icon-question" /></el-tooltip>
+            ：
+          </span>
           <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item" />
         </el-form-item>
         <el-form-item label="状态：">
@@ -323,6 +338,11 @@
             { required: true, message: '请输入URL', trigger: 'blur' }
           ]"
         >
+          <span slot="label">URL
+            <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径" placement="top-start">
+              <i class="el-icon-question" /></el-tooltip>
+            ：
+          </span>
           <el-input v-model="temp.pcUrl" class="filter-item" />
         </el-form-item>
         <el-form-item v-if="port_pc" label="图标：">
@@ -381,78 +401,12 @@
         },
         port_pc: false,
         port_m: false,
-        treeData: [
-          // {
-          //   id: 1,
-          //   label: '人事办公',
-          //   children: [{
-          //     id: 4,
-          //     label: '二级 1-1',
-          //     children: [{
-          //       id: 9,
-          //       label: '三级 1-1-1'
-          //     }, {
-          //       id: 10,
-          //       label: '三级 1-1-2'
-          //     }]
-          //   }]
-          // }, {
-          //   id: 2,
-          //   label: '德育管理',
-          //   children: [{
-          //     id: 5,
-          //     label: '二级 2-1'
-          //   }, {
-          //     id: 6,
-          //     label: '二级 2-2'
-          //   }]
-          // }, {
-          //   id: 3,
-          //   label: '综合设置',
-          //   children: []
-          // }, {
-          //   id: 4,
-          //   label: '实习实训',
-          //   children: []
-          // }, {
-          //   id: 5,
-          //   label: '学生管理',
-          //   children: []
-          // }, {
-          //   id: 6,
-          //   label: '教务管理',
-          //   children: []
-          // }, {
-          //   id: 7,
-          //   label: '教学质量监测与评价',
-          //   children: []
-          // }, {
-          //   id: 8,
-          //   label: '教学诊改数据中心',
-          //   children: []
-          // }
-        ],
+        treeData: [],
         defaultProps: {
           children: 'children',
           label: 'name'
         },
-        btnTableData: [
-          // {
-          //   name: '新增',
-          //   num: 'btn-1',
-          //   page: '是'
-          // },
-          // {
-          //   name: '编辑',
-          //   num: 'btn-2',
-          //   page: '是'
-          // },
-          // {
-          //   name: '删除',
-          //   num: 'btn-3',
-          //   page: '否'
-          // }
-        ],
+        btnTableData: [],
         options: [
           {
             value: '选项1',
@@ -478,10 +432,27 @@
       this.getMenuTreeData()
     },
     methods: {
+      // traverseTree(data, newTree) {
+      //   const dataTree = JSON.parse(JSON.stringify(data))
+      //
+      //   function tree(da) {
+      //     da.forEach(item => {
+      //       item.label = item.name
+      //       if (item.children && item.children.length > 0) {
+      //         tree(item.children)
+      //       }
+      //     })
+      //   }
+      //   tree(dataTree)
+      //   return dataTree
+      // },
       getMenuTreeData() {
         this.$api.menu.menuTree().then(res => {
           this.treeData = res.data
         })
+        // this.$api.menu.list().then(res => {
+        //   console.log(res)
+        // })
       },
       initData() {
         this.temp = {
@@ -514,32 +485,40 @@
         })
       },
       handleDragStart(node, ev) {
-        console.log('drag start', node)
+        // console.log('drag start', node)
       },
       handleDragEnter(draggingNode, dropNode, ev) {
-        console.log('tree drag enter: ', dropNode.label)
+        // console.log('tree drag enter: ', dropNode.label)
       },
       handleDragLeave(draggingNode, dropNode, ev) {
-        console.log('tree drag leave: ', dropNode.label)
+        // console.log('tree drag leave: ', dropNode.label)
       },
       handleDragOver(draggingNode, dropNode, ev) {
-        console.log('tree drag over: ', dropNode.label)
+        // console.log('tree drag over: ', dropNode.label)
       },
-      handleDragEnd(draggingNode, dropNode, dropType, ev) {
+      handleDragEnd(draggingNode, dropNode, dropType, ev) { // 拖拽结束时（可能未成功）触发的事件
         console.log('tree drag end: ', dropNode && dropNode.label, dropType)
       },
-      handleDrop(draggingNode, dropNode, dropType, ev) {
+      handleDrop(draggingNode, dropNode, dropType, ev) { // 拖拽成功完成时触发的事件
         console.log('tree drop: ', dropNode.label, dropType)
       },
-      allowDrop(draggingNode, dropNode, type) {
-        if (dropNode.data.label === '二级 3-1') {
-          return type !== 'inner'
-        } else {
+      allowDrop(draggingNode, dropNode, type) { // 	拖拽时判定目标节点能否被放置。type 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后
+        // console.log(draggingNode, dropNode, type, '放置')
+        if (dropNode.data.menuType === '目录') {
           return true
+        } else {
+          return false
         }
       },
-      allowDrag(draggingNode) {
-        return draggingNode.data.label.indexOf('三级 3-2-2') === -1
+      allowDrag(draggingNode) { // 判断节点能否被拖拽
+        if (draggingNode.data.menuType === '按钮') {
+          this.$notify({
+            title: '警告',
+            message: '按钮不可排序',
+            type: 'warning'
+          })
+        }
+        return draggingNode.data.menuType !== '按钮'
       },
       nodeContextmenu(event, data, node) {
         console.log(event, data, node)
@@ -567,7 +546,7 @@
 
       remove(node, data) {
         // console.log(node, data)
-        this.$confirm('此操作将删除菜单, 是否继续?', '提示', {
+        this.$confirm(`此操作将删除菜单, 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

@@ -10,7 +10,10 @@ export default {
     })
   },
   userInfo(params) {
-    return request2.get(`system/user/info/front`, { params: params })
+    return request2.get('system/user/info/front', { params: params })
+  },
+  userMenus(params) {
+    return request2.get(`menu`, { params: params })
   },
   update(params) {
     return request2.post(`system/user/updateBySelf`, params)

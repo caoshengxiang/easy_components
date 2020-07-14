@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 // todo 定义无菜单权限得页面， 角色权限页面只会在菜单配置得列表页面，其他都定义在这里如详情页面
 // 目前都定义在这里
-const constantRoutes = [
+const routes = [
   {
     path: '/',
     name: 'root',
@@ -47,14 +47,14 @@ const constantRoutes = [
 
 const files = require.context('./modules', false, /\.js$/)
 const requireAll = requireContext => requireContext.keys().forEach(key => {
-  constantRoutes.push(files(key).default) // 读取文件中的default 模块
+  routes.push(files(key).default) // 读取文件中的default 模块
 })
 requireAll(files)
 
 const createRouter = () => new VueRouter({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: routes
 })
 
 const router = createRouter()
@@ -65,4 +65,5 @@ export function resetRouter() {
   router.matcher = newRouter.matcher // reset router
 }
 
+export const constantRoutes = routes
 export default router

@@ -79,6 +79,17 @@ service.interceptors.response.use(
           })
         })
       }
+      if (res.code === 10005) { // 非法token
+        store.dispatch('user/resetToken').then(() => {
+          // location.reload()
+          if (location.href.indexOf('#') > -1) {
+            const href = location.href.split('#')
+            $router.push(`/login?redirect=${href[1]}`)
+          } else {
+            $router.push(`/login`)
+          }
+        })
+      }
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       return res

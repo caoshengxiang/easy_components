@@ -19,7 +19,7 @@ export default [
         id: 101,
         icon: '',
         name: '菜单设置',
-        url: '/set/menu',
+        url: '/views/set/menu',
         external: false // 外部系统
       }, {
         id: 102,
