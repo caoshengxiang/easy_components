@@ -76,10 +76,7 @@ const actions = {
         if (!data) {
           reject('菜单获取错误.')
         }
-        const arr = data.records.filter(item => {
-          return !item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))
-        })
-        resolve(arr)
+        resolve(data)
       }).catch(error => {
         reject(error)
       })

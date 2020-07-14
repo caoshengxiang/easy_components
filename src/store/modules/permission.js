@@ -8,6 +8,7 @@ import Layout from '@/layout'
  * @param roles
  */
 export function filterAsyncRoutes(menusData) {
+  console.info('原始数据', menusData)
   const res = [{
     path: '/auth',
     component: Layout,
@@ -17,7 +18,8 @@ export function filterAsyncRoutes(menusData) {
     const tmp = { ...item }
     if (tmp.children && tmp.children.length) {
       filterAsyncRoutes(tmp.children)
-    } else {
+    }
+    if (!item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))) {
       res[0].children.push({
         path: tmp.pcUrl,
         component: urlMap[tmp.menuNo],
@@ -28,7 +30,6 @@ export function filterAsyncRoutes(menusData) {
       })
     }
   })
-
   return res
 }
 
