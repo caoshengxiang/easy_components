@@ -3,14 +3,14 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
 
-      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">
-        导出
-      </el-button>
+      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>
+      <!--      <PermissionButton menu-no="" class-name="filter-item download-button" type="primary" icon="el-icon-edit" name="导出"/>-->
     </div>
     <div class="filter-container" style="float: left;margin-top: 10px;">
-      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">
-        新增岗位
-      </el-button>
+      <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
+      <!--        新增岗位-->
+      <!--      </el-button>-->
+      <PermissionButton menu-no="_views_set_post_add" class="filter-item" icon="el-icon-plus" type="primary" name="新增岗位" @click="handleAdd"/>
     </div>
     <div class="filter-container" style="float: right;margin-top: 10px;">
       <el-input
@@ -61,15 +61,18 @@
       </el-table-column>
       <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            编辑
-          </el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(row)">
-            删除
-          </el-button>
-          <el-button type="warning" size="mini" @click="handleSetAuth(row)">
-            权限
-          </el-button>
+          <!--          <el-button type="primary" size="mini" @click="handleUpdate(row)">-->
+          <!--            编辑-->
+          <!--          </el-button>-->
+          <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="编辑" @click="handleUpdate(row)"/>
+          <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
+          <!--            删除-->
+          <!--          </el-button>-->
+          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="handleDelete(row)"/>
+          <!--          <el-button type="warning" size="mini" @click="handleSetAuth(row)">-->
+          <!--            权限-->
+          <!--          </el-button>-->
+          <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
         </template>
       </el-table-column>
     </el-table>
@@ -81,8 +84,12 @@
       :limit.sync="listQuery.size"
       @pagination="getList"
     />
-    <el-dialog width="600px" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible"
-               :close-on-click-modal="false">
+    <el-dialog
+      width="600px"
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
+    >
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -130,14 +137,14 @@
   import Pagination from '@/components/Pagination'
 
   import Breadcrumb from '@/components/Breadcrumb'
-  import mixin from '@/VueConfig/mixin'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    mixins: [mixin],
     name: 'PostIndex',
     components: {
       Breadcrumb,
-      Pagination
+      Pagination,
+      PermissionButton,
     },
     filters: {
       statusFilter(status) {
@@ -327,15 +334,6 @@
           })
           .catch(err => { console.error(err) })
       },
-      handleSetAuth(row) {
-        this.$router.push({
-          name: 'postAuth',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
-        })
-      }
     }
   }
 </script>

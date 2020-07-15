@@ -64,14 +64,15 @@
         this.activeItem = item
       },
       jumpMenu(item) {
-        console.log(item)
+        // 跳转涉及到 menuTree.vue PermissionButton.vue
         if (item.menuType === '目录' && item.children && item.children.length > 0) { // todo
           this.$router.push({
             path: item.children[0].pcUrl,
             query: {
               menuLevel1: this.activeItem.id,
               menuLevel2: item.id,
-              menuLevel3: item.children[0].id
+              menuLevel3: item.children[0].id,
+              menuId: item.children[0].id
             }
           })
         } else {

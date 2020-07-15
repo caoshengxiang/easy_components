@@ -95,9 +95,19 @@ rule规则修改还是在 .eslintrc.js
 ### 9. 菜单配置，权限说明
     1. 路由分为两种，有权限、无权限。有权限router 在页面菜单设置配置（但本地要留有router配置备份，如/router/modules_bak 这个备份目录），无权限得写入本地router
     2. 页面菜单设置配置，首先需要在 /router/urlMap.js 做响应配置，urlMap.js 有注释说明，包括一些约定
-    3. 按钮权限，在需要配置按钮权限得页面引入 `import mixin from '@/VueConfig/mixin'`  当页面this.permissionButtons会获取到当前页面得 按钮数组，按编号 menuNo控制权限，如：岗位管理views/set/post/index 的使用
+    3. 按钮权限，在需要配置按钮权限得页面引入组件  参入该按编号 menuNo控制权限，如：岗位管理views/set/post/index 的使用
+        ```
+        import PermissionButton from '@/components/PermissionButton/PermissionButton'
+        // 纯操作性的
+        <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="编辑" @click="handleUpdate(row)"/>
+        // 需要获取按钮 数据的. 需要自己做跳转一定注意url 菜单层级参数
+        <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
+        // 纯跳转性的
+        <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
+        ```
     4. 目录是不需要配置url， 按钮分为两种，纯操作的按钮，和需要绑定页面的（需要按菜单来处理，否则会404）
-
+    5. 页面的url参数：记录四个参数，一二三级(menuLevel1,menuLevel2,menuLevel3)，当前页面记录当前id（使用menuId字段）
+       * 【所有页面都要带上四个菜单的参数】
 #### 999.开发时注意
        1. 设计审批的新增编辑页面 都新开页面 使用弹窗， 需要 从审批哪里调整回来查看详情
        1. 列表查询 统一 点击搜索时查询，查询条件多的列表需要加一个重置按钮
