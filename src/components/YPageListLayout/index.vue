@@ -11,7 +11,7 @@
       <template>
         <slot name="table"></slot>
       </template>
-      <pagination v-show="pageList.total>0" :total="pageList.total" :page.sync="pagePara.current" :limit.sync="pagePara.size" @pagination="getPageList" />
+      <pagination v-if="pageList.total>0" :total="pageList.total" :page.sync="pagePara.current" :limit.sync="pagePara.size" @pagination="getPageList" />
     </div>
 </template>
 

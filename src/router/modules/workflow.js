@@ -10,7 +10,7 @@ export default {
     {
       path: 'index',
       component: () => import('@/views/workflow/List'),
-      meta: { title: '流程设计' }
+      meta: { title: '流程管理' }
     }
   ]
 }
