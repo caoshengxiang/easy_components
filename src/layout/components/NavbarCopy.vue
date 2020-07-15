@@ -75,13 +75,11 @@
         handler(newv) {
           this.initData()
           if (this.$route.path === '/home/index') {
-            console.log('首页')
           } else {
-            console.log('二级', this.menus)
             this.menuLevel1 = this.$route.query.menuLevel1
             this.menuLevel2 = this.$route.query.menuLevel2
             this.menuLevel3 = this.$route.query.menuLevel3
-            this.activeIndex = this.menuLevel3 + ''
+            this.activeIndex = this.menuLevel3
             // this.timer = setInterval(() => {
             //   console.log(1)
             //   if (this.permission_menus && this.permission_menus.length) {
@@ -107,7 +105,7 @@
       this.menuLevel1 = this.$route.query.menuLevel1
       this.menuLevel2 = this.$route.query.menuLevel2
       this.menuLevel3 = this.$route.query.menuLevel3
-      this.activeIndex = this.menuLevel3 + ''
+      this.activeIndex = this.menuLevel3
       this.currentMenus = []
       this.getCurrentMenu(this.menus)
     },

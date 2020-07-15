@@ -33,7 +33,7 @@
             query: {
               menuLevel1: this.$route.query.menuLevel1,
               menuLevel2: this.$route.query.menuLevel2,
-              menuLevel3: this.$route.query.menuLevel3,
+              menuLevel3: menu.id,
             }
           })
         }

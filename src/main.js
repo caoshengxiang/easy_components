@@ -1,5 +1,6 @@
 /* 禁用F12功能 */
 import noDebuger from '@/utils/noDebuger'
+
 if (process.env.NODE_ENV === 'production') { // 生产环境禁用调试
   noDebuger()
 }
@@ -30,7 +31,7 @@ import './router/permission' // permission control
 import './VueConfig'
 
 // 混入
-// import mixin from './VueConfig/mixin'
+import mixin from '@/VueConfig/mixin'
 
 Vue.use(Element, {
   size: Cookies.get('size') || settings.elDefaultSize // set element-ui default size
@@ -38,10 +39,12 @@ Vue.use(Element, {
 
 import EVueContextmenu from 'e-vue-contextmenu'
 import '@/assets/css/contextMenu.scss'
+
 Vue.use(EVueContextmenu)
 
 Vue.config.productionTip = false
 
+// Vue.mixin(mixin)
 new Vue({
   // mixins: [mixin],
   router,

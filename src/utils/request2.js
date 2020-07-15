@@ -79,7 +79,7 @@ service.interceptors.response.use(
           })
         })
       }
-      if (res.code === 10005) { // 非法token
+      if (res.code === 10005 || res.code=== 10004) { // 10005非法token, 10004用户未登录
         store.dispatch('user/resetToken').then(() => {
           // location.reload()
           if (location.href.indexOf('#') > -1) {

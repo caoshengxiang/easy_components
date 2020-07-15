@@ -26,7 +26,7 @@ export function filterAsyncRoutes(menusData) {
         // console.log('菜单')
         res[0].children.push({
           path: tmp.pcUrl,
-          component: urlMap[tmp.menuNo],
+          component: urlMap[tmp.menuCode],
           meta: {
             title: tmp.name,
             icon: tmp.icon

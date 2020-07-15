@@ -1,6 +1,8 @@
 import request2 from '@/utils/request2'
 import md5 from 'js-md5'
-
+/*
+* 账号用户
+*/
 export default {
   login(params) {
     return request2.post(`user/login`, {

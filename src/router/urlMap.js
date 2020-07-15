@@ -3,15 +3,14 @@ url/编码 和 路由文件映射
 
 方便后面维护做一些 约定/说明
 
-url 和 编码 都和组件路径对应
-
-编码必须唯一：
-编码和组件对应
-菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,
-按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）
+url 和 编码, 组件映射 都和组件路径对应
+url: 就以/view/ 下的文件路径
+编码： 必须唯一，url 下划线连接
+组件映射：url 下划线连接
 
 新增编辑同一个页面的情况：
-编码按上面的规则设置成一样，URL 做区分（新增页面 path 在加一级 /add, 如：新增 /views/baseinfo/assetinfo/detail/add 编辑 /views/baseinfo/assetinfo/detail）
+组件映射按上面的规则设置成一样，URL 做区分（新增页面 path 在加一级 /add, 如：新增 /views/baseinfo/assetinfo/detail/add 编辑 /views/baseinfo/assetinfo/detail）
+编码还是url下划线连接
 注意 URL 在同一个系统下 是不能重复！ URL 为router的path，因此切记不能重复
 * */
 

@@ -27,7 +27,6 @@
       </el-button>
     </div>
     <el-table
-
       :key="tableKey"
       v-loading="listLoading"
       :data="list"
@@ -37,7 +36,7 @@
     >
       <el-table-column label="岗位编码" align="center" min-width="150">
         <template slot-scope="{row}">
-          <span>{{ row.num }}</span>
+          <span>{{ row.code }}</span>
         </template>
       </el-table-column>
       <el-table-column label="岗位名称" min-width="150" align="center">
@@ -47,12 +46,12 @@
       </el-table-column>
       <el-table-column label="所属部门" min-width="150" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.part }}</span>
+          <span>{{ row.orgName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="主要职责" min-width="150" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.work }}</span>
+          <span>{{ row.duty }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" min-width="150" align="center">
@@ -78,11 +77,12 @@
     <pagination
       v-show="total>0"
       :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
+      :page.sync="listQuery.current"
+      :limit.sync="listQuery.size"
       @pagination="getList"
     />
-    <el-dialog width="600px" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog width="600px" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible"
+               :close-on-click-modal="false">
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -91,16 +91,16 @@
         label-width="110px"
         style="width: 400px; margin-left:50px;"
       >
-        <el-form-item label="岗位编码：" prop="num">
-          <el-input v-model="temp.num" class="filter-item"/>
+        <el-form-item label="岗位编码：" prop="code">
+          <el-input v-model="temp.code" class="filter-item"/>
 
         </el-form-item>
         <el-form-item label="岗位名称：" prop="name">
           <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
 
-        <el-form-item label="所属部门：" filterable prop="part">
-          <el-select v-model="temp.partId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+        <el-form-item label="所属部门：" filterable prop="orgId">
+          <el-select v-model="temp.orgId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
             <el-option
               v-for="item in partOptions"
               :key="item.id"
@@ -111,7 +111,7 @@
         </el-form-item>
 
         <el-form-item label="主要职责：">
-          <el-input v-model="temp.word" class="filter-item"/>
+          <el-input v-model="temp.duty" class="filter-item"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -130,8 +130,10 @@
   import Pagination from '@/components/Pagination'
 
   import Breadcrumb from '@/components/Breadcrumb'
+  import mixin from '@/VueConfig/mixin'
 
   export default {
+    mixins: [mixin],
     name: 'PostIndex',
     components: {
       Breadcrumb,
@@ -151,21 +153,19 @@
       return {
         tableKey: 0,
         list: [],
-        total: 20,
-        listLoading: true,
+        total: 0,
+        listLoading: false,
         listQuery: {
-          page: 1,
-          limit: 10
+          current: 1,
+          size: 20
         },
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
-          id: '',
-          num: '',
+          code: '',
           name: 1,
-          partId: '',
-          part: '',
-          work: ''
+          orgId: '',
+          duty: ''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
@@ -173,7 +173,7 @@
           create: '新增岗位'
         },
         rules: {
-          num: [{
+          code: [{
             required: true,
             message: '请填写岗位编码',
             trigger: 'change'
@@ -183,7 +183,7 @@
             message: '请填写岗位名称',
             trigger: 'blur'
           }],
-          part: [{
+          orgId: [{
             required: true,
             message: '请选择所属部门',
             trigger: 'change'
@@ -223,32 +223,52 @@
     methods: {
       resetTemp() {
         this.temp = {
-          id: '',
-          num: '',
+          code: '',
           name: 1,
-          part: '',
-          work: ''
+          orgId: '',
+          duty: ''
         }
       },
-      handleCreate() {
-        this.resetTemp()
-        this.dialogStatus = 'create'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
+      // handleCreate() {
+      //   this.resetTemp()
+      //   this.dialogStatus = 'create'
+      //   this.dialogFormVisible = true
+      //   this.$nextTick(() => {
+      //     this.$refs['dataForm'].clearValidate()
+      //   })
+      // },
       createData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-            this.temp.author = 'vue-element-admin'
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '岗位创建成功',
-              type: 'success',
-              duration: 2000
+            this.$api.post.add(this.temp).then(res => {
+              if (res.code === 200) {
+                this.dialogFormVisible = false
+                this.$notify({
+                  title: '成功',
+                  message: '岗位创建成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                this.getList()
+              }
+            })
+          }
+        })
+      },
+      updateData() {
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            this.$api.post.edit(this.temp).then(res => {
+              if (res.code === 200) {
+                this.dialogFormVisible = false
+                this.$notify({
+                  title: '成功',
+                  message: '岗位编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                this.getList()
+              }
             })
           }
         })
@@ -270,51 +290,22 @@
           this.$refs['dataForm'].clearValidate()
         })
       },
-      updateData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            const tempData = Object.assign({}, this.temp)
-            tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '编辑岗位成功',
-              type: 'success',
-              duration: 2000
-            })
-          }
-        })
-      },
       handleFilter() {
 
       },
       getList() {
         const that = this
-        console.log(that.listQuery)
-        that.list = [{
-          id: 1,
-          num: 'P001',
-          name: '实训基地行政',
-          part: '园区实训基地',
-          work: '',
-          created: '2020-06-24 11:12:00'
-        }, {
-          id: 2,
-          num: 'P002',
-          name: '综合部教师',
-          part: '综合部',
-          work: '',
-          created: '2020-06-24 11:12:00'
-        }, {
-          id: 3,
-          num: 'P002',
-          name: '招就合作企业',
-          part: '招生就业处',
-          work: '招生',
-          created: '2020-06-24 11:12:00'
-        }]
-
-        that.listLoading = false
+        this.listLoading = true
+        // console.log(that.listQuery)
+        this.$api.post.list(that.listQuery).then(res => {
+          that.list = res.data.records
+          that.total = res.data.total
+          setTimeout(() => {
+            that.listLoading = false
+          }, 200)
+        }).catch(() => {
+          that.listLoading = false
+        })
       },
       handleDelete(row, index) {
         const that = this
@@ -324,16 +315,21 @@
           type: 'warning'
         })
           .then(async () => {
-            that.list.splice(index, 1)
-            this.$message({
-              type: 'success',
-              message: '删除成功'
+            this.$api.post.delete(row.id).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功'
+                })
+                this.getList()
+              }
             })
           })
           .catch(err => { console.error(err) })
       },
       handleSetAuth(row) {
-        this.$router.push({ name: 'postAuth',
+        this.$router.push({
+          name: 'postAuth',
           query: {
             menuLevel1: this.$route.query.menuLevel1,
             id: row.id
