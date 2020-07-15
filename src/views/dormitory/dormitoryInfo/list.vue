@@ -170,7 +170,7 @@
                   <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"  />
                 </el-select>
               </el-form-item>
-              <el-form-item label="宿舍位置：" >
+微信              <el-form-item label="宿舍位置：" >
                 <el-input v-model="temp.location"  class="filter-item"/>
 
               </el-form-item>

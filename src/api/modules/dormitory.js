@@ -34,5 +34,8 @@ export default {
   exchangeDormitoryBed(params){
     return request.put('/dormitoryBed/exchange', params )
   },
+  dormitoryBedState(params){
+    return request.get('/dormitoryBed/state',{ params: params } )
+  },
 
 }
