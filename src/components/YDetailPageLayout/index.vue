@@ -2,12 +2,12 @@
     <div class="y-detail-page-layout">
       <slot></slot>
       <div class="y-options" v-if="$slots.default">
-        <template v-if="!editStatus">
-          <el-button type="primary" round @click="editStatus = true">编辑</el-button>
+        <template v-if="!isEdit">
+          <el-button type="primary" round @click="isEdit = true">编辑</el-button>
         </template>
         <template v-else>
           <el-button type="primary" round @click="save">保存</el-button>
-          <el-button type="info" round @click="editStatus = false">取消</el-button>
+          <el-button type="info" round @click="isEdit = false">取消</el-button>
         </template>
       </div>
     </div>
@@ -16,6 +16,11 @@
 <script>
     export default {
         name: "index",
+      watch:{
+          editStatus:function (value) {
+            this.isEdit = value;
+          }
+      },
       props: {
         //编辑状态
         editStatus: {
@@ -29,6 +34,11 @@
 
           }
         }
+      },
+      data(){
+          return{
+            isEdit:this.editStatus
+          }
       }
     }
 </script>

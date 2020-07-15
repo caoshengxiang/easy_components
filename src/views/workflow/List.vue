@@ -5,7 +5,7 @@
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="right">
-        <el-button class="filter-item" round  type="primary">
+        <el-button class="filter-item" round  type="primary" @click="$utils.routerLink('/workflow/detail')">
           新增
         </el-button>
       </template>
@@ -26,7 +26,8 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="350">
           <template slot-scope="{row}">
-            <el-button type="primary" round>修改</el-button>
+            <el-button type="primary" round @click="$utils.routerLink(`/workflow/detail?id=${row.id}`)">修改</el-button>
+            <el-button type="warning" round>设计流程</el-button>
             <el-button type="danger" round @click="deleteInfo">删除</el-button>
           </template>
         </el-table-column>
