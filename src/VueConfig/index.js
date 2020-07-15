@@ -8,6 +8,7 @@ import './prototype/qs'
 // import './prototype/echarts'
 import './prototype/targetNewPage'
 import './prototype/webStorage'
+import './prototype/utils'
 
 // globalComponents
 // import './globalComponents/video'

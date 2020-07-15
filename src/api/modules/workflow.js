@@ -2,9 +2,15 @@ import request from '@/utils/request'
 
 export default {
   getList(params){
-    return request.get('approvalConfig', { params: params })
+    return request.get('approvalConfig', params)
   },
-  getDetail(params) {
-    return request.get('/diagram.bpmn')
+  getDetail(id) {
+    return request.get(`approvalConfig/${id}`)
+  },
+  save(params){
+    return request.put(`approvalConfig/${params.id}`, params)
+  },
+  add(params){
+    return request.post(`approvalConfig`, params)
   }
 }
