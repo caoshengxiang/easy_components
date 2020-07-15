@@ -439,7 +439,6 @@
 
       .analysis {
         background-color: white;
-        margin-top: 50px;
         flex: 1;
         .title {
           font-size: 16px;

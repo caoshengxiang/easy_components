@@ -3,35 +3,31 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-page-list-layout>
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="right">
-        <el-button class="filter-item"   type="primary">
+        <el-button class="filter-item" round  type="primary">
           新增
         </el-button>
       </template>
       <el-table
-        :data="list"
+        v-loading="loading"
+        :data="pageData.records"
         border
         fit
         highlight-current-row
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         slot="table"
       >
-        <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
-          <template slot-scope="{row}">
-          <span >
-                                              {{ row.studyCode }}
-                  </span>
-          </template>
+        <el-table-column label="流程名称" prop="name" align="center">
         </el-table-column>
-        <el-table-column label="姓名" width="150px" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.name  }}</span>
-          </template>
+        <el-table-column label="创建用户" prop="creatorName" width="350px" align="center">
         </el-table-column>
-        <el-table-column label="性别" min-width="150px"  align="center">
+        <el-table-column label="创建时间" prop="created" align="center" width="350">
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="350">
           <template slot-scope="{row}">
-            <span>{{ row.sex }}</span>
+            <el-button type="primary" round>修改</el-button>
+            <el-button type="danger" round @click="deleteInfo">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -42,11 +38,12 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   export default {
-    name: 'ComplexTable',
+    name: 'WorkflowList',
     components: {Breadcrumb,YPageListLayout},
     data() {
       return {
-        list:[],
+        loading:false,
+        pageData:{},
         pagePara:{
           current:0,
           size:10
@@ -59,21 +56,33 @@
     },
     methods:{
       getList(){
-        let that = this;
-        that.$api.baseInfo.getGradeList().then(data => {
+        const that = this;
+        that.loading = false;
+        that.$api.workflow.getList(that.pagePara).then(res => {
           that.loading = false;
-          if(data.code === 200){
+          if(res.code === 200){
             //返回成功
-            that.classInfo = data.data
+            that.pageData = res.data;
           }
           else{
-            this.$message({
+            that.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+      },
+      deleteInfo(){
+        const that = this;
+        that.$confirm('请确认是否删除该数据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center:true
+        }).then(() => {
+
+        }).catch(() => {
+        });
       }
     }
   }
