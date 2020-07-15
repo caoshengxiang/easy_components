@@ -1,20 +1,19 @@
 <template>
-
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-page-list-layout>
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item"  style="margin-left: 0px;"  type="primary" @click="handleCreate">
+        <el-button class="filter-item"  style="margin-left: 0px;" round  type="primary" @click="handleCreate">
           新增学生
         </el-button>
       </template>
       <template slot="right">
-        <el-button class="filter-item download-button" style="margin-left: 10px"  icon="el-icon-edit" @click="handleCreate">
+        <el-button class="filter-item download-button" style="margin-left: 10px"  round icon="el-icon-edit" @click="handleCreate">
           导入模板下载
         </el-button>
-        <el-button class="filter-item download-button" type="primary" icon="el-icon-edit" @click="handleCreate">
+        <el-button class="filter-item download-button" round type="primary" icon="el-icon-edit" @click="handleCreate">
           导入
         </el-button>
       </template>
@@ -22,7 +21,7 @@
       <el-table
         v-loading="listLoading"
         :key="tableKey"
-        :data="list"
+        :data="pageData.records"
         border
         fit
         highlight-current-row
@@ -71,10 +70,10 @@
         </el-table-column>
         <el-table-column label="编辑" align="center" width="230" class-name="small-padding fixed-width">
           <template slot-scope="{row,$index}">
-            <el-button type="primary" size="mini" @click="handleUpdate(row)">
+            <el-button type="primary" round size="mini" @click="handleUpdate(row)">
               调换
             </el-button>
-            <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
+            <el-button round v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
               删除
             </el-button>
           </template>
@@ -178,9 +177,12 @@
         list: [],
         total: 20,
         listLoading: true,
+        pageData:{},
+        pagePara:{
+          current:0,
+          size:10
+        },
         listQuery: {
-          page: 1,
-          limit: 10,
           dormitoryId:0
         },
         source:{},
@@ -523,11 +525,11 @@
       },
       getList(){
         let that = this;
-        that.$api.dormitory.getDormitoryBedPage({...that.listQuery}).then(data => {
+        that.$api.dormitory.getDormitoryBedPage({...that.listQuery,...that.pagePara}).then(data => {
           that.loading = false;
           if(data.code === 200){
             //返回成功
-            that.list = data.data.records
+            that.pageData = data.data
             this.total = data.data.total
 
             that.getDetail();
