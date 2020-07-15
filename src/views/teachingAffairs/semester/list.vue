@@ -187,7 +187,7 @@
         that.$router.push({
           path: '/teachingAffairs/semester/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id,
           }
         })
@@ -202,7 +202,7 @@
         this.$router.push({
           path: '/teachingAffairs/semester/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
           }
         })
       },
@@ -211,7 +211,7 @@
         that.$router.push({
           path: '/teachingAffairs/semester/edit',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id,
           }
         })
@@ -221,7 +221,7 @@
         that.$router.push({
           path: '/teachingAffairs/semester/classTime',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id,
           }
         })
@@ -261,7 +261,7 @@
         this.$router.push({
           path: '/staff/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })
@@ -270,7 +270,7 @@
         this.$router.push({
           path: '/staff/edu/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })
@@ -279,7 +279,7 @@
         this.$router.push({
           path: '/staff/wage/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })

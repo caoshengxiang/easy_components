@@ -335,7 +335,7 @@
       handleSetAuth(row) {
         this.$router.push({ name: 'postAuth',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })

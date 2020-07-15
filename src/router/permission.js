@@ -9,7 +9,7 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect', '/404', '/401'] // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -34,7 +34,8 @@ router.beforeEach(async (to, from, next) => {
       if (store.getters.permission_routes && store.getters.permission_routes.length > 0) {
         next()
       } else {
-        // const { name } = await store.dispatch('user/userInfo')
+        const {name} = await store.dispatch('user/userInfo')
+        console.log('账户', name)
         const accessedRoutes = await store.dispatch('user/getMenus')
         const accessRoutes = await store.dispatch('permission/generateRoutes', accessedRoutes)
         accessRoutes.push({

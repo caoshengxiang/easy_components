@@ -14,7 +14,8 @@
       font-weight="bold"
       style="float: left"
     >
-      <el-menu-item v-if="activeIndex !== '/home/index'" index="/home/index" @click="handleSelect('/home/index')">首页</el-menu-item>
+      <el-menu-item v-if="activeIndex !== '/home/index'" index="/home/index" @click="handleSelect('/home/index')">首页
+      </el-menu-item>
       <menu-tree v-for="item in currentMenus" :key="item.id" :menu="item"></menu-tree>
     </el-menu>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
@@ -54,26 +55,36 @@
     data() {
       return {
         activeIndex: '',
-        parentMenuId: null,
+        menuLevel1: null,
+        menuLevel2: null,
+        menuLevel3: null,
         menus: [],
         currentMenus: []
       }
     },
     computed: {
-      ...mapGetters([])
+      ...mapGetters([
+        'permission_menus'
+      ])
     },
     watch: {
       '$route'() {
-        this.menus = this.$webStorage.getItem('menus')
-        this.parentMenuId = this.$route.query.parentMenuId
+        this.menuLevel1 = this.$route.query.menuLevel1
+        this.menuLevel2 = this.$route.query.menuLevel2
         this.activeIndex = this.$route.path
-        this.currentMenus = []
-        this.getCurrentMenu(this.menus)
+      },
+      permission_menus: {
+        immediate: true, // immediate选项可以开启首次赋值监听
+        deep: true,
+        handler(newv) {
+          this.menus = newv
+          this.currentMenus = []
+          this.getCurrentMenu(this.menus)
+        }
       }
     },
     created() {
-      this.menus = this.$webStorage.getItem('menus')
-      this.parentMenuId = this.$route.query.parentMenuId
+      this.menuLevel1 = this.$route.query.menuLevel1
       this.activeIndex = this.$route.path
       this.currentMenus = []
       this.getCurrentMenu(this.menus)
@@ -82,7 +93,7 @@
       getCurrentMenu(menus) {
         menus = menus || []
         menus.forEach(item => {
-          if (parseInt(item.id, 10) === parseInt(this.parentMenuId, 10)) {
+          if (parseInt(item.id, 10) === parseInt(this.menuLevel1, 10)) {
             this.currentMenus = item.children
           } else {
             if (item.children && item.children.length) {

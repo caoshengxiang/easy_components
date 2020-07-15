@@ -3,13 +3,13 @@
     <div class="menu-box">
       <div class="left">
         <div
-          v-for="(item, index) in menus"
+          v-for="(item, index) in permission_menus"
           :key="index"
           class="menu-1-item hvr-underline-from-left"
           :class="{active: activeItem.name === item.name}"
           @click="menusClick(item)"
         >
-          <svg-icon icon-class="dashboard" />
+          <svg-icon icon-class="dashboard"/>
           <span class="text">{{ item.name }}</span>
         </div>
       </div>
@@ -22,7 +22,7 @@
             class="menu-2-item hvr-underline-from-center"
             @click="jumpMenu(item)"
           >
-            <i class="easy-icon easy-icon-avatar" /> <span class="text">{{ item.name }}</span>
+            <i class="easy-icon easy-icon-avatar"/> <span class="text">{{ item.name }}</span>
           </div>
         </div>
       </div>
@@ -31,38 +31,52 @@
 </template>
 
 <script>
-  import menus from './menus'
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Home',
     components: {},
     data() {
       return {
-
-        menus: menus,
-        activeItem: null
+        activeItem: {}
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'permission_menus'
+      ])
+    },
+    watch: {
+      permission_menus: {
+        immediate: true, // immediate选项可以开启首次赋值监听
+        deep: true,
+        handler(newv) {
+          if (newv && newv.length) {
+            this.activeItem = newv[0]
+          }
+        }
       }
     },
     created() {
-      this.activeItem = this.menus[0]
-      this.$webStorage.setItem('menus', this.menus)
     },
     methods: {
       menusClick(item) {
         this.activeItem = item
       },
       jumpMenu(item) {
-        if (item.children && item.children.length) {
+        if (item.menuType === '目录' && item.children && item.children.length > 0) { // todo
           this.$router.push({
-            path: item.children[0].url,
+            path: item.children[0].pcUrl,
             query: {
-              parentMenuId: item.id
+              menuLevel1: item.id,
+              menuId: item.children[0].id
             }
           })
         } else {
           if (item.external) {
-            window.open(item.url)
+            window.open(item.pcUrl)
           } else {
-            this.$router.push({ path: item.url })
+            this.$router.push({ path: item.pcUrl })
           }
         }
       }

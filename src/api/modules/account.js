@@ -10,18 +10,18 @@ export default {
     })
   },
   userInfo(params) {
-    return request2.get('system/user/info/front', { params: params })
+    return request2.get('user/baseInfo', { params: params })
   },
   userMenus(params) {
-    return request2.get(`menu/tree`, { params: params })
+    return request2.get(`user/privilegesTree`, { params: params })
   },
-  update(params) {
-    return request2.post(`system/user/updateBySelf`, params)
-  },
-  resetPwd(params) {
-    return request2.post(`system/user/resetSelfPwd`, params)
-  },
-  userList(params) {
-    return request2.get(`system/user/page`, { params: params })
-  }
+  // update(params) {
+  //   return request2.post(`system/user/updateBySelf`, params)
+  // },
+  // resetPwd(params) {
+  //   return request2.post(`system/user/resetSelfPwd`, params)
+  // },
+  // userList(params) {
+  //   return request2.get(`system/user/page`, { params: params })
+  // }
 }

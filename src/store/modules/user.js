@@ -47,11 +47,9 @@ const actions = {
 
   // get user info
   userInfo({ commit, state }) {
-    console.log(API)
     return new Promise((resolve, reject) => {
       API.account.userInfo().then(response => {
-        // const { data } = response
-        const data = response.records
+        const { data } = response
 
         if (!data) {
           reject('Verification failed, please Login again.')
@@ -78,7 +76,7 @@ const actions = {
         }
         resolve(data)
       }).catch(error => {
-        reject(error)
+        reject(error);
       })
     })
   },
@@ -86,7 +84,7 @@ const actions = {
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      API.account.logout(state.token).then(() => {
+      // API.account.logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_NAME', '')
         commit('SET_AVATAR', '')
@@ -99,9 +97,9 @@ const actions = {
         dispatch('tagsView/delAllViews', null, { root: true })
 
         resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      // }).catch(error => {
+      //   reject(error)
+      // })
     })
   },
   // remove token

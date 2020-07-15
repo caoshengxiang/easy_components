@@ -31,7 +31,7 @@
           this.$router.push({
             path: menu.url,
             query: {
-              parentMenuId: this.$route.query.parentMenuId
+              menuLevel1: this.$route.query.menuLevel1
             }
           })
         }

@@ -92,7 +92,7 @@
         this.$router.push({
           path: key,
           query: {
-            parentMenuId: 1,
+            menuLevel1: 1,
             menuId: 101
           }
         })

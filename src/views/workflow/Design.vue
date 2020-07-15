@@ -5,19 +5,19 @@
 </template>
 
 <script>
-  import YWorkFDesign from '@/components/YWorkFDesign'
-    export default {
-      name: 'Design',
-      components:{YWorkFDesign},
-      data(){
-        return{
-          id:''
-        }
-      },
-      created() {
-        const that = this;
-      },
-      methods: {
+  import yWorkFDesign from '@/components/yWorkFDesign'
+
+  export default {
+    name: 'Design',
+    components: { yWorkFDesign },
+    data() {
+      return {
+        id: ''
       }
-    }
+    },
+    created() {
+      const that = this
+    },
+    methods: {}
+  }
 </script>

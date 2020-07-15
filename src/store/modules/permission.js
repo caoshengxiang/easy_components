@@ -14,34 +14,45 @@ export function filterAsyncRoutes(menusData) {
     component: Layout,
     children: []
   }]
-  menusData.forEach(item => {
-    const tmp = { ...item }
-    if (tmp.children && tmp.children.length) {
-      filterAsyncRoutes(tmp.children)
-    }
-    if (!item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))) {
-      res[0].children.push({
-        path: tmp.pcUrl,
-        component: urlMap[tmp.menuNo],
-        meta: {
-          title: tmp.name,
-          icon: tmp.icon
-        }
-      })
-    }
-  })
+
+  function tree(menusData) {
+    menusData.forEach(item => {
+      const tmp = { ...item }
+      if (tmp.children && tmp.children.length) {
+        // console.log('递归')
+        tree(tmp.children)
+      }
+      if (!item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))) {
+        // console.log('菜单')
+        res[0].children.push({
+          path: tmp.pcUrl,
+          component: urlMap[tmp.menuNo],
+          meta: {
+            title: tmp.name,
+            icon: tmp.icon
+          }
+        })
+      }
+    })
+  }
+
+  tree(menusData)
   return res
 }
 
 const state = {
   routes: [],
-  addRoutes: []
+  addRoutes: [],
+  menus: []
 }
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
+  },
+  SET_MENUS: (state, data) => {
+    state.menus = data
   }
 }
 
@@ -50,6 +61,7 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = filterAsyncRoutes(menusData)
       commit('SET_ROUTES', accessedRoutes)
+      commit('SET_MENUS', menusData)
       resolve(accessedRoutes)
     })
   }

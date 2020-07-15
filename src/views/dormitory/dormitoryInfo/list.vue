@@ -101,7 +101,7 @@
           >
             <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center" width="150">
               <template slot-scope="{row}">
-          <span  class="link-type"><router-link tag="a"  :to="{path:'/dormitory/userIndex',query:{id: row.id, parentMenuId: $route.query.parentMenuId}}"
+          <span  class="link-type"><router-link tag="a"  :to="{path:'/dormitory/userIndex',query:{id: row.id, menuLevel1: $route.query.parentMenuId}}"
                                                 class="routerWork">{{ row.id }}
                   </router-link></span>
               </template>

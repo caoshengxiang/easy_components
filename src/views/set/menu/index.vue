@@ -70,11 +70,11 @@
           <el-tabs type="card">
             <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '详细'">
 
-              <el-alert
-                title="提示：如果菜单下面存在子菜单，那么该菜单只会被作为目录，不会跳转对应页面"
-                type="warning"
-                show-icon
-              />
+<!--              <el-alert-->
+<!--                title="提示：如果菜单下面存在子菜单，那么该菜单只会被作为目录，不会跳转对应页面"-->
+<!--                type="warning"-->
+<!--                show-icon-->
+<!--              />-->
 
               <el-form
                 v-if="menuItem.name"
@@ -269,11 +269,11 @@
       :visible.sync="dialogFormVisible"
       :before-close="handleClose"
     >
-      <el-alert
-        title="提示：如果菜单下面存在子菜单，那么该菜单只会被作为目录，不会跳转对应页面"
-        type="warning"
-        show-icon
-      />
+<!--      <el-alert-->
+      <!--        title="提示：如果菜单下面存在子菜单，那么该菜单只会被作为目录，不会跳转对应页面"-->
+      <!--        type="warning"-->
+      <!--        show-icon-->
+      <!--      />-->
       <el-form
         ref="dataForm"
         :model="temp"

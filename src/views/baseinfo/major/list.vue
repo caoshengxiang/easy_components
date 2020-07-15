@@ -207,7 +207,7 @@
           path: '/baseinfo/major/detail',
           query: {
             id: row.id,
-            parentMenuId: this.$route.query.parentMenuId
+            menuLevel1: this.$route.query.menuLevel1
           }
         })
       },
@@ -217,7 +217,7 @@
           path: '/baseinfo/major/edit',
           query: {
             id: row.id,
-            parentMenuId: this.$route.query.parentMenuId
+            menuLevel1: this.$route.query.menuLevel1
           }
         })
       },
@@ -231,7 +231,7 @@
         this.$router.push({
           path: '/baseinfo/major/edit',
           query: {
-            parentMenuId: this.$route.query.parentMenuId
+            menuLevel1: this.$route.query.menuLevel1
           }
         })
       },
@@ -270,7 +270,7 @@
         this.$router.push({
           path: '/staff/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })
@@ -279,7 +279,7 @@
         this.$router.push({
           path: '/staff/edu/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })
@@ -288,7 +288,7 @@
         this.$router.push({
           path: '/staff/wage/detail',
           query: {
-            parentMenuId: this.$route.query.parentMenuId,
+            menuLevel1: this.$route.query.menuLevel1,
             id: row.id
           }
         })
