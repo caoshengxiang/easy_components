@@ -189,20 +189,7 @@
     }
   }
 </script>
-<style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
-  }
-  .qcode-wrap {
-    display: flex;
 
-    .qcode-item {
-      width: 200px;
-      height: 200px;
-
-    }
-  }
-</style>
 <style lang="scss" scoped>
   .right {
     flex: 1;

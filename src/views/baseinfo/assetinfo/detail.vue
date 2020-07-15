@@ -1,6 +1,6 @@
 <template>
 
-  <div class="workflow-detail app-container">
+  <div class="assetinfo-detail app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
@@ -13,29 +13,26 @@
                     <el-row >
                       <el-col :span="8">
                         <el-form-item label="土地产权：" prop="property" label-width="200px" class="postInfo-container-item ">
-                          <el-select v-if="type=='add'" v-model="postForm.property" placeholder="土地产权" clearable class="filter-item " style="width: 100%">
+                          <el-select v-model="postForm.property" placeholder="土地产权" clearable class="filter-item " style="width: 100%">
                             <el-option key="1" label="70年" value="1" />
                             <el-option key="2" label="50年" value="2" />
                           </el-select>
-                          <el-input v-else v-model="postForm.property" disabled  class="filter-item" />
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="使用状况："  prop="status" label-width="200px" class="postInfo-container-item">
-                          <el-select v-if="type=='add'" v-model="postForm.status" placeholder="使用状况" clearable class="filter-item" style="width: 100%">
+                          <el-select v-model="postForm.status" placeholder="使用状况" clearable class="filter-item" style="width: 100%">
                             <el-option key="1" label="已使用" value="1" />
                             <el-option key="2" label="未使用" value="2" />
                           </el-select>
-                          <el-input v-else v-model="postForm.status" disabled  class="filter-item" />
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label=" 所在校区："  prop="campus" label-width="200px" class="postInfo-container-item">
-                          <el-select v-if="type=='add'" v-model="postForm.campus" placeholder="所在校区" clearable class="filter-item" style="width: 100%">
+                          <el-select v-model="postForm.campus" placeholder="所在校区" clearable class="filter-item" style="width: 100%">
                             <el-option key="1" label="江安校区" value="1" />
                             <el-option key="2" label="望江校区" value="2" />
                           </el-select>
-                          <el-input v-else v-model="postForm.campus" disabled  class="filter-item" />
                         </el-form-item>
                       </el-col>
 
@@ -43,23 +40,20 @@
                     <el-row >
                       <el-col :span="8">
                       <el-form-item label="土地用途："  prop="user" label-width="200px" class="postInfo-container-item">
-                        <el-select v-if="type=='add'" v-model="postForm.user" placeholder="土地用途" clearable class="filter-item" style="width: 100%">
+                        <el-select v-model="postForm.user" placeholder="土地用途" clearable class="filter-item" style="width: 100%">
                           <el-option key="1" label="宿舍" value="1" />
                           <el-option key="2" label="办公楼" value="2" />
                         </el-select>
-                        <el-input v-else v-model="postForm.user" disabled  class="filter-item" />
                       </el-form-item>
                     </el-col>
                       <el-col :span="8">
                         <el-form-item label="土地面积（平方米）："  prop="area" label-width="200px" class="postInfo-container-item">
-                          <el-input v-if="type=='add'" v-model="postForm.area"   class="filter-item" />
-                          <el-input v-else v-model="postForm.area" disabled  class="filter-item" />
+                          <el-input v-model="postForm.area"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="土地证号："  prop="certificateNum" label-width="200px" class="postInfo-container-item">
-                          <el-input v-if="type=='add'" v-model="postForm.certificateNum"   class="filter-item" />
-                          <el-input v-else v-model="postForm.certificateNum" disabled  class="filter-item" />
+                          <el-input v-model="postForm.certificateNum"   class="filter-item" />
                         </el-form-item>
                       </el-col>
 
@@ -68,20 +62,17 @@
                     <el-row >
                       <el-col :span="8">
                         <el-form-item label="土地价格（万元）："  prop="price" label-width="200px" class="postInfo-container-item">
-                          <el-input v-if="type=='add'" v-model="postForm.price"   class="filter-item" />
-                          <el-input v-else v-model="postForm.price" disabled  class="filter-item" />
+                          <el-input v-model="postForm.price"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="用地地址："  prop="addr" label-width="200px" class="postInfo-container-item">
-                          <el-input v-if="type=='add'" v-model="postForm.addr"   class="filter-item" />
-                          <el-input v-else v-model="postForm.addr" disabled  class="filter-item" />
+                          <el-input v-model="postForm.addr"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="用地备注："  prop="type" label-width="200px" class="postInfo-container-item">
-                          <el-input type="textarea" v-if="type=='add'" v-model="postForm.remark"   class="filter-item" />
-                          <el-input type="textarea"  v-else v-model="postForm.remark" disabled  class="filter-item" />
+                          <el-input type="textarea"" v-model="postForm.remark"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -104,11 +95,6 @@
     components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
-        name:'111',
-        gradeInfo: [{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
-        classInfo:[{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
-        majorInfo:[{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        type:'add',
         postForm: {},
         rules: {
           property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
