@@ -68,7 +68,7 @@
           <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
           <!--            删除-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="handleDelete(row)"/>
+          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
           <!--          <el-button type="warning" size="mini" @click="handleSetAuth(row)">-->
           <!--            权限-->
           <!--          </el-button>-->
@@ -314,7 +314,8 @@
           that.listLoading = false
         })
       },
-      handleDelete(row, index) {
+      handleDelete(row, data) {
+        // console.log(data)
         const that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
