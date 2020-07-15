@@ -14,7 +14,7 @@
       font-weight="bold"
       style="float: left"
     >
-      <el-menu-item v-if="activeIndex !== '/home/index'" index="/home/index" @click="handleSelect('/home/index')">首页
+      <el-menu-item v-if="$route.path !== '/home/index'" index="99999" @click="handleSelect('/home/index')">首页
       </el-menu-item>
       <menu-tree v-for="item in currentMenus" :key="item.id" :menu="item"></menu-tree>
     </el-menu>
@@ -59,7 +59,8 @@
         menuLevel2: null,
         menuLevel3: null,
         menus: [],
-        currentMenus: []
+        currentMenus: [],
+        timer: null,
       }
     },
     computed: {
@@ -68,10 +69,29 @@
       ])
     },
     watch: {
-      '$route'() {
-        this.menuLevel1 = this.$route.query.menuLevel1
-        this.menuLevel2 = this.$route.query.menuLevel2
-        this.activeIndex = this.$route.path
+      '$route': {
+        immediate: true, // immediate选项可以开启首次赋值监听
+        deep: true,
+        handler(newv) {
+          this.initData()
+          if (this.$route.path === '/home/index') {
+            console.log('首页')
+          } else {
+            console.log('二级', this.menus)
+            this.menuLevel1 = this.$route.query.menuLevel1
+            this.menuLevel2 = this.$route.query.menuLevel2
+            this.menuLevel3 = this.$route.query.menuLevel3
+            this.activeIndex = this.menuLevel3 + ''
+            // this.timer = setInterval(() => {
+            //   console.log(1)
+            //   if (this.permission_menus && this.permission_menus.length) {
+            //     clearInterval(this.timer)
+            //     this.getCurrentMenu(this.permission_menus)
+            //   }
+            // }, 200)
+            this.getCurrentMenu(this.permission_menus)
+          }
+        }
       },
       permission_menus: {
         immediate: true, // immediate选项可以开启首次赋值监听
@@ -85,18 +105,28 @@
     },
     created() {
       this.menuLevel1 = this.$route.query.menuLevel1
-      this.activeIndex = this.$route.path
+      this.menuLevel2 = this.$route.query.menuLevel2
+      this.menuLevel3 = this.$route.query.menuLevel3
+      this.activeIndex = this.menuLevel3 + ''
       this.currentMenus = []
       this.getCurrentMenu(this.menus)
     },
     methods: {
+      initData() {
+        this.activeIndex = ''
+        this.menuLevel1 = null
+        this.menuLevel2 = null
+        this.menuLevel3 = null
+        this.menus = []
+        this.currentMenus = []
+      },
       getCurrentMenu(menus) {
         menus = menus || []
         menus.forEach(item => {
-          if (parseInt(item.id, 10) === parseInt(this.menuLevel1, 10)) {
+          if (parseInt(item.id, 10) === parseInt(this.$route.query.menuLevel2, 10)) {
             this.currentMenus = item.children
           } else {
-            if (item.children && item.children.length) {
+            if (item.children && item.children.length && item.menuType === '目录') {
               this.getCurrentMenu(item.children)
             }
           }

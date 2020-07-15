@@ -1,13 +1,13 @@
 <template>
-  <el-submenu v-if="menu.children && menu.children.length >= 1" :index="menu.menuId + ''">
+  <el-submenu v-if="menu.menuType === '目录'" :index="menu.id + ''">
     <template slot="title">
-      <i :class="menu.icon"></i>
+      <i :class="menu.pcIcon"></i>
       <span slot="title">{{menu.name}}</span>
     </template>
     <MenuTree v-for="item in menu.children" :key="item.id" :menu="item"></MenuTree>
   </el-submenu>
-  <el-menu-item v-else :index="menu.url" @click="handleRoute(menu)">
-    <i :class="menu.icon"></i>
+  <el-menu-item v-else :index="menu.id+''" @click="handleRoute(menu)">
+    <i :class="menu.pcIcon"></i>
     <span slot="title">{{menu.name}}</span>
   </el-menu-item>
 </template>
@@ -29,9 +29,11 @@
           window.open(menu.url)
         } else {
           this.$router.push({
-            path: menu.url,
+            path: menu.pcUrl,
             query: {
-              menuLevel1: this.$route.query.menuLevel1
+              menuLevel1: this.$route.query.menuLevel1,
+              menuLevel2: this.$route.query.menuLevel2,
+              menuLevel3: this.$route.query.menuLevel3,
             }
           })
         }

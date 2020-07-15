@@ -64,12 +64,14 @@
         this.activeItem = item
       },
       jumpMenu(item) {
+        console.log(item)
         if (item.menuType === '目录' && item.children && item.children.length > 0) { // todo
           this.$router.push({
             path: item.children[0].pcUrl,
             query: {
-              menuLevel1: item.id,
-              menuId: item.children[0].id
+              menuLevel1: this.activeItem.id,
+              menuLevel2: item.id,
+              menuLevel3: item.children[0].id
             }
           })
         } else {
