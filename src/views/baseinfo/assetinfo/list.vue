@@ -22,7 +22,7 @@
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary"  @click="handleAdd">
+        <el-button class="filter-item" round type="primary"  @click="add">
           新增用地
         </el-button>
         <el-input v-model="listQuery.keyword" placeholder="用地编号或名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
@@ -42,24 +42,24 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="土地产权" prop="id" sortable="custom" align="center" width="150">
+        <el-table-column label="土地产权" prop="id" sortable="custom" align="center" width="200px">
           <template slot-scope="{row}">
           <span >
                                               {{ row.property }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="使用状况" width="150px" align="center">
+        <el-table-column label="使用状况" width="200px" align="center">
           <template slot-scope="{row}">
             <span>{{ row.status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="校区" width="150px"  align="center">
+        <el-table-column label="校区" width="200px"  align="center">
           <template slot-scope="{row}">
             <span>{{ row.campus }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用途" width="110px" align="center">
+        <el-table-column label="用途" width="200px" align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.user }}
@@ -67,13 +67,13 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="面积(平方米)"  width="110px" align="center">
+        <el-table-column label="面积(平方米)"  width="200px" align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.area }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="土地证号" align="center" width="95">
+        <el-table-column label="土地证号" align="center" min-width="200px">
           <template slot-scope="{row}">
             <span >{{ row.certificateNum }}</span>
           </template>
@@ -150,13 +150,22 @@
         }).catch(() => {
         });
       },
+      add(){
+        let that =this;
+        that.$router.push({
+          path:"/baseinfo/assetdetail",
+          query: {
+            type: "add"
+          }
+        })
+      },
       detail(id){
         let that =this;
         that.$router.push({
           path:"/baseinfo/assetdetail",
           query: {
             id:id,
-            type: "detail"
+            type: "add"
           }
         })
       },
