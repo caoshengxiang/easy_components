@@ -94,10 +94,12 @@
             <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
           </el-form-item>-->
         <el-form-item label="宿舍类型：" >
-          <el-input v-model="dormitoryDetail.cate"   class="filter-item" disabled/>
+          <el-input v-model="dormitoryDetail.cate"  v-if="dialogStatus=='create'"   class="filter-item" disabled/>
+          <el-input v-model="bedInfo.cate"  v-else   class="filter-item" disabled/>
         </el-form-item>
         <el-form-item label="宿舍负责人：" >
-          <el-input v-model="managerName"   class="filter-item" disabled/>
+          <el-input v-model="managerName"  v-if="dialogStatus=='create'"  class="filter-item" disabled/>
+          <el-input v-model="bedInfo.teacherName"  v-else  class="filter-item" disabled/>
         </el-form-item>
         <el-form-item label="选择床位：" prop="importance" v-if="dialogStatus=='create'">
           <el-checkbox-group v-model="importance"  style="float: left;">
@@ -126,7 +128,7 @@
         </el-form-item>
         <el-form-item label="床位："  v-if="dialogStatus!='create'">
           <el-select v-model="desBed" placeholder="床位"  style="float: left;" class="filter-item">
-            <el-option  :label="item" :value="item" v-for="item in bedInfo1" />
+            <el-option  :label="item.studentName" :value="item.bedNo" v-for="item in bedInfo.beds" />
           </el-select>
         </el-form-item>
 
@@ -167,7 +169,7 @@
     data() {
       return {
         detailNew:{},
-        bedInfo:[{label:"1床-刘大大",value:0},{label:"二床-李大大",value:1}, {label:"三床",value:2}, {label:"四床",value:3}],
+        bedInfo:{},
         bedInfo1:[],
         importance:[],
         beds:[],
@@ -407,6 +409,8 @@
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
+
+        that.changeDo()
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })
@@ -415,6 +419,25 @@
         //// 根据宿舍编号查询出床位列表
         let that = this
         let ss = that.dormitoryDetail.code;
+        that.$api.dormitory.dormitoryBedState({code: that.dormitoryDetail.code}).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            that.bedInfo = data.data
+
+            that.bedInfo.beds.forEach(function (item) {
+              if(item.studentId){
+                item.studentName = item.bedNo + '-' + item.studentName + item.gradeName + item.clbumName
+              }
+            })
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+
         that.detailNew = {id:5}
       },
       updateData() {
