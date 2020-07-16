@@ -1,22 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-    </div>
-    <div class="filter-container" style="margin-top: 10px;float: left">
-      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" icon="el-icon-edit" @click="handleAdd">
-        新增设施
-      </el-button>
-      <el-select v-model="listQuery.importance" placeholder="使用部门" clearable style=" width: 200px" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-    </div>
-    <div class="filter-container" style="margin-top: 10px;float: right">
-      <el-input v-model="listQuery.description" placeholder="设施名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button class="filter-item" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="getList">
-        搜索
-      </el-button>
-
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <div class="right">
       <div class="menu-2-box">
@@ -27,398 +12,188 @@
           <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总数100</span>
         </div>
         <div
-        :key="index"
-        class="menu-2-item hvr-underline-from-center"
-      >
-        <i class="easy-icon easy-icon-avatar" /> <span class="text">设施建设总费100</span>
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总建设费100</span>
+        </div>
       </div>
-      </div>
-
     </div>
-    <el-table
-
-      v-loading="listLoading"
-      :key="tableKey"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="设施名称" prop="id" sortable="custom" align="center" width="150">
-        <template slot-scope="{row}">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+      <template slot="left">
+        <el-button class="filter-item" round type="primary" @click="detail()">
+          新增设施
+        </el-button>
+        <el-select v-model="listQuery.orgId" placeholder="使用部门" clearable style="margin-left: 20px; width: 200px" class="filter-item">
+          <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-input v-model="listQuery.name" placeholder="设施名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" round type="primary" @click="getList">
+          搜索
+        </el-button>
+      </template>
+      <el-table
+        v-loading="listLoading"
+        :key="tableKey"
+        :data="pageData.records"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
+        slot="table"
+      >
+        <el-table-column label="设施名称" prop="id" sortable="custom" align="center" width="200">
+          <template slot-scope="{row}">
           <span >
-                                              {{ row.content2 }}
+                                              {{ row.name }}
                   </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="建成年月" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="设施产权" min-width="150px"  align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.title }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="使用部门" width="110px" align="center">
-        <template slot-scope="{row}">
+          </template>
+        </el-table-column>
+        <el-table-column label="建成年月" width="200" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.buildDate | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="设施产权" min-width="200"  align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.property }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="使用部门" min-width="200" align="center">
+          <template slot-scope="{row}">
             <span >
-         {{ row.id }}
+         {{ row.orgName }}
 
             </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="建设费用"  width="110px" align="center">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.content }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="经费来源"  width="110px" align="center">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.content }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" class-name="status-col" width="200">
-        <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="detail(row.id)">
-            编辑
-          </el-button>
-          <el-button type="primary" size="mini">
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
+          </template>
+        </el-table-column>
+        <el-table-column label="建设费用"  width="150" align="center">
+          <template slot-scope="{row}">
+            <span >{{ row.buildCost }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="经费来源" width="150">
+          <template slot-scope="{row}">
+            <span >{{ row.financialResource }}年</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" class-name="status-col" width="200">
+          <template slot-scope="{row}">
+            <el-button type="primary" round size="mini" @click="detail(row.id)">
+              编辑
+            </el-button>
+            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </y-page-list-layout>
   </div>
 </template>
 <script>
   import Pagination from '@/components/Pagination'
-  import QRCode from 'qrcode';
-
   import Breadcrumb from '@/components/Breadcrumb'
+  import YPageListLayout from '@/components/YPageListLayout'
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination},
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'info',
-          deleted: 'danger'
-        }
-        return statusMap[status]
-      },
-    },
+    components: {Breadcrumb,Pagination,YPageListLayout},
     data() {
       return {
-        innerUrl:'../../../assets/ercode.png',
-        productInnerQR:false,
-        calendarTypeOptions1: [
-          { key: 1, display_name: '春季' },
-          { key: 2, display_name: '秋季' }
-        ],
-        displayTime:'',
-        tableKey: 0,
-        list: [
-        ],
-        total: 20,
-        listLoading: true,
+        pageData:{},
+        pagePara:{
+          current:0,
+          size:10
+        },
         listQuery: {
-          page: 1,
-          limit: 10,
-          class: undefined,
-          grade: undefined,
-          major: undefined,
-          full: undefined,
-          jiudu: undefined,
-          sort: '+id',
-          description:'',
-          displayTime:'',
-          qrname:'二维码名称'
+          code: '',
+          constructionId: ''
         },
-        gradeInfo: [{label:"全部",value:0},{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
-        classInfo:[{label:"全部",value:0},{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
-        majorInfo:[{label:"全部",value:0},{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        IsFull:[{label:"全部",value:0},{label:"按行政班级",value:1}, {label:"按学籍班级",value:2}],
-        jiudu:[{label:"全部",value:0},{label:"在读",value:1}, {label:"离校",value:2}],
-        dialogFormVisible: false,
-        dialogStatus: '',
-        temp: {
-          id: undefined,
-          remark: '',
-          title: 1,
-          type: '',
-          status: '',
-          timestamp:'',
-          week:''
-        },
-        statusOptions: ['published', 'draft', 'deleted'],
-        textMap: {
-          update: '编辑宿舍',
-          create: '新增宿舍周考核'
-        },
-        rules: {
-          type: [{ required: true, message: '请填写年份', trigger: 'change' }],
-          week: [{ required: true, message: '请填写考核周数', trigger: 'blur' }],
-        },
+        departmentList:[]
       }
     },
     created(){
       let that = this;
-      that.getList();
+      that.getList()  ////查询列表
+
+      that.getDepartmentList() ////查询建筑物列表
     },
     methods:{
+      deleteInfo(id){
+        const that = this;
+        that.$confirm('请确认是否删除该数据?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center:true
+        }).then(() => {
+          that.$api.assetinfo.deleteFacility({ id: id }).then(data => {
+            that.loading = false;
+            if(data.code === 200){
+              that.getList()
+            }
+            else{
+              this.$message({
+                type: 'error',
+                message: data.msg
+              })
+            }
+          })
+
+        }).catch(() => {
+        });
+      },
       detail(id){
         let that =this;
         that.$router.push({
           path:"/baseinfo/facilitiesdetail",
           query: {
-            id:id,
-            type: "detail"
+            id: id,
           }
         })
       },
-      downloadCodeImg(row){
-        QRCode.toDataURL(this.innerUrl, {
-          width: 390
-        }, function(err, url) {
-          let a = document.createElement('a');
-          a.href = url;
-          a.download = row.qrname +".png";
-          a.click();
-        });
-      },
-      resetTemp() {
-        this.temp = {
-          id: undefined,
-          importance: 1,
-          remark: '',
-          timestamp: 1,
-          title: 1,
-          status: '',
-          type: '',
-          qrname:'二维码名称'
-        }
-      },
-      handleCreate() {
-        this.resetTemp()
-        this.dialogStatus = 'create'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      createData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-            this.temp.author = 'vue-element-admin'
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
-              type: 'success',
-              duration: 2000
-            })}
-        })
-      },
-      handleAdd() {
-        this.temp = Object.assign({}) // copy obj
-        this.dialogStatus = 'create'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      handleUpdate(row) {
-        this.temp = Object.assign({}, row) // copy obj
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      updateData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            const tempData = Object.assign({}, this.temp)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
-              type: 'success',
-              duration: 2000
+      getDepartmentList(){
+        let that = this;
+        that.pagePara.size = 10000
+        that.$api.baseInfo.getDepartmentList({...that.pagePara}).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+
+            //返回成功
+            that.departmentList = data.data.records
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
             })
           }
         })
+        that.listLoading = false;
       },
       getList(){
         let that = this;
-        console.log(that.listQuery);
-        that.list =[{
-          "id": 21,
-          "timestamp": '男生宿舍',
-          "author": "Karen",
-          "reviewer": "Frank",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 8,
-          "content": 8,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 22,
-          "timestamp": '男生宿舍',
-          "author": "Linda",
-          "reviewer": "Edward",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 7,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 23,
-          "timestamp": '男生宿舍',
-          "author": "Patricia",
-          "reviewer": "Steven",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 6,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 24,
-          "timestamp": '男生宿舍',
-          "author": "Shirley",
-          "reviewer": "Brian",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 5,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 25,
-          "timestamp": '男生宿舍',
-          "author": "Richard",
-          "reviewer": "Cynthia",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 9,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 26,
-          "timestamp": '男生宿舍',
-          "author": "Thomas",
-          "reviewer": "Edward",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 7,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 27,
-          "timestamp": '男生宿舍',
-          "author": "Mary",
-          "reviewer": "William",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 6,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 28,
-          "timestamp": '男生宿舍',
-          "author": "Angela",
-          "reviewer": "Laura",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 8,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        }, {
-          "id": 29,
-          "timestamp": '男生宿舍',
-          "author": "Steven",
-          "reviewer": "Cynthia",
-          "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-          "content_short": 10,
-          "content": 7,
-          "content1": '未住满',
-          "content2": '杨再林',
-          "content3": '15196637504',
-          'qrname':'二维码名称'
-        },
-          {
-            "id": 30,
-            "timestamp": '男生宿舍',
-            "author": "David",
-            "reviewer": "Margaret",
-            "title": "成都市武侯大道一段园中园西区2栋三单元3楼7号",
-            "content_short": 10,
-            "content": 7,
-            "content1": '未住满',
-            "content2": '杨再林',
-            "content3": '15196637504',
-            'qrname':'二维码名称'
-          }]
-
-        that.listLoading = false;
-      },
-      handleDelete(row, index) {
-        let that = this;
-        that.$confirm('确认删除当前记录吗?', '警告', {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(async() => {
-            that.list.splice(index, 1)
+        that.$api.assetinfo.getFacilityPage({...that.listQuery,...that.pagePara}).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.pageData = data.data
+          }
+          else{
             this.$message({
-              type: 'success',
-              message: '删除成功'
+              type: 'error',
+              message: data.msg
             })
-          })
-          .catch(err => { console.error(err) })
-
+          }
+        })
+        that.listLoading = false;
       },
     }
   }
 </script>
-<style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
-  }
-  .qcode-wrap {
-    display: flex;
 
-  .qcode-item {
-    width: 200px;
-    height: 200px;
-
-  }
-  }
-</style>
 <style lang="scss" scoped>
   .right {
     flex: 1;
@@ -457,3 +232,4 @@
     }
   }
 </style>
+
