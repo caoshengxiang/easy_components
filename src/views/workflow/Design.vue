@@ -16,7 +16,12 @@
       }
     },
     created() {
-      const that = this
+      const that = this;
+      if (!that.$route.query.id) {
+        that.$utils.routerLink('/404');
+        return;
+      }
+      that.id = that.$route.query.id;
     },
     methods: {}
   }

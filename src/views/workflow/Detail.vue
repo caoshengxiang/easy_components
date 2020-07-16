@@ -79,6 +79,7 @@
                   that.$utils.loading.hide();
                   if(res.code === 200){
                     that.$message.success('操作成功！');
+                    that.$utils.routerLink("/workflow/index");
                   }
                   else{
                     that.$message({
@@ -92,6 +93,7 @@
                   that.$utils.loading.hide();
                   if(res.code === 200){
                     that.$message.success('操作成功！');
+                    that.$utils.routerLink("/workflow/index");
                   }
                   else{
                     that.$message({
