@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import YWorkFDesign from '@/components/yWorkFDesign'
+  import YWorkFDesign from '@/components/YWorkFDesign'
 
   export default {
     name: 'Design',
