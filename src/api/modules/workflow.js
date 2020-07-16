@@ -12,5 +12,8 @@ export default {
   },
   add(params){
     return request.post(`approvalConfig`, params)
+  },
+  deleteInfo(id) {
+    return request.delete(`approvalConfig/${id}`)
   }
 }
