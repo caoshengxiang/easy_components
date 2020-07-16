@@ -3,15 +3,16 @@
     <div class="set-menu-box">
       <div class="left">
         <div style="margin-bottom: 10px;">
-          <el-button
-            class="filter-item"
-            icon="el-icon-plus"
-            style="margin-left: 0px;"
-            type="primary"
-            @click="handleAdd"
-          >
-            新增一级菜单
-          </el-button>
+<!--          <el-button-->
+<!--            class="filter-item"-->
+<!--            icon="el-icon-plus"-->
+<!--            style="margin-left: 0px;"-->
+<!--            type="primary"-->
+<!--            @click="handleAdd"-->
+<!--          >-->
+<!--            新增一级菜单-->
+<!--          </el-button>-->
+          <PermissionButton menu-no="_views_set_menu_add" className="filter-item" icon="el-icon-plus" type="primary" name="" @click="handleAdd"/>
           <span style="color: #666666;font-size: 10px;padding-left: 10px;">(菜单可拖拽排序、点击编辑)</span>
         </div>
 
@@ -42,22 +43,24 @@
             <!--            <span>{{ data }}</span>-->
             <span style="margin-left: 5px;">{{ data.name }}</span>
             <span class="btns">
-              <el-button
-                type="text"
-                size="mini"
-                @click.stop="() => append(data)"
-              >
-                添加
-              </el-button>
-              <el-button
-                v-if="!data.children || data.children.length===0"
-                type="text"
-                style="color: red;"
-                size="mini"
-                @click.stop="() => remove(node, data)"
-              >
-                删除
-              </el-button>
+<!--              <el-button-->
+<!--                type="text"-->
+<!--                size="mini"-->
+<!--                @click.stop="() => append(data)"-->
+<!--              >-->
+<!--                添加-->
+<!--              </el-button>-->
+              <PermissionButton menu-no="_views_set_menu_add_tree" type="text" size="mini" name="" @click.stop="() => append(data)"/>
+<!--              <el-button-->
+<!--                v-if="!data.children || data.children.length===0"-->
+<!--                type="text"-->
+<!--                style="color: red;"-->
+<!--                size="mini"-->
+<!--                @click.stop="() => remove(node, data)"-->
+<!--              >-->
+<!--                删除-->
+<!--              </el-button>-->
+              <PermissionButton v-if="!data.children || data.children.length===0" menu-no="_views_set_menu_remove" style="color: red;" type="text" size="mini" name="" @click.stop="() => remove(node, data)"/>
               <!--            <i class="el-icon-circle-plus" @click.stop="() => append(data)"></i>-->
               <!--            <i style="color: red;margin-left: 5px;" class="el-icon-delete-solid" @click.stop="() => remove(node, data)"></i>-->
 
@@ -91,7 +94,7 @@
                     <el-tooltip
                       class="item"
                       effect="dark"
-                      content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面)"
+                      content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)"
                       placement="top-start"
                     >
                       <i class="el-icon-question"/></el-tooltip>
@@ -260,16 +263,17 @@
             v-if="menuItem.name"
             style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"
           >
-            <el-button
-              v-if="type=='detail'"
-              class="filter-item download-button"
-              style="margin-left: 10px;"
-              type="primary"
-              icon="el-icon-edit"
-              @click="type='add'"
-            >
-              编辑
-            </el-button>
+<!--            <el-button-->
+<!--              v-if="type=='detail'"-->
+<!--              class="filter-item download-button"-->
+<!--              style="margin-left: 10px;"-->
+<!--              type="primary"-->
+<!--              icon="el-icon-edit"-->
+<!--              @click="type='add'"-->
+<!--            >-->
+<!--              编辑-->
+<!--            </el-button>-->
+            <PermissionButton v-if="type=='detail'" menu-no="_views_set_menu_edit" class-name="filter-item download-button" style="margin-left: 10px;" type="primary" name="" icon="el-icon-edit" @click="type='add'"/>
             <el-button
               v-if="type=='add'"
               class="filter-item download-button"
@@ -320,7 +324,7 @@
         </el-form-item>
         <el-form-item label="菜单类型：">
           <span slot="label">菜单类型
-            <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面)" placement="top-start">
+            <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)" placement="top-start">
               <i class="el-icon-question"/></el-tooltip>
             ：
           </span>
@@ -439,8 +443,12 @@
 </template>
 
 <script>
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
   export default {
     name: 'Index',
+    components: {
+      PermissionButton,
+    },
     data() {
       return {
         loading: false,

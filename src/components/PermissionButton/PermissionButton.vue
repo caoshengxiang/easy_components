@@ -23,7 +23,7 @@
     :native-type="nativeType"
     @click="handle"
   >
-    {{ name }}
+    {{ name || menu.name }}
   </el-button>
 </template>
 

@@ -64,15 +64,15 @@
           <!--          <el-button type="primary" size="mini" @click="handleUpdate(row)">-->
           <!--            编辑-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="编辑" @click="handleUpdate(row)"/>
+          <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="" @click="handleUpdate(row)"/>
           <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
           <!--            删除-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
+          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="" @click="(data) =>{handleDelete(row, data)}"/>
           <!--          <el-button type="warning" size="mini" @click="handleSetAuth(row)">-->
           <!--            权限-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
+          <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="" :page-jump="true" :page-query="{id: row.id}"/>
         </template>
       </el-table-column>
     </el-table>

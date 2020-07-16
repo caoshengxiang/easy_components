@@ -98,7 +98,7 @@ rule规则修改还是在 .eslintrc.js
     3. 按钮权限，在需要配置按钮权限得页面引入组件  参入该按编号 menuNo控制权限，如：岗位管理views/set/post/index 的使用
         ```
         import PermissionButton from '@/components/PermissionButton/PermissionButton'
-        // 纯操作性的
+        // 纯操作性的 name不写会自动从配置中读取
         <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="编辑" @click="handleUpdate(row)"/>
         // 需要获取按钮 数据的. 需要自己做跳转一定注意url 菜单层级参数
         <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
