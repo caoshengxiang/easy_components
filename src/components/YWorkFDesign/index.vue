@@ -95,7 +95,8 @@
         dialogFormVisible: false,
         taskForm: {
           name: ''
-        }
+        },
+        form:{}
       }
     },
     mounted() {
@@ -107,8 +108,16 @@
 
       // 如果接收id不为空，请求服务器数据
       if (that.id) {
-        that.$api.workflow.getDetail().then(data => {
-          that.initDesign(data)
+        that.$api.workflow.getDetail(that.id).then(res => {
+          if(res.code === 200){
+            that.form = res.data;
+            that.initDesign(res.data.diagramBpmn)
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
         })
       } else {
         // 重置
@@ -156,7 +165,15 @@
         that.bpmnModeler.importXML(xmlData, function (err) {
           that.loading = false
           if (err) {
-            that.$message.error('初始化错误')
+            that.$confirm('源数据初始化错误，是否重置该流程设计?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning',
+              center: true
+            }).then(() => {
+              that.initDesign(xmlStr)
+            }).catch(() => {
+            })
           } else {
             that.bpmnModeler.get('canvas').zoom('fit-viewport')
             that.addEventBusListener()
@@ -270,9 +287,21 @@
         that.$refs.ctxshow.hideMenu()
         // eslint-disable-next-line handle-callback-err
         that.saveDiagram(function (err, xml) {
-          console.log(xml)
+          that.form.diagramBpmn = xml;
+          that.$utils.loading.show();
+          that.$api.workflow.save(that.form).then(res => {
+            that.$utils.loading.hide();
+            if(res.code === 200){
+              that.$message.success('操作成功！');
+            }
+            else{
+              that.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
+          })
         })
-        that.$message.success('保存成功')
       },
       connectLine() {
         this.$refs.ctxshow.hideMenu()
@@ -344,7 +373,7 @@
 </script>
 
 <style scoped lang="scss">
-  $assets: '~@/components/yWorkFDesign/assets/';
+  $assets: '~@/components/YWorkFDesign/assets/';
   /*左边工具栏以及编辑节点的样式*/
   @import '~bpmn-js/dist/assets/diagram-js.css';
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn.css';

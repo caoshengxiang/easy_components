@@ -5,18 +5,23 @@
 </template>
 
 <script>
-  import yWorkFDesign from '@/components/yWorkFDesign'
+  import YWorkFDesign from '@/components/YWorkFDesign'
 
   export default {
     name: 'Design',
-    components: { yWorkFDesign },
+    components: { YWorkFDesign },
     data() {
       return {
         id: ''
       }
     },
     created() {
-      const that = this
+      const that = this;
+      if (!that.$route.query.id) {
+        that.$utils.routerLink('/404');
+        return;
+      }
+      that.id = that.$route.query.id;
     },
     methods: {}
   }

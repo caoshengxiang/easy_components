@@ -27,8 +27,8 @@
         <el-table-column label="操作" align="center" width="350">
           <template slot-scope="{row}">
             <el-button type="primary" round @click="$utils.routerLink(`/workflow/detail?id=${row.id}`)">修改</el-button>
-            <el-button type="warning" round>设计流程</el-button>
-            <el-button type="danger" round @click="deleteInfo">删除</el-button>
+            <el-button type="warning" round @click="$targetNewPage(`/workflow/design?id=${row.id}`)">设计流程</el-button>
+            <el-button type="danger" round @click="deleteInfo(row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -58,7 +58,7 @@
     methods:{
       getList(){
         const that = this;
-        that.loading = false;
+        that.loading = true;
         that.$api.workflow.getList(that.pagePara).then(res => {
           that.loading = false;
           if(res.code === 200){
@@ -73,7 +73,7 @@
           }
         })
       },
-      deleteInfo(){
+      deleteInfo(id){
         const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
           confirmButtonText: '确定',
@@ -81,7 +81,20 @@
           type: 'warning',
           center:true
         }).then(() => {
-
+          that.$utils.loading.show();
+          that.$api.workflow.deleteInfo(id).then(res => {
+            that.$utils.loading.hide();
+            if(res.code === 200){
+              that.$message.success('操作成功！');
+              that.getList();
+            }
+            else{
+              that.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
+          })
         }).catch(() => {
         });
       }
