@@ -2,23 +2,31 @@
   <div class="set-menu">
     <div class="set-menu-box">
       <div class="left">
-        <div style="margin-bottom: 10px;text-align: right;">
+        <div style="margin-bottom: 10px;text-align: right;margin-top: 30px;">
           <!--          <span style="color: #666666;font-size: 10px;padding-left: 10px;">(点击设置权限)</span>-->
         </div>
 
+        <!--default-expand-all-->
         <el-tree
-          :disabled="type!=='add'"
           ref="tree"
-          :data="data"
+          :disabled="type!=='add'"
+          :check-strictly="true"
+          :destroy-on-close="true"
+          :data="treeData"
           node-key="id"
-          default-expand-all
           show-checkbox
           @check-change="handleCheckChange"
           @node-click="nodeClick"
         >
           <span slot-scope="{ node, data }" class="custom-tree-node">
-            <span class="tips">{{ node.level }}</span>
-            <span style="margin-left: 5px;">{{ node.label }}</span>
+            <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
+              <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
+              <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
+              <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
+            </el-tooltip>
+            <!--            <span class="tips">{{ node.level }}</span>-->
+            <!--            <span>{{ data }}</span>-->
+            <span style="margin-left: 5px;">{{ data.name }}</span>
           </span>
         </el-tree>
       </div>
@@ -27,7 +35,7 @@
           <el-tabs type="card">
             <el-tab-pane :label="(menuItem.label ? menuItem.label + '-':'') + '权限设置'">
               <el-form
-                v-if="menuItem.label"
+                v-if="menuItem.name && menuItem.menuType !== '目录'"
                 ref="dataForm"
                 :model="temp"
                 label-position="right"
@@ -36,10 +44,13 @@
               >
                 <el-form-item label="按钮配置：">
                   <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">
-                    <el-checkbox :label="1">编辑</el-checkbox>
-                    <el-checkbox :label="2">新增</el-checkbox>
-                    <el-checkbox :label="3">导入模板下载</el-checkbox>
-                    <el-checkbox :label="4">导入</el-checkbox>
+                    <el-checkbox
+                      v-for="item in menuItem.children"
+                      v-if="item.menuType === '按钮'"
+                      :key="item.id"
+                      :label="item.id"
+                    >{{ item.name }}
+                    </el-checkbox>
                   </el-checkbox-group>
                 </el-form-item>
 
@@ -104,93 +115,15 @@
           btn: [],
           level: '',
         },
-        data: [
-          {
-            id: 1,
-            label: '人事办公',
-            children: [{
-              id: 4,
-              label: '二级 1-1',
-              children: [{
-                id: 9,
-                label: '三级 1-1-1'
-              }, {
-                id: 10,
-                label: '三级 1-1-2'
-              }]
-            }]
-          }, {
-            id: 2,
-            label: '德育管理',
-            children: [{
-              id: 5,
-              label: '二级 2-1'
-            }, {
-              id: 6,
-              label: '二级 2-2'
-            }]
-          }, {
-            id: 3,
-            label: '综合设置',
-            children: []
-          }, {
-            id: 4,
-            label: '实习实训',
-            children: []
-          }, {
-            id: 5,
-            label: '学生管理',
-            children: []
-          }, {
-            id: 6,
-            label: '教务管理',
-            children: []
-          }, {
-            id: 7,
-            label: '教学质量监测与评价',
-            children: []
-          }, {
-            id: 8,
-            label: '教学诊改数据中心',
-            children: []
-          }],
+        treeData: [],
+        treeListData: [],
         defaultProps: {
           children: 'children',
           label: 'label'
         },
-        btnTableData: [
-          {
-            name: '新增',
-            num: 'btn-1'
-          },
-          {
-            name: '编辑',
-            num: 'btn-2'
-          },
-          {
-            name: '删除',
-            num: 'btn-3'
-          }
-        ],
-        options: [
-          {
-            value: '选项1',
-            label: '选项1'
-          }, {
-            value: '选项2',
-            label: '选项2'
-          }, {
-            value: '选项3',
-            label: '选项3'
-          }, {
-            value: '选项4',
-            label: '选项4'
-          }, {
-            value: '选项5',
-            label: '选项5'
-          }],
         menuItem: {},
-        type: 'detail'
+        type: 'detail',
+        checkedIds: []
       }
     },
     mounted() {
@@ -203,11 +136,97 @@
           level: '',
         }
       },
+
       getDetail() {
-        this.$refs.tree.setCheckedKeys([1, 4, 9])
+        this.$api.postAuth.tree({ postId: this.$route.query.id }).then(res => {
+          this.treeData = res.data
+          const list = []
+          const checkeds = []
+
+          function treeMap(data) {
+            data.forEach(item => {
+              list.push(item)
+              if (item.checked) {
+                checkeds.push(item.id)
+              }
+              if (item.children && item.children.length > 0) {
+                treeMap(item.children)
+              }
+            })
+          }
+
+          treeMap(res.data)
+          this.treeListData = list
+          this.checkedIds = checkeds
+          this.$refs.tree.setCheckedKeys(this.checkedIds)
+        })
+      },
+      setParentCheck(data) { // 获取父节点id数组/修改父节点checked 为true
+        const parentChecks = []
+        parentChecks.push(data.id)
+        data.checked = true
+
+        function tree(data, list) {
+          if (data.parentId) {
+            list.forEach(item => {
+              if (item.id === data.parentId) {
+                parentChecks.push(item.id)
+                data.checked = true
+                if (item.parentId) {
+                  tree(item, list)
+                }
+              }
+            })
+          }
+        }
+
+        tree(data, this.treeListData)
+        return parentChecks
+      },
+      setChildrenCheck(data) { // 取消子节点选中效果，修改子节点checked 为false
+        const that = this
+        data.checked = false
+        that.checkedIds = Array.from(new Set(that.checkedIds)) // 去重
+        const index = that.checkedIds.indexOf(data.id)
+        that.checkedIds.splice(index, 1)
+
+        const childrenIds = []
+
+        function tree(list) {
+          list.forEach(item => {
+            console.log('子菜单', item.name)
+            item.checked = false
+            childrenIds.push(item.id)
+            if (item.children) {
+              tree(item.children)
+            }
+          })
+        }
+
+        data.children && tree(data.children)
+        console.log(data.children, '子树', childrenIds)
+        return childrenIds
       },
       handleCheckChange(data, checked, indeterminate) {
-        console.log(data, checked, indeterminate)
+        console.log(data, checked, indeterminate, 'check node')
+        if (checked === true) {
+          const pChecks = this.setParentCheck(data)
+          this.checkedIds = this.checkedIds.concat(pChecks)
+          this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
+          this.$refs.tree.setCheckedKeys(this.checkedIds)
+          console.log(this.checkedIds, 'id数据')
+        } else {
+          const childrenIds = this.setChildrenCheck(data)
+          this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
+          // childrenIds.forEach(cId => {
+          //   const index = this.checkedIds.indexOf(cId)
+          //   if (index > -1) {
+          //     this.checkedIds.splice(index, 1)
+          //   }
+          // })
+          console.log(childrenIds, this.checkedIds, 'id数据')
+          // this.$refs.tree.setCheckedKeys(this.checkedIds)
+        }
       },
       nodeClick(data, node, it) {
         console.log(data, node, it)
@@ -217,13 +236,24 @@
         }
       },
       handleCreate() {
-        console.log(this.$refs.tree.getCheckedNodes());
-        console.log(this.$refs.tree.getCheckedKeys());
-        this.$notify({
-          title: '成功',
-          message: '保存成功',
-          type: 'success',
-          duration: 2000
+        // console.log(this.$refs.tree.getCheckedNodes())
+        // console.log(this.$refs.tree.getCheckedKeys())
+        console.log(JSON.stringify({
+          postId: this.$route.query.id,
+          permissionTree: this.treeData
+        }))
+        this.$api.postAuth.edit({
+          postId: this.$route.query.id,
+          permissionTree: this.treeData
+        }).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
         })
       }
     }

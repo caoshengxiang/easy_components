@@ -75,6 +75,7 @@
         handler(newv) {
           this.initData()
           if (this.$route.path === '/home/index') {
+            //
           } else {
             this.menuLevel1 = this.$route.query.menuLevel1
             this.menuLevel2 = this.$route.query.menuLevel2
