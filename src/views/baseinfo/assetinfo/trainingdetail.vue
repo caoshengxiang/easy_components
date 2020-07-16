@@ -1,145 +1,242 @@
+
 <template>
-  <div class="app-container">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
 
-    <div class="createPost-container" >
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
-
-        <div class="createPost-main-container" >
-          <div class="postInfo-container">
-            <el-row style="margin-left: 150px">
-              <el-col :span="8">
-                <el-form-item label="教室：" prop="type" label-width="200px" class="postInfo-container-item ">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="实训室名称："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-
-            </el-row>
-            <el-row style="margin-left: 150px">
-              <el-col :span="8">
-                <el-form-item label=" 建成日期："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="实训室类别："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.type" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
-                  </el-select>
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-
-            </el-row>
-            <el-row style="margin-left: 150px">
-              <el-col :span="8">
-                <el-form-item label="使用结构（部门）："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="资产员："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-
-
-
-            </el-row>
-            <el-row style="margin-left: 150px">
-              <el-col :span="8">
-                <el-form-item label="工位数："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="适用专业："  prop="type" label-width="200px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <el-input v-else v-model="postForm.type" disabled  class="filter-item" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row style="margin-left: 150px">
-            <el-col :span="12">
-              <el-form-item label="实训室介绍："  prop="type" label-width="200px" class="postInfo-container-item">
-                <el-input v-if="type=='add'" v-model="postForm.type"  type="textarea"  class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled  type="textarea"   class="filter-item" />
-              </el-form-item>
-            </el-col>
-
-          </el-row>
-            <el-row style="margin-left: 150px">
-              <el-col :span="18" style="padding-top: 30px;text-align:center">
-                <el-button class="filter-item " v-if="type=='detail'" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="type='add'">
-                  编辑
-                </el-button>
-                <el-button class="filter-item " v-if="type=='add'" style="margin-left: 10px;"  type="primary" icon="el-icon-edit" @click="type='detail'">
-                  取消
-                </el-button>
-                <el-button class="filter-item " v-if="type=='add'" style="margin-left: 10px;margin-right: 0px"  type="primary" icon="el-icon-edit" @click="handleCreate">
-                  保存
-                </el-button>
-              </el-col>
-            </el-row>
-          </div>
-        </div>
-      </el-form>
+  <div class="assetinfo-detail app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
+    <y-detail-page-layout :save="save">
+      <el-tabs value ="first" @tab-click="handleClick">
+        <el-tab-pane label="基础信息" name="first">
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"  style="padding-right: 15% ">
+
+            <div class="createPost-main-container" >
+              <div class="postInfo-container">
+                <el-row style="margin-left: 150px">
+                  <el-col :span="8">
+                    <el-form-item label="使用教室：" prop="teachingRoomId" label-width="200px" class="postInfo-container-item ">
+                      <el-select v-model="postForm.teachingRoomId" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
+                        <el-option v-for="item in teachingRoomList" :key="item.id" :label="item.name" :value="item.id" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="实训室名称："  prop="name" label-width="200px" class="postInfo-container-item">
+                      <el-input v-model="postForm.name"   class="filter-item" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label=" 建成日期："  prop="buildDate" label-width="200px" class="postInfo-container-item">
+                      <el-date-picker
+                        v-model="postForm.buildDate"
+                        type="date"
+                        format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd"
+                        style="width:100%"
+                        placeholder="选择日期">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+
+                <el-row style="margin-left: 150px">
+                  <el-col :span="8">
+                    <el-form-item label="实训室类别："  prop="cate" label-width="200px" class="postInfo-container-item">
+                      <el-select v-model="postForm.cate" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
+                        <el-option key="1" label="物理实验室" value="1" />
+                        <el-option key="2" label="化学实验室" value="2" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="8">
+                    <el-form-item label="使用结构（部门）："  prop="type" label-width="200px" class="postInfo-container-item">
+                      <el-select v-model="postForm.orgId" default-value="0" placeholder="使用部门" clearable style="width: 100%" class="filter-item">
+                        <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="资产员："  prop="propertyUserId" label-width="200px" class="postInfo-container-item">
+                      <el-select v-model="postForm.propertyUserId" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
+                        <el-option key="1" label="小段" value="1" />
+                        <el-option key="2" label="小刘" value="2" />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row style="margin-left: 150px">
+                  <el-col :span="8">
+                    <el-form-item label="工位数："  prop="stationNum" label-width="200px" class="postInfo-container-item">
+                      <el-input v-model="postForm.stationNum"   class="filter-item" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="适用专业："  prop="applicableMajor" label-width="200px" class="postInfo-container-item">
+                      <el-input  v-model="postForm.applicableMajor"   class="filter-item" />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="实训室介绍："  prop="introduce" label-width="200px" class="postInfo-container-item">
+                      <el-input  v-model="postForm.introduce"  type="textarea"  class="filter-item" />
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+    </y-detail-page-layout>
   </div>
+
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
-
-  const defaultForm = {
-    status: 'draft',
-    title: '', // 文章题目
-    content: '', // 文章内容
-    content_short: '', // 文章摘要
-    source_uri: '', // 文章外链
-    image_uri: '', // 文章图片
-    display_time: undefined, // 前台展示时间
-    id: undefined,
-    platforms: ['a-platform'],
-    comment_disabled: false,
-    importance: 0,
-    type:''
-  }
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb},
+    components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
-        gradeInfo: [{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
-        classInfo:[{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
-        majorInfo:[{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        type:'add',
-        postForm: Object.assign({}, defaultForm),
+        postForm: {},
+        constructionList:[],
+        teachingRoomList:[],
         rules: {
-          type: [{ required: true, message: '请填写年份', trigger: 'change' }],
+          property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
+          status: [{ required: true, message: '请选择土地使用状态', trigger: 'change' }],
+          campus: [{ required: true, message: '请选择土地所在校区', trigger: 'change' }],
+          user: [{ required: true, message: '请选择土地用途', trigger: 'change' }],
+          area: [{ required: true, message: '请填写土地面积', trigger: 'change' }],
+          certificateNum: [{ required: true, message: '请填写土地证号', trigger: 'change' }],
+          price: [{ required: true, message: '请填写土地价格', trigger: 'change' }],
+          addr: [{ required: true, message: '请填写土地地址', trigger: 'change' }],
         },
+        id: 0
       }
     },
     created(){
-      this.type = this.$route.query.type
+      let that = this
+
+      if(that.$route.query.id){
+        that.id = that.$route.query.id
+        that.getDetail()
+      }
+
+      that.organizationSimpleAll() ////查询建筑物列表
+      that.getTeachingList() ////查询建筑物列表
     },
     methods:{
-      handleCreate(){
-        this.$refs.postForm.validate(valid => {
+      getTeachingList(){
+        let that = this;
+        that.$api.assetinfo.getTeachingRoomPage({current:0,size:1000}).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.teachingRoomList = data.data.records
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+        that.listLoading = false;
+      },
+      getDetail(){
+        let that = this;
+        that.$api.assetinfo.getTrainingRoomDetail(that.id ).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            that.postForm = data.data;
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      organizationSimpleAll(){
+        let that = this;
+        that.$api.baseInfo.organizationSimpleAll().then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            //返回成功
+            that.constructionList = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+        that.listLoading = false;
+      },
+      save(){
+        let that = this
+        that.$refs.postForm.validate(valid => {
           if (valid) {
+            if(that.$route.query.id){
+              ////编辑
+              that.postForm.id = that.$route.query.id
+              that.$api.assetinfo.editTrainingRoom({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑实训室成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/baseinfo/trainingindex",
+                    query: {
+                      type: "add"
+                    }
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+            else {
+              ////新增
+              ////编辑
+              that.$api.assetinfo.addTrainingRoom({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '新增实训室成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/baseinfo/trainingindex",
+                    query: {
+                      type: "add"
+                    }
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+
           }
         })
       }
@@ -147,66 +244,4 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-
-  .createPost-container {
-
-    .createPost-main-container {
-      padding: 40px 45px 20px 50px;
-      float: left;
-      width: 1500px;
-      .postInfo-container {
-        position: relative;
-        @include clearfix;
-        margin-bottom: 10px;
-
-        .postInfo-container-item {
-          .el-form-item__label{
-
-            width:21px;
-            height:9px;
-            font-size:9px;
-            font-weight:500;
-            color:rgba(102,102,102,1);
-          }
-        }
-      }
-    }
-    .word-counter {
-      width: 40px;
-      position: absolute;
-      right: 10px;
-      top: 0px;
-    }
-
-    .avatar-wrapper {
-      width: 20px;
-      height: 20px;
-      position: relative;
-      border-radius: 50%;
-      background-color: #2A8FE3;
-      text-align: center;
-      line-height: 20px;
-    }
-    .viewTable .title{
-      text-align: left
-    }
-    .icon-title{
-      font-size:10px;float: left;color:rgba(255,255,255,1);
-    }
-
-    .icon-info{
-      text-align:left;
-      padding-top:5px;
-      margin-left:30px;
-      height:10px;
-      font-size:10px;
-      font-weight:bold;color:rgba(51,51,51,1);
-    }
-
-  }
-
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right;
-  }
 </style>
