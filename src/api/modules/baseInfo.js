@@ -13,4 +13,7 @@ export default {
   getStaffList(params){ ////教职工列表
     return request.get('staff', { params: params })
   },
+  getDepartmentList(params){ ////获取系部
+    return request.get('department', { params: params })
+  },
 }
