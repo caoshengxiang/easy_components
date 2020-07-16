@@ -42,24 +42,26 @@
       center
       :show-close="false"
     >
-      <el-form :model="taskForm">
+      <el-form :model="currentNodeForm">
         <el-form-item label="步骤名称" label-width="100px">
-          <el-input v-model="taskForm.name" autocomplete="off" />
+          <el-input v-model="currentNodeForm.nodeName" autocomplete="off" />
         </el-form-item>
         <el-form-item label="用户类别" label-width="100px">
-          <el-radio-group>
-            <el-radio-button label="人员" />
-            <el-radio-button label="岗位" />
+          <el-radio-group v-model="currentNodeForm.userType">
+            <el-radio-button :label="1">用户</el-radio-button>
+            <el-radio-button :label="2">岗位</el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="用户名称" label-width="100px">
-          <el-input placeholder="请选择用户名称" class="input-with-select" :disabled="true">
+          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true">
             <el-button slot="append" type="primary">选择</el-button>
           </el-input>
         </el-form-item>
         <el-form-item label="协作" label-width="100px">
-          <el-radio label="1">竞争</el-radio>
-          <el-radio label="2">会签</el-radio>
+          <el-radio-group v-model="currentNodeForm.nodeType">
+            <el-radio :label="1">竞争</el-radio>
+            <el-radio :label="2">会签</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -67,15 +69,30 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
       </div>
     </el-dialog>
+    <!--<el-dialog-->
+      <!--:visible="true"-->
+      <!--center-->
+      <!--:show-close="false"-->
+    <!--&gt;-->
+      <!--<y-user-select></y-user-select>-->
+    <!--</el-dialog>-->
   </div>
 </template>
 
 <script>
   import CustomModeler from './customModeler'
   import { xmlStr } from './assets/xmlStr'
+  import YUserSelect from '@/components/YUserSelect'
 
   export default {
     name: 'YWorkFDesign',
+    components:{YUserSelect},
+    watch:{
+      dialogFormVisible:function (value) {
+        if (value === false)
+          this.initAllTaskStyle()
+      }
+    },
     props: {
       id: {
         type: String,
@@ -93,10 +110,9 @@
         currentClickTask: null,
         currentClickEvent: null,
         dialogFormVisible: false,
-        taskForm: {
-          name: ''
-        },
-        form:{}
+        diagramData: [],
+        form:{},
+        currentNodeForm:{}
       }
     },
     mounted() {
@@ -175,7 +191,41 @@
             }).catch(() => {
             })
           } else {
+            //容器
             that.bpmnModeler.get('canvas').zoom('fit-viewport')
+
+            //关联节点数据初始化
+            const elementRegistry = that.bpmnModeler.get('elementRegistry');
+            const userTaskList = elementRegistry.filter(
+              (item) => item.type === 'bpmn:UserTask'
+            );
+            if (userTaskList && userTaskList.length > 0) {
+              userTaskList.forEach(function (item) {
+                that.diagramData.push({
+                  nodeId:item.businessObject.id,
+                  nodeName:item.businessObject.name
+                });
+              });
+              //合并处理
+              if (that.form.diagramData){
+                try {
+                  const dgmData = JSON.parse(that.form.diagramData);
+                  if (dgmData && dgmData.length > 0){
+                    let recItem;
+                    dgmData.forEach(function (item) {
+                      recItem = that.diagramData.find(m => m.nodeId == item.nodeId);
+                      if (recItem) {
+                        that.$set(recItem,'userType',item.userType)
+                        that.$set(recItem,'userIds',item.userIds)
+                        that.$set(recItem,'nodeType',item.nodeType)
+                      }
+                    })
+                  }
+                }catch (e) {}
+              }
+            }
+
+            //事件监听
             that.addEventBusListener()
           }
         })
@@ -207,6 +257,13 @@
         })
         this.initAllTaskStyle()
         autoPlace.append(this.currentClickTask, shape)
+
+        this.diagramData.push({
+          nodeId:shape.businessObject.id,
+          nodeName:shape.businessObject.name,
+          userType:1,
+          nodeType:1
+        });
 
         const mouseEvents = document.createEvent('MouseEvents')
         mouseEvents.initEvent('click', false, true)
@@ -276,6 +333,13 @@
             }
             const modeling = that.bpmnModeler.get('modeling')
             modeling.removeElements([that.currentClickTask])
+            if (that.diagramData && that.diagramData.length > 0) {
+              let currNodeIndex = that.diagramData.findIndex(m => m.nodeId == that.currentClickTask.businessObject.id);
+              if (currNodeIndex >= 0){
+                that.diagramData.splice(currNodeIndex,1)
+              }
+            }
+
           } else {
             that.$message.error('你没有选中任何节点')
           }
@@ -313,7 +377,23 @@
       },
       editTask(data) {
         this.$refs.ctxshow.hideMenu()
-        this.taskForm.name = this.currentClickTask.businessObject.name
+        const currNode = this.diagramData.find(m => m.nodeId == this.currentClickTask.businessObject.id)
+        if (!currNode){
+          this.$message({
+            type: 'error',
+            message: '发生未知错误，无效编辑'
+          })
+          return;
+        }
+
+        this.currentNodeForm = {...currNode}
+        if (!this.currentNodeForm.userType){
+          this.$set(this.currentNodeForm,'userType',1)
+        }
+        if (!this.currentNodeForm.nodeType){
+          this.$set(this.currentNodeForm,'nodeType',1)
+        }
+
         this.dialogFormVisible = true
       },
       // 下载为bpmn格式,done是个函数，调用的时候传入的
@@ -327,8 +407,16 @@
         const that = this
         const modeling = that.bpmnModeler.get('modeling')
         modeling.updateProperties(that.currentClickTask, {
-          name: that.taskForm.name
+          name: that.currentNodeForm.nodeName
         })
+        let dgmNodeData = that.diagramData.find(m => m.nodeId == that.currentNodeForm.nodeId)
+        if (dgmNodeData) {
+          that.$set(dgmNodeData,'nodeId',that.currentNodeForm.nodeId)
+          that.$set(dgmNodeData,'nodeName',that.currentNodeForm.nodeName)
+          that.$set(dgmNodeData,'userType',that.currentNodeForm.userType)
+          that.$set(dgmNodeData,'userIds',that.currentNodeForm.userIds)
+          that.$set(dgmNodeData,'nodeType',that.currentNodeForm.nodeType)
+        }
         that.dialogFormVisible = false
       },
       findCurrentClickDomTask(e) {

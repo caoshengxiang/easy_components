@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export default {
   getList(params){
-    return request.get('approvalConfig', params)
+    return request.get('approvalConfig', {params:params})
   },
   getDetail(id) {
     return request.get(`approvalConfig/${id}`)
