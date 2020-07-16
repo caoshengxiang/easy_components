@@ -107,8 +107,15 @@
 
       // 如果接收id不为空，请求服务器数据
       if (that.id) {
-        that.$api.workflow.getDetail().then(data => {
-          that.initDesign(data)
+        that.$api.workflow.getDetail(that.id).then(res => {
+          if(res.code === 200){
+            that.initDesign(res.data.diagramBpmn)
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
         })
       } else {
         // 重置
@@ -156,7 +163,15 @@
         that.bpmnModeler.importXML(xmlData, function (err) {
           that.loading = false
           if (err) {
-            that.$message.error('初始化错误')
+            that.$confirm('源数据初始化错误，是否重置该流程设计?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning',
+              center: true
+            }).then(() => {
+              that.initDesign(xmlStr)
+            }).catch(() => {
+            })
           } else {
             that.bpmnModeler.get('canvas').zoom('fit-viewport')
             that.addEventBusListener()
