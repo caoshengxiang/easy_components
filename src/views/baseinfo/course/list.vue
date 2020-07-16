@@ -9,20 +9,23 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">总工位数100</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        >
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>
         </div>
       </div>
 
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary"  @click="detail()">
-          新增实训室
+        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/assetdetail`)">
+          新增用地
         </el-button>
-        <el-select v-model="listQuery.orgId" default-value="0" placeholder="使用机构" clearable style="margin-left: 20px;width: 200px" class="filter-item">
-          <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
-        <el-input v-model="listQuery.name" placeholder="实训室名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.keyword" placeholder="用地编号或名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="getList">
@@ -39,35 +42,45 @@
         style="width: 100%;"
         slot="table"
       >
-
-        <el-table-column label="实训室名称" prop="id" sortable="custom" align="center" width="200">
+        <el-table-column label="土地产权" prop="id" sortable="custom" align="center" width="200px">
           <template slot-scope="{row}">
           <span >
-                                              {{ row.name }}
+                                              {{ row.property }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="教室" width="200" align="center">
+        <el-table-column label="使用状况" width="200px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.teachingRoomCode}}</span>
+            <span>{{ row.status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="实训室类别" min-width="200"  align="center">
+        <el-table-column label="校区" width="200px"  align="center">
           <template slot-scope="{row}">
-            <span>{{ row.cate }}</span>
+            <span>{{ row.campus }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="建成年月" width="200" align="center">
+        <el-table-column label="用途" width="200px" align="center">
           <template slot-scope="{row}">
             <span >
-         {{ row.buildDate }}
+         {{ row.user }}
 
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="使用机构"  width="200" align="center">
+        <el-table-column label="面积(平方米)"  width="200px" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.orgName }}</span>
+            <span style="color:red;">{{ row.area }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="土地证号" align="center" min-width="200px">
+          <template slot-scope="{row}">
+            <span >{{ row.certificateNum }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="地址" min-width="300px">
+          <template slot-scope="{row}">
+            <span style="color:red;">{{ row.addr }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="200">
@@ -75,13 +88,18 @@
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
             </el-button>
-            <el-button type="primary" round size="mini">
+            <el-button type="primary" round size="mini"  @click="deleteInfo(row.id)">
               删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
     </y-page-list-layout>
+
+
+
+
+
   </div>
 </template>
 <script>
@@ -99,17 +117,13 @@
           size:10
         },
         listQuery: {
-          code: '',
-          constructionId: ''
+          dormitoryId:0
         },
-        constructionList:[]
       }
     },
     created(){
       let that = this;
-      that.getList()  ////查询列表
-
-      that.organizationSimpleAll() ////查询建筑物列表
+      that.getList();
     },
     methods:{
       deleteInfo(id){
@@ -120,7 +134,7 @@
           type: 'warning',
           center:true
         }).then(() => {
-          that.$api.assetinfo.deleteTrainingRoom({ id: id }).then(data => {
+          that.$api.assetinfo.deleteLand({ id: id }).then(data => {
             that.loading = false;
             if(data.code === 200){
               that.getList()
@@ -136,35 +150,28 @@
         }).catch(() => {
         });
       },
+      add(){
+        let that =this;
+        that.$router.push({
+          path:"/baseinfo/assetdetail",
+          query: {
+            type: "add"
+          }
+        })
+      },
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/trainingdetail",
+          path:"/baseinfo/assetdetail",
           query: {
-            id: id,
+            id:id,
+            type: "add"
           }
         })
-      },
-      organizationSimpleAll(){
-        let that = this;
-        that.$api.baseInfo.organizationSimpleAll().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
-            that.constructionList = data.data
-          }
-          else{
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-        that.listLoading = false;
       },
       getList(){
         let that = this;
-        that.$api.assetinfo.getTrainingRoomPage({...that.listQuery,...that.pagePara}).then(data => {
+        that.$api.assetinfo.getLandPage({...that.listQuery,...that.pagePara}).then(data => {
           that.loading = false;
           if(data.code === 200){
             //返回成功
