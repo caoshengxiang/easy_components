@@ -344,7 +344,7 @@
 </script>
 
 <style scoped lang="scss">
-  $assets: '~@/components/yWorkFDesign/assets/';
+  $assets: '~@/components/YWorkFDesign/assets/';
   /*左边工具栏以及编辑节点的样式*/
   @import '~bpmn-js/dist/assets/diagram-js.css';
   @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
