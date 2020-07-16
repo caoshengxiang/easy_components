@@ -91,7 +91,7 @@
                     <el-tooltip
                       class="item"
                       effect="dark"
-                      content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型"
+                      content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面)"
                       placement="top-start"
                     >
                       <i class="el-icon-question"/></el-tooltip>
@@ -116,6 +116,16 @@
                   label="编码："
                   prop="menuNo"
                 >
+                  <span slot="label">编码
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
+                      placement="top-start"
+                    >
+                      <i class="el-icon-question"/></el-tooltip>
+                    ：
+                  </span>
                   <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item"/>
                 </el-form-item>
                 <el-form-item
@@ -169,7 +179,7 @@
                     <el-tooltip
                       class="item"
                       effect="dark"
-                      content="内部系统url 约定为 组件路径， 可以试试把编码粘贴这里，失去焦点"
+                      content="内部系统url 约定为 组件路径（注意：URL 不得重复）， 可以试试把编码粘贴这里，失去焦点"
                       placement="top-start"
                     >
                       <i class="el-icon-question"/></el-tooltip>
@@ -310,7 +320,7 @@
         </el-form-item>
         <el-form-item label="菜单类型：">
           <span slot="label">菜单类型
-            <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型" placement="top-start">
+            <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面)" placement="top-start">
               <i class="el-icon-question"/></el-tooltip>
             ：
           </span>
@@ -333,6 +343,16 @@
           label="编码："
           prop="menuNo"
         >
+          <span slot="label">编码
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
+                      placement="top-start"
+                    >
+                      <i class="el-icon-question"/></el-tooltip>
+                    ：
+                  </span>
           <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item"/>
         </el-form-item>
         <el-form-item
@@ -381,7 +401,7 @@
           ]"
         >
           <span slot="label">URL
-            <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
+            <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
               <i class="el-icon-question"/></el-tooltip>
             ：
           </span>
