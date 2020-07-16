@@ -35,6 +35,8 @@ import _views_dormitory_dormitoryCheck_list from '@/views/dormitory/dormitoryChe
 import _views_dormitory_dormitoryCheck_dormitoryChecklist from '@/views/dormitory/dormitoryCheck/dormitoryChecklist'
 import _views_dormitory_dormitoryCheck_checkRecord from '@/views/dormitory/dormitoryCheck/checkRecord'
 import _views_dormitory_classRecord_list from '@/views/dormitory/classRecord/list'
+import _views_baseinfo_course_list from '@/views/baseinfo/course/list'
+import _views_baseinfo_course_detail from '@/views/baseinfo/course/detail'
 import _views_baseinfo_userinfo_list from '@/views/baseinfo/userinfo/list'
 import _views_baseinfo_userinfo_detail from '@/views/baseinfo/userinfo/detail'
 import _views_baseinfo_userinfo_detailInfo from '@/views/baseinfo/userinfo/detailInfo'
@@ -87,6 +89,8 @@ export default {
   _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍人员考核管理
   _views_dormitory_dormitoryCheck_checkRecord, // 扣分记录
   _views_dormitory_classRecord_list, // 班级考核记录
+  _views_baseinfo_course_list, // 课程列表
+  _views_baseinfo_course_detail, // 课程详情
   _views_baseinfo_userinfo_list, // 学生列表
   _views_baseinfo_userinfo_detail, // 学生信息采集
   _views_baseinfo_userinfo_detailInfo, // 学生信息采集

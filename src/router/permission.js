@@ -34,8 +34,8 @@ router.beforeEach(async (to, from, next) => {
       if (store.getters.permission_routes && store.getters.permission_routes.length > 0) {
         next()
       } else {
-        const {name} = await store.dispatch('user/userInfo')
-        console.log('账户', name)
+        const { name, postList } = await store.dispatch('user/userInfo')
+        console.log('账户/岗位', name, postList)
         const accessedRoutes = await store.dispatch('user/getMenus')
         const accessRoutes = await store.dispatch('permission/generateRoutes', accessedRoutes)
         accessRoutes.push({
