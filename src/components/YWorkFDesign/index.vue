@@ -95,7 +95,8 @@
         dialogFormVisible: false,
         taskForm: {
           name: ''
-        }
+        },
+        form:{}
       }
     },
     mounted() {
@@ -109,6 +110,7 @@
       if (that.id) {
         that.$api.workflow.getDetail(that.id).then(res => {
           if(res.code === 200){
+            that.form = res.data;
             that.initDesign(res.data.diagramBpmn)
           }else{
             that.$message({
@@ -285,9 +287,21 @@
         that.$refs.ctxshow.hideMenu()
         // eslint-disable-next-line handle-callback-err
         that.saveDiagram(function (err, xml) {
-          console.log(xml)
+          that.form.diagramBpmn = xml;
+          that.$utils.loading.show();
+          that.$api.workflow.save(that.form).then(res => {
+            that.$utils.loading.hide();
+            if(res.code === 200){
+              that.$message.success('操作成功！');
+            }
+            else{
+              that.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
+          })
         })
-        that.$message.success('保存成功')
       },
       connectLine() {
         this.$refs.ctxshow.hideMenu()
