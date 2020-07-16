@@ -210,7 +210,7 @@
           cate: [{ required: true, message: '请选择建筑物分类', trigger: 'change' }],
           structure: [{ required: true, message: '请选择建筑物结构', trigger: 'change' }],
           floor: [{ required: true, message: '请填写建筑物楼层', trigger: 'change' }],
-          buildDate: [{ required: true, message: '请选择简称年月', trigger: 'change' }],
+          buildDate: [{ required: true, message: '请选择建成年月', trigger: 'change' }],
           amount: [{ required: true, message: '请填写建筑物经费', trigger: 'change' }],
           financialResource: [{ required: true, message: '请选择经费来源', trigger: 'change' }],
           property: [{ required: true, message: '请填写建筑物产权', trigger: 'change' }],

@@ -105,14 +105,15 @@
         constructionList:[],
         teachingRoomList:[],
         rules: {
-          property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
-          status: [{ required: true, message: '请选择土地使用状态', trigger: 'change' }],
-          campus: [{ required: true, message: '请选择土地所在校区', trigger: 'change' }],
-          user: [{ required: true, message: '请选择土地用途', trigger: 'change' }],
-          area: [{ required: true, message: '请填写土地面积', trigger: 'change' }],
-          certificateNum: [{ required: true, message: '请填写土地证号', trigger: 'change' }],
-          price: [{ required: true, message: '请填写土地价格', trigger: 'change' }],
-          addr: [{ required: true, message: '请填写土地地址', trigger: 'change' }],
+          teachingRoomId: [{ required: true,message:'请选择所属教室', trigger: 'change' }],
+          name: [{ required: true, message: '请填写实训室名称', trigger: 'change' }],
+          cate: [{ required: true, message: '请选择实训室类别', trigger: 'change' }],
+          orgId: [{ required: true, message: '请选择使用机构', trigger: 'change' }],
+          propertyUserId: [{ required: true, message: '请填写资产员', trigger: 'change' }],
+          stationNum: [{ required: true, message: '请填写工位数', trigger: 'change' }],
+          applicableMajor: [{ required: true, message: '请填写适用专业', trigger: 'change' }],
+          introduce: [{ required: true, message: '请填写实训室介绍', trigger: 'change' }],
+          buildDate: [{ required: true, message: '请选择建成年月', trigger: 'change' }],
         },
         id: 0
       }
