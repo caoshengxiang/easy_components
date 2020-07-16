@@ -238,13 +238,13 @@
       handleCreate() {
         // console.log(this.$refs.tree.getCheckedNodes())
         // console.log(this.$refs.tree.getCheckedKeys())
-        console.log(JSON.stringify({
-          postId: this.$route.query.id,
-          permissionTree: this.treeData
-        }))
+        // console.log(JSON.stringify({
+        //   postId: this.$route.query.id,
+        //   permissionTree: this.treeData
+        // }))
         this.$api.postAuth.edit({
           postId: this.$route.query.id,
-          permissionTree: this.treeData
+          permissionTree: JSON.stringify(this.treeData)
         }).then(res => {
           if (res.code === 200) {
             this.$notify({
