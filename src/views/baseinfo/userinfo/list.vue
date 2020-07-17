@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <div class="right">
+    <!--<div class="right">
       <div class="menu-2-box">
         <div
           :key="index"
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="margin-left:10px;width: 100px">

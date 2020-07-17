@@ -256,6 +256,7 @@
           that.loading = false;
           if(data.code === 200){
             that.postForm = data.data;
+            that.postForm.grade =  that.postForm.grade.split(',')
           }
           else{
             this.$message({
