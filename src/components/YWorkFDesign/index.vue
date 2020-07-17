@@ -47,14 +47,14 @@
           <el-input v-model="currentNodeForm.nodeName" autocomplete="off" />
         </el-form-item>
         <el-form-item label="用户类别" label-width="100px">
-          <el-radio-group v-model="currentNodeForm.userType">
+          <el-radio-group v-model="currentNodeForm.userType" @change="changeUserType">
             <el-radio-button :label="1">用户</el-radio-button>
             <el-radio-button :label="2">岗位</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="用户名称" label-width="100px">
-          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true">
-            <el-button slot="append" type="primary">选择</el-button>
+        <el-form-item :label="`${currentNodeForm.userType ==1 ?'用户':'岗位'}名称`" label-width="100px">
+          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true" v-model="currentNodeForm.selectedUser">
+            <el-button slot="append" type="primary" @click="selectUserDialogStatus = true">选择</el-button>
           </el-input>
         </el-form-item>
         <el-form-item label="协作" label-width="100px">
@@ -69,13 +69,7 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
       </div>
     </el-dialog>
-    <!--<el-dialog-->
-      <!--:visible="true"-->
-      <!--center-->
-      <!--:show-close="false"-->
-    <!--&gt;-->
-      <!--<y-user-select></y-user-select>-->
-    <!--</el-dialog>-->
+    <y-user-select title="请选择审批用户" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
   </div>
 </template>
 
@@ -91,6 +85,9 @@
       dialogFormVisible:function (value) {
         if (value === false)
           this.initAllTaskStyle()
+      },
+      'currentNodeForm.userIds':function (value) {
+        this.$set(this.currentNodeForm,'selectedUser',this.getStaffNameListStr(value))
       }
     },
     props: {
@@ -112,8 +109,14 @@
         dialogFormVisible: false,
         diagramData: [],
         form:{},
-        currentNodeForm:{}
+        currentNodeForm:{},
+        selectUserDialogStatus:false,
+        staffListData:[],
+        testName:''
       }
+    },
+    created(){
+      this.getStaffList();
     },
     mounted() {
       const that = this
@@ -352,6 +355,7 @@
         // eslint-disable-next-line handle-callback-err
         that.saveDiagram(function (err, xml) {
           that.form.diagramBpmn = xml;
+          that.form.diagramData = JSON.stringify(that.diagramData)
           that.$utils.loading.show();
           that.$api.workflow.save(that.form).then(res => {
             that.$utils.loading.hide();
@@ -455,6 +459,46 @@
             fill: 'white'
           })
         }
+      },
+      getSelectedUser(value){
+        if (value && value.length > 0){
+          this.currentNodeForm.userIds = value.map(m =>m.id);
+        }
+      },
+      changeUserType(){
+        this.currentNodeForm.userIds = []
+        this.currentNodeForm.selectedUser = ''
+      },
+      getStaffList(){
+        const that = this;
+        that.$api.baseInfo.getStaffList().then(res => {
+          if(res.code === 200){
+            if (res.data && res.data.records && res.data.records.length > 0){
+              that.staffListData = res.data.records;
+            }
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      },
+      getStaffNameListStr(selectedUserIdList){
+        const that = this
+        if (selectedUserIdList && selectedUserIdList.length > 0){
+          let selectedList = []
+          let selectedItem = null;
+          selectedUserIdList.forEach(function (id) {
+            selectedItem = that.staffListData.find(m =>m.id == id)
+            if (selectedItem)
+              selectedList.push(selectedItem)
+          })
+          if (selectedList && selectedList.length > 0)
+            return selectedList.map(m =>m.name).join(',')
+        }
+
+        return ''
       }
     }
   }
