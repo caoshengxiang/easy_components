@@ -10,7 +10,6 @@
       <div class="option-btn">
         <el-button type="primary" @click="save">保存</el-button>
         <el-button type="danger" @click="resetDesign">重置</el-button>
-        <el-button type="danger">返回</el-button>
       </div>
     </div>
     <div
@@ -54,7 +53,7 @@
         </el-form-item>
         <el-form-item :label="`${currentNodeForm.userType ==1 ?'用户':'岗位'}名称`" label-width="100px">
           <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true" v-model="currentNodeForm.selectedUser">
-            <el-button slot="append" type="primary" @click="selectUserDialogStatus = true">选择</el-button>
+            <el-button slot="append" type="primary" @click="selectAuditUser">选择</el-button>
           </el-input>
         </el-form-item>
         <el-form-item label="协作" label-width="100px">
@@ -69,7 +68,8 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
       </div>
     </el-dialog>
-    <y-user-select title="请选择审批用户" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
+    <y-user-select :title="`请选择审批用户`" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
+    <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-post-select>
   </div>
 </template>
 
@@ -77,17 +77,25 @@
   import CustomModeler from './customModeler'
   import { xmlStr } from './assets/xmlStr'
   import YUserSelect from '@/components/YUserSelect'
+  import YPostSelect from '@/components/YPostSelect'
 
   export default {
     name: 'YWorkFDesign',
-    components:{YUserSelect},
+    components:{YUserSelect,YPostSelect},
     watch:{
       dialogFormVisible:function (value) {
         if (value === false)
           this.initAllTaskStyle()
       },
       'currentNodeForm.userIds':function (value) {
-        this.$set(this.currentNodeForm,'selectedUser',this.getStaffNameListStr(value))
+        switch (this.currentNodeForm.userType) {
+          case 1:
+            this.$set(this.currentNodeForm,'selectedUser',this.getStaffNameListStr(value))
+            break;
+          case 2:
+            this.$set(this.currentNodeForm,'selectedUser',this.getPostNameListStr(value))
+            break;
+        }
       }
     },
     props: {
@@ -111,12 +119,15 @@
         form:{},
         currentNodeForm:{},
         selectUserDialogStatus:false,
+        selectPostUserDialogStatus:false,
         staffListData:[],
-        testName:''
+        testName:'',
+        postListData:[]
       }
     },
     created(){
       this.getStaffList();
+      this.getPostList();
     },
     mounted() {
       const that = this
@@ -491,6 +502,44 @@
           let selectedItem = null;
           selectedUserIdList.forEach(function (id) {
             selectedItem = that.staffListData.find(m =>m.id == id)
+            if (selectedItem)
+              selectedList.push(selectedItem)
+          })
+          if (selectedList && selectedList.length > 0)
+            return selectedList.map(m =>m.name).join(',')
+        }
+
+        return ''
+      },
+      selectAuditUser(){
+        if (this.currentNodeForm.userType === 1){
+          this.selectUserDialogStatus = true
+        }else{
+          this.selectPostUserDialogStatus = true;
+        }
+      },
+      getPostList(){
+        const that = this;
+        that.$api.post.simpleAll().then(res => {
+          if(res.code === 200){
+            if (res.data && res.data.length > 0){
+              that.postListData = res.data;
+            }
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      },
+      getPostNameListStr(selectedUserIdList){
+        const that = this
+        if (selectedUserIdList && selectedUserIdList.length > 0){
+          let selectedList = []
+          let selectedItem = null;
+          selectedUserIdList.forEach(function (id) {
+            selectedItem = that.postListData.find(m =>m.id == id)
             if (selectedItem)
               selectedList.push(selectedItem)
           })

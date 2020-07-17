@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <div class="analysis">
+  <!--  <div class="analysis">
       <div class="menu-2-box">
         <div
           :key="index"
@@ -51,7 +51,7 @@
               </div>
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="filter-main-div">
 
             <div class="filter-container" style="width:60%; float: left;">
