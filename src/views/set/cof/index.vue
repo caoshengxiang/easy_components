@@ -1,155 +1,132 @@
 <template>
   <div class="app-container">
-    <!--    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>-->
-    <el-button
-      v-if="type=='detail'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='add'"
-    >
-      编辑
-    </el-button>
-    <el-button
-      v-if="type=='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='detail'"
-    >
-      取消
-    </el-button>
-    <el-button
-      v-if="type=='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;margin-right: 0px"
-      type="primary"
-      icon="el-icon-edit"
-      @click="handleCreate"
-    >
-      保存
-    </el-button>
-    <div class="createPost-container">
-      <el-form
-        ref="postForm"
-        label-width="200px"
-        :model="postForm"
-        :rules="rules"
-        style="width: 1000px;margin: auto"
-        class="form-container"
-      >
-
-        <div class="createPost-main-container">
-          <div class="postInfo-container">
-            <el-row>
-              <el-col :span="24">
-                <el-form-item label="系统名称：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="教师编号前缀：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="预报名失效（小时）：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="左上角logo：" prop="type" class="postInfo-container-item">
-                  <div v-if="type=='add'">
-                    <el-upload
-                      action=""
-                      class="avatar-uploader"
-                      :show-file-list="false"
-                      :on-preview="handlePictureCardPreview"
-                      :before-upload="beforeAvatarUpload"
-                    >
-                      <el-image
-                        v-if="postForm.type"
-                        style="width: 300px; height: 200px;margin-right: 5px;"
-                        :src="postForm.type"
-                      />
-                      <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                    </el-upload>
-                    <el-dialog :visible.sync="dialogVisible">
-                      <img width="100%" :src="postForm.type" alt="">
-                    </el-dialog>
-                    <div>请上传图片（jpg、png、jpej、gif等格式）</div>
-                  </div>
-                  <div v-else>
-                    <el-image
-                      style="width: 300px; height: 200px;margin-right: 5px;"
-                      :src="postForm.type"
-                    />
-                  </div>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="登录背景图：" prop="type" class="postInfo-container-item">
-                  <div v-if="type=='add'">
-                    <el-upload
-                      action=""
-                      class="avatar-uploader"
-                      :show-file-list="false"
-                      :on-preview="handlePictureCardPreview"
-                      :before-upload="beforeAvatarUpload"
-                    >
-                      <el-image
-                        v-if="postForm.type"
-                        style="width: 300px; height: 200px;margin-right: 5px;"
-                        :src="postForm.type"
-                      />
-                      <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                    </el-upload>
-                    <el-dialog :visible.sync="dialogVisible">
-                      <img width="100%" :src="postForm.type" alt="">
-                    </el-dialog>
-                    <div>请上传图片（jpg、png、jpej、gif等格式）</div>
-                  </div>
-                  <div v-else>
-                    <el-image
-                      style="width: 300px; height: 200px;margin-right: 5px;"
-                      :src="postForm.type"
-                    />
-                  </div>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="承诺书：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="协议：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="通知书：" prop="type" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                  <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </div>
-        </div>
-      </el-form>
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <y-detail-page-layout :save="handleCreate" :edit-status="false" menu-no="_views_set_cof_edit">
+      <el-tabs value="first">
+        <el-tab-pane label="基础信息" name="first">
+          <el-form
+            ref="postForm"
+            label-width="200px"
+            :model="postForm"
+            :rules="rules"
+            style="width: 1000px;margin: auto"
+            class="form-container"
+          >
+
+            <div class="createPost-main-container">
+              <div class="postInfo-container">
+                <el-row>
+                  <el-col :span="24">
+                    <el-form-item label="系统名称：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="教师编号前缀：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="预报名失效（小时）：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="左上角logo：" prop="type" class="postInfo-container-item">
+                      <div v-if="type=='add'">
+                        <el-upload
+                          action=""
+                          class="avatar-uploader"
+                          :show-file-list="false"
+                          :on-preview="handlePictureCardPreview"
+                          :before-upload="beforeAvatarUpload"
+                        >
+                          <el-image
+                            v-if="postForm.type"
+                            style="width: 300px; height: 200px;margin-right: 5px;"
+                            :src="postForm.type"
+                          />
+                          <i v-else class="el-icon-plus avatar-uploader-icon"/>
+                        </el-upload>
+                        <el-dialog :visible.sync="dialogVisible">
+                          <img width="100%" :src="postForm.type" alt="">
+                        </el-dialog>
+                        <div>请上传图片（jpg、png、jpej、gif等格式）</div>
+                      </div>
+                      <div v-else>
+                        <el-image
+                          style="width: 300px; height: 200px;margin-right: 5px;"
+                          :src="postForm.type"
+                        />
+                      </div>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="登录背景图：" prop="type" class="postInfo-container-item">
+                      <div v-if="type=='add'">
+                        <el-upload
+                          action=""
+                          class="avatar-uploader"
+                          :show-file-list="false"
+                          :on-preview="handlePictureCardPreview"
+                          :before-upload="beforeAvatarUpload"
+                        >
+                          <el-image
+                            v-if="postForm.type"
+                            style="width: 300px; height: 200px;margin-right: 5px;"
+                            :src="postForm.type"
+                          />
+                          <i v-else class="el-icon-plus avatar-uploader-icon"/>
+                        </el-upload>
+                        <el-dialog :visible.sync="dialogVisible">
+                          <img width="100%" :src="postForm.type" alt="">
+                        </el-dialog>
+                        <div>请上传图片（jpg、png、jpej、gif等格式）</div>
+                      </div>
+                      <div v-else>
+                        <el-image
+                          style="width: 300px; height: 200px;margin-right: 5px;"
+                          :src="postForm.type"
+                        />
+                      </div>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="承诺书：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="协议：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="通知书：" prop="type" class="postInfo-container-item">
+                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
+                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+    </y-detail-page-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   const defaultForm = {
     id: ''
@@ -157,7 +134,10 @@
 
   export default {
     name: 'SetInfo',
-    components: { Breadcrumb },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
+    },
     data() {
       return {
         type: 'add',

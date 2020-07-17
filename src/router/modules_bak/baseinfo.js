@@ -8,6 +8,16 @@ export default {
   meta: { title: '基础信息' },
   children: [
     {
+      path: 'courseindex',
+      component: () => import('@/views/baseinfo/course/list'),
+      meta: { title: ' 课程管理' }
+    },
+    {
+      path: 'coursedetail',
+      component: () => import('@/views/baseinfo/course/detail'),
+      meta: { title: ' 课程信息录入' }
+    },
+    {
       path: 'index',
       component: () => import('@/views/baseinfo/userinfo/list'),
       meta: { title: ' 学生列表' }
