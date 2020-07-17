@@ -9,25 +9,19 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>
+          <i class="easy-icon easy-icon-avatar" /> <span class="text">当前课程总门数100</span>
         </div>
       </div>
 
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/assetdetail`)">
+        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/coursedetail`)">
           新增课程
         </el-button>
         <el-input v-model="listQuery.keyword" placeholder="课程编号" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
         <el-input v-model="listQuery.keyword" placeholder="课程名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-select v-model="listQuery.status" placeholder="教研组" clearable class="filter-item" style="margin-left:20px;width:200px">
+        <el-select v-model="listQuery.status" placeholder="教研组（一期未启用）" clearable class="filter-item" style="margin-left:20px;width:200px">
           <el-option key="1" label="语文组" value="1" />
           <el-option key="2" label="数学组" value="2" />
         </el-select>
@@ -47,45 +41,60 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="土地产权" prop="id" sortable="custom" align="center" width="200px">
+        <el-table-column label="课程编号" prop="id" sortable="custom" align="center" width="200px">
           <template slot-scope="{row}">
           <span >
-                                              {{ row.property }}
+                                              {{ row.code }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="使用状况" width="200px" align="center">
+        <el-table-column label="课程名称" min-width="200px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.status }}</span>
+            <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="校区" width="200px"  align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.campus }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="用途" width="200px" align="center">
+        <el-table-column label="学时" width="200px" align="center">
           <template slot-scope="{row}">
             <span >
-         {{ row.user }}
+         {{ row.hours }}
 
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="面积(平方米)"  width="200px" align="center">
+        <el-table-column label="学分"  width="200px" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.area }}</span>
+            <span style="color:red;">{{ row.credit }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="土地证号" align="center" min-width="200px">
+        <el-table-column label="课程类别" align="center" width="100">
           <template slot-scope="{row}">
-            <span >{{ row.certificateNum }}</span>
+            <span >{{ row.cate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地址" min-width="300px">
+        <el-table-column label="课程属性" width="100">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.addr }}</span>
+            <span>{{ row.property }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="周上课节数" width="100">
+          <template slot-scope="{row}">
+            <span >{{ row.classNum }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="教研组" width="100">
+          <template slot-scope="{row}">
+            <span >{{ row.researchGroupName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建人" width="100">
+          <template slot-scope="{row}">
+            <span >{{ row.creator }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" width="200">
+          <template slot-scope="{row}">
+            <span >{{ row.created }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="200">
@@ -116,7 +125,8 @@
     components: {Breadcrumb,Pagination,YPageListLayout},
     data() {
       return {
-        pageData:{},
+        pageData:{
+        },
         pagePara:{
           current:0,
           size:10
@@ -139,9 +149,13 @@
           type: 'warning',
           center:true
         }).then(() => {
-          that.$api.assetinfo.deleteLand({ id: id }).then(data => {
+          that.$api.course.delete(id).then(data => {
             that.loading = false;
             if(data.code === 200){
+              this.$message({
+                type: 'success',
+                message: "删除成功"
+              })
               that.getList()
             }
             else{
@@ -158,7 +172,7 @@
       add(){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/assetdetail",
+          path:"/baseinfo/coursedetail",
           query: {
             type: "add"
           }
@@ -167,7 +181,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/assetdetail",
+          path:"/baseinfo/coursedetail",
           query: {
             id:id,
             type: "add"
@@ -176,7 +190,7 @@
       },
       getList(){
         let that = this;
-        that.$api.assetinfo.getLandPage({...that.listQuery,...that.pagePara}).then(data => {
+        that.$api.course.list({...that.listQuery,...that.pagePara}).then(data => {
           that.loading = false;
           if(data.code === 200){
             //返回成功
