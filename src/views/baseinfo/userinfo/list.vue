@@ -10,162 +10,200 @@
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <div class="text"><div class="analysis-text">12000</div>
-          <div class="analysis-text-small">在读学生总数</div></div>
+          <i class="easy-icon easy-icon-avatar" />
+          <div class="text">
+            <div class="analysis-text">12000</div>
+            <div class="analysis-text-small">在读学生总数</div>
+          </div>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
-          <i class="easy-icon easy-icon-avatar" /> <div class="text">
-          <div class="analysis-text">11：9</div>
-          <div class="analysis-text-small">在读学生男女比例</div>
-        </div>
+          <i class="easy-icon easy-icon-avatar" />
+          <div class="text">
+            <div class="analysis-text">11：9</div>
+            <div class="analysis-text-small">在读学生男女比例</div>
+          </div>
         </div>
       </div>
 
     </div>
     <div class="filter-main-div">
-    <div class="filter-container" style="width:60%; float: left;">
-      <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="width: 100px">
-        <el-option v-for="item in  IsFull" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-select v-model="listQuery.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
-        <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-select v-model="listQuery.schoolSpecialtyId" placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
-        <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" clearable class="filter-item" style="width: 200px">
-        <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
-    </el-select>
-      <el-select v-model="listQuery.state" placeholder="就读" clearable class="filter-item" style="width: 100px">
-        <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-input v-model="listQuery.keyword" placeholder="学号或者姓名" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <div class="filter-container" style="width:60%; float: left;">
+        <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="width: 100px">
+          <el-option v-for="item in IsFull" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select
+          v-model="listQuery.schoolGradeId"
+          placeholder="年级"
+          clearable
+          style="margin-left:10px;width: 100px"
+          class="filter-item"
+        >
+          <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select
+          v-model="listQuery.schoolSpecialtyId"
+          placeholder="专业（根据年级加载）"
+          clearable
+          class="filter-item"
+          style=" width: 200px"
+        >
+          <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select
+          v-model="listQuery.schoolClbumId"
+          placeholder="班级（根据班级加载）"
+          clearable
+          class="filter-item"
+          style="width: 200px"
+        >
+          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select v-model="listQuery.state" placeholder="就读" clearable class="filter-item" style="width: 100px">
+          <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
+        </el-select>
+        <el-input
+          v-model="listQuery.keyword"
+          placeholder="学号或者姓名"
+          prefix-icon="el-icon-search"
+          style="width: 200px;"
+          class="filter-item"
+          @keyup.enter.native="handleFilter"
+        />
       </div>
-    <div class="filter-container" style="width:40%;float: right;text-align: right">
+      <div class="filter-container" style="width:40%;float: right;text-align: right">
 
-      <el-button class="filter-item"   type="primary" @click="getList">
-        搜索
-      </el-button>
-      <el-button class="filter-item"   type="primary"  @click="handleCreate">
-        学生信息模板下载
-      </el-button>
-      <el-button class="filter-item"  type="primary"   @click="handleCreate">
-        学籍号模板下载
-      </el-button>
-      <el-button class="filter-item"   type="primary"  @click="handleCreate">
-        更新学生信息
-      </el-button>
-      <el-button class="filter-item" type="primary" @click="handleCreate">
-        更新学籍号
-      </el-button>
-      <el-button class="filter-item"style="margin-right: 10px" type="primary"  @click="handleCreate">
-        导出
-      </el-button>
-    </div>
-    <el-table
-      v-loading="listLoading"
-      :key="tableKey"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width:99%;margin-left: 10px"
-      :header-cell-style="{backgroundColor:'#EFF1F6'}"
-    >
-      <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
-        <template slot-scope="{row}">
-          <span >
-                                              {{ row.studyCode }}
-                  </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="姓名" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name  }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="性别" min-width="150px"  align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.sex }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="专业" width="110px" align="center">
-        <template slot-scope="{row}">
-            <span  class="link-type">
-          <router-link tag="a" :to="{path:'/baseinfo/detail',query:{id: row.id}}"
-                       class="routerWork">{{ row.schoolSpecialtyName }}
-          </router-link>
+        <el-button class="filter-item" type="primary" @click="getList">
+          搜索
+        </el-button>
+        <el-button class="filter-item" type="primary" @click="handleCreate">
+          学生信息模板下载
+        </el-button>
+        <el-button class="filter-item" type="primary" @click="handleCreate">
+          学籍号模板下载
+        </el-button>
+        <el-button class="filter-item" type="primary" @click="handleCreate">
+          更新学生信息
+        </el-button>
+        <el-button class="filter-item" type="primary" @click="handleCreate">
+          更新学籍号
+        </el-button>
+        <el-button class="filter-item" style="margin-right: 10px" type="primary" @click="handleCreate">
+          导出
+        </el-button>
+      </div>
+      <el-table
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        style="width:99%;margin-left: 10px"
+        :header-cell-style="{backgroundColor:'#EFF1F6'}"
+      >
+        <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
+          <template slot-scope="{row}">
+            <span>
+              {{ row.studyCode }}
             </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="年级"  width="110px" align="center">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.schoolGradeName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="行政班级" width="80px">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.administrativeClbumName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学籍班级" align="center" width="95">
-        <template slot-scope="{row}">
-          <span >{{ row.schoolClbumName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="就读方式" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.studyWay }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.state }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学生类型" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.studentType }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="证件号" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <span >{{ row.certificateCode }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="联系电话" class-name="status-col" width="100">
-      <template slot-scope="{row}">
-        <span >{{ row.homePhone }}</span>
-      </template>
-    </el-table-column>
-      <el-table-column label="二维码" class-name="status-col" width="100">
-      <template slot-scope="{row}">
-                <span  class="link-type" @click="productInnerQR=true">查看</span>
-      </template>
-    </el-table-column>
-      <el-table-column label="二维码下载" class-name="status-col" width="300">
-        <template slot-scope="{row}">
-          <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">
-            下载
-          </el-button>
-          <el-button style="border-radius:15px;" type="primary" size="mini" @click="detail(row.id)">
-            详情
-          </el-button>
-          <el-button style="border-radius:15px;" type="primary" size="mini" @click="detailInfo(row.id)">
-            详情二
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.current" :limit.sync="listQuery.size" @pagination="getList" />
+          </template>
+        </el-table-column>
+        <el-table-column label="姓名" width="150px" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="性别" min-width="150px" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.sex }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="专业" width="110px" align="center">
+          <template slot-scope="{row}">
+            <span class="link-type">
+              <router-link
+                tag="a"
+                :to="{path:'/baseinfo/detail',query:{id: row.id}}"
+                class="routerWork"
+              >{{ row.schoolSpecialtyName }}
+              </router-link>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="年级" width="110px" align="center">
+          <template slot-scope="{row}">
+            <span style="color:red;">{{ row.schoolGradeName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="行政班级" width="80px">
+          <template slot-scope="{row}">
+            <span style="color:red;">{{ row.administrativeClbumName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学籍班级" align="center" width="95">
+          <template slot-scope="{row}">
+            <span>{{ row.schoolClbumName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="就读方式" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.studyWay }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.state }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学生类型" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.studentType }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="证件号" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.certificateCode }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="联系电话" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.homePhone }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="二维码" class-name="status-col" width="100">
+          <template slot-scope="{row}">
+            <span class="link-type" @click="productInnerQR=true">查看</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="二维码下载" class-name="status-col" width="300">
+          <template slot-scope="{row}">
+            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">
+              下载
+            </el-button>
+            <el-button style="border-radius:15px;" type="primary" size="mini" @click="detail(row.id)">
+              详情
+            </el-button>
+            <el-button style="border-radius:15px;" type="primary" size="mini" @click="detailInfo(row.id)">
+              详情二
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <pagination
+        v-show="total>0"
+        :total="total"
+        :page.sync="listQuery.current"
+        :limit.sync="listQuery.size"
+        @pagination="getList"
+      />
     </div>
     <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
       <div class="qcode-wrap">
-        <div class="qcode-item" v-loading="loading">
-          <img style="width: 100%" src="../../../assets/ercode.png" />
+        <div v-loading="loading" class="qcode-item">
+          <img style="width: 100%" src="../../../assets/ercode.png">
         </div>
       </div>
     </el-dialog>
@@ -173,12 +211,16 @@
 </template>
 <script>
   import Pagination from '@/components/Pagination'
-  import QRCode from 'qrcode';
+  import QRCode from 'qrcode'
 
   import Breadcrumb from '@/components/Breadcrumb'
+
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination},
+    components: {
+      Breadcrumb,
+      Pagination
+    },
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -191,14 +233,14 @@
     },
     data() {
       return {
-        innerUrl:'../../../assets/ercode.png',
-        productInnerQR:false,
+        innerUrl: '../../../assets/ercode.png',
+        productInnerQR: false,
         tableKey: 0,
         list: [],
         total: 0,
         listLoading: true,
         listQuery: {
-          type:1,
+          type: 1,
           current: 1,
           size: 10,
           schoolGradeId: '',
@@ -208,13 +250,28 @@
           administrativeSpecialtyId: '',
           administrativeClbumId: '',
           state: '',
-          keyword:''
+          keyword: ''
         },
         gradeInfo: [],
-        classInfo:[],
-        majorInfo:[],
-        IsFull:[{name:"按行政班级",id:2}, {name:"按学籍班级",id:1}],
-        jiudu:[{label:"全部",value:0},{label:"在读",value:1}, {label:"离校",value:2}],
+        classInfo: [],
+        majorInfo: [],
+        IsFull: [{
+          name: '按行政班级',
+          id: 2
+        }, {
+          name: '按学籍班级',
+          id: 1
+        }],
+        jiudu: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '在读',
+          value: 1
+        }, {
+          label: '离校',
+          value: 2
+        }],
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
@@ -223,8 +280,8 @@
           title: 1,
           type: '',
           status: '',
-          timestamp:'',
-          week:''
+          timestamp: '',
+          week: ''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
@@ -232,48 +289,56 @@
           create: '新增宿舍周考核'
         },
         rules: {
-          type: [{ required: true, message: '请填写年份', trigger: 'change' }],
-          week: [{ required: true, message: '请填写考核周数', trigger: 'blur' }],
+          type: [{
+            required: true,
+            message: '请填写年份',
+            trigger: 'change'
+          }],
+          week: [{
+            required: true,
+            message: '请填写考核周数',
+            trigger: 'blur'
+          }],
         },
       }
     },
-    created(){
-      let that = this;
-      that.getList();//分页列表
-      that.getGradeList();//赛选框年级
-      that.getSpecialtyList();
-      that.getClbumList();
+    created() {
+      const that = this
+      that.getList()// 分页列表
+      that.getGradeList()// 赛选框年级
+      that.getSpecialtyList()
+      that.getClbumList()
     },
-    methods:{
-      detail(id){
-        let that =this;
+    methods: {
+      detail(id) {
+        const that = this
         that.$router.push({
-          path:"/baseinfo/detail",
+          path: '/baseinfo/detail',
           query: {
-            id:id,
-            type: "detail"
+            id: id,
+            type: 'detail'
           }
         })
       },
-      detailInfo(id){
-        let that =this;
+      detailInfo(id) {
+        const that = this
         that.$router.push({
-          path:"/baseinfo/detailInfo",
+          path: '/baseinfo/detailInfo',
           query: {
-            id:id,
-            type: "detail"
+            id: id,
+            type: 'detail'
           }
         })
       },
-      downloadCodeImg(row){
+      downloadCodeImg(row) {
         QRCode.toDataURL(this.innerUrl, {
           width: 390
-        }, function(err, url) {
-          let a = document.createElement('a');
-          a.href = url;
-          a.download = row.qrname +".png";
-          a.click();
-        });
+        }, function (err, url) {
+          const a = document.createElement('a')
+          a.href = url
+          a.download = row.qrname + '.png'
+          a.click()
+        })
       },
       resetTemp() {
         this.temp = {
@@ -284,7 +349,7 @@
           title: 1,
           status: '',
           type: '',
-          qrname:'二维码名称'
+          qrname: '二维码名称'
         }
       },
       handleCreate() {
@@ -306,7 +371,8 @@
               message: 'Created Successfully',
               type: 'success',
               duration: 2000
-            })}
+            })
+          }
         })
       },
       handleAdd() {
@@ -339,90 +405,85 @@
           }
         })
       },
-      getGradeList(){
-        let that = this;
+      getGradeList() {
+        const that = this
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.classInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getSpecialtyList(){
-        let that = this;
+      getSpecialtyList() {
+        const that = this
         that.$api.baseInfo.getSpecialtyList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.majorInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getClbumList(){
-        let that = this;
+      getClbumList() {
+        const that = this
         that.$api.baseInfo.getClbumList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.gradeInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getList(){
-        let that = this;
+      getList() {
+        const that = this
 
-        if(that.listQuery.type == 2){
-          that.listQuery.administrativeGradeId =  that.listQuery.schoolGradeId
-          that.listQuery.administrativeSpecialtyId =  that.listQuery.schoolSpecialtyId
-          that.listQuery.administrativeClbumId =  that.listQuery.schoolClbumId
+        if (that.listQuery.type == 2) {
+          that.listQuery.administrativeGradeId = that.listQuery.schoolGradeId
+          that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
+          that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
         }
         that.$api.student.getPage().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.list = data.data.records
             this.total = data.data.total
-
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
       handleDelete(row, index) {
-        let that = this;
+        const that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
             that.list.splice(index, 1)
             this.$message({
               type: 'success',
@@ -430,65 +491,69 @@
             })
           })
           .catch(err => { console.error(err) })
-
       },
     }
   }
 </script>
 <style lang="scss" scoped>
 
-      .analysis {
-        background-color: white;
-        flex: 1;
-        .title {
-          font-size: 16px;
-          font-weight: 500;
-          color: rgba(51, 51, 51, 1);
-          line-height: 35px;
-          margin-bottom: 8px;
-        }
+  .analysis {
+    background-color: white;
+    flex: 1;
 
-        .menu-2-box {
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          padding-left: 2px;
-          padding-top: 2px;
-        }
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 35px;
+      margin-bottom: 8px;
+    }
 
-        .menu-2-item {
-          display: flex;
-          align-items: center;
-          color: #656565;
-          font-size: 12px;
-          width: 230px;
-          height: 101px;
-          background: rgb(255, 185, 129);
-          border-radius: 3px;
-          padding-left: 20px;
-          margin-right: 10px;
-          padding-top: 2px;
-          margin-bottom: 2px;
-          cursor: pointer;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    .menu-2-box {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-left: 2px;
+      padding-top: 2px;
+    }
 
-          .text {
-            margin-left: 16px;
-          }
-        }
+    .menu-2-item {
+      display: flex;
+      align-items: center;
+      color: #656565;
+      font-size: 12px;
+      width: 230px;
+      height: 101px;
+      background: rgb(255, 185, 129);
+      border-radius: 3px;
+      padding-left: 20px;
+      margin-right: 10px;
+      padding-top: 2px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+
+      .text {
+        margin-left: 16px;
       }
+    }
+  }
 </style>
 <style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
+  .download-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right
   }
+
   .qcode-wrap {
     display: flex;
 
-    .qcode-item {
-      width: 200px;
-      height: 200px;
+  .qcode-item {
+    width: 200px;
+    height: 200px;
 
-    }
+  }
+
   }
 </style>

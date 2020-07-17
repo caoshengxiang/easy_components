@@ -11,7 +11,6 @@
     v-if="show"
     :class="className"
     :icon="icon"
-    style="margin: 0 3px;"
     :type="type"
     :size="size"
     :plain="plain"
