@@ -23,9 +23,14 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/assetdetail`)">
-          新增用地
+          新增课程
         </el-button>
-        <el-input v-model="listQuery.keyword" placeholder="用地编号或名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.keyword" placeholder="课程编号" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.keyword" placeholder="课程名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-select v-model="listQuery.status" placeholder="教研组" clearable class="filter-item" style="margin-left:20px;width:200px">
+          <el-option key="1" label="语文组" value="1" />
+          <el-option key="2" label="数学组" value="2" />
+        </el-select>
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="getList">
