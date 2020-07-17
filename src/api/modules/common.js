@@ -5,7 +5,7 @@ export default {
   upload(params) {
     return request2.post('', params)
   },
-  getOrganizationList(params){
-    return request.get('organization', {params:params})
+  getOrganizationAllList(params){
+    return request.get('organization/simpleAll', {params:params})
   }
 }
