@@ -30,8 +30,8 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else { // 判断vuex存储的权限路由是否存在，否则重新获取用户信息，计算路由。（user都存于vuex，刷新自然会重新获取用户信息。页面获取用户信息可通过getter获取）
       /**/
-      // if (store.getters.userInfo && store.getters.permission_routes && store.getters.permission_routes.length > 0) {
-      if (store.getters.permission_routes && store.getters.permission_routes.length > 0) {
+      if (store.getters.userInfo && store.getters.permission_routes && store.getters.permission_routes.length > 0) {
+      // if (store.getters.permission_routes && store.getters.permission_routes.length > 0) {
         next()
       } else {
         const { name, postList } = await store.dispatch('user/userInfo')

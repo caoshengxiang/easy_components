@@ -33,7 +33,7 @@
       <div class="right">
         <div class="btn-set">
           <el-tabs type="card">
-            <el-tab-pane :label="(menuItem.label ? menuItem.label + '-':'') + '权限设置'">
+            <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '权限设置'">
               <el-form
                 v-if="menuItem.name && menuItem.menuType !== '目录'"
                 ref="dataForm"
@@ -42,17 +42,17 @@
                 label-width="140px"
                 style="width: 500px; margin-left:50px;margin-top: 40px;"
               >
-                <el-form-item label="按钮配置：">
-                  <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">
-                    <el-checkbox
-                      v-for="item in menuItem.children"
-                      v-if="item.menuType === '按钮'"
-                      :key="item.id"
-                      :label="item.id"
-                    >{{ item.name }}
-                    </el-checkbox>
-                  </el-checkbox-group>
-                </el-form-item>
+                <!--                <el-form-item label="按钮配置：">-->
+                <!--                  <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">-->
+                <!--                    <el-checkbox-->
+                <!--                      v-for="item in menuItem.children"-->
+                <!--                      v-if="item.menuType === '按钮'"-->
+                <!--                      :key="item.id"-->
+                <!--                      :label="item.id"-->
+                <!--                    >{{ item.name }}-->
+                <!--                    </el-checkbox>-->
+                <!--                  </el-checkbox-group>-->
+                <!--                </el-form-item>-->
 
                 <el-form-item label="数据权限配置：">
                   <el-radio-group v-model="temp.level" :disabled="type!=='add'">
@@ -139,7 +139,7 @@
 
       getDetail() {
         this.$api.postAuth.tree({ postId: this.$route.query.id }).then(res => {
-          this.treeData = res.data
+          this.treeData = res.data.filter((item) => { return item.id && item.name })
           const list = []
           const checkeds = []
 
@@ -155,7 +155,7 @@
             })
           }
 
-          treeMap(res.data)
+          treeMap(this.treeData)
           this.treeListData = list
           this.checkedIds = checkeds
           this.$refs.tree.setCheckedKeys(this.checkedIds)
@@ -238,10 +238,10 @@
       handleCreate() {
         // console.log(this.$refs.tree.getCheckedNodes())
         // console.log(this.$refs.tree.getCheckedKeys())
-        // console.log(JSON.stringify({
-        //   postId: this.$route.query.id,
-        //   permissionTree: this.treeData
-        // }))
+        console.log(JSON.stringify({
+          postId: this.$route.query.id,
+          permissionTree: JSON.stringify(this.treeData)
+        }))
         this.$api.postAuth.edit({
           postId: this.$route.query.id,
           permissionTree: JSON.stringify(this.treeData)
@@ -253,6 +253,7 @@
               type: 'success',
               duration: 2000
             })
+            this.getDetail()
           }
         })
       }

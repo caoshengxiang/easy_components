@@ -11,7 +11,6 @@
     v-if="show"
     :class="className"
     :icon="icon"
-    style="margin: 0 3px;"
     :type="type"
     :size="size"
     :plain="plain"
@@ -21,9 +20,9 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :native-type="nativeType"
-    @click="handle"
+    @click.stop="handle"
   >
-    {{ name }}
+    {{ name || menu.name }}
   </el-button>
 </template>
 
