@@ -19,8 +19,8 @@
           v-model="postSelectResultList"
           :data="postListData"
           filterable
-          filter-placeholder="输入姓名，模糊查询"
-          :titles="['待选用户','已选用户']">
+          filter-placeholder="输入岗位，模糊查询"
+          :titles="['待选岗位','已选岗位']">
           <el-popover
             slot-scope="{ option }"
             placement="top-start"
