@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <div class="right">
+   <!-- <div class="right">
       <div class="menu-2-box">
         <div
           :key="index"
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-    </div>
+    </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-button class="filter-item" round type="primary"  @click="detail()">
