@@ -21,7 +21,7 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :native-type="nativeType"
-    @click="handle"
+    @click.stop="handle"
   >
     {{ name || menu.name }}
   </el-button>

@@ -1,16 +1,29 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
 
-      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>
-      <!--      <PermissionButton menu-no="" class-name="filter-item download-button" type="primary" icon="el-icon-edit" name="导出"/>-->
+      <!--      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>-->
+      <PermissionButton
+        menu-no="_views_set_post_download"
+        class-name="filter-item download-button"
+        type="primary"
+        icon="el-icon-edit"
+        name=""
+      />
     </div>
     <div class="filter-container" style="float: left;margin-top: 10px;">
       <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
       <!--        新增岗位-->
       <!--      </el-button>-->
-      <PermissionButton menu-no="_views_set_post_add" class="filter-item" icon="el-icon-plus" type="primary" name="新增岗位" @click="handleAdd"/>
+      <PermissionButton
+        menu-no="_views_set_post_add"
+        class="filter-item"
+        icon="el-icon-plus"
+        type="primary"
+        name="新增岗位"
+        @click="handleAdd"
+      />
     </div>
     <div class="filter-container" style="float: right;margin-top: 10px;">
       <el-input
@@ -64,15 +77,34 @@
           <!--          <el-button type="primary" size="mini" @click="handleUpdate(row)">-->
           <!--            编辑-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="" @click="handleUpdate(row)"/>
+          <PermissionButton
+            menu-no="_views_set_post_edit"
+            type="primary"
+            size="mini"
+            name=""
+            @click="handleUpdate(row)"
+          />
           <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
           <!--            删除-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="" @click="(data) =>{handleDelete(row, data)}"/>
+          <PermissionButton
+            menu-no="_views_set_post_remove"
+            type="danger"
+            size="mini"
+            name=""
+            @click="(data) =>{handleDelete(row, data)}"
+          />
           <!--          <el-button type="warning" size="mini" @click="handleSetAuth(row)">-->
           <!--            权限-->
           <!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="" :page-jump="true" :page-query="{id: row.id}"/>
+          <PermissionButton
+            menu-no="_views_set_post_auth"
+            type="warning"
+            size="mini"
+            name=""
+            :page-jump="true"
+            :page-query="{id: row.id}"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -99,11 +131,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="岗位编码：" prop="code">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="temp.code" class="filter-item" />
 
         </el-form-item>
         <el-form-item label="岗位名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item"/>
+          <el-input v-model="temp.name" class="filter-item" />
         </el-form-item>
 
         <el-form-item label="所属部门：" filterable prop="orgId">
@@ -118,7 +150,7 @@
         </el-form-item>
 
         <el-form-item label="主要职责：">
-          <el-input v-model="temp.duty" class="filter-item"/>
+          <el-input v-model="temp.duty" class="filter-item" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -196,35 +228,11 @@
             trigger: 'change'
           }]
         },
-        partOptions: [
-          {
-            name: '园区实训基地',
-            id: 1
-          },
-          {
-            name: '综合部',
-            id: 2
-          },
-          {
-            name: '电子机械部',
-            id: 6
-          },
-          {
-            name: '信息部',
-            id: 3
-          },
-          {
-            name: '财务室',
-            id: 4
-          },
-          {
-            name: '教职工',
-            id: 5
-          }
-        ]
+        partOptions: []
       }
     },
     created() {
+      this.getPartSelect()
       this.getList()
     },
     methods: {
@@ -235,6 +243,11 @@
           orgId: '',
           duty: ''
         }
+      },
+      getPartSelect() {
+        this.$api.organization.simpleAll().then(res => {
+          this.partOptions = res.data
+        })
       },
       // handleCreate() {
       //   this.resetTemp()

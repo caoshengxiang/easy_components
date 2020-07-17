@@ -3,16 +3,16 @@
     <div class="set-menu-box">
       <div class="left">
         <div style="margin-bottom: 10px;">
-<!--          <el-button-->
-<!--            class="filter-item"-->
-<!--            icon="el-icon-plus"-->
-<!--            style="margin-left: 0px;"-->
-<!--            type="primary"-->
-<!--            @click="handleAdd"-->
-<!--          >-->
-<!--            新增一级菜单-->
-<!--          </el-button>-->
-          <PermissionButton menu-no="_views_set_menu_add" className="filter-item" icon="el-icon-plus" type="primary" name="" @click="handleAdd"/>
+          <!--          <el-button-->
+          <!--            class="filter-item"-->
+          <!--            icon="el-icon-plus"-->
+          <!--            style="margin-left: 0px;"-->
+          <!--            type="primary"-->
+          <!--            @click="handleAdd"-->
+          <!--          >-->
+          <!--            新增一级菜单-->
+          <!--          </el-button>-->
+          <PermissionButton menu-no="_views_set_menu_add" class-name="filter-item" icon="el-icon-plus" type="primary" name="" @click="handleAdd" />
           <span style="color: #666666;font-size: 10px;padding-left: 10px;">(菜单可拖拽排序、点击编辑)</span>
         </div>
 
@@ -35,32 +35,32 @@
         >
           <span slot-scope="{ node, data }" class="custom-tree-node">
             <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
-              <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
-              <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
-              <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
+              <i v-if="data.menuType==='目录'" class="el-icon-folder-opened" />
+              <i v-if="data.menuType==='菜单'" class="el-icon-document" />
+              <i v-if="data.menuType==='按钮'" class="el-icon-thumb" />
             </el-tooltip>
             <!--            <span class="tips">{{ node.level }}</span>-->
             <!--            <span>{{ data }}</span>-->
             <span style="margin-left: 5px;">{{ data.name }}</span>
             <span class="btns">
-<!--              <el-button-->
-<!--                type="text"-->
-<!--                size="mini"-->
-<!--                @click.stop="() => append(data)"-->
-<!--              >-->
-<!--                添加-->
-<!--              </el-button>-->
-              <PermissionButton menu-no="_views_set_menu_add_tree" type="text" size="mini" name="" @click.stop="() => append(data)"/>
-<!--              <el-button-->
-<!--                v-if="!data.children || data.children.length===0"-->
-<!--                type="text"-->
-<!--                style="color: red;"-->
-<!--                size="mini"-->
-<!--                @click.stop="() => remove(node, data)"-->
-<!--              >-->
-<!--                删除-->
-<!--              </el-button>-->
-              <PermissionButton v-if="!data.children || data.children.length===0" menu-no="_views_set_menu_remove" style="color: red;" type="text" size="mini" name="" @click.stop="() => remove(node, data)"/>
+              <!--              <el-button-->
+              <!--                type="text"-->
+              <!--                size="mini"-->
+              <!--                @click.stop="() => append(data)"-->
+              <!--              >-->
+              <!--                添加-->
+              <!--              </el-button>-->
+              <PermissionButton menu-no="_views_set_menu_add_tree" type="text" size="mini" name="" @click="() => append(data)" />
+              <!--              <el-button-->
+              <!--                v-if="!data.children || data.children.length===0"-->
+              <!--                type="text"-->
+              <!--                style="color: red;"-->
+              <!--                size="mini"-->
+              <!--                @click.stop="() => remove(node, data)"-->
+              <!--              >-->
+              <!--                删除-->
+              <!--              </el-button>-->
+              <PermissionButton v-if="!data.children || data.children.length===0" menu-no="_views_set_menu_remove" style="color: red;" type="text" size="mini" name="" @click="() => remove(node, data)" />
               <!--            <i class="el-icon-circle-plus" @click.stop="() => append(data)"></i>-->
               <!--            <i style="color: red;margin-left: 5px;" class="el-icon-delete-solid" @click.stop="() => remove(node, data)"></i>-->
 
@@ -97,7 +97,7 @@
                       content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)"
                       placement="top-start"
                     >
-                      <i class="el-icon-question"/></el-tooltip>
+                      <i class="el-icon-question" /></el-tooltip>
                     ：
                   </span>
                   <el-radio-group v-model="temp.menuType">
@@ -113,7 +113,7 @@
                     { required: true, message: '请输入名称', trigger: 'blur' }
                   ]"
                 >
-                  <el-input v-model="temp.name" :disabled="type!=='add'" placeholder="请输入简短名称" class="filter-item"/>
+                  <el-input v-model="temp.name" :disabled="type!=='add'" placeholder="请输入简短名称" class="filter-item" />
                 </el-form-item>
                 <el-form-item
                   label="编码："
@@ -126,10 +126,10 @@
                       content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
                       placement="top-start"
                     >
-                      <i class="el-icon-question"/></el-tooltip>
+                      <i class="el-icon-question" /></el-tooltip>
                     ：
                   </span>
-                  <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item"/>
+                  <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item" />
                 </el-form-item>
                 <el-form-item
                   label="组件映射："
@@ -142,10 +142,10 @@
                       content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）"
                       placement="top-start"
                     >
-                      <i class="el-icon-question"/></el-tooltip>
+                      <i class="el-icon-question" /></el-tooltip>
                     ：
                   </span>
-                  <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item"/>
+                  <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item" />
                 </el-form-item>
                 <el-form-item label="状态：">
                   <el-radio-group v-model="temp.enabled">
@@ -185,13 +185,13 @@
                       content="内部系统url 约定为 组件路径（注意：URL 不得重复）， 可以试试把编码粘贴这里，失去焦点"
                       placement="top-start"
                     >
-                      <i class="el-icon-question"/></el-tooltip>
+                      <i class="el-icon-question" /></el-tooltip>
                     ：
                   </span>
-                  <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" @change="autoFormat"/>
+                  <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" @change="autoFormat" />
                 </el-form-item>
                 <el-form-item v-if="port_pc" label="图标：">
-                  <el-input v-model="temp.pcIcon" :disabled="type!=='add'" class="filter-item"/>
+                  <el-input v-model="temp.pcIcon" :disabled="type!=='add'" class="filter-item" />
                 </el-form-item>
                 <el-form-item label="菜单端口：">
                   <el-checkbox v-model="port_m" :disabled="type!=='add'">移动端</el-checkbox>
@@ -203,12 +203,12 @@
                     { required: true, message: '请输入名称', trigger: 'blur' }
                   ]"
                 >
-                  <el-input v-model="temp.mobileUrl" :disabled="type!=='add'" class="filter-item"/>
+                  <el-input v-model="temp.mobileUrl" :disabled="type!=='add'" class="filter-item" />
                 </el-form-item>
                 <el-form-item v-if="port_m" label="图标：" prop="name">
-                  <el-input v-model="temp.mobileIcon" :disabled="type!=='add'" class="filter-item"/>
+                  <el-input v-model="temp.mobileIcon" :disabled="type!=='add'" class="filter-item" />
                 </el-form-item>
-                <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;"/>
+                <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;" />
                 <!--                <el-form-item label="权限按钮：">-->
                 <!--                  <div>-->
                 <!--&lt;!&ndash;                    <el-button v-if="type==='add'" type="success">添加</el-button>&ndash;&gt;-->
@@ -263,17 +263,17 @@
             v-if="menuItem.name"
             style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"
           >
-<!--            <el-button-->
-<!--              v-if="type=='detail'"-->
-<!--              class="filter-item download-button"-->
-<!--              style="margin-left: 10px;"-->
-<!--              type="primary"-->
-<!--              icon="el-icon-edit"-->
-<!--              @click="type='add'"-->
-<!--            >-->
-<!--              编辑-->
-<!--            </el-button>-->
-            <PermissionButton v-if="type=='detail'" menu-no="_views_set_menu_edit" class-name="filter-item download-button" style="margin-left: 10px;" type="primary" name="" icon="el-icon-edit" @click="type='add'"/>
+            <!--            <el-button-->
+            <!--              v-if="type=='detail'"-->
+            <!--              class="filter-item download-button"-->
+            <!--              style="margin-left: 10px;"-->
+            <!--              type="primary"-->
+            <!--              icon="el-icon-edit"-->
+            <!--              @click="type='add'"-->
+            <!--            >-->
+            <!--              编辑-->
+            <!--            </el-button>-->
+            <PermissionButton v-if="type=='detail'" menu-no="_views_set_menu_edit" class-name="filter-item download-button" style="margin-left: 10px;" type="primary" name="" icon="el-icon-edit" @click="type='add'" />
             <el-button
               v-if="type=='add'"
               class="filter-item download-button"
@@ -325,7 +325,7 @@
         <el-form-item label="菜单类型：">
           <span slot="label">菜单类型
             <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)" placement="top-start">
-              <i class="el-icon-question"/></el-tooltip>
+              <i class="el-icon-question" /></el-tooltip>
             ：
           </span>
           <el-radio-group v-model="temp.menuType">
@@ -341,23 +341,23 @@
             { required: true, message: '请输入名称', trigger: 'blur' }
           ]"
         >
-          <el-input v-model="temp.name" placeholder="请输入简短名称" class="filter-item"/>
+          <el-input v-model="temp.name" placeholder="请输入简短名称" class="filter-item" />
         </el-form-item>
         <el-form-item
           label="编码："
           prop="menuNo"
         >
           <span slot="label">编码
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
-                      placement="top-start"
-                    >
-                      <i class="el-icon-question"/></el-tooltip>
-                    ：
-                  </span>
-          <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item"/>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
+              placement="top-start"
+            >
+              <i class="el-icon-question" /></el-tooltip>
+            ：
+          </span>
+          <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item" />
         </el-form-item>
         <el-form-item
           label="组件映射："
@@ -370,10 +370,10 @@
               content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）"
               placement="top-start"
             >
-              <i class="el-icon-question"/></el-tooltip>
+              <i class="el-icon-question" /></el-tooltip>
             ：
           </span>
-          <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item"/>
+          <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item" />
         </el-form-item>
         <el-form-item label="状态：">
           <el-radio-group v-model="temp.enabled">
@@ -406,13 +406,13 @@
         >
           <span slot="label">URL
             <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
-              <i class="el-icon-question"/></el-tooltip>
+              <i class="el-icon-question" /></el-tooltip>
             ：
           </span>
-          <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
+          <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat" />
         </el-form-item>
         <el-form-item v-if="port_pc" label="图标：">
-          <el-input v-model="temp.pcIcon" class="filter-item"/>
+          <el-input v-model="temp.pcIcon" class="filter-item" />
         </el-form-item>
         <el-form-item label="菜单端口：">
           <el-checkbox v-model="port_m">移动端</el-checkbox>
@@ -424,10 +424,10 @@
             { required: true, message: '请输入名称', trigger: 'blur' }
           ]"
         >
-          <el-input v-model="temp.mobileUrl" class="filter-item"/>
+          <el-input v-model="temp.mobileUrl" class="filter-item" />
         </el-form-item>
         <el-form-item v-if="port_m" label="图标：" prop="name">
-          <el-input v-model="temp.mobileIcon" class="filter-item"/>
+          <el-input v-model="temp.mobileIcon" class="filter-item" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
