@@ -41,19 +41,19 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="课程编号" prop="id" sortable="custom" align="center" width="200px">
+        <el-table-column label="课程编号" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
           <span >
                                               {{ row.code }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="课程名称" min-width="200px" align="center">
+        <el-table-column label="课程名称" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="学时" width="200px" align="center">
+        <el-table-column label="学时" align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.hours }}
@@ -61,43 +61,43 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="学分"  width="200px" align="center">
+        <el-table-column label="学分" align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.credit }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="课程类别" align="center" width="100">
+        <el-table-column label="课程类别" align="center">
           <template slot-scope="{row}">
             <span >{{ row.cate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="课程属性" width="100">
+        <el-table-column label="课程属性">
           <template slot-scope="{row}">
             <span>{{ row.property }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="周上课节数" width="100">
+        <el-table-column label="周上课节数">
           <template slot-scope="{row}">
             <span >{{ row.classNum }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="教研组" width="100">
+        <el-table-column label="教研组">
           <template slot-scope="{row}">
             <span >{{ row.researchGroupName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建人" width="100">
+        <el-table-column label="创建人">
           <template slot-scope="{row}">
             <span >{{ row.creator }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" width="200">
+        <el-table-column label="创建时间">
           <template slot-scope="{row}">
             <span >{{ row.created }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
