@@ -16,7 +16,7 @@
     </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/coursedetail`)">
+        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/course/detail`)">
           新增课程
         </el-button>
         <el-input v-model="listQuery.keyword" placeholder="课程编号" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
@@ -172,7 +172,7 @@
       add(){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/coursedetail",
+          path:"/views/baseinfo/course/detail",
           query: {
             type: "add"
           }
@@ -181,7 +181,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/coursedetail",
+          path:"/views/baseinfo/course/detail",
           query: {
             id:id,
             type: "add"

@@ -22,7 +22,7 @@
     </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/baseinfo/assetdetail`)">
+        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/assetinfo/detail`)">
           新增用地
         </el-button>
         <el-input v-model="listQuery.keyword" placeholder="用地编号或名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
@@ -153,7 +153,7 @@
       add(){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/assetdetail",
+          path:"/views/baseinfo/assetinfo/detail",
           query: {
             type: "add"
           }
@@ -162,7 +162,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/assetdetail",
+          path:"/views/baseinfo/assetinfo/detail",
           query: {
             id:id,
             type: "add"

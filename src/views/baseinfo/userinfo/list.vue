@@ -366,7 +366,7 @@
       detailInfo(id) {
         const that = this
         that.$router.push({
-          path: '/baseinfo/detailInfo',
+          path: '/views/baseinfo/userinfo/detailInfo',
           query: {
             id: id,
             type: 'detail'

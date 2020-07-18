@@ -148,7 +148,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/buildingdetail",
+          path:"/views/baseinfo/assetinfo/buildingdetail",
           query: {
             id: id,
           }
