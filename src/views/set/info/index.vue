@@ -3,10 +3,11 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="handleCreate" :editStatus="false" menu-no="_views_set_info_edit">
+    <y-detail-page-layout :save="handleCreate" :edit-status="false" menu-no="_views_set_info_edit">
       <el-tabs value ="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
+            v-loading="listLoading"
             label-width="200px"
             ref="postForm"
             :model="postForm"
@@ -256,6 +257,8 @@
     components: { Breadcrumb, YDetailPageLayout },
     data() {
       return {
+        listLoading: false,
+        type: '',
         postForm: Object.assign({}, defaultForm),
         rules: {
           type: [{
@@ -268,6 +271,10 @@
     },
     created() {
       this.type = 'detail'
+      this.listLoading = true
+      setTimeout(() => {
+        this.listLoading = false
+      }, 500)
     },
     methods: {
       handleCreate() {
