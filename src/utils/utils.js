@@ -3,9 +3,8 @@
 2019.2.11 姚政伟 创建
 */
 import router from '@/router'
-import {Loading} from 'element-ui'
+import {Loading,MessageBox} from 'element-ui'
 import { getToken } from '@/utils/auth'
-import { Message,MessageBox } from 'element-ui';
 
 const utils = {
   getUrlParam: function (name) {
@@ -146,12 +145,14 @@ const utils = {
     }
     return str;
   },
-  exportUtil(url, data) {
+  exportUtil(url, data, message) {
     let that = this
-    MessageBox.confirm('确认导出excel吗?', '提示', {
+    MessageBox.confirm('确认导出' + message + '吗?', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning',
+      confirmButtonClass: 'confirmButtonClass',
+      cancelButtonClass: 'confirmButtonClass',
       center: true
     }).then(() => {
 

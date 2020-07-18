@@ -42,24 +42,24 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="土地产权" prop="id" sortable="custom" align="center" width="200px">
+        <el-table-column label="土地产权" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
           <span >
                                               {{ row.property }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="使用状况" width="200px" align="center">
+        <el-table-column label="使用状况" align="center">
           <template slot-scope="{row}">
             <span>{{ row.status }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="校区" width="200px"  align="center">
+        <el-table-column label="校区"   align="center">
           <template slot-scope="{row}">
             <span>{{ row.campus }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用途" width="200px" align="center">
+        <el-table-column label="用途" align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.user }}
@@ -67,23 +67,23 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="面积(平方米)"  width="200px" align="center">
+        <el-table-column label="面积(平方米)"  align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.area }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="土地证号" align="center" min-width="200px">
+        <el-table-column label="土地证号" align="center" >
           <template slot-scope="{row}">
             <span >{{ row.certificateNum }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地址" min-width="300px">
+        <el-table-column label="地址" >
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.addr }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑

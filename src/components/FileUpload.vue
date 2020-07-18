@@ -30,7 +30,7 @@
       :multiple="multiple"
       :on-exceed="handleExceed"
       :on-error="handleImageError"
-      :headers="{token:$store.state.sessionKey}"
+      :headers="headers"
       ref="uploadCtl"
       :disabled="isdisabled"
     >
@@ -106,16 +106,18 @@
 </template>
 
 <script>
+  import { getToken } from '@/utils/auth'
   export default {
     data () {
       return {
+        headers:{},
         video: ".mp4|.ogg|.webm|.AVI|.WMV",
         audio: ".mp3|.ogg|.wav",
         //上传文件配置属性
         uploadConfig: {
           loading: false,
           prefixServerFileUrl: "https://goss.veer.com",//this.$config.prefixServerFileUrl,
-          uploadFileApiUrl: "https://weixin.yanjiyou.net/vip/file/upload",//this.$config.uploadFileApiUrl,
+          uploadFileApiUrl: process.env.VUE_APP_BASE_API + 'student/importExcel',//this.$config.uploadFileApiUrl,
           previewImageUrl: "",
           succeedFileList: [],
           dialogVisible: false,
@@ -179,6 +181,9 @@
         required: false,
         default: ""
       }
+    },
+    created(){
+      this.headers = { token: getToken() }
     },
     computed: {
       uploadPath() {
