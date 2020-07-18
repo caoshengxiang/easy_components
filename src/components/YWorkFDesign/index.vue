@@ -52,7 +52,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="`${currentNodeForm.userType ==1 ?'用户':'岗位'}名称`" label-width="100px">
-          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true" v-model="currentNodeForm.selectedUser">
+          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :readonly="true" :value="userListNameStr">
             <el-button slot="append" type="primary" @click="selectAuditUser">选择</el-button>
           </el-input>
         </el-form-item>
@@ -69,7 +69,7 @@
       </div>
     </el-dialog>
     <y-user-select :title="`请选择审批用户`" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
-    <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-post-select>
+    <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds" :multiSelect="false"></y-post-select>
   </div>
 </template>
 
@@ -86,17 +86,23 @@
       dialogFormVisible:function (value) {
         if (value === false)
           this.initAllTaskStyle()
-      },
-      'currentNodeForm.userIds':function (value) {
-        switch (this.currentNodeForm.userType) {
-          case 1:
-            this.$set(this.currentNodeForm,'selectedUser',this.getStaffNameListStr(value))
-            break;
-          case 2:
-            this.$set(this.currentNodeForm,'selectedUser',this.getPostNameListStr(value))
-            break;
-        }
       }
+    },
+    computed: {
+      userListNameStr () {
+        let name = ''
+        if (this.currentNodeForm.userIds && this.currentNodeForm.userIds.length > 0){
+          switch (this.currentNodeForm.userType) {
+            case 1:
+              name = this.getStaffNameListStr(this.currentNodeForm.userIds)
+              break;
+            case 2:
+              name = this.getPostNameListStr(this.currentNodeForm.userIds)
+              break;
+          }
+        }
+        return name
+      },
     },
     props: {
       id: {
@@ -140,8 +146,14 @@
       if (that.id) {
         that.$api.workflow.getDetail(that.id).then(res => {
           if(res.code === 200){
-            that.form = res.data;
-            that.initDesign(res.data.diagramBpmn)
+            if (res.data) {
+              that.form = res.data;
+              if (res.data.diagramBpmn) {
+                that.initDesign(res.data.diagramBpmn)
+              }else{
+                that.initDesign(xmlStr)
+              }
+            }
           }else{
             that.$message({
               type: 'error',
@@ -276,7 +288,8 @@
           nodeId:shape.businessObject.id,
           nodeName:shape.businessObject.name,
           userType:1,
-          nodeType:1
+          nodeType:1,
+          userIds:[]
         });
 
         const mouseEvents = document.createEvent('MouseEvents')
@@ -310,7 +323,15 @@
               this.$refs.ctxshow.hideMenu()
             } else {
               if (currTask.type === 'bpmn:StartEvent') {
-                this.rcContentMenus = ['btn2', 'btn6']
+                const elementRegistry = this.bpmnModeler.get('elementRegistry');
+                const userTaskList = elementRegistry.filter(
+                  (item) => item.type === 'bpmn:UserTask'
+                );
+                if (userTaskList && userTaskList.length > 0){
+                  this.rcContentMenus = ['btn2', 'btn6']
+                }else{
+                  this.rcContentMenus = ['btn2']
+                }
               } else if (currTask.type === 'bpmn:SequenceFlow') {
                 this.rcContentMenus = ['btn5']
               } else {
@@ -366,7 +387,9 @@
         // eslint-disable-next-line handle-callback-err
         that.saveDiagram(function (err, xml) {
           that.form.diagramBpmn = xml;
-          that.form.diagramData = JSON.stringify(that.diagramData)
+          if (that.diagramData && that.diagramData.length > 0){
+            that.form.diagramData = JSON.stringify(that.diagramData)
+          }
           that.$utils.loading.show();
           that.$api.workflow.save(that.form).then(res => {
             that.$utils.loading.hide();
@@ -478,7 +501,6 @@
       },
       changeUserType(){
         this.currentNodeForm.userIds = []
-        this.currentNodeForm.selectedUser = ''
       },
       getStaffList(){
         const that = this;
