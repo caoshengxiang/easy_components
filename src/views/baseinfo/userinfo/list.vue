@@ -77,7 +77,7 @@
         <el-button class="filter-item" round type="primary" @click="getList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
+        <el-button class="filter-item" round type="primary" @click="downloadTemplate">
           学生信息模板下载
         </el-button>
         <el-button class="filter-item" round type="primary" @click="handleCreate">
@@ -89,7 +89,7 @@
         <el-button class="filter-item" round type="primary" @click="handleCreate">
           更新学籍号
         </el-button>
-        <el-button class="filter-item" round style="margin-right: 10px" type="primary" @click="handleCreate">
+        <el-button class="filter-item" round style="margin-right: 10px" type="primary"  @click="handleDownload">
           导出
         </el-button>
       </template>
@@ -206,10 +206,9 @@
 <script>
   import Pagination from '@/components/Pagination'
   import QRCode from 'qrcode'
-
   import Breadcrumb from '@/components/Breadcrumb'
-
   import YPageListLayout from '@/components/YPageListLayout'
+  import utils from '@/utils/utils'
 
   export default {
     name: 'ComplexTable',
@@ -311,6 +310,44 @@
       that.getClbumList()
     },
     methods: {
+      EncodeGetUrl(url) {
+        let urlArr = url.split('?');
+        let encodeUrl = urlArr[0];
+
+        if (urlArr.length > 1) {
+          encodeUrl += '?';
+          let paramArr = urlArr[1].split('&');
+          let encodeparamArr = [];
+          paramArr.forEach((item, index) => {
+            let key = item.split('=')[0];
+            let value = item.split('=')[1];
+            encodeparamArr.push(key + '=' + encodeURIComponent(value));
+          })
+
+          encodeUrl += encodeparamArr.join('&');
+        }
+
+        return encodeUrl;
+      },
+      downloadTemplate(){
+        utils.exportUtil('/student/download/importTemplate',null)
+      },
+      handleDownload(url){
+        utils.exportUtil('/student/download/exportExcel',this.listQuery)
+      },
+      objToString(obj) {
+        var str = '';
+        if (obj) {
+          Object.keys(obj).forEach((key, index) => {
+            if (index == 0) {
+              str = str + `?${key}=${obj[key]}`;
+            } else {
+              str = str + `&${key}=${obj[key]}`;
+            }
+          })
+        }
+        return str;
+      },
       detail(id) {
         const that = this
         that.$router.push({

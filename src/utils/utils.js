@@ -4,6 +4,8 @@
 */
 import router from '@/router'
 import {Loading} from 'element-ui'
+import { getToken } from '@/utils/auth'
+import { Message,MessageBox } from 'element-ui';
 
 const utils = {
   getUrlParam: function (name) {
@@ -111,6 +113,64 @@ const utils = {
     }
 
     return tree
+  },
+  EncodeGetUrl(url) {
+    let urlArr = url.split('?');
+    let encodeUrl = urlArr[0];
+
+    if (urlArr.length > 1) {
+      encodeUrl += '?';
+      let paramArr = urlArr[1].split('&');
+      let encodeparamArr = [];
+      paramArr.forEach((item, index) => {
+        let key = item.split('=')[0];
+        let value = item.split('=')[1];
+        encodeparamArr.push(key + '=' + encodeURIComponent(value));
+      })
+
+      encodeUrl += encodeparamArr.join('&');
+    }
+
+    return encodeUrl;
+  },
+  objToString(obj) {
+    var str = '';
+    if (obj) {
+      Object.keys(obj).forEach((key, index) => {
+        if (index == 0) {
+          str = str + `?${key}=${obj[key]}`;
+        } else {
+          str = str + `&${key}=${obj[key]}`;
+        }
+      })
+    }
+    return str;
+  },
+  exportUtil(url, data) {
+    let that = this
+    MessageBox.confirm('确认导出excel吗?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      center: true
+    }).then(() => {
+
+      if(!data) {
+        data = {}
+      }
+      if(!data.token) {
+        data.token = getToken();
+      }
+      let downUrl = process.env.VUE_APP_BASE_API + url + this.objToString(data);
+      downUrl = this.EncodeGetUrl(downUrl);
+      var a = document.createElement('a');
+      a.href = downUrl;
+      a.click();
+
+    }).catch(() => {
+
+    });
+
   }
 }
 

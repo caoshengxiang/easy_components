@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import file from '@/utils/file'
 
 export default {
   getPage(params){
@@ -15,5 +16,8 @@ export default {
   },
   getStdNoBedList(params){
     return request.get('student/list/noBed', { params: params })
+  },
+  download(params){
+    return file.fileDown('student', { params: params })
   },
 }
