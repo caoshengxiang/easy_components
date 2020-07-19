@@ -10,6 +10,7 @@
         :visible="dialogRecStatus"
         center
         :show-close="false"
+        :destroy-on-close="true"
       >
         <el-transfer
           :props="{
@@ -20,7 +21,8 @@
           :data="postListData"
           filterable
           filter-placeholder="输入岗位，模糊查询"
-          :titles="['待选岗位','已选岗位']">
+          :titles="['待选岗位','已选岗位']"
+          @left-check-change="checkItem">
           <el-popover
             slot-scope="{ option }"
             placement="top-start"
@@ -52,6 +54,26 @@
         },
         initSelectedUser:function (value) {
           this.postSelectResultList = value;
+        },
+        postSelectResultList:function (value) {
+          const that = this;
+          if (!that.multiSelect) {
+            if (value && value.length > 0) {
+              that.postListData.forEach(function (item) {
+                item.disabled = true;
+              })
+              value.forEach(function (id) {
+                that.postListData.forEach(function (item) {
+                  if (id === item.id)
+                    item.disabled = false;
+                })
+              })
+            }else{
+              that.postListData.forEach(function (item) {
+                item.disabled = false;
+              })
+            }
+          }
         }
       },
       props: {
@@ -71,6 +93,12 @@
           default: function () {
             return []
           }
+        },
+        //多选模式
+        multiSelect: {
+          type: Boolean,
+          required: false,
+          default: true
         }
       },
       data(){
@@ -135,8 +163,28 @@
           that.$emit('input',false)
         },
         selectCancel(){
-          this.postSelectResultList = []
           this.$emit('input',false)
+        },
+        checkItem(value){
+          const that = this
+          if (value && value.length > 0){
+            value.forEach(function (id) {
+              that.postListData.forEach(function (item) {
+                if (that.postSelectResultList.findIndex(id => id === item.id) > -1)
+                  return;
+                if (id === item.id)
+                  item.disabled = false;
+                else
+                  item.disabled = true;
+              })
+            })
+          }else{
+            that.postListData.forEach(function (item) {
+              if (that.postSelectResultList.findIndex(id => id === item.id) > -1)
+                return;
+              item.disabled = false;
+            })
+          }
         }
       }
     }

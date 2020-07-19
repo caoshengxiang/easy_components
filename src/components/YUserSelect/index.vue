@@ -10,6 +10,7 @@
         :visible="dialogRecStatus"
         center
         :show-close="false"
+        :destroy-on-close="true"
       >
         <el-transfer
           :props="{
@@ -135,7 +136,6 @@
           that.$emit('input',false)
         },
         selectCancel(){
-          this.staffSelectResultList = []
           this.$emit('input',false)
         }
       }

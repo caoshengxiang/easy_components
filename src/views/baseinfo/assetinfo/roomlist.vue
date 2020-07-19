@@ -58,24 +58,24 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="所属建筑物名称" prop="id" sortable="custom" align="center" min-width="200">
+        <el-table-column label="所属建筑物名称" prop="id" sortable="custom" align="center" >
           <template slot-scope="{row}">
           <span >
                {{ row.constructionName }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="教室编号" width="200" align="center">
+        <el-table-column label="教室编号" align="center">
           <template slot-scope="{row}">
             <span>{{ row.code | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="教室类型" min-width="200"  align="center">
+        <el-table-column label="教室类型"   align="center">
           <template slot-scope="{row}">
             <span>{{ row.cate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="实际容量" width="200" align="center">
+        <el-table-column label="实际容量" align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.capacity }}
@@ -83,22 +83,22 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="最大排课量"  width="150" align="center">
+        <el-table-column label="最大排课量" align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.courseMax }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="网络状态" width="100">
+        <el-table-column label="网络状态" >
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.networkCondition }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否多媒体" align="center" width="100">
+        <el-table-column label="是否多媒体" align="center" >
           <template slot-scope="{row}">
             <span >{{ row.ifMultimedia ?'是':'否' }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
@@ -167,7 +167,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/roomdetail",
+          path:"/views/baseinfo/assetinfo/roomdetail",
           query: {
             id: id,
           }

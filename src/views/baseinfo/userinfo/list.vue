@@ -74,10 +74,11 @@
         />
       </template>
       <template slot="right">
+        <fileUpload :isdisabled="false" :styleType="2"></fileUpload>
         <el-button class="filter-item" round type="primary" @click="getList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
+        <el-button class="filter-item" round type="primary" @click="downloadTemplate">
           学生信息模板下载
         </el-button>
         <el-button class="filter-item" round type="primary" @click="handleCreate">
@@ -86,10 +87,16 @@
         <el-button class="filter-item" round type="primary" @click="handleCreate">
           更新学生信息
         </el-button>
+      <!--  <excelImport
+          :limit="1"
+          ref="uploadControl"
+          flag="student"
+          :styleType="1"
+        ></excelImport>-->
         <el-button class="filter-item" round type="primary" @click="handleCreate">
           更新学籍号
         </el-button>
-        <el-button class="filter-item" round style="margin-right: 10px" type="primary" @click="handleCreate">
+        <el-button class="filter-item" round style="margin-right: 10px" type="primary"  @click="handleDownload">
           导出
         </el-button>
       </template>
@@ -104,81 +111,76 @@
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         slot="table"
       >
-        <el-table-column label="学号" prop="id" sortable="custom" align="center" width="150">
+        <el-table-column label="学号" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.studyCode }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="姓名" width="150px" align="center">
+        <el-table-column label="姓名" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="性别" min-width="150px" align="center">
+        <el-table-column label="性别" align="center">
           <template slot-scope="{row}">
             <span>{{ row.sex }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="专业" width="110px" align="center">
+        <el-table-column label="专业" align="center">
           <template slot-scope="{row}">
-            <span class="link-type">
-              <router-link
-                tag="a"
-                :to="{path:'/baseinfo/detail',query:{id: row.id}}"
-                class="routerWork"
-              >{{ row.schoolSpecialtyName }}
-              </router-link>
+            <span>
+            {{ row.schoolSpecialtyName }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="年级" width="110px" align="center">
+        <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.schoolGradeName }}</span>
+            <span >{{ row.schoolGradeName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="行政班级" width="80px">
+        <el-table-column label="行政班级">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.administrativeClbumName }}</span>
+            <span>{{ row.administrativeClbumName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="学籍班级" align="center" width="95">
+        <el-table-column label="学籍班级" align="center">
           <template slot-scope="{row}">
             <span>{{ row.schoolClbumName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="就读方式" class-name="status-col" width="100">
+        <el-table-column label="就读方式" class-name="status-col">
           <template slot-scope="{row}">
             <span>{{ row.studyWay }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" class-name="status-col" width="100">
+        <el-table-column label="状态" class-name="status-col">
           <template slot-scope="{row}">
             <span>{{ row.state }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="学生类型" class-name="status-col" width="100">
+        <el-table-column label="学生类型" class-name="status-col">
           <template slot-scope="{row}">
             <span>{{ row.studentType }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="证件号" class-name="status-col" width="100">
+        <el-table-column label="证件号" class-name="status-col">
           <template slot-scope="{row}">
             <span>{{ row.certificateCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="联系电话" class-name="status-col" width="100">
+        <el-table-column label="联系电话" class-name="status-col" >
           <template slot-scope="{row}">
             <span>{{ row.homePhone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="二维码" class-name="status-col" width="100">
+        <el-table-column label="二维码" class-name="status-col" >
           <template slot-scope="{row}">
             <span class="link-type" @click="productInnerQR=true">查看</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col" width="150" >
           <template slot-scope="{row}">
             <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">
               下载
@@ -194,7 +196,7 @@
       </el-table>
     </y-page-list-layout>
 
-    <el-dialog title="二维码" :visible.sync="productInnerQR" width="250px">
+    <el-dialog title="二维码" :visible.sync="productInnerQR">
       <div class="qcode-wrap">
         <div v-loading="loading" class="qcode-item">
           <img style="width: 100%" src="../../../assets/ercode.png">
@@ -206,17 +208,19 @@
 <script>
   import Pagination from '@/components/Pagination'
   import QRCode from 'qrcode'
-
   import Breadcrumb from '@/components/Breadcrumb'
-
   import YPageListLayout from '@/components/YPageListLayout'
+  import excelImport from '@/components/excelImport.vue';
+
+
 
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
       Pagination,
-      YPageListLayout
+      YPageListLayout,
+      excelImport
     },
     filters: {
       statusFilter(status) {
@@ -311,6 +315,44 @@
       that.getClbumList()
     },
     methods: {
+      EncodeGetUrl(url) {
+        let urlArr = url.split('?');
+        let encodeUrl = urlArr[0];
+
+        if (urlArr.length > 1) {
+          encodeUrl += '?';
+          let paramArr = urlArr[1].split('&');
+          let encodeparamArr = [];
+          paramArr.forEach((item, index) => {
+            let key = item.split('=')[0];
+            let value = item.split('=')[1];
+            encodeparamArr.push(key + '=' + encodeURIComponent(value));
+          })
+
+          encodeUrl += encodeparamArr.join('&');
+        }
+
+        return encodeUrl;
+      },
+      downloadTemplate(){
+        this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
+      },
+      handleDownload(url){
+        this.$utils.exportUtil('/student/download/exportExcel',this.listQuery, '学生信息')
+      },
+      objToString(obj) {
+        var str = '';
+        if (obj) {
+          Object.keys(obj).forEach((key, index) => {
+            if (index == 0) {
+              str = str + `?${key}=${obj[key]}`;
+            } else {
+              str = str + `&${key}=${obj[key]}`;
+            }
+          })
+        }
+        return str;
+      },
       detail(id) {
         const that = this
         that.$router.push({
@@ -324,7 +366,7 @@
       detailInfo(id) {
         const that = this
         that.$router.push({
-          path: '/baseinfo/detailInfo',
+          path: '/views/baseinfo/userinfo/detailInfo',
           query: {
             id: id,
             type: 'detail'
@@ -496,6 +538,7 @@
   }
 </script>
 <style lang="scss" scoped>
+
   .right {
     flex: 1;
     .title {

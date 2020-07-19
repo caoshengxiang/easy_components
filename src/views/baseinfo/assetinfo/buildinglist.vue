@@ -44,24 +44,24 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="校区" prop="id" sortable="custom" align="center" width="200">
+        <el-table-column label="校区" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
           <span >
                                               {{ row.campus }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="建筑物名称" width="200" align="center">
+        <el-table-column label="建筑物名称"  align="center">
           <template slot-scope="{row}">
             <span>{{ row.name | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="简写名称" min-width="200"  align="center">
+        <el-table-column label="简写名称"  align="center">
           <template slot-scope="{row}">
             <span>{{ row.alias }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="建筑物地址" min-width="200" align="center">
+        <el-table-column label="建筑物地址"  align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.addr }}
@@ -69,17 +69,17 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="建成年月"  width="150" align="center">
+        <el-table-column label="建成年月"  align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.buildDate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用年限" width="150">
+        <el-table-column label="使用年限" >
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.yearLimit }}年</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col" >
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
@@ -148,7 +148,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/buildingdetail",
+          path:"/views/baseinfo/assetinfo/buildingdetail",
           query: {
             id: id,
           }

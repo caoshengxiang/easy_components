@@ -196,7 +196,7 @@
                     duration: 2000
                   })
                   that.$router.push({
-                    path:"/baseinfo/trainingindex",
+                    path:"/views/baseinfo/assetinfo/trainingdlist",
                     query: {
                       type: "add"
                     }

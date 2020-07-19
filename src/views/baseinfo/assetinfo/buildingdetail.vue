@@ -283,7 +283,7 @@
                     duration: 2000
                   })
                   that.$router.push({
-                    path:"/baseinfo/buildingindex",
+                    path:"/views/baseinfo/assetinfo/buildinglist",
                     query: {
                       type: "add"
                     }

@@ -196,7 +196,7 @@
                     duration: 2000
                   })
                   that.$router.push({
-                    path:"/baseinfo/roomindex",
+                    path:"/views/baseinfo/assetinfo/roomlist",
                     query: {
                       type: "add"
                     }
