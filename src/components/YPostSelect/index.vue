@@ -23,15 +23,6 @@
           filter-placeholder="输入岗位，模糊查询"
           :titles="['待选岗位','已选岗位']"
           @left-check-change="checkItem">
-          <el-popover
-            slot-scope="{ option }"
-            placement="top-start"
-            title="所属岗位"
-            width="200"
-            trigger="hover"
-            :content="getPostsAllName(option)">
-            <span slot="reference">{{ option.name }}</span>
-          </el-popover>
           <div slot="left-footer" style="text-align: center;padding: 5px 0;">
             <el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>
             <el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>
@@ -147,12 +138,6 @@
             }
           })
         },
-        getPostsAllName(item){
-          if (item.posts && item.posts.length > 0){
-            return `(${item.posts.map(m => m.organizationName).join(',')})${item.posts.map(m => m.postName).join(',')}`
-          }
-          return '无'
-        },
         saveSelectUser(){
           const that = this;
           let selectedList = []
@@ -167,23 +152,25 @@
         },
         checkItem(value){
           const that = this
-          if (value && value.length > 0){
-            value.forEach(function (id) {
+          if (!that.multiSelect) {
+            if (value && value.length > 0){
+              value.forEach(function (id) {
+                that.postListData.forEach(function (item) {
+                  if (that.postSelectResultList.findIndex(id => id === item.id) > -1)
+                    return;
+                  if (id === item.id)
+                    item.disabled = false;
+                  else
+                    item.disabled = true;
+                })
+              })
+            }else{
               that.postListData.forEach(function (item) {
                 if (that.postSelectResultList.findIndex(id => id === item.id) > -1)
                   return;
-                if (id === item.id)
-                  item.disabled = false;
-                else
-                  item.disabled = true;
+                item.disabled = false;
               })
-            })
-          }else{
-            that.postListData.forEach(function (item) {
-              if (that.postSelectResultList.findIndex(id => id === item.id) > -1)
-                return;
-              item.disabled = false;
-            })
+            }
           }
         }
       }
