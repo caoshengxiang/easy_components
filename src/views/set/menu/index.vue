@@ -507,7 +507,7 @@
             label: '选项5'
           }],
         menuItem: {},
-        type: 'detail'
+        type: 'add'
       }
     },
     created() {
