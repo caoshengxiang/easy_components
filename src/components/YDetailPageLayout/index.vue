@@ -123,9 +123,10 @@
   .y-detail-page-layout >>> .el-tabs__nav-wrap::after {
     height: 1px;
   }
-  .y-detail-page-layout.page-disabled >>> input:disabled{
+  .y-detail-page-layout.page-disabled >>> input:disabled,.y-detail-page-layout.page-disabled >>> textarea:disabled{
     border: none;
     cursor: text;
+    resize: none;
   }
   .y-detail-page-layout.page-disabled >>> input:disabled +*{
     display: none;
