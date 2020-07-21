@@ -5,8 +5,11 @@ export default {
   getList(params){
     return request.get('approval/task/pending', {params:params})
   },
+  getAttendList(params){
+    return request.get('approval/task/attend', {params:params})
+  },
   getDetail(id) {
-    return request.get(`approvalConfig/${id}`)
+    return request.get(`/approval/task/history/${id}`)
   },
   save(params){
     return request.put(`approvalConfig/definition/${params.id}`, params)

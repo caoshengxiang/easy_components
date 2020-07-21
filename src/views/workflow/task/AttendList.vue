@@ -3,9 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
-
       <el-table
         v-loading="loading"
         :data="pageData.records"
@@ -15,17 +13,23 @@
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         slot="table"
       >
-        <el-table-column label="标题" prop="taskName" align="center">
+        <el-table-column label="标题" prop="processName" align="center">
         </el-table-column>
-        <el-table-column label="申请人" prop="startName" width="350px" align="center">
+        <el-table-column label="申请人" prop="startName" align="center">
         </el-table-column>
-        <el-table-column label="申请时间" prop="startTime" align="center" width="350">
+        <el-table-column label="申请时间" prop="startTime" align="center">
         </el-table-column>
-        <el-table-column label="申请详情" prop="created" align="center" width="350">
+        <el-table-column label="审核时间" prop="startName" align="center" >
+      </el-table-column>
+        <el-table-column label="申请详情" prop="created" align="center" >
         </el-table-column>
-        <el-table-column label="操作" align="center" width="350">
+        <el-table-column label="审核状态" prop="created" align="center">
+      </el-table-column>
+        <el-table-column label="审核意见" prop="created" align="center">
+        </el-table-column>
+        <el-table-column label="操作" align="center" >
           <template slot-scope="{row}">
-            <el-button type="primary" round @click="$utils.routerLink(`/workflow/detail?id=${row.id}`)">审核</el-button>
+            <el-button type="primary" round @click="$utils.routerLink(`/task/detail?id=${row.taskId}`)">申请详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -35,13 +39,11 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
-
   export default {
     name: 'WorkflowList',
     components: {Breadcrumb,YPageListLayout},
     data() {
       return {
-        detailinfo:{code:11111},
         loading:false,
         pageData:{},
         pagePara:{
@@ -58,7 +60,7 @@
       getList(){
         const that = this;
         that.loading = true;
-        that.$api.task.getList(that.pagePara).then(res => {
+        that.$api.task.getAttendList(that.pagePara).then(res => {
           that.loading = false;
           if(res.code === 200){
             //返回成功

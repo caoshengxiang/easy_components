@@ -66,6 +66,8 @@ import _views_workflow_List from '@/views/workflow/List'
 import _views_workflow_Design from '@/views/workflow/Design'
 import _views_workflow_Detail from '@/views/workflow/Detail'
 import _views_workflow_task_list from '@/views/workflow/task/List'
+import _views_workflow_task_AttendList from '@/views/workflow/task/AttendList'
+import _views_workflow_task_Detail from '@/views/workflow/task/Detail'
 
 /*
 * 字段说明：
@@ -73,6 +75,8 @@ import _views_workflow_task_list from '@/views/workflow/task/List'
 * */
 export default {
   _views_workflow_task_list,//待办列表
+  _views_workflow_task_Detail,//任务详情
+  _views_workflow_task_AttendList,//已办列表
   _views_workflow_List, // 工作流列表
   _views_workflow_Design, // 工作流
   _views_workflow_Detail, // 工作流

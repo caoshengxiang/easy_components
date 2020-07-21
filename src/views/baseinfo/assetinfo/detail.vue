@@ -72,7 +72,7 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="用地备注："  prop="type" label-width="200px" class="postInfo-container-item">
-                          <el-input type="textarea"" v-model="postForm.remark"   class="filter-item" />
+                          <el-input type="textarea" v-model="postForm.remark"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -93,9 +93,24 @@
   export default {
     name: 'ComplexTable',
     components: {Breadcrumb,YDetailPageLayout},
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+        this.showBar = false
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    },
     data() {
       return {
         postForm: {},
+        showBar: true,
         rules: {
           property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
           status: [{ required: true, message: '请选择土地使用状态', trigger: 'change' }],
@@ -112,8 +127,13 @@
     created(){
       let that = this
       that.type = that.$route.query.type
+      console.log("that.detailInfo")
+      console.log(that.detailInfo)
 
-      if(that.$route.query.id){
+      if(that.detailInfo){
+        that.postForm = that.detailInfo
+      }
+      else if(that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()
       }
