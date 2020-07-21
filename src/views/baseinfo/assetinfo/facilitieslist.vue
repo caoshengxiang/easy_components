@@ -44,24 +44,24 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="设施名称" prop="id" sortable="custom" align="center" width="200">
+        <el-table-column label="设施名称" prop="id" sortable="custom" align="center" >
           <template slot-scope="{row}">
           <span >
                                               {{ row.name }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="建成年月" width="200" align="center">
+        <el-table-column label="建成年月" align="center">
           <template slot-scope="{row}">
             <span>{{ row.buildDate | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设施产权" min-width="200"  align="center">
+        <el-table-column label="设施产权"   align="center">
           <template slot-scope="{row}">
             <span>{{ row.property }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用部门" min-width="200" align="center">
+        <el-table-column label="使用部门"  align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.orgName }}
@@ -69,17 +69,17 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="建设费用"  width="150" align="center">
+        <el-table-column label="建设费用"  align="center">
           <template slot-scope="{row}">
             <span >{{ row.buildCost }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="经费来源" width="150">
+        <el-table-column label="经费来源" >
           <template slot-scope="{row}">
             <span >{{ row.financialResource }}年</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
@@ -148,7 +148,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/facilitiesdetail",
+          path:"/views/baseinfo/assetinfo/facilitiesdetail",
           query: {
             id: id,
           }

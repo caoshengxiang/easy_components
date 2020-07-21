@@ -197,7 +197,7 @@
                     duration: 2000
                   })
                   that.$router.push({
-                    path:"/baseinfo/facilitiesindex",
+                    path:"/views/baseinfo/assetinfo/facilitieslist",
                     query: {
                       type: "add"
                     }

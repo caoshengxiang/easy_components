@@ -75,7 +75,7 @@
               that.$utils.loading.show();
               that.form.description = that.$refs.contentUEditor.getUEContent();
               if (that.form.id){
-                that.$api.workflow.save(that.form).then(res => {
+                that.$api.workflow.saveInfo(that.form).then(res => {
                   that.$utils.loading.hide();
                   if(res.code === 200){
                     that.$message.success('操作成功！');

@@ -1,5 +1,5 @@
 <template>
-  <div class="y-detail-page-layout">
+  <div :class="`y-detail-page-layout ${isEdit?'':'page-disabled'}`">
     <slot></slot>
     <div class="y-options" v-if="$slots.default">
       <template v-if="!isEdit">
@@ -23,6 +23,9 @@
     watch: {
       editStatus: function (value) {
         this.isEdit = value
+      },
+      isEdit: function (value) {
+        this.initPageStatus(value)
       }
     },
     props: {
@@ -47,6 +50,44 @@
     data() {
       return {
         isEdit: this.editStatus
+      }
+    },
+    mounted(){
+      this.initPageStatus(this.isEdit)
+      this.addFormPageClick()
+    },
+    beforeDestroy(){
+      this.removeFormPageClick()
+    },
+    methods:{
+      initPageStatus(editStatus){
+        const that = this
+        that.$nextTick(() => {
+          let formList = document.querySelector(".y-detail-page-layout").getElementsByTagName("form")
+          if (formList)
+          {
+            formList.forEach(function (form) {
+              form.forEach(function (formItem) {
+                formItem.disabled = !editStatus;
+                formItem.readOnly = !editStatus;
+              })
+            })
+          }
+        })
+      },
+      formPageClick(event){
+        if (!this.isEdit)
+          event.stopPropagation()
+      },
+      addFormPageClick(){
+        const formObj = document.querySelector('.y-detail-page-layout.page-disabled form')
+        if (formObj)
+          formObj.addEventListener('click', this.formPageClick, true)
+      },
+      removeFormPageClick(){
+        const formObj = document.querySelector('.y-detail-page-layout.page-disabled form')
+        if (formObj)
+          formObj.removeEventListener('click', this.formPageClick, true)
       }
     }
   }
@@ -81,5 +122,13 @@
 
   .y-detail-page-layout >>> .el-tabs__nav-wrap::after {
     height: 1px;
+  }
+  .y-detail-page-layout.page-disabled >>> input:disabled,.y-detail-page-layout.page-disabled >>> textarea:disabled{
+    border: none;
+    cursor: text;
+    resize: none;
+  }
+  .y-detail-page-layout.page-disabled >>> input:disabled +*{
+    display: none;
   }
 </style>

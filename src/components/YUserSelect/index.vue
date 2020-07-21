@@ -10,6 +10,7 @@
         :visible="dialogRecStatus"
         center
         :show-close="false"
+        :destroy-on-close="true"
       >
         <el-transfer
           :props="{
@@ -20,7 +21,8 @@
           :data="staffListData"
           filterable
           filter-placeholder="输入姓名，模糊查询"
-          :titles="['待选用户','已选用户']">
+          :titles="['待选用户','已选用户']"
+          @left-check-change="checkItem">
           <el-popover
             slot-scope="{ option }"
             placement="top-start"
@@ -52,6 +54,26 @@
         },
         initSelectedUser:function (value) {
           this.staffSelectResultList = value;
+        },
+        staffSelectResultList:function (value) {
+          const that = this;
+          if (!that.multiSelect) {
+            if (value && value.length > 0) {
+              that.staffListData.forEach(function (item) {
+                item.disabled = true;
+              })
+              value.forEach(function (id) {
+                that.staffListData.forEach(function (item) {
+                  if (id === item.id)
+                    item.disabled = false;
+                })
+              })
+            }else{
+              that.staffListData.forEach(function (item) {
+                item.disabled = false;
+              })
+            }
+          }
         }
       },
       props: {
@@ -71,6 +93,12 @@
           default: function () {
             return []
           }
+        },
+        //多选模式
+        multiSelect: {
+          type: Boolean,
+          required: false,
+          default: true
         }
       },
       data(){
@@ -135,8 +163,30 @@
           that.$emit('input',false)
         },
         selectCancel(){
-          this.staffSelectResultList = []
           this.$emit('input',false)
+        },
+        checkItem(value){
+          const that = this
+          if (!that.multiSelect) {
+            if (value && value.length > 0){
+              value.forEach(function (id) {
+                that.staffListData.forEach(function (item) {
+                  if (that.staffSelectResultList.findIndex(id => id === item.id) > -1)
+                    return;
+                  if (id === item.id)
+                    item.disabled = false;
+                  else
+                    item.disabled = true;
+                })
+              })
+            }else{
+              that.staffListData.forEach(function (item) {
+                if (that.staffSelectResultList.findIndex(id => id === item.id) > -1)
+                  return;
+                item.disabled = false;
+              })
+            }
+          }
         }
       }
     }

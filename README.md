@@ -106,7 +106,7 @@ rule规则修改还是在 .eslintrc.js
         <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
         ```
     4. 目录是不需要配置url， 按钮分为两种，纯操作的按钮，和需要绑定页面的（需要按菜单来处理，否则会404）
-    5. 页面的url参数：记录四个参数，一二三级(menuLevel1,menuLevel2,menuLevel3)，当前页面记录当前id（使用menuId字段）
+    5. 页面的url参数：记录四个参数，一二三级菜单Id(menuLevel1,menuLevel2,menuLevel3)，当前页面菜单id（使用menuId字段）
        * 【所有页面都要带上四个菜单的参数】
 #### 999.开发时注意
        1. 设计审批的新增编辑页面 都新开页面 使用弹窗， 需要 从审批哪里调整回来查看详情

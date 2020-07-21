@@ -40,23 +40,26 @@
       :visible.sync="dialogFormVisible"
       center
       :show-close="false"
+      :destroy-on-close="true"
     >
-      <el-form :model="currentNodeForm">
-        <el-form-item label="步骤名称" label-width="100px">
+      <el-form :model="currentNodeForm" :rules="rules" ref="form">
+        <el-form-item label="步骤名称" label-width="100px" prop="nodeName">
           <el-input v-model="currentNodeForm.nodeName" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="用户类别" label-width="100px">
+        <el-form-item label="审批类型" label-width="100px" prop="userType">
           <el-radio-group v-model="currentNodeForm.userType" @change="changeUserType">
             <el-radio-button :label="1">用户</el-radio-button>
             <el-radio-button :label="2">岗位</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="`${currentNodeForm.userType ==1 ?'用户':'岗位'}名称`" label-width="100px">
-          <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :disabled="true" v-model="currentNodeForm.selectedUser">
-            <el-button slot="append" type="primary" @click="selectAuditUser">选择</el-button>
-          </el-input>
+        <el-form-item :label="`${currentNodeForm.userType ==1 ?'用户':'岗位'}名称`" label-width="100px" prop="userIds">
+          <div @click="selectAuditUser">
+            <el-input :placeholder="`请选择${currentNodeForm.userType ==1 ?'用户':'岗位'}`" class="input-with-select" :readonly="true" :value="userListNameStr">
+              <el-button slot="append" type="primary">选择</el-button>
+            </el-input>
+          </div>
         </el-form-item>
-        <el-form-item label="协作" label-width="100px">
+        <el-form-item label="协作" label-width="100px" prop="nodeType">
           <el-radio-group v-model="currentNodeForm.nodeType">
             <el-radio :label="1">竞争</el-radio>
             <el-radio :label="2">会签</el-radio>
@@ -69,7 +72,7 @@
       </div>
     </el-dialog>
     <y-user-select :title="`请选择审批用户`" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
-    <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-post-select>
+    <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds" :multiSelect="false"></y-post-select>
   </div>
 </template>
 
@@ -86,17 +89,23 @@
       dialogFormVisible:function (value) {
         if (value === false)
           this.initAllTaskStyle()
-      },
-      'currentNodeForm.userIds':function (value) {
-        switch (this.currentNodeForm.userType) {
-          case 1:
-            this.$set(this.currentNodeForm,'selectedUser',this.getStaffNameListStr(value))
-            break;
-          case 2:
-            this.$set(this.currentNodeForm,'selectedUser',this.getPostNameListStr(value))
-            break;
-        }
       }
+    },
+    computed: {
+      userListNameStr () {
+        let name = ''
+        if (this.currentNodeForm.userIds && this.currentNodeForm.userIds.length > 0){
+          switch (this.currentNodeForm.userType) {
+            case 1:
+              name = this.getStaffNameListStr(this.currentNodeForm.userIds)
+              break;
+            case 2:
+              name = this.getPostNameListStr(this.currentNodeForm.userIds)
+              break;
+          }
+        }
+        return name
+      },
     },
     props: {
       id: {
@@ -122,7 +131,22 @@
         selectPostUserDialogStatus:false,
         staffListData:[],
         testName:'',
-        postListData:[]
+        postListData:[],
+        rules:{
+          nodeName: [
+            { required: true, message: '请输入步骤名称', trigger: 'blur' },
+            { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+          ],
+          userType:[
+            { required: true, message: '请选择审批类型', trigger: 'blur' }
+          ],
+          userIds:[
+            { required: true, message: '请选择审批人', trigger: 'blur' }
+          ],
+          nodeType:[
+            { required: true, message: '请选择', trigger: 'blur' }
+          ]
+        }
       }
     },
     created(){
@@ -140,8 +164,14 @@
       if (that.id) {
         that.$api.workflow.getDetail(that.id).then(res => {
           if(res.code === 200){
-            that.form = res.data;
-            that.initDesign(res.data.diagramBpmn)
+            if (res.data) {
+              that.form = res.data;
+              if (res.data.diagramBpmn) {
+                that.initDesign(res.data.diagramBpmn)
+              }else{
+                that.initDesign(xmlStr)
+              }
+            }
           }else{
             that.$message({
               type: 'error',
@@ -276,7 +306,8 @@
           nodeId:shape.businessObject.id,
           nodeName:shape.businessObject.name,
           userType:1,
-          nodeType:1
+          nodeType:1,
+          userIds:[]
         });
 
         const mouseEvents = document.createEvent('MouseEvents')
@@ -309,12 +340,27 @@
             if (currTask.type === 'bpmn:EndEvent') {
               this.$refs.ctxshow.hideMenu()
             } else {
-              if (currTask.type === 'bpmn:StartEvent') {
-                this.rcContentMenus = ['btn2', 'btn6']
-              } else if (currTask.type === 'bpmn:SequenceFlow') {
-                this.rcContentMenus = ['btn5']
-              } else {
-                this.rcContentMenus = ['btn2', 'btn4', 'btn5', 'btn6']
+              switch (currTask.type) {
+                case 'bpmn:StartEvent':
+                  const elementRegistry = this.bpmnModeler.get('elementRegistry');
+                  const userTaskList = elementRegistry.filter(
+                    (item) => item.type === 'bpmn:UserTask'
+                  );
+                  if (userTaskList && userTaskList.length > 0){
+                    this.rcContentMenus = ['btn2', 'btn6']
+                  }else{
+                    this.rcContentMenus = ['btn2']
+                  }
+                  break;
+                case 'bpmn:SequenceFlow':
+                  this.rcContentMenus = ['btn5']
+                  break;
+                case 'bpmn:Process':
+                  this.rcContentMenus = ['btn1', 'btn7']
+                  break;
+                default:
+                  this.rcContentMenus = ['btn2', 'btn4', 'btn5', 'btn6']
+                  break;
               }
             }
           } else {
@@ -366,7 +412,9 @@
         // eslint-disable-next-line handle-callback-err
         that.saveDiagram(function (err, xml) {
           that.form.diagramBpmn = xml;
-          that.form.diagramData = JSON.stringify(that.diagramData)
+          if (that.diagramData && that.diagramData.length > 0){
+            that.form.diagramData = JSON.stringify(that.diagramData)
+          }
           that.$utils.loading.show();
           that.$api.workflow.save(that.form).then(res => {
             that.$utils.loading.hide();
@@ -420,19 +468,24 @@
       },
       saveTask() {
         const that = this
-        const modeling = that.bpmnModeler.get('modeling')
-        modeling.updateProperties(that.currentClickTask, {
-          name: that.currentNodeForm.nodeName
+        that.$refs.form.validate((valid) => {
+          if (!valid){
+            return false
+          }
+          const modeling = that.bpmnModeler.get('modeling')
+          modeling.updateProperties(that.currentClickTask, {
+            name: that.currentNodeForm.nodeName
+          })
+          let dgmNodeData = that.diagramData.find(m => m.nodeId == that.currentNodeForm.nodeId)
+          if (dgmNodeData) {
+            that.$set(dgmNodeData,'nodeId',that.currentNodeForm.nodeId)
+            that.$set(dgmNodeData,'nodeName',that.currentNodeForm.nodeName)
+            that.$set(dgmNodeData,'userType',that.currentNodeForm.userType)
+            that.$set(dgmNodeData,'userIds',that.currentNodeForm.userIds)
+            that.$set(dgmNodeData,'nodeType',that.currentNodeForm.nodeType)
+          }
+          that.dialogFormVisible = false
         })
-        let dgmNodeData = that.diagramData.find(m => m.nodeId == that.currentNodeForm.nodeId)
-        if (dgmNodeData) {
-          that.$set(dgmNodeData,'nodeId',that.currentNodeForm.nodeId)
-          that.$set(dgmNodeData,'nodeName',that.currentNodeForm.nodeName)
-          that.$set(dgmNodeData,'userType',that.currentNodeForm.userType)
-          that.$set(dgmNodeData,'userIds',that.currentNodeForm.userIds)
-          that.$set(dgmNodeData,'nodeType',that.currentNodeForm.nodeType)
-        }
-        that.dialogFormVisible = false
       },
       findCurrentClickDomTask(e) {
         const isElement = function (obj) {
@@ -474,11 +527,12 @@
       getSelectedUser(value){
         if (value && value.length > 0){
           this.currentNodeForm.userIds = value.map(m =>m.id);
+        }else{
+          this.currentNodeForm.userIds = []
         }
       },
       changeUserType(){
         this.currentNodeForm.userIds = []
-        this.currentNodeForm.selectedUser = ''
       },
       getStaffList(){
         const that = this;

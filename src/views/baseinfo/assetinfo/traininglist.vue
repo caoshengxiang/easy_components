@@ -40,24 +40,24 @@
         slot="table"
       >
 
-        <el-table-column label="实训室名称" prop="id" sortable="custom" align="center" width="200">
+        <el-table-column label="实训室名称" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
           <span >
                                               {{ row.name }}
                   </span>
           </template>
         </el-table-column>
-        <el-table-column label="教室" width="200" align="center">
+        <el-table-column label="教室" align="center">
           <template slot-scope="{row}">
             <span>{{ row.teachingRoomCode}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="实训室类别" min-width="200"  align="center">
+        <el-table-column label="实训室类别"  align="center">
           <template slot-scope="{row}">
             <span>{{ row.cate }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="建成年月" width="200" align="center">
+        <el-table-column label="建成年月" align="center">
           <template slot-scope="{row}">
             <span >
          {{ row.buildDate }}
@@ -65,12 +65,12 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="使用机构"  width="200" align="center">
+        <el-table-column label="使用机构"  align="center">
           <template slot-scope="{row}">
             <span style="color:red;">{{ row.orgName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="200">
+        <el-table-column label="操作" class-name="status-col" >
           <template slot-scope="{row}">
             <el-button type="primary" round size="mini" @click="detail(row.id)">
               编辑
@@ -139,7 +139,7 @@
       detail(id){
         let that =this;
         that.$router.push({
-          path:"/baseinfo/trainingdetail",
+          path:"/views/baseinfo/assetinfo/trainingdetail",
           query: {
             id: id,
           }

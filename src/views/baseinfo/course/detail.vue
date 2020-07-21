@@ -284,7 +284,7 @@
                     duration: 2000
                   })
                   that.$router.push({
-                    path:"/baseinfo/courseindex",
+                    path:"/views/baseinfo/course/list",
                     query: {
                       type: "add"
                     }

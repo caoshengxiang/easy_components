@@ -215,7 +215,12 @@ aside {
 //    background: #d0d0d0;
 //  }
 //}
-
+.confirmButtonClass{
+  border-radius: 15px;
+}
+.el-table th.gutter{
+  display: table-cell!important;
+}
 .link-type,
 .link-type:focus {
   color: #337ab7;
