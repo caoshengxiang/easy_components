@@ -54,16 +54,12 @@
     },
     mounted(){
       this.initPageStatus(this.isEdit)
-      this.addFormPageClick()
-    },
-    beforeDestroy(){
-      this.removeFormPageClick()
     },
     methods:{
       initPageStatus(editStatus){
         const that = this
         that.$nextTick(() => {
-          let formList = document.querySelector(".y-detail-page-layout").getElementsByTagName("form")
+          let formList = document.querySelectorAll(".y-detail-page-layout .el-form")
           if (formList)
           {
             formList.forEach(function (form) {
@@ -72,6 +68,8 @@
                 formItem.readOnly = !editStatus;
               })
             })
+
+            that.addFormPageClick()
           }
         })
       },
@@ -80,14 +78,12 @@
           event.stopPropagation()
       },
       addFormPageClick(){
-        const formObj = document.querySelector('.y-detail-page-layout.page-disabled form')
-        if (formObj)
-          formObj.addEventListener('click', this.formPageClick, true)
-      },
-      removeFormPageClick(){
-        const formObj = document.querySelector('.y-detail-page-layout.page-disabled form')
-        if (formObj)
-          formObj.removeEventListener('click', this.formPageClick, true)
+        const that = this;
+        const formObj = document.querySelectorAll('.y-detail-page-layout.page-disabled form')
+        if (formObj && formObj.length > 0)
+          formObj.forEach(function (obj) {
+            obj.addEventListener('click', that.formPageClick, true)
+          })
       }
     }
   }
