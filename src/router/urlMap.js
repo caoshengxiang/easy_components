@@ -65,12 +65,14 @@ import _views_baseinfo_class_edit from '@/views/baseinfo/class/edit'
 import _views_workflow_List from '@/views/workflow/List'
 import _views_workflow_Design from '@/views/workflow/Design'
 import _views_workflow_Detail from '@/views/workflow/Detail'
+import _views_workflow_task_list from '@/views/workflow/task/List'
 
 /*
 * 字段说明：
 * 页面全路径url: 对应的路由组件
 * */
 export default {
+  _views_workflow_task_list,//待办列表
   _views_workflow_List, // 工作流列表
   _views_workflow_Design, // 工作流
   _views_workflow_Detail, // 工作流
