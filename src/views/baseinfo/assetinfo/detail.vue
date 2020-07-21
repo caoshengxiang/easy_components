@@ -96,7 +96,6 @@
     watch: {
       detailInfo: function (value) {
         this.postForm = value
-        this.showBar = false
       },
     },
     props: {
@@ -110,7 +109,6 @@
     data() {
       return {
         postForm: {},
-        showBar: true,
         rules: {
           property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
           status: [{ required: true, message: '请选择土地使用状态', trigger: 'change' }],
@@ -127,8 +125,6 @@
     created(){
       let that = this
       that.type = that.$route.query.type
-      console.log("that.detailInfo")
-      console.log(that.detailInfo)
 
       if(that.detailInfo){
         that.postForm = that.detailInfo
