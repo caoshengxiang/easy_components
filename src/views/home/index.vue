@@ -65,7 +65,7 @@
       },
       jumpMenu(item) {
         // 跳转涉及到 menuTree.vue PermissionButton.vue
-        if (item.menuType === '目录' && item.children && item.children.length > 0) { // todo
+        if (item.menuType === '目录' && item.children && item.children.length > 0) {
           this.$router.push({
             path: item.children[0].pcUrl,
             query: {
