@@ -25,74 +25,63 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="学校标识码：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学校名称：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="所在地区：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="所在城市：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="当前校名启用日期：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建校日期：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="建校基础：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学校举办者：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="上级主管：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="教学主管部门：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学校性质类别：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -110,68 +99,58 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="通信地址：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="邮政编码：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学校网址：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息教工号：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息姓名：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息性别：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息职务：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息区号-电话号码：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息手机号：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="法定代表人信息电子邮箱：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8"></el-col>
@@ -188,48 +167,41 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="联系人信息教工号：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="联系人信息姓名：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="联系人信息性别：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="联系人信息职务：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="联系人信息区号-电话号码：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="联系人信息手机号：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="联系人信息电子邮箱：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8"></el-col>
@@ -258,7 +230,6 @@
     data() {
       return {
         listLoading: false,
-        type: '',
         postForm: Object.assign({}, defaultForm),
         rules: {
           type: [{
@@ -270,7 +241,6 @@
       }
     },
     created() {
-      this.type = 'detail'
       this.listLoading = true
       setTimeout(() => {
         this.listLoading = false

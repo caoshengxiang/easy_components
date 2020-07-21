@@ -17,7 +17,14 @@
               <!--          >-->
               <!--            新增一级菜单-->
               <!--          </el-button>-->
-              <PermissionButton menu-no="_views_set_menu_add" class-name="filter-item" icon="el-icon-plus" type="primary" name="" @click="handleAdd" />
+              <PermissionButton
+                menu-no="_views_set_menu_add"
+                class-name="filter-item"
+                icon="el-icon-plus"
+                type="primary"
+                name=""
+                @click="handleAdd"
+              />
               <span style="color: #666666;font-size: 10px;padding-left: 10px;">(菜单可拖拽排序、点击编辑)</span>
             </div>
 
@@ -55,7 +62,13 @@
                   <!--              >-->
                   <!--                添加-->
                   <!--              </el-button>-->
-                  <PermissionButton menu-no="_views_set_menu_add_tree" type="text" size="mini" name="" @click="() => append(data)" />
+                  <PermissionButton
+                    menu-no="_views_set_menu_add_tree"
+                    type="text"
+                    size="mini"
+                    name=""
+                    @click="() => append(data)"
+                  />
                   <!--              <el-button-->
                   <!--                v-if="!data.children || data.children.length===0"-->
                   <!--                type="text"-->
@@ -65,7 +78,15 @@
                   <!--              >-->
                   <!--                删除-->
                   <!--              </el-button>-->
-                  <PermissionButton v-if="!data.children || data.children.length===0" menu-no="_views_set_menu_remove" style="color: red;" type="text" size="mini" name="" @click="() => remove(node, data)" />
+                  <PermissionButton
+                    v-if="!data.children || data.children.length===0"
+                    menu-no="_views_set_menu_remove"
+                    style="color: red;"
+                    type="text"
+                    size="mini"
+                    name=""
+                    @click="() => remove(node, data)"
+                  />
                   <!--            <i class="el-icon-circle-plus" @click.stop="() => append(data)"></i>-->
                   <!--            <i style="color: red;margin-left: 5px;" class="el-icon-delete-solid" @click.stop="() => remove(node, data)"></i>-->
 
@@ -88,7 +109,6 @@
                     v-if="menuItem.name"
                     ref="dataForm"
                     v-loading="loading"
-                    :disabled="type!=='add'"
                     :model="temp"
                     label-position="right"
                     label-width="140px"
@@ -118,7 +138,7 @@
                         { required: true, message: '请输入名称', trigger: 'blur' }
                       ]"
                     >
-                      <el-input v-model="temp.name" :disabled="type!=='add'" placeholder="请输入简短名称" class="filter-item" />
+                      <el-input v-model="temp.name" placeholder="请输入简短名称" class="filter-item" />
                     </el-form-item>
                     <el-form-item
                       label="编码："
@@ -134,7 +154,11 @@
                           <i class="el-icon-question" /></el-tooltip>
                         ：
                       </span>
-                      <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item" />
+                      <el-input
+                        v-model="temp.menuNo"
+                        placeholder="请输入唯一编码"
+                        class="filter-item"
+                      />
                     </el-form-item>
                     <el-form-item
                       label="组件映射："
@@ -164,7 +188,6 @@
                         <el-radio :label="false">内部系统</el-radio>
                       </el-radio-group>
                       <el-alert
-                        v-if="type==='add'"
                         :closable="false"
                         title="警告："
                         description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
@@ -174,7 +197,7 @@
                       />
                     </el-form-item>
                     <el-form-item label="菜单端口：">
-                      <el-checkbox v-model="port_pc" :disabled="type!=='add'">web端</el-checkbox>
+                      <el-checkbox v-model="port_pc">web端</el-checkbox>
                     </el-form-item>
                     <el-form-item
                       v-if="port_pc"
@@ -193,13 +216,13 @@
                           <i class="el-icon-question" /></el-tooltip>
                         ：
                       </span>
-                      <el-input v-model="temp.pcUrl" :disabled="type!=='add'" class="filter-item" @change="autoFormat" />
+                      <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat" />
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
-                      <el-input v-model="temp.pcIcon" :disabled="type!=='add'" class="filter-item" />
+                      <el-input v-model="temp.pcIcon" class="filter-item" />
                     </el-form-item>
                     <el-form-item label="菜单端口：">
-                      <el-checkbox v-model="port_m" :disabled="type!=='add'">移动端</el-checkbox>
+                      <el-checkbox v-model="port_m">移动端</el-checkbox>
                     </el-form-item>
                     <el-form-item
                       v-if="port_m"
@@ -208,98 +231,31 @@
                         { required: true, message: '请输入名称', trigger: 'blur' }
                       ]"
                     >
-                      <el-input v-model="temp.mobileUrl" :disabled="type!=='add'" class="filter-item" />
+                      <el-input v-model="temp.mobileUrl" class="filter-item" />
                     </el-form-item>
                     <el-form-item v-if="port_m" label="图标：" prop="name">
-                      <el-input v-model="temp.mobileIcon" :disabled="type!=='add'" class="filter-item" />
+                      <el-input v-model="temp.mobileIcon" class="filter-item" />
                     </el-form-item>
                     <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;" />
-                    <!--                <el-form-item label="权限按钮：">-->
-                    <!--                  <div>-->
-                    <!--&lt;!&ndash;                    <el-button v-if="type==='add'" type="success">添加</el-button>&ndash;&gt;-->
-                    <!--                  </div>-->
-                    <!--                  <el-table-->
-                    <!--                    :data="btnTableData"-->
-                    <!--                    stripe-->
-                    <!--                    style="width: 500px"-->
-                    <!--                  >-->
-                    <!--                    <el-table-column-->
-                    <!--                      prop="name"-->
-                    <!--                      label="按钮名称"-->
-                    <!--                    />-->
-                    <!--                    <el-table-column-->
-                    <!--                      prop="num"-->
-                    <!--                      label="按钮编码"-->
-                    <!--                    />-->
-                    <!--                    <el-table-column-->
-                    <!--                      prop="page"-->
-                    <!--                      label="关联页面"-->
-                    <!--                    />-->
-                    <!--                    <el-table-column label="操作" width="160">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--&lt;!&ndash;                        <el-button v-if="type==='add'" size="mini" type="text">编辑</el-button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;                        <el-button v-if="type==='add'" style="color: red;" size="mini" type="text">删除</el-button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;                        <el-button v-if="type==='add'" size="mini" type="text" @click="handleAdd">关联页面</el-button>&ndash;&gt;-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
-                    <!--                  </el-table>-->
-                    <!--                </el-form-item>-->
                     <el-form-item label="是否有数据权限：">
-                      <el-radio-group v-model="temp.radio" :disabled="type!=='add'">
-                        <el-radio label="1">无</el-radio>
-                        <el-radio label="2">有</el-radio>
+                      <el-radio-group v-model="temp.hasDataPrivilege">
+                        <el-radio :label="false">无</el-radio>
+                        <el-radio :label="true">有</el-radio>
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="工作流：">
-                      <el-select v-model="temp.value" clearable placeholder="请选择" :disabled="type!=='add'">
+                      <el-select v-model="temp.workflowId" clearable filterable placeholder="请选择">
                         <el-option
                           v-for="item in options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
                         />
                       </el-select>
                     </el-form-item>
                   </el-form>
                 </el-tab-pane>
               </el-tabs>
-
-              <!--            <div-->
-              <!--              v-if="menuItem.name"-->
-              <!--              style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"-->
-              <!--            >-->
-              <!--              &lt;!&ndash;            <el-button&ndash;&gt;-->
-              <!--              &lt;!&ndash;              v-if="type=='detail'"&ndash;&gt;-->
-              <!--              &lt;!&ndash;              class="filter-item download-button"&ndash;&gt;-->
-              <!--              &lt;!&ndash;              style="margin-left: 10px;"&ndash;&gt;-->
-              <!--              &lt;!&ndash;              type="primary"&ndash;&gt;-->
-              <!--              &lt;!&ndash;              icon="el-icon-edit"&ndash;&gt;-->
-              <!--              &lt;!&ndash;              @click="type='add'"&ndash;&gt;-->
-              <!--              &lt;!&ndash;            >&ndash;&gt;-->
-              <!--              &lt;!&ndash;              编辑&ndash;&gt;-->
-              <!--              &lt;!&ndash;            </el-button>&ndash;&gt;-->
-              <!--              <PermissionButton v-if="type=='detail'" menu-no="_views_set_menu_edit" class-name="filter-item download-button" style="margin-left: 10px;" type="primary" name="" icon="el-icon-edit" @click="type='add'" />-->
-              <!--              <el-button-->
-              <!--                v-if="type=='add'"-->
-              <!--                class="filter-item download-button"-->
-              <!--                style="margin-left: 10px;"-->
-              <!--                type="primary"-->
-              <!--                icon="el-icon-edit"-->
-              <!--                @click="type='detail'"-->
-              <!--              >-->
-              <!--                取消-->
-              <!--              </el-button>-->
-              <!--              <el-button-->
-              <!--                v-if="type=='add'"-->
-              <!--                class="filter-item download-button"-->
-              <!--                style="margin-left: 10px;margin-right: 0px"-->
-              <!--                type="primary"-->
-              <!--                icon="el-icon-edit"-->
-              <!--                @click="handleCreate"-->
-              <!--              >-->
-              <!--                保存-->
-              <!--              </el-button>-->
-              <!--            </div>-->
             </div>
           </div>
         </div>
@@ -329,7 +285,12 @@
             </el-form-item>
             <el-form-item label="菜单类型：">
               <span slot="label">菜单类型
-                <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)" placement="top-start">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)"
+                  placement="top-start"
+                >
                   <i class="el-icon-question" /></el-tooltip>
                 ：
               </span>
@@ -410,7 +371,12 @@
               ]"
             >
               <span slot="label">URL
-                <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。"
+                  placement="top-start"
+                >
                   <i class="el-icon-question" /></el-tooltip>
                 ：
               </span>
@@ -453,6 +419,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+
   export default {
     name: 'Index',
     components: {
@@ -474,12 +441,14 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: true,
+          external: false,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
           mobileIcon: '',
-          menuType: '目录'
+          menuType: '目录',
+          workflowId: '',
+          hasDataPrivilege: false,
         },
         port_pc: false,
         port_m: false,
@@ -489,29 +458,14 @@
           label: 'name'
         },
         btnTableData: [],
-        options: [
-          {
-            value: '选项1',
-            label: '选项1'
-          }, {
-            value: '选项2',
-            label: '选项2'
-          }, {
-            value: '选项3',
-            label: '选项3'
-          }, {
-            value: '选项4',
-            label: '选项4'
-          }, {
-            value: '选项5',
-            label: '选项5'
-          }],
+        options: [],
         menuItem: {},
-        type: 'add'
+        treeListData: [],
       }
     },
     created() {
       this.getMenuTreeData()
+      this.getWorkFlow()
     },
     methods: {
       autoFormat(val) {
@@ -534,6 +488,19 @@
       getMenuTreeData() {
         this.$api.menu.menuTree().then(res => {
           this.treeData = res.data
+          const list = []
+
+          function treeMap(data) {
+            data.forEach(item => {
+              list.push(item)
+              if (item.children && item.children.length > 0) {
+                treeMap(item.children)
+              }
+            })
+          }
+
+          treeMap(this.treeData)
+          this.treeListData = list
         })
         // this.$api.menu.list().then(res => {
         //   console.log(res)
@@ -545,12 +512,14 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: true,
+          external: false,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
           mobileIcon: '',
-          menuType: '目录'
+          menuType: '目录',
+          workflowId: '',
+          hasDataPrivilege: false,
         }
         this.port_pc = false
         this.port_m = false
@@ -669,6 +638,21 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             const tempData = Object.assign({}, this.temp)
+            let repeat = false
+            this.treeListData.forEach(item => {
+              if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
+                repeat = true
+              }
+            })
+            if (repeat) {
+              this.$notify({
+                title: '成功',
+                message: '唯一键编码或URL 重复！',
+                type: 'error',
+                duration: 2000
+              })
+              return
+            }
             this.$api.menu.add(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
@@ -706,9 +690,24 @@
           .catch(_ => {})
       },
       handleCreate() {
+        const tempData = Object.assign({}, this.temp)
         this.$refs.dataForm.validate(valid => {
           if (valid) {
-            const tempData = Object.assign({}, this.temp)
+            let repeat = false
+            this.treeListData.forEach(item => {
+              if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
+                repeat = true
+              }
+            })
+            if (repeat) {
+              this.$notify({
+                title: '成功',
+                message: '唯一键编码或URL 重复！',
+                type: 'error',
+                duration: 2000
+              })
+              return
+            }
             this.$api.menu.edit(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
@@ -721,7 +720,15 @@
             })
           }
         })
-      }
+      },
+      getWorkFlow() {
+        this.$api.workflow.getList({
+          current: 1,
+          size: 10000
+        }).then(res => {
+          this.options = res.data.records
+        })
+      },
     }
   }
 </script>

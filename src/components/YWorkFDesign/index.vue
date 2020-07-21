@@ -526,7 +526,7 @@
       },
       getSelectedUser(value){
         if (value && value.length > 0){
-          this.currentNodeForm.userIds = value.map(m =>m.id);
+          this.currentNodeForm.userIds = value.map(m =>m.userId);
         }else{
           this.currentNodeForm.userIds = []
         }

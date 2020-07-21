@@ -114,6 +114,12 @@
   export default {
     name: 'ComplexTable',
     components: {Breadcrumb,YDetailPageLayout,fileUpload},
+    props: {
+      detailInfo: {
+        type: Object,
+        default: {}
+      }
+    },
     data() {
       return {
         postForm: {},
@@ -138,7 +144,10 @@
     created(){
       let that = this
       that.type = that.$route.query.type
-      if(that.$route.query.id){
+      if(that.detailInfo){
+        that.postForm = that.detailInfo
+      }
+      else if(that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()
       }

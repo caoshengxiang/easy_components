@@ -1,0 +1,28 @@
+/* Layout */
+import Layout from '@/layout'
+
+export default {
+  path: '/task',
+  component: Layout,
+  redirect: '/task/list',
+  children: [
+    {
+      path: 'list',
+      component: () => import('@/views/workflow/task/List'),
+      meta: { title: '待办列表' },
+      name: 'taskList'
+    },
+    {
+      path: 'attendlist',
+      component: () => import('@/views/workflow/task/AttendList'),
+      meta: { title: '已办列表' },
+      name: 'attendlist'
+    },
+    {
+      path: 'detail',
+      component: () => import('@/views/workflow/task/Detail'),
+      meta: { title: '已办列表' },
+      name: 'detail'
+    },
+  ]
+}

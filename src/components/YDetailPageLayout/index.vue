@@ -7,8 +7,10 @@
         <el-button v-else type="primary" round @click="isEdit = true">编辑</el-button>
       </template>
       <template v-else>
-        <el-button type="primary" round @click="save">保存</el-button>
-        <el-button type="info" round @click="isEdit = false">取消</el-button>
+        <PermissionButton v-if="menuNo" type="primary" round @click="save" :menu-no="menuNo" name="保存"></PermissionButton>
+        <el-button v-else type="primary" round @click="save">保存</el-button>
+        <PermissionButton v-if="menuNo" type="info" round @click="isEdit = false" :menu-no="menuNo" name="取消"></PermissionButton>
+        <el-button v-else type="info" round @click="isEdit = false">取消</el-button>
       </template>
     </div>
   </div>
