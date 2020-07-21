@@ -27,14 +27,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="占地面积总数：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="占地面积其中：绿化用地面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -49,20 +47,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="校舍总建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中学校产权校舍建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中非学校产权校舍建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -77,40 +72,34 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="教学及辅助用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中教室：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中图书馆：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="其中实验室、实习场所：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中体育馆：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中会堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -125,8 +114,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="行政办公用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -143,54 +131,46 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="生活用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中学生宿舍（公寓）：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中学生食堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="其中教工宿舍（公寓）：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中教工食堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中生活福利及附属用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="教工住宅：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其他用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -206,14 +186,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="纸质图书（万册）总册数：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="纸质图书（万册）本学年新增数：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -229,20 +207,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="专业期刊（种）中文纸质专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="专业期刊（种）外文纸质专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="专业期刊（种）电子专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -257,28 +232,24 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="计算机数（台）总数" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="计算机数（台）其中：教学用计算机" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="计算机数（台）其中：机房用计算机公共机房" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="计算机数（台）其中：机房用计算机专业机房" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -295,14 +266,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="教室（间）总数" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="教室（间）其中：网络多媒体教室数" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -318,20 +287,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="接入互联网出口带宽（Mbps）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="校园网主干最大带宽（Mbps）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="网络信息点数（个）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -346,14 +312,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="现有管理信息系统总量（软件系统）总个数" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="现有管理信息系统总量（软件系统）名称" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -369,8 +333,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="上网课程数" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" />
@@ -387,20 +350,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="数字资源量数据库（个）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="数字资源量电子图书（册）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="数字资源量音视频（小时）" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -415,20 +375,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="全校固定资产总值" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中：教学、实习仪器设备资产值资产总值" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中：教学、实习仪器设备资产值当年新增资产值" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item" />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+                      <el-input v-model="postForm.type" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>

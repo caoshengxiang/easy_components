@@ -61,22 +61,31 @@ service.interceptors.response.use(
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 401 && res.msg === '登录过期') {
         // to re-login
-        MessageBox.confirm('登录已过期，请重新登录', '登录验证', {
-          confirmButtonText: '重新登录',
-          showCancelButton: false,
-          // cancelButtonText: '取消',
-          type: 'warning',
-          closeOnClickModal: false
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            // location.reload()
-            if (location.href.indexOf('#') > -1) {
-              const href = location.href.split('#')
-              $router.push(`/login?redirect=${href[1]}`)
-            } else {
-              $router.push(`/login`)
-            }
-          })
+        // MessageBox.confirm('登录已过期，请重新登录', '登录验证', {
+        //   confirmButtonText: '重新登录',
+        //   showCancelButton: false,
+        //   // cancelButtonText: '取消',
+        //   type: 'warning',
+        //   closeOnClickModal: false
+        // }).then(() => {
+        //   store.dispatch('user/resetToken').then(() => {
+        //     // location.reload()
+        //     if (location.href.indexOf('#') > -1) {
+        //       const href = location.href.split('#')
+        //       $router.push(`/login?redirect=${href[1]}`)
+        //     } else {
+        //       $router.push(`/login`)
+        //     }
+        //   })
+        // })
+        store.dispatch('user/resetToken').then(() => {
+          // location.reload()
+          if (location.href.indexOf('#') > -1) {
+            const href = location.href.split('#')
+            $router.push(`/login?redirect=${href[1]}`)
+          } else {
+            $router.push(`/login`)
+          }
         })
       }
       if (res.code === 10005 || res.code=== 10004) { // 10005非法token, 10004用户未登录

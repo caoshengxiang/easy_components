@@ -1,46 +1,25 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
     </div>
     <div class="analysis">
-      <div class="menu-2-box">
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" />-->
-        <!--          <div class="text">-->
-        <!--            <div class="analysis-text">12000</div>-->
-        <!--            <div class="analysis-text-small">在读学生总数</div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" />-->
-        <!--          <div class="text">-->
-        <!--            <div class="analysis-text">11：9</div>-->
-        <!--            <div class="analysis-text-small">在读学生男女比例</div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-      </div>
+      <div class="menu-2-box"/>
     </div>
     <div class="filter-main-div">
       <div class="filter-container" style="width:70%; float: left;">
         <div>
           <span class="filter-item">类型列表:</span>
-          <el-select v-model="value" clearable filterable placeholder="请选择" class="filter-item" @change="selectChange">
+          <el-select v-model="dataId" clearable filterable placeholder="请选择" class="filter-item" @change="selectChange">
             <el-option
               v-for="item in options"
-              :key="item.key"
+              :key="item.id"
               :label="item.name"
-              :value="item.key"
+              :value="item.id"
             />
           </el-select>
           <el-button
-            v-if="value"
+            v-if="dataId"
             class="filter-item"
             icon="el-icon-plus"
             style="margin-left: 10px;"
@@ -52,32 +31,40 @@
         </div>
         <div>
           <span style="display: inline-block">
+            <span style="display: inline-block">
+              <span class="filter-item">类型名称:</span>
+              <el-input v-model="detail.name" style="margin-left: 20px;width: 200px;" class="filter-item"/>
+            </span>
             <span class="filter-item">唯一标识:</span>
-            <el-input v-model="tableData.key" style="margin-left: 20px;width: 200px;" class="filter-item" />
-          </span>
-          <span style="display: inline-block">
-            <span class="filter-item">类型名称:</span>
-            <el-input v-model="tableData.name" style="margin-left: 20px;width: 200px;" class="filter-item" />
+            <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item"/>
           </span>
           <span style="display: inline-block">
             <span class="filter-item">描述:</span>
-            <el-input v-model="tableData.des" style="margin-left: 20px;width: 200px;" class="filter-item" />
+            <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item"/>
           </span>
         </div>
       </div>
 
       <div class="filter-container" style="width:30%;float: right;text-align: right">
-        <span v-if="!value" style="color: #cccccc;font-size: 10px;">(填写下方信息，保存即可新增)</span>
-        <span v-if="value" style="color: #cccccc;font-size: 10px;">(编辑完成类型信息，点击保存)</span>
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
-          保存
-        </el-button>
+        <span v-if="!dataId" style="color: #cccccc;font-size: 10px;">(填写下方信息，保存即可新增)</span>
+        <span v-if="dataId" style="color: #cccccc;font-size: 10px;">(编辑完成类型信息，点击保存)</span>
+        <!--        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">-->
+        <!--          保存-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_set_data_save"
+          class-name="filter-item"
+          icon="el-icon-edit"
+          type="primary"
+          name=""
+          @click="saveHandle"
+        />
       </div>
 
       <el-table
         :key="tableKey"
         v-loading="listLoading"
-        :data="tableData.children"
+        :data="tableData"
         border
         fit
         highlight-current-row
@@ -90,19 +77,19 @@
         <el-table-column label="名称" min-width="150" align="center">
           <template slot-scope="{row}">
             <!--          <span>{{ row.name }}</span>-->
-            <el-input v-model="row.name" />
+            <el-input v-model="row.name"/>
           </template>
         </el-table-column>
         <el-table-column label="描述" min-width="150" align="center">
           <template slot-scope="{row}">
-            <!--          <span>{{ row.des }}</span>-->
-            <el-input v-model="row.des" />
+            <!--          <span>{{ row.remark }}</span>-->
+            <el-input v-model="row.remark"/>
           </template>
         </el-table-column>
         <el-table-column label="是否启用" min-width="150" align="center">
           <template slot-scope="{row}">
-            <el-button v-if="row.status === 1">禁用</el-button>
-            <el-button v-if="row.status === 0">启用</el-button>
+            <el-button v-if="row.enabled">禁用</el-button>
+            <el-button v-else>启用</el-button>
           </template>
         </el-table-column>
         <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
@@ -122,15 +109,15 @@
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
-
+  // import Pagination from '@/components/Pagination'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
     name: 'DataIndex',
     components: {
       Breadcrumb,
-      Pagination
+      PermissionButton
     },
     filters: {
       statusFilter(status) {
@@ -144,80 +131,29 @@
     },
     data() {
       return {
-        value: '',
-        options: [
-          {
-            name: '课程属性',
-            key: 'courseProperties',
-            des: '课程的属性分类',
-            children: [
-              {
-                name: '公共基础课',
-                des: '基础文化知识',
-                status: 1
-              },
-              {
-                name: '专业技能课',
-                des: '专业核心技能',
-                status: 1
-              },
-            ]
-          },
-          {
-            name: '课程类型',
-            key: 'courseCategory',
-            des: '',
-            children: [
-              {
-                name: 'A类(纯理论课)',
-                des: '',
-                status: 1
-              },
-              {
-                name: 'B类((理论+实践)课)',
-                des: '',
-                status: 1
-              },
-              {
-                name: 'C类(纯实践课)',
-                des: '',
-                status: 1
-              },
-            ]
-          }
-        ],
-
+        dataId: '',
+        options: [],
+        detail: {},
         tableKey: 0,
         listLoading: true,
-        dialogFormVisible: false,
-        tableData: {
-          name: '',
-          key: '',
-          des: '',
-          children: [
-            {
-              name: '',
-              des: '',
-              status: 1
-            }
-          ]
-        },
+        tableData: [],
+        tableDataDel: [], // 编辑时已经被删除的
         rules: {
-          num: [{
-            required: true,
-            message: '请填写岗位编码',
-            trigger: 'change'
-          }],
-          name: [{
-            required: true,
-            message: '请填写岗位名称',
-            trigger: 'blur'
-          }],
-          part: [{
-            required: true,
-            message: '请选择所属部门',
-            trigger: 'change'
-          }]
+          // num: [{
+          //   required: true,
+          //   message: '请填写岗位编码',
+          //   trigger: 'change'
+          // }],
+          // name: [{
+          //   required: true,
+          //   message: '请填写岗位名称',
+          //   trigger: 'blur'
+          // }],
+          // part: [{
+          //   required: true,
+          //   message: '请选择所属部门',
+          //   trigger: 'change'
+          // }]
         },
       }
     },
@@ -226,30 +162,58 @@
     },
     methods: {
       resetTemp() {
-        this.tableData = {
-          name: '',
-          key: '',
-          des: '',
-          children: []
-        }
+        this.detail = {}
+        this.tableData = []
+        this.tableDataDel = []
       },
-      selectChange(data) {
+      selectChange(id) {
         this.resetTemp()
-        this.options.forEach(item => {
-          if (item.key === data) {
-            this.tableData = item
-          }
+        this.$api.dictData.detail(id).then(res => {
+          this.detail = res.data
+        })
+        this.$api.dictData.getByTypeId({ dictTypeId: id }).then(res => {
+          this.tableData = res.data
         })
       },
-      handleFilter() {
-
+      saveHandle() {
+        if (this.dataId) {
+          // 编辑
+          this.$api.dictData.saveOrUpdate(Object.assign({}, this.detail, { datas: this.tableData.concat(this.tableDataDel) })).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '编辑成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
+          })
+        } else {
+          // 新增
+          this.$api.dictData.saveOrUpdate(Object.assign({}, this.detail, { datas: this.tableData })).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '添加成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+              this.resetTemp()
+            }
+          })
+        }
       },
       getList() {
         const that = this
+        this.$api.dictData.simpleAll().then(res => {
+          this.options = res.data
+        })
         that.listLoading = false
       },
       handleAdd() {
-        this.value = ''
+        this.dataId = ''
         this.resetTemp()
       },
       handleDelete(row, index) {
@@ -260,7 +224,11 @@
           type: 'warning'
         })
           .then(async () => {
-            that.tableData.children.splice(index, 1)
+            if (row.id) {
+              row.deleted = true
+              that.tableDataDel.push(row)
+            }
+            that.tableData.splice(index, 1)
             this.$message({
               type: 'success',
               message: '删除成功'
@@ -269,10 +237,10 @@
           .catch(err => { console.error(err) })
       },
       addRow() {
-        this.tableData.children.push({
+        this.tableData.push({
           name: '',
-          des: '',
-          status: 1
+          remark: '',
+          enabled: 1
         })
       }
     }
