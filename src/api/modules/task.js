@@ -9,18 +9,15 @@ export default {
     return request.get('approval/task/attend', {params:params})
   },
   getDetail(id) {
+    return request.get(`/approval/task/${id}`)
+  },
+  getAttendDetail(id) {
     return request.get(`/approval/task/history/${id}`)
   },
-  save(params){
-    return request.put(`approvalConfig/definition/${params.id}`, params)
+  agree(params) {
+    return request.post(`approval/task/agree/${params.id}`, params)
   },
-  add(params){
-    return request.post(`approvalConfig`, params)
+  refuse(params) {
+    return request.post(`/approval/task/refuse/${params.id}`, params)
   },
-  deleteInfo(id) {
-    return request.delete(`approvalConfig/${id}`)
-  },
-  saveInfo(params){
-    return request.put(`approvalConfig/${params.id}`, params)
-  }
 }

@@ -21,15 +21,13 @@
         </el-table-column>
         <el-table-column label="审核时间" prop="startName" align="center" >
       </el-table-column>
-        <el-table-column label="申请详情" prop="created" align="center" >
-        </el-table-column>
-        <el-table-column label="审核状态" prop="created" align="center">
+        <el-table-column label="审核状态" prop="state" align="center">
       </el-table-column>
-        <el-table-column label="审核意见" prop="created" align="center">
+        <el-table-column label="审核意见" prop="msg" align="center">
         </el-table-column>
         <el-table-column label="操作" align="center" >
           <template slot-scope="{row}">
-            <el-button type="primary" round @click="$utils.routerLink(`/task/detail?id=${row.taskId}`)">申请详情</el-button>
+            <el-button type="primary" round @click="$utils.routerLink(`/task/detail?id=${row.taskId}&type=2`)">申请详情</el-button>
           </template>
         </el-table-column>
       </el-table>

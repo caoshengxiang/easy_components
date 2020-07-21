@@ -179,6 +179,16 @@ aside {
   }
 }
 
+.task-detail-header{
+  height:40px;background-color: white;margin-left: 20px;margin-right: 20px;margin-top:10px;padding-left: 20px;padding-top: 10px;
+
+}
+.task-detail-header-one{
+  height:40px;background-color: white;margin-left: 20px;margin-right: 20px;margin-top:10px;margin-bottom: -30px;padding-left: 20px;padding-top: 10px
+}
+.task-detail-content{
+  height:50px;background-color: white;margin-left: 20px;margin-right: 20px;margin-top:2px;padding-top: 10px
+}
 .components-container {
   margin: 30px 50px;
   position: relative;

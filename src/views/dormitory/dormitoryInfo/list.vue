@@ -197,7 +197,6 @@
 </template>
 <script>
   import Pagination from '@/components/Pagination'
-
   import Breadcrumb from '@/components/Breadcrumb'
   export default {
     name: 'ComplexTable',
