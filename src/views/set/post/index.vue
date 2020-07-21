@@ -52,7 +52,7 @@
           class="filter-item"
           icon="el-icon-plus"
           type="primary"
-          name="新增岗位"
+          name=""
           @click="handleAdd"
         />
 
