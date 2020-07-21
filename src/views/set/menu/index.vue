@@ -17,7 +17,14 @@
               <!--          >-->
               <!--            新增一级菜单-->
               <!--          </el-button>-->
-              <PermissionButton menu-no="_views_set_menu_add" class-name="filter-item" icon="el-icon-plus" type="primary" name="" @click="handleAdd" />
+              <PermissionButton
+                menu-no="_views_set_menu_add"
+                class-name="filter-item"
+                icon="el-icon-plus"
+                type="primary"
+                name=""
+                @click="handleAdd"
+              />
               <span style="color: #666666;font-size: 10px;padding-left: 10px;">(菜单可拖拽排序、点击编辑)</span>
             </div>
 
@@ -55,7 +62,13 @@
                   <!--              >-->
                   <!--                添加-->
                   <!--              </el-button>-->
-                  <PermissionButton menu-no="_views_set_menu_add_tree" type="text" size="mini" name="" @click="() => append(data)" />
+                  <PermissionButton
+                    menu-no="_views_set_menu_add_tree"
+                    type="text"
+                    size="mini"
+                    name=""
+                    @click="() => append(data)"
+                  />
                   <!--              <el-button-->
                   <!--                v-if="!data.children || data.children.length===0"-->
                   <!--                type="text"-->
@@ -65,7 +78,15 @@
                   <!--              >-->
                   <!--                删除-->
                   <!--              </el-button>-->
-                  <PermissionButton v-if="!data.children || data.children.length===0" menu-no="_views_set_menu_remove" style="color: red;" type="text" size="mini" name="" @click="() => remove(node, data)" />
+                  <PermissionButton
+                    v-if="!data.children || data.children.length===0"
+                    menu-no="_views_set_menu_remove"
+                    style="color: red;"
+                    type="text"
+                    size="mini"
+                    name=""
+                    @click="() => remove(node, data)"
+                  />
                   <!--            <i class="el-icon-circle-plus" @click.stop="() => append(data)"></i>-->
                   <!--            <i style="color: red;margin-left: 5px;" class="el-icon-delete-solid" @click.stop="() => remove(node, data)"></i>-->
 
@@ -134,7 +155,12 @@
                           <i class="el-icon-question" /></el-tooltip>
                         ：
                       </span>
-                      <el-input v-model="temp.menuNo" :disabled="type!=='add'" placeholder="请输入唯一编码" class="filter-item" />
+                      <el-input
+                        v-model="temp.menuNo"
+                        :disabled="type!=='add'"
+                        placeholder="请输入唯一编码"
+                        class="filter-item"
+                      />
                     </el-form-item>
                     <el-form-item
                       label="组件映射："
@@ -251,12 +277,12 @@
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="工作流：">
-                      <el-select v-model="temp.value" clearable placeholder="请选择" :disabled="type!=='add'">
+                      <el-select v-model="temp.workflowId" clearable filterable placeholder="请选择" :disabled="type!=='add'">
                         <el-option
                           v-for="item in options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
                         />
                       </el-select>
                     </el-form-item>
@@ -329,7 +355,12 @@
             </el-form-item>
             <el-form-item label="菜单类型：">
               <span slot="label">菜单类型
-                <el-tooltip class="item" effect="dark" content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)" placement="top-start">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="目录、菜单会生成系统的菜单结构，不展示在前端请选择按钮类型(注意：目录是不会生成页面，务必正确配置该类型)"
+                  placement="top-start"
+                >
                   <i class="el-icon-question" /></el-tooltip>
                 ：
               </span>
@@ -410,7 +441,12 @@
               ]"
             >
               <span slot="label">URL
-                <el-tooltip class="item" effect="dark" content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。" placement="top-start">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。"
+                  placement="top-start"
+                >
                   <i class="el-icon-question" /></el-tooltip>
                 ：
               </span>
@@ -453,6 +489,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+
   export default {
     name: 'Index',
     components: {
@@ -474,12 +511,13 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: true,
+          external: false,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
           mobileIcon: '',
-          menuType: '目录'
+          menuType: '目录',
+          workflowId: '',
         },
         port_pc: false,
         port_m: false,
@@ -489,29 +527,15 @@
           label: 'name'
         },
         btnTableData: [],
-        options: [
-          {
-            value: '选项1',
-            label: '选项1'
-          }, {
-            value: '选项2',
-            label: '选项2'
-          }, {
-            value: '选项3',
-            label: '选项3'
-          }, {
-            value: '选项4',
-            label: '选项4'
-          }, {
-            value: '选项5',
-            label: '选项5'
-          }],
+        options: [],
         menuItem: {},
-        type: 'add'
+        type: 'add',
+        treeListData: [],
       }
     },
     created() {
       this.getMenuTreeData()
+      this.getWorkFlow()
     },
     methods: {
       autoFormat(val) {
@@ -534,6 +558,19 @@
       getMenuTreeData() {
         this.$api.menu.menuTree().then(res => {
           this.treeData = res.data
+          const list = []
+
+          function treeMap(data) {
+            data.forEach(item => {
+              list.push(item)
+              if (item.children && item.children.length > 0) {
+                treeMap(item.children)
+              }
+            })
+          }
+
+          treeMap(this.treeData)
+          this.treeListData = list
         })
         // this.$api.menu.list().then(res => {
         //   console.log(res)
@@ -545,12 +582,13 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: true,
+          external: false,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
           mobileIcon: '',
-          menuType: '目录'
+          menuType: '目录',
+          workflowId: ''
         }
         this.port_pc = false
         this.port_m = false
@@ -669,6 +707,21 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             const tempData = Object.assign({}, this.temp)
+            let repeat = false
+            this.treeListData.forEach(item => {
+              if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
+                repeat = true
+              }
+            })
+            if (repeat) {
+              this.$notify({
+                title: '成功',
+                message: '唯一键编码或URL 重复！',
+                type: 'error',
+                duration: 2000
+              })
+              return
+            }
             this.$api.menu.add(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
@@ -706,9 +759,24 @@
           .catch(_ => {})
       },
       handleCreate() {
+        const tempData = Object.assign({}, this.temp)
         this.$refs.dataForm.validate(valid => {
           if (valid) {
-            const tempData = Object.assign({}, this.temp)
+            let repeat = false
+            this.treeListData.forEach(item => {
+              if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
+                repeat = true
+              }
+            })
+            if (repeat) {
+              this.$notify({
+                title: '成功',
+                message: '唯一键编码或URL 重复！',
+                type: 'error',
+                duration: 2000
+              })
+              return
+            }
             this.$api.menu.edit(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
@@ -721,7 +789,15 @@
             })
           }
         })
-      }
+      },
+      getWorkFlow() {
+        this.$api.workflow.getList({
+          current: 1,
+          size: 10000
+        }).then(res => {
+          this.options = res.data.records
+        })
+      },
     }
   }
 </script>

@@ -1,23 +1,28 @@
 <template>
-  <div class="set-menu">
-    <div class="set-menu-box">
-      <div class="left">
-        <div style="margin-bottom: 10px;text-align: right;margin-top: 30px;">
-          <!--          <span style="color: #666666;font-size: 10px;padding-left: 10px;">(点击设置权限)</span>-->
-        </div>
+  <div class="app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+    </div>
+    <y-detail-page-layout :save="handleCreate" :edit-status="true" menu-no="_views_set_menu_edit">
+      <div class="set-menu">
+        <div class="set-menu-box">
+          <div class="left">
+            <div style="margin-bottom: 10px;text-align: right;margin-top: 30px;">
+              <!--          <span style="color: #666666;font-size: 10px;padding-left: 10px;">(点击设置权限)</span>-->
+            </div>
 
-        <!--default-expand-all-->
-        <el-tree
-          ref="tree"
-          :disabled="type!=='add'"
-          :check-strictly="true"
-          :destroy-on-close="true"
-          :data="treeData"
-          node-key="id"
-          show-checkbox
-          @check-change="handleCheckChange"
-          @node-click="nodeClick"
-        >
+            <!--default-expand-all-->
+            <el-tree
+              ref="tree"
+              :disabled="type!=='add'"
+              :check-strictly="true"
+              :destroy-on-close="true"
+              :data="treeData"
+              node-key="id"
+              show-checkbox
+              @check-change="handleCheckChange"
+              @node-click="nodeClick"
+            >
           <span slot-scope="{ node, data }" class="custom-tree-node">
             <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
               <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
@@ -28,87 +33,92 @@
             <!--            <span>{{ data }}</span>-->
             <span style="margin-left: 5px;">{{ data.name }}</span>
           </span>
-        </el-tree>
-      </div>
-      <div class="right">
-        <div class="btn-set">
-          <el-tabs type="card">
-            <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '权限设置'">
-              <el-form
-                v-if="menuItem.name && menuItem.menuType !== '目录'"
-                ref="dataForm"
-                :model="temp"
-                label-position="right"
-                label-width="140px"
-                style="width: 500px; margin-left:50px;margin-top: 40px;"
+            </el-tree>
+          </div>
+          <div class="right">
+            <div class="btn-set">
+              <el-tabs type="card">
+                <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '权限设置'">
+                  <el-form
+                    v-if="menuItem.name && menuItem.menuType !== '目录'"
+                    ref="dataForm"
+                    :model="temp"
+                    label-position="right"
+                    label-width="140px"
+                    style="width: 500px; margin-left:50px;margin-top: 40px;"
+                  >
+                    <!--                <el-form-item label="按钮配置：">-->
+                    <!--                  <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">-->
+                    <!--                    <el-checkbox-->
+                    <!--                      v-for="item in menuItem.children"-->
+                    <!--                      v-if="item.menuType === '按钮'"-->
+                    <!--                      :key="item.id"-->
+                    <!--                      :label="item.id"-->
+                    <!--                    >{{ item.name }}-->
+                    <!--                    </el-checkbox>-->
+                    <!--                  </el-checkbox-group>-->
+                    <!--                </el-form-item>-->
+
+                    <el-form-item label="数据权限配置：">
+                      <el-radio-group v-model="temp.level" :disabled="type!=='add'">
+                        <el-radio :label="1">校级</el-radio>
+                        <el-radio :label="2">系级</el-radio>
+                        <el-radio :label="3">班级</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-form>
+                </el-tab-pane>
+              </el-tabs>
+
+              <div
+                class="btn-box"
+                style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"
               >
-                <!--                <el-form-item label="按钮配置：">-->
-                <!--                  <el-checkbox-group v-model="temp.btn" :disabled="type!=='add'">-->
-                <!--                    <el-checkbox-->
-                <!--                      v-for="item in menuItem.children"-->
-                <!--                      v-if="item.menuType === '按钮'"-->
-                <!--                      :key="item.id"-->
-                <!--                      :label="item.id"-->
-                <!--                    >{{ item.name }}-->
-                <!--                    </el-checkbox>-->
-                <!--                  </el-checkbox-group>-->
-                <!--                </el-form-item>-->
-
-                <el-form-item label="数据权限配置：">
-                  <el-radio-group v-model="temp.level" :disabled="type!=='add'">
-                    <el-radio :label="1">校级</el-radio>
-                    <el-radio :label="2">系级</el-radio>
-                    <el-radio :label="3">班级</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-              </el-form>
-            </el-tab-pane>
-          </el-tabs>
-
-          <div
-            class="btn-box"
-            style="text-align: center;margin-top: 30px;position: absolute;right: 20px;top: -20px;"
-          >
-            <el-button
-              v-if="type=='detail'"
-              class="filter-item download-button"
-              style="margin-left: 10px;"
-              type="primary"
-              icon="el-icon-edit"
-              @click="type='add'"
-            >
-              编辑
-            </el-button>
-            <el-button
-              v-if="type=='add'"
-              class="filter-item download-button"
-              style="margin-left: 10px;"
-              type="primary"
-              icon="el-icon-edit"
-              @click="type='detail'"
-            >
-              取消
-            </el-button>
-            <el-button
-              v-if="type=='add'"
-              class="filter-item download-button"
-              style="margin-left: 10px;margin-right: 0px"
-              type="primary"
-              icon="el-icon-edit"
-              @click="handleCreate"
-            >
-              保存
-            </el-button>
+                <el-button
+                  v-if="type=='detail'"
+                  class="filter-item download-button"
+                  style="margin-left: 10px;"
+                  type="primary"
+                  icon="el-icon-edit"
+                  @click="type='add'"
+                >
+                  编辑
+                </el-button>
+                <el-button
+                  v-if="type=='add'"
+                  class="filter-item download-button"
+                  style="margin-left: 10px;"
+                  type="primary"
+                  icon="el-icon-edit"
+                  @click="type='detail'"
+                >
+                  取消
+                </el-button>
+                <el-button
+                  v-if="type=='add'"
+                  class="filter-item download-button"
+                  style="margin-left: 10px;margin-right: 0px"
+                  type="primary"
+                  icon="el-icon-edit"
+                  @click="handleCreate"
+                >
+                  保存
+                </el-button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </y-detail-page-layout>
   </div>
 </template>
 
 <script>
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
+
   export default {
     name: 'Auth',
+    components: ['YDetailPageLayout'],
     data() {
       return {
         temp: {

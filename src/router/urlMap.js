@@ -63,8 +63,8 @@ import _views_baseinfo_class_list from '@/views/baseinfo/class/list'
 import _views_baseinfo_class_detail from '@/views/baseinfo/class/detail'
 import _views_baseinfo_class_edit from '@/views/baseinfo/class/edit'
 import _views_workflow_List from '@/views/workflow/List'
-import _views_workflow_Detail from '@/views/workflow/Detail'
 import _views_workflow_Design from '@/views/workflow/Design'
+import _views_workflow_Detail from '@/views/workflow/Detail'
 import _views_workflow_task_list from '@/views/workflow/task/List'
 
 /*
@@ -72,10 +72,10 @@ import _views_workflow_task_list from '@/views/workflow/task/List'
 * 页面全路径url: 对应的路由组件
 * */
 export default {
-  _views_workflow_List, // 工作流列表
-  _views_workflow_Detail, // 工作流列表
-  _views_workflow_Design, // 工作流列表
   _views_workflow_task_list,//待办列表
+  _views_workflow_List, // 工作流列表
+  _views_workflow_Design, // 工作流
+  _views_workflow_Detail, // 工作流
   _views_set_menu, // 菜单设置 /views/set/menu
   _views_set_post, // 岗位管理 /views/set/post
   _views_set_post_auth, // 岗位权限
