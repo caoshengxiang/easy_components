@@ -1,27 +1,27 @@
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 /*
 * 岗位权限
 */
 export default {
   list(params) {
-    return request2.get(`postPrivilege`, { params: params })
+    return request.get(`postPrivilege`, { params: params })
   },
   detail(params) {
-    return request2.get(`postPrivilege/${params}`)
+    return request.get(`postPrivilege/${params}`)
   },
   add(params) {
-    return request2.post(`postPrivilege`, params)
+    return request.post(`postPrivilege`, params)
   },
   edit(params) {
-    return request2.put(`postPrivilege`, params)
+    return request.put(`postPrivilege`, params)
   },
   delete(params) {
-    return request2.delete(`postPrivilege/${params}`)
+    return request.delete(`postPrivilege/${params}`)
   },
   simpleAll(params) { // 下拉
-    return request2.get(`postPrivilege/simpleAll`, { params: params })
+    return request.get(`postPrivilege/simpleAll`, { params: params })
   },
   tree(params) { // 下拉
-    return request2.get(`postPrivilege/tree`, { params: params })
+    return request.get(`postPrivilege/tree`, { params: params })
   },
 }

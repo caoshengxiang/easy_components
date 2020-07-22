@@ -1,25 +1,25 @@
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 
 export default {
   list(params) {
-    return request2.get(`menu`, { params: params })
+    return request.get(`menu`, { params: params })
   },
   menuTree(params) {
-    return request2.get(`menu/tree`, { params: params })
+    return request.get(`menu/tree`, { params: params })
   },
   detail(params) {
-    return request2.get(`menu/${params}`)
+    return request.get(`menu/${params}`)
   },
   add(params) {
-    return request2.post(`menu`, params)
+    return request.post(`menu`, params)
   },
   edit(params) {
-    return request2.put(`menu`, params)
+    return request.put(`menu`, params)
   },
   delete(params) {
-    return request2.delete(`menu/${params}`)
+    return request.delete(`menu/${params}`)
   },
   simpleAll(params) {
-    return request2.get(`menu/simpleAll`, {params: params})
+    return request.get(`menu/simpleAll`, {params: params})
   }
 }

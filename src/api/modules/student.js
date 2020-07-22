@@ -18,6 +18,6 @@ export default {
     return request.get('student/list/noBed', { params: params })
   },
   download(params){
-    return file.fileDown('student', { params: params })
+    return file.fileDown('student', params)
   },
 }

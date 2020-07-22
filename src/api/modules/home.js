@@ -1,7 +1,7 @@
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 
 export default {
   homeSpotList(params) {
-    return request2.get('', { params: params })
+    return request.get('', { params: params })
   }
 }
