@@ -558,7 +558,7 @@
           let selectedList = []
           let selectedItem = null;
           selectedUserIdList.forEach(function (id) {
-            selectedItem = that.staffListData.find(m =>m.id == id)
+            selectedItem = that.staffListData.find(m =>m.userId == id)
             if (selectedItem)
               selectedList.push(selectedItem)
           })
