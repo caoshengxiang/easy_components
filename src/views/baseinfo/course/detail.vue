@@ -221,7 +221,9 @@
           ifFormulate: [{ required: true, message: '请选择', trigger: 'change' }],
           grade: [{ required: true, message: '请选择授课年级', trigger: 'change' }]
         },
-        id: 0
+        id: 0,
+        courseProperties: [], //课程属性
+        courseCategory: [] //课程类别
       }
     },
     created(){
@@ -234,8 +236,25 @@
       }
 
       that.getGradeList()
+
+      that.courseProperties = that.getByTypeId(69)
+      that.courseCategory = that.getByTypeId(47)
+
     },
     methods:{
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            return data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getGradeList() {
         const that = this
         that.$api.baseInfo.getGradeList().then(data => {
