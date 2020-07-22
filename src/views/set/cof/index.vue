@@ -10,7 +10,6 @@
             ref="postForm"
             label-width="200px"
             :model="postForm"
-            :rules="rules"
             style="width: 1000px;margin: auto"
             class="form-container"
           >
@@ -19,92 +18,125 @@
               <div class="postInfo-container">
                 <el-row>
                   <el-col :span="24">
-                    <el-form-item label="系统名称：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="系统名称：" prop="SYS_NAME" class="postInfo-container-item">
+                      <el-input v-model="postForm.SYS_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="教师编号前缀：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="教师编号前缀：" prop="TEACHER_PREFIX" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHER_PREFIX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="预报名失效（小时）：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="预报名失效（小时）：" prop="SIGN_OUT_OF_HOUR" class="postInfo-container-item">
+                      <el-input v-model="postForm.SIGN_OUT_OF_HOUR.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="左上角logo：" prop="type" class="postInfo-container-item">
+                    <el-form-item label="左上角logo：" prop="LOGO" class="postInfo-container-item">
                       <div>
                         <el-upload
-                          action=""
                           class="avatar-uploader"
                           :show-file-list="false"
                           :on-preview="handlePictureCardPreview"
-                          :before-upload="beforeAvatarUpload"
+                          :before-upload="(file) => {return beforeAvatarUpload(file, 'LOGO')}"
                         >
                           <el-image
-                            v-if="postForm.type"
+                            v-if="postForm.LOGO.value"
                             style="width: 300px; height: 200px;margin-right: 5px;"
-                            :src="postForm.type"
+                            :src="postForm.LOGO.value"
                           />
                           <i v-else class="el-icon-plus avatar-uploader-icon"/>
                         </el-upload>
-                        <el-dialog :visible.sync="dialogVisible">
-                          <img width="100%" :src="postForm.type" alt="">
-                        </el-dialog>
                         <div>请上传图片（jpg、png、jpej、gif等格式）</div>
                       </div>
-<!--                      <div v-else>-->
-<!--                        <el-image-->
-<!--                          style="width: 300px; height: 200px;margin-right: 5px;"-->
-<!--                          :src="postForm.type"-->
-<!--                        />-->
-<!--                      </div>-->
+                      <!--                      <div v-else>-->
+                      <!--                        <el-image-->
+                      <!--                          style="width: 300px; height: 200px;margin-right: 5px;"-->
+                      <!--                          :src="postForm.type"-->
+                      <!--                        />-->
+                      <!--                      </div>-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="登录背景图：" prop="type" class="postInfo-container-item">
+                    <el-form-item label="登录背景图：" prop="BACKGROUND" class="postInfo-container-item">
                       <div>
                         <el-upload
-                          action=""
                           class="avatar-uploader"
                           :show-file-list="false"
                           :on-preview="handlePictureCardPreview"
-                          :before-upload="beforeAvatarUpload"
+                          :before-upload="(file) => { return beforeAvatarUpload(file, 'BACKGROUND')}"
                         >
                           <el-image
-                            v-if="postForm.type"
+                            v-if="postForm.BACKGROUND.value"
                             style="width: 300px; height: 200px;margin-right: 5px;"
-                            :src="postForm.type"
+                            :src="postForm.BACKGROUND.value"
                           />
                           <i v-else class="el-icon-plus avatar-uploader-icon"/>
                         </el-upload>
-                        <el-dialog :visible.sync="dialogVisible">
-                          <img width="100%" :src="postForm.type" alt="">
-                        </el-dialog>
                         <div>请上传图片（jpg、png、jpej、gif等格式）</div>
                       </div>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="承诺书：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="承诺书：" prop="PROMISE_LETTER" class="postInfo-container-item">
+                      <!--                      <el-input v-model="postForm.PROMISE_LETTER" class="filter-item"/>-->
+                      <y-ueditor
+                        ref="contentUEditor1"
+                        :content="postForm.PROMISE_LETTER.value"
+                        :config="{
+                          initialFrameWidth: null,
+                          initialFrameHeight: 350,
+                          readonly:false
+                        }"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="协议：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="协议：" prop="PROTOCOL" class="postInfo-container-item">
+                      <!--                      <el-input v-model="postForm.PROTOCOL" class="filter-item" />-->
+                      <y-ueditor
+                        ref="contentUEditor2"
+                        :content="postForm.PROTOCOL.value"
+                        :config="{
+                          initialFrameWidth: null,
+                          initialFrameHeight: 350,
+                          readonly:false
+                        }"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="通知书：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="通知书：" prop="NOTICE" class="postInfo-container-item">
+                      <!--                      <el-input v-model="postForm.NOTICE" class="filter-item" />-->
+                      <y-ueditor
+                        ref="contentUEditor3"
+                        :content="postForm.NOTICE.value"
+                        :config="{
+                          initialFrameWidth: null,
+                          initialFrameHeight: 350,
+                          readonly:false
+                        }"
+                      />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="短信平台用户名：" prop="SMS_USER" class="postInfo-container-item">
+                      <el-input v-model="postForm.SMS_USER.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="短信平台密码：" prop="SMS_PWD" class="postInfo-container-item">
+                      <el-input v-model="postForm.SMS_PWD.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
               </div>
             </div>
+
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
           </el-form>
         </el-tab-pane>
       </el-tabs>
@@ -115,16 +147,27 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import YUeditor from '@/components/YUeditor'
 
   const defaultForm = {
-    id: ''
+    SYS_NAME: { value: '' },
+    TEACHER_PREFIX: { value: '' },
+    NOTICE: { value: '' },
+    PROMISE_LETTER: { value: '' },
+    SIGN_OUT_OF_HOUR: { value: '' },
+    SMS_USER: { value: '' },
+    LOGO: { value: '' },
+    PROTOCOL: { value: '' },
+    BACKGROUND: { value: '' },
+    SMS_PWD: { value: '' }
   }
 
   export default {
     name: 'SetInfo',
     components: {
       Breadcrumb,
-      YDetailPageLayout
+      YDetailPageLayout,
+      YUeditor
     },
     data() {
       return {
@@ -137,7 +180,7 @@
           }]
         },
         dialogVisible: false,
-        fileList: [],
+        dialogImageUrl: ''
       }
     },
     created() {
@@ -145,26 +188,37 @@
     },
     methods: {
       getConfig() {
-        this.$api.globalConfig.list().then(res => {
-          this.postForm = res.data
+        this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+          this.postForm = res.data.fieldValues
         })
       },
       handleCreate() {
+        this.postForm.PROMISE_LETTER.value = this.$refs.contentUEditor1.getUEContent()
+        this.postForm.PROTOCOL.value = this.$refs.contentUEditor2.getUEContent()
+        this.postForm.NOTICE.value = this.$refs.contentUEditor3.getUEContent()
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            //
+            this.$api.globalConfig.edit({
+              key: 'sys',
+              fieldValues: this.postForm
+            }).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+              }
+            })
           }
         })
-      },
-      handleRemove(file, fileList) {
-        // console.log(file, fileList)
-        this.fileList = fileList
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url
         this.dialogVisible = true
       },
-      beforeAvatarUpload(file) {
+      beforeAvatarUpload(file, key) {
         // const isJPG = file.type === 'image/jpeg'
         // const isPNG = file.type === 'image/png'
         const isImg = file.type.indexOf('image') > -1
@@ -175,14 +229,14 @@
           return false
         }
         if (!isLt10M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
+          this.$message.error('上传头像图片大小不能超过 10MB!')
           return false
         }
 
         const param = new FormData()
         param.append('file', file, file.name)
         this.$api.common.upload(param).then((res) => {
-          this.fileList.push({ url: res.data.url })
+          this.postForm[key]['value'] = res.data.url
         })
         return false
       }

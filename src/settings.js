@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'demo',
+  title: '',
   /* ele 默认size */
   elDefaultSize: 'small'
 }
