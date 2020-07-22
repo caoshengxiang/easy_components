@@ -3,7 +3,7 @@
 -->
 <template>
   <div style="line-height:normal;">
-    <script id="editor" type="text/plain"></script>
+    <script :id="id" type="text/plain" />
   </div>
 </template>
 
@@ -14,55 +14,61 @@
   import '../../../public/ueditor/ueditor.parse.min.js'
 
   export default {
-    name: 'ueditor',
-    data () {
-      return {
-        editor: null,
-        loading:false
-      }
-    },
+    name: 'Ueditor',
     props: {
       content: {
         type: String,
         required: false,
-        default:''
+        default: ''
       },
       config: {
         type: Object
       }
     },
-    watch:{
-      'content':function (value) {
-        let that = this;
+    data() {
+      return {
+        editor: null,
+        loading: false
+      }
+    },
+    computed: {
+      id() {
+        const ram = Math.random()
+        return 'editor' + ram
+      }
+    },
+    watch: {
+      'content': function (value) {
+        const that = this
         if (value) {
           if (that.loading) {
-            that.editor.setContent(value); // 确保UE加载完成后，放入内容。
-          }else{
-            that.editor.addListener("ready", function () {
-              that.loading = true;
-              that.editor.setContent(value); // 确保UE加载完成后，放入内容。
-            });
+            that.editor.setContent(value) // 确保UE加载完成后，放入内容。
+          } else {
+            that.editor.addListener('ready', function () {
+              that.loading = true
+              that.editor.setContent(value) // 确保UE加载完成后，放入内容。
+            })
           }
         }
       }
     },
     mounted() {
-      const _this = this;
-      _this.editor = UE.getEditor('editor', _this.config); // 初始化UE
-      _this.editor.addListener("ready", function () {
-        _this.loading = true;
+      const _this = this
+      _this.editor = UE.getEditor(this.id, _this.config) // 初始化UE
+      _this.editor.addListener('ready', function () {
+        _this.loading = true
         if (_this.content) {
-          _this.editor.setContent(_this.content);
+          _this.editor.setContent(_this.content)
         }
-      });
+      })
+    },
+    destroyed() {
+      this.editor.destroy()
     },
     methods: {
       getUEContent() { // 获取内容方法
         return this.editor.getContent()
       }
-    },
-    destroyed() {
-      this.editor.destroy();
     }
   }
 </script>
