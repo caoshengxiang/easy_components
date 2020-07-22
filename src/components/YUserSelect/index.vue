@@ -53,25 +53,36 @@
           this.dialogRecStatus = value;
         },
         initSelectedUser:function (value) {
-          this.staffSelectResultList = value;
+          const that = this
+          if (that.staffListData && that.staffListData.length > 0 && value && value.length > 0){
+            const resultList = [];
+            value.forEach(function (id) {
+              if (that.staffListData.findIndex(m =>m.userId === id) > -1)
+                resultList.push(that.staffListData.find(m => m.userId === id))
+            })
+            if (resultList && resultList.length > 0)
+              that.staffSelectResultList = resultList.map(m =>m.id)
+          }
         },
         staffSelectResultList:function (value) {
           const that = this;
           if (!that.multiSelect) {
-            if (value && value.length > 0) {
+            if (that.staffListData && that.staffListData.length > 0 && value && value.length > 0) {
               that.staffListData.forEach(function (item) {
                 item.disabled = true;
               })
               value.forEach(function (id) {
                 that.staffListData.forEach(function (item) {
-                  if (id === item.id)
+                  if (id === item.userId)
                     item.disabled = false;
                 })
               })
             }else{
-              that.staffListData.forEach(function (item) {
-                item.disabled = false;
-              })
+              if (that.staffListData && that.staffListData.length > 0){
+                that.staffListData.forEach(function (item) {
+                  item.disabled = false;
+                })
+              }
             }
           }
         }
@@ -157,7 +168,8 @@
           const that = this;
           let selectedList = []
           that.staffSelectResultList.forEach(function (id) {
-            selectedList.push(that.staffListData.find(m =>m.id == id))
+            if (that.staffListData.findIndex(m =>m.id == id) > -1)
+              selectedList.push(that.staffListData.find(m =>m.id == id))
           })
           that.$emit('getSelectedUser',selectedList)
           that.$emit('input',false)
@@ -168,23 +180,25 @@
         checkItem(value){
           const that = this
           if (!that.multiSelect) {
-            if (value && value.length > 0){
+            if (that.staffListData && that.staffListData.length > 0 && value && value.length > 0){
               value.forEach(function (id) {
                 that.staffListData.forEach(function (item) {
-                  if (that.staffSelectResultList.findIndex(id => id === item.id) > -1)
+                  if (that.staffSelectResultList.findIndex(id => id === item.userId) > -1)
                     return;
-                  if (id === item.id)
+                  if (id === item.userId)
                     item.disabled = false;
                   else
                     item.disabled = true;
                 })
               })
             }else{
-              that.staffListData.forEach(function (item) {
-                if (that.staffSelectResultList.findIndex(id => id === item.id) > -1)
-                  return;
-                item.disabled = false;
-              })
+              if (that.staffListData && that.staffListData.length > 0) {
+                that.staffListData.forEach(function (item) {
+                  if (that.staffSelectResultList.findIndex(id => id === item.userId) > -1)
+                    return;
+                  item.disabled = false;
+                })
+              }
             }
           }
         }

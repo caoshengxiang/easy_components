@@ -554,7 +554,7 @@
       },
       getStaffNameListStr(selectedUserIdList){
         const that = this
-        if (selectedUserIdList && selectedUserIdList.length > 0){
+        if (that.staffListData && that.staffListData.length > 0 && selectedUserIdList && selectedUserIdList.length > 0){
           let selectedList = []
           let selectedItem = null;
           selectedUserIdList.forEach(function (id) {
