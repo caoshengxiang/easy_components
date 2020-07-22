@@ -526,7 +526,10 @@
       },
       getSelectedUser(value){
         if (value && value.length > 0){
-          this.currentNodeForm.userIds = value.map(m =>m.userId);
+          if (this.currentNodeForm.userType === 1)
+            this.currentNodeForm.userIds = value.map(m =>m.userId);
+          else
+            this.currentNodeForm.userIds = value.map(m =>m.id);
         }else{
           this.currentNodeForm.userIds = []
         }
