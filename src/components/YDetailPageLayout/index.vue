@@ -71,6 +71,11 @@
               })
             })
 
+            const iframeEditor = document.querySelectorAll(".y-detail-page-layout .el-form iframe")
+            iframeEditor.forEach(function (obj) {
+              obj.contentWindow.document.body.setAttribute("contenteditable",editStatus)
+            })
+
             that.addFormPageClick()
           }
         })
@@ -128,5 +133,11 @@
   }
   .y-detail-page-layout.page-disabled >>> input:disabled +*{
     display: none;
+  }
+  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-toolbarbox,.y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-bottomContainer{
+    display: none;
+  }
+  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor{
+    border: none;
   }
 </style>
