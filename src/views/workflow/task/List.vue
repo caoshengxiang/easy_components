@@ -23,7 +23,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
-            <el-button type="primary" round @click="$utils.routerLink(`/task/detail?id=${row.taskId}&type=1`)">申请详情</el-button>
+            <el-button type="primary" round @click="detail(row.taskId)">申请详情</el-button>
             <el-button type="primary" round @click="handleCreate(row)">审核</el-button>
           </template>
         </el-table-column>
@@ -40,7 +40,7 @@
             <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name" :value="item.key"  />
           </el-select>
         </el-form-item>-->
-        <el-form-item label="宿舍类型：" >
+        <el-form-item label="审核结果：" >
           <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
             <el-option key="1" label="通过" value="1"  />
             <el-option key="2" label="拒绝" value="2"  />
@@ -86,6 +86,12 @@
       that.getList();//分页列表
     },
     methods:{
+      detail(id){
+        let that =this;
+        let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id } });
+        window.open(routeData.href, '_blank');
+
+      },
       auditData(){
         let that = this
         if(that.temp.type == 1){
