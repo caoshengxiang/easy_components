@@ -23,8 +23,7 @@
                   <el-col :span="8">
                     <el-form-item label=" 校区："  prop="campus" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.campus" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="江安校区" value="1" />
-                        <el-option key="2" label="望江校区" value="2" />
+                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -46,8 +45,7 @@
                   <el-col :span="8">
                     <el-form-item label="建筑物分类："  prop="cate" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.cate" placeholder="建筑物分类" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="宿舍" value="1" />
-                        <el-option key="2" label="教学楼" value="2" />
+                        <el-option v-for="item in typeNo" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -57,8 +55,7 @@
                   <el-col :span="8">
                     <el-form-item label="建筑物结构码："  prop="structure" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.structure" placeholder="建筑物结构码" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="塔防" value="1" />
-                        <el-option key="2" label="板房" value="2" />
+                        <el-option v-for="item in structuralNo" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -89,16 +86,14 @@
                 <el-col :span="8">
                   <el-form-item label="经费来源："  prop="financialResource" label-width="200px" class="postInfo-container-item">
                     <el-select v-model="postForm.financialResource" placeholder="经费来源" clearable class="filter-item" style="width: 100%">
-                      <el-option key="1" label="省政府" value="1" />
-                      <el-option key="2" label="中央教育局" value="2" />
+                      <el-option v-for="item in source" :key="item.name" :label="item.name" :value="item.name" />
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="房屋产权："  prop="property" label-width="200px" class="postInfo-container-item">
                     <el-select  v-model="postForm.property" placeholder="房屋产权" clearable class="filter-item" style="width: 100%">
-                      <el-option key="1" label="40" value="1" />
-                      <el-option key="2" label="70" value="2" />
+                      <el-option v-for="item in propertyRight" :key="item.name" :label="item.name" :value="item.name" />
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -134,16 +129,14 @@
                   <el-col :span="8">
                     <el-form-item label="抗震设防烈度："  prop="antiKnockDegree" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.antiKnockDegree" placeholder="抗震设防烈度" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="7级" value="1" />
-                        <el-option key="2" label="12级" value="2" />
+                        <el-option v-for="item in code1" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="抗震设防标准："  prop="antiKnockStandard" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.antiKnockStandard" placeholder="抗震设防标准" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="国家级" value="1" />
-                        <el-option key="2" label="世界级" value="2" />
+                        <el-option v-for="item in code2" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -153,8 +146,7 @@
                   <el-col :span="8">
                     <el-form-item label="建筑物状况："  prop="state" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.state" placeholder="建筑物状况" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="完好" value="1" />
-                        <el-option key="2" label="残缺" value="2" />
+                        <el-option v-for="item in buildStatus" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -224,7 +216,15 @@
           addr: [{ required: true, message: '请填写建筑物地', trigger: 'change' }],
           cameraAddr: [{ required: true, message: '请填写摄像头地址', trigger: 'change' }],
         },
-        departmentList:[]
+        departmentList:[],
+        structuralNo:[], //建筑物结构
+        typeNo:[], //建筑物结构
+        source:[], //建筑物结构
+        propertyRight:[], //建筑物结构
+        code1:[], //建筑物结构
+        code2:[], //建筑物结构
+        buildStatus:[],
+        campus:[]
       }
     },
     created(){
@@ -235,8 +235,54 @@
       }
 
       that.getDepartmentList() ////查询建筑物列表
+      that.getByTypeId(55)
+      that.getByTypeId(54)
+      that.getByTypeId(56)
+      that.getByTypeId(50)
+      that.getByTypeId(57)
+      that.getByTypeId(58)
+      that.getByTypeId(59)
+      that.getByTypeId(52)
     },
     methods:{
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 55:
+                that.structuralNo = data.data
+                break;
+              case 54:
+                that.typeNo = data.data
+                break;
+              case 56:
+                that.source = data.data
+                break;
+              case 50:
+                that.propertyRight = data.data
+                break;
+              case 57:
+                that.code1 = data.data
+                break;
+              case 58:
+                that.code2 = data.data
+                break;
+              case 59:
+                that.buildStatus = data.data
+                break;
+              case 52:
+                that.campus = data.data
+                break;
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDepartmentList(){
         let that = this;
         that.$api.baseInfo.getDepartmentList({current:0,size:10000}).then(data => {

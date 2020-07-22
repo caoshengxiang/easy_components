@@ -43,8 +43,7 @@
                   <el-col :span="8">
                     <el-form-item label="实训室类别："  prop="cate" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.cate" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="物理实验室" value="1" />
-                        <el-option key="2" label="化学实验室" value="2" />
+                        <el-option v-for="item in experimentRoomType" :key="item.key" :label="item.label" :value="item.key" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -115,7 +114,8 @@
           introduce: [{ required: true, message: '请填写实训室介绍', trigger: 'change' }],
           buildDate: [{ required: true, message: '请选择建成年月', trigger: 'change' }],
         },
-        id: 0
+        id: 0,
+        experimentRoomType:[]
       }
     },
     created(){
@@ -128,8 +128,23 @@
 
       that.organizationSimpleAll() ////查询建筑物列表
       that.getTeachingList() ////查询建筑物列表
+      that.getByTypeId(71)
     },
     methods:{
+
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            that.experimentRoomType = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getTeachingList(){
         let that = this;
         that.$api.assetinfo.getTeachingRoomPage({current:0,size:1000}).then(data => {
