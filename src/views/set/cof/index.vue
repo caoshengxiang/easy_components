@@ -20,25 +20,22 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="系统名称：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="教师编号前缀：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="预报名失效（小时）：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="左上角logo：" prop="type" class="postInfo-container-item">
-                      <div v-if="type=='add'">
+                      <div>
                         <el-upload
                           action=""
                           class="avatar-uploader"
@@ -58,17 +55,17 @@
                         </el-dialog>
                         <div>请上传图片（jpg、png、jpej、gif等格式）</div>
                       </div>
-                      <div v-else>
-                        <el-image
-                          style="width: 300px; height: 200px;margin-right: 5px;"
-                          :src="postForm.type"
-                        />
-                      </div>
+<!--                      <div v-else>-->
+<!--                        <el-image-->
+<!--                          style="width: 300px; height: 200px;margin-right: 5px;"-->
+<!--                          :src="postForm.type"-->
+<!--                        />-->
+<!--                      </div>-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="登录背景图：" prop="type" class="postInfo-container-item">
-                      <div v-if="type=='add'">
+                      <div>
                         <el-upload
                           action=""
                           class="avatar-uploader"
@@ -87,31 +84,22 @@
                           <img width="100%" :src="postForm.type" alt="">
                         </el-dialog>
                         <div>请上传图片（jpg、png、jpej、gif等格式）</div>
-                      </div>
-                      <div v-else>
-                        <el-image
-                          style="width: 300px; height: 200px;margin-right: 5px;"
-                          :src="postForm.type"
-                        />
                       </div>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="承诺书：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="协议：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="通知书：" prop="type" class="postInfo-container-item">
-                      <el-input v-if="type=='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -140,7 +128,6 @@
     },
     data() {
       return {
-        type: 'add',
         postForm: Object.assign({}, defaultForm),
         rules: {
           type: [{
@@ -154,9 +141,14 @@
       }
     },
     created() {
-      this.type = 'detail'
+      this.getConfig()
     },
     methods: {
+      getConfig() {
+        this.$api.globalConfig.list().then(res => {
+          this.postForm = res.data
+        })
+      },
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {

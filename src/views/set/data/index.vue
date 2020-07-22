@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
     </div>
     <div class="analysis">
-      <div class="menu-2-box"/>
+      <div class="menu-2-box" />
     </div>
     <div class="filter-main-div">
       <div class="filter-container" style="width:70%; float: left;">
@@ -29,20 +29,6 @@
             新增类型
           </el-button>
         </div>
-        <div>
-          <span style="display: inline-block">
-            <span style="display: inline-block">
-              <span class="filter-item">类型名称:</span>
-              <el-input v-model="detail.name" style="margin-left: 20px;width: 200px;" class="filter-item"/>
-            </span>
-            <span class="filter-item">唯一标识:</span>
-            <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item"/>
-          </span>
-          <span style="display: inline-block">
-            <span class="filter-item">描述:</span>
-            <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item"/>
-          </span>
-        </div>
       </div>
 
       <div class="filter-container" style="width:30%;float: right;text-align: right">
@@ -61,49 +47,66 @@
         />
       </div>
 
-      <el-table
-        :key="tableKey"
-        v-loading="listLoading"
-        :data="tableData"
-        border
-        fit
-        highlight-current-row
-      >
-        <el-table-column label="编号" align="center" min-width="150">
-          <template slot-scope="{row, $index}">
-            <span>{{ $index + 1 }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="名称" min-width="150" align="center">
-          <template slot-scope="{row}">
-            <!--          <span>{{ row.name }}</span>-->
-            <el-input v-model="row.name"/>
-          </template>
-        </el-table-column>
-        <el-table-column label="描述" min-width="150" align="center">
-          <template slot-scope="{row}">
-            <!--          <span>{{ row.remark }}</span>-->
-            <el-input v-model="row.remark"/>
-          </template>
-        </el-table-column>
-        <el-table-column label="是否启用" min-width="150" align="center">
-          <template slot-scope="{row}">
-            <el-button v-if="row.enabled">禁用</el-button>
-            <el-button v-else>启用</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
-          <template slot-scope="{row,$index}">
-            <el-button type="danger" size="mini" @click="handleDelete(row)">
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div style="text-align: center">
-        <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">
-          添加数据列
-        </el-button>
+      <div style="margin-bottom: 30px;">
+        <span style="display: inline-block;margin-right: 20px;margin-left: 10px;">
+          <span class="filter-item">类型名称:</span>
+          <el-input v-model="detail.name" style="margin-left: 20px;width: 200px;" class="filter-item" />
+        </span>
+        <span style="display: inline-block;margin-right: 20px;">
+          <span class="filter-item">唯一标识:</span>
+          <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item" />
+        </span>
+        <span style="display: inline-block">
+          <span class="filter-item">描述:</span>
+          <el-input v-model="detail.remark" style="margin-left: 20px;width: 400px;" class="filter-item" />
+        </span>
+      </div>
+
+      <div style="padding: 10px;">
+        <el-table
+          :key="tableKey"
+          v-loading="listLoading"
+          :data="tableData"
+          border
+          fit
+          highlight-current-row
+        >
+          <el-table-column label="编号" align="center" width="100">
+            <template slot-scope="{row, $index}">
+              <span>{{ $index + 1 }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="名称" min-width="150" align="center">
+            <template slot-scope="{row}">
+              <!--          <span>{{ row.name }}</span>-->
+              <el-input v-model="row.name" />
+            </template>
+          </el-table-column>
+          <el-table-column label="描述" min-width="250" align="center">
+            <template slot-scope="{row}">
+              <!--          <span>{{ row.remark }}</span>-->
+              <el-input v-model="row.remark" />
+            </template>
+          </el-table-column>
+          <el-table-column label="是否启用" width="100" align="center">
+            <template slot-scope="{row}">
+              <el-button v-if="row.enabled">禁用</el-button>
+              <el-button v-else>启用</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="编辑" align="center" width="150" class-name="small-padding fixed-width">
+            <template slot-scope="{row,$index}">
+              <el-button type="danger" size="mini" @click="handleDelete(row)">
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div style="text-align: center">
+          <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">
+            添加数据列
+          </el-button>
+        </div>
       </div>
     </div>
   </div>
@@ -187,6 +190,7 @@
                 duration: 2000
               })
               this.getList()
+              this.selectChange(this.dataId)
             }
           })
         } else {
@@ -229,10 +233,10 @@
               that.tableDataDel.push(row)
             }
             that.tableData.splice(index, 1)
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
+            // this.$message({
+            //   type: 'success',
+            //   message: '删除成功'
+            // })
           })
           .catch(err => { console.error(err) })
       },

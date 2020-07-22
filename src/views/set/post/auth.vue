@@ -58,7 +58,7 @@
                     <!--                  </el-checkbox-group>-->
                     <!--                </el-form-item>-->
 
-                    <el-form-item label="数据权限配置：" v-if="menuItem.dataPrivilege">
+                    <el-form-item label="数据权限配置：" v-if="menuItem.hasDataPrivilege">
                       <el-radio-group v-model="temp.dataPrivilege">
                         <el-radio label="校级">校级</el-radio>
                         <el-radio label="系级">系级</el-radio>
