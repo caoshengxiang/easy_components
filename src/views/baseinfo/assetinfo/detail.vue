@@ -14,21 +14,21 @@
                       <el-col :span="8">
                         <el-form-item label="土地产权：" prop="property" label-width="200px" class="postInfo-container-item ">
                           <el-select v-model="postForm.property" placeholder="土地产权" clearable class="filter-item " style="width: 100%">
-                            <el-option v-for="item in propertyRight" :key="item.id.toString()" :label="item.name" :value="item.id.toString()" />
+                            <el-option v-for="item in propertyRight" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="使用状况："  prop="status" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.status" placeholder="使用状况" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in useStatus" :key="item.id" :label="item.name" :value="item.id" />
+                            <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label=" 所在校区："  prop="campus" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.campus" placeholder="所在校区" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in campus" :key="item.id" :label="item.name" :value="item.id" />
+                            <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -38,7 +38,7 @@
                       <el-col :span="8">
                       <el-form-item label="土地用途："  prop="user" label-width="200px" class="postInfo-container-item">
                         <el-select v-model="postForm.user" placeholder="土地用途" clearable class="filter-item" style="width: 100%">
-                          <el-option v-for="item in purpose" :key="item.id" :label="item.name" :value="item.id" />
+                          <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name" />
                         </el-select>
                       </el-form-item>
                     </el-col>
