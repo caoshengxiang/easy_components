@@ -117,7 +117,7 @@
     props: {
       detailInfo: {
         type: Object,
-        default: {}
+        default: null
       }
     },
     data() {

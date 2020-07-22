@@ -1,7 +1,7 @@
 <template>
   <div class="app-container teaching-index">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout :save="handleCreate" :edit-status="false" menu-no="_views_set_teaching_edit">
       <el-tabs value="first">
@@ -11,7 +11,6 @@
             ref="postForm"
             label-width="200px"
             :model="postForm"
-            :rules="rules"
             class="form-container"
           >
 
@@ -26,16 +25,16 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="占地面积总数：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="占地面积总数：" class="postInfo-container-item">
+                      <el-input v-model="postForm.SPACE_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="占地面积其中：绿化用地面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="占地面积其中：绿化用地面积：" class="postInfo-container-item">
+                      <el-input v-model="postForm.GREEN_SPACE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
                 </el-row>
 
                 <div style="margin-bottom: 30px">
@@ -46,23 +45,23 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="校舍总建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="校舍总建筑面积：" class="postInfo-container-item">
+                      <el-input v-model="postForm.HOUSE_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中学校产权校舍建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中学校产权校舍建筑面积：" class="postInfo-container-item">
+                      <el-input v-model="postForm.HOUSE_PROPERTY_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中非学校产权校舍建筑面积：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中非学校产权校舍建筑面积：" class="postInfo-container-item">
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">房</div>
@@ -71,40 +70,40 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="教学及辅助用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="教学及辅助用房：" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHING_ASSIST_HOUSE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中教室：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中教室：" class="postInfo-container-item">
+                      <el-input v-model="postForm.CLASSROOM.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中图书馆：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中图书馆：" class="postInfo-container-item">
+                      <el-input v-model="postForm.LIBRARY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="其中实验室、实习场所：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中实验室、实习场所：" class="postInfo-container-item">
+                      <el-input v-model="postForm.LABORATORY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中体育馆：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中体育馆：" class="postInfo-container-item">
+                      <el-input v-model="postForm.GYMNASIUM.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中会堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中会堂：" class="postInfo-container-item">
+                      <el-input v-model="postForm.HALL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">房</div>
@@ -113,15 +112,15 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="行政办公用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="行政办公用房：" class="postInfo-container-item">
+                      <el-input v-model="postForm.OFFICE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(105,135,176)">房</div>
@@ -130,53 +129,53 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="生活用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="生活用房：" class="postInfo-container-item">
+                      <el-input v-model="postForm.LIFE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中学生宿舍（公寓）：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中学生宿舍（公寓）：" class="postInfo-container-item">
+                      <el-input v-model="postForm.DORMITORY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中学生食堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中学生食堂：" class="postInfo-container-item">
+                      <el-input v-model="postForm.DINING_HALL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="其中教工宿舍（公寓）：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中教工宿舍（公寓）：" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHER_DORMITORY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中教工食堂：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中教工食堂：" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHER_DINING_HALL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中生活福利及附属用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中生活福利及附属用房：" class="postInfo-container-item">
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="教工住宅：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="教工住宅：" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHER_HOUSE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其他用房：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其他用房：" class="postInfo-container-item">
+                      <el-input v-model="postForm.type" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(103,194,58)">房</div>
@@ -185,19 +184,19 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="纸质图书（万册）总册数：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="纸质图书（万册）总册数：" class="postInfo-container-item">
+                      <el-input v-model="postForm.BOOK_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="纸质图书（万册）本学年新增数：" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="纸质图书（万册）本学年新增数：" class="postInfo-container-item">
+                      <el-input v-model="postForm.BOOK_ADD.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">刊</div>
@@ -206,23 +205,23 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="专业期刊（种）中文纸质专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="专业期刊（种）中文纸质专业期刊" class="postInfo-container-item">
+                      <el-input v-model="postForm.CHINESE_JOURNAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="专业期刊（种）外文纸质专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="专业期刊（种）外文纸质专业期刊" class="postInfo-container-item">
+                      <el-input v-model="postForm.FOREIGN_JOURNAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="专业期刊（种）电子专业期刊" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="专业期刊（种）电子专业期刊" class="postInfo-container-item">
+                      <el-input v-model="postForm.ELECTRIC_JOURNAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(54,163,247)">计</div>
@@ -231,32 +230,32 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="计算机数（台）总数" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="计算机数（台）总数" class="postInfo-container-item">
+                      <el-input v-model="postForm.COMPUTER_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="计算机数（台）其中：教学用计算机" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="计算机数（台）其中：教学用计算机" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHING_COMPUTER.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="计算机数（台）其中：机房用计算机公共机房" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="计算机数（台）其中：机房用计算机公共机房" class="postInfo-container-item">
+                      <el-input v-model="postForm.COMMON_COMPUTER.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="计算机数（台）其中：机房用计算机专业机房" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="计算机数（台）其中：机房用计算机专业机房" class="postInfo-container-item">
+                      <el-input v-model="postForm.ACCESSORY_HOUSE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">室</div>
@@ -265,19 +264,19 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="教室（间）总数" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="教室（间）总数" class="postInfo-container-item">
+                      <el-input v-model="postForm.CLASSROOM_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="教室（间）其中：网络多媒体教室数" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="教室（间）其中：网络多媒体教室数" class="postInfo-container-item">
+                      <el-input v-model="postForm.MULTIMEDIA_CLASSROOM.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(246,114,32)">室</div>
@@ -286,23 +285,23 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="接入互联网出口带宽（Mbps）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="接入互联网出口带宽（Mbps）" class="postInfo-container-item">
+                      <el-input v-model="postForm.OUTLET_BANDWITH.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="校园网主干最大带宽（Mbps）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="校园网主干最大带宽（Mbps）" class="postInfo-container-item">
+                      <el-input v-model="postForm.MAX_BANDWITH.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="网络信息点数（个）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="网络信息点数（个）" class="postInfo-container-item">
+                      <el-input v-model="postForm.NETWORK_POI.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">信</div>
@@ -311,19 +310,19 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="现有管理信息系统总量（软件系统）总个数" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="现有管理信息系统总量（软件系统）总个数" class="postInfo-container-item">
+                      <el-input v-model="postForm.MANANGE_SYSTEM_NUM.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="现有管理信息系统总量（软件系统）名称" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="现有管理信息系统总量（软件系统）名称" class="postInfo-container-item">
+                      <el-input v-model="postForm.MANANGE_SYSTEM_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(95,107,114)">网</div>
@@ -332,15 +331,15 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="上网课程数" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="上网课程数" class="postInfo-container-item">
+                      <el-input v-model="postForm.COURSE_NUM.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" />
-                  <el-col :span="8" />
+                  <el-col :span="8"/>
+                  <el-col :span="8"/>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(105,135,176)">网</div>
@@ -349,23 +348,23 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="数字资源量数据库（个）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="数字资源量数据库（个）" class="postInfo-container-item">
+                      <el-input v-model="postForm.DATABASE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="数字资源量电子图书（册）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="数字资源量电子图书（册）" class="postInfo-container-item">
+                      <el-input v-model="postForm.ELECTRIC_BOOK.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="数字资源量音视频（小时）" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="数字资源量音视频（小时）" class="postInfo-container-item">
+                      <el-input v-model="postForm.VIDEO.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(154,152,161)">网</div>
@@ -374,18 +373,18 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="全校固定资产总值" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="全校固定资产总值" class="postInfo-container-item">
+                      <el-input v-model="postForm.ASSET_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中：教学、实习仪器设备资产值资产总值" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中：教学、实习仪器设备资产值资产总值" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHING_ASSET.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="其中：教学、实习仪器设备资产值当年新增资产值" prop="type" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item" />
+                    <el-form-item label="其中：教学、实习仪器设备资产值当年新增资产值" class="postInfo-container-item">
+                      <el-input v-model="postForm.TEACHING_ASSET_ADDITIONAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -402,13 +401,14 @@
   import { validURL } from '@/utils/validate'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
-  const defaultForm = {
-    id: '',
-  }
+  const defaultForm = {}
 
   export default {
     name: 'SetInfo',
-    components: { Breadcrumb, YDetailPageLayout },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
+    },
     data() {
       return {
         listLoading: false,
@@ -424,17 +424,34 @@
       }
     },
     created() {
-      this.type = 'detail'
-      this.listLoading = true
-      setTimeout(() => {
-        this.listLoading = false
-      }, 500)
+      this.getConfig()
     },
     methods: {
+      getConfig() {
+        this.listLoading = true
+        this.$api.globalConfig.getValuesByKey({ key: 'SCHOOL' }).then(res => {
+          this.postForm = res.data.fieldValues
+          setTimeout(() => {
+            this.listLoading = false
+          }, 500)
+        })
+      },
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            //
+            this.$api.globalConfig.edit({
+              key: 'SCHOOL',
+              fieldValues: this.postForm
+            }).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+              }
+            })
           }
         })
       }

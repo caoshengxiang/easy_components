@@ -14,24 +14,21 @@
                       <el-col :span="8">
                         <el-form-item label="土地产权：" prop="property" label-width="200px" class="postInfo-container-item ">
                           <el-select v-model="postForm.property" placeholder="土地产权" clearable class="filter-item " style="width: 100%">
-                            <el-option key="1" label="70年" value="1" />
-                            <el-option key="2" label="50年" value="2" />
+                            <el-option v-for="item in propertyRight" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="使用状况："  prop="status" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.status" placeholder="使用状况" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="已使用" value="1" />
-                            <el-option key="2" label="未使用" value="2" />
+                            <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label=" 所在校区："  prop="campus" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.campus" placeholder="所在校区" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="江安校区" value="1" />
-                            <el-option key="2" label="望江校区" value="2" />
+                            <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -41,8 +38,7 @@
                       <el-col :span="8">
                       <el-form-item label="土地用途："  prop="user" label-width="200px" class="postInfo-container-item">
                         <el-select v-model="postForm.user" placeholder="土地用途" clearable class="filter-item" style="width: 100%">
-                          <el-option key="1" label="宿舍" value="1" />
-                          <el-option key="2" label="办公楼" value="2" />
+                          <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name" />
                         </el-select>
                       </el-form-item>
                     </el-col>
@@ -102,7 +98,7 @@
       detailInfo: {
         type: Object,
         default() {
-          return {}
+          return null
         }
       }
     },
@@ -119,7 +115,11 @@
           price: [{ required: true, message: '请填写土地价格', trigger: 'change' }],
           addr: [{ required: true, message: '请填写土地地址', trigger: 'change' }],
         },
-        id: 0
+        id: 0,
+        propertyRight:[],//土地产权
+        useStatus:[],//使用状况
+        campus:[],//所在校区
+        purpose:[],// 土地用途
       }
     },
     created(){
@@ -133,8 +133,40 @@
         that.id = that.$route.query.id
         that.getDetail()
       }
+
+      that.purpose = that.getByTypeId(53)
+      that.campus = that.getByTypeId(52)
+      that.useStatus = that.getByTypeId(51)
+      that.propertyRight = that.getByTypeId(50)
     },
     methods:{
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+               case 50:
+                 that.propertyRight = data.data
+                break;
+                case 51:
+                  that.useStatus = data.data
+                break;
+                case 52:
+                  that.campus = data.data
+                break;
+                case 53:
+                  that.purpose = data.data
+                break;
+            }
+            return data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDetail(){
         let that = this;
         that.$api.assetinfo.getLandDetail(that.id ).then(data => {

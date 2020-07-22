@@ -1,30 +1,30 @@
-import request2 from '@/utils/request2'
+import request from '@/utils/request'
 /*
 * 岗位
 */
 export default {
   list(params) {
-    return request2.get(`dictType`, { params: params })
+    return request.get(`dictType`, { params: params })
   },
   detail(params) {
-    return request2.get(`dictType/${params}`)
+    return request.get(`dictType/${params}`)
   },
   add(params) {
-    return request2.post(`dictType`, params)
+    return request.post(`dictType`, params)
   },
   edit(params) {
-    return request2.put(`dictType`, params)
+    return request.put(`dictType`, params)
   },
   delete(params) {
-    return request2.delete(`dictType/${params}`)
+    return request.delete(`dictType/${params}`)
   },
   simpleAll(params) { // 下拉
-    return request2.get(`dictType/simpleAll`, { params: params })
+    return request.get(`dictType/simpleAll`, { params: params })
   },
   getByTypeId(params) { // 类型列表
-    return request2.get(`dictData/getByTypeId`, { params: params })
+    return request.get(`dictData/getByTypeId`, { params: params })
   },
   saveOrUpdate(params) {
-    return request2.post(`dictType/saveOrUpdate`, params)
+    return request.post(`dictType/saveOrUpdate`, params)
   },
 }
