@@ -57,7 +57,6 @@
             round
             :loading="loading"
             type="primary"
-            style="width:100%;margin-bottom:30px;padding: 13px 0;"
             @click.native.prevent="handleLogin"
           >登录
           </el-button>
@@ -235,6 +234,10 @@
       box-shadow:0px 0px  10px 5px #ddd;
       .login-btn{
         padding: 30px 0;
+        .el-button{
+          width: 100%;
+          padding: 15px;
+        }
       }
       .el-form-item{
         margin-bottom: 30px;
