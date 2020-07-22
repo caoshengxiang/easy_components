@@ -43,7 +43,7 @@
                         >
                           <el-image
                             v-if="postForm.LOGO.value"
-                            style="width: 300px; height: 200px;margin-right: 5px;"
+                            style="width: 300px; min-height: 50px;margin-right: 5px;"
                             :src="postForm.LOGO.value"
                           />
                           <i v-else class="el-icon-plus avatar-uploader-icon"/>
@@ -69,7 +69,7 @@
                         >
                           <el-image
                             v-if="postForm.BACKGROUND.value"
-                            style="width: 300px; height: 200px;margin-right: 5px;"
+                            style="width: 300px;  min-height: 50px;margin-right: 5px;"
                             :src="postForm.BACKGROUND.value"
                           />
                           <i v-else class="el-icon-plus avatar-uploader-icon"/>
