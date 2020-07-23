@@ -74,31 +74,33 @@
         />
       </template>
       <template slot="right">
-        <fileUpload :isdisabled="false" :styleType="2"></fileUpload>
         <el-button class="filter-item" round type="primary" @click="getList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="primary" @click="downloadTemplate">
           学生信息模板下载
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
+        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">
           学籍号模板下载
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
-          更新学生信息
-        </el-button>
-      <!--  <excelImport
-          :limit="1"
-          ref="uploadControl"
-          flag="student"
-          :styleType="1"
-        ></excelImport>-->
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
-          更新学籍号
-        </el-button>
-        <el-button class="filter-item" round style="margin-right: 10px" type="primary"  @click="handleDownload">
+        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary"  @click="handleDownload">
           导出
         </el-button>
+        <excelImport
+        :limit="1"
+        ref="uploadControl"
+        flag="student/importExcel"
+        :styleType="1"
+        title= "更新学生信息"
+      ></excelImport>
+       <excelImport
+          :limit="1"
+          ref="uploadControl"
+          flag="/student/importCodeExcel"
+          :styleType="1"
+          title= "更新学籍号"
+        ></excelImport>
+
       </template>
       <el-table
         :key="tableKey"
@@ -220,7 +222,7 @@
       Breadcrumb,
       Pagination,
       YPageListLayout,
-      excelImport
+      excelImport,
     },
     filters: {
       statusFilter(status) {
@@ -336,6 +338,9 @@
       },
       downloadTemplate(){
         this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
+      },
+      downloadCodeTemplate(){
+        this.$utils.exportUtil('/student/download/codeImportTemplate', null, '学籍号模板下载')
       },
       handleDownload(url){
         this.$utils.exportUtil('/student/download/exportExcel',this.listQuery, '学生信息')

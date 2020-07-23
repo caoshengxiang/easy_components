@@ -76,17 +76,16 @@
                           </el-select>
                         </el-form-item>
                       </el-col>-->
-                      <el-col :span="8">
-                        <el-form-item label="课程类型："  prop="courseType" label-width="200px" class="postInfo-container-item">
-                          <el-select v-model="postForm.courseType" placeholder="课程类型" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in courseCate" :key="item.name" :label="item.name" :value="item.name" />
 
-                          </el-select>
-                        </el-form-item>
-                      </el-col>
                       <el-col :span="8">
                         <el-form-item label="教学计划规定课时数："  prop="planClassHour" label-width="200px" class="postInfo-container-item">
                           <el-input  v-model="postForm.planClassHour"   class="filter-item" />
+                        </el-form-item>
+                      </el-col>
+
+                      <el-col :span="8">
+                        <el-form-item label="实践课程数："  prop="practiceClassHour" label-width="200px" class="postInfo-container-item">
+                          <el-input v-model="postForm.practiceClassHour"   class="filter-item" />
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -94,11 +93,6 @@
                     <el-row >
 
 
-                      <el-col :span="8">
-                        <el-form-item label="实践课程数："  prop="practiceClassHour" label-width="200px" class="postInfo-container-item">
-                          <el-input v-model="postForm.practiceClassHour"   class="filter-item" />
-                        </el-form-item>
-                      </el-col>
                       <el-col :span="8">
                         <el-form-item label="课程性质："  prop="quality" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.quality" placeholder="课程性质" clearable class="filter-item" style="width: 100%">
@@ -113,18 +107,19 @@
                           </el-select>
                         </el-form-item>
                       </el-col>
+                      <el-col :span="8">
+                      <el-form-item label="精品课程："  prop="excellentCourse" label-width="200px" class="postInfo-container-item">
+                        <el-select v-model="postForm.excellentCourse" placeholder="精品课程" clearable class="filter-item" style="width: 100%">
+                          <el-option v-for="item in AllEnum.精品课程" :key="item" :label="item" :value="item" />
+
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
                     </el-row>
 
                     <el-row >
 
-                      <el-col :span="8">
-                        <el-form-item label="精品课程："  prop="excellentCourse" label-width="200px" class="postInfo-container-item">
-                          <el-select v-model="postForm.excellentCourse" placeholder="精品课程" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in AllEnum.精品课程" :key="item" :label="item" :value="item" />
 
-                          </el-select>
-                        </el-form-item>
-                      </el-col>
                       <el-col :span="8">
                         <el-form-item label="授课年级："  prop="grade" label-width="200px" class="postInfo-container-item">
                           <el-checkbox-group v-model="postForm.grade">
@@ -143,15 +138,16 @@
                           </el-select>
                         </el-form-item>
                       </el-col>
+                      <el-col :span="8">
+                      <el-form-item label="主要授课方式："  prop="teachingWay" label-width="200px" class="postInfo-container-item">
+                        <el-input v-model="postForm.teachingWay"   class="filter-item" />
+                      </el-form-item>
+                    </el-col>
                     </el-row>
 
                     <el-row >
 
-                      <el-col :span="8">
-                        <el-form-item label="主要授课方式："  prop="teachingWay" label-width="200px" class="postInfo-container-item">
-                          <el-input v-model="postForm.teachingWay"   class="filter-item" />
-                        </el-form-item>
-                      </el-col>
+
                       <el-col :span="8">
                         <el-form-item label="考试/考核主要方式："  prop="examWay" label-width="200px" class="postInfo-container-item">
                           <el-input v-model="postForm.examWay"   class="filter-item" />
@@ -164,8 +160,6 @@
                           </el-select>
                         </el-form-item>
                       </el-col>
-                    </el-row>
-                    <el-row >
 
                       <el-col :span="8">
                         <el-form-item label="否已经制定课程标准："  prop="ifFormulate" label-width="200px" class="postInfo-container-item">
@@ -176,6 +170,7 @@
                       </el-col>
 
                     </el-row>
+
                   </div>
                 </div>
               </el-form>

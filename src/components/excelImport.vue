@@ -12,19 +12,20 @@
              var listStr = ref[声明别名].getFileListStr();//多张图片逗号分隔
 -->
 <template>
-  <div style="float: right;margin-left: 15px">
+  <div style="float: right;margin-left: 10px">
     <el-upload
       v-loading="uploadConfig.loading"
       element-loading-text="正在上传..."
-      :action="uploadConfig.uploadFileApiUrl+flag+'/importExcel'"
+      :action="uploadConfig.uploadFileApiUrl+flag"
       :show-file-list="false"
       :on-success="handleImageSuccess"
       :before-upload="beforeImageUpload"
       :limit="limit"
       :headers="myHeaders"
+      :title="title"
       ref="uploadCtl"
     >
-      <el-button type="el-button el-button--default"><slot>导入</slot></el-button>
+      <el-button type="primary" round><slot>{{this.title}}</slot></el-button>
     </el-upload>
   </div>
 </template>
@@ -39,7 +40,6 @@
         //上传文件配置属性
         uploadConfig:{
           loading:false,
-//          uploadFileApiUrl:'http://precision.dcstar-inc.com/precision/excel',
           uploadFileApiUrl: process.env.VUE_APP_BASE_API,
           dialogVisible:false,
         },
@@ -61,6 +61,11 @@
         type:String,
         required:false,
         default:""
+      },
+      //按钮名字
+      title:{
+        type:String,
+        required:true
       },
       //文件标识
       flag:{

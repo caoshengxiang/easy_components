@@ -76,12 +76,16 @@
               <el-button class="filter-item " type="primary" @click="getList">
                 搜索
               </el-button>
-              <el-button class="filter-item " @click="downloadTemplate">
+              <el-button class="filter-item" round type="primary" @click="downloadTemplate">
                 导入模板下载
               </el-button>
-              <el-button class="filter-item "  type="primary" style="margin-right: 10px"  @click="handleCreate">
-                导入
-              </el-button>
+              <excelImport
+                :limit="1"
+                ref="uploadControl"
+                flag="dormitoryBed/importExcel"
+                :styleType="1"
+                title= "导入"
+              ></excelImport>
             </div>
           <div class="filter-container" style="float: left;margin-top: 10px;">
 
@@ -199,11 +203,13 @@
 <script>
   import Pagination from '@/components/Pagination'
   import Breadcrumb from '@/components/Breadcrumb'
+  import excelImport from '@/components/excelImport.vue';
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      Pagination},
+      Pagination,
+      excelImport},
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -272,6 +278,9 @@
       that.getStaffList();
     },
     methods:{
+      downloadCodeTemplate(){
+        this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
+      },
       detail(id){
         let that =this;
         let routeData = that.$router.resolve({ path: '/views/dormitory/dormitoryInfo/dormitoryStdList', query: { id: id, menuLevel1: this.$route.query.menuLevel1} });
