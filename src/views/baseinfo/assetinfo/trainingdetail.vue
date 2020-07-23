@@ -58,8 +58,7 @@
                   <el-col :span="8">
                     <el-form-item label="资产员："  prop="propertyUserId" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.propertyUserId" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="小段" value="1" />
-                        <el-option key="2" label="小刘" value="2" />
+                        <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"  />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -115,7 +114,8 @@
           buildDate: [{ required: true, message: '请选择建成年月', trigger: 'change' }],
         },
         id: 0,
-        experimentRoomType:[]
+        experimentRoomType:[],
+        staff: []
       }
     },
     created(){
@@ -129,9 +129,24 @@
       that.organizationSimpleAll() ////查询建筑物列表
       that.getTeachingList() ////查询建筑物列表
       that.getByTypeId(71)
+      that.getStaffList()
     },
     methods:{
-
+      getStaffList(){
+        let that = this;
+        that.$api.baseInfo.getStaffList().then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.staff = data.data.records
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getByTypeId(id){
         const that = this
         that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {

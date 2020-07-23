@@ -102,9 +102,7 @@
                       <el-col :span="8">
                         <el-form-item label="课程性质："  prop="quality" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.quality" placeholder="课程性质" clearable class="filter-item" style="width: 100%">
-
-                            <el-option v-for="item in courseNature" :key="item.name" :label="item.name" :value="item.name" />
-
+                            <el-option v-for="item in AllEnum.课程性质" :key="item" :label="item" :value="item" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -122,7 +120,7 @@
                       <el-col :span="8">
                         <el-form-item label="精品课程："  prop="excellentCourse" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.excellentCourse" placeholder="精品课程" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in vipCourse" :key="item.name" :label="item.name" :value="item.name" />
+                            <el-option v-for="item in AllEnum.精品课程" :key="item" :label="item" :value="item" />
 
                           </el-select>
                         </el-form-item>
@@ -237,7 +235,8 @@
         vipCourse:[], // 精品课程
         courseCate:[],//课程类型
         courseNature:[],//课程性质
-        teachingRoom:[]//授课低点
+        teachingRoom:[],//授课低点
+        AllEnum:{}//全部枚举
       }
     },
     created(){
@@ -250,16 +249,7 @@
       }
 
       that.getGradeList()
-      that.$api.globalConfig.list().then(data => {
-        if (data.code === 200) {
-
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+      that.getAllEnum()
       that.getByTypeId(46)
       that.getByTypeId(47)
       that.getByTypeId(52)
@@ -271,6 +261,19 @@
 
     },
     methods:{
+      getAllEnum(){
+        let that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getByTypeId(id){
         const that = this
         that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {

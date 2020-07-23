@@ -20,5 +20,11 @@ export default {
   },
   getValuesByKey(params) { // 根据key获取配置列表
     return request.get(`globalConfig/getValuesByKey`, { params: params })
+  },
+  getAllEnum(params) { // 获取全部枚举
+    return request.get(`globalConfig/getAllEnum`, { params: params })
+  },
+  getEnumByKey(params) { // 根据key获取枚举值
+    return request.get(`globalConfig/getEnumByKey`, { params: params })
   }
 }

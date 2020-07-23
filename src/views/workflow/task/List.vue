@@ -15,7 +15,9 @@
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         slot="table"
       >
-        <el-table-column label="标题" prop="taskName" align="center">
+        <el-table-column label="数据模块名" prop="taskName" align="center">
+        </el-table-column>
+        <el-table-column label="对应操作" prop="processName" align="center">
         </el-table-column>
         <el-table-column label="申请人" prop="startName"  align="center">
         </el-table-column>
