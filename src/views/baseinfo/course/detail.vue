@@ -22,9 +22,9 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item label=" 课程类别："  prop="cate" label-width="200px" class="postInfo-container-item">
-                          <el-select v-model="postForm.cate" placeholder="课程类别" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in courseCategory" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-form-item label=" 课程类型："  prop="cate" label-width="200px" class="postInfo-container-item">
+                          <el-select v-model="postForm.cate" placeholder="课程类型" clearable class="filter-item" style="width: 100%">
+                            <el-option v-for="item in AllEnum.课程类型" :key="item" :label="item" :value="item" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -34,8 +34,7 @@
                       <el-col :span="8">
                       <el-form-item label="课程属性："  prop="property" label-width="200px" class="postInfo-container-item">
                         <el-select v-model="postForm.property" placeholder="课程属性" clearable class="filter-item" style="width: 100%">
-
-                          <el-option v-for="item in courseProperties" :key="item.name" :label="item.name" :value="item.name" />
+                          <el-option v-for="item in AllEnum.课程属性" :key="item" :label="item" :value="item" />
                         </el-select>
                       </el-form-item>
                     </el-col>
