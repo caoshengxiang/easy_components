@@ -101,9 +101,7 @@
           >
             <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center">
               <template slot-scope="{row}">
-          <span  class="link-type"><router-link tag="a"   :to="{ path:'/views/dormitory/dormitoryInfo/dormitoryStdList',query:{id: row.id, menuLevel1: $route.query.menuLevel1}}"
-                                                class="routerWork">{{ row.code }}
-                  </router-link></span>
+        {{ row.code }}
               </template>
             </el-table-column>
             <el-table-column label="宿舍类别" align="center">
@@ -123,12 +121,12 @@
             </el-table-column>
             <el-table-column label="入住人数" align="center">
               <template slot-scope="{row}">
-                <span style="color:red;">{{ row.studentNum }}</span>
+                <span >{{ row.studentNum }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="宿舍状态" >
+            <el-table-column label="宿舍状态" align="center">
               <template slot-scope="{row}">
-                <span style="color:red;">{{ row.state == 1?'未入住':(row.state == 2?'未住满':'已住满') }}</span>
+                <span >{{ row.state == 1?'未入住':(row.state == 2?'未住满':'已住满') }}</span>
               </template>
             </el-table-column>
             <el-table-column label="负责人" align="center" >
@@ -145,6 +143,9 @@
               <template slot-scope="{row,$index}">
                 <el-button type="primary"  style="border-radius:15px;"  size="mini" @click="handleUpdate(row)">
                   编辑
+                </el-button>
+                <el-button type="primary"  style="border-radius:15px;"  size="mini" @click="detail(row.id)">
+                  人员
                 </el-button>
               </template>
             </el-table-column>
@@ -271,6 +272,12 @@
       that.getStaffList();
     },
     methods:{
+      detail(id){
+        let that =this;
+        let routeData = that.$router.resolve({ path: '/views/dormitory/dormitoryInfo/dormitoryStdList', query: { id: id, menuLevel1: this.$route.query.menuLevel1} });
+        window.open(routeData.href, '_blank');
+
+      },
       downloadTemplate(){
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
       },

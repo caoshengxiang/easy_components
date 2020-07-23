@@ -24,8 +24,7 @@
                       <el-col :span="8">
                         <el-form-item label=" 课程类别："  prop="cate" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.cate" placeholder="课程类别" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="国语" value="1" />
-                            <el-option key="2" label="西班牙语" value="2" />
+                            <el-option v-for="item in courseCategory" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -35,8 +34,8 @@
                       <el-col :span="8">
                       <el-form-item label="课程属性："  prop="property" label-width="200px" class="postInfo-container-item">
                         <el-select v-model="postForm.property" placeholder="课程属性" clearable class="filter-item" style="width: 100%">
-                          <el-option key="1" label="成人" value="1" />
-                          <el-option key="2" label="幼儿" value="2" />
+
+                          <el-option v-for="item in courseProperties" :key="item.name" :label="item.name" :value="item.name" />
                         </el-select>
                       </el-form-item>
                     </el-col>
@@ -57,7 +56,7 @@
                           <el-input v-model="postForm.classNum"   class="filter-item" />
                         </el-form-item>
                       </el-col>
-                      <el-col :span="8">
+                     <!-- <el-col :span="8">
                         <el-form-item label="所属教研组："  prop="researchGroupId" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.researchGroupId" placeholder="所属教研组（一期未启用）" clearable class="filter-item" style="width: 100%">
                             <el-option key="1" label="语文组" value="1" />
@@ -76,15 +75,12 @@
                             <el-option key="2" label="马克里" value="2" />
                           </el-select>
                         </el-form-item>
-                      </el-col>
-                    </el-row>
-
-                    <el-row >
+                      </el-col>-->
                       <el-col :span="8">
                         <el-form-item label="课程类型："  prop="courseType" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.courseType" placeholder="课程类型" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="课程类型1" value="1" />
-                            <el-option key="2" label="课程类型2" value="2" />
+                            <el-option v-for="item in courseCate" :key="item.name" :label="item.name" :value="item.name" />
+
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -93,66 +89,71 @@
                           <el-input  v-model="postForm.planClassHour"   class="filter-item" />
                         </el-form-item>
                       </el-col>
+                    </el-row>
+
+                    <el-row >
+
 
                       <el-col :span="8">
                         <el-form-item label="实践课程数："  prop="practiceClassHour" label-width="200px" class="postInfo-container-item">
                           <el-input v-model="postForm.practiceClassHour"   class="filter-item" />
                         </el-form-item>
                       </el-col>
-                    </el-row>
-
-                    <el-row >
                       <el-col :span="8">
                         <el-form-item label="课程性质："  prop="quality" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.quality" placeholder="课程性质" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="优势课程" value="1" />
-                            <el-option key="2" label="核心课程" value="2" />
+
+                            <el-option v-for="item in courseNature" :key="item.name" :label="item.name" :value="item.name" />
+
                           </el-select>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="是否校企合作开发课程："  prop="ifCooperation" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.ifCooperation" placeholder="是否校企合作开发课程" clearable class="filter-item" style="width: 100%">
-                            <el-option key="true" label="是" value="true" />
-                            <el-option key="false" label="否" value="false" />
-                          </el-select>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item label="精品课程："  prop="excellentCourse" label-width="200px" class="postInfo-container-item">
-                          <el-select v-model="postForm.excellentCourse" placeholder="精品课程" clearable class="filter-item" style="width: 100%">
-                            <el-option key="true" label="是" value="false" />
-                            <el-option key="true" label="否" value="false" />
+                            <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                           </el-select>
                         </el-form-item>
                       </el-col>
                     </el-row>
 
                     <el-row >
+
+                      <el-col :span="8">
+                        <el-form-item label="精品课程："  prop="excellentCourse" label-width="200px" class="postInfo-container-item">
+                          <el-select v-model="postForm.excellentCourse" placeholder="精品课程" clearable class="filter-item" style="width: 100%">
+                            <el-option v-for="item in vipCourse" :key="item.name" :label="item.name" :value="item.name" />
+
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
                       <el-col :span="8">
                         <el-form-item label="授课年级："  prop="grade" label-width="200px" class="postInfo-container-item">
                           <el-checkbox-group v-model="postForm.grade">
                             <el-checkbox label="一年级"></el-checkbox>
                             <el-checkbox label="二年级"></el-checkbox>
                             <el-checkbox label="三年级"></el-checkbox>
+                            <el-checkbox label="四年级"></el-checkbox>
+                            <el-checkbox label="混合年级"></el-checkbox>
                           </el-checkbox-group>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="主要授课地点："  prop="venue" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.venue" placeholder="主要授课地点" clearable class="filter-item" style="width: 100%">
-                            <el-option key="1" label="江安校区" value="1" />
-                            <el-option key="2" label="望江校区" value="2" />
+                            <el-option v-for="item in teachingRoom" :key="item.name" :label="item.name" :value="item.name" />
                           </el-select>
                         </el-form-item>
                       </el-col>
+                    </el-row>
+
+                    <el-row >
+
                       <el-col :span="8">
                         <el-form-item label="主要授课方式："  prop="teachingWay" label-width="200px" class="postInfo-container-item">
                           <el-input v-model="postForm.teachingWay"   class="filter-item" />
                         </el-form-item>
                       </el-col>
-                    </el-row>
-                    <el-row >
                       <el-col :span="8">
                         <el-form-item label="考试/考核主要方式："  prop="examWay" label-width="200px" class="postInfo-container-item">
                           <el-input v-model="postForm.examWay"   class="filter-item" />
@@ -161,16 +162,17 @@
                       <el-col :span="8">
                         <el-form-item label="是否完成课程建设项目："  prop="ifComplete" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.ifComplete" placeholder="是否完成课程建设项目" clearable class="filter-item" style="width: 100%">
-                            <el-option key="true" label="是" value="true" />
-                            <el-option key="false" label="否" value="false" />
+                            <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                           </el-select>
                         </el-form-item>
                       </el-col>
+                    </el-row>
+                    <el-row >
+
                       <el-col :span="8">
                         <el-form-item label="否已经制定课程标准："  prop="ifFormulate" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.ifFormulate" placeholder="否已经制定课程标准" clearable class="filter-item" style="width: 100%">
-                            <el-option key="true" label="是" value="true" />
-                            <el-option key="false" label="否" value="false" />
+                            <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -195,6 +197,13 @@
     components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
         grade:null,
         postForm: {
           grade:[]
@@ -223,7 +232,12 @@
         },
         id: 0,
         courseProperties: [], //课程属性
-        courseCategory: [] //课程类别
+        courseCategory: [], //课程类别
+        campus:[], //校区
+        vipCourse:[], // 精品课程
+        courseCate:[],//课程类型
+        courseNature:[],//课程性质
+        teachingRoom:[]//授课低点
       }
     },
     created(){
@@ -236,9 +250,24 @@
       }
 
       that.getGradeList()
+      that.$api.globalConfig.list().then(data => {
+        if (data.code === 200) {
 
-      that.courseProperties = that.getByTypeId(69)
-      that.courseCategory = that.getByTypeId(47)
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+      that.getByTypeId(46)
+      that.getByTypeId(47)
+      that.getByTypeId(52)
+      that.getByTypeId(74)
+      that.getByTypeId(75)
+      that.getByTypeId(76)
+      that.getByTypeId(77)
+
 
     },
     methods:{
@@ -246,7 +275,29 @@
         const that = this
         that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
           if (data.code === 200) {
-            return data.data
+            switch (id) {
+              case 52:
+                that.campus = data.data
+                break;
+              case 47:
+                that.courseCategory = data.data
+                break;
+              case 46:
+                that.courseProperties = data.data
+                break;
+              case 74:
+                that.vipCourse = data.data
+                break;
+              case 75:
+                that.courseCate = data.data
+                break;
+              case 76:
+                that.courseNature = data.data
+                break;
+              case 77:
+                that.teachingRoom = data.data
+                break;
+            }
           } else {
             this.$message({
               type: 'error',
