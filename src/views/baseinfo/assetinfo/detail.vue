@@ -104,6 +104,14 @@
     },
     data() {
       return {
+
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
         postForm: {},
         rules: {
           property: [{ required: true,message:'请选择土地产权', trigger: 'change' }],
@@ -134,10 +142,10 @@
         that.getDetail()
       }
 
-      that.purpose = that.getByTypeId(53)
-      that.campus = that.getByTypeId(52)
-      that.useStatus = that.getByTypeId(51)
-      that.propertyRight = that.getByTypeId(50)
+       that.getByTypeId(53)
+       that.getByTypeId(52)
+       that.getByTypeId(51)
+       that.getByTypeId(50)
     },
     methods:{
       getByTypeId(id){
@@ -158,7 +166,6 @@
                   that.purpose = data.data
                 break;
             }
-            return data.data
           } else {
             this.$message({
               type: 'error',

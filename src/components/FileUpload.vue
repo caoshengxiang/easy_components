@@ -116,8 +116,8 @@
         //上传文件配置属性
         uploadConfig: {
           loading: false,
-          prefixServerFileUrl: "https://goss.veer.com",//this.$config.prefixServerFileUrl,
-          uploadFileApiUrl: process.env.VUE_APP_BASE_API + 'student/importExcel',//this.$config.uploadFileApiUrl,
+          prefixServerFileUrl: "http://119.27.160.97:8531/dfs",//this.$config.prefixServerFileUrl,
+          uploadFileApiUrl: process.env.VUE_APP_BASE_API + 'upload',//this.$config.uploadFileApiUrl,
           previewImageUrl: "",
           succeedFileList: [],
           dialogVisible: false,
@@ -202,28 +202,13 @@
       handleImageSuccess(res, file) {
         var that = this;
         that.uploadConfig.loading = false;
-        if (res && res.status){
+        if (res && res.code == 200){
           if (file.response.data) {
             that.uploadConfig.succeedFileList.push(file.response.data);
           }
         } else{
-          if (res && res.error && res.error.statusCode == "10007"){//请登录
-            that.$store.commit('deleteAccountAuth');//清空
-            that.$msgbox.alert('系统超时，请重新登录','提示',{
-              type: 'warning',
-              center: true,
-              callback:function () {
-                location.reload();
-              }
-            });
-          }else{
-            if (res && res.error && res.error.message) {
-              that.$message.error(res.error.message);
-            }else{
-              that.$message.error('上传文件系统发生未知错误');
-            }
-          }
-        }
+          that.$message.error(res.msg);
+       }
       },
       beforeImageUpload(file) {
         var that = this;

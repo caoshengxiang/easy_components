@@ -166,6 +166,7 @@ const utils = {
       downUrl = this.EncodeGetUrl(downUrl);
       var a = document.createElement('a');
       a.href = downUrl;
+      a.target = '_blank';
       a.click();
 
     }).catch(() => {

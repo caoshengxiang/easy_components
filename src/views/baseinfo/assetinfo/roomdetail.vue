@@ -34,8 +34,7 @@
                   <el-col :span="8">
                     <el-form-item label="教室类型："  prop="cate" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.cate" placeholder="教室类型" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="多媒体" value="1" />
-                        <el-option key="2" label="教学" value="2" />
+                        <el-option v-for="item in roomType" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -59,16 +58,14 @@
                   <el-col :span="8">
                     <el-form-item label="是否多媒体："  prop="ifMultimedia" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.ifMultimedia" placeholder="是否多媒体" clearable class="filter-item" style="width: 100%">
-                        <el-option key="false" label="否" value="false" />
-                        <el-option key="true" label="是" value="true" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="是否可用："  prop="ifAvailable" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.ifAvailable" placeholder="是否可用" clearable class="filter-item" style="width: 100%">
-                        <el-option key="false" label="否" value="false" />
-                        <el-option key="true" label="是" value="true" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -89,12 +86,12 @@
                 <el-row >
                   <el-col :span="8">
                     <el-form-item label="教室平面图："  prop="type" label-width="200px" class="postInfo-container-item">
-                      <fileUpload  ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                      <fileUpload  :isdisabled="false" ref="uploadCourseChapter1" :fileList="[{path:postForm.planGraph}]" :styleType="1"></fileUpload>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="教室图片："  prop="type" label-width="200px" class="postInfo-container-item">
-                      <fileUpload  ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                      <fileUpload :isdisabled="false" ref="uploadCourseChapter2" :fileList="[{path:postForm.pic}]" :styleType="1"></fileUpload>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -122,6 +119,13 @@
     },
     data() {
       return {
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
         postForm: {},
         constructionList:[],
         pagePara:{
@@ -138,7 +142,8 @@
           price: [{ required: true, message: '请填写土地价格', trigger: 'change' }],
           addr: [{ required: true, message: '请填写土地地址', trigger: 'change' }],
         },
-        id: 0
+        id: 0,
+        roomType:[]
       }
     },
     created(){
@@ -153,9 +158,23 @@
       }
 
       that.getConstructionPage() ////查询建筑物列表
+      that.getByTypeId(61)
     },
 
     methods:{
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+           that.roomType = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getConstructionPage(){
         let that = this;
         that.pagePara.size = 10000
@@ -191,6 +210,12 @@
       },
       save(){
         let that = this
+        if( that.$refs.uploadCourseChapter1.getFileList().length==0 || that.$refs.uploadCourseChapter2.getFileList().length==0){
+          that.$message.error('请上传图片!');
+          return;
+        }
+        that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+        that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if(that.$route.query.id){

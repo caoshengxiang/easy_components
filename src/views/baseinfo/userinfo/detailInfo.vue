@@ -6,18 +6,6 @@
     </div>
     <y-detail-page-layout :save="save">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
-
-        <div style="position: absolute;right: 10px;top:5px;z-index: 999">
-          <el-button class="filter-item " v-if="type=='detail'" style="border-radius:15px;float: right"  type="primary"  @click="type='add'">
-            编辑
-          </el-button>
-          <el-button class="filter-item " v-if="type=='add'" style="border-radius:15px;margin-left: 10px;float: right"  type="primary"  @click="type='detail'">
-            取消
-          </el-button>
-          <el-button class="filter-item " type="primary" v-if="type=='add'" style="border-radius:15px;margin-left: 10px;margin-right: 0px;float: right" @click="handleCreate">
-            保存
-          </el-button>
-        </div>
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
 
 
@@ -28,109 +16,90 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="学籍号："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.studentCode"   class="filter-item" />
-                  <span v-else   class="filter-item">{{postForm.studentCode}}</span>
+                  <el-input  v-model="postForm.studentCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="学号："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.studyCode"   class="filter-item" />
-                  <span v-else>{{postForm.studyCode}}</span>
+                  <el-input  v-model="postForm.studyCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="姓名："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.name"   class="filter-item" />
-                  <span v-else>{{postForm.name}}</span>
+                  <el-input  v-model="postForm.name"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="姓名拼音："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.spell"   class="filter-item" />
-                  <span v-else>{{postForm.spell}}</span>
+                  <el-input  v-model="postForm.spell"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="性别："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.sex" placeholder="就读" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="男" value="1" />
-                    <el-option key="2" label="女" value="2" />
+                  <el-select  v-model="postForm.sex" placeholder="就读" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.性别" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.sex}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="证件类型："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.certificateType" placeholder="证件类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                  <el-select  v-model="postForm.certificateType" placeholder="证件类型" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.certificateType}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="证件号码："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.certificateCode"   class="filter-item" />
-                  <span v-else>{{postForm.certificateCode}}</span>
+                  <el-input  v-model="postForm.certificateCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="出生日期："  prop="type" label-width="120px" class="postInfo-container-item">
                   <el-date-picker
-                    v-if="type=='add'"
+
                     v-model="postForm.type"
                     type="date"
                     placeholder="出生日期">
                   </el-date-picker>
-                  <span v-else>{{postForm.type}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="联系电话："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.homePhone"   class="filter-item" />
-                  <span v-else>{{postForm.homePhone}}</span>
+                  <el-input  v-model="postForm.homePhone"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="国籍/地区："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.country" placeholder="国籍/地区" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="中国" value="1" />
-                    <el-option key="2" label="其他" value="2" />
+                  <el-select  v-model="postForm.country" placeholder="国籍/地区" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.国籍地区" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.country}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="港澳台侨外："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.compatriot" placeholder="港澳台侨外" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="港澳台" value="1" />
-                    <el-option key="2" label="侨外" value="2" />
+                  <el-select  v-model="postForm.compatriot" placeholder="港澳台侨外" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.港澳台侨外" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.compatriot}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="婚姻状况："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.maritalStatus" placeholder="婚姻状况" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="已婚" value="1" />
-                    <el-option key="2" label="未婚" value="2" />
+                  <el-select  v-model="postForm.maritalStatus" placeholder="婚姻状况" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.婚姻状况" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.maritalStatus}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="民族："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.nation" placeholder="民族" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="汉族" value="1" />
-                    <el-option key="2" label="回族" value="2" />
+                  <el-select  v-model="postForm.nation" placeholder="民族" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.nation}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -142,105 +111,85 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="联招合作类型："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.recruitType" placeholder="联招合作类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="统招" value="1" />
-                    <el-option key="2" label="特招" value="2" />
+                  <el-select  v-model="postForm.recruitType" placeholder="联招合作类型" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.联招合作类型" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.recruitType}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="入学方式："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.entryType" placeholder="入学方式" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="春季入学" value="1" />
-                    <el-option key="2" label="秋季入学" value="2" />
+                  <el-select  v-model="postForm.entryType" placeholder="入学方式" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.入学方式" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.entryType}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="英文姓名："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.englishName"   class="filter-item" />
-                  <span v-else>{{postForm.englishName}}</span>
+                  <el-input  v-model="postForm.englishName"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="所属派出所："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.belongPoliceStation"   class="filter-item" />
-                  <span v-else>{{postForm.belongPoliceStation}}</span>
+                  <el-input  v-model="postForm.belongPoliceStation"   class="filter-item" />
+
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="学生类别："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.cate" placeholder="学生类别" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="优等生" value="1" />
-                    <el-option key="2" label="贫困生" value="2" />
+                  <el-select  v-model="postForm.cate" placeholder="学生类别" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.学生类别" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.cate}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="就读方式："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.studyWay" placeholder="就读方式" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="寄宿" value="1" />
-                    <el-option key="2" label="走读" value="2" />
+                  <el-select  v-model="postForm.studyWay" placeholder="就读方式" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.studyWay}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="学习形式："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="全日制" value="1" />
-                    <el-option key="2" label="兼职" value="2" />
+                  <el-select  v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.学习形式" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.studyStyle}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="当前状态："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.state" placeholder="当前状态" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="在校" value="1" />
-                    <el-option key="2" label="离校" value="2" />
+                  <el-select  v-model="postForm.state" placeholder="当前状态" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.state}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="乘火车区间："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.railwayRange"   class="filter-item" />
-                  <span v-else>{{postForm.railwayRange}}</span>
+                  <el-input  v-model="postForm.railwayRange"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="是否随迁子女："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.ifTrailingChildren" placeholder="是否随迁子女" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="是" value="1" />
-                    <el-option key="0" label="否" value="0" />
+                  <el-select  v-model="postForm.ifTrailingChildren" placeholder="是否随迁子女" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                   </el-select>
-                  <span v-else>{{postForm.ifTrailingChildren}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="分段培养方式："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.cultivateModel" placeholder="分段培养方式" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="高阶段" value="1" />
-                    <el-option key="2" label="低阶段" value="2" />
+                  <el-select  v-model="postForm.cultivateModel" placeholder="分段培养方式" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.分段培养方式" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.cultivateModel}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="学生类型："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.studentType" placeholder="学生类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="特优生" value="1" />
-                    <el-option key="2" label="特长生" value="2" />
+                  <el-select  v-model="postForm.studentType" placeholder="学生类型" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.studentType}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -254,27 +203,24 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.administrativeGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+                  <el-select  v-model="postForm.administrativeGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
                     <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
-                  <span v-else>{{postForm.administrativeGradeName}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="专业："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item" style=" width: 200px">
+                  <el-select  v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item" style=" width: 200px">
                     <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
-                  <span v-else>{{postForm.administrativeSpecialtyName}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
 
                 <el-form-item label="班级："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.administrativeClbumId" placeholder="班级" clearable class="filter-item" style="width: 200px">
+                  <el-select  v-model="postForm.administrativeClbumId" placeholder="班级" clearable class="filter-item" style="width: 200px">
                     <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
-                  <span v-else>{{postForm.administrativeClbumName}}</span>
                 </el-form-item>
               </el-col>
 
@@ -288,27 +234,24 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+                  <el-select  v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
                     <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
-                  <span v-else>{{postForm.schoolGradeName}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="专业："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.schoolSpecialtyId" placeholder="专业" clearable class="filter-item" style=" width: 200px">
+                  <el-select  v-model="postForm.schoolSpecialtyId" placeholder="专业" clearable class="filter-item" style=" width: 200px">
                     <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
 
-                  <span v-else>{{postForm.schoolSpecialtyName}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="班级："  prop="type" label-width="120px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.schoolClbumId" placeholder="班级" clearable class="filter-item" style="width: 200px">
+                  <el-select  v-model="postForm.schoolClbumId" placeholder="班级" clearable class="filter-item" style="width: 200px">
                     <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
-                  <span v-else>{{postForm.schoolClbumName}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -323,32 +266,27 @@
                 <el-form-item label="户口地址信息："  prop="type" label-width="250px" class="postInfo-container-item">
                   <el-cascader
                     :options="options"
-                    v-if="type=='add'"
                     v-model="postForm.countyName"
                     style="width: 100%"
                     @change="handleChange">
                   </el-cascader>
-                  <span v-else>{{postForm.countyName}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="籍贯地行政区划码："  prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-input  v-if="type=='add'"  v-model="postForm.nativePlaceCode"   class="filter-item" />
-                  <span v-else>{{postForm.nativePlaceCode}}</span>
+                  <el-input    v-model="postForm.nativePlaceCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="出生地行政区划码："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input  v-if="type=='add'"  v-model="postForm.birthPlaceCode"   class="filter-item" />
-                  <span v-else>{{postForm.birthPlaceCode}}</span>
+                  <el-input    v-model="postForm.birthPlaceCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="户口所在地区县以下详细地址："  prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-input  v-if="type=='add'"  v-model="postForm.registerAddr"   class="filter-item" />
-                  <span v-else>{{postForm.registerAddr}}</span>
+                  <el-input    v-model="postForm.registerAddr"   class="filter-item" />
                 </el-form-item>
               </el-col>
 
@@ -363,23 +301,19 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="联招合作办学形式："  prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.educationForm" placeholder="联招合作办学形式" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="统招" value="1" />
-                    <el-option key="2" label="普招" value="2" />
+                  <el-select  v-model="postForm.educationForm" placeholder="联招合作办学形式" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.联招合作办学形式" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.educationForm}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="联招合作学校代码："  prop="type" label-width="250px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.educationSchoolCode"   class="filter-item" />
-                  <span v-else>{{postForm.educationSchoolCode}}</span>
+                  <el-input  v-model="postForm.educationSchoolCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="校外教学点："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.outsidePlace"   class="filter-item" />
-                  <span v-else>{{postForm.outsidePlace}}</span>
+                  <el-input  v-model="postForm.outsidePlace"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row></el-tab-pane>
@@ -390,26 +324,22 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="电子邮箱："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.type"   class="filter-item" />
-                  <span v-else>{{postForm.type}}</span>
+                  <el-input  v-model="postForm.type"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭现地址："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.homeAddr"   class="filter-item" />
-                  <span v-else>{{postForm.homeAddr}}</span>
+                  <el-input  v-model="postForm.homeAddr"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭邮政编码："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.postCode"   class="filter-item" />
-                  <span v-else>{{postForm.postCode}}</span>
+                  <el-input  v-model="postForm.postCode"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="家庭电话："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.homePhone"   class="filter-item" />
-                  <span v-else>{{postForm.homePhone}}</span>
+                  <el-input  v-model="postForm.homePhone"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -423,96 +353,78 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1姓名："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberName"   class="filter-item" />
-                  <span v-else>{{postForm.memberName}}</span>
+                  <el-input  v-model="postForm.memberName"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1关系："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberRelationship" placeholder="成员1关系" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="父母" value="1" />
-                    <el-option key="2" label="爷爷" value="2" />
+                  <el-select  v-model="postForm.memberRelationship" placeholder="成员1关系" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberRelationship}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1是否监护人："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberGuardian" placeholder="成员1是否监护人" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="是" value="1" />
-                    <el-option key="2" label="否" value="0" />
+                  <el-select  v-model="postForm.memberGuardian" placeholder="成员1是否监护人" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                   </el-select>
-                  <span v-else>{{postForm.memberGuardian}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1出生年月："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberBirthday"   class="filter-item" />
-                  <span v-else>{{postForm.memberBirthday}}</span>
+                  <el-input  v-model="postForm.memberBirthday"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1证件类型："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberCertificationType" placeholder="成员1证件类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                  <el-select  v-model="postForm.memberCertificationType" placeholder="成员1证件类型" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberCertificationType}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1身份证件号："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberIdNo"   class="filter-item" />
-                  <span v-else>{{postForm.memberIdNo}}</span>
+                  <el-input  v-model="postForm.memberIdNo"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1民族："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberNation" placeholder="成员1民族" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="汉族" value="1" />
-                    <el-option key="2" label="回族" value="2" />
+                  <el-select  v-model="postForm.memberNation" placeholder="成员1民族" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberNation}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1政治面貌："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberPoliticsStatus" placeholder="成员1政治面貌" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="团员" value="1" />
-                    <el-option key="2" label="党员" value="2" />
+                  <el-select  v-model="postForm.memberPoliticsStatus" placeholder="成员1政治面貌" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberPoliticsStatus}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1电话："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberMobile"   class="filter-item" />
-                  <span v-else>{{postForm.memberMobile}}</span>
+                  <el-input  v-model="postForm.memberMobile"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1健康状况："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberHealth" placeholder="成员1健康状况" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="健康" value="1" />
-                    <el-option key="2" label="重疾" value="2" />
+                  <el-select  v-model="postForm.memberHealth" placeholder="成员1健康状况" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberHealth}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1工作或学习单位："  prop="type" label-width="170px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberWorkUnit"   class="filter-item" />
-                  <span v-else>{{postForm.memberWorkUnit}}</span>
+                  <el-input  v-model="postForm.memberWorkUnit"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1职务："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberJob"   class="filter-item" />
-                  <span v-else>{{postForm.memberJob}}</span>
+                  <el-input  v-model="postForm.memberJob"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -523,111 +435,82 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2姓名："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberName2"   class="filter-item" />
-                  <span v-else>{{postForm.memberName2}}</span>
+                  <el-input  v-model="postForm.memberName2"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2关系："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberRelationship2" placeholder="成员2关系" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="父母" value="1" />
-                    <el-option key="2" label="爷爷" value="2" />
+                  <el-select  v-model="postForm.memberRelationship2" placeholder="成员2关系" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberRelationship2}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2是否监护人："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberGuardian2" placeholder="成员2是否监护人" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="是" value="1" />
-                    <el-option key="2" label="否" value="0" />
+                  <el-select  v-model="postForm.memberGuardian2" placeholder="成员2是否监护人" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                   </el-select>
-                  <span v-else>{{postForm.memberGuardian2}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2出生年月："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberBirthday2"   class="filter-item" />
-                  <span v-else>{{postForm.memberBirthday2}}</span>
+                  <el-input  v-model="postForm.memberBirthday2"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2证件类型："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberCertificationType2" placeholder="成员2证件类型" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="身份证" value="1" />
-                    <el-option key="2" label="护照" value="2" />
+                  <el-select  v-model="postForm.memberCertificationType2" placeholder="成员2证件类型" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberCertificationType2}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2身份证件号："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberIdNo2"   class="filter-item" />
-                  <span v-else>{{postForm.memberIdNo2}}</span>
+                  <el-input  v-model="postForm.memberIdNo2"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2民族："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberNation2" placeholder="成员2民族" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="汉族" value="1" />
-                    <el-option key="2" label="回族" value="2" />
+                  <el-select  v-model="postForm.memberNation2" placeholder="成员2民族" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberNation2}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2政治面貌："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberPoliticsStatus2" placeholder="成员2政治面貌" clearable class="filter-item" style="width: 100%">
-                    <el-option key="1" label="团员" value="1" />
-                    <el-option key="2" label="党员" value="2" />
+                  <el-select  v-model="postForm.memberPoliticsStatus2" placeholder="成员2政治面貌" clearable class="filter-item" style="width: 100%">
+                    <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item" />
                   </el-select>
-                  <span v-else>{{postForm.memberPoliticsStatus2}}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2电话："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberMobile2"   class="filter-item" />
-                  <span v-else>{{postForm.memberMobile2}}</span>
+                  <el-input  v-model="postForm.memberMobile2"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2健康状况："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-select v-if="type=='add'" v-model="postForm.memberHealth2" placeholder="成员2健康状况" clearable class="filter-item" style="width: 100%">
+                  <el-select  v-model="postForm.memberHealth2" placeholder="成员2健康状况" clearable class="filter-item" style="width: 100%">
                     <el-option key="1" label="健康" value="1" />
                     <el-option key="2" label="重疾" value="2" />
                   </el-select>
-                  <span v-else>{{postForm.memberHealth2}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2工作或学习单位："  prop="type" label-width="170px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberWorkUnit2"   class="filter-item" />
-                  <span v-else>{{postForm.memberWorkUnit2}}</span>
+                  <el-input  v-model="postForm.memberWorkUnit2"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2职务："  prop="type" label-width="150px" class="postInfo-container-item">
-                  <el-input v-if="type=='add'" v-model="postForm.memberJob2"   class="filter-item" />
-                  <span v-else>{{postForm.memberJob2}}</span>
+                  <el-input  v-model="postForm.memberJob2"   class="filter-item" />
                 </el-form-item>
               </el-col>
             </el-row></el-tab-pane>
-          <el-tab-pane label="操作日志" name="five">
-            <div style="margin-bottom: 30px">
-              <h3 class="title">  <div   class="avatar-wrapper icon-title" style="background:#9E9CF4">志</div><div class="icon-info" >操作日志</div></h3>
-            </div>
-            <div style="margin-bottom: 30px;float: left">
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-            </div>
-          </el-tab-pane>
         </el-tabs>
       </el-form>
     </y-detail-page-layout>
@@ -636,6 +519,7 @@
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
   import { validURL } from '@/utils/validate'
 
   const defaultForm = {
@@ -655,9 +539,17 @@
 
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb},
+    components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
+        AllEnum:{},//全部枚举
         activeName: 'first',
         gradeInfo: [],
         classInfo:[],
@@ -689,8 +581,22 @@
       that.getGradeList();//赛选框年级
       that.getSpecialtyList();
       that.getClbumList();
+      that.getAllEnum()
     },
     methods:{
+      getAllEnum(){
+        let that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getGradeList(){
         let that = this;
         that.$api.baseInfo.getGradeList().then(data => {
@@ -760,7 +666,7 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      handleCreate(){
+      save(){
         let that = this
         this.$refs.postForm.validate(valid => {
           if (valid) {

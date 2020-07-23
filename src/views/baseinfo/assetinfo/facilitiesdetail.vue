@@ -33,8 +33,7 @@
                   <el-col :span="8">
                     <el-form-item label="所属校区："  prop="campus" label-width="200px" class="postInfo-container-item">
                       <el-select v-model="postForm.campus" placeholder="所属校区" clearable style="width: 100%" class="filter-item">
-                        <el-option key="1" label="江安校区" value="1" />
-                        <el-option key="2" label="望江校区" value="2" />
+                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -62,16 +61,14 @@
                   <el-col :span="8">
                     <el-form-item label="是否正常："  prop="ifNormal" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.ifNormal" placeholder="是否正常" clearable class="filter-item" style="width: 100%">
-                        <el-option key="true" label="是" value="true" />
-                        <el-option key="false" label="否" value="false" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="经费来源："  prop="financialResource" label-width="200px" class="postInfo-container-item">
                       <el-select  v-model="postForm.financialResource" placeholder="经费来源" clearable class="filter-item" style="width: 100%">
-                        <el-option key="1" label="财务部" value="1" />
-                        <el-option key="2" label="商务部" value="0" />
+                        <el-option v-for="item in source" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -98,8 +95,7 @@
                 <el-col :span="8">
                   <el-form-item label="报废状态："  prop="state" label-width="200px" class="postInfo-container-item">
                     <el-select  v-model="postForm.state" placeholder="报废状态" clearable class="filter-item" style="width: 100%">
-                      <el-option key="1" label="未报废" value="1" />
-                      <el-option key="2" label="已报废" value="2" />
+                      <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -122,6 +118,14 @@
     components: {Breadcrumb,fileUpload,YDetailPageLayout},
     data() {
       return {
+
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
         editCourseChapterForm:{ path:'/creative/vcg/veer/800water/veer-133190023.jpg' },
         postForm:{},
         rules: {
@@ -138,7 +142,10 @@
           brand: [{ required: true, message: '请填写品牌', trigger: 'change' }],
           state: [{ required: true, message: '请选择报废状态', trigger: 'change' }]
         },
-        departmentList:[]
+        departmentList:[],
+        useStatus:[],
+        source:[],
+        campus:[]
       }
     },
     created(){
@@ -149,8 +156,37 @@
       }
 
       that.getDepartmentList() ////查询建筑物列表
+
+      that.getByTypeId(52)
+      that.getByTypeId(56)
+      that.getByTypeId(51)
     },
     methods:{
+
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 52:
+                that.campus = data.data
+                break;
+              case 56:
+                that.source = data.data
+                break;
+              case 51:
+                that.useStatus = data.data
+                break;
+
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDepartmentList(){
         let that = this;
         that.$api.baseInfo.getDepartmentList({current:0,size:10000}).then(data => {

@@ -35,9 +35,9 @@
 
         <el-select
           v-model="listQuery.schoolGradeId"
-          placeholder="年级"
+          placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 100px"
+          style="margin-left:10px;width: 200px"
           class="filter-item"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
@@ -45,16 +45,16 @@
 
         <el-select
           v-model="listQuery.schoolSpecialtyId"
-          placeholder="专业（根据年级加载）"
+          placeholder="请选择专业"
           clearable
           class="filter-item"
-          style=" margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 200px"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select
           v-model="listQuery.schoolClbumId"
-          placeholder="班级（根据班级加载）"
+          placeholder="请选择班级"
           clearable
           class="filter-item"
           style="margin-left:10px;width: 200px"
@@ -62,7 +62,7 @@
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select v-model="listQuery.state" placeholder="就读" clearable class="filter-item" style="margin-left:10px;  width: 100px">
-          <el-option v-for="item in jiudu" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item" />
         </el-select>
         <el-input
           v-model="listQuery.keyword"
@@ -74,31 +74,33 @@
         />
       </template>
       <template slot="right">
-        <fileUpload :isdisabled="false" :styleType="2"></fileUpload>
         <el-button class="filter-item" round type="primary" @click="getList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="primary" @click="downloadTemplate">
           学生信息模板下载
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
+        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">
           学籍号模板下载
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
-          更新学生信息
-        </el-button>
-      <!--  <excelImport
-          :limit="1"
-          ref="uploadControl"
-          flag="student"
-          :styleType="1"
-        ></excelImport>-->
-        <el-button class="filter-item" round type="primary" @click="handleCreate">
-          更新学籍号
-        </el-button>
-        <el-button class="filter-item" round style="margin-right: 10px" type="primary"  @click="handleDownload">
+        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary"  @click="handleDownload">
           导出
         </el-button>
+        <excelImport
+        :limit="1"
+        ref="uploadControl"
+        flag="student/importExcel"
+        :styleType="1"
+        title= "更新学生信息"
+      ></excelImport>
+       <excelImport
+          :limit="1"
+          ref="uploadControl"
+          flag="/student/importCodeExcel"
+          :styleType="1"
+          title= "更新学籍号"
+        ></excelImport>
+
       </template>
       <el-table
         :key="tableKey"
@@ -220,7 +222,7 @@
       Breadcrumb,
       Pagination,
       YPageListLayout,
-      excelImport
+      excelImport,
     },
     filters: {
       statusFilter(status) {
@@ -234,6 +236,7 @@
     },
     data() {
       return {
+        AllEnum:[],
         pageData:{
         },
         pagePara:{
@@ -313,8 +316,24 @@
       that.getGradeList()// 赛选框年级
       that.getSpecialtyList()
       that.getClbumList()
+
+      that.getAllEnum()
     },
     methods: {
+
+      getAllEnum(){
+        let that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       EncodeGetUrl(url) {
         let urlArr = url.split('?');
         let encodeUrl = urlArr[0];
@@ -336,6 +355,9 @@
       },
       downloadTemplate(){
         this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
+      },
+      downloadCodeTemplate(){
+        this.$utils.exportUtil('/student/download/codeImportTemplate', null, '学籍号模板下载')
       },
       handleDownload(url){
         this.$utils.exportUtil('/student/download/exportExcel',this.listQuery, '学生信息')
