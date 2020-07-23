@@ -511,18 +511,6 @@
                 </el-form-item>
               </el-col>
             </el-row></el-tab-pane>
-          <el-tab-pane label="操作日志" name="five">
-            <div style="margin-bottom: 30px">
-              <h3 class="title">  <div   class="avatar-wrapper icon-title" style="background:#9E9CF4">志</div><div class="icon-info" >操作日志</div></h3>
-            </div>
-            <div style="margin-bottom: 30px;float: left">
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-              <div style="padding-left:30px;margin-bottom:10px;font-size:14px;font-weight:500;color:rgba(102,102,102,1);">2020-06-23 14:30:00 刘华山新增了用户</div>
-            </div>
-          </el-tab-pane>
         </el-tabs>
       </el-form>
     </y-detail-page-layout>
