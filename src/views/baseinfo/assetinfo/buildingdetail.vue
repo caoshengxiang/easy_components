@@ -164,12 +164,12 @@
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
                     <el-form-item label="建筑物平面图："  prop="type" label-width="200px" class="postInfo-container-item">
-                      <fileUpload  :isdisabled="false" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                      <fileUpload  :isdisabled="false" ref="uploadCourseChapter1" :fileList="[{path:postForm.planGraph}]" :styleType="1"></fileUpload>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建筑物图片："  prop="type" label-width="200px" class="postInfo-container-item">
-                      <fileUpload :isdisabled="false" ref="uploadCourseChapter" :fileList="[editCourseChapterForm]" :styleType="1"></fileUpload>
+                      <fileUpload :isdisabled="false" ref="uploadCourseChapter2" :fileList="[{path:postForm.pic}]" :styleType="1"></fileUpload>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -191,7 +191,8 @@
     components: {Breadcrumb,fileUpload,YDetailPageLayout},
     data() {
       return {
-        editCourseChapterForm:{ path:'/creative/vcg/veer/800water/veer-133190023.jpg' },
+        editCourseChapterForm1:{ },
+        editCourseChapterForm2:{ },
         postForm:{},
         rules: {
           name: [{ required: true, message: '请填写建筑物名称', trigger: 'change' }],
@@ -315,6 +316,13 @@
       },
       save(){
         let that = this
+        if( that.$refs.uploadCourseChapter1.getFileList().length==0 || that.$refs.uploadCourseChapter2.getFileList().length==0){
+          that.$message.error('请上传图片!');
+          return;
+        }
+        that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+        that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if(that.$route.query.id){
