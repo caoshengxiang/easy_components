@@ -1,186 +1,214 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
-      <el-button
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        icon="el-icon-download"
-        @click="handleCreate"
-      >
-        导入模板下载
-      </el-button>
-      <el-button
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-upload2"
-        @click="handleCreate"
-      >
-        导入
-      </el-button>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <div class="filter-container" style="margin-top: 10px;float: left">
-      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">
-        新增教职工
-      </el-button>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="管理员类型"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
+
+    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+      <template slot="left">
+<!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+<!--          新增教职工-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_staff_add"
+          class-name="filter-item"
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
+        <el-select
+          v-model="listQuery.grade"
+          placeholder="管理员类型"
+          clearable
+          filterable
+          style="margin-left: 20px;width: 100px"
+          class="filter-item"
+        >
+          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+        </el-select>
+        <el-select
+          v-model="listQuery.grade"
+          placeholder="部门"
+          clearable
+          filterable
+          style="margin-left: 20px;width: 100px"
+          class="filter-item"
+        >
+          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+        </el-select>
+        <el-select
+          v-model="listQuery.grade"
+          placeholder="岗位"
+          clearable
+          filterable
+          style="margin-left: 20px;width: 100px"
+          class="filter-item"
+        >
+          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+        </el-select>
+        <el-select
+          v-model="listQuery.grade"
+          placeholder="性别"
+          clearable
+          filterable
+          style="margin-left: 20px;width: 100px"
+          class="filter-item"
+        >
+          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+        </el-select>
+        <el-input
+          v-model="listQuery.description"
+          placeholder="请输入关键字搜索"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+        />
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
+          搜索
+        </el-button>
+<!--        <el-button-->
+<!--          class="filter-item download-button"-->
+<!--          style="margin-left: 10px;"-->
+<!--          icon="el-icon-download"-->
+<!--          @click="handleCreate"-->
+<!--        >-->
+<!--          导入模板下载-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_staff_list_import"
+          class-name="filter-item"
+          icon="el-icon-download"
+          name="导入模板下载"
+        />
+<!--        <el-button-->
+<!--          class="filter-item download-button"-->
+<!--          style="margin-left: 10px;"-->
+<!--          type="primary"-->
+<!--          icon="el-icon-upload2"-->
+<!--          @click="handleCreate"-->
+<!--        >-->
+<!--          导入-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_staff_list_import"
+          class-name="filter-item"
+          type="primary"
+          icon="el-icon-upload2"
+          name=""
+        />
+      </template>
+      <el-table
+        slot="table"
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="pageData.records"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
       >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="部门"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="岗位"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-      <el-select
-        v-model="listQuery.grade"
-        placeholder="性别"
-        clearable
-        filterable
-        style="margin-left: 20px;width: 100px"
-        class="filter-item"
-      >
-        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-      </el-select>
-    </div>
-    <div class="filter-container" style="margin-top: 10px;float: right">
-      <el-input
-        v-model="listQuery.description"
-        placeholder="请输入关键字搜索"
-        prefix-icon="el-icon-search"
-        style="margin-left: 20px;width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
-        搜索
-      </el-button>
-
-    </div>
-    <div class="right">
-      <div class="menu-2-box">
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>-->
-        <!--        </div>-->
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>-->
-        <!--        </div>-->
-      </div>
-
-    </div>
-    <el-table
-
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="职工编号" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.num }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="姓名" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="性别" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="管理员类型" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属部门" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="岗位" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="基本信息" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon
-            icon-class="edit"
-            style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
-            @click.native="handleBaseInfo(row)"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="学历证书" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleEduInfo(row)"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="工资情况" align="center">
-        <template slot-scope="{row}">
-          <!--          <i class="el-icon-edit"></i>-->
-          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
-
+        <el-table-column label="职工编号" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.staffNo }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="姓名" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.name }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="性别" align="center" width="120">
+          <template slot-scope="{row}">
+            <span>{{ row.sex }} </span>
+          </template>
+        </el-table-column>
+<!--        <el-table-column label="管理员类型" align="center">-->
+<!--          <template slot-scope="{row}">-->
+<!--            <span>{{ row.teacherType }} </span>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="" align="center">-->
+<!--          <template slot-scope="{row}">-->
+<!--            <span>{{ row}} </span>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+        <el-table-column label="所属部门-岗位" align="center">
+          <template slot-scope="{row}">
+            <span v-for="(item, index) in row.posts" :key="item.id"><span v-if="index > 0">、</span>{{ item.organizationName}}-{{item.postName }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="基本信息" align="center">
+          <template slot-scope="{row}">
+            <!--          <i class="el-icon-edit"></i>-->
+            <PermissionButton
+              menu-no="_views_staff_detail"
+              class-name="filter-item"
+              name=""
+              type="text"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+              <svg-icon
+                icon-class="edit"
+                style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
+              />
+            </PermissionButton>
+          </template>
+        </el-table-column>
+        <el-table-column label="学历证书" align="center">
+          <template slot-scope="{row}">
+            <!--          <i class="el-icon-edit"></i>-->
+            <PermissionButton
+              menu-no="_views_staff_eduDetail"
+              class-name="filter-item"
+              name=""
+              type="text"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+              <svg-icon
+                icon-class="edit"
+                style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
+              />
+            </PermissionButton>
+          </template>
+        </el-table-column>
+        <el-table-column label="工资情况" align="center">
+          <template slot-scope="{row}">
+            <!--          <i class="el-icon-edit"></i>-->
+            <PermissionButton
+              menu-no="_views_staff_wageDetail"
+              class-name="filter-item"
+              name=""
+              type="text"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+              <svg-icon
+                icon-class="edit"
+                style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
+              />
+            </PermissionButton>
+          </template>
+        </el-table-column>
+      </el-table>
+    </y-page-list-layout>
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
-  import QRCode from 'qrcode'
-
+  import YPageListLayout from '@/components/YPageListLayout'
   import Breadcrumb from '@/components/Breadcrumb'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      Pagination
+      YPageListLayout,
+      PermissionButton,
     },
     filters: {
       statusFilter(status) {
@@ -195,15 +223,15 @@
     data() {
       return {
         tableKey: 0,
-        list: [],
+        pageData: { records: [] },
         total: 20,
         listLoading: true,
         listQuery: {
           page: 1,
           limit: 10,
+          name: '',
           keyword: '',
         },
-        temp: {},
       }
     },
     created() {
@@ -211,109 +239,43 @@
       that.getList()
     },
     methods: {
-      detail(id) {
+      removeHandle(row) {
+        // console.log(data)
         const that = this
-        that.$router.push({
-          path: '/baseinfo/assetdetail',
-          query: {
-            id: id,
-            type: 'detail'
-          }
+        that.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
-      },
-      handleFilter() {},
-      resetTemp() {
-        this.temp = {}
-      },
-      handleCreate() {
-      },
-      handleAdd() {
-        this.$router.push({
-          path: '/staff/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-          }
-        })
+          .then(async () => {
+            this.$api.term.delete(row.id).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
       },
       getList() {
         const that = this
-        console.log(that.listQuery)
-        that.list = [{
-          id: 1,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 2,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 3,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 4,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 5,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 6,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }]
-
-        that.listLoading = false
-      },
-      handleBaseInfo(row) {
-        this.$router.push({
-          path: '/staff/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
+        this.listLoading = true
+        // console.log(that.listQuery)
+        this.$api.staff.list(that.listQuery).then(res => {
+          that.pageData = res.data
+          setTimeout(() => {
+            that.listLoading = false
+          }, 200)
+        }).catch(() => {
+          that.listLoading = false
         })
       },
-      handleEduInfo(row) {
-        this.$router.push({
-          path: '/staff/edu/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
-        })
-      },
-      handleWageInfo(row) {
-        this.$router.push({
-          path: '/staff/wage/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
-        })
-      }
     }
   }
 </script>
-<style>
-  .download-button {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    float: right
-  }
-
-  .qcode-wrap {
-    display: flex;
-
-  .qcode-item {
-    width: 200px;
-    height: 200px;
-
-  }
-
-  }
-</style>
 <style lang="scss" scoped>
   .right {
     flex: 1;

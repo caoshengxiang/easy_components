@@ -1,39 +1,11 @@
 <template>
-  <div class="app-container staff-detail">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-    <div style="position: fixed;right: 0;z-index: 999">
-      <el-button
-        v-if="type==='detail'"
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="type='add'"
-      >
-        编辑
-      </el-button>
-      <el-button
-        v-if="type==='add'"
-        class="filter-item download-button"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="type='detail'"
-      >
-        取消
-      </el-button>
-      <el-button
-        v-if="type==='add'"
-        class="filter-item download-button"
-        style="margin-left: 10px;margin-right: 0px"
-        type="primary"
-        icon="el-icon-edit"
-        @click="handleCreate"
-      >
-        保存
-      </el-button>
+  <div class="app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <div class="createPost-container">
+    <y-detail-page-layout :save="handleCreate" :edit-status="false">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="基础信息" name="first">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 
         <div class="createPost-main-container">
@@ -193,26 +165,23 @@
           </div>
         </div>
       </el-form>
-    </div>
+        </el-tab-pane>
+      </el-tabs>
+    </y-detail-page-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
-  import { validURL } from '@/utils/validate'
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   const defaultForm = {
-    type: '',
-    tableData: [{ key: 'xxx' }, { key: 'xxxx' }],
-    tableData2: [],
-    tableData3: [],
-    tableData4: [],
-    tableData5: [],
-    tableData6: [],
+    user: {},
+    staff: {}
   }
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb },
+    components: { Breadcrumb, YDetailPageLayout },
     data() {
       return {
         type: 'detail',
@@ -224,109 +193,30 @@
             trigger: 'change'
           }],
         },
+        dataId: this.$route.query.id,
+        activeName: 'first',
       }
     },
     created() {
+      this.getDetail()
     },
     methods: {
+      getDetail() {
+        if (this.dataId) {
+          this.$api.staff.detailBase(this.dataId).then(res => {
+            this.postForm = res.data
+          })
+        }
+      },
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
             //
           }
         })
-      },
-      handleAdd() {
-        this.postForm.tableData.push({ key: '' })
-      },
-      handleAdd2() {
-        this.postForm.tableData2.push({ key: '' })
-      },
-      handleAdd3() {
-        this.postForm.tableData3.push({ key: '' })
-      },
-      handleAdd4() {
-        this.postForm.tableData4.push({ key: '' })
-      },
-      handleAdd5() {
-        this.postForm.tableData5.push({ key: '' })
-      },
-      handleAdd6() {
-        this.postForm.tableData6.push({ key: '' })
       }
     }
   }
 </script>
 <style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-
-  .staff-detail {
-  }
-
-  .createPost-container {
-
-    .createPost-main-container {
-      padding: 40px 45px 20px 50px;
-
-      .postInfo-container {
-        position: relative;
-        @include clearfix;
-        margin-bottom: 10px;
-
-        .postInfo-container-item {
-          .el-form-item__label {
-            width: 21px;
-            height: 9px;
-            font-size: 9px;
-            font-weight: 500;
-            color: rgba(102, 102, 102, 1);
-          }
-        }
-      }
-    }
-
-    .word-counter {
-      width: 40px;
-      position: absolute;
-      right: 10px;
-      top: 0px;
-    }
-
-    .avatar-wrapper {
-      width: 20px;
-      height: 20px;
-      position: relative;
-      border-radius: 50%;
-      background-color: #2A8FE3;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .viewTable .title {
-      text-align: left
-    }
-
-    .icon-title {
-      font-size: 10px;
-      float: left;
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .icon-info {
-      text-align: left;
-      padding-top: 5px;
-      margin-left: 30px;
-      height: 10px;
-      font-size: 10px;
-      font-weight: bold;
-      color: rgba(51, 51, 51, 1);
-    }
-
-  }
-
-  .download-button {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    float: right;
-  }
 </style>

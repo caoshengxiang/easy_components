@@ -20,7 +20,7 @@
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(54,163,247)">地</div>
-                    <div class="icon-info">占地面积</div>
+                    <div class="icon-info">占地面积(平方米)</div>
                   </h3>
                 </div>
                 <el-row>
@@ -40,7 +40,7 @@
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title">建</div>
-                    <div class="icon-info">校舍总建筑面积</div>
+                    <div class="icon-info">校舍总建筑面积(平方米)</div>
                   </h3>
                 </div>
                 <el-row>
@@ -65,7 +65,7 @@
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">房</div>
-                    <div class="icon-info">教学及辅助用房</div>
+                    <div class="icon-info">教学及辅助用房(平方米)</div>
                   </h3>
                 </div>
                 <el-row>
@@ -107,7 +107,7 @@
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">房</div>
-                    <div class="icon-info">行政办公用房</div>
+                    <div class="icon-info">行政办公用房(平方米)</div>
                   </h3>
                 </div>
                 <el-row>
@@ -129,7 +129,7 @@
                 </div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="生活用房：" class="postInfo-container-item">
+                    <el-form-item label="生活用房(平方米)：" class="postInfo-container-item">
                       <el-input v-model="postForm.LIFE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>

@@ -119,8 +119,6 @@
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
-  import QRCode from 'qrcode'
   import YPageListLayout from '@/components/YPageListLayout'
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
@@ -129,7 +127,6 @@
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      Pagination,
       YPageListLayout,
       PermissionButton,
     },

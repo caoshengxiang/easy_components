@@ -22,7 +22,7 @@
     :native-type="nativeType"
     @click.stop="handle"
   >
-    {{ name || menu.name }}
+    <slot>{{ name || menu.name }}</slot>
   </el-button>
 </template>
 
