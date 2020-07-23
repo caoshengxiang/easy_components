@@ -1,157 +1,137 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-      <!--      <el-button-->
-      <!--        class="filter-item download-button"-->
-      <!--        style="margin-left: 10px;"-->
-      <!--        icon="el-icon-download"-->
-      <!--        @click="handleCreate"-->
-      <!--      >-->
-      <!--        导入模板下载-->
-      <!--      </el-button>-->
-      <!--      <el-button-->
-      <!--        class="filter-item download-button"-->
-      <!--        style="margin-left: 10px;"-->
-      <!--        type="primary"-->
-      <!--        icon="el-icon-upload2"-->
-      <!--        @click="handleCreate"-->
-      <!--      >-->
-      <!--        导入-->
-      <!--      </el-button>-->
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <div class="filter-container" style="margin-top: 10px;float: left">
-      <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">
-        新增学期
-      </el-button>
-      <!--      <el-select-->
-      <!--        v-model="listQuery.grade"-->
-      <!--        placeholder=""-->
-      <!--        clearable-->
-      <!--        filterable-->
-      <!--        style="margin-left: 20px;width: 100px"-->
-      <!--        class="filter-item"-->
-      <!--      >-->
-      <!--        &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-      <!--      </el-select>-->
-    </div>
-    <div class="filter-container" style="margin-top: 10px;float: right">
-      <el-input
-        v-model="listQuery.description"
-        placeholder="请输入关键字搜索"
-        prefix-icon="el-icon-search"
-        style="margin-left: 20px;width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
-        搜索
-      </el-button>
 
-    </div>
-    <div class="right">
-      <div class="menu-2-box">
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>-->
-        <!--        </div>-->
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>-->
-        <!--        </div>-->
-      </div>
-
-    </div>
-    <el-table
-
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="学期名称" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.num }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学年" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学期码" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学期开始日期" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学期上课日期" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="学期结束日期" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="上课时间设置" align="center">
-        <template slot-scope="{row}">
-          <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建人" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" width="220">
-        <template slot-scope="{row}">
-          <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
-          <el-button type="primary" @click="detail(row)">详情</el-button>
-          <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="danger">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
-
+    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+      <template slot="left">
+<!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+<!--          新增学期-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_teachingAffairs_semester_add"
+          class-name="filter-item"
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
+        <el-input
+          v-model="listQuery.name"
+          placeholder="请输入学期名称搜索"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+          clearable
+        />
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
+          搜索
+        </el-button>
+      </template>
+      <el-table
+        slot="table"
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="pageData.records"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
+      >
+        <el-table-column label="学期名称" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学年" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.year }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学期码" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.code }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学期开始日期" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.startDate }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学期上课日期" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.courseDate }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="学期结束日期" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.endDate }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="上课时间设置" align="center">
+          <template slot-scope="{row}">
+<!--            <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>-->
+            <PermissionButton
+              menu-no="_views_teachingAffairs_semester_classTime"
+              type="text"
+              name=""
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column label="创建人" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.creatorName }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.created }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="220">
+          <template slot-scope="{row}">
+            <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
+<!--            <el-button type="primary" @click="detail(row)">详情</el-button>-->
+<!--            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>-->
+            <PermissionButton
+              menu-no="_views_teachingAffairs_semester_edit"
+              type="primary"
+              name=""
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            />
+<!--            <el-button type="danger">删除</el-button>-->
+            <PermissionButton
+              menu-no="_views_teachingAffairs_semester_remove"
+              type="danger"
+              name=""
+              @click="removeHandle(row)"
+            />
+          </template>
+        </el-table-column>
+      </el-table>
+    </y-page-list-layout>
   </div>
 </template>
 <script>
   import Pagination from '@/components/Pagination'
   import QRCode from 'qrcode'
-
+  import YPageListLayout from '@/components/YPageListLayout'
   import Breadcrumb from '@/components/Breadcrumb'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      Pagination
+      Pagination,
+      YPageListLayout,
+      PermissionButton,
     },
     filters: {
       statusFilter(status) {
@@ -166,15 +146,15 @@
     data() {
       return {
         tableKey: 0,
-        list: [],
+        pageData: { records: [] },
         total: 20,
         listLoading: true,
         listQuery: {
           page: 1,
           limit: 10,
+          name: '',
           keyword: '',
         },
-        temp: {},
       }
     },
     created() {
@@ -182,129 +162,43 @@
       that.getList()
     },
     methods: {
-      detail(row) {
+      removeHandle(row) {
+        // console.log(data)
         const that = this
-        that.$router.push({
-          path: '/teachingAffairs/semester/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id,
-          }
+        that.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
-      },
-      handleFilter() {},
-      resetTemp() {
-        this.temp = {}
-      },
-      handleCreate() {
-      },
-      handleAdd() {
-        this.$router.push({
-          path: '/teachingAffairs/semester/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-          }
-        })
-      },
-      handleEdit(row) {
-        const that = this
-        that.$router.push({
-          path: '/teachingAffairs/semester/edit',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id,
-          }
-        })
-      },
-      handleSetClassTime(row) {
-        const that = this
-        that.$router.push({
-          path: '/teachingAffairs/semester/classTime',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id,
-          }
-        })
+          .then(async () => {
+            this.$api.term.delete(row.id).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
       },
       getList() {
         const that = this
-        console.log(that.listQuery)
-        that.list = [{
-          id: 1,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 2,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 3,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 4,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 5,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }, {
-          id: 6,
-          num: 'JYXG00121',
-          name: 'xxx'
-        }]
-
-        that.listLoading = false
-      },
-      handleBaseInfo(row) {
-        this.$router.push({
-          path: '/staff/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
+        this.listLoading = true
+        // console.log(that.listQuery)
+        this.$api.term.list(that.listQuery).then(res => {
+          that.pageData = res.data
+          setTimeout(() => {
+            that.listLoading = false
+          }, 200)
+        }).catch(() => {
+          that.listLoading = false
         })
       },
-      handleEduInfo(row) {
-        this.$router.push({
-          path: '/staff/edu/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
-        })
-      },
-      handleWageInfo(row) {
-        this.$router.push({
-          path: '/staff/wage/detail',
-          query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            id: row.id
-          }
-        })
-      }
     }
   }
 </script>
-<style>
-  .download-button {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    float: right
-  }
-
-  .qcode-wrap {
-    display: flex;
-
-  .qcode-item {
-    width: 200px;
-    height: 200px;
-
-  }
-
-  }
-</style>
 <style lang="scss" scoped>
   .right {
     flex: 1;

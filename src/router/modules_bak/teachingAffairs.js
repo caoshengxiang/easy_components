@@ -13,11 +13,6 @@ export default {
       meta: { title: ' 学期管理' }
     },
     {
-      path: 'semester/detail',
-      component: () => import('@/views/teachingAffairs/semester/detail'),
-      meta: { title: ' 学期详情' }
-    },
-    {
       path: 'semester/edit',
       component: () => import('@/views/teachingAffairs/semester/edit'),
       meta: { title: ' 学期编辑' }

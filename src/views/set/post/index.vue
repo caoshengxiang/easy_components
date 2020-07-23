@@ -1,49 +1,10 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-
-    <div class="analysis">
-      <div class="menu-2-box">
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" />-->
-        <!--          <div class="text">-->
-        <!--            <div class="analysis-text">12000</div>-->
-        <!--            <div class="analysis-text-small">在读学生总数</div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <!--        <div-->
-        <!--          :key="index"-->
-        <!--          class="menu-2-item hvr-underline-from-center"-->
-        <!--        >-->
-        <!--          <i class="easy-icon easy-icon-avatar" />-->
-        <!--          <div class="text">-->
-        <!--            <div class="analysis-text">11：9</div>-->
-        <!--            <div class="analysis-text-small">在读学生男女比例</div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-      </div>
-    </div>
-    <div class="filter-main-div">
-      <div class="filter-container" style="width:60%; float: left;">
-        <el-input
-          v-model="listQuery.description"
-          placeholder="岗位名称关键字"
-          prefix-icon="el-icon-search"
-          style="margin-left: 20px;width: 200px;"
-          class="filter-item"
-          @keyup.enter.native="handleFilter"
-        />
-      </div>
-      <div class="filter-container" style="width:40%;float: right;text-align: right">
-        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="getList">
-          搜索
-        </el-button>
-
+    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+      <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
         <!--        新增岗位-->
         <!--      </el-button>-->
@@ -55,6 +16,18 @@
           name=""
           @click="handleAdd"
         />
+        <el-input
+          v-model="listQuery.description"
+          placeholder="岗位名称关键字"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+        />
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="getList">
+          搜索
+        </el-button>
 
         <!--      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>-->
         <PermissionButton
@@ -64,14 +37,15 @@
           icon="el-icon-edit"
           name=""
         />
-      </div>
+      </template>
       <el-table
         :key="tableKey"
         v-loading="listLoading"
-        :data="list"
+        :data="pageData.records"
         border
         fit
         highlight-current-row
+        slot="table"
       >
         <el-table-column label="岗位编码" align="center" min-width="150">
           <template slot-scope="{row}">
@@ -134,75 +108,66 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.current"
-        :limit.sync="listQuery.size"
-        @pagination="getList"
-      />
-      <el-dialog
-        width="600px"
-        :title="textMap[dialogStatus]"
-        :visible.sync="dialogFormVisible"
-        :close-on-click-modal="false"
+    </y-page-list-layout>
+    <el-dialog
+      width="600px"
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
+    >
+      <el-form
+        ref="dataForm"
+        :rules="rules"
+        :model="temp"
+        label-position="right"
+        label-width="110px"
+        style="width: 400px; margin-left:50px;"
       >
-        <el-form
-          ref="dataForm"
-          :rules="rules"
-          :model="temp"
-          label-position="right"
-          label-width="110px"
-          style="width: 400px; margin-left:50px;"
-        >
-          <el-form-item label="岗位编码：" prop="code">
-            <el-input v-model="temp.code" class="filter-item"/>
+        <el-form-item label="岗位编码：" prop="code">
+          <el-input v-model="temp.code" class="filter-item"/>
 
-          </el-form-item>
-          <el-form-item label="岗位名称：" prop="name">
-            <el-input v-model="temp.name" class="filter-item"/>
-          </el-form-item>
+        </el-form-item>
+        <el-form-item label="岗位名称：" prop="name">
+          <el-input v-model="temp.name" class="filter-item"/>
+        </el-form-item>
 
-          <el-form-item label="所属部门：" filterable prop="orgId">
-            <el-select v-model="temp.orgId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
-              <el-option
-                v-for="item in partOptions"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
-            </el-select>
-          </el-form-item>
+        <el-form-item label="所属部门：" filterable prop="orgId">
+          <el-select v-model="temp.orgId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+            <el-option
+              v-for="item in partOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
 
-          <el-form-item label="主要职责：">
-            <el-input v-model="temp.duty" class="filter-item"/>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer" style="text-align: center">
-          <el-button @click="dialogFormVisible = false">
-            取消
-          </el-button>
-          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-            保存
-          </el-button>
-        </div>
-      </el-dialog>
-    </div>
+        <el-form-item label="主要职责：">
+          <el-input v-model="temp.duty" class="filter-item"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align: center">
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
-
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
     name: 'PostIndex',
     components: {
       Breadcrumb,
-      Pagination,
       PermissionButton,
+      YPageListLayout
     },
     filters: {
       statusFilter(status) {
@@ -217,8 +182,7 @@
     data() {
       return {
         tableKey: 0,
-        list: [],
-        total: 0,
+        pageData: {records: []},
         listLoading: false,
         listQuery: {
           current: 1,
@@ -336,16 +300,12 @@
           this.$refs['dataForm'].clearValidate()
         })
       },
-      handleFilter() {
-
-      },
       getList() {
         const that = this
         this.listLoading = true
         // console.log(that.listQuery)
         this.$api.post.list(that.listQuery).then(res => {
-          that.list = res.data.records
-          that.total = res.data.total
+          that.pageData = res.data
           setTimeout(() => {
             that.listLoading = false
           }, 200)
@@ -378,10 +338,8 @@
   }
 </script>
 <style scoped lang="scss">
-  .analysis {
-    background-color: white;
+  .right {
     flex: 1;
-
     .title {
       font-size: 16px;
       font-weight: 500;
@@ -394,8 +352,6 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      padding-left: 2px;
-      padding-top: 2px;
     }
 
     .menu-2-item {
@@ -409,8 +365,7 @@
       border-radius: 3px;
       padding-left: 20px;
       margin-right: 10px;
-      padding-top: 2px;
-      margin-bottom: 2px;
+      margin-bottom: 10px;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 
@@ -418,11 +373,5 @@
         margin-left: 16px;
       }
     }
-  }
-
-  .download-button {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    float: right
   }
 </style>

@@ -26,7 +26,6 @@ import _views_staff_detail from '@/views/staff/detail'
 import _views_staff_eduDetail from '@/views/staff/eduDetail'
 import _views_staff_wageDetail from '@/views/staff/wageDetail'
 import _views_teachingAffairs_semester_list from '@/views/teachingAffairs/semester/list'
-import _views_teachingAffairs_semester_detail from '@/views/teachingAffairs/semester/detail'
 import _views_teachingAffairs_semester_edit from '@/views/teachingAffairs/semester/edit'
 import _views_teachingAffairs_semester_classTime from '@/views/teachingAffairs/semester/classTime'
 import _views_dormitory_dormitoryInfo_list from '@/views/dormitory/dormitoryInfo/list'
@@ -93,7 +92,6 @@ export default {
   _views_staff_wageDetail, // 工资情况
   _views_teachingAffairs_semester_list, // 学期管理
   _views_teachingAffairs_semester_edit, // 学期编辑
-  _views_teachingAffairs_semester_detail, // 学期详情
   _views_teachingAffairs_semester_classTime, // 上课时间设置
   _views_dormitory_dormitoryInfo_list, // 宿舍列表
   _views_dormitory_dormitoryInfo_dormitoryStdList, // 宿舍人员

@@ -119,7 +119,8 @@
           menuLevel1: this.$route.query.menuLevel1,
           menuLevel2: this.$route.query.menuLevel2,
           menuLevel3: this.$route.query.menuLevel3,
-          menuId: this.menu.id
+          menuId: this.menu.id,
+          back: this.$route.fullPath
         }
         if (this.pageJump) {
           this.$router.push({
