@@ -33,23 +33,14 @@
       </el-table>
     </y-page-list-layout>
     <el-dialog title="审核" :visible.sync="dialogFormVisible" >
-      <el-form ref="dataForm" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
-        <!--  <el-form-item label="Date" prop="timestamp">
-            <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
-          </el-form-item>
-
-           <el-form-item label="宿舍类型：" >
-          <el-select v-model="temp.cate" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-            <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name" :value="item.key"  />
-          </el-select>
-        </el-form-item>-->
-        <el-form-item label="审核结果：" >
+      <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
+        <el-form-item label="审核结果："  prop="type" >
           <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
             <el-option key="1" label="通过" value="1"  />
             <el-option key="2" label="拒绝" value="2"  />
           </el-select>
         </el-form-item>
-        <el-form-item label="审核意见：" >
+        <el-form-item label="审核意见：" prop="msg" >
           <el-input type="textarea"  v-model="temp.msg"  class="filter-item"/>
         </el-form-item>
       </el-form>
@@ -106,7 +97,7 @@
       },
       auditData(){
         let that = this
-        that.$refs.dataForm.validate(valid => {
+        that.$refs.temp.validate(valid => {
           if (valid) {
             if (that.temp.type == 1) {
               that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
