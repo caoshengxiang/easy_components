@@ -18,7 +18,7 @@ export default {
   delete(params) {
     return request.delete(`term/${params}`)
   },
-  // simpleAll(params) { // 下拉
-  //   return request.get(`term/simpleAll`, { params: params })
-  // }
+  simpleAll(params) { // 下拉
+    return request.get(`term/list`, { params: params })
+  }
 }

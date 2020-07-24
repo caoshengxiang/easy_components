@@ -14,9 +14,12 @@ export default {
     return request.post(`course`, params)
   },
   edit(params) {
-    return request.put(`course/`+ +  params.id, params)
+    return request.put(`course/`+ params.id, params)
   },
   delete(params) {
     return request.delete(`course/${params}`)
   },
+  simpleAll(params) { // 下拉
+    return request.get(`course/list`, { params: params })
+  }
 }

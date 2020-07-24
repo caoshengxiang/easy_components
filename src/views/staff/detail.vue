@@ -3,10 +3,10 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout :save="handleCreate" :edit-status="false">
-      <el-tabs v-model="activeName" @tab-click="handleClick" v-loading="vLoading" element-loading-text="处理中。。。">
+    <y-detail-page-layout :save="handleCreate" :edit-status="true">
+      <el-tabs v-model="activeName" v-loading="vLoading" element-loading-text="处理中。。。" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-bottom: 30px">
@@ -25,7 +25,7 @@
                         placeholder=""
                         style="width: 100%"
                       >
-                        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in AllEnum['员工类型']" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -38,7 +38,7 @@
                         placeholder=""
                         style="width: 100%"
                       >
-                        <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in AllEnum['教师类型']" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -144,8 +144,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option key="1" label="xx" value="1"/>
-                        <el-option key="2" label="xxx" value="2"/>
+                        <el-option v-for="item in AllEnum['政治面貌']" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -170,7 +169,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="任教信息" name="second">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
 
@@ -197,13 +196,14 @@
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="岗位名称：" label-width="120px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
+                        v-model="postForm.staff.specialty"
                         placeholder=""
                         clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
+                                   :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -241,10 +241,8 @@
                       <el-input v-model="postForm.staff.teachingAge" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -439,7 +437,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="其他信息" name="other">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -464,7 +462,7 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in AllEnum['聘用类型']" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -488,7 +486,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
+                                   :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -668,14 +667,13 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option v-for="item in AllEnum['教师来源']" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item
                       label="企业一线工作时间(年)	："
-                      prop="type"
                       label-width="180px"
                       class="postInfo-container-item"
                     >
@@ -706,7 +704,7 @@
         </el-tab-pane>
 
         <el-tab-pane label="实践项目" name="table1">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -728,13 +726,14 @@
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.major"
+                          v-model="row.term"
                           placeholder=""
                           clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                          <el-option v-for="item in termOptions" :key="item.name" :label="item.name"
+                                     :value="item.name"/>
                         </el-select>
                       </template>
                     </el-table-column>
@@ -751,7 +750,8 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                          <el-option v-for="item in gradeOptions" :key="item.name" :label="item.name"
+                                     :value="item.name"/>
                         </el-select>
                       </template>
                     </el-table-column>
@@ -768,7 +768,8 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                          <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
+                                     :value="item.name"/>
                         </el-select>
                       </template>
                     </el-table-column>
@@ -785,7 +786,8 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                          <el-option v-for="item in courseOptions" :key="item.name" :label="item.name"
+                                     :value="item.name"/>
                         </el-select>
                       </template>
                     </el-table-column>
@@ -838,7 +840,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="教师专利" name="table2">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -919,7 +921,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="教师获奖情况填写" name="table3">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -1009,7 +1011,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="教师在研课题" name="table4">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -1039,15 +1041,7 @@
                       width="140"
                     >
                       <template slot-scope="{row}">
-                        <el-select
-                          v-model="row.cate"
-                          placeholder=""
-                          clearable
-                          class="filter-item"
-                          style=" width: 100%"
-                        >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
-                        </el-select>
+                        <el-input v-model="row.cate" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1056,15 +1050,7 @@
                       width="140"
                     >
                       <template slot-scope="{row}">
-                        <el-select
-                          v-model="row.property"
-                          placeholder=""
-                          clearable
-                          class="filter-item"
-                          style=" width: 100%"
-                        >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
-                        </el-select>
+                        <el-input v-model="row.property" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1133,7 +1119,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="教师锻炼、培训、实践填写" name="table5">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -1170,7 +1156,7 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                          <el-option v-for="item in AllEnum['教师培训类型']" :key="item" :label="item" :value="item"/>
                         </el-select>
                       </template>
                     </el-table-column>
@@ -1232,7 +1218,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="教师在著作、论文填写" name="table6">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+          <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -1368,12 +1354,64 @@
         delTeacherTrainings: [],
         delTeacherPapers: [],
         vLoading: false,
+        AllEnum: {},
+        termOptions: [],
+        gradeOptions: [],
+        specialtyOptions: [],
+        courseOptions: [],
+        postOptions: []
       }
     },
     created() {
+      this.getAllEnum()
       this.getDetail()
+      this.getOptions()
     },
     methods: {
+      getOptions() {
+        this.$api.term.simpleAll().then(res => {
+          this.termOptions = res.data
+        })
+        this.$api.grade.simpleAll().then(res => {
+          this.gradeOptions = res.data
+        })
+        this.$api.specialty.simpleAll().then(res => {
+          this.specialtyOptions = res.data
+        })
+        this.$api.course.simpleAll().then(res => {
+          this.courseOptions = res.data
+        })
+      },
+      getAllEnum() {
+        const that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getdictDataByCode(id) {
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 52:
+                that.campus = data.data
+                break
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       initData() {
         this.delTeacherPosts = [] // 教职工岗位删除ID列表
         this.delTeacherPracticeProjects = [] // 教师实践项目
