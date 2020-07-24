@@ -16,18 +16,18 @@ export function fileDown(url, params = {}, name = '') { // 导出
   link.dispatchEvent(event)
 }
 
-export function UploadImg(file) {
+export function UploadImg(file, size) { // size 单位为M
   const isImage = (file.type === 'image/jpeg' ||
     file.type === 'image/gif' ||
     file.type === 'image/png' ||
     file.type === 'image/bmp')
-  const isLt2M = file.size / 1024 / 1024 < 10
+  const isLt2M = file.size / 1024 / 1024 < size
 
   if (!isImage) {
     this.$message.error('上传图片只能是 JPG、JPEG、GIF、PNG、BMP 格式!')
   }
   if (!isLt2M) {
-    this.$message.error('上传图片大小不能超过 10MB!')
+    this.$message.error(`上传图片大小不能超过 ${size}MB!`)
   }
 
   if (isImage && isLt2M) {

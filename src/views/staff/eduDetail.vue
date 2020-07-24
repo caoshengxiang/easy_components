@@ -18,60 +18,56 @@
                 </div>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="职工编号：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input disabled v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="职工编号：" label-width="140px" class="postInfo-container-item">
+                      <span>{{postForm.staff.staffNo}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="职工姓名：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input disabled v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="职工姓名：" label-width="140px" class="postInfo-container-item">
+                      <span>{{postForm.user.name}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="性别：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input disabled v-model="postForm.type" class="filter-item"/>
+                    <el-form-item label="性别：" label-width="140px" class="postInfo-container-item">
+                      <span>{{postForm.user.sex}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="140px" class="postInfo-container-item">
-                      <el-input disabled v-model="postForm.type" class="filter-item"/>
+                      <span>{{postForm.user.idNo}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="有无教师资格证：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="有无教师资格证：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.hasTeacherCertification"
                         placeholder=""
                         clearable
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option key="1" label="有" value="有"/>
-                        <el-option key="2" label="无" value="无"/>
+                        <el-option key="1" label="有" :value="true"/>
+                        <el-option key="2" label="无" :value="false"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="教师资格类型：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="教师资格类型：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.teacherCertificationType" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="职称类型：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="职称类型：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.professionalTitleType" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="获得专业技术职务时间：" prop="type" label-width="160px" class="postInfo-container-item">
+                    <el-form-item label="获得专业技术职务时间：" label-width="160px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
+                        v-model="postForm.staff.obtainDutyDate"
                         value-format="yyyy-MM"
-                        :disabled="type!=='add'"
                         type="month"
                         placeholder="选择月"
                         style="width: 100%;"
@@ -81,10 +77,9 @@
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="专业技术职务级别：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="专业技术职务级别：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.dutyLevel"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -94,10 +89,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="聘任专业技术职务：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="聘任专业技术职务：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.professionalDuty"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -121,10 +115,9 @@
                 </div>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="全日制学历(学位)：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="全日制学历(学位)：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.education"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -134,10 +127,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="学位：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="学位：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.degree"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -147,11 +139,10 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业时间：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="毕业时间：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
+                        v-model="postForm.staff.graduateDate"
                         value-format="yyyy-MM"
-                        :disabled="type!=='add'"
                         type="month"
                         placeholder="选择月"
                         style="width: 100%"
@@ -159,17 +150,15 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业院校：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="毕业院校：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.graduateSchool" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业专业：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="毕业专业：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.graducateSpecialty" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -190,23 +179,20 @@
 
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="最高学历(学位)" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="最高学历(学位)" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-if="type==='add'"
-                        v-model="postForm.type"
+                        v-model="postForm.staff.highestEducation"
                         placeholder=""
                         clearable
                         class="filter-item"
                         style=" width: 100%"
                       />
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="学位：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="学位：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-if="type==='add'"
-                        v-model="postForm.type"
+                        v-model="postForm.staff.highestDegree"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -214,14 +200,12 @@
                       >
                         <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
                       </el-select>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业时间：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="毕业时间：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.highestGraduateDate"
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
@@ -230,17 +214,15 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业院校：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="毕业院校：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.highestGraduateSchool" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="毕业专业：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="毕业专业：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.highestGraducateSpecialty" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -259,10 +241,9 @@
 
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="职位等级：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="职位等级：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.dutyCertificateLevel"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -272,22 +253,19 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="名称：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="名称：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.dutyName" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="发证单位：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="发证单位：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.issueUnit" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="发证日期：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="发证日期：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.issueDate"
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
@@ -306,10 +284,9 @@
                 </div>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="等级：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="等级：" label-width="140px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.qulificationCertificateLevel"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -319,22 +296,19 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="证书名称：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="证书名称：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.qulificationCertificateName" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="发证单位：" prop="type" label-width="140px" class="postInfo-container-item">
-                      <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item"/>
-                      <el-input v-else v-model="postForm.type" disabled class="filter-item"/>
+                    <el-form-item label="发证单位：" label-width="140px" class="postInfo-container-item">
+                      <el-input v-model="postForm.staff.qulificationCertificateIssueUnit" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="发证日期：" prop="type" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="发证日期：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
-                        :disabled="type!=='add'"
+                        v-model="postForm.staff.qulificationCertificateIssueDate"
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
@@ -362,7 +336,7 @@
 
   export default {
     name: 'ComplexTable',
-    components: { YDetailPageLayout },
+    components: { Breadcrumb, YDetailPageLayout },
     data() {
       return {
         type: 'detail',
@@ -392,7 +366,20 @@
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            //
+            this.$api.staff.editBase(this.postForm).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
+                }
+              }
+            })
           }
         })
       },

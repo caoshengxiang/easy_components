@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { fileDown } from '../../utils/file'
 /*
 * 岗位
 */
@@ -16,10 +17,10 @@ export default {
     return request.post(`staff`, params)
   },
   edit(params) {
-    return request.put(`staff/${params.id}`, params)
+    return request.put(`staff/${params.staff.id}`, params)
   },
   editBase(params) {
-    return request.put(`staff/base/${params.id}`, params)
+    return request.put(`staff/base/${params.staff.id}`, params)
   },
   // delete(params) {
   //   return request.delete(`staff/${params}`)
@@ -27,4 +28,10 @@ export default {
   // simpleAll(params) { // 下拉
   //   return request.get(`post/simpleAll`, { params: params })
   // }
+  download(params) {
+    return fileDown('staff/download', params)
+  },
+  importExcel(params) {
+    return request.post('staff/importExcel', params)
+  }
 }

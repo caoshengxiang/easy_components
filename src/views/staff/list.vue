@@ -4,11 +4,11 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
-<!--          新增教职工-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+        <!--          新增教职工-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_staff_add"
           class-name="filter-item"
@@ -17,88 +17,112 @@
           name=""
           :page-jump="true"
         />
+        <!--        <el-select-->
+        <!--          v-model="listQuery.grade"-->
+        <!--          placeholder="管理员类型"-->
+        <!--          clearable-->
+        <!--          filterable-->
+        <!--          style="margin-left: 20px;width: 100px"-->
+        <!--          class="filter-item"-->
+        <!--        >-->
+        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+        <!--        </el-select>-->
+        <!--        <el-select-->
+        <!--          v-model="listQuery.grade"-->
+        <!--          placeholder="部门"-->
+        <!--          clearable-->
+        <!--          filterable-->
+        <!--          style="margin-left: 20px;width: 100px"-->
+        <!--          class="filter-item"-->
+        <!--        >-->
+        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+        <!--        </el-select>-->
+        <!--        <el-select-->
+        <!--          v-model="listQuery.grade"-->
+        <!--          placeholder="岗位"-->
+        <!--          clearable-->
+        <!--          filterable-->
+        <!--          style="margin-left: 20px;width: 100px"-->
+        <!--          class="filter-item"-->
+        <!--        >-->
+        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+        <!--        </el-select>-->
         <el-select
-          v-model="listQuery.grade"
-          placeholder="管理员类型"
-          clearable
-          filterable
-          style="margin-left: 20px;width: 100px"
-          class="filter-item"
-        >
-          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-        </el-select>
-        <el-select
-          v-model="listQuery.grade"
-          placeholder="部门"
-          clearable
-          filterable
-          style="margin-left: 20px;width: 100px"
-          class="filter-item"
-        >
-          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-        </el-select>
-        <el-select
-          v-model="listQuery.grade"
-          placeholder="岗位"
-          clearable
-          filterable
-          style="margin-left: 20px;width: 100px"
-          class="filter-item"
-        >
-          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-        </el-select>
-        <el-select
-          v-model="listQuery.grade"
+          v-model="listQuery.sex"
           placeholder="性别"
           clearable
           filterable
           style="margin-left: 20px;width: 100px"
           class="filter-item"
         >
-          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+          <el-option label="男" value="男"/>
+          <el-option label="女" value="女"/>
         </el-select>
-        <el-input
-          v-model="listQuery.description"
-          placeholder="请输入关键字搜索"
-          prefix-icon="el-icon-search"
-          style="margin-left: 20px;width: 200px;"
-          class="filter-item"
-        />
+        <!--        <el-input-->
+        <!--          v-model=""-->
+        <!--          placeholder="请输入关键字搜索"-->
+        <!--          prefix-icon="el-icon-search"-->
+        <!--          style="margin-left: 20px;width: 200px;"-->
+        <!--          class="filter-item"-->
+        <!--        />-->
+        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable style="margin-left: 20px;width: 320px;">
+          <el-select
+            slot="prepend"
+            v-model="listQueryKey"
+            style="width: 90px;"
+            placeholder="请选择"
+          >
+            <el-option label="全部" value="keyword"/>
+            <el-option label="工号" value="staffNo"/>
+            <el-option label="姓名" value="name"/>
+            <el-option label="部门" value="organizationName"/>
+            <el-option label="岗位" value="postName"/>
+          </el-select>
+        </el-input>
       </template>
       <template slot="right">
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-search"
+                   @click="searchList">
           搜索
         </el-button>
-<!--        <el-button-->
-<!--          class="filter-item download-button"-->
-<!--          style="margin-left: 10px;"-->
-<!--          icon="el-icon-download"-->
-<!--          @click="handleCreate"-->
-<!--        >-->
-<!--          导入模板下载-->
-<!--        </el-button>-->
+        <!--        <el-button-->
+        <!--          class="filter-item download-button"-->
+        <!--          style="margin-left: 10px;"-->
+        <!--          icon="el-icon-download"-->
+        <!--          @click="handleCreate"-->
+        <!--        >-->
+        <!--          导入模板下载-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_staff_list_import"
           class-name="filter-item"
           icon="el-icon-download"
           name="导入模板下载"
+          @click="exportFile"
         />
-<!--        <el-button-->
-<!--          class="filter-item download-button"-->
-<!--          style="margin-left: 10px;"-->
-<!--          type="primary"-->
-<!--          icon="el-icon-upload2"-->
-<!--          @click="handleCreate"-->
-<!--        >-->
-<!--          导入-->
-<!--        </el-button>-->
-        <PermissionButton
-          menu-no="_views_staff_list_import"
-          class-name="filter-item"
-          type="primary"
-          icon="el-icon-upload2"
-          name=""
-        />
+        <!--        <el-button-->
+        <!--          class="filter-item download-button"-->
+        <!--          style="margin-left: 10px;"-->
+        <!--          type="primary"-->
+        <!--          icon="el-icon-upload2"-->
+        <!--          @click="handleCreate"-->
+        <!--        >-->
+        <!--          导入-->
+        <!--        </el-button>-->
+        <el-upload
+          class="filter-item"
+          style="display: inline-block;margin-left: 10px;"
+          action=""
+          :before-upload="beforeUpload"
+        >
+          <PermissionButton
+            menu-no="_views_staff_list_import"
+            class-name="filter-item"
+            type="primary"
+            icon="el-icon-upload2"
+            name="导入"
+          />
+        </el-upload>
       </template>
       <el-table
         slot="table"
@@ -125,19 +149,19 @@
             <span>{{ row.sex }} </span>
           </template>
         </el-table-column>
-<!--        <el-table-column label="管理员类型" align="center">-->
-<!--          <template slot-scope="{row}">-->
-<!--            <span>{{ row.teacherType }} </span>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
-<!--        <el-table-column label="" align="center">-->
-<!--          <template slot-scope="{row}">-->
-<!--            <span>{{ row}} </span>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
+        <!--        <el-table-column label="管理员类型" align="center">-->
+        <!--          <template slot-scope="{row}">-->
+        <!--            <span>{{ row.teacherType }} </span>-->
+        <!--          </template>-->
+        <!--        </el-table-column>-->
+        <!--        <el-table-column label="" align="center">-->
+        <!--          <template slot-scope="{row}">-->
+        <!--            <span>{{ row}} </span>-->
+        <!--          </template>-->
+        <!--        </el-table-column>-->
         <el-table-column label="所属部门-岗位" align="center">
           <template slot-scope="{row}">
-            <span v-for="(item, index) in row.posts" :key="item.id"><span v-if="index > 0">、</span>{{ item.organizationName}}-{{item.postName }} </span>
+            <span v-for="(item, index) in row.posts" :key="item.id"><span v-if="index > 0">、</span>{{ item.organizationName }}-{{ item.postName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="基本信息" align="center">
@@ -228,10 +252,11 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          limit: 10,
-          name: '',
-          keyword: '',
+          size: 20,
+          // name: '',
+          // staffNo: ''
         },
+        listQueryKey: 'keyword'
       }
     },
     created() {
@@ -239,6 +264,25 @@
       that.getList()
     },
     methods: {
+      exportFile() {
+        this.$api.staff.download()
+      },
+      beforeUpload(file) {
+        const param = new FormData()
+        param.append('file', file, file.name)
+        this.$api.staff.importExcel(param).then((res) => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '导入成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+          }
+        })
+        return false
+      },
       removeHandle(row) {
         // console.log(data)
         const that = this
@@ -260,11 +304,19 @@
           })
           .catch(err => { console.error(err) })
       },
+      searchList() {
+        // 重置分页
+        this.listQuery.page = 1
+        this.listQuery.size = 20
+        this.getList()
+      },
       getList() {
         const that = this
         this.listLoading = true
         // console.log(that.listQuery)
-        this.$api.staff.list(that.listQuery).then(res => {
+        const key = {}
+        key[this.listQueryKey] = this.listQuery.description
+        this.$api.staff.list(Object.assign({}, that.listQuery, key)).then(res => {
           that.pageData = res.data
           setTimeout(() => {
             that.listLoading = false

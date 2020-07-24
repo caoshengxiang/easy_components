@@ -4,7 +4,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout :save="handleCreate" :edit-status="false">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName" @tab-click="handleClick" v-loading="vLoading" element-loading-text="处理中。。。">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
             <div class="createPost-main-container">
@@ -18,16 +18,26 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="员工类型：" label-width="120px" class="postInfo-container-item">
-                      <el-select v-model="postForm.staff.staffType" clearable filterable placeholder=""
-                                 style="width: 100%">
+                      <el-select
+                        v-model="postForm.staff.staffType"
+                        clearable
+                        filterable
+                        placeholder=""
+                        style="width: 100%"
+                      >
                         <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="教师类型：" label-width="120px" class="postInfo-container-item">
-                      <el-select v-model="postForm.staff.teacherType" clearable filterable placeholder=""
-                                 style="width: 100%">
+                      <el-select
+                        v-model="postForm.staff.teacherType"
+                        clearable
+                        filterable
+                        placeholder=""
+                        style="width: 100%"
+                      >
                         <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
                       </el-select>
                     </el-form-item>
@@ -61,10 +71,8 @@
                       <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -109,7 +117,7 @@
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="出生日期：" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
-                        v-model="postForm.type"
+                        v-model="postForm.user.birthday"
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
@@ -119,18 +127,18 @@
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="民族：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                      <el-input v-model="postForm.staff.nation" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="联系电话：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                      <el-input v-model="postForm.user.mobile" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="政治面貌：" label-width="120px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.type"
+                        v-model="postForm.staff.politics"
                         placeholder=""
                         clearable
                         class="filter-item"
@@ -153,7 +161,7 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="备注：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff" type="textarea" class="filter-item"/>
+                      <el-input v-model="postForm.staff.remark" type="textarea" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -234,23 +242,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <!--                    <el-form-item label="岗位级别：" label-width="180px" class="postInfo-container-item">-->
-                    <!--                      <el-select-->
-                    <!--                        v-model="postForm.type"-->
-                    <!--                        placeholder=""-->
-                    <!--                        clearable-->
-                    <!--                        class="filter-item"-->
-                    <!--                        style=" width: 100%"-->
-                    <!--                      >-->
-                    <!--                        <el-option label="是" value="是"/>-->
-                    <!--                        <el-option label="否" value="否"/>-->
-                    <!--                      </el-select>-->
-                    <!--                    </el-form-item>-->
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <!--                    <el-form-item label="薪级：" label-width="120px" class="postInfo-container-item">-->
-                    <!--                      <el-input v-model="postForm.type" class="filter-item"/>-->
-                    <!--                    </el-form-item>-->
                   </el-col>
                 </el-row>
 
@@ -725,17 +718,17 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData"
+                    :data="postForm.teacherPracticeProjects"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="term"
                       label="学期"
-                      width="100"
+                      width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.major"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -746,13 +739,13 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="grade"
                       label="年级"
-                      width="100"
+                      width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.grade"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -763,13 +756,13 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="major"
                       label="专业"
                       width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.major"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -780,27 +773,44 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="course"
+                      label="课程"
+                      width="140"
+                    >
+                      <template slot-scope="{row}">
+                        <el-select
+                          v-model="row.course"
+                          placeholder=""
+                          clearable
+                          class="filter-item"
+                          style=" width: 100%"
+                        >
+                          <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        </el-select>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      prop="experiment"
                       label="实验"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.experiment" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="training"
                       label="实训"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.training" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="practice"
                       label="实习"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.practice" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -808,8 +818,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -840,35 +850,35 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData2"
+                    :data="postForm.teacherPatents"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="patentNo"
                       label="专利编号"
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.patentNo" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="name"
                       label="专利名称"
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="obtainDate"
                       label="获奖日期"
                       width="180"
                     >
                       <template slot-scope="{row}">
                         <el-date-picker
-                          v-model="row.key"
+                          v-model="row.obtainDate"
                           type="date"
                           value-format="yyyy-MM-dd"
                           style="width: 100%"
@@ -877,11 +887,11 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="cooperationSituation"
                       label="合作情况"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -889,8 +899,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove2(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -921,35 +931,35 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData3"
+                    :data="postForm.teacherAwards"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="name"
                       label="获奖名称"
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="level"
                       label="级别"
                       width="100"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.level" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="obtainDate"
                       label="获奖日期"
                       width="180"
                     >
                       <template slot-scope="{row}">
                         <el-date-picker
-                          v-model="row.key"
+                          v-model="row.obtainDate"
                           type="date"
                           value-format="yyyy-MM-dd"
                           style="width: 100%"
@@ -958,20 +968,20 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="issueUnit"
                       label="颁奖单位"
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.issueUnit" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="cooperationSituation"
                       label="合作情况"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -979,8 +989,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove3(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1011,26 +1021,26 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData4"
+                    :data="postForm.teacherResearchTopics"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="name"
                       label="课题名称"
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="cate"
                       label="课题分类"
                       width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.cate"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -1041,13 +1051,13 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="property"
                       label="性质"
                       width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.property"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -1058,13 +1068,13 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="approvalDate"
                       label="立项日期"
                       width="180"
                     >
                       <template slot-scope="{row}">
                         <el-date-picker
-                          v-model="row.key"
+                          v-model="row.approvalDate"
                           type="date"
                           value-format="yyyy-MM-dd"
                           style="width: 100%"
@@ -1073,29 +1083,29 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="fundingSource"
                       label="经费来源"
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.fundingSource" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="receiveAmount"
                       label="到款金额（元）"
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.receiveAmount" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="finishOrder"
                       label="完成人顺序"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.finishOrder" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1103,8 +1113,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove4(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1135,26 +1145,26 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData5"
+                    :data="postForm.teacherTrainings"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="name"
                       label="项目名称"
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="cate"
                       label="类型"
                       width="140"
                     >
                       <template slot-scope="{row}">
                         <el-select
-                          v-model="row.type"
+                          v-model="row.cate"
                           placeholder=""
                           clearable
                           class="filter-item"
@@ -1165,36 +1175,36 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="days"
                       label="时间（天）"
                       width="100"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.days" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="location"
                       label="地点"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.location" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="department"
                       label="派出部门"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.department" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="post"
                       label="岗位"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" class="filter-item"/>
+                        <el-input v-model="row.post" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1202,8 +1212,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove5(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1234,44 +1244,44 @@
                 </div>
                 <div>
                   <el-table
-                    :data="postForm.tableData6"
+                    :data="postForm.teacherPapers"
                     style="width: 100%"
                   >
                     <el-table-column
-                      prop="key"
+                      prop="name"
                       label="名称"
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="cate"
                       label="著作/论文分类"
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cate" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="publishUnit"
                       label="出版单位"
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.publishUnit" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="publishDate"
                       label="出版/发表日期"
                       width="180"
                     >
                       <template slot-scope="{row}">
                         <el-date-picker
-                          v-model="row.key"
+                          v-model="row.publishDate"
                           type="date"
                           value-format="yyyy-MM-dd"
                           style="width: 100%"
@@ -1280,11 +1290,11 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      prop="key"
+                      prop="authorOrder"
                       label="作者顺序"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.key" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.authorOrder" autosize type="textarea" class="filter-item"/>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1292,8 +1302,8 @@
                       label="操作"
                       width="160"
                     >
-                      <template slot-scope="{row}">
-                        <el-button type="danger">删除</el-button>
+                      <template slot-scope="{row, $index}">
+                        <el-button type="danger" @click="handleRemove6(row, $index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1320,13 +1330,15 @@
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   const defaultForm = {
-    staff: '',
-    tableData: [],
-    tableData2: [],
-    tableData3: [],
-    tableData4: [],
-    tableData5: [],
-    tableData6: [],
+    user: {},
+    staff: {},
+    delTeacherPosts: [], // 教职工岗位删除ID列表
+    teacherPracticeProjects: [], // 教师实践项目
+    teacherPatents: [], // 教师专利
+    teacherAwards: [], // 教师获奖情况
+    teacherResearchTopics: [], // 教师在研课题
+    teacherTrainings: [], // 教师培训
+    teacherPapers: [], // 教师著作论文
   }
 
   export default {
@@ -1348,12 +1360,29 @@
         },
         dataId: this.$route.query.id,
         activeName: 'first',
+        delTeacherPosts: [],
+        delTeacherPracticeProjects: [],
+        delTeacherPatents: [],
+        delTeacherAwards: [],
+        delTeacherResearchTopics: [],
+        delTeacherTrainings: [],
+        delTeacherPapers: [],
+        vLoading: false,
       }
     },
     created() {
       this.getDetail()
     },
     methods: {
+      initData() {
+        this.delTeacherPosts = [] // 教职工岗位删除ID列表
+        this.delTeacherPracticeProjects = [] // 教师实践项目
+        this.delTeacherPatents = [] // 教师专利
+        this.delTeacherAwards = [] // 教师获奖情况
+        this.delTeacherResearchTopics = [] // 教师在研课题
+        this.delTeacherTrainings = [] // 教师培训
+        this.delTeacherPapers = [] // 教师著作论文
+      },
       handleClick(tab, event) {
         console.log(tab, event)
       },
@@ -1362,33 +1391,144 @@
           this.$api.staff.detail(this.dataId).then(res => {
             this.postForm = res.data
           })
+          this.initData()
         }
       },
       handleCreate() {
+        this.vLoading = true
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            //
+            this.$api.staff.edit(Object.assign({}, this.postForm, {
+              delTeacherPosts: this.delTeacherPosts,
+              delTeacherPracticeProjects: this.delTeacherPracticeProjects,
+              delTeacherPatents: this.delTeacherPatents,
+              delTeacherAwards: this.delTeacherAwards,
+              delTeacherResearchTopics: this.delTeacherResearchTopics,
+              delTeacherTrainings: this.delTeacherTrainings,
+              delTeacherPapers: this.delTeacherPapers,
+            })).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                // const back = this.$route.query.back
+                // if (back) {
+                //   this.$router.push(back)
+                // }
+                this.initData()
+                this.vLoading = false
+              }
+            }).catch(() => {
+              this.vLoading = false
+            })
           }
         })
       },
-      handleAdd() {
-        this.postForm.tableData.push({ key: '' })
+      handleAdd() { // 教师实践项目
+        this.postForm.teacherPracticeProjects.push({ key: '' })
+      },
+      handleRemove(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherPracticeProjects.push(row.id)
+            }
+            this.postForm.teacherPracticeProjects.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
       },
       handleAdd2() {
-        this.postForm.tableData2.push({ key: '' })
+        this.postForm.teacherPatents.push({ key: '' })
+      },
+      handleRemove2(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherPatents.push(row.id)
+            }
+            this.postForm.teacherPatents.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
       },
       handleAdd3() {
-        this.postForm.tableData3.push({ key: '' })
+        this.postForm.teacherAwards.push({ key: '' })
+      },
+      handleRemove3(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherAwards.push(row.id)
+            }
+            this.postForm.teacherAwards.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
       },
       handleAdd4() {
-        this.postForm.tableData4.push({ key: '' })
+        this.postForm.teacherResearchTopics.push({ key: '' })
+      },
+      handleRemove4(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherResearchTopics.push(row.id)
+            }
+            this.postForm.teacherResearchTopics.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
       },
       handleAdd5() {
-        this.postForm.tableData5.push({ key: '' })
+        this.postForm.teacherTrainings.push({ key: '' })
+      },
+      handleRemove5(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherTrainings.push(row.id)
+            }
+            this.postForm.teacherTrainings.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
       },
       handleAdd6() {
-        this.postForm.tableData6.push({ key: '' })
-      }
+        this.postForm.teacherPapers.push({ key: '' })
+      },
+      handleRemove6(row, index) {
+        this.$confirm('确认删除当前记录吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            if (row.id) {
+              this.delTeacherPapers.push(row.id)
+            }
+            this.postForm.teacherPapers.splice(index, 1)
+          })
+          .catch(err => { console.error(err) })
+      },
     }
   }
 </script>
