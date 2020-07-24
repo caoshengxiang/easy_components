@@ -17,8 +17,6 @@
       >
         <el-table-column label="标题" prop="processName" align="center">
         </el-table-column>
-        <el-table-column label="申请人" prop="startName"  align="center">
-        </el-table-column>
         <el-table-column label="申请时间" prop="startTime" align="center">
         </el-table-column>
         <el-table-column label="审核时间" prop="startName" align="center">
