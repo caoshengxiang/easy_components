@@ -20,4 +20,8 @@ export default {
   refuse(params) {
     return request.post(`/approval/task/refuse/${params.id}`, params)
   },
+  myTask(params){
+    return request.get('approval/process/apply', {params:params})
+  },
+
 }

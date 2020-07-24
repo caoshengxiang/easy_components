@@ -86,7 +86,7 @@
     methods:{
       taskdetail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id } });
+        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id,type:1 } });
         window.open(routeData.href, '_blank');
       },
       detail(id){

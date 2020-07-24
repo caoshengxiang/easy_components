@@ -35,7 +35,7 @@
                   </span>
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="24" >
               <el-form-item label="审批记录："  prop="status" label-width="100px">
                 <el-table
                   :data="form.records"
@@ -62,7 +62,7 @@
                 </el-table>
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="24"  v-if="type==1">
               <el-form-item label="审核结果："  prop="type" label-width="100px">
                 <el-select v-model="form.type" class="filter-item" style="float: left;" placeholder="请选择">
                   <el-option key="1" label="通过" value="1"  />
@@ -70,12 +70,12 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="24"  v-if="type==1">
               <el-form-item label="审核意见："  prop="msg" label-width="100px">
                 <el-input type="textarea"  v-model="form.msg"  class="filter-item" style="width: 500px"/>
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="24"  v-if="type==1">
               <el-form-item   prop="status" label-width="100px" style="padding-left: 20%">
                 <el-button type="primary" @click="auditData()"  style="border-radius:15px;" >
                   确定
@@ -110,6 +110,7 @@
       },
       data() {
         return {
+          type: 0,
           temp: {},
           form: {},
           formData: {},
@@ -123,6 +124,7 @@
       },
       created() {
         let that = this
+        that.type = that.$route.query.type
         that.getDetail()
       },
       methods: {
