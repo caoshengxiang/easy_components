@@ -26,13 +26,14 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="primary" round @click="detail(row.taskId)">申请详情</el-button>
+            <el-button type="primary" round @click="taskdetail(row.taskId)">审核明细</el-button>
             <el-button type="primary" round @click="handleCreate(row)">审核</el-button>
           </template>
         </el-table-column>
       </el-table>
     </y-page-list-layout>
     <el-dialog title="审核" :visible.sync="dialogFormVisible" >
-      <el-form ref="dataForm" :model="temp" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
+      <el-form ref="dataForm" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
         <!--  <el-form-item label="Date" prop="timestamp">
             <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
           </el-form-item>
@@ -80,7 +81,11 @@
           current:0,
           size:10
         },
-        temp:{}
+        temp:{},
+        rules: {
+          type: [{required: true, message: '请选择是否通过', trigger: 'change'}],
+          msg: [{required: true, message: '请输入审核意见', trigger: 'change'}],
+        }
       }
     },
     created(){
@@ -88,6 +93,11 @@
       that.getList();//分页列表
     },
     methods:{
+      taskdetail(id){
+        let that =this;
+        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id } });
+        window.open(routeData.href, '_blank');
+      },
       detail(id){
         let that =this;
         let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id } });
@@ -96,45 +106,45 @@
       },
       auditData(){
         let that = this
-        if(that.temp.type == 1){
-          that.$api.task.agree({id:that.temp.taskId, msg:that.temp.msg}).then(res => {
-            that.loading = false;
-            if(res.code === 200){
-              that.$message({
-                type: 'success',
-                message: "操作成功"
+        that.$refs.dataForm.validate(valid => {
+          if (valid) {
+            if (that.temp.type == 1) {
+              that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+                that.loading = false;
+                if (res.code === 200) {
+                  that.$message({
+                    type: 'success',
+                    message: "操作成功"
+                  })
+                  that.dialogFormVisible = false
+                  that.getList()
+                } else {
+                  that.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
               })
-              that.dialogFormVisible = false
-              that.getList()
-            }
-            else{
-              that.$message({
-                type: 'error',
-                message: data.msg
+            } else {
+              that.$api.task.refuse({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+                that.loading = false;
+                if (res.code === 200) {
+                  that.$message({
+                    type: 'success',
+                    message: "操作成功"
+                  })
+                  that.dialogFormVisible = false
+                  that.getList()
+                } else {
+                  that.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
               })
             }
-          })
-        }
-        else{
-          that.$api.task.refuse({id:that.temp.taskId, msg:that.temp.msg}).then(res => {
-            that.loading = false;
-            if(res.code === 200){
-              that.$message({
-                type: 'success',
-                message: "操作成功"
-              })
-              that.dialogFormVisible = false
-              that.getList()
-            }
-            else{
-              that.$message({
-                type: 'error',
-                message: data.msg
-              })
-            }
-          })
-        }
-
+          }
+        })
       },
       handleCreate(row) {
         let that = this

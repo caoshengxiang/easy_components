@@ -67,7 +67,7 @@ import _views_workflow_Detail from '@/views/workflow/Detail'
 import _views_workflow_task_list from '@/views/workflow/task/List'
 import _views_workflow_task_AttendList from '@/views/workflow/task/AttendList'
 import _views_workflow_task_Detail from '@/views/workflow/task/Detail'
-
+import _views_workflow_task_TaskDetail from '@/views/workflow/task/TaskDetail'
 /*
 * 字段说明：
 * 页面全路径url: 对应的路由组件
@@ -75,6 +75,7 @@ import _views_workflow_task_Detail from '@/views/workflow/task/Detail'
 export default {
   _views_workflow_task_list,//待办列表
   _views_workflow_task_Detail,//任务详情
+  _views_workflow_task_TaskDetail,//任务详情
   _views_workflow_task_AttendList,//已办列表
   _views_workflow_List, // 工作流列表
   _views_workflow_Design, // 工作流
