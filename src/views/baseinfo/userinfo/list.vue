@@ -74,7 +74,7 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="getList">
+        <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="primary" @click="downloadTemplate">
@@ -320,7 +320,11 @@
       that.getAllEnum()
     },
     methods: {
-
+      searchList(){
+        let that = this;
+        that.pagePara.current = 0
+        that.getList()
+      },
       getAllEnum(){
         let that = this
         that.$api.globalConfig.getAllEnum().then(data => {

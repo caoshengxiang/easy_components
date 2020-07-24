@@ -1,59 +1,31 @@
 <template>
-  <div class="app-container staff-detail">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-    <el-button
-      v-if="type==='detail'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='add'"
-    >
-      编辑
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='detail'"
-    >
-      取消
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;margin-right: 0px"
-      type="primary"
-      icon="el-icon-edit"
-      @click="handleCreate"
-    >
-      保存
-    </el-button>
+
+  <div class="assetinfo-detail app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    </div>
+    <y-detail-page-layout :save="save">
     <div class="createPost-container">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
         <div class="createPost-main-container">
           <el-row>
             <el-col :span="24">
-              <el-form-item label="系部编号：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+              <el-form-item label="系部编号：" prop="code" label-width="120px" class="postInfo-container-item">
+                <el-input  v-model="postForm.code" class="filter-item" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="系部名称：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
+              <el-form-item label="系部名称：" prop="name" label-width="120px" class="postInfo-container-item">
+                <el-input  v-model="postForm.name" class="filter-item" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
               <el-form-item label="系部负责人：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 160px;margin-right: 10px;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+                <el-select v-model="postForm.type" placeholder="岗位"  clearable filterable style="width: 160px;margin-right: 10px;">
+        <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
                 </el-select>
-                <el-select v-model="postForm.type" placeholder="负责人" :disabled="type!=='add'" clearable filterable style="width: 200px">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
+                <el-select v-model="postForm.leaderId" placeholder="负责人" clearable filterable style="width: 200px">
+            <el-option v-for="item in  staff" :key="item.userId" :label="item.name" :value="item.userId" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -61,11 +33,14 @@
         </div>
       </el-form>
     </div>
+
+    </y-detail-page-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   const defaultForm = {
     type: '',
@@ -79,7 +54,7 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb },
+    components: { Breadcrumb,YDetailPageLayout },
     data() {
       return {
         type: 'detail',
@@ -91,11 +66,46 @@
             trigger: 'change'
           }],
         },
+        gangwei:[],
+        staff:[]
       }
     },
     created() {
+      let that = this
+      that.simpleAll()
+      that.staffAll()
     },
     methods: {
+      simpleAll(){
+        let that = this
+        that.$api.post.simpleAll().then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.gangwei = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      staffAll(){
+        let that = this
+        that.$api.staff.list().then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.staff = data.data.records
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {

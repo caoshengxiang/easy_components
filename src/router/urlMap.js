@@ -50,7 +50,6 @@ import _views_baseinfo_assetinfo_trainingdetail from '@/views/baseinfo/assetinfo
 import _views_baseinfo_assetinfo_facilitieslist from '@/views/baseinfo/assetinfo/facilitieslist'
 import _views_baseinfo_assetinfo_facilitiesdetail from '@/views/baseinfo/assetinfo/facilitiesdetail'
 import _views_baseinfo_department_list from '@/views/baseinfo/department/list'
-import _views_baseinfo_department_detail from '@/views/baseinfo/department/detail'
 import _views_baseinfo_department_edit from '@/views/baseinfo/department/edit'
 import _views_baseinfo_major_list from '@/views/baseinfo/major/list'
 import _views_baseinfo_major_detail from '@/views/baseinfo/major/detail'
@@ -118,7 +117,6 @@ export default {
   _views_baseinfo_assetinfo_facilitieslist, // 设施管理
   _views_baseinfo_assetinfo_facilitiesdetail, // 设施详情
   _views_baseinfo_department_list, // 系部信息管理
-  _views_baseinfo_department_detail, // 系部信息管理
   _views_baseinfo_department_edit, // 系部信息管理
   _views_baseinfo_major_list, // 专业信息管理
   _views_baseinfo_major_detail, // 专业信息管理

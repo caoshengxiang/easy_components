@@ -28,7 +28,7 @@
         <el-input v-model="listQuery.keyword" placeholder="用地编号或名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="getList">
+        <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
       </template>
@@ -126,6 +126,12 @@
       that.getList();
     },
     methods:{
+      searchList(){
+        let that = this;
+        that.pagePara.current = 0
+
+        that.getList()
+      },
       deleteInfo(id){
         const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
