@@ -73,7 +73,7 @@
               <el-input v-model="listQuery.keyword" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
             </div>
             <div class="filter-container" style="width:40%;float: right;text-align: right">
-              <el-button class="filter-item " type="primary" @click="getList">
+              <el-button class="filter-item " type="primary" @click="searchList">
                 搜索
               </el-button>
               <el-button class="filter-item" round type="primary" @click="downloadTemplate">
@@ -278,6 +278,12 @@
       that.getStaffList();
     },
     methods:{
+      searchList(){
+        let that = this;
+        that.pagePara.current = 0
+
+        that.getList()
+      },
       downloadCodeTemplate(){
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
       },
