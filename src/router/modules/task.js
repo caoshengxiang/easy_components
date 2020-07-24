@@ -27,7 +27,7 @@ export default {
     {
       path: 'taskdetail',
       component: () => import('@/views/workflow/task/TaskDetail'),
-      meta: { title: '申请详情' },
+      meta: { title: '任务详情' },
       name: 'taskdetail'
     },
   ]
