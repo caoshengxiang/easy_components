@@ -54,17 +54,17 @@
         </el-table-column>
         <el-table-column label="系部负责人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.leaderName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="创建人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.creatorName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.created }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
