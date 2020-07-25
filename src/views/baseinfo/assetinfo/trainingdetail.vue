@@ -211,7 +211,7 @@
 
       that.organizationSimpleAll() // //查询建筑物列表
       that.getTeachingList() // //查询建筑物列表
-      that.getByTypeId(71)
+      that.getByTypeId('experimentRoomType')
       that.getStaffList()
     },
     methods: {
@@ -231,7 +231,7 @@
       },
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             that.experimentRoomType = data.data
           } else {

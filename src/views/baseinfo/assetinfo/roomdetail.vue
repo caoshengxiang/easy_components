@@ -238,13 +238,13 @@
       }
 
       that.getConstructionPage() // //查询建筑物列表
-      that.getByTypeId(61)
+      that.getByTypeId('type')
     },
 
     methods: {
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             that.roomType = data.data
           } else {

@@ -1,9 +1,25 @@
 import request from '@/utils/request'
-/*
-* 年级
-*/
+
 export default {
-  simpleAll(params) { // 下拉
-    return request.get(`grade/list`, { params: params })
-  }
+  /*系部相关接口*/
+  list(params){
+    return request.get('grade', { params: params })
+  },
+  edit(params){
+    return request.put('grade/' +  params.id, params )
+  },
+  detail(params) {
+    return request.get('/grade/'+ params)
+  },
+  add(params){
+    return request.post('grade' , params )
+  },
+  delete(params){
+    return request.delete('grade/'+  params.id , params )
+  },
+  /*系部相关接口*/
+  listbase(params){
+    return request.get('/grade/list/base')
+  },
+
 }

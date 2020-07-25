@@ -413,43 +413,43 @@
       }
 
       that.getDepartmentList() // //查询建筑物列表
-      that.getByTypeId(55)
-      that.getByTypeId(54)
-      that.getByTypeId(56)
-      that.getByTypeId(50)
-      that.getByTypeId(57)
-      that.getByTypeId(58)
-      that.getByTypeId(59)
-      that.getByTypeId(52)
+      that.getByTypeId('structuralNo')
+      that.getByTypeId('typeNo')
+      that.getByTypeId('source')
+      that.getByTypeId('propertyRight')
+      that.getByTypeId('code1')
+      that.getByTypeId('code2')
+      that.getByTypeId('buildStatus')
+      that.getByTypeId('campus')
     },
     methods: {
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
-              case 55:
+              case 'structuralNo':
                 that.structuralNo = data.data
                 break
-              case 54:
+              case 'typeNo':
                 that.typeNo = data.data
                 break
-              case 56:
+              case 'source':
                 that.source = data.data
                 break
-              case 50:
+              case 'propertyRight':
                 that.propertyRight = data.data
                 break
-              case 57:
+              case 'code1':
                 that.code1 = data.data
                 break
-              case 58:
+              case 'code2':
                 that.code2 = data.data
                 break
-              case 59:
+              case 'buildStatus':
                 that.buildStatus = data.data
                 break
-              case 52:
+              case 'campus':
                 that.campus = data.data
                 break
             }

@@ -2,10 +2,10 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout :save="save">
-      <el-tabs value="first" @tab-click="handleClick">
+      <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 5% ">
             <div class="createPost-main-container">
@@ -13,12 +13,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="课程编号：" prop="code" label-width="200px" class="postInfo-container-item ">
-                      <el-input v-model="postForm.code" class="filter-item" />
+                      <el-input v-model="postForm.code" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="课程名称：" prop="name" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.name" class="filter-item" />
+                      <el-input v-model="postForm.name" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -30,7 +30,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.课程类型" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.课程类型" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -46,25 +46,25 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.课程属性" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.课程属性" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学时：" prop="hours" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.hours" class="filter-item" />
+                      <el-input v-model="postForm.hours" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="学分：" prop="credit" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.credit" class="filter-item" />
+                      <el-input v-model="postForm.credit" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="周上课节数：" prop="classNum" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.classNum" class="filter-item" />
+                      <el-input v-model="postForm.classNum" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <!-- <el-col :span="8">
@@ -95,7 +95,7 @@
                       label-width="200px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.planClassHour" class="filter-item" />
+                      <el-input v-model="postForm.planClassHour" class="filter-item"/>
                     </el-form-item>
                   </el-col>
 
@@ -106,7 +106,7 @@
                       label-width="200px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.practiceClassHour" class="filter-item" />
+                      <el-input v-model="postForm.practiceClassHour" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -122,7 +122,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.课程性质" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.课程性质" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -140,7 +140,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -158,7 +158,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.精品课程" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.精品课程" :key="item" :label="item" :value="item"/>
 
                       </el-select>
                     </el-form-item>
@@ -170,11 +170,11 @@
                   <el-col :span="8">
                     <el-form-item label="授课年级：" prop="grade" label-width="200px" class="postInfo-container-item">
                       <el-checkbox-group v-model="postForm.grade">
-                        <el-checkbox label="一年级" />
-                        <el-checkbox label="二年级" />
-                        <el-checkbox label="三年级" />
-                        <el-checkbox label="四年级" />
-                        <el-checkbox label="混合年级" />
+                        <el-checkbox label="一年级"/>
+                        <el-checkbox label="二年级"/>
+                        <el-checkbox label="三年级"/>
+                        <el-checkbox label="四年级"/>
+                        <el-checkbox label="混合年级"/>
                       </el-checkbox-group>
                     </el-form-item>
                   </el-col>
@@ -187,7 +187,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in teachingRoom" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in AllEnum.主要授课地点" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -198,7 +198,7 @@
                       label-width="200px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.teachingWay" class="filter-item" />
+                      <el-input v-model="postForm.teachingWay" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -207,7 +207,7 @@
 
                   <el-col :span="8">
                     <el-form-item label="考试/考核主要方式：" prop="examWay" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.examWay" class="filter-item" />
+                      <el-input v-model="postForm.examWay" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -224,7 +224,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -243,7 +243,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -403,15 +403,43 @@
 
       that.getGradeList()
       that.getAllEnum()
-      that.getByTypeId(46)
-      that.getByTypeId(47)
-      that.getByTypeId(52)
-      that.getByTypeId(74)
-      that.getByTypeId(75)
-      that.getByTypeId(76)
-      that.getByTypeId(77)
+      that.getByTypeId('courseProperties')
+      that.getByTypeId('courseCategory')
+      that.getByTypeId('campus')
+      that.getByTypeId('courseCate')
+      that.getByTypeId('courseNature')
     },
     methods: {
+
+      getByTypeId(id) {
+        const that = this
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 'campus':
+                that.campus = data.data
+                break
+              case 'courseCategory':
+                that.courseCategory = data.data
+                break
+              case 'courseProperties':
+                that.courseProperties = data.data
+                break
+              case 'courseCate':
+                that.courseCate = data.data
+                break
+              case 'courseNature':
+                that.courseNature = data.data
+                break
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getAllEnum() {
         const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
@@ -425,41 +453,7 @@
           }
         })
       },
-      getByTypeId(id) {
-        const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
-          if (data.code === 200) {
-            switch (id) {
-              case 52:
-                that.campus = data.data
-                break
-              case 47:
-                that.courseCategory = data.data
-                break
-              case 46:
-                that.courseProperties = data.data
-                break
-              case 74:
-                that.vipCourse = data.data
-                break
-              case 75:
-                that.courseCate = data.data
-                break
-              case 76:
-                that.courseNature = data.data
-                break
-              case 77:
-                that.teachingRoom = data.data
-                break
-            }
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
+
       getGradeList() {
         const that = this
         that.$api.baseInfo.getGradeList().then(data => {

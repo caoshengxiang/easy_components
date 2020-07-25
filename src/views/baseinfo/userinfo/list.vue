@@ -36,14 +36,14 @@
           class="filter-item"
           style="margin-left:10px;margin-bottom: 10px;width: 100px"
         >
-          <el-option v-for="item in IsFull" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
         </el-select>
 
         <el-select
           v-model="listQuery.schoolGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
@@ -54,7 +54,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -63,7 +63,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -80,18 +80,18 @@
           v-model="listQuery.keyword"
           placeholder="学号或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 150px;margin-bottom: 10px;"
           class="filter-item"
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item"         size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
+        <!--        <el-button class="filter-item"          size="mini" round type="primary" @click="downloadTemplate">-->
         <!--          学生信息模板下载-->
         <!--        </el-button>-->
-        <!--        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">-->
+        <!--        <el-button class="filter-item"          size="mini" round type="primary" @click="downloadCodeTemplate">-->
         <!--          学籍号模板下载-->
         <!--        </el-button>-->
         <PermissionButton
@@ -326,7 +326,7 @@
         total: 0,
         listLoading: true,
         listQuery: {
-          type: 1,
+          type: '',
           schoolGradeId: '',
           schoolSpecialtyId: '',
           schoolClbumId: '',
@@ -601,7 +601,7 @@
       getList() {
         const that = this
 
-        if (that.listQuery.type == 2) {
+        if (that.listQuery.type === '学籍班') {
           that.listQuery.administrativeGradeId = that.listQuery.schoolGradeId
           that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
           that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId

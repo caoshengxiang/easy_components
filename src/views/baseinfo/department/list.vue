@@ -28,7 +28,7 @@
         <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="getList">
+        <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
       </template>
@@ -54,17 +54,17 @@
         </el-table-column>
         <el-table-column label="系部负责人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.leaderName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="创建人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.creatorName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }} </span>
+            <span>{{ row.created }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
@@ -107,6 +107,12 @@
       that.getList();
     },
     methods:{
+
+      searchList(){
+        let that = this;
+        that.pagePara.current = 0
+        that.getList()
+      },
       add(){
         let that =this;
         that.$router.push({

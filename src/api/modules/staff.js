@@ -33,5 +33,9 @@ export default {
   },
   importExcel(params) {
     return request.post('staff/importExcel', params)
-  }
+  },
+  staffpost(params) {
+    return  request.get('staff/post', { params: params }) //根据岗位查询人员
+  },
+
 }

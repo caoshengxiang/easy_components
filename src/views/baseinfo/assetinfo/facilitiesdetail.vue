@@ -262,24 +262,24 @@
 
       that.getDepartmentList() // //查询建筑物列表
 
-      that.getByTypeId(52)
-      that.getByTypeId(56)
-      that.getByTypeId(51)
+      that.getByTypeId('campus')
+      that.getByTypeId('source')
+      that.getByTypeId('useStatus')
     },
     methods: {
 
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
-              case 52:
+              case 'campus':
                 that.campus = data.data
                 break
-              case 56:
+              case 'source':
                 that.source = data.data
                 break
-              case 51:
+              case 'useStatus':
                 that.useStatus = data.data
                 break
             }

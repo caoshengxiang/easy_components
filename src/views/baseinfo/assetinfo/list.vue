@@ -170,6 +170,7 @@
 
         that.getList()
       },
+
       deleteInfo(id) {
         const that = this
         that.$confirm('请确认是否删除该数据?', '提示', {
