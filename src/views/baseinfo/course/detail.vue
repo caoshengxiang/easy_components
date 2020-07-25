@@ -133,7 +133,7 @@
                       <el-col :span="8">
                         <el-form-item label="主要授课地点："  prop="venue" label-width="200px" class="postInfo-container-item">
                           <el-select v-model="postForm.venue" placeholder="主要授课地点" clearable class="filter-item" style="width: 100%">
-                            <el-option v-for="item in teachingRoom" :key="item.name" :label="item.name" :value="item.name" />
+                            <el-option v-for="item in AllEnum.主要授课地点" :key="item" :label="item" :value="item" />
                           </el-select>
                         </el-form-item>
                       </el-col>
@@ -145,8 +145,6 @@
                     </el-row>
 
                     <el-row >
-
-
                       <el-col :span="8">
                         <el-form-item label="考试/考核主要方式："  prop="examWay" label-width="200px" class="postInfo-container-item">
                           <el-input v-model="postForm.examWay"   class="filter-item" />
@@ -244,17 +242,44 @@
 
       that.getGradeList()
       that.getAllEnum()
-      that.getByTypeId(46)
-      that.getByTypeId(47)
-      that.getByTypeId(52)
-      that.getByTypeId(74)
-      that.getByTypeId(75)
-      that.getByTypeId(76)
-      that.getByTypeId(77)
-
-
+      that.getByTypeId('courseProperties')
+      that.getByTypeId('courseCategory')
+      that.getByTypeId('campus')
+      that.getByTypeId('courseCate')
+      that.getByTypeId('courseNature')
     },
     methods:{
+
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 'campus':
+                that.campus = data.data
+                break;
+              case 'courseCategory':
+                that.courseCategory = data.data
+                break;
+              case 'courseProperties':
+                that.courseProperties = data.data
+                break;
+              case 'courseCate':
+                that.courseCate = data.data
+                break;
+              case 'courseNature':
+                that.courseNature = data.data
+                break;
+
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getAllEnum(){
         let that = this
         that.$api.globalConfig.getAllEnum().then(data => {
@@ -268,41 +293,7 @@
           }
         })
       },
-      getByTypeId(id){
-        const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
-          if (data.code === 200) {
-            switch (id) {
-              case 52:
-                that.campus = data.data
-                break;
-              case 47:
-                that.courseCategory = data.data
-                break;
-              case 46:
-                that.courseProperties = data.data
-                break;
-              case 74:
-                that.vipCourse = data.data
-                break;
-              case 75:
-                that.courseCate = data.data
-                break;
-              case 76:
-                that.courseNature = data.data
-                break;
-              case 77:
-                that.teachingRoom = data.data
-                break;
-            }
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
+
       getGradeList() {
         const that = this
         that.$api.baseInfo.getGradeList().then(data => {

@@ -27,4 +27,7 @@ export default {
   saveOrUpdate(params) {
     return request.post(`dictType/saveOrUpdate`, params)
   },
+  getByCode(params) { // 类型列表
+    return request.get(`dictData/getByCode`, { params: params })
+  },
 }

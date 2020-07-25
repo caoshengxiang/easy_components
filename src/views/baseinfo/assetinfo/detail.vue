@@ -142,27 +142,27 @@
         that.getDetail()
       }
 
-       that.getByTypeId(53)
-       that.getByTypeId(52)
-       that.getByTypeId(51)
-       that.getByTypeId(50)
+       that.getByTypeId('purpose')
+       that.getByTypeId('campus')
+       that.getByTypeId('useStatus')
+       that.getByTypeId('propertyRight')
     },
     methods:{
       getByTypeId(id){
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
-               case 50:
+               case 'propertyRight':
                  that.propertyRight = data.data
                 break;
-                case 51:
+                case 'useStatus':
                   that.useStatus = data.data
                 break;
-                case 52:
+                case 'campus':
                   that.campus = data.data
                 break;
-                case 53:
+                case 'purpose':
                   that.purpose = data.data
                 break;
             }

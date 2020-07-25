@@ -156,15 +156,15 @@
       that.getAllEnum();
       that.getMajor();
       that.getGrade();
-      that.getByTypeId(52)
+      that.getByTypeId('campus')
     },
     methods:{
       getByTypeId(id){
         const that = this
-        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+        that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
-              case 52:
+              case 'campus':
                 that.campus = data.data
                 break;
             }
