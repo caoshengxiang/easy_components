@@ -45,7 +45,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.type" placeholder="岗位" clearable filterable
+                    <el-select v-model="postForm.postId" placeholder="岗位" clearable filterable
                                style="width: 160px;margin-right: 10px;" @change="staffAll()">
                       <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
@@ -195,7 +195,6 @@
       that.getByTypeId('campus')
     },
     methods: {
-
       getByTypeId(id) {
         const that = this
         that.$api.dictData.geyByCode({ code: id }).then(data => {
@@ -215,7 +214,7 @@
       },
       staffAll() {
         const that = this
-        that.$api.staff.staffpost({ postId: that.postForm.type }).then(data => {
+        that.$api.staff.staffpost({ postId: that.postForm.postId }).then(data => {
           if (data.code === 200) {
             // 返回成功
             that.staff = data.data
@@ -255,7 +254,6 @@
           }
         })
       },
-
       getAllEnum() {
         const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
@@ -289,6 +287,7 @@
           that.loading = false
           if (data.code === 200) {
             that.postForm = data.data
+            that.staffAll()
           } else {
             this.$message({
               type: 'error',

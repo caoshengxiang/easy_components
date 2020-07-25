@@ -27,6 +27,6 @@ export default {
     return request.put('approval/process/cancel/' +  params.id, {params:params} )
   },
   getProcess(params) {
-    return request.get('task/process/' +  params.id, {params:params} )
+    return request.get('task/process/' +  params)
   },
 }
