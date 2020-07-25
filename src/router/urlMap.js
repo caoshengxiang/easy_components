@@ -52,13 +52,12 @@ import _views_baseinfo_assetinfo_facilitiesdetail from '@/views/baseinfo/assetin
 import _views_baseinfo_department_list from '@/views/baseinfo/department/list'
 import _views_baseinfo_department_edit from '@/views/baseinfo/department/edit'
 import _views_baseinfo_major_list from '@/views/baseinfo/major/list'
-import _views_baseinfo_major_detail from '@/views/baseinfo/major/detail'
+// import _views_baseinfo_major_detail from '@/views/baseinfo/major/detail'
 import _views_baseinfo_major_edit from '@/views/baseinfo/major/edit'
 import _views_baseinfo_grade_list from '@/views/baseinfo/grade/list'
-import _views_baseinfo_grade_detail from '@/views/baseinfo/grade/detail'
 import _views_baseinfo_grade_edit from '@/views/baseinfo/grade/edit'
 import _views_baseinfo_class_list from '@/views/baseinfo/class/list'
-import _views_baseinfo_class_detail from '@/views/baseinfo/class/detail'
+// import _views_baseinfo_class_detail from '@/views/baseinfo/class/detail'
 import _views_baseinfo_class_edit from '@/views/baseinfo/class/edit'
 import _views_workflow_List from '@/views/workflow/List'
 import _views_workflow_Design from '@/views/workflow/Design'
@@ -119,12 +118,11 @@ export default {
   _views_baseinfo_department_list, // 系部信息管理
   _views_baseinfo_department_edit, // 系部信息管理
   _views_baseinfo_major_list, // 专业信息管理
-  _views_baseinfo_major_detail, // 专业信息管理
+  // _views_baseinfo_major_detail, // 专业信息管理
   _views_baseinfo_major_edit, // 专业信息管理
   _views_baseinfo_grade_list, // 年级信息管理
-  _views_baseinfo_grade_detail, // 年级信息管理
   _views_baseinfo_grade_edit, // 年级信息管理
   _views_baseinfo_class_list, // 班级信息管理
-  _views_baseinfo_class_detail, // 班级信息管理
+  // _views_baseinfo_class_detail, // 班级信息管理
   _views_baseinfo_class_edit, // 班级信息管理
 }

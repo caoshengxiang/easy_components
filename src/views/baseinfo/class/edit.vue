@@ -2,28 +2,28 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout :save="save">
-      <el-tabs value ="first" @tab-click="handleClick">
+      <el-tabs value="first" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="margin: auto;">
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="8">
                   <el-form-item label="班级名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.name" class="filter-item" />
+                    <el-input v-model="postForm.name" class="filter-item"/>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="8">
                   <el-form-item label="班级编号：" prop="code" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.code" class="filter-item" />
+                    <el-input v-model="postForm.code" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="预分配人数：" prop="allocationNum" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.allocationNum" class="filter-item" />
+                    <el-input v-model="postForm.allocationNum" class="filter-item"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -31,24 +31,27 @@
                 <el-col :span="8">
                   <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item">
                     <el-select v-model="postForm.gradeId" placeholder="年级" clearable filterable style="width: 100%;">
-                      <el-option v-for="item in gradeList " :key="item.id" :label="item.name" :value="item.id" />
+                      <el-option v-for="item in gradeList " :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.specialtyId" placeholder="专业" clearable filterable style="width: 100%;">
-                      <el-option v-for="item in  majorList" :key="item.id" :label="item.name" :value="item.id" />
+                    <el-select v-model="postForm.specialtyId" placeholder="专业" clearable filterable
+                               style="width: 100%;">
+                      <el-option v-for="item in majorList" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.type" @change="staffAll()" placeholder="岗位" clearable filterable style="width: 160px;margin-right: 10px;">
-                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
+                    <el-select v-model="postForm.type" placeholder="岗位" clearable filterable
+                               style="width: 160px;margin-right: 10px;" @change="staffAll()">
+                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
-                    <el-select v-model="postForm.headTeacherId" placeholder="班主任" clearable filterable style="width: 200px">
-                      <el-option v-for="item in  staff" :key="item.id" :label="item.name" :value="item.id" />
+                    <el-select v-model="postForm.headTeacherId" placeholder="班主任" clearable filterable
+                               style="width: 200px">
+                      <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -57,21 +60,22 @@
                 <el-col :span="8">
                   <el-form-item label="是否订单班：" prop="ifOrder" label-width="120px" class="postInfo-container-item">
                     <el-select v-model="postForm.ifOrder" placeholder="是否订单班" clearable filterable style="width: 100%;">
-                 <el-option v-for="item in  opt" :key="item.key" :label="item.label" :value="item.key" />
+                      <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="班级类型：" prop="classType" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.classType" placeholder="班级类型" clearable filterable style="width: 100%;">
-                     <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
+                    <el-select v-model="postForm.classType" placeholder="班级类型" clearable filterable
+                               style="width: 100%;">
+                      <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="所在校区：" prop="campus" label-width="120px" class="postInfo-container-item">
                     <el-select v-model="postForm.campus" placeholder="所在校区" clearable filterable style="width: 100%;">
-                      <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
+                      <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -91,11 +95,9 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb,YDetailPageLayout },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
     },
     props: {
       detailInfo: {
@@ -108,13 +110,13 @@
     data() {
       return {
 
-        campus:[],
-        opt:[{
+        campus: [],
+        opt: [{
           key: true,
-          label:'是'
-        },{
+          label: '是'
+        }, {
           key: false,
-          label:'否'
+          label: '否'
         }],
         type: 'detail',
         postForm: {},
@@ -165,39 +167,43 @@
             trigger: 'change'
           }],
         },
-        gangwei:[],
-        staff:[],
-        AllEnum:[],
-        majorList:[],
-        gradeList:[]
+        gangwei: [],
+        staff: [],
+        AllEnum: [],
+        majorList: [],
+        gradeList: []
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     created() {
-      let that = this
-      if(that.detailInfo){
+      const that = this
+      if (that.detailInfo) {
         that.postForm = that.detailInfo
-      }
-      else if(that.$route.query.id){
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
       }
       that.simpleAll()
       that.getAllEnum()
-      that.getMajor();
-      that.getGrade();
-      that.simpleAll();
+      that.getMajor()
+      that.getGrade()
+      that.simpleAll()
       that.getByTypeId('campus')
     },
     methods: {
 
-      getByTypeId(id){
+      getByTypeId(id) {
         const that = this
         that.$api.dictData.geyByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'campus':
                 that.campus = data.data
-                break;
+                break
             }
           } else {
             this.$message({
@@ -207,29 +213,13 @@
           }
         })
       },
-      simpleAll(){
-        let that = this
-        that.$api.post.simpleAll().then(data => {
-          if(data.code === 200){
-            //返回成功
-            that.gangwei = data.data
-          }
-          else{
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      staffAll(){
-        let that = this
-        that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      staffAll() {
+        const that = this
+        that.$api.staff.staffpost({ postId: that.postForm.type }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.staff = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -237,14 +227,13 @@
           }
         })
       },
-      getMajor(){
-        let that = this
-        that.$api.major.listbase({...that.listQuery,...that.pagePara}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      getMajor() {
+        const that = this
+        that.$api.major.listbase({ ...that.listQuery, ...that.pagePara }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.majorList = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -252,14 +241,13 @@
           }
         })
       },
-      getGrade(){
-        let that = this
-        that.$api.grade.listbase({...that.listQuery,...that.pagePara}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      getGrade() {
+        const that = this
+        that.$api.grade.listbase({ ...that.listQuery, ...that.pagePara }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.gradeList = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -268,8 +256,8 @@
         })
       },
 
-      getAllEnum(){
-        let that = this
+      getAllEnum() {
+        const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -281,14 +269,13 @@
           }
         })
       },
-      simpleAll(){
-        let that = this
+      simpleAll() {
+        const that = this
         that.$api.post.simpleAll().then(data => {
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200) {
+            // 返回成功
             that.gangwei = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -296,29 +283,13 @@
           }
         })
       },
-      staffAll(){
-        let that = this
-        that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
-          if(data.code === 200){
-            //返回成功
-            that.staff = data.data
-          }
-          else{
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      getDetail(){
-        let that = this;
+      getDetail() {
+        const that = this
         that.$api.clbum.detail(that.id).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            that.postForm = data.data;
-          }
-          else{
+          that.loading = false
+          if (data.code === 200) {
+            that.postForm = data.data
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -326,50 +297,55 @@
           }
         })
       },
-      save(){
-        let that = this
+      save() {
+        const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-            if(that.$route.query.id){
-              ////编辑
-              that.$api.clbum.edit({...that.postForm}).then(data => {
-                that.loading = false;
-                if(data.code === 200){
+            if (that.$route.query.id) {
+              // //编辑
+              that.$api.clbum.edit({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑班级成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/class/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/class/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
                   })
                 }
               })
-            }
-            else {
-              ////新增
-              ////编辑
-              that.$api.clbum.add({...that.postForm}).then(data => {
-                that.loading = false;
-                if(data.code === 200){
+            } else {
+              // //新增
+              // //编辑
+              that.$api.clbum.add({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增班级成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/class/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/class/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
@@ -377,7 +353,6 @@
                 }
               })
             }
-
           }
         })
       }
