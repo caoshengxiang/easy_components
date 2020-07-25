@@ -30,14 +30,14 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="margin-left:10px;width: 100px">
-          <el-option v-for="item in IsFull" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
         </el-select>
 
         <el-select
           v-model="listQuery.schoolGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 120px"
           class="filter-item"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
@@ -48,7 +48,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 120px"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -57,7 +57,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 120px"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -68,7 +68,7 @@
           v-model="listQuery.keyword"
           placeholder="学号或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 200px;"
+          style="margin-left:10px;width: 150px;"
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
@@ -250,7 +250,7 @@
         total: 0,
         listLoading: true,
         listQuery: {
-          type: 1,
+          type: '',
           schoolGradeId: '',
           schoolSpecialtyId: '',
           schoolClbumId: '',
@@ -525,7 +525,7 @@
       getList() {
         const that = this
 
-        if (that.listQuery.type == 2) {
+        if (that.listQuery.type == '学籍班') {
           that.listQuery.administrativeGradeId = that.listQuery.schoolGradeId
           that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
           that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
