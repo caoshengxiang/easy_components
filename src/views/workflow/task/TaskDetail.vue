@@ -190,9 +190,8 @@
         getDetail() {
           const that = this;
           that.$utils.loading.show();
-
           {
-            that.$api.task.getDetail(that.$route.query.id).then(res => {
+            that.$api.task.getProcess(that.$route.query.id).then(res => {
               that.$utils.loading.hide();
               if (res.code === 200) {
                 //返回成功

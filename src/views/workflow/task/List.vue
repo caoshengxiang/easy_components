@@ -5,7 +5,7 @@
     </div>
 
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
-      <template slot="left">
+     <!-- <template slot="left">
         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
         <el-date-picker
           v-model="listQuery.dateTime"
@@ -22,7 +22,7 @@
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
-      </template>
+      </template>-->
       <el-table
         v-loading="loading"
         :data="pageData.records"

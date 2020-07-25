@@ -620,22 +620,6 @@
         })
         that.listLoading = false
       },
-      handleDelete(row, index) {
-        const that = this
-        that.$confirm('确认删除当前记录吗?', '警告', {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(async () => {
-            that.list.splice(index, 1)
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-          })
-          .catch(err => { console.error(err) })
-      },
     }
   }
 </script>
