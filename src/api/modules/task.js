@@ -23,5 +23,10 @@ export default {
   myTask(params){
     return request.get('approval/process/apply', {params:params})
   },
-
+  cancle(params) {
+    return request.put('approval/process/cancel/' +  params.id, {params:params} )
+  },
+  getProcess(params) {
+    return request.get('task/process/' +  params.id, {params:params} )
+  },
 }
