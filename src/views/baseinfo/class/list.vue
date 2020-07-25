@@ -1,14 +1,22 @@
-
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-        <el-button class="filter-item"          size="mini" round type="primary" @click="$utils.routerLink(`/views/baseinfo/class/edit`)">
-          新增班级
-        </el-button>
+        <!--        <el-button class="filter-item"          size="mini" round type="primary" @click="$utils.routerLink(`/views/baseinfo/class/edit`)">-->
+        <!--          新增班级-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_class_add"
+          class-name="filter-item"
+          round
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
         <el-select
           v-model="listQuery.specialtyId"
           placeholder="专业"
@@ -17,7 +25,7 @@
           style="margin-left: 20px;width: 100px"
           class="filter-item"
         >
-         <el-option v-for="item in  majorList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in majorList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
           v-model="listQuery.gradeId"
@@ -27,7 +35,7 @@
           style="margin-left: 20px;width: 100px"
           class="filter-item"
         >
-          <el-option v-for="item in gradeList " :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in gradeList " :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
           v-model="listQuery.campus"
@@ -37,64 +45,80 @@
           style="margin-left: 20px;width: 100px"
           class="filter-item"
         >
-          <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
+          <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
         </el-select>
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" size="mini" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" size="mini"  @click="handleDownload">
-          导入模板下载
-        </el-button>
-        <excelImport
-          :limit="1"
-          ref="uploadControl"
-          flag="clbum/importExcel"
-          :styleType="1"
-          title= "导入"
-
-        ></excelImport>
+        <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" size="mini" @click="handleDownload">-->
+        <!--          导入模板下载-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_class_list_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="导入模板下载"
+          @click="handleDownload"
+        />
+        <PermissionButton
+          menu-no="_views_baseinfo_class_list_import"
+          class-name="filter-item"
+          round
+          type="text"
+          name=""
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="clbum/importExcel"
+            :style-type="1"
+            title="导入"
+          />
+        </PermissionButton>
       </template>
       <el-table
-        v-loading="listLoading"
         :key="tableKey"
+        slot="table"
+        v-loading="listLoading"
         :data="pageData.records"
         border
         fit
         highlight-current-row
         style="width: 100%;"
-        slot="table"
-      >        <el-table-column label="班级名称" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+      >
+        <el-table-column label="班级名称" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="所在校区" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.campus }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.campus }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="预分配人数" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.allocationNum }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.allocationNum }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="所属专业" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.specialtyName }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.specialtyName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="所属年级" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.gradeName }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.gradeName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="班主任" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.headTeacherName }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.headTeacherName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="联系方式" align="center">
           <template slot-scope="{row}">
             <span>{{ row.headTeacherPhone }}</span>
@@ -112,61 +136,74 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button type="primary" round size="mini" @click="detail(row.id)">
-              编辑
-            </el-button>
+<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+<!--              编辑-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_class_edit"
+              class-name="filter-item"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
       </el-table>
     </y-page-list-layout>
 
-
-
-
-
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
-  import excelImport from '@/components/excelImport.vue';
+  import excelImport from '@/components/excelImport.vue'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
+
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination,YPageListLayout,excelImport},
+    components: {
+      Breadcrumb,
+      PermissionButton,
+      YPageListLayout,
+      excelImport
+    },
     data() {
       return {
-        pageData:{},
-        pagePara:{
-          current:0,
-          size:10
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         listQuery: {
-          dormitoryId:0
+          dormitoryId: 0
         },
-        majorList:[],
-        gradeList:[],
-        AllEnum:[],
-        campus:[]
+        majorList: [],
+        gradeList: [],
+        AllEnum: [],
+        campus: []
       }
     },
-    created(){
-      let that = this;
-      that.getList();
-      that.getAllEnum();
-      that.getMajor();
-      that.getGrade();
+    created() {
+      const that = this
+      that.getList()
+      that.getAllEnum()
+      that.getMajor()
+      that.getGrade()
       that.getByTypeId('campus')
     },
-    methods:{
-      getByTypeId(id){
+    methods: {
+      getByTypeId(id) {
         const that = this
-        that.$api.dictData.geyByCode({ code: id }).then(data => {
+        that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'campus':
                 that.campus = data.data
-                break;
+                break
             }
           } else {
             this.$message({
@@ -176,8 +213,8 @@
           }
         })
       },
-      getAllEnum(){
-        let that = this
+      getAllEnum() {
+        const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -189,14 +226,13 @@
           }
         })
       },
-      getMajor(){
-        let that = this
-        that.$api.major.listbase({...that.listQuery,...that.pagePara}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      getMajor() {
+        const that = this
+        that.$api.major.listbase({ ...that.listQuery, ...that.pagePara }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.majorList = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -204,14 +240,13 @@
           }
         })
       },
-      getGrade(){
-        let that = this
-        that.$api.grade.listbase({...that.listQuery,...that.pagePara}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      getGrade() {
+        const that = this
+        that.$api.grade.listbase({ ...that.listQuery, ...that.pagePara }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.gradeList = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -219,49 +254,48 @@
           }
         })
       },
-      handleDownload(url){
-        this.$utils.exportUtil('/clbum/download/importTemplate',this.listQuery, '导入模板下载')
+      handleDownload(url) {
+        this.$utils.exportUtil('/clbum/download/importTemplate', this.listQuery, '导入模板下载')
       },
-      searchList(){
-        let that = this;
+      searchList() {
+        const that = this
         that.pagePara.current = 0
         that.getList()
       },
-      add(){
-        let that =this;
+      add() {
+        const that = this
         that.$router.push({
-          path:"/views/baseinfo/class/edit",
+          path: '/views/baseinfo/class/edit',
           query: {
-            type: "add"
+            type: 'add'
           }
         })
       },
-      detail(id){
-        let that =this;
+      detail(id) {
+        const that = this
         that.$router.push({
-          path:"/views/baseinfo/class/edit",
+          path: '/views/baseinfo/class/edit',
           query: {
-            id:id,
-            type: "add"
+            id: id,
+            type: 'add'
           }
         })
       },
-      getList(){
-        let that = this;
-        that.$api.clbum.list({...that.listQuery,...that.pagePara}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+      getList() {
+        const that = this
+        that.$api.clbum.list({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.pageData = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
     }
   }
@@ -270,6 +304,7 @@
 <style lang="scss" scoped>
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

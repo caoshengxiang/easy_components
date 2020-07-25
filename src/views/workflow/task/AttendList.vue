@@ -45,7 +45,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center" >
           <template slot-scope="{row}">
-            <el-button type="primary" round @click="$utils.routerLink(`/task/detail?id=${row.taskId}&type=2`)">申请详情</el-button>
+            <el-button type="primary" round @click="$targetNewPage(`/task/detail?id=${row.taskId}&type=2`)">申请详情</el-button>
           </template>
         </el-table-column>
       </el-table>

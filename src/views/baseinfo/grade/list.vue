@@ -20,12 +20,21 @@
        </div>
 
      </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/grade/edit`)">
-          新增年级
-        </el-button>
-        <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+<!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/grade/edit`)">-->
+<!--          新增年级-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_grade_add"
+          class-name="filter-item"
+          round
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
+        <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search" style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="searchList">
@@ -34,19 +43,19 @@
 
       </template>
       <el-table
-        v-loading="listLoading"
         :key="tableKey"
+        slot="table"
+        v-loading="listLoading"
         :data="pageData.records"
         border
         fit
         highlight-current-row
         style="width: 100%;"
-        slot="table"
       >        <el-table-column label="编号" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.code }}</span>
-        </template>
-      </el-table-column>
+                 <template slot-scope="{row}">
+                   <span>{{ row.code }}</span>
+                 </template>
+               </el-table-column>
         <el-table-column label="年级名称" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
@@ -64,78 +73,84 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button type="primary" round size="mini" @click="detail(row.id)">
-              编辑
-            </el-button>
+<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+<!--              编辑-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_grade_edit"
+              class-name="filter-item"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
       </el-table>
     </y-page-list-layout>
 
-
-
-
-
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination,YPageListLayout},
+    components: {Breadcrumb, PermissionButton, YPageListLayout},
     data() {
       return {
-        pageData:{},
-        pagePara:{
-          current:0,
-          size:10
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         listQuery: {
-          dormitoryId:0
+          dormitoryId: 0
         },
       }
     },
     created(){
-      let that = this;
+      const that = this;
       that.getList();
     },
 
-    methods:{
+    methods: {
       searchList(){
-        let that = this;
+        const that = this;
         that.pagePara.current = 0
         that.getList()
       },
       add(){
-        let that =this;
+        const that =this;
         that.$router.push({
-          path:"/views/baseinfo/grade/edit",
+          path: '/views/baseinfo/grade/edit',
           query: {
-            type: "add"
+            type: 'add'
           }
         })
       },
       detail(id){
-        let that =this;
+        const that =this;
         that.$router.push({
-          path:"/views/baseinfo/grade/edit",
+          path: '/views/baseinfo/grade/edit',
           query: {
-            id:id,
-            type: "add"
+            id: id,
+            type: 'add'
           }
         })
       },
       getList(){
-        let that = this;
-        that.$api.grade.list({...that.listQuery,...that.pagePara}).then(data => {
+        const that = this;
+        that.$api.grade.list({...that.listQuery, ...that.pagePara}).then(data => {
           that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200){
+            // 返回成功
             that.pageData = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg

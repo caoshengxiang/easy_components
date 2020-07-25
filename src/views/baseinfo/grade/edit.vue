@@ -5,19 +5,19 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-detail-page-layout :save="save">
-      <el-tabs value ="first" @tab-click="handleClick">
+      <el-tabs value="first" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
                   <el-form-item label="年级名称：" prop="code" label-width="120px" class="postInfo-container-item">
-                    <el-input  v-model="postForm.code" class="filter-item" />
+                    <el-input v-model="postForm.code" class="filter-item" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="年级编号：" prop="name" label-width="120px" class="postInfo-container-item">
-                    <el-input  v-model="postForm.name" class="filter-item" />
+                    <el-input v-model="postForm.name" class="filter-item" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -35,12 +35,7 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb,YDetailPageLayout },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
+    components: { Breadcrumb, YDetailPageLayout },
     props: {
       detailInfo: {
         type: Object,
@@ -67,25 +62,28 @@
         },
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     created() {
-      let that = this
-      if(that.detailInfo){
+      const that = this
+      if (that.detailInfo){
         that.postForm = that.detailInfo
-      }
-      else if(that.$route.query.id){
+      } else if (that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()
       }
     },
     methods: {
       getDetail(){
-        let that = this;
+        const that = this;
         that.$api.grade.detail(that.id).then(data => {
           that.loading = false;
-          if(data.code === 200){
+          if (data.code === 200){
             that.postForm = data.data;
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -94,50 +92,54 @@
         })
       },
       save(){
-        let that = this
+        const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-
-            if(that.$route.query.id){
-              ////编辑
+            if (that.$route.query.id){
+              // //编辑
               that.$api.grade.edit({...that.postForm}).then(data => {
                 that.loading = false;
-                if(data.code === 200){
+                if (data.code === 200){
                   this.$notify({
                     title: '成功',
                     message: '编辑年级成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/grade/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/grade/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
                   })
                 }
               })
-            }
-            else {
-              ////新增
-              ////编辑
+            } else {
+              // //新增
+              // //编辑
               that.$api.grade.add({...that.postForm}).then(data => {
                 that.loading = false;
-                if(data.code === 200){
+                if (data.code === 200){
                   this.$notify({
                     title: '成功',
                     message: '新增年级成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/grade/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/grade/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
@@ -145,7 +147,6 @@
                 }
               })
             }
-
           }
         })
       }

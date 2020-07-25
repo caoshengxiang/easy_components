@@ -104,6 +104,51 @@ rule规则修改还是在 .eslintrc.js
         <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
         // 纯跳转性的  name不写会自动从配置中读取
         <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
+        
+        // 需要阻止冒泡调用 PermissionButtonStop.vue 组件
+        import PermissionButton from '@/components/PermissionButton/PermissionButtonStop'
+        
+        // 其他实列
+        // 1.导入模板下载，导入(menu-no 设置为相同)
+                <PermissionButton
+                  menu-no="_views_staff_list_import"
+                  class-name="filter-item"
+                  icon="el-icon-download"
+                  name="导入模板下载"
+                  @click="exportFile"
+                />
+                
+                <el-upload
+                  class="filter-item"
+                  style="display: inline-block;margin-left: 10px;"
+                  action=""
+                  :before-upload="beforeUpload"
+                >
+                  <PermissionButton
+                    menu-no="_views_staff_list_import"
+                    class-name="filter-item"
+                    type="primary"
+                    icon="el-icon-upload2"
+                    name="导入"
+                  />
+                </el-upload>
+        
+        
+        // 2. 图标按钮
+                    <PermissionButton
+                      menu-no="_views_staff_eduDetail"
+                      class-name="filter-item"
+                      name=""
+                      type="text"
+                      :page-jump="true"
+                      :page-query="{id: row.id}"
+                    >
+                      <svg-icon
+                        icon-class="edit"
+                        style="color: #157ddd;transform: scale(1.5);cursor: pointer;"
+                      />
+                    </PermissionButton>
+        
         ```
     4. 目录是不需要配置url， 按钮分为两种，纯操作的按钮，和需要绑定页面的（需要按菜单来处理，否则会404）
     5. 页面的url参数：记录四个参数，一二三级菜单Id(menuLevel1,menuLevel2,menuLevel3)，当前页面菜单id（使用menuId字段）

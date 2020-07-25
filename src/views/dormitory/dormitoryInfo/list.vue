@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-  <!--  <div class="analysis">
+    <!--  <div class="analysis">
       <div class="menu-2-box">
         <div
           :key="index"
@@ -52,164 +52,253 @@
               </div>
             </div>
           </div>-->
-          <div class="filter-main-div">
+    <div class="filter-main-div">
 
-            <div class="filter-container" style="width:60%; float: left;">
-              <el-button class="filter-item" style="margin-left:10px;"  type="primary" @click="handleCreate">
-                新增宿舍
-              </el-button>
-              <el-select v-model="listQuery.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
-                <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-              <el-select v-model="listQuery.schoolSpecialtyId" placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
-                <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-              <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" clearable class="filter-item" style="width: 200px">
-                <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-              <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item" style="width: 100px">
-                <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value" />
-              </el-select>
-              <el-input v-model="listQuery.keyword" placeholder="宿舍编号或者负责人" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-            </div>
-            <div class="filter-container" style="width:40%;float: right;text-align: right">
-              <el-button class="filter-item " type="primary" @click="searchList">
-                搜索
-              </el-button>
-              <el-button class="filter-item" round type="primary" @click="downloadTemplate">
-                导入模板下载
-              </el-button>
-              <excelImport
-                :limit="1"
-                ref="uploadControl"
-                flag="dormitoryBed/importExcel"
-                :styleType="1"
-                title= "导入"
-              ></excelImport>
-            </div>
-          <div class="filter-container" style="float: left;margin-top: 10px;">
+      <div class="filter-container" style="width:60%; float: left;">
+        <!--        <el-button class="filter-item" style="margin-left:10px;" type="primary" @click="handleCreate">-->
+        <!--          新增宿舍-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_add"
+          class-name="filter-item"
+          round
+          type="primary"
+          icon="el-icon-plus"
+          @click="handleCreate"
+        />
+        <el-select
+          v-model="listQuery.schoolGradeId"
+          placeholder="年级"
+          clearable
+          style="margin-left:10px;width: 100px"
+          class="filter-item"
+        >
+          <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select
+          v-model="listQuery.schoolSpecialtyId"
+          placeholder="专业（根据年级加载）"
+          clearable
+          class="filter-item"
+          style=" width: 200px"
+        >
+          <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select
+          v-model="listQuery.schoolClbumId"
+          placeholder="班级（根据班级加载）"
+          clearable
+          class="filter-item"
+          style="width: 200px"
+        >
+          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item" style="width: 100px">
+          <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+        <el-input
+          v-model="listQuery.keyword"
+          placeholder="宿舍编号或者负责人"
+          prefix-icon="el-icon-search"
+          style="width: 200px;"
+          class="filter-item"
+          @keyup.enter.native="handleFilter"
+        />
+      </div>
+      <div class="filter-container" style="width:40%;float: right;text-align: right">
+        <el-button class="filter-item " type="primary" @click="searchList">
+          搜索
+        </el-button>
+        <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
+        <!--          导入模板下载-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="导入模板下载"
+          @click="downloadTemplate"
+        />
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          type="text"
+          round
+          name=""
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="dormitoryBed/importExcel"
+            :style-type="1"
+            title="导入"
+          />
+        </PermissionButton>
+      </div>
+      <div class="filter-container" style="float: left;margin-top: 10px;"/>
 
+      <el-table
 
-          </div>
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        :header-cell-style="{backgroundColor:'#EFF1F6'}"
+      >
+        <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center">
+          <template slot-scope="{row}">
+            {{ row.code }}
+          </template>
+        </el-table-column>
+        <el-table-column label="宿舍类别" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.cate }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="宿舍位置" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.location }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="容纳人数" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.capacity }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="入住人数" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.studentNum }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="宿舍状态" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满':'已住满') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="负责人" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.managerName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="联系电话" class-name="status-col">
+          <template slot-scope="{row}">
+            <span>{{ row.managerPhone }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="编辑" align="center" class-name="small-padding fixed-width">
+          <template slot-scope="{row,$index}">
+            <!--            <el-button type="primary" style="border-radius:15px;" size="mini" @click="handleUpdate(row)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_dormitory_dormitoryInfo_eidt"
+              class-name="filter-item"
+              round
+              type="primary"
+              @click="handleUpdate(row)"
+            />
+            <!--            <el-button type="primary" style="border-radius:15px;" size="mini" @click="detail(row.id)">-->
+            <!--              人员-->
+            <!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_dormitory_dormitoryInfo_dormitoryStdList"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
+          </template>
+        </el-table-column>
+      </el-table>
 
+      <pagination
+        v-show="total>0"
+        :total="total"
+        :page.sync="listQuery.page"
+        :limit.sync="listQuery.limit"
+        @pagination="getList"
+      />
+      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+        <el-form
+          ref="dataForm"
+          :rules="rules"
+          :model="temp"
+          label-position="right"
+          label-width="110px"
+          style="width: 400px; margin-left:50px;"
+        >
+          <el-form-item label="宿舍编号：" prop="code">
+            <el-input v-model="temp.code" class="filter-item"/>
 
-          <el-table
-
-            v-loading="listLoading"
-            :key="tableKey"
-            :data="list"
-            border
-            fit
-            highlight-current-row
-            :header-cell-style="{backgroundColor:'#EFF1F6'}"
-          >
-            <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center">
-              <template slot-scope="{row}">
-        {{ row.code }}
-              </template>
-            </el-table-column>
-            <el-table-column label="宿舍类别" align="center">
-              <template slot-scope="{row}">
-                <span>{{ row.cate}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="宿舍位置"  align="center">
-              <template slot-scope="{row}">
-                <span>{{ row.location }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="容纳人数" align="center">
-              <template slot-scope="{row}">
-                <span>{{ row.capacity }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="入住人数" align="center">
-              <template slot-scope="{row}">
-                <span >{{ row.studentNum }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="宿舍状态" align="center">
-              <template slot-scope="{row}">
-                <span >{{ row.state == 1?'未入住':(row.state == 2?'未住满':'已住满') }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="负责人" align="center" >
-              <template slot-scope="{row}">
-                <span >{{ row.managerName }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="联系电话" class-name="status-col">
-              <template slot-scope="{row}">
-                <span >{{ row.managerPhone }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="编辑" align="center" class-name="small-padding fixed-width">
-              <template slot-scope="{row,$index}">
-                <el-button type="primary"  style="border-radius:15px;"  size="mini" @click="handleUpdate(row)">
-                  编辑
-                </el-button>
-                <el-button type="primary"  style="border-radius:15px;"  size="mini" @click="detail(row.id)">
-                  人员
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-
-          <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-          <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >
-            <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
-              <el-form-item label="宿舍编号：" prop="code">
-                <el-input v-model="temp.code"  class="filter-item"/>
-
-              </el-form-item>
-              <!--  <el-form-item label="Date" prop="timestamp">
+          </el-form-item>
+          <!--  <el-form-item label="Date" prop="timestamp">
                   <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
                 </el-form-item>-->
-              <el-form-item label="宿舍类型：" >
-                <el-select v-model="temp.cate" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-                  <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name" :value="item.key"  />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="宿舍负责人：" prop="managerId">
-                <el-select v-model="temp.managerId" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-                  <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"  />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="宿舍位置：" >
-                <el-input v-model="temp.location"  class="filter-item"/>
+          <el-form-item label="宿舍类型：">
+            <el-select v-model="temp.cate" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+              <el-option
+                v-for="item in calendarTypeOptions1"
+                :key="item.key"
+                :label="item.display_name"
+                :value="item.key"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="宿舍负责人：" prop="managerId">
+            <el-select v-model="temp.managerId" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+              <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="宿舍位置：">
+            <el-input v-model="temp.location" class="filter-item"/>
 
-              </el-form-item>
-              <el-form-item label="容纳人数：" >
-                <el-input v-model="temp.capacity"  class="filter-item"/>
+          </el-form-item>
+          <el-form-item label="容纳人数：">
+            <el-input v-model="temp.capacity" class="filter-item"/>
 
-              </el-form-item>
-              <el-form-item label="备注：">
-                <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请填写备注" />
-              </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer" style="text-align: center" >
-              <el-button @click="dialogFormVisible = false"  style="border-radius:15px;" >
-                取消
-              </el-button>
-              <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()"  style="border-radius:15px;" >
-                保存
-              </el-button>
-            </div>
-          </el-dialog>
-
+          </el-form-item>
+          <el-form-item label="备注：">
+            <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请填写备注"/>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer" style="text-align: center">
+          <el-button style="border-radius:15px;" @click="dialogFormVisible = false">
+            取消
+          </el-button>
+          <el-button
+            type="primary"
+            style="border-radius:15px;"
+            @click="dialogStatus==='create'?createData():updateData()"
+          >
+            保存
+          </el-button>
         </div>
-        </div>
+      </el-dialog>
+
+    </div>
+  </div>
 </template>
 <script>
   import Pagination from '@/components/Pagination'
   import Breadcrumb from '@/components/Breadcrumb'
-  import excelImport from '@/components/excelImport.vue';
+  import excelImport from '@/components/excelImport.vue'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
+
   export default {
     name: 'ComplexTable',
     components: {
+      PermissionButton,
       Breadcrumb,
       Pagination,
-      excelImport},
+      excelImport
+    },
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -221,13 +310,18 @@
       },
     },
     data() {
-
       return {
         calendarTypeOptions1: [
-          { key: 1, display_name: '男生宿舍' },
-          { key: 2, display_name: '女生宿舍' }
+          {
+            key: 1,
+            display_name: '男生宿舍'
+          },
+          {
+            key: 2,
+            display_name: '女生宿舍'
+          }
         ],
-        displayTime:'',
+        displayTime: '',
         tableKey: 0,
         list: [],
         total: 20,
@@ -240,14 +334,26 @@
           major: undefined,
           full: undefined,
           sort: '+id',
-          description:'',
-          displayTime:''
+          description: '',
+          displayTime: ''
         },
         gradeInfo: [],
-        classInfo:[],
-        majorInfo:[],
+        classInfo: [],
+        majorInfo: [],
         staff: [],
-        IsFull:[{label:"全部",value:0},{label:"未入住",value:1}, {label:"未住满",value:2}, {label:"已住满",value:3}],
+        IsFull: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '未入住',
+          value: 1
+        }, {
+          label: '未住满',
+          value: 2
+        }, {
+          label: '已住满',
+          value: 3
+        }],
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
@@ -256,7 +362,7 @@
           title: 1,
           type: '',
           status: '',
-          timestamp:''
+          timestamp: ''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
@@ -264,36 +370,49 @@
           create: '新增宿舍'
         },
         rules: {
-          code: [{ required: true, message: '请填写宿舍编号', trigger: 'change' }],
-          managerId: [{ required: true, message: '请填写宿舍联系人', trigger: 'blur' }],
+          code: [{
+            required: true,
+            message: '请填写宿舍编号',
+            trigger: 'change'
+          }],
+          managerId: [{
+            required: true,
+            message: '请填写宿舍联系人',
+            trigger: 'blur'
+          }],
         },
       }
     },
-    created(){
-      let that = this;
-      that.getList();
-      that.getGradeList();//赛选框年级
-      that.getSpecialtyList();
-      that.getClbumList();
-      that.getStaffList();
+    created() {
+      const that = this
+      that.getList()
+      that.getGradeList()// 赛选框年级
+      that.getSpecialtyList()
+      that.getClbumList()
+      that.getStaffList()
     },
-    methods:{
-      searchList(){
-        let that = this;
+    methods: {
+      searchList() {
+        const that = this
         that.pagePara.current = 0
 
         that.getList()
       },
-      downloadCodeTemplate(){
+      downloadCodeTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
       },
-      detail(id){
-        let that =this;
-        let routeData = that.$router.resolve({ path: '/views/dormitory/dormitoryInfo/dormitoryStdList', query: { id: id, menuLevel1: this.$route.query.menuLevel1} });
-        window.open(routeData.href, '_blank');
-
+      detail(id) {
+        const that = this
+        const routeData = that.$router.resolve({
+          path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
+          query: {
+            id: id,
+            menuLevel1: this.$route.query.menuLevel1
+          }
+        })
+        window.open(routeData.href, '_blank')
       },
-      downloadTemplate(){
+      downloadTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
       },
       resetTemp() {
@@ -316,28 +435,29 @@
         })
       },
       createData() {
-        let that = this
-          that.$refs['dataForm'].validate((valid) => {
+        const that = this
+        that.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            that.$api.dormitory.addDormitory({...that.temp}).then(data => {
-              that.loading = false;
+            that.$api.dormitory.addDormitory({ ...that.temp }).then(data => {
+              that.loading = false
               if (data.code === 200) {
                 this.$message({
                   type: 'success',
-                  message: "操作成功"
+                  message: '操作成功'
                 })
-                that.getList();
+                that.getList()
               } else {
                 this.$message({
                   type: 'error',
                   message: data.msg
                 })
               }
-            })}
+            })
+          }
         })
 
         that.dialogFormVisible = false
-        that.getList();
+        that.getList()
       },
       handleAdd() {
         this.temp = Object.assign({}) // copy obj
@@ -349,9 +469,9 @@
         })
       },
       handleUpdate(row) {
-        let that = this;
+        const that = this
         that.$api.dormitory.getDetail(row.id).then(data => {
-          that.loading = false;
+          that.loading = false
           if (data.code === 200) {
             row = data.data
             that.temp = Object.assign({}, row) // copy obj
@@ -364,123 +484,117 @@
         })
       },
       updateData() {
-        let that = this
+        const that = this
         that.$refs['dataForm'].validate((valid) => {
           if (valid) {
-              that.$api.dormitory.editDormitory({...that.temp}).then(data => {
-                that.loading = false;
-                if (data.code === 200) {
-                  this.$message({
-                    type: 'success',
-                    message: "操作成功"
-                  })
-                  that.getList();
-                } else {
-                  this.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
-                }
-              })
+            that.$api.dormitory.editDormitory({ ...that.temp }).then(data => {
+              that.loading = false
+              if (data.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '操作成功'
+                })
+                that.getList()
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: data.msg
+                })
+              }
+            })
             that.dialogFormVisible = false
-
           }
         })
       },
-      getStaffList(){
-        let that = this;
+      getStaffList() {
+        const that = this
         that.$api.baseInfo.getStaffList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.staff = data.data.records
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getGradeList(){
-        let that = this;
+      getGradeList() {
+        const that = this
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.classInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getSpecialtyList(){
-        let that = this;
+      getSpecialtyList() {
+        const that = this
         that.$api.baseInfo.getSpecialtyList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.majorInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getClbumList(){
-        let that = this;
+      getClbumList() {
+        const that = this
         that.$api.baseInfo.getClbumList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.gradeInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getList(){
-        let that = this;
-        that.$api.dormitory.getPage({...that.listQuery}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+      getList() {
+        const that = this
+        that.$api.dormitory.getPage({ ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.list = data.data.records
             this.total = data.data.total
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
       handleDelete(row, index) {
-        let that = this;
+        const that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
             that.list.splice(index, 1)
             this.$message({
               type: 'success',
@@ -488,14 +602,15 @@
             })
           })
           .catch(err => { console.error(err) })
-
       },
     }
   }
 </script>
 <style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
+  .download-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right
   }
 </style>
 <style lang="scss" scoped>
@@ -504,6 +619,7 @@
     background-color: white;
 
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;
@@ -545,6 +661,7 @@
 <style lang="scss" scoped>
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

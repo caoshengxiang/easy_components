@@ -67,7 +67,7 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :native-type="nativeType"
-    @click="handle"
+    @click.stop="handle"
   >
     <slot>{{ name || menu.name }}</slot>
   </el-button>

@@ -12,7 +12,7 @@
              var listStr = ref[声明别名].getFileListStr();//多张图片逗号分隔
 -->
 <template>
-  <div style="float: right;margin-left: 10px">
+  <div style="">
     <el-upload
       v-loading="uploadConfig.loading"
       element-loading-text="正在上传..."

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-detail-page-layout :save="handleCreate" :edit-status="true">
       <el-tabs v-model="activeName" v-loading="vLoading" element-loading-text="处理中。。。" @tab-click="handleClick">
@@ -25,7 +25,7 @@
                         placeholder=""
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum['员工类型']" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in AllEnum['员工类型']" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -38,7 +38,7 @@
                         placeholder=""
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum['教师类型']" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in AllEnum['教师类型']" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -63,19 +63,19 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="单位编号：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>
+                      <el-input v-model="postForm.staff.currentUnitCode" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="单位名称：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>
+                      <el-input v-model="postForm.staff.currentUnitName" class="filter-item" />
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">基</div>
@@ -85,12 +85,12 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="教职工号：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.staffNo" class="filter-item"/>
+                      <el-input v-model="postForm.staff.staffNo" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.user.name" class="filter-item"/>
+                      <el-input v-model="postForm.user.name" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -102,14 +102,14 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option key="1" label="男" value="男"/>
-                        <el-option key="2" label="女" value="女"/>
+                        <el-option key="1" label="男" value="男" />
+                        <el-option key="2" label="女" value="女" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.user.idNo" class="filter-item"/>
+                      <el-input v-model="postForm.user.idNo" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -127,12 +127,12 @@
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="民族：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.nation" class="filter-item"/>
+                      <el-input v-model="postForm.staff.nation" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="联系电话：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.user.mobile" class="filter-item"/>
+                      <el-input v-model="postForm.user.mobile" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -144,13 +144,13 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum['政治面貌']" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in AllEnum['政治面貌']" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#9E9CF4">信</div>
@@ -160,7 +160,7 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="备注：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.remark" type="textarea" class="filter-item"/>
+                      <el-input v-model="postForm.staff.remark" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -173,7 +173,7 @@
             <div class="createPost-main-container">
               <div class="postInfo-container">
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#FD774B">任</div>
@@ -182,28 +182,34 @@
                 </div>
 
                 <el-row>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="聘任系部(部门)：" label-width="120px" class="postInfo-container-item">
-                      <el-select
-                        v-model="postForm.type"
-                        placeholder=""
-                        clearable
-                        class="filter-item"
-                        style=" width: 100%"
-                      />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
+                  <!--                  <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
+                  <!--                    <el-form-item label="聘任系部(部门)：" label-width="120px" class="postInfo-container-item">-->
+                  <!--                      <el-select-->
+                  <!--                        v-model="postForm.type"-->
+                  <!--                        placeholder=""-->
+                  <!--                        clearable-->
+                  <!--                        class="filter-item"-->
+                  <!--                        style=" width: 100%"-->
+                  <!--                      />-->
+                  <!--                    </el-form-item>-->
+                  <!--                  </el-col>-->
+                  <el-col :xs="24" :sm="24" :lg="12" :span="12">
                     <el-form-item label="岗位名称：" label-width="120px" class="postInfo-container-item">
                       <el-select
-                        v-model="postForm.staff.specialty"
+                        v-model="postForm.teacherPosts"
                         placeholder=""
                         clearable
+                        multiple
+                        filterable
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
-                                   :value="item.name"/>
+                        <el-option
+                          v-for="item in postOptions"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -233,19 +239,19 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="主要任教学科：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.teachingSubject" class="filter-item"/>
+                      <el-input v-model="postForm.staff.teachingSubject" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="教龄（年）：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.teachingAge" class="filter-item"/>
+                      <el-input v-model="postForm.staff.teachingAge" class="filter-item" />
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#FF687B">特</div>
@@ -263,8 +269,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -277,8 +283,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -291,8 +297,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -305,8 +311,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -321,8 +327,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -335,8 +341,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -349,8 +355,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -363,14 +369,14 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
 
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#43D6B3">当</div>
@@ -381,12 +387,12 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="单位名称：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.unitName" class="filter-item"/>
+                      <el-input v-model="postForm.staff.unitName" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职务：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.duty" class="filter-item"/>
+                      <el-input v-model="postForm.staff.duty" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -402,7 +408,7 @@
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="签约情况：" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.contractSituation" class="filter-item"/>
+                      <el-input v-model="postForm.staff.contractSituation" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -429,8 +435,8 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
                 </el-row>
               </div>
             </div>
@@ -440,7 +446,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#36a3f7">其</div>
@@ -450,7 +456,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="邮箱：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.user.email" class="filter-item"/>
+                      <el-input v-model="postForm.user.email" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -462,7 +468,7 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option v-for="item in AllEnum['聘用类型']" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in AllEnum['聘用类型']" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -486,8 +492,12 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
-                                   :value="item.name"/>
+                        <el-option
+                          v-for="item in specialtyOptions"
+                          :key="item.name"
+                          :label="item.name"
+                          :value="item.name"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -502,14 +512,14 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="担任专业带头人工作年限：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.professionalForegoerYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.professionalForegoerYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -521,14 +531,14 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="担任专业负责人工作年限：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.professionalLeaderYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.professionalLeaderYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -542,8 +552,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -556,31 +566,31 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职务：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.fullDuty" class="filter-item"/>
+                      <el-input v-model="postForm.staff.fullDuty" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="岗位职能：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.postFunction" class="filter-item"/>
+                      <el-input v-model="postForm.staff.postFunction" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="本岗位工作年限	：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.postYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.postYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="从事教学管理年限：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.teachingManagerYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.teachingManagerYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -592,14 +602,14 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="从事学生管理年限：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.studentManagerYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.studentManagerYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -613,8 +623,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -627,14 +637,14 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="招生就业工作年限	：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.enrollManagerYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.enrollManagerYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -646,8 +656,8 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option label="是" :value="true"/>
-                        <el-option label="否" :value="false"/>
+                        <el-option label="是" :value="true" />
+                        <el-option label="否" :value="false" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -655,7 +665,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="周工作时数(小时)：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.workHour" class="filter-item"/>
+                      <el-input v-model="postForm.staff.workHour" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -667,7 +677,7 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <el-option v-for="item in AllEnum['教师来源']" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in AllEnum['教师来源']" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -677,24 +687,24 @@
                       label-width="180px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.staff.companyWorkYear" class="filter-item"/>
+                      <el-input v-model="postForm.staff.companyWorkYear" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="本学年工作天数：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.workDay" class="filter-item"/>
+                      <el-input v-model="postForm.staff.workDay" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="工作经历：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.workExperience" type="textarea" class="filter-item"/>
+                      <el-input v-model="postForm.staff.workExperience" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="分管工作：" label-width="180px" class="postInfo-container-item">
-                      <el-input v-model="postForm.staff.chargeWork" type="textarea" class="filter-item"/>
+                      <el-input v-model="postForm.staff.chargeWork" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -707,7 +717,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#3e5068">实</div>
@@ -732,8 +742,12 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <el-option v-for="item in termOptions" :key="item.name" :label="item.name"
-                                     :value="item.name"/>
+                          <el-option
+                            v-for="item in termOptions"
+                            :key="item.name"
+                            :label="item.name"
+                            :value="item.name"
+                          />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -750,8 +764,12 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <el-option v-for="item in gradeOptions" :key="item.name" :label="item.name"
-                                     :value="item.name"/>
+                          <el-option
+                            v-for="item in gradeOptions"
+                            :key="item.name"
+                            :label="item.name"
+                            :value="item.name"
+                          />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -768,8 +786,12 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <el-option v-for="item in specialtyOptions" :key="item.name" :label="item.name"
-                                     :value="item.name"/>
+                          <el-option
+                            v-for="item in specialtyOptions"
+                            :key="item.name"
+                            :label="item.name"
+                            :value="item.name"
+                          />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -786,8 +808,12 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <el-option v-for="item in courseOptions" :key="item.name" :label="item.name"
-                                     :value="item.name"/>
+                          <el-option
+                            v-for="item in courseOptions"
+                            :key="item.name"
+                            :label="item.name"
+                            :value="item.name"
+                          />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -796,7 +822,7 @@
                       label="实验"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.experiment" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.experiment" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -804,7 +830,7 @@
                       label="实训"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.training" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.training" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -812,7 +838,7 @@
                       label="实习"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.practice" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.practice" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -843,7 +869,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#1135ff">专</div>
@@ -861,7 +887,7 @@
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.patentNo" class="filter-item"/>
+                        <el-input v-model="row.patentNo" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -870,7 +896,7 @@
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -893,7 +919,7 @@
                       label="合作情况"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -924,7 +950,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#80a4d6">奖</div>
@@ -942,7 +968,7 @@
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -951,7 +977,7 @@
                       width="100"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.level" class="filter-item"/>
+                        <el-input v-model="row.level" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -975,7 +1001,7 @@
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.issueUnit" class="filter-item"/>
+                        <el-input v-model="row.issueUnit" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -983,7 +1009,7 @@
                       label="合作情况"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cooperationSituation" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1014,7 +1040,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#9E9CF4">研</div>
@@ -1032,7 +1058,7 @@
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1041,7 +1067,7 @@
                       width="140"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.cate" class="filter-item"/>
+                        <el-input v-model="row.cate" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1050,7 +1076,7 @@
                       width="140"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.property" class="filter-item"/>
+                        <el-input v-model="row.property" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1074,7 +1100,7 @@
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.fundingSource" class="filter-item"/>
+                        <el-input v-model="row.fundingSource" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1083,7 +1109,7 @@
                       width="150"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.receiveAmount" class="filter-item"/>
+                        <el-input v-model="row.receiveAmount" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1091,7 +1117,7 @@
                       label="完成人顺序"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.finishOrder" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.finishOrder" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1122,7 +1148,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#64d9d6">锻</div>
@@ -1140,7 +1166,7 @@
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1156,7 +1182,7 @@
                           class="filter-item"
                           style=" width: 100%"
                         >
-                          <el-option v-for="item in AllEnum['教师培训类型']" :key="item" :label="item" :value="item"/>
+                          <el-option v-for="item in AllEnum['教师培训类型']" :key="item" :label="item" :value="item" />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -1166,7 +1192,7 @@
                       width="100"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.days" class="filter-item"/>
+                        <el-input v-model="row.days" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1174,7 +1200,7 @@
                       label="地点"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.location" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.location" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1182,7 +1208,7 @@
                       label="派出部门"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.department" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.department" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1190,7 +1216,7 @@
                       label="岗位"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.post" class="filter-item"/>
+                        <el-input v-model="row.post" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1221,7 +1247,7 @@
           <el-form ref="postForm" :model="postForm" class="form-container">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" />
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#9E9CF4">著</div>
@@ -1239,7 +1265,7 @@
                       width="220"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.name" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1248,7 +1274,7 @@
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.cate" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.cate" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1257,7 +1283,7 @@
                       width="180"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.publishUnit" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.publishUnit" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1280,7 +1306,7 @@
                       label="作者顺序"
                     >
                       <template slot-scope="{row}">
-                        <el-input v-model="row.authorOrder" autosize type="textarea" class="filter-item"/>
+                        <el-input v-model="row.authorOrder" autosize type="textarea" class="filter-item" />
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1325,6 +1351,7 @@
     teacherResearchTopics: [], // 教师在研课题
     teacherTrainings: [], // 教师培训
     teacherPapers: [], // 教师著作论文
+    teacherPosts: []
   }
 
   export default {
@@ -1359,7 +1386,7 @@
         gradeOptions: [],
         specialtyOptions: [],
         courseOptions: [],
-        postOptions: []
+        postOptions: [],
       }
     },
     created() {
@@ -1380,6 +1407,9 @@
         })
         this.$api.course.simpleAll().then(res => {
           this.courseOptions = res.data
+        })
+        this.$api.post.simpleAll().then(res => {
+          this.postOptions = res.data
         })
       },
       getAllEnum() {
@@ -1428,7 +1458,7 @@
         if (this.dataId) {
           this.$api.staff.detail(this.dataId).then(res => {
             this.postForm = res.data
-          })
+            })
           this.initData()
         }
       },
@@ -1437,25 +1467,25 @@
         this.$refs.postForm.validate(valid => {
           if (valid) {
             this.$api.staff.edit(Object.assign({}, this.postForm, {
-              delTeacherPosts: this.delTeacherPosts,
               delTeacherPracticeProjects: this.delTeacherPracticeProjects,
               delTeacherPatents: this.delTeacherPatents,
               delTeacherAwards: this.delTeacherAwards,
               delTeacherResearchTopics: this.delTeacherResearchTopics,
               delTeacherTrainings: this.delTeacherTrainings,
               delTeacherPapers: this.delTeacherPapers,
+              teacherPosts: this.teacherPosts.map(item => { return {postId: item} }),
             })).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
-                  message: '编辑成功',
+                  message: '保存成功',
                   type: 'success',
                   duration: 2000
                 })
-                // const back = this.$route.query.back
-                // if (back) {
-                //   this.$router.push(back)
-                // }
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
+                }
                 this.initData()
                 this.vLoading = false
               }

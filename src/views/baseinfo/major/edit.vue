@@ -5,7 +5,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-detail-page-layout :save="save">
-      <el-tabs value ="first" @tab-click="handleClick">
+      <el-tabs value="first" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 
@@ -14,23 +14,23 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业代码：" prop="code" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code" class="filter-item"/>
+                      <el-input v-model="postForm.code" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                      <el-input  v-model="postForm.name" class="filter-item"/>
+                      <el-input v-model="postForm.name" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业简称：" prop="alias" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.alias" class="filter-item"/>
+                      <el-input v-model="postForm.alias" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="所属部系："  prop="departmentId" label-width="120px" class="postInfo-container-item">
-                      <el-select v-model="postForm.departmentId"  clearable filterable style="width: 100%">
-                        <el-option v-for="item in  departList" :key="item.id" :label="item.name" :value="item.id" />
+                    <el-form-item label="所属部系：" prop="departmentId" label-width="120px" class="postInfo-container-item">
+                      <el-select v-model="postForm.departmentId" clearable filterable style="width: 100%">
+                        <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -38,51 +38,71 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="学制：" prop="academicYear" label-width="120px" class="postInfo-container-item">
-                      <el-select v-model="postForm.academicYear"  clearable filterable style="width: 100%">
+                      <el-select v-model="postForm.academicYear" clearable filterable style="width: 100%">
 
-                        <el-option v-for="item in  AllEnum.学制" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.学制" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="班级类型：" prop="classType" label-width="120px" class="postInfo-container-item">
-                      <el-input placeholder="多个以中文逗号隔开" v-model="postForm.classType" class="filter-item"/>
+                      <el-input v-model="postForm.classType" placeholder="多个以中文逗号隔开" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="专业技能方向：" prop="skillDirection" label-width="120px" class="postInfo-container-item">
-                      <el-input placeholder="" v-model="postForm.skillDirection" class="filter-item"/>
+                    <el-form-item
+                      label="专业技能方向："
+                      prop="skillDirection"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
+                      <el-input v-model="postForm.skillDirection" placeholder="" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="修业年限：" prop="studyDuration" label-width="120px" class="postInfo-container-item">
-                      <el-input  v-model="postForm.studyDuration" class="filter-item"/>
+                    <el-form-item
+                      label="修业年限："
+                      prop="studyDuration"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
+                      <el-input v-model="postForm.studyDuration" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="批准设置日期：" prop="approveDate" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="批准设置日期："
+                      prop="approveDate"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-date-picker
                         v-model="postForm.approveDate"
 
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
-                        placeholder="选择日期">
-                      </el-date-picker>
+                        placeholder="选择日期"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="首次招生日期：" prop="firstEnrollDate" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="首次招生日期："
+                      prop="firstEnrollDate"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-date-picker
                         v-model="postForm.firstEnrollDate"
 
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
-                        placeholder="选择日期">
-                      </el-date-picker>
+                        placeholder="选择日期"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -106,8 +126,8 @@
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
-                        placeholder="选择日期">
-                      </el-date-picker>
+                        placeholder="选择日期"
+                      />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -126,15 +146,20 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="撤销时间：" prop="revocationDate" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="撤销时间："
+                      prop="revocationDate"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-date-picker
                         v-model="postForm.revocationDate"
 
                         type="date"
                         value-format="yyyy-MM-dd"
                         style="width: 100%"
-                        placeholder="选择日期">
-                      </el-date-picker>
+                        placeholder="选择日期"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -146,12 +171,17 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in  AllEnum.重点专业" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.重点专业" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="特色专业：" prop="featuredSpecialty" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="特色专业："
+                      prop="featuredSpecialty"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-select
                         v-model="postForm.featuredSpecialty"
                         placeholder=""
@@ -159,14 +189,19 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in  AllEnum.特色专业" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.特色专业" :key="item" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="国际合作专业：" prop="ifInternational" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="国际合作专业："
+                      prop="ifInternational"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-select
                         v-model="postForm.ifInternational"
                         placeholder=""
@@ -179,7 +214,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="校企合作专业：" prop="ifSchoolEnterprise" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="校企合作专业："
+                      prop="ifSchoolEnterprise"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-select
                         v-model="postForm.ifSchoolEnterprise"
                         placeholder=""
@@ -192,7 +232,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="是否全日制专业：" prop="ifFullTime" label-width="120px" class="postInfo-container-item">
+                    <el-form-item
+                      label="是否全日制专业："
+                      prop="ifFullTime"
+                      label-width="120px"
+                      class="postInfo-container-item"
+                    >
                       <el-select
                         v-model="postForm.ifFullTime"
                         placeholder=""
@@ -204,12 +249,13 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
                 </el-row>
               </div>
             </div>
           </el-form>
-        </el-tab-pane></el-tabs>
+        </el-tab-pane>
+      </el-tabs>
 
     </y-detail-page-layout>
   </div>
@@ -221,11 +267,9 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb,YDetailPageLayout },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
     },
     props: {
       detailInfo: {
@@ -238,12 +282,12 @@
     data() {
       return {
 
-        opt:[{
+        opt: [{
           key: true,
-          label:'是'
-        },{
+          label: '是'
+        }, {
           key: false,
-          label:'否'
+          label: '否'
         }],
         type: 'detail',
         postForm: {},
@@ -344,18 +388,22 @@
             trigger: 'change'
           }],
         },
-        gangwei:[],
-        staff:[],
-        AllEnum:[],
-        departList:[]
+        gangwei: [],
+        staff: [],
+        AllEnum: [],
+        departList: []
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     created() {
-      let that = this
-      if(that.detailInfo){
+      const that = this
+      if (that.detailInfo) {
         that.postForm = that.detailInfo
-      }
-      else if(that.$route.query.id){
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
       }
@@ -365,15 +413,17 @@
     },
     methods: {
 
-      getdepartList(){
-        let that = this;
-        that.$api.department.list({current:0,size:10000}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+      getdepartList() {
+        const that = this
+        that.$api.department.list({
+          current: 0,
+          size: 10000
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.departList = data.data.records
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -381,8 +431,8 @@
           }
         })
       },
-      getAllEnum(){
-        let that = this
+      getAllEnum() {
+        const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -394,14 +444,13 @@
           }
         })
       },
-      simpleAll(){
-        let that = this
+      simpleAll() {
+        const that = this
         that.$api.post.simpleAll().then(data => {
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200) {
+            // 返回成功
             that.gangwei = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -409,14 +458,13 @@
           }
         })
       },
-      staffAll(){
-        let that = this
-        that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
-          if(data.code === 200){
-            //返回成功
+      staffAll() {
+        const that = this
+        that.$api.staff.staffpost({ postId: that.postForm.type }).then(data => {
+          if (data.code === 200) {
+            // 返回成功
             that.staff = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -424,14 +472,13 @@
           }
         })
       },
-      getDetail(){
-        let that = this;
+      getDetail() {
+        const that = this
         that.$api.major.detail(that.id).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            that.postForm = data.data;
-          }
-          else{
+          that.loading = false
+          if (data.code === 200) {
+            that.postForm = data.data
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -439,26 +486,55 @@
           }
         })
       },
-      save(){
-        let that = this
+      save() {
+        const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-            if(that.$route.query.id){
-              ////编辑
-              that.$api.major.edit({...that.postForm}).then(data => {
-                that.loading = false;
-                if(data.code === 200){
+            if (that.$route.query.id) {
+              // //编辑
+              that.$api.major.edit({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
                   this.$notify({
                     title: '成功',
-                    message: '编辑系部成功',
+                    message: '编辑成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/major/list",
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/major/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
                   })
                 }
-                else{
+              })
+            } else {
+              // //新增
+              // //编辑
+              that.$api.major.add({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '新增成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  // that.$router.push({
+                  //   path: '/views/baseinfo/major/list',
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
@@ -466,31 +542,6 @@
                 }
               })
             }
-            else {
-              ////新增
-              ////编辑
-              that.$api.major.add({...that.postForm}).then(data => {
-                that.loading = false;
-                if(data.code === 200){
-                  this.$notify({
-                    title: '成功',
-                    message: '新增系部成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  that.$router.push({
-                    path:"/views/baseinfo/major/list",
-                  })
-                }
-                else{
-                  this.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
-                }
-              })
-            }
-
           }
         })
       }

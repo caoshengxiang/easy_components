@@ -5,34 +5,34 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-detail-page-layout :save="save">
-      <el-tabs value ="first" @tab-click="handleClick">
+      <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
-        <div class="createPost-main-container">
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="系部编号：" prop="code" label-width="120px" class="postInfo-container-item">
-                <el-input  v-model="postForm.code" class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="系部名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                <el-input  v-model="postForm.name" class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="系部负责人：" prop="leaderId" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" @change="staffAll()"  clearable filterable style="width: 160px;margin-right: 10px;">
-                   <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
-                </el-select>
-                <el-select v-model="postForm.leaderId" placeholder="负责人" clearable filterable style="width: 200px">
-            <el-option v-for="item in  staff" :key="item.id" :label="item.name" :value="item.id" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </div>
-      </el-form>
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
+            <div class="createPost-main-container">
+              <el-row>
+                <el-col :span="24">
+                  <el-form-item label="系部编号：" prop="code" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.code" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="系部名称：" prop="name" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.name" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="系部负责人：" prop="leaderId" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.type" placeholder="岗位" clearable filterable style="width: 160px;margin-right: 10px;" @change="staffAll()">
+                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                    <el-select v-model="postForm.leaderId" placeholder="负责人" clearable filterable style="width: 200px">
+                      <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
+          </el-form>
         </el-tab-pane></el-tabs>
 
     </y-detail-page-layout>
@@ -45,12 +45,7 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb,YDetailPageLayout },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
+    components: { Breadcrumb, YDetailPageLayout },
     props: {
       detailInfo: {
         type: Object,
@@ -80,16 +75,20 @@
             trigger: 'change'
           }]
         },
-        gangwei:[],
-        staff:[]
+        gangwei: [],
+        staff: []
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     created() {
-      let that = this
-      if(that.detailInfo){
+      const that = this
+      if (that.detailInfo){
         that.postForm = that.detailInfo
-      }
-      else if(that.$route.query.id){
+      } else if (that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()
       }
@@ -97,13 +96,12 @@
     },
     methods: {
       simpleAll(){
-        let that = this
+        const that = this
         that.$api.post.simpleAll().then(data => {
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200){
+            // 返回成功
             that.gangwei = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -112,13 +110,12 @@
         })
       },
       staffAll(){
-        let that = this
+        const that = this
         that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200){
+            // 返回成功
             that.staff = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -127,13 +124,12 @@
         })
       },
       getDetail(){
-        let that = this;
+        const that = this;
         that.$api.department.detail(that.id).then(data => {
           that.loading = false;
-          if(data.code === 200){
+          if (data.code === 200){
             that.postForm = data.data;
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -142,51 +138,55 @@
         })
       },
       save(){
-        let that = this
+        const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-
-            that.postForm.leaderName = that.staff.find(m => m.id == that.postForm.leaderId).name
-            if(that.$route.query.id){
-              ////编辑
+            that.postForm.leaderName = that.staff.find(m => m.id === that.postForm.leaderId).name
+            if (that.$route.query.id){
+              // //编辑
               that.$api.department.edit({...that.postForm}).then(data => {
                 that.loading = false;
-                if(data.code === 200){
+                if (data.code === 200){
                   this.$notify({
                     title: '成功',
                     message: '编辑系部成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/department/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path:"/views/baseinfo/department/list",
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
                   })
                 }
               })
-            }
-            else {
-              ////新增
-              ////编辑
+            } else {
+              // //新增
+              // //编辑
               that.$api.department.add({...that.postForm}).then(data => {
                 that.loading = false;
-                if(data.code === 200){
+                if (data.code === 200){
                   this.$notify({
                     title: '成功',
                     message: '新增系部成功',
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path:"/views/baseinfo/department/list",
-                  })
-                }
-                else{
+                  // that.$router.push({
+                  //   path:"/views/baseinfo/department/list",
+                  // })
+                  const back = this.$route.query.back
+                  if (back) {
+                    that.$router.push(back)
+                  }
+                } else {
                   this.$message({
                     type: 'error',
                     message: data.msg
@@ -194,7 +194,6 @@
                 }
               })
             }
-
           }
         })
       }

@@ -3,11 +3,20 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-        <el-button class="filter-item" round style="margin-left: 0px;" type="primary"  @click="$utils.routerLink(`/views/baseinfo/major/edit`)">
-          新增专业信息
-        </el-button>
+<!--        <el-button class="filter-item" round style="margin-left: 0px;" type="primary" @click="$utils.routerLink(`/views/baseinfo/major/edit`)">-->
+<!--          新增专业信息-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_major_add"
+          class-name="filter-item"
+          round
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
         <el-select
           v-model="listQuery.departmentId"
           placeholder="系部"
@@ -16,7 +25,7 @@
           style="margin-left: 10px;width: 100px"
           class="filter-item"
         >
-       <el-option v-for="item in  departList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select
           v-model="listQuery.ifFullTime"
@@ -26,7 +35,7 @@
           style="margin-left: 10px;width: 100px"
           class="filter-item"
         >
-       <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+          <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
         </el-select>
         <el-select
           v-model="listQuery.grade"
@@ -36,30 +45,30 @@
           style="margin-left: 10px;width: 100px"
           class="filter-item"
         >
-       <el-option v-for="item in  AllEnum.班级类型" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
         </el-select>
-    <el-input
-      v-model="listQuery.name"
-      placeholder="请输入关键字搜索"
-      prefix-icon="el-icon-search"
-      style="margin-left: 10px;width: 200px;"
-      class="filter-item"
-      @keyup.enter.native="handleFilter"
-    />      </template>
+        <el-input
+          v-model="listQuery.name"
+          placeholder="请输入关键字搜索"
+          prefix-icon="el-icon-search"
+          style="margin-left: 10px;width: 200px;"
+          class="filter-item"
+          @keyup.enter.native="handleFilter"
+        />      </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
       </template>
       <el-table
-        v-loading="listLoading"
         :key="tableKey"
+        slot="table"
+        v-loading="listLoading"
         :data="pageData.records"
         border
         fit
         highlight-current-row
         style="width: 100%;"
-        slot="table"
       >
         <el-table-column label="专业代码" align="center">
           <template slot-scope="{row}">
@@ -108,10 +117,20 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button type="primary" round size="mini" @click="detail(row.id)">
-              编辑
-            </el-button>
-
+<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+<!--              编辑-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_major_edit"
+              class-name="filter-item"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
       </el-table>
@@ -119,47 +138,47 @@
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination,YPageListLayout},
+    components: {Breadcrumb, PermissionButton, YPageListLayout},
     data() {
       return {
 
-        opt:[{
+        opt: [{
           key: true,
-          label:'是'
-        },{
+          label: '是'
+        }, {
           key: false,
-          label:'否'
+          label: '否'
         }],
-        pageData:{},
-        pagePara:{
-          current:0,
-          size:10
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         listQuery: {
         },
-        departList:[],
-        AllEnum:[]
+        departList: [],
+        AllEnum: []
       }
     },
     created(){
-      let that = this;
+      const that = this;
       that.getList();
       that.getdepartList()
       that.getAllEnum()
     },
-    methods:{
+    methods: {
       searchList(){
-        let that = this;
+        const that = this;
         that.pagePara.current = 0
         that.getList()
       },
       getAllEnum(){
-        let that = this
+        const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -172,14 +191,13 @@
         })
       },
       getdepartList(){
-        let that = this;
-        that.$api.department.list({current:0,size:10000}).then(data => {
+        const that = this;
+        that.$api.department.list({current: 0, size: 10000}).then(data => {
           that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200){
+            // 返回成功
             that.departList = data.data.records
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -188,33 +206,32 @@
         })
       },
       add(){
-        let that =this;
+        const that =this;
         that.$router.push({
-          path:"/views/baseinfo/major/edit",
+          path: '/views/baseinfo/major/edit',
           query: {
-            type: "add"
+            type: 'add'
           }
         })
       },
       detail(id){
-        let that =this;
+        const that =this;
         that.$router.push({
-          path:"/views/baseinfo/major/edit",
+          path: '/views/baseinfo/major/edit',
           query: {
-            id:id,
-            type: "add"
+            id: id,
+            type: 'add'
           }
         })
       },
       getList(){
-        let that = this;
-        that.$api.major.list({...that.listQuery,...that.pagePara}).then(data => {
+        const that = this;
+        that.$api.major.list({...that.listQuery, ...that.pagePara}).then(data => {
           that.loading = false;
-          if(data.code === 200){
-            //返回成功
+          if (data.code === 200){
+            // 返回成功
             that.pageData = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
