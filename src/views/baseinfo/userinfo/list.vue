@@ -74,13 +74,13 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item"         size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="downloadTemplate">
+        <el-button class="filter-item"          size="mini" round type="primary" @click="downloadTemplate">
           学生信息模板下载
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">
+        <el-button class="filter-item"          size="mini" round type="primary" @click="downloadCodeTemplate">
           学籍号模板下载
         </el-button>
         <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary"  @click="handleDownload">

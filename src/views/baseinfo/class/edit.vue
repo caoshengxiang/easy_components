@@ -1,166 +1,385 @@
 <template>
-  <div class="app-container staff-detail">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-    <el-button
-      v-if="type==='detail'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='add'"
-    >
-      编辑
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='detail'"
-    >
-      取消
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;margin-right: 0px"
-      type="primary"
-      icon="el-icon-edit"
-      @click="handleCreate"
-    >
-      保存
-    </el-button>
-    <div class="createPost-container">
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
-        <div class="createPost-main-container">
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="班级名称：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="预分配人数：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="年级：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 100%;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="专业：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 100%;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="班主任：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 160px;margin-right: 10px;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-                <el-select v-model="postForm.type" placeholder="班主任" :disabled="type!=='add'" clearable filterable style="width: 200px">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="是否订单班：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 100%;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="班级类型：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 100%;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="班级编号：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="所在校区：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="postForm.type" placeholder="岗位" :disabled="type!=='add'" clearable filterable style="width: 100%;">
-                  <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </div>
-      </el-form>
+
+  <div class="assetinfo-detail app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
+    <y-detail-page-layout :save="save">
+      <el-tabs value ="first" @tab-click="handleClick">
+        <el-tab-pane label="基础信息" name="first">
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="margin: auto;">
+            <div class="createPost-main-container">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="班级名称：" prop="name" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.name" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="8">
+                  <el-form-item label="班级编号：" prop="code" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.code" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="预分配人数：" prop="allocationNum" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.allocationNum" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.gradeId" placeholder="年级" clearable filterable style="width: 100%;">
+                      <el-option v-for="item in gradeList " :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.specialtyId" placeholder="专业" clearable filterable style="width: 100%;">
+                      <el-option v-for="item in  majorList" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.type" @change="staffAll()" placeholder="岗位" clearable filterable style="width: 160px;margin-right: 10px;">
+                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                    <el-select v-model="postForm.headTeacherId" placeholder="班主任" clearable filterable style="width: 200px">
+                      <el-option v-for="item in  staff" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="是否订单班：" prop="ifOrder" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.ifOrder" placeholder="是否订单班" clearable filterable style="width: 100%;">
+                 <el-option v-for="item in  opt" :key="item.key" :label="item.label" :value="item.key" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="班级类型：" prop="classType" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.classType" placeholder="班级类型" clearable filterable style="width: 100%;">
+                     <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="所在校区：" prop="campus" label-width="120px" class="postInfo-container-item">
+                    <el-select v-model="postForm.campus" placeholder="所在校区" clearable filterable style="width: 100%;">
+                      <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+
+    </y-detail-page-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
-
-  const defaultForm = {
-    type: '',
-    tableData: [{ key: 'xxx' }, { key: 'xxxx' }],
-    tableData2: [],
-    tableData3: [],
-    tableData4: [],
-    tableData5: [],
-    tableData6: [],
-  }
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb },
+    components: { Breadcrumb,YDetailPageLayout },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
     data() {
       return {
+
+        campus:[],
+        opt:[{
+          key: true,
+          label:'是'
+        },{
+          key: false,
+          label:'否'
+        }],
         type: 'detail',
-        postForm: Object.assign({}, defaultForm),
+        postForm: {},
         rules: {
-          type: [{
+          code: [{
             required: true,
-            message: '请填写年份',
+            message: '请填写班级编号',
+            trigger: 'change'
+          }],
+          name: [{
+            required: true,
+            message: '请填写班级名称',
+            trigger: 'change'
+          }],
+          allocationNum: [{
+            required: true,
+            message: '请选择预计分配人数',
+            trigger: 'change'
+          }],
+          gradeId: [{
+            required: true,
+            message: '请选择年级',
+            trigger: 'change'
+          }],
+          specialtyId: [{
+            required: true,
+            message: '请选择专业',
+            trigger: 'change'
+          }],
+          headTeacherId: [{
+            required: true,
+            message: '请选择班主任',
+            trigger: 'change'
+          }],
+          ifOrder: [{
+            required: true,
+            message: '请选择是否订单班',
+            trigger: 'change'
+          }],
+          classType: [{
+            required: true,
+            message: '请选择班级类型',
+            trigger: 'change'
+          }],
+          campus: [{
+            required: true,
+            message: '请选择校区',
             trigger: 'change'
           }],
         },
+        gangwei:[],
+        staff:[],
+        AllEnum:[],
+        majorList:[],
+        gradeList:[]
       }
     },
     created() {
+      let that = this
+      if(that.detailInfo){
+        that.postForm = that.detailInfo
+      }
+      else if(that.$route.query.id){
+        that.id = that.$route.query.id
+        that.getDetail()
+      }
+      that.simpleAll()
+      that.getAllEnum()
+      that.getMajor();
+      that.getGrade();
+      that.simpleAll();
+      that.getByTypeId(52)
     },
     methods: {
-      handleCreate() {
-        this.$refs.postForm.validate(valid => {
-          if (valid) {
-            //
+
+      getByTypeId(id){
+        const that = this
+        that.$api.dictData.getByTypeId({ dictTypeId: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 52:
+                that.campus = data.data
+                break;
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
           }
         })
       },
-      handleAdd() {
-        this.postForm.tableData.push({ key: '' })
+      simpleAll(){
+        let that = this
+        that.$api.post.simpleAll().then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.gangwei = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
       },
-      handleAdd2() {
-        this.postForm.tableData2.push({ key: '' })
+      staffAll(){
+        let that = this
+        that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.staff = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
       },
-      handleAdd3() {
-        this.postForm.tableData3.push({ key: '' })
+      getMajor(){
+        let that = this
+        that.$api.major.listbase({...that.listQuery,...that.pagePara}).then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.majorList = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
       },
-      handleAdd4() {
-        this.postForm.tableData4.push({ key: '' })
+      getGrade(){
+        let that = this
+        that.$api.grade.listbase({...that.listQuery,...that.pagePara}).then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.gradeList = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
       },
-      handleAdd5() {
-        this.postForm.tableData5.push({ key: '' })
+
+      getAllEnum(){
+        let that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
       },
-      handleAdd6() {
-        this.postForm.tableData6.push({ key: '' })
+      simpleAll(){
+        let that = this
+        that.$api.post.simpleAll().then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.gangwei = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      staffAll(){
+        let that = this
+        that.$api.staff.staffpost({ postId: that.postForm.type}).then(data => {
+          if(data.code === 200){
+            //返回成功
+            that.staff = data.data
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getDetail(){
+        let that = this;
+        that.$api.clbum.detail(that.id).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            that.postForm = data.data;
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      save(){
+        let that = this
+        that.$refs.postForm.validate(valid => {
+          if (valid) {
+            if(that.$route.query.id){
+              ////编辑
+              that.$api.clbum.edit({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑班级成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/views/baseinfo/class/list",
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+            else {
+              ////新增
+              ////编辑
+              that.$api.clbum.add({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '新增班级成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/views/baseinfo/class/list",
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+
+          }
+        })
       }
     }
   }

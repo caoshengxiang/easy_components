@@ -17,5 +17,9 @@ export default {
   delete(params){
     return request.delete('specialty/'+  params.id , params )
   },
+  /*系部相关接口*/
+  listbase(params){
+    return request.get('/specialty/list/base')
+  },
 
 }

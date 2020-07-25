@@ -25,7 +25,7 @@
       :title="title"
       ref="uploadCtl"
     >
-      <el-button type="primary" round><slot>{{this.title}}</slot></el-button>
+      <el-button type="primary"          size="mini" round><slot>{{this.title}}</slot></el-button>
     </el-upload>
   </div>
 </template>
