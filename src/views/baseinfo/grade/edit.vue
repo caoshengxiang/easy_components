@@ -1,115 +1,153 @@
 <template>
-  <div class="app-container staff-detail">
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
-    <el-button
-      v-if="type==='detail'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='add'"
-    >
-      编辑
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;"
-      type="primary"
-      icon="el-icon-edit"
-      @click="type='detail'"
-    >
-      取消
-    </el-button>
-    <el-button
-      v-if="type==='add'"
-      class="filter-item download-button"
-      style="margin-left: 10px;margin-right: 0px"
-      type="primary"
-      icon="el-icon-edit"
-      @click="handleCreate"
-    >
-      保存
-    </el-button>
-    <div class="createPost-container">
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
-        <div class="createPost-main-container">
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="年级名称：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="年级编号：" prop="type" label-width="120px" class="postInfo-container-item">
-                <el-input v-if="type==='add'" v-model="postForm.type" class="filter-item" />
-                <el-input v-else v-model="postForm.type" disabled class="filter-item" />
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </div>
-      </el-form>
+
+  <div class="assetinfo-detail app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
+    <y-detail-page-layout :save="save">
+      <el-tabs value ="first" @tab-click="handleClick">
+        <el-tab-pane label="基础信息" name="first">
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="width: 600px;margin: auto;">
+            <div class="createPost-main-container">
+              <el-row>
+                <el-col :span="24">
+                  <el-form-item label="年级名称：" prop="code" label-width="120px" class="postInfo-container-item">
+                    <el-input  v-model="postForm.code" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="年级编号：" prop="name" label-width="120px" class="postInfo-container-item">
+                    <el-input  v-model="postForm.name" class="filter-item" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
+          </el-form>
+        </el-tab-pane></el-tabs>
+
+    </y-detail-page-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
-
-  const defaultForm = {
-    type: '',
-    tableData: [{ key: 'xxx' }, { key: 'xxxx' }],
-    tableData2: [],
-    tableData3: [],
-    tableData4: [],
-    tableData5: [],
-    tableData6: [],
-  }
+  import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb },
+    components: { Breadcrumb,YDetailPageLayout },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
     data() {
       return {
         type: 'detail',
-        postForm: Object.assign({}, defaultForm),
+        postForm: {},
         rules: {
-          type: [{
+          code: [{
             required: true,
-            message: '请填写年份',
+            message: '请填写年级编号',
+            trigger: 'change'
+          }],
+          name: [{
+            required: true,
+            message: '请填写年级名称',
             trigger: 'change'
           }],
         },
       }
     },
     created() {
+      let that = this
+      if(that.detailInfo){
+        that.postForm = that.detailInfo
+      }
+      else if(that.$route.query.id){
+        that.id = that.$route.query.id
+        that.getDetail()
+      }
     },
     methods: {
-      handleCreate() {
-        this.$refs.postForm.validate(valid => {
-          if (valid) {
-            //
+      getDetail(){
+        let that = this;
+        that.$api.grade.detail(that.id).then(data => {
+          that.loading = false;
+          if(data.code === 200){
+            that.postForm = data.data;
+          }
+          else{
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
           }
         })
       },
-      handleAdd() {
-        this.postForm.tableData.push({ key: '' })
-      },
-      handleAdd2() {
-        this.postForm.tableData2.push({ key: '' })
-      },
-      handleAdd3() {
-        this.postForm.tableData3.push({ key: '' })
-      },
-      handleAdd4() {
-        this.postForm.tableData4.push({ key: '' })
-      },
-      handleAdd5() {
-        this.postForm.tableData5.push({ key: '' })
-      },
-      handleAdd6() {
-        this.postForm.tableData6.push({ key: '' })
+      save(){
+        let that = this
+        that.$refs.postForm.validate(valid => {
+          if (valid) {
+
+            if(that.$route.query.id){
+              ////编辑
+              that.$api.grade.edit({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑年级成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/views/baseinfo/grade/list",
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+            else {
+              ////新增
+              ////编辑
+              that.$api.grade.add({...that.postForm}).then(data => {
+                that.loading = false;
+                if(data.code === 200){
+                  this.$notify({
+                    title: '成功',
+                    message: '新增年级成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  that.$router.push({
+                    path:"/views/baseinfo/grade/list",
+                  })
+                }
+                else{
+                  this.$message({
+                    type: 'error',
+                    message: data.msg
+                  })
+                }
+              })
+            }
+
+          }
+        })
       }
     }
   }
