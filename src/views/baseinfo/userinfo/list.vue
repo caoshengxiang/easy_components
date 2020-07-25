@@ -27,9 +27,15 @@
         </div>
       </div>
     </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-        <el-select v-model="listQuery.type" placeholder="查询类型" clearable class="filter-item" style="margin-left:10px;width: 100px">
+        <el-select
+          v-model="listQuery.type"
+          placeholder="查询类型"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;margin-bottom: 10px;width: 100px"
+        >
           <el-option v-for="item in IsFull" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
 
@@ -37,18 +43,18 @@
           v-model="listQuery.schoolGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
           class="filter-item"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select   >
+        </el-select>
 
         <el-select
           v-model="listQuery.schoolSpecialtyId"
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -57,53 +63,101 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
-        <el-select v-model="listQuery.state" placeholder="就读" clearable class="filter-item" style="margin-left:10px;  width: 100px">
+        <el-select
+          v-model="listQuery.state"
+          placeholder="就读"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;  width: 100px;margin-bottom: 10px;"
+        >
           <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item" />
         </el-select>
         <el-input
           v-model="listQuery.keyword"
           placeholder="学号或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 200px;"
+          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
           class="filter-item"
-          @keyup.enter.native="handleFilter"
         />
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="primary" @click="downloadTemplate">
-          学生信息模板下载
-        </el-button>
-        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">
-          学籍号模板下载
-        </el-button>
-        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary"  @click="handleDownload">
-          导出
-        </el-button>
-        <excelImport
-        :limit="1"
-        ref="uploadControl"
-        flag="student/importExcel"
-        :styleType="1"
-        title= "更新学生信息"
-      ></excelImport>
-       <excelImport
-          :limit="1"
-          ref="uploadControl"
-          flag="/student/importCodeExcel"
-          :styleType="1"
-          title= "更新学籍号"
-        ></excelImport>
+        <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
+        <!--          学生信息模板下载-->
+        <!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="downloadCodeTemplate">-->
+        <!--          学籍号模板下载-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list_importInfo"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="学生信息模板下载"
+          @click="downloadTemplate"
+        />
+        <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list_importInfo"
+          class-name="filter-item"
+          round
+          type="text"
+          name="学生信息模板下载"
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="student/importExcel"
+            :style-type="1"
+            title="更新学生信息"
+          />
+        </PermissionButton>
 
+        <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list_stuId"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="学籍号模板下载"
+          @click="downloadCodeTemplate"
+        />
+        <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list_stuId"
+          class-name="filter-item"
+          type="text"
+          round
+          name="更新学籍号"
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="/student/importCodeExcel"
+            :style-type="1"
+            title="更新学籍号"
+          />
+        </PermissionButton>
+        <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" @click="handleDownload">-->
+        <!--          导出-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload"
+        />
       </template>
       <el-table
         :key="tableKey"
+        slot="table"
         v-loading="listLoading"
         :data="pageData.records"
         border
@@ -111,7 +165,6 @@
         highlight-current-row
         style="width:99%;margin-left: 10px"
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
-        slot="table"
       >
         <el-table-column label="学号" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
@@ -133,13 +186,13 @@
         <el-table-column label="专业" align="center">
           <template slot-scope="{row}">
             <span>
-            {{ row.schoolSpecialtyName }}
+              {{ row.schoolSpecialtyName }}
             </span>
           </template>
         </el-table-column>
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
-            <span >{{ row.schoolGradeName }}</span>
+            <span>{{ row.schoolGradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="行政班级">
@@ -172,27 +225,52 @@
             <span>{{ row.certificateCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="联系电话" class-name="status-col" >
+        <el-table-column label="联系电话" class-name="status-col">
           <template slot-scope="{row}">
             <span>{{ row.homePhone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="二维码" class-name="status-col" >
+        <el-table-column label="二维码" class-name="status-col">
           <template slot-scope="{row}">
-            <span class="link-type" @click="productInnerQR=true">查看</span>
+<!--            <span class="link-type" @click="productInnerQR=true">查看</span>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_userinfo_list_code"
+              name="查看"
+              type="text"
+              @click="productInnerQR=true"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="150" >
+        <el-table-column label="操作" class-name="status-col" width="150">
           <template slot-scope="{row}">
-            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">
-              下载
-            </el-button>
-           <!-- <el-button style="border-radius:15px;" type="primary" size="mini" @click="detail(row.id)">
-              详情
-            </el-button>-->
-            <el-button style="border-radius:15px;" type="primary"  @click="detailInfo(row.id)">
-              详情
-            </el-button>
+<!--            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">-->
+<!--              下载-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_userinfo_list_code"
+              class-name="filter-item"
+              name="下载"
+              type="primary"
+              round
+              size="mini"
+              @click="downloadCodeImg(row)"
+            >
+            </PermissionButton>
+<!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
+<!--              详情-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_userinfo_detailInfo"
+              class-name="filter-item"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
       </el-table>
@@ -212,15 +290,14 @@
   import QRCode from 'qrcode'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
-  import excelImport from '@/components/excelImport.vue';
-
-
+  import excelImport from '@/components/excelImport.vue'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      Pagination,
+      PermissionButton,
       YPageListLayout,
       excelImport,
     },
@@ -236,12 +313,11 @@
     },
     data() {
       return {
-        AllEnum:[],
-        pageData:{
-        },
-        pagePara:{
-          current:0,
-          size:10
+        AllEnum: [],
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         innerUrl: '../../../assets/ercode.png',
         productInnerQR: false,
@@ -320,13 +396,13 @@
       that.getAllEnum()
     },
     methods: {
-      searchList(){
-        let that = this;
+      searchList() {
+        const that = this
         that.pagePara.current = 0
         that.getList()
       },
-      getAllEnum(){
-        let that = this
+      getAllEnum() {
+        const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -339,45 +415,45 @@
         })
       },
       EncodeGetUrl(url) {
-        let urlArr = url.split('?');
-        let encodeUrl = urlArr[0];
+        const urlArr = url.split('?')
+        let encodeUrl = urlArr[0]
 
         if (urlArr.length > 1) {
-          encodeUrl += '?';
-          let paramArr = urlArr[1].split('&');
-          let encodeparamArr = [];
+          encodeUrl += '?'
+          const paramArr = urlArr[1].split('&')
+          const encodeparamArr = []
           paramArr.forEach((item, index) => {
-            let key = item.split('=')[0];
-            let value = item.split('=')[1];
-            encodeparamArr.push(key + '=' + encodeURIComponent(value));
+            const key = item.split('=')[0]
+            const value = item.split('=')[1]
+            encodeparamArr.push(key + '=' + encodeURIComponent(value))
           })
 
-          encodeUrl += encodeparamArr.join('&');
+          encodeUrl += encodeparamArr.join('&')
         }
 
-        return encodeUrl;
+        return encodeUrl
       },
-      downloadTemplate(){
+      downloadTemplate() {
         this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
       },
-      downloadCodeTemplate(){
+      downloadCodeTemplate() {
         this.$utils.exportUtil('/student/download/codeImportTemplate', null, '学籍号模板下载')
       },
-      handleDownload(url){
-        this.$utils.exportUtil('/student/download/exportExcel',this.listQuery, '学生信息')
+      handleDownload(url) {
+        this.$utils.exportUtil('/student/download/exportExcel', this.listQuery, '学生信息')
       },
       objToString(obj) {
-        var str = '';
+        var str = ''
         if (obj) {
           Object.keys(obj).forEach((key, index) => {
-            if (index == 0) {
-              str = str + `?${key}=${obj[key]}`;
+            if (index === 0) {
+              str = str + `?${key}=${obj[key]}`
             } else {
-              str = str + `&${key}=${obj[key]}`;
+              str = str + `&${key}=${obj[key]}`
             }
           })
         }
-        return str;
+        return str
       },
       detail(id) {
         const that = this
@@ -530,7 +606,7 @@
           that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
           that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
         }
-        that.$api.student.getPage({...that.pagePara, ...that.listQuery}).then(data => {
+        that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
@@ -567,6 +643,7 @@
 
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

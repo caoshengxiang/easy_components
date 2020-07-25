@@ -20,7 +20,7 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :native-type="nativeType"
-    @click="handle"
+    @click.stop="handle"
   >
     <slot>{{ name || menu.name }}</slot>
   </el-button>
@@ -34,10 +34,6 @@
     mixins: [mixin],
     props: {
       name: { // 按钮名称
-        default: '',
-        type: String
-      },
-      style: { // 按钮名称
         default: '',
         type: String
       },

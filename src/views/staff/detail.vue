@@ -196,7 +196,7 @@
                   <el-col :xs="24" :sm="24" :lg="12" :span="12">
                     <el-form-item label="岗位名称：" label-width="120px" class="postInfo-container-item">
                       <el-select
-                        v-model="detailTeacherPosts"
+                        v-model="postForm.teacherPosts"
                         placeholder=""
                         clearable
                         multiple
@@ -1351,6 +1351,7 @@
     teacherResearchTopics: [], // 教师在研课题
     teacherTrainings: [], // 教师培训
     teacherPapers: [], // 教师著作论文
+    teacherPosts: []
   }
 
   export default {
@@ -1363,8 +1364,6 @@
       return {
         type: 'detail',
         postForm: Object.assign({}, defaultForm),
-        detailTeacherPosts: [],
-        detailTeacherPostsOriginal: [], // 记录详情原始岗位id
         rules: {
           type: [{
             required: true,
@@ -1459,13 +1458,7 @@
         if (this.dataId) {
           this.$api.staff.detail(this.dataId).then(res => {
             this.postForm = res.data
-            this.detailTeacherPosts = []
-            this.detailTeacherPostsOriginal = []
-            res.data.teacherPosts.forEach(item => {
-              this.detailTeacherPosts.push(item.id)
-              this.detailTeacherPostsOriginal.push(item.id)
             })
-          })
           this.initData()
         }
       },
@@ -1473,34 +1466,26 @@
         this.vLoading = true
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            const delPostId = []
-            this.detailTeacherPostsOriginal.forEach(id => {
-              if (!this.detailTeacherPosts.includes(id)) {
-                delPostId.push(id)
-              }
-            })
-
             this.$api.staff.edit(Object.assign({}, this.postForm, {
-              delTeacherPosts: delPostId,
               delTeacherPracticeProjects: this.delTeacherPracticeProjects,
               delTeacherPatents: this.delTeacherPatents,
               delTeacherAwards: this.delTeacherAwards,
               delTeacherResearchTopics: this.delTeacherResearchTopics,
               delTeacherTrainings: this.delTeacherTrainings,
               delTeacherPapers: this.delTeacherPapers,
-              teacherPosts: this.detailTeacherPosts.map(item => { return { id: item } }),
+              teacherPosts: this.teacherPosts.map(item => { return {postId: item} }),
             })).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
-                  message: '编辑成功',
+                  message: '保存成功',
                   type: 'success',
                   duration: 2000
                 })
-                // const back = this.$route.query.back
-                // if (back) {
-                //   this.$router.push(back)
-                // }
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
+                }
                 this.initData()
                 this.vLoading = false
               }

@@ -417,7 +417,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
-  import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import PermissionButton from '@/components/PermissionButton/PermissionButtonStop'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {

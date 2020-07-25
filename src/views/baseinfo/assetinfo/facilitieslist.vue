@@ -3,31 +3,52 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-   <!-- <div class="right">
-      <div class="menu-2-box">
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总数100</span>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总建设费100</span>
-        </div>
-      </div>
-    </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <!-- <div class="right">
+       <div class="menu-2-box">
+         <div
+           :key="index"
+           class="menu-2-item hvr-underline-from-center"
+         >
+           <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总数100</span>
+         </div>
+         <div
+           :key="index"
+           class="menu-2-item hvr-underline-from-center"
+         >
+           <i class="easy-icon easy-icon-avatar" /> <span class="text">设施总建设费100</span>
+         </div>
+       </div>
+     </div>-->
+    <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-        <el-button class="filter-item" round type="primary" @click="detail()">
-          新增设施
-        </el-button>
-        <el-select v-model="listQuery.orgId" placeholder="使用部门" clearable style="margin-left: 20px; width: 200px" class="filter-item">
+<!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
+<!--          新增设施-->
+<!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_baseinfo_assetinfo_facilities_add"
+          class-name="filter-item"
+          round
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          :page-jump="true"
+        />
+        <el-select
+          v-model="listQuery.orgId"
+          placeholder="使用部门"
+          clearable
+          style="margin-left: 20px; width: 200px"
+          class="filter-item"
+        >
           <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
-        <el-input v-model="listQuery.name" placeholder="设施名称" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input
+          v-model="listQuery.name"
+          placeholder="设施名称"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+        />
       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="searchList">
@@ -35,20 +56,20 @@
         </el-button>
       </template>
       <el-table
-        v-loading="listLoading"
         :key="tableKey"
+        slot="table"
+        v-loading="listLoading"
         :data="pageData.records"
         border
         fit
         highlight-current-row
         style="width: 100%;"
-        slot="table"
       >
-        <el-table-column label="设施名称" prop="id" sortable="custom" align="center" >
+        <el-table-column label="设施名称" prop="id" sortable="custom" align="center">
           <template slot-scope="{row}">
-          <span >
-                                              {{ row.name }}
-                  </span>
+            <span>
+              {{ row.name }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="建成年月" align="center">
@@ -56,37 +77,58 @@
             <span>{{ row.buildDate | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="设施产权"   align="center">
+        <el-table-column label="设施产权" align="center">
           <template slot-scope="{row}">
             <span>{{ row.property }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="使用部门"  align="center">
+        <el-table-column label="使用部门" align="center">
           <template slot-scope="{row}">
-            <span >
-         {{ row.orgName }}
+            <span>
+              {{ row.orgName }}
 
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="建设费用"  align="center">
+        <el-table-column label="建设费用" align="center">
           <template slot-scope="{row}">
-            <span >{{ row.buildCost }}</span>
+            <span>{{ row.buildCost }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="经费来源" >
+        <el-table-column label="经费来源">
           <template slot-scope="{row}">
-            <span >{{ row.financialResource }}年</span>
+            <span>{{ row.financialResource }}年</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button type="primary" round size="mini" @click="detail(row.id)">
-              编辑
-            </el-button>
-            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">
-              删除
-            </el-button>
+<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+<!--              编辑-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_assetinfo_facilities_edit"
+              class-name="filter-item"
+              name=""
+              type="primary"
+              round
+              size="mini"
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            >
+            </PermissionButton>
+<!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
+<!--              删除-->
+<!--            </el-button>-->
+            <PermissionButton
+              menu-no="_views_baseinfo_assetinfo_facilitieslist_remove"
+              class-name="filter-item"
+              name=""
+              type="danger"
+              round
+              size="mini"
+              @click="deleteInfo(row.id)"
+            >
+            </PermissionButton>
           </template>
         </el-table-column>
       </el-table>
@@ -94,107 +136,107 @@
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
+
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination,YPageListLayout},
+    components: {
+      Breadcrumb,
+      PermissionButton,
+      YPageListLayout
+    },
     data() {
       return {
-        pageData:{},
-        pagePara:{
-          current:0,
-          size:10
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         listQuery: {
           code: '',
           constructionId: ''
         },
-        departmentList:[]
+        departmentList: []
       }
     },
-    created(){
-      let that = this;
-      that.getList()  ////查询列表
+    created() {
+      const that = this
+      that.getList() // //查询列表
 
-      that.getDepartmentList() ////查询建筑物列表
+      that.getDepartmentList() // //查询建筑物列表
     },
-    methods:{
-      searchList(){
-        let that = this;
+    methods: {
+      searchList() {
+        const that = this
         that.pagePara.current = 0
 
         that.getList()
       },
-      deleteInfo(id){
-        const that = this;
+      deleteInfo(id) {
+        const that = this
         that.$confirm('请确认是否删除该数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-          center:true
+          center: true
         }).then(() => {
           that.$api.assetinfo.deleteFacility({ id: id }).then(data => {
-            that.loading = false;
-            if(data.code === 200){
+            that.loading = false
+            if (data.code === 200) {
               that.getList()
-            }
-            else{
+            } else {
               this.$message({
                 type: 'error',
                 message: data.msg
               })
             }
           })
-
         }).catch(() => {
-        });
+        })
       },
-      detail(id){
-        let that =this;
+      detail(id) {
+        const that = this
         that.$router.push({
-          path:"/views/baseinfo/assetinfo/facilitiesdetail",
+          path: '/views/baseinfo/assetinfo/facilitiesdetail',
           query: {
             id: id,
           }
         })
       },
-      getDepartmentList(){
-        let that = this;
+      getDepartmentList() {
+        const that = this
         that.pagePara.size = 10000
-        that.$api.baseInfo.getDepartmentList({...that.pagePara}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-
-            //返回成功
+        that.$api.baseInfo.getDepartmentList({ ...that.pagePara }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.departmentList = data.data.records
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getList(){
-        let that = this;
-        that.$api.assetinfo.getFacilityPage({...that.listQuery,...that.pagePara}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
-            //返回成功
+      getList() {
+        const that = this
+        that.$api.assetinfo.getFacilityPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
             that.pageData = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
     }
   }
@@ -203,6 +245,7 @@
 <style lang="scss" scoped>
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

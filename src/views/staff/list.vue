@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
 
     <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
@@ -55,8 +55,8 @@
           style="margin-left: 20px;width: 100px"
           class="filter-item"
         >
-          <el-option label="男" value="男"/>
-          <el-option label="女" value="女"/>
+          <el-option label="男" value="男" />
+          <el-option label="女" value="女" />
         </el-select>
         <!--        <el-input-->
         <!--          v-model=""-->
@@ -72,17 +72,22 @@
             style="width: 90px;"
             placeholder="请选择"
           >
-            <el-option label="全部" value="keyword"/>
-            <el-option label="工号" value="staffNo"/>
-            <el-option label="姓名" value="name"/>
-            <el-option label="部门" value="organizationName"/>
-            <el-option label="岗位" value="postName"/>
+            <el-option label="全部" value="keyword" />
+            <el-option label="工号" value="staffNo" />
+            <el-option label="姓名" value="name" />
+            <el-option label="部门" value="organizationName" />
+            <el-option label="岗位" value="postName" />
           </el-select>
         </el-input>
       </template>
       <template slot="right">
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-search"
-                   @click="searchList">
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+          icon="el-icon-search"
+          @click="searchList"
+        >
           搜索
         </el-button>
         <!--        <el-button-->

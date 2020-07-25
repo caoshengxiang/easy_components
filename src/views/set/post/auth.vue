@@ -170,7 +170,7 @@
 
         function tree(list) {
           list.forEach(item => {
-            console.log('子菜单', item.name)
+            // console.log('子菜单', item.name)
             item.checked = false
             childrenIds.push(item.id)
             if (item.children) {
@@ -180,17 +180,17 @@
         }
 
         data.children && tree(data.children)
-        console.log(data.children, '子树', childrenIds)
+        // console.log(data.children, '子树', childrenIds)
         return childrenIds
       },
       handleCheckChange(data, checked, indeterminate) {
-        console.log(data, checked, indeterminate, 'check node')
+        // console.log(data, checked, indeterminate, 'check node')
         if (checked === true) {
           const pChecks = this.setParentCheck(data)
           this.checkedIds = this.checkedIds.concat(pChecks)
           this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
           this.$refs.tree.setCheckedKeys(this.checkedIds)
-          console.log(this.checkedIds, 'id数据')
+          // console.log(this.checkedIds, 'id数据')
         } else {
           const childrenIds = this.setChildrenCheck(data)
           this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
@@ -200,24 +200,24 @@
           //     this.checkedIds.splice(index, 1)
           //   }
           // })
-          console.log(childrenIds, this.checkedIds, 'id数据')
+          // console.log(childrenIds, this.checkedIds, 'id数据')
           // this.$refs.tree.setCheckedKeys(this.checkedIds)
         }
       },
       nodeClick(data, node, it) {
-        console.log(data, node, it)
+        // console.log(data, node, it)
         this.menuItem = data
         if (!data.children || data.children.length === 0) {
-          console.log('最后一级')
+          // console.log('最后一级')
         }
       },
       handleCreate() {
         // console.log(this.$refs.tree.getCheckedNodes())
         // console.log(this.$refs.tree.getCheckedKeys())
-        console.log(JSON.stringify({
-          postId: this.$route.query.id,
-          permissionTree: JSON.stringify(this.treeData)
-        }))
+        // console.log(JSON.stringify({
+        //   postId: this.$route.query.id,
+        //   permissionTree: JSON.stringify(this.treeData)
+        // }))
         this.$api.postAuth.edit({
           postId: this.$route.query.id,
           permissionTree: JSON.stringify(this.treeData)
