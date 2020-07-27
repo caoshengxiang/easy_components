@@ -251,7 +251,7 @@
     methods: {
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.geyByCode({ code: id }).then(data => {
+        that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             that.roomType = data.data
           } else {
