@@ -1,0 +1,111 @@
+<template>
+  <div class="level1" @click.stop>
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu
+        :default-active="activeIndex"
+        background-color="#fff"
+        text-color="#333333"
+        active-text-color="#338FFF"
+        font-weight="bold"
+      >
+        <!--        <el-menu-item v-if="$route.path !== '/home/index'" index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
+        <!--        <el-menu-item index="99999" @click="handleSelect('/home/index')">首页xx</el-menu-item>-->
+        <el-menu-item
+          v-for="(item) in permission_menus"
+          :key="'id'+item.id"
+          :index="'id'+item.id"
+          @click="menusClick(item)"
+          style="display: flex;align-items: center;"
+        >
+          <i :class="'easy-icon easy-icon-'+item.pcIcon" style="transform: scale(0.4);width: 46px;margin-left: -20px;margin-right: -10px;"></i>
+          {{item.name}}
+        </el-menu-item>
+      </el-menu>
+    </el-scrollbar>
+  </div>
+</template>
+
+<script>
+  import { mapGetters } from 'vuex'
+
+  export default {
+    data() {
+      return {
+        activeIndex: 'id' + this.$route.query.menuLevel1,
+        activeItem: {}
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'permission_menus',
+      ]),
+    },
+    watch: {
+      permission_menus: {
+        immediate: true, // immediate选项可以开启首次赋值监听
+        deep: true,
+        handler(newv) {
+          if (newv && newv.length && !this.activeIndex) {
+            this.activeItem = newv[0]
+            this.activeIndex = 'id' + this.activeItem.id
+            this.jumpMenu(this.activeItem)
+          }
+        }
+      }
+    },
+    created() {
+    },
+    methods: {
+      menusClick(item) {
+        this.activeItem = item
+        this.jumpMenu(item)
+        this.$emit('getStatus', false)
+      },
+      jumpMenu(mn) {
+        // 跳转涉及到 menuTree.vue   PermissionButton.vue    login
+
+        let jumpItem = null
+
+        function tree(data) {
+          if (jumpItem) {
+            return
+          }
+          if (data.menuType === '菜单' && data.pcUrl) {
+            jumpItem = data
+          } else {
+            if (data.children && data.children.length > 0) {
+              data.children.forEach(item => {
+                tree(item)
+              })
+            }
+          }
+        }
+
+        tree(mn)
+        // console.log(jumpItem, 'jumpItem')
+
+        if (jumpItem && jumpItem.pcUrl) {
+          if (jumpItem.external) {
+            window.open(jumpItem.pcUrl)
+          } else {
+            this.$router.push({
+              path: jumpItem.pcUrl,
+              query: {
+                menuLevel1: this.activeItem.id,
+                menuId: jumpItem.id
+              }
+            })
+          }
+        } else {
+          console.error(new Error('一级未找到菜单'))
+        }
+      }
+    }
+  }
+</script>
+<style lang="scss" scoped>
+  .level1 {
+    width: 200px;
+    background-color: #fffeff;
+  }
+</style>

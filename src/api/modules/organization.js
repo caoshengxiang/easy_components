@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 /*
-* 岗位
+* 部门
 */
 export default {
   list(params) {

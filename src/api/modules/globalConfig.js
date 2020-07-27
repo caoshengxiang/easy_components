@@ -26,5 +26,8 @@ export default {
   },
   getEnumByKey(params) { // 根据key获取枚举值
     return request.get(`globalConfig/getEnumByKey`, { params: params })
+  },
+  getSysCfg(params) { // 根据key获取枚举值
+    return request.get(`globalConfig/getSysCfg`, { params: params })
   }
 }

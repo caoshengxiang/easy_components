@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :style="{backgroundImage: 'url('+sysCfg.BACKGROUND || logBg+')'}">
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -11,7 +11,7 @@
 
       <el-form-item>
         <div class="title-container">
-          <h3 class="title">职业院校综合管理及内部质量诊断与改进平台
+          <h3 class="title">{{sysCfg.SYS_NAME}}
           </h3>
         </div>
       </el-form-item>
@@ -68,6 +68,7 @@
 
 <script>
 
+  import logBg from '../../assets/images/logo-bg.png'
   export default {
     name: 'Login',
     data() {
@@ -86,6 +87,7 @@
         }
       }
       return {
+        logBg,
         loginForm: {
           account: 'test001',
           pwd: 'school123456',
@@ -108,7 +110,8 @@
         loading: false,
         showDialog: false,
         redirect: undefined,
-        otherQuery: {}
+        otherQuery: {},
+        sysCfg: {},
       }
     },
     watch: {
@@ -124,7 +127,9 @@
       }
     },
     created() {
-      // window.addEventListener('storage', this.afterQRScan)
+      this.$api.globalConfig.getSysCfg().then(res => {
+        this.sysCfg = res.data
+      })
     },
     mounted() {
       if (this.loginForm.account === '') {
@@ -169,8 +174,8 @@
               }
               this.loading = false
             }).catch(() => {
-                this.loading = false
-              })
+              this.loading = false
+            })
           } else {
             console.log('error submit!!')
             return false
@@ -214,16 +219,17 @@
   $assets: '~@/assets/';
 
   .login-container {
-    background: url($assets + "images/logo-bg.png") 0 0 no-repeat;
+/*    background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
     background-size: 100% 100%;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .login-form {
       position: absolute;
       width: 38%;
@@ -231,15 +237,18 @@
       background-color: #fff;
       border-radius: 20px;
       padding: 80px;
-      box-shadow:0px 0px  10px 5px #ddd;
-      .login-btn{
+      box-shadow: 0px 0px 10px 5px #ddd;
+
+      .login-btn {
         padding: 30px 0;
-        .el-button{
+
+        .el-button {
           width: 100%;
           padding: 15px;
         }
       }
-      .el-form-item{
+
+      .el-form-item {
         margin-bottom: 30px;
       }
     }
@@ -298,14 +307,16 @@
   }
 </style>
 <style scoped>
-  .login-form >>>.el-input input{
-    background:rgba(247,247,247,1);
+  .login-form >>> .el-input input {
+    background: rgba(247, 247, 247, 1);
   }
-  .login-form >>>.el-input--small .el-input__inner{
+
+  .login-form >>> .el-input--small .el-input__inner {
     height: 40px;
     line-height: 40px;
   }
-  .login-form >>> .el-input__icon{
+
+  .login-form >>> .el-input__icon {
     font-size: 18px;
   }
 </style>

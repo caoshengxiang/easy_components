@@ -81,7 +81,6 @@
                   <PermissionButton
                     v-if="!data.children || data.children.length===0"
                     menu-no="_views_set_menu_remove"
-                    style="color: red;"
                     type="text"
                     size="mini"
                     name=""
@@ -486,7 +485,8 @@
       //   return dataTree
       // },
       getMenuTreeData() {
-        this.$api.menu.menuTree().then(res => {
+        console.log(this.$api)
+        this.$api.menuSet.menuTree().then(res => {
           this.treeData = res.data
           const list = []
 
@@ -502,9 +502,6 @@
           treeMap(this.treeData)
           this.treeListData = list
         })
-        // this.$api.menu.list().then(res => {
-        //   console.log(res)
-        // })
       },
       initData() {
         this.temp = {
@@ -526,7 +523,7 @@
       },
       getDetail(id, success, error) {
         this.initData()
-        this.$api.menu.detail(id).then(res => {
+        this.$api.menuSet.detail(id).then(res => {
           this.temp = res.data
           if (this.temp.pcUrl) {
             this.port_pc = true
@@ -606,7 +603,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$api.menu.delete(data.id).then(res => {
+          this.$api.menuSet.delete(data.id).then(res => {
             this.dialogFormVisible = false
             this.getMenuTreeData()
             this.$notify({
@@ -653,7 +650,7 @@
               })
               return
             }
-            this.$api.menu.add(tempData).then(res => {
+            this.$api.menuSet.add(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
               this.$notify({
@@ -708,7 +705,7 @@
               })
               return
             }
-            this.$api.menu.edit(tempData).then(res => {
+            this.$api.menuSet.edit(tempData).then(res => {
               this.dialogFormVisible = false
               this.getMenuTreeData()
               this.$notify({

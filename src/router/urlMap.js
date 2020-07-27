@@ -17,6 +17,7 @@ url: 就以/view/ 下的文件路径
 import _views_set_menu from '@/views/set/menu'
 import _views_set_post from '@/views/set/post'
 import _views_set_post_auth from '@/views/set/post/auth'
+import _views_set_organization from '@/views/set/organization'
 import _views_set_data from '@/views/set/data'
 import _views_set_info from '@/views/set/info'
 import _views_set_teaching from '@/views/set/teaching'
@@ -72,17 +73,18 @@ import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
 * 页面全路径url: 对应的路由组件
 * */
 export default {
-  _views_workflow_task_list,//待办列表
-  _views_workflow_task_Detail,//任务详情
-  _views_workflow_task_TaskDetail,//任务详情
-  _views_workflow_task_MyTaskList,//我的申请
-  _views_workflow_task_AttendList,//已办列表
+  _views_workflow_task_list, // 待办列表
+  _views_workflow_task_Detail, // 任务详情
+  _views_workflow_task_TaskDetail, // 任务详情
+  _views_workflow_task_MyTaskList, // 我的申请
+  _views_workflow_task_AttendList, // 已办列表
   _views_workflow_List, // 工作流列表
   _views_workflow_Design, // 工作流
   _views_workflow_Detail, // 工作流
   _views_set_menu, // 菜单设置 /views/set/menu
   _views_set_post, // 岗位管理 /views/set/post
   _views_set_post_auth, // 岗位权限
+  _views_set_organization, // 机构管理
   _views_set_data, // 数据字典
   _views_set_info, // 基础信息
   _views_set_teaching, // 教学相关

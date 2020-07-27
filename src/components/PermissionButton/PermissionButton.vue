@@ -84,10 +84,6 @@
         default: '',
         type: String
       },
-      style: { // 按钮名称
-        default: '',
-        type: String
-      },
       menuNo: { // 编号
         default: '',
         type: String
@@ -172,9 +168,7 @@
       handle() {
         const qy = {
           menuLevel1: this.$route.query.menuLevel1,
-          menuLevel2: this.$route.query.menuLevel2,
-          menuLevel3: this.$route.query.menuLevel3,
-          menuId: this.menu.id,
+          menuId: this.$route.query.menuId,
           back: this.$route.fullPath
         }
         if (this.pageJump) {

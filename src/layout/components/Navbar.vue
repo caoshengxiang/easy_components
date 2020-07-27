@@ -1,51 +1,27 @@
 <template>
-  <div class="navbar" style="background-color: #2A8FE3">
-    <div class="logclass">
-      <img src="../../assets/log1.png" style="height: 50px;margin-top: 5px;margin-left: 10px">
+  <div class="navbar">
+    <div class="logclass" @mouseenter="setStatus(true)">
+      <img style="width: 18px;" src="../../assets/level.png" alt="">
     </div>
-    <div class="titleDiv">教师端管理平台</div>
-    <el-menu
-      :default-active="activeIndex2"
-      class="el-menu-demo"
-      mode="horizontal"
-      background-color="rgba(42,143,227,1)"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      font-weight="bold"
-      style="float: left"
-      @select="handleSelect"
-    >
-      <el-menu-item index="/home/index">首页</el-menu-item>
-    </el-menu>
+    <div class="titleDiv"><img :src="sysCfg.LOGO" style="height: 50px;margin-top: 5px;"></div>
     <div class="right-menu" background-color="rgba(42,143,227,1)">
-      <!--  <template v-if="device!=='mobile'">
-                 <search id="header-search" class="right-menu-item" />
-
-             <error-log class="errLog-container right-menu-item hover-effect" />
-
-             <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-                 <el-tooltip content="Global Size" effect="dark" placement="bottom">-->
-      <!--          <size-select id="size-select" class="right-menu-item hover-effect" />-->
-      <!--        </el-tooltip>
-
-    </template>-->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img
             src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
             class="user-avatar"
           >
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-caret-bottom"/>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
-          <router-link to="/">
+          <router-link to="/views/workflow/task/MyTaskList">
             <el-dropdown-item>我的申请</el-dropdown-item>
           </router-link>
-          <router-link to="/">
+
+          <router-link to="/home/index">
             <el-dropdown-item>首页</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
@@ -59,53 +35,27 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import Breadcrumb from '@/components/Breadcrumb'
-  import Hamburger from '@/components/Hamburger'
-  import ErrorLog from '@/components/ErrorLog'
-  import Screenfull from '@/components/Screenfull'
-  // import SizeSelect from '@/components/SizeSelect'
-  import Search from '@/components/HeaderSearch'
 
   export default {
-    components: {
-      // Breadcrumb,
-      // Hamburger,
-      // ErrorLog,
-      // Screenfull,
-      // SizeSelect,
-      // Search
-    },
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1'
+        showLevel1Status: false,
+        sysCfg: '',
       }
     },
-    computed: {
-      // ...mapGetters([
-      //   'sidebar',
-      //   'avatar',
-      //   'device'
-      // ])
+    created() {
+      this.$api.globalConfig.getSysCfg().then(res => {
+        this.sysCfg = res.data
+      })
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath)
-        this.$router.push({
-          path: key,
-          query: {
-            menuLevel1: 1,
-            menuId: 101
-          }
-        })
-      },
-      toggleSideBar() {
-        this.$store.dispatch('app/toggleSideBar')
-      },
       async logout() {
         await this.$store.dispatch('user/logout')
-        this.$router.push(`/login`)
+        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      },
+      setStatus(data) {
+        this.showLevel1Status = data
+        this.$emit('getStatus', this.showLevel1Status)
       }
     }
   }
@@ -113,34 +63,30 @@
 
 <style lang="scss" scoped>
   .logclass {
-    width: 39px;
-    height: 26px;
-    padding-left: 10px;
+    width: 60px;
+    height: 60px;
+    background-color: #018EED;
+    box-sizing: border-box;
     float: left;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .titleDiv {
-    margin-top: 22px;
     margin-right: 50px;
+    margin-left: 17px;
     width: 200px;
-    height: 14px;
-    font-size: 18px;
-    font-family: Source Han Sans CN;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 1);
-    line-height: 13px;
+    height: 100%;
     float: left;
-    letter-spacing: 3px;
-    margin-left: 20px;
   }
 
   .navbar {
     height: 60px;
     overflow: hidden;
     position: relative;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    background-color: #fdffff;
+    box-shadow: 0px 2px 5px 0px rgba(153, 153, 153, 0.15);
 
     .hamburger-container {
       line-height: 46px;

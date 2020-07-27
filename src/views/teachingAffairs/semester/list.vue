@@ -144,11 +144,11 @@
       return {
         tableKey: 0,
         pageData: { records: [] },
-        total: 20,
-        listLoading: true,
+        total: 0,
+        listLoading: false,
         listQuery: {
           page: 1,
-          limit: 10,
+          size: 10,
           name: '',
           keyword: '',
         },

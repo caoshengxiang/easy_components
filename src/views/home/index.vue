@@ -1,31 +1,31 @@
 <template>
   <div class="home">
     <div class="menu-box">
-      <div class="left">
-        <div
-          v-for="(item, index) in permission_menus"
-          :key="index"
-          class="menu-1-item hvr-underline-from-left"
-          :class="{active: activeItem.name === item.name}"
-          @click="menusClick(item)"
-        >
-          <svg-icon icon-class="dashboard"/>
-          <span class="text">{{ item.name }}</span>
-        </div>
-      </div>
-      <div class="right">
-        <div class="title">{{ activeItem.name }}</div>
-        <div class="menu-2-box">
-          <div
-            v-for="(item, index) in activeItem.children"
-            :key="index"
-            class="menu-2-item hvr-underline-from-center"
-            @click="jumpMenu(item)"
-          >
-            <i class="easy-icon easy-icon-avatar"/> <span class="text">{{ item.name }}</span>
-          </div>
-        </div>
-      </div>
+<!--      <div class="left">-->
+<!--        <div-->
+<!--          v-for="(item, index) in permission_menus"-->
+<!--          :key="index"-->
+<!--          class="menu-1-item hvr-underline-from-left"-->
+<!--          :class="{active: activeItem.name === item.name}"-->
+<!--          @click="menusClick(item)"-->
+<!--        >-->
+<!--          <svg-icon icon-class="dashboard"/>-->
+<!--          <span class="text">{{ item.name }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="right">-->
+<!--        <div class="title">{{ activeItem.name }}</div>-->
+<!--        <div class="menu-2-box">-->
+<!--          <div-->
+<!--            v-for="(item, index) in activeItem.children"-->
+<!--            :key="index"-->
+<!--            class="menu-2-item hvr-underline-from-center"-->
+<!--            @click="jumpMenu(item)"-->
+<!--          >-->
+<!--            <i class="easy-icon easy-icon-avatar"/> <span class="text">{{ item.name }}</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@
         handler(newv) {
           if (newv && newv.length) {
             this.activeItem = newv[0]
+            this.jumpMenu(this.activeItem)
           }
         }
       }
@@ -63,26 +64,45 @@
       menusClick(item) {
         this.activeItem = item
       },
-      jumpMenu(item) {
-        // 跳转涉及到 menuTree.vue PermissionButton.vue
-        if (item.menuType === '目录' && item.children && item.children.length > 0) {
-          this.$router.push({
-            path: item.children[0].pcUrl,
-            query: {
-              menuLevel1: this.activeItem.id,
-              menuLevel2: item.id,
-              menuLevel3: item.children[0].id,
-              menuId: item.children[0].id
-            }
-          })
-        } else {
-          if (item.external) {
-            window.open(item.pcUrl)
+      jumpMenu(mn) {
+        // 跳转涉及到 menuTree.vue   PermissionButton.vue    login
+
+        let jumpItem = null
+
+        function tree(data) {
+          if (jumpItem) {
+            return
+          }
+          if (data.menuType === '菜单' && data.pcUrl) {
+            jumpItem = data
           } else {
-            this.$router.push({ path: item.pcUrl })
+            if (data.children && data.children.length > 0) {
+              data.children.forEach(item => {
+                tree(item)
+              })
+            }
           }
         }
-      }
+
+        tree(mn)
+        // console.log(jumpItem, 'jumpItem')
+
+        if (jumpItem && jumpItem.pcUrl) {
+          if (jumpItem.external) {
+            window.open(jumpItem.pcUrl)
+          } else {
+            this.$router.push({
+              path: jumpItem.pcUrl,
+              query: {
+                menuLevel1: this.activeItem.id,
+                menuId: jumpItem.id
+              }
+            })
+          }
+        } else {
+          console.error(new Error('一级未找到菜单'))
+        }
+      },
     }
   }
 </script>
