@@ -282,6 +282,19 @@
       fileUpload,
       YDetailPageLayout
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
     data() {
       return {
         editCourseChapterForm1: {},
@@ -407,7 +420,10 @@
     },
     created() {
       const that = this
-      if (that.$route.query.id) {
+
+      if (that.detailInfo) {
+        that.postForm = that.detailInfo
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
       }
@@ -425,7 +441,7 @@
     methods: {
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.geyByCode({ code: id }).then(data => {
+        that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'structuralNo':

@@ -37,13 +37,33 @@
         <div slot="header" class="clearfix">
           <span>申请内容</span>
         </div>
-        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.formData"></base-info-asset-info>
+        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.originData"></base-info-asset-info>
+        <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.originData"></base-info-building-info>
+        <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-room-info>
+        <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-training-info>
+        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-facilities-info>
+        <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-department-info>
+        <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-course-info>
+        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-major-info>
+        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-grade-info>
+        <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.originData"></base-info-class-info>
+        <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.originData"></base-info-userInfo-info>
       </el-card>
-      <el-card v-if="show &&  this.form.menuNo === '_views_baseinfo_assetinfo_list'">
+      <el-card  v-if="show">
         <div slot="header" class="clearfix">
           <span>申请历史</span>
         </div>
-        <base-info-asset-info :detailInfo="this.originData"></base-info-asset-info>
+        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.originData"></base-info-asset-info>
+        <base-info-building-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.originData"></base-info-building-info>
+        <base-info-room-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-room-info>
+        <base-info-training-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-training-info>
+        <base-info-facilities-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-facilities-info>
+        <base-info-department-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-department-info>
+        <base-info-course-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-course-info>
+        <base-info-major-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-major-info>
+        <base-info-grade-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-grade-info>
+        <base-info-class-info  v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.originData"></base-info-class-info>
+        <base-info-userInfo-info  v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.originData"></base-info-userInfo-info>
       </el-card>
     </y-detail-page-layout>
   </div>
@@ -56,12 +76,36 @@
   //功能详情列表
   //姚备注，需要用的列表加到list里面，components里面注意声明，参考
   const detailList = {
-    baseInfoAssetInfo:()=>import("@/views/baseinfo/assetinfo/detail")
+    baseInfoAssetInfo:()=>import("@/views/baseinfo/assetinfo/detail"),
+    baseInfoAssetInfoBuilding:()=>import("@/views/baseinfo/assetinfo/buildingdetail"),
+    baseInfoAssetInfoRoom:()=>import("@/views/baseinfo/assetinfo/roomdetail"),
+    baseInfoAssetInfoTraining:()=>import("@/views/baseinfo/assetinfo/trainingdetail"),
+    baseInfoAssetInfoFacilities:()=>import("@/views/baseinfo/assetinfo/facilitiesdetail"),
+    baseInfoAssetInfoDepartment:()=>import("@/views/baseinfo/department/edit"),
+    baseInfoAssetInfoCourse:()=>import("@/views/baseinfo/course/detail"),
+    baseInfoAssetInfoMajor:()=>import("@/views/baseinfo/major/edit"),
+    baseInfoAssetInfoGrade:()=>import("@/views/baseinfo/grade/edit"),
+    baseInfoAssetInfoClass:()=>import("@/views/baseinfo/class/edit"),
+    baseInfoAssetInfoUserInfo:()=>import("@/views/baseinfo/userinfo/detailInfo"),
   }
 
     export default {
         name: "WorkflowDetail",
-      components: {Breadcrumb,YDetailPageLayout,"base-info-asset-info":detailList.baseInfoAssetInfo},
+      components: {
+          Breadcrumb,
+          YDetailPageLayout,
+        "base-info-asset-info":detailList.baseInfoAssetInfo,
+        "base-info-building-info":detailList.baseInfoAssetInfoBuilding,
+        "base-info-room-info":detailList.baseInfoAssetInfoRoom,
+        "base-info-training-info":detailList.baseInfoAssetInfoTraining,
+        "base-info-facilities-info":detailList.baseInfoAssetInfoFacilities,
+        "base-info-department-info":detailList.baseInfoAssetInfoDepartment,
+        "base-info-course-info":detailList.baseInfoAssetInfoCourse,
+        "base-info-major-info":detailList.baseInfoAssetInfoMajor,
+        "base-info-grade-info":detailList.baseInfoAssetInfoGrade,
+        "base-info-class-info":detailList.baseInfoAssetInfoClass,
+        "base-info-userInfo-info":detailList.baseInfoAssetInfoUserInfo,
+      },
       props: {
         //保存方法
         detailInfo: {

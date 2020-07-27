@@ -54,16 +54,16 @@
                     <el-form-item label="实训室类别：" prop="cate" label-width="200px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.cate"
-                        placeholder="教室类型"
+                        placeholder="实训室类别"
                         clearable
                         class="filter-item"
                         style="width: 100%"
                       >
                         <el-option
                           v-for="item in experimentRoomType"
-                          :key="item.key"
-                          :label="item.label"
-                          :value="item.key"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
                         />
                       </el-select>
                     </el-form-item>
@@ -144,6 +144,19 @@
       Breadcrumb,
       YDetailPageLayout
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
     data() {
       return {
         postForm: {},
@@ -203,24 +216,25 @@
     },
     created() {
       const that = this
-
-      if (that.$route.query.id) {
+      if (that.detailInfo) {
+        that.postForm = that.detailInfo
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
       }
-
+      that.getStaffList()
+      that.getByTypeId('experimentRoomType')
       that.organizationSimpleAll() // //查询建筑物列表
       that.getTeachingList() // //查询建筑物列表
-      that.getByTypeId('experimentRoomType')
-      that.getStaffList()
+
     },
     methods: {
       getStaffList() {
         const that = this
-        that.$api.baseInfo.getStaffList().then(data => {
+        that.$api.staff.staffpost().then(data => {
           if (data.code === 200) {
             // 返回成功
-            that.staff = data.data.records
+            that.staff = data.data
           } else {
             this.$message({
               type: 'error',
@@ -231,7 +245,7 @@
       },
       getByTypeId(id) {
         const that = this
-        that.$api.dictData.geyByCode({ code: id }).then(data => {
+        that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             that.experimentRoomType = data.data
           } else {
