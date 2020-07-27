@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout :save="handleCreate" :edit-status="true">
       <div class="set-menu">
@@ -24,9 +24,9 @@
             >
               <span slot-scope="{ node, data }" class="custom-tree-node">
                 <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
-                  <i v-if="data.menuType==='目录'" class="el-icon-folder-opened" />
-                  <i v-if="data.menuType==='菜单'" class="el-icon-document" />
-                  <i v-if="data.menuType==='按钮'" class="el-icon-thumb" />
+                  <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
+                  <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
+                  <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
                 </el-tooltip>
                 <!--            <span class="tips">{{ node.level }}</span>-->
                 <!--            <span>{{ data }}</span>-->
@@ -58,11 +58,11 @@
                     <!--                  </el-checkbox-group>-->
                     <!--                </el-form-item>-->
 
-                    <el-form-item label="数据权限配置：" v-if="menuItem.hasDataPrivilege">
-                      <el-radio-group v-model="temp.dataPrivilege">
-                        <el-radio label="校级">校级</el-radio>
-                        <el-radio label="系级">系级</el-radio>
-                        <el-radio label="班级">班级</el-radio>
+                    <el-form-item label="是否为学校管理员：" v-if="menuItem.hasDataPrivilege">
+                      <el-radio-group v-model="menuItem.dataPrivilege">
+                        <el-radio :label="true">是</el-radio>
+                        <el-radio :label="false">否</el-radio>
+                        <!--                        <el-radio label="班级">班级</el-radio>-->
                       </el-radio-group>
                     </el-form-item>
                   </el-form>
@@ -91,6 +91,7 @@
         temp: {
           btn: [],
           level: '',
+          dataPrivilege: null,
         },
         treeData: [],
         treeListData: [],
@@ -110,6 +111,7 @@
         this.temp = {
           btn: [],
           level: '',
+          dataPrivilege: null,
         }
       },
 
