@@ -160,10 +160,17 @@
       YDetailPageLayout,
       fileUpload
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     props: {
       detailInfo: {
         type: Object,
-        default: null
+        default() {
+          return null
+        }
       }
     },
     data() {

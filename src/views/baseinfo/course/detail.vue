@@ -391,16 +391,28 @@
         teachingRoom: [], // 授课低点
         AllEnum: {}// 全部枚举
       }
+    } , watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
     },
     created() {
       const that = this
       that.type = that.$route.query.type
-
-      if (that.$route.query.id) {
+      if (that.detailInfo) {
+        that.postForm = that.detailInfo
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
       }
-
       that.getGradeList()
       that.getAllEnum()
       that.getByTypeId('courseProperties')
