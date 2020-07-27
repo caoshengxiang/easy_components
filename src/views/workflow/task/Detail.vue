@@ -37,7 +37,7 @@
         <div slot="header" class="clearfix">
           <span>申请内容</span>
         </div>
-        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.formData"></base-info-asset-info>
+        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.originData"></base-info-asset-info>
       </el-card>
       <el-card v-if="show &&  this.form.menuNo === '_views_baseinfo_assetinfo_list'">
         <div slot="header" class="clearfix">
