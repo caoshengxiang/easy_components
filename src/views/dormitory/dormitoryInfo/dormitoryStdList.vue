@@ -10,12 +10,6 @@
         </el-button>
       </template>
       <template slot="right">
-        <el-button class="filter-item download-button" style="margin-left: 10px"  round icon="el-icon-edit" @click="handleCreate">
-          导入模板下载
-        </el-button>
-        <el-button class="filter-item download-button" round type="primary" icon="el-icon-edit" @click="handleCreate">
-          导入
-        </el-button>
       </template>
 
       <el-table
@@ -30,7 +24,7 @@
       >
         <el-table-column label="床位号" prop="bedNo" sortable="custom" align="center" width="150">
           <template slot-scope="{row}">
-            <span  class="link-type">{{ row.bedNo }}</span>
+          {{ row.bedNo }}
           </template>
         </el-table-column>
         <el-table-column label="学号" width="150px" align="center">
@@ -206,7 +200,7 @@
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
           update: '宿舍人员调换',
-          create: '新增宿舍'
+          create: '新增学生'
         },
         rules: {
           type: [{ required: true, message: '请选择床位', trigger: 'change' }],

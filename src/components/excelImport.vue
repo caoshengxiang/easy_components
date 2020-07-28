@@ -142,7 +142,7 @@
           that.$message.error('上传图片大小不能超过 2MB!');
           return false;
         }
-        that.uploadConfig.loading = true;
+        /// that.uploadConfig.loading = true;
         return true;
       }
     }
