@@ -3,61 +3,8 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <!--  <div class="analysis">
-      <div class="menu-2-box">
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" /> <div class="text">
-          <div class="analysis-text">100:80</div>
-          <div class="analysis-text-small">当前床位总数男女比例</div>
-        </div>
-        </div>
-        <div
-          :key="index"
-          class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" /> <div class="text">
-          <div class="analysis-text">11：9</div>
-          <div class="analysis-text-small">当前入住总数男女比例</div>
-        </div>
-        </div>
-          <div
-            :key="index"
-            class="menu-2-item hvr-underline-from-center"
-          >
-            <i class="easy-icon easy-icon-avatar" /> <div class="text">
-            <div class="analysis-text">11：9</div>
-            <div class="analysis-text-small">当前未满寝室数男女比例</div>
-          </div>
-          </div>
-            <div
-              :key="index"
-              class="menu-2-item hvr-underline-from-center"
-            >
-              <i class="easy-icon easy-icon-avatar" /> <div class="text">
-              <div class="analysis-text">11：9</div>
-              <div class="analysis-text-small">当前未满寝室数男女比例</div>
-            </div>
-            </div>
-              <div
-                :key="index"
-                class="menu-2-item hvr-underline-from-center"
-              >
-                <i class="easy-icon easy-icon-avatar" /> <div class="text">
-                <div class="analysis-text">11：9</div>
-                <div class="analysis-text-small">当前空寝室数男女比例</div>
-              </div>
-              </div>
-            </div>
-          </div>-->
-    <div class="filter-main-div">
-
-      <div class="filter-container" style="width:60%; float: left;">
-        <!--        <el-button class="filter-item" style="margin-left:10px;" type="primary" @click="handleCreate">-->
-        <!--          新增宿舍-->
-        <!--        </el-button>-->
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+      <template slot="left">
         <PermissionButton
           menu-no="_views_dormitory_dormitoryInfo_add"
           class-name="filter-item"
@@ -104,41 +51,39 @@
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
-      </div>
-      <div class="filter-container" style="width:40%;float: right;text-align: right">
-        <el-button class="filter-item " type="primary" @click="searchList">
-          搜索
-        </el-button>
-        <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
-        <!--          导入模板下载-->
-        <!--        </el-button>-->
-        <PermissionButton
-          menu-no="_views_dormitory_dormitoryInfo_import"
-          class-name="filter-item"
-          round
-          icon="el-icon-download"
-          name="导入模板下载"
-          @click="downloadTemplate"
+      </template>
+      <template slot="right">
+      <el-button class="filter-item " type="primary" @click="searchList">
+        搜索
+      </el-button>
+      <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
+      <!--          导入模板下载-->
+      <!--        </el-button>-->
+      <PermissionButton
+        menu-no="_views_dormitory_dormitoryInfo_import"
+        class-name="filter-item"
+        round
+        icon="el-icon-download"
+        name="导入模板下载"
+        @click="downloadTemplate"
+      />
+      <PermissionButton
+        menu-no="_views_dormitory_dormitoryInfo_import"
+        class-name="filter-item"
+        type="text"
+        round
+        name=""
+        style="padding: 0;margin-bottom: 10px;"
+      >
+        <excelImport
+          ref="uploadControl"
+          :limit="1"
+          flag="dormitoryBed/importExcel"
+          :style-type="1"
+          title="导入"
         />
-        <PermissionButton
-          menu-no="_views_dormitory_dormitoryInfo_import"
-          class-name="filter-item"
-          type="text"
-          round
-          name=""
-          style="padding: 0;margin-bottom: 10px;"
-        >
-          <excelImport
-            ref="uploadControl"
-            :limit="1"
-            flag="dormitoryBed/importExcel"
-            :style-type="1"
-            title="导入"
-          />
-        </PermissionButton>
-      </div>
-      <div class="filter-container" style="float: left;margin-top: 10px;"/>
-
+      </PermissionButton>
+    </template>
       <el-table
 
         :key="tableKey"
@@ -147,6 +92,7 @@
         border
         fit
         highlight-current-row
+        slot="table"
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
       >
         <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center">
@@ -218,13 +164,6 @@
         </el-table-column>
       </el-table>
 
-      <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.limit"
-        @pagination="getList"
-      />
       <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
         <el-form
           ref="dataForm"
@@ -281,8 +220,7 @@
           </el-button>
         </div>
       </el-dialog>
-
-    </div>
+    </y-page-list-layout>
   </div>
 </template>
 <script>
@@ -290,6 +228,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import excelImport from '@/components/excelImport.vue'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
     name: 'ComplexTable',
@@ -297,7 +236,8 @@
       PermissionButton,
       Breadcrumb,
       Pagination,
-      excelImport
+      excelImport,
+      YPageListLayout
     },
     filters: {
       statusFilter(status) {
@@ -321,21 +261,19 @@
             display_name: '女生宿舍'
           }
         ],
-        displayTime: '',
         tableKey: 0,
         list: [],
         total: 20,
         listLoading: true,
+        pagePara: {
+          current: 0,
+          size: 10
+        },
         listQuery: {
-          page: 1,
-          limit: 10,
           class: undefined,
           grade: undefined,
           major: undefined,
           full: undefined,
-          sort: '+id',
-          description: '',
-          displayTime: ''
         },
         gradeInfo: [],
         classInfo: [],
@@ -395,7 +333,6 @@
       searchList() {
         const that = this
         that.pagePara.current = 0
-
         that.getList()
       },
       downloadCodeTemplate() {
@@ -572,7 +509,7 @@
       },
       getList() {
         const that = this
-        that.$api.dormitory.getPage({ ...that.listQuery }).then(data => {
+        that.$api.dormitory.getPage({ ...that.pagePara,...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
