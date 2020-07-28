@@ -29,14 +29,14 @@
           :page-jump="true"
         />
         <el-input
-          v-model="listQuery.keyword"
+          v-model="listQuery.code"
           placeholder="课程编号"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
           class="filter-item"
         />
         <el-input
-          v-model="listQuery.keyword"
+          v-model="listQuery.name"
           placeholder="课程名称"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"

@@ -26,7 +26,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in teachingRoomList" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in teachingRoomList" :key="item.id" :label="item.code" :value="item.id" />
                       </el-select>
                     </el-form-item>
                   </el-col>

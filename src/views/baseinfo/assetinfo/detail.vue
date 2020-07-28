@@ -200,7 +200,6 @@
     created() {
       const that = this
       that.type = that.$route.query.type
-
       if (that.detailInfo) {
         that.postForm = that.detailInfo
       } else if (that.$route.query.id) {

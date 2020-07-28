@@ -103,12 +103,17 @@
     methods:{
       handleImageSuccess(res, file) {
         var that = this;
-        that.$message.success('导入成功!');
-        alert(123)
+
+        if(res.code == 200){
+          that.$message.success('导入成功!');
+          window.location.reload();
+        }
+        else{
+          that.$message.success(res.msg);
+        }
         setTimeout(() => {
-          loading.close();
-        }, 3000);
-      //  window.location.reload();
+          that.uploadConfig.loading = false;
+        }, 1000);
       },
       handleImagefail(res, file)
       {
@@ -137,12 +142,7 @@
           that.$message.error('上传图片大小不能超过 2MB!');
           return false;
         }
-        that.uploadConfig.loading = true;
-        const loading = this.$loading({
-          lock: true,
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-
+        /// that.uploadConfig.loading = true;
         return true;
       }
     }

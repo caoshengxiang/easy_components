@@ -37,17 +37,20 @@
         <div slot="header" class="clearfix">
           <span>申请内容</span>
         </div>
-        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.originData"></base-info-asset-info>
-        <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.originData"></base-info-building-info>
-        <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-room-info>
-        <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-training-info>
-        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-facilities-info>
-        <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-department-info>
-        <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-course-info>
-        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-major-info>
-        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-grade-info>
-        <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.originData"></base-info-class-info>
-        <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.originData"></base-info-userInfo-info>
+        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'" :detailInfo="this.formData"></base-info-asset-info>
+        <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.formData"></base-info-building-info>
+        <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-room-info>
+        <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-training-info>
+        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-facilities-info>
+        <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-department-info>
+        <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-course-info>
+        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-major-info>
+        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-grade-info>
+        <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.formData"></base-info-class-info>
+        <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.formData"></base-info-userInfo-info>
+        <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.formData"></base-info-std-info>
+        <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.formData"></base-info-dormitory-info>
+        <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.formData"></base-info-stdDelete-info>
       </el-card>
       <el-card  v-if="show">
         <div slot="header" class="clearfix">
@@ -64,6 +67,9 @@
         <base-info-grade-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-grade-info>
         <base-info-class-info  v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.originData"></base-info-class-info>
         <base-info-userInfo-info  v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.originData"></base-info-userInfo-info>
+        <base-info-std-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.originData"></base-info-std-info>
+        <base-info-dormitory-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.originData"></base-info-dormitory-info>
+        <base-info-stdDelete-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.originData"></base-info-stdDelete-info>
       </el-card>
     </y-detail-page-layout>
   </div>
@@ -87,8 +93,10 @@
     baseInfoAssetInfoGrade:()=>import("@/views/baseinfo/grade/edit"),
     baseInfoAssetInfoClass:()=>import("@/views/baseinfo/class/edit"),
     baseInfoAssetInfoUserInfo:()=>import("@/views/baseinfo/userinfo/detailInfo"),
+    baseInfoAssetInfoStdInfo:()=>import("@/views/dormitory/dormitoryInfo/stdDetail"),
+    baseInfoAssetInfoDormitory:()=>import("@/views/dormitory/dormitoryInfo/detail"),
+    baseInfoAssetInfoStdDeleteInfo:()=>import("@/views/dormitory/dormitoryInfo/stdDelete"),
   }
-
     export default {
         name: "WorkflowDetail",
       components: {
@@ -105,6 +113,10 @@
         "base-info-grade-info":detailList.baseInfoAssetInfoGrade,
         "base-info-class-info":detailList.baseInfoAssetInfoClass,
         "base-info-userInfo-info":detailList.baseInfoAssetInfoUserInfo,
+        "base-info-std-info":detailList.baseInfoAssetInfoStdInfo,
+        "base-info-dormitory-info":detailList.baseInfoAssetInfoDormitory,
+        "base-info-stdDelete-info":detailList.baseInfoAssetInfoStdDeleteInfo,
+
       },
       props: {
         //保存方法

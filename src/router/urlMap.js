@@ -30,6 +30,7 @@ import _views_teachingAffairs_semester_list from '@/views/teachingAffairs/semest
 import _views_teachingAffairs_semester_edit from '@/views/teachingAffairs/semester/edit'
 import _views_teachingAffairs_semester_classTime from '@/views/teachingAffairs/semester/classTime'
 import _views_dormitory_dormitoryInfo_list from '@/views/dormitory/dormitoryInfo/list'
+import _views_dormitory_dormitoryInfo_detail from '@/views/dormitory/dormitoryInfo/detail'
 import _views_dormitory_dormitoryInfo_dormitoryStdList from '@/views/dormitory/dormitoryInfo/dormitoryStdList'
 import _views_dormitory_dormitoryCheck_list from '@/views/dormitory/dormitoryCheck/list'
 import _views_dormitory_dormitoryCheck_dormitoryChecklist from '@/views/dormitory/dormitoryCheck/dormitoryChecklist'
@@ -97,6 +98,7 @@ export default {
   _views_teachingAffairs_semester_edit, // 学期编辑
   _views_teachingAffairs_semester_classTime, // 上课时间设置
   _views_dormitory_dormitoryInfo_list, // 宿舍列表
+  _views_dormitory_dormitoryInfo_detail,//宿舍详情
   _views_dormitory_dormitoryInfo_dormitoryStdList, // 宿舍人员
   _views_dormitory_dormitoryCheck_list, // 宿舍考核列表
   _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍人员考核管理
