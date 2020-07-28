@@ -45,6 +45,7 @@
           clearable
           style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
+          @change="getClbumList"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -54,6 +55,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
+          @change="getClbumList"
           style="margin-left:10px;width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
@@ -391,7 +393,7 @@
       that.getList()// 分页列表
       that.getGradeList()// 赛选框年级
       that.getSpecialtyList()
-      that.getClbumList()
+    //  that.getClbumList()
 
       that.getAllEnum()
     },
