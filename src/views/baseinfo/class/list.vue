@@ -55,14 +55,7 @@
         <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" size="mini" @click="handleDownload">-->
         <!--          导入模板下载-->
         <!--        </el-button>-->
-        <PermissionButton
-          menu-no="_views_baseinfo_class_list_import"
-          class-name="filter-item"
-          round
-          icon="el-icon-download"
-          name="导入模板下载"
-          @click="handleDownload"
-        />
+
         <PermissionButton
           menu-no="_views_baseinfo_class_list_import"
           class-name="filter-item"
@@ -78,6 +71,14 @@
             title="导入"
           />
         </PermissionButton>
+        <PermissionButton
+          menu-no="_views_baseinfo_class_list_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="导入模板下载"
+          @click="handleDownload"
+        />
       </template>
       <el-table
         :key="tableKey"

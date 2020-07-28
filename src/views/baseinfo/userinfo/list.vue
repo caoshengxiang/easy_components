@@ -71,12 +71,12 @@
         </el-select>
         <el-select
           v-model="listQuery.state"
-          placeholder="就读"
+          placeholder="当前状态"
           clearable
           class="filter-item"
           style="margin-left:10px;  width: 100px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item" />
         </el-select>
         <el-input
           v-model="listQuery.keyword"
