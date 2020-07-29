@@ -51,6 +51,7 @@
         <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.formData"></base-info-std-info>
         <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.formData"></base-info-dormitory-info>
         <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.formData"></base-info-stdDelete-info>
+        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'" :detailInfo="this.formData"></base-info-stdMove-info>
       </el-card>
       <el-card  v-if="show">
         <div slot="header" class="clearfix">
@@ -70,6 +71,7 @@
         <base-info-std-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.originData"></base-info-std-info>
         <base-info-dormitory-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.originData"></base-info-dormitory-info>
         <base-info-stdDelete-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.originData"></base-info-stdDelete-info>
+        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'" :detailInfo="this.formData"></base-info-stdMove-info>
       </el-card>
     </y-detail-page-layout>
   </div>
@@ -96,6 +98,7 @@
     baseInfoAssetInfoStdInfo:()=>import("@/views/dormitory/dormitoryInfo/stdDetail"),
     baseInfoAssetInfoDormitory:()=>import("@/views/dormitory/dormitoryInfo/detail"),
     baseInfoAssetInfoStdDeleteInfo:()=>import("@/views/dormitory/dormitoryInfo/stdDelete"),
+    baseInfoAssetInfoStdMoveInfo:()=>import("@/views/dormitory/dormitoryInfo/stdMove"),
   }
     export default {
         name: "WorkflowDetail",
@@ -116,6 +119,7 @@
         "base-info-std-info":detailList.baseInfoAssetInfoStdInfo,
         "base-info-dormitory-info":detailList.baseInfoAssetInfoDormitory,
         "base-info-stdDelete-info":detailList.baseInfoAssetInfoStdDeleteInfo,
+        "base-info-stdMove-info":detailList.baseInfoAssetInfoStdMoveInfo,
 
       },
       props: {
@@ -149,6 +153,7 @@
               that.form = res.data
               that.formData = res.data.formData;
               that.originData = res.data.originData;
+
               if(that.originData){
                 that.show = true
               }
@@ -169,6 +174,9 @@
                 that.form = res.data
                 that.formData = res.data.formData;
                 that.originData = res.data.originData;
+                if(that.originData){
+                  that.show = true
+                }
               }
               else{
                 that.$message({

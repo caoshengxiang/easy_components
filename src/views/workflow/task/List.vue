@@ -118,7 +118,6 @@
         let that =this;
         let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id } });
         window.open(routeData.href, '_blank');
-
       },
       auditData(){
         let that = this

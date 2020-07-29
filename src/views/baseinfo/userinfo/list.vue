@@ -70,7 +70,7 @@
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select
-          v-model="listQuery.state"
+          v-model="listQuery.studentType"
           placeholder="当前状态"
           clearable
           class="filter-item"

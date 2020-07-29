@@ -29,4 +29,7 @@ export default {
   getProcess(params) {
     return request.get('approval/task/' +  params)
   },
+  getProcessNew(params) {
+    return request.get('approval/task/process/' +  params)
+  },
 }
