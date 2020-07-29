@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Notification, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import $router from '@/router'
@@ -51,13 +51,23 @@ service.interceptors.response.use(
     const res = response.data
     // console.log(res)
 
+    // 进入审批
+    if (res.code && res.code === 250) {
+      Notification({
+        title: '成功',
+        message: '进入待审核',
+        type: 'success',
+        duration: 3000
+      })
+    }
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code && res.code !== 200) {
+    else if (res.code && res.code !== 200) {
       Message({
         message: res.msg || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
+
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 401 && res.msg === '登录过期') {
         // to re-login
@@ -88,7 +98,7 @@ service.interceptors.response.use(
           }
         })
       }
-      if (res.code === 10005 || res.code=== 10004) { // 10005非法token, 10004用户未登录
+      if (res.code === 10005 || res.code === 10004) { // 10005非法token, 10004用户未登录
         store.dispatch('user/resetToken').then(() => {
           // location.reload()
           if (location.href.indexOf('#') > -1) {

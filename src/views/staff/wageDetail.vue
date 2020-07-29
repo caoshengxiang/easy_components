@@ -177,6 +177,19 @@
       Breadcrumb,
       YDetailPageLayout
     },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     data() {
       return {
         type: 'detail',
@@ -193,7 +206,11 @@
       }
     },
     created() {
-      this.getDetail()
+      if (this.detailInfo) {
+        this.postForm = this.detailInfo
+      } else {
+        this.getDetail()
+      }
     },
     methods: {
       getDetail() {
@@ -206,7 +223,7 @@
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.staff.editBase(this.postForm).then(res => {
+            this.$api.staff.editsalaryBase(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',

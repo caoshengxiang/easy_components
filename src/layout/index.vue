@@ -1,7 +1,7 @@
 <template>
   <div style="">
     <div :class="{'fixed-header':true}">
-      <navbar @getStatus="getStatus" />
+      <navbar @getStatus="getStatus"/>
     </div>
     <!--    <div class="level-box" v-show="showLevel1Status" @click="showLevel1Status = false">-->
     <!--      <level1 @getStatus="getStatus"></level1>-->
@@ -12,12 +12,12 @@
       :visible.sync="showLevel1Status"
       direction="ltr"
     >
-      <level1 @getStatus="getStatus" />
+      <level1 @getStatus="getStatus"/>
     </el-drawer>
     <div style="padding-top: 60px;display: flex;">
       <el-scrollbar class="scrollbar-wrapper">
-        <sidebar class="side-bar" :class="{'side-bar-close': !sideBarStatus, 'side-bar-open': sideBarStatus }" />
-        <span>
+        <sidebar class="side-bar" :class="{'side-bar-close': !sideBarStatus, 'side-bar-open': sideBarStatus }"/>
+        <span v-if="$route.query.menuId">
           <img
             v-if="sideBarStatus"
             style="position: fixed; left: 185px;top: 30%;width: 15px;z-index: 999;cursor: pointer;"
@@ -35,7 +35,7 @@
         </span>
       </el-scrollbar>
       <el-scrollbar style="flex: 1;max-height: calc(100vh - 60px);overflow-y: auto;">
-        <app-main />
+        <app-main/>
       </el-scrollbar>
     </div>
   </div>
@@ -60,6 +60,17 @@
         sideBarStatus: true,
       }
     },
+    watch: {
+      '$route': {
+        deep: true,
+        immediate: true,
+        handler() {
+          if (!this.$route.query.menuId) {
+            this.sideBarStatus = false
+          }
+        }
+      }
+    },
     computed: {
       ...mapState({}),
       classObj() {
@@ -69,6 +80,9 @@
     methods: {
       getStatus(data) {
         this.showLevel1Status = data
+        if (this.$route.query.menuId) {
+          this.sideBarStatus = true
+        }
       }
     }
   }

@@ -19,8 +19,11 @@ export default {
   edit(params) {
     return request.put(`staff/${params.staff.id}`, params)
   },
-  editBase(params) {
-    return request.put(`staff/base/${params.staff.id}`, params)
+  editEduBase(params) {
+    return request.put(`staff/base/education/${params.staff.id}`, params)
+  },
+  editsalaryBase(params) {
+    return request.put(`staff/base/salary/${params.staff.id}`, params)
   },
   // delete(params) {
   //   return request.delete(`staff/${params}`)

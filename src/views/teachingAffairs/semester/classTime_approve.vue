@@ -6,15 +6,13 @@
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left"></template>
       <template slot="right">
-        <span style="color: #cccccc;font-size: 10px;">(编辑完成上课信息，点击保存)</span>
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="save">
-          保存
-        </el-button>
       </template>
       <div slot="table">
-        <div>
-
-        </div>
+        <el-row style="margin-bottom: 20px;">
+          <el-col :span="8">学期名称：{{pageData.name}}</el-col>
+          <el-col :span="8">学年：{{pageData.year}}</el-col>
+          <el-col :span="8">学期码：{{pageData.code}}</el-col>
+        </el-row>
 
         <el-table
           :key="tableKey"
@@ -26,13 +24,13 @@
         >
           <el-table-column label="序号" align="center" min-width="60">
             <template slot-scope="{row, $index}">
-              <el-input v-model="row.seq"></el-input>
+              <el-input disabled v-model="row.seq"></el-input>
             </template>
           </el-table-column>
           <el-table-column label="时间段" min-width="100" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.name }}</span>-->
-              <el-select v-model="row.period" clearable filterable placeholder="请选择" class="filter-item">
+              <el-select disabled v-model="row.period" clearable filterable placeholder="请选择" class="filter-item">
                 <el-option label="上午" value="上午"></el-option>
                 <el-option label="下午" value="下午"></el-option>
               </el-select>
@@ -41,13 +39,13 @@
           <el-table-column label="节次" min-width="150" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.des }}</span>-->
-              <el-input v-model="row.segment"></el-input>
+              <el-input disabled v-model="row.segment"></el-input>
             </template>
           </el-table-column>
           <el-table-column label="课间活动" min-width="100" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.des }}</span>-->
-              <el-select v-model="row.ifBreaktime" clearable filterable placeholder="请选择" class="filter-item">
+              <el-select disabled v-model="row.ifBreaktime" clearable filterable placeholder="请选择" class="filter-item">
                 <el-option label="是" :value="true"></el-option>
                 <el-option label="否" :value="false"></el-option>
               </el-select>
@@ -56,6 +54,7 @@
           <el-table-column label="上课时间" min-width="200" align="center">
             <template slot-scope="{row}">
               <el-time-picker
+                disabled
                 v-model="row.time"
                 is-range
                 value-format="HH:mm:ss"
@@ -78,19 +77,19 @@
               <span>{{ row.created }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
-            <template slot-scope="{row,$index}">
-              <el-button type="danger" size="mini" @click="handleDelete(row)">
-                删除
-              </el-button>
-            </template>
-          </el-table-column>
+<!--          <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">-->
+<!--            <template slot-scope="{row,$index}">-->
+<!--              <el-button type="danger" size="mini" @click="handleDelete(row)">-->
+<!--                删除-->
+<!--              </el-button>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
         </el-table>
-        <div style="text-align: center">
-          <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">
-            添加数据列
-          </el-button>
-        </div>
+<!--        <div style="text-align: center">-->
+<!--          <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">-->
+<!--            添加数据列-->
+<!--          </el-button>-->
+<!--        </div>-->
       </div>
     </y-page-list-layout>
   </div>
@@ -115,6 +114,19 @@
         return statusMap[status]
       }
     },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.pageData = value
+      },
+    },
     data() {
       return {
         value: null,
@@ -126,13 +138,16 @@
         listQuery: {
           page: 1,
           size: 200,
-          termId: this.$route.query.id
         },
         delArr: [],
       }
     },
     created() {
-      this.getList()
+      if (this.detailInfo) {
+        this.pageData = this.detailInfo
+      } else {
+        // this.getList()
+      }
     },
     methods: {
       getList() {

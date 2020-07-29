@@ -52,6 +52,11 @@
         <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.formData"></base-info-dormitory-info>
         <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.formData"></base-info-stdDelete-info>
         <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'" :detailInfo="this.formData"></base-info-stdMove-info>
+        <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'" :detailInfo="this.formData"></TeachingAffairsSemesterEdit>
+        <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'" :detailInfo="this.formData"></TeachingAffairsSemesterClassTime>
+        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.formData"></staffDetail>
+        <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'" :detailInfo="this.formData"></staffEduDetail>
+        <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'" :detailInfo="this.formData"></staffwageDetail>
       </el-card>
       <el-card  v-if="show">
         <div slot="header" class="clearfix">
@@ -71,7 +76,12 @@
         <base-info-std-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.originData"></base-info-std-info>
         <base-info-dormitory-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'" :detailInfo="this.originData"></base-info-dormitory-info>
         <base-info-stdDelete-info  v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'" :detailInfo="this.originData"></base-info-stdDelete-info>
-        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'" :detailInfo="this.formData"></base-info-stdMove-info>
+        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'" :detailInfo="this.originData"></base-info-stdMove-info>
+        <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'" :detailInfo="this.originData"></TeachingAffairsSemesterEdit>
+        <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'" :detailInfo="this.originData"></TeachingAffairsSemesterClassTime>
+        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.originData"></staffDetail>
+        <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'" :detailInfo="this.originData"></staffEduDetail>
+        <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'" :detailInfo="this.originData"></staffwageDetail>
       </el-card>
     </y-detail-page-layout>
   </div>
@@ -99,6 +109,11 @@
     baseInfoAssetInfoDormitory:()=>import("@/views/dormitory/dormitoryInfo/detail"),
     baseInfoAssetInfoStdDeleteInfo:()=>import("@/views/dormitory/dormitoryInfo/stdDelete"),
     baseInfoAssetInfoStdMoveInfo:()=>import("@/views/dormitory/dormitoryInfo/stdMove"),
+    TeachingAffairsSemesterEdit: ()=>import('../../../views/teachingAffairs/semester/edit'),
+    TeachingAffairsSemesterClassTime: ()=>import('../../../views/teachingAffairs/semester/classTime_approve'),
+    staffDetail: ()=>import('../../../views/staff/detail_approve'),
+    staffEduDetail: ()=>import('../../../views/staff/eduDetail'),
+    staffwageDetail: ()=>import('../../../views/staff/wageDetail'),
   }
     export default {
         name: "WorkflowDetail",
@@ -120,7 +135,11 @@
         "base-info-dormitory-info":detailList.baseInfoAssetInfoDormitory,
         "base-info-stdDelete-info":detailList.baseInfoAssetInfoStdDeleteInfo,
         "base-info-stdMove-info":detailList.baseInfoAssetInfoStdMoveInfo,
-
+        "TeachingAffairsSemesterEdit": detailList.TeachingAffairsSemesterEdit,
+        "TeachingAffairsSemesterClassTime": detailList.TeachingAffairsSemesterClassTime,
+        "staffDetail": detailList.staffDetail,
+        "staffEduDetail": detailList.staffEduDetail,
+        "staffwageDetail": detailList.staffwageDetail,
       },
       props: {
         //保存方法
