@@ -537,7 +537,7 @@
         })
       },
       handleDragStart(node, ev) {
-        // console.log('drag start', node)
+        console.log('drag start', node)
       },
       handleDragEnter(draggingNode, dropNode, ev) {
         // console.log('tree drag enter: ', dropNode.label)
@@ -549,14 +549,14 @@
         // console.log('tree drag over: ', dropNode.label)
       },
       handleDragEnd(draggingNode, dropNode, dropType, ev) { // 拖拽结束时（可能未成功）触发的事件
-        console.log('tree drag end: ', dropNode && dropNode.label, dropType)
+        // console.log('tree drag end: ', dropNode && dropNode.label, dropType)
       },
       handleDrop(draggingNode, dropNode, dropType, ev) { // 拖拽成功完成时触发的事件
-        console.log('tree drop: ', dropNode.label, dropType)
+        console.log('tree drop: ', dropNode, dropNode.data.name, dropType)
       },
       allowDrop(draggingNode, dropNode, type) { // 	拖拽时判定目标节点能否被放置。type 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后
         // console.log(draggingNode, dropNode, type, '放置')
-        if (dropNode.data.menuType === '目录') {
+        if (dropNode.data.menuType === '目录' || dropNode.data.menuType === '菜单') {
           return true
         } else {
           return false
