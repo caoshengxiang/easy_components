@@ -7,40 +7,82 @@
     <y-detail-page-layout :save="save">
       <el-tabs value="first" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
-          <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 5% ">
+          <el-form ref="postForm" :model="postForm.source" :rules="rules" style="padding-right: 5% ">
+
             <div class="createPost-main-container">
               <div class="postInfo-container">
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item label="宿舍编号：" prop="code" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.code" class="filter-item"/>
+                <div style="margin-left: 100px;font-size: 20px;margin-top: 30px;margin-bottom: 10px">原始信息</div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍编号：" prop="code" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.source.code" class="filter-item"/>
 
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.cate" class="filter-item"/>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="宿舍负责人：" prop="managerName" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.managerName" class="filter-item"/>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.source.cate" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍负责人：" prop="managerName" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.source.managerName" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-col :span="8">
                   <el-form-item label="负责人电话：" prop="managerPhone" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.managerPhone" class="filter-item"/>
+                    <el-input v-model="postForm.source.managerPhone" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="床号：" prop="bedNo" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.bedNo" class="filter-item"/>
+                    <el-input v-model="postForm.source.bedNo" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="学生名字：" prop="studentName" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.studentName" class="filter-item"/>
+                    <el-input v-model="postForm.source.studentName" class="filter-item"/>
+                  </el-form-item>
+                </el-col>
+              </div>
+            </div>
+          </el-form>
+          <el-form ref="postForm" :model="postForm.target" :rules="rules" style="padding-right: 5%;margin-top: 30px ">
+            <div class="createPost-main-container">
+              <div class="postInfo-container">
+                <div style="margin-left: 100px;font-size: 20px;margin-top: 30px;margin-bottom: 10px">调换信息</div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍编号：" prop="code" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.target.code" class="filter-item"/>
+
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.target.cate" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍负责人：" prop="managerName" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.target.managerName" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-col :span="8">
+                  <el-form-item label="负责人电话：" prop="managerPhone" label-width="200px" class="postInfo-container-item ">
+                    <el-input v-model="postForm.target.managerPhone" class="filter-item"/>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="床号：" prop="bedNo" label-width="200px" class="postInfo-container-item ">
+                    <el-input v-model="postForm.target.bedNo" class="filter-item"/>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="学生名字：" prop="studentName" label-width="200px" class="postInfo-container-item ">
+                    <el-input v-model="postForm.target.studentName" class="filter-item"/>
                   </el-form-item>
                 </el-col>
               </div>
