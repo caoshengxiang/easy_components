@@ -159,18 +159,21 @@
           data: records,
           del: this.delArr
         }
-        console.log(pa)
-        // this.$api.termCourseSchedule.saveOrUpdate().then(res => {
-        //   if (res.code === 200) {
-        //     this.$notify({
-        //       title: '成功',
-        //       message: '编辑成功',
-        //       type: 'success',
-        //       duration: 2000
-        //     })
-        //     this.getList()
-        //   }
-        // })
+        // console.log(this.pageData.records, this.pageData.records.concat(this.delArr))
+        this.$api.termCourseSchedule.edit({
+          id: this.$route.query.id,
+          list: this.pageData.records.concat(this.delArr)
+        }).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '编辑成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+          }
+        })
       },
       handleDelete(row, index) {
         const that = this
@@ -182,7 +185,8 @@
           .then(async () => {
             that.pageData.records.splice(index, 1)
             if (row.id) {
-              this.delArr.push(row.id)
+              row.deleted = true
+              this.delArr.push(row)
             }
           })
           .catch(err => { console.error(err) })

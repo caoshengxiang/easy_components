@@ -1,7 +1,7 @@
 <template>
   <div style="">
     <div :class="{'fixed-header':true}">
-      <navbar @getStatus="getStatus"/>
+      <navbar @getStatus="getStatus" />
     </div>
     <!--    <div class="level-box" v-show="showLevel1Status" @click="showLevel1Status = false">-->
     <!--      <level1 @getStatus="getStatus"></level1>-->
@@ -12,11 +12,31 @@
       :visible.sync="showLevel1Status"
       direction="ltr"
     >
-      <level1 @getStatus="getStatus"></level1>
+      <level1 @getStatus="getStatus" />
     </el-drawer>
-    <div style="margin-top: 60px;display: flex;">
-      <sidebar style="width: 200px;"/>
-      <app-main style="flex: 1;"/>
+    <div style="padding-top: 60px;display: flex;">
+      <el-scrollbar class="scrollbar-wrapper">
+        <sidebar class="side-bar" :class="{'side-bar-close': !sideBarStatus, 'side-bar-open': sideBarStatus }" />
+        <span>
+          <img
+            v-if="sideBarStatus"
+            style="position: fixed; left: 185px;top: 30%;width: 15px;z-index: 999;cursor: pointer;"
+            src="../assets/icon/side1.png"
+            alt=""
+            @click="sideBarStatus = false"
+          >
+          <img
+            v-else
+            style="position: fixed; left: 0;top: 30%;width: 15px;z-index: 999;cursor: pointer;"
+            src="../assets/icon/side2.png"
+            alt=""
+            @click="sideBarStatus = true"
+          >
+        </span>
+      </el-scrollbar>
+      <el-scrollbar style="flex: 1;max-height: calc(100vh - 60px);overflow-y: auto;">
+        <app-main />
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -36,7 +56,8 @@
     },
     data() {
       return {
-        showLevel1Status: false
+        showLevel1Status: false,
+        sideBarStatus: true,
       }
     },
     computed: {
@@ -77,5 +98,24 @@
     right: 0;
     z-index: 9;
     background-color: rgba(0, 0, 0, 0.35);
+  }
+
+  .side-bar {
+    width: 200px;
+    transition: all 0.2s;
+    max-height: calc(100vh - 60px);
+
+    &.side-bar-close {
+      width: 0;
+    }
+
+    &.side-bar-open {
+      width: 200px;
+    }
+  }
+
+  .scrollbar-wrapper {
+    background-color: #fff;
+    height: calc(100vh - 60px);
   }
 </style>

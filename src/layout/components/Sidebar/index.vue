@@ -1,17 +1,15 @@
 <template>
-  <el-scrollbar class="scrollbar-wrapper">
-    <el-menu
-      :default-active="activeIndex"
-      background-color="#fff"
-      text-color="#333333"
-      active-text-color="#338FFF"
-      font-weight="bold"
-    >
-      <!--        <el-menu-item v-if="$route.path !== '/home/index'" index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
-<!--      <el-menu-item index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
-      <menu-tree v-for="item in currentMenus" :key="item.id" :menu="item"></menu-tree>
-    </el-menu>
-  </el-scrollbar>
+  <el-menu
+    :default-active="activeIndex"
+    background-color="#fff"
+    text-color="#333333"
+    active-text-color="#338FFF"
+    font-weight="bold"
+  >
+    <!--        <el-menu-item v-if="$route.path !== '/home/index'" index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
+    <!--      <el-menu-item index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
+    <menu-tree v-for="item in currentMenus" :key="item.id" :menu="item"></menu-tree>
+  </el-menu>
 </template>
 
 <script>
@@ -103,9 +101,4 @@
   }
 </script>
 <style lang="scss" scoped>
-  .scrollbar-wrapper {
-    background-color: #fff;
-    overflow-y: auto;
-    max-height: calc(100vh - 60px);
-  }
 </style>

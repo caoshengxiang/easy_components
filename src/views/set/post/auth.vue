@@ -60,8 +60,8 @@
 
                     <el-form-item label="是否为学校管理员：" v-if="menuItem.hasDataPrivilege">
                       <el-radio-group v-model="menuItem.dataPrivilege">
-                        <el-radio :label="true">是</el-radio>
-                        <el-radio :label="false">否</el-radio>
+                        <el-radio :value="true" label="是"></el-radio>
+                        <el-radio :value="false" label="否"></el-radio>
                         <!--                        <el-radio label="班级">班级</el-radio>-->
                       </el-radio-group>
                     </el-form-item>

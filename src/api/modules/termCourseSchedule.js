@@ -13,7 +13,7 @@ export default {
     return request.post(`termCourseSchedule`, params)
   },
   edit(params) {
-    return request.put(`termCourseSchedule/${params.id}`, params)
+    return request.put(`termCourseSchedule/${params.id}`, params.list)
   },
   delete(params) {
     return request.delete(`termCourseSchedule/${params}`)
