@@ -90,8 +90,8 @@
           </el-table-column>
           <el-table-column label="是否启用" width="100" align="center">
             <template slot-scope="{row}">
-              <el-button v-if="row.enabled">禁用</el-button>
-              <el-button v-else>启用</el-button>
+              <el-button v-if="row.enabled" @click="row.enabled = false">禁用</el-button>
+              <el-button v-else type="success"  @click="row.enabled = true">启用</el-button>
             </template>
           </el-table-column>
           <el-table-column label="编辑" align="center" width="150" class-name="small-padding fixed-width">
