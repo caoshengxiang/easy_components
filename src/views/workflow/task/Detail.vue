@@ -149,6 +149,7 @@
               that.form = res.data
               that.formData = res.data.formData;
               that.originData = res.data.originData;
+
               if(that.originData){
                 that.show = true
               }
@@ -169,6 +170,9 @@
                 that.form = res.data
                 that.formData = res.data.formData;
                 that.originData = res.data.originData;
+                if(that.originData){
+                  that.show = true
+                }
               }
               else{
                 that.$message({
