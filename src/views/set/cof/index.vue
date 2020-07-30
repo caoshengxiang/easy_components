@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout :save="handleCreate" :edit-status="false" menu-no="_views_set_cof_edit">
+    <y-detail-page-layout :save="handleCreate" :edit-status="true" menu-no="_views_set_cof_edit">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -22,14 +22,24 @@
                       <el-input v-model="postForm.SYS_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12">
+                  <el-col :span="24">
                     <el-form-item label="教师编号前缀：" prop="TEACHER_PREFIX" class="postInfo-container-item">
                       <el-input v-model="postForm.TEACHER_PREFIX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12">
+                  <el-col :span="24">
                     <el-form-item label="预报名失效（小时）：" prop="SIGN_OUT_OF_HOUR" class="postInfo-container-item">
                       <el-input v-model="postForm.SIGN_OUT_OF_HOUR.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="短信平台用户名：" prop="SMS_USER" class="postInfo-container-item">
+                      <el-input v-model="postForm.SMS_USER.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="短信平台密码：" prop="SMS_PWD" class="postInfo-container-item">
+                      <el-input v-model="postForm.SMS_PWD.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
@@ -118,16 +128,6 @@
                           readonly:false
                         }"
                       />
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="短信平台用户名：" prop="SMS_USER" class="postInfo-container-item">
-                      <el-input v-model="postForm.SMS_USER.value" class="filter-item"/>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="短信平台密码：" prop="SMS_PWD" class="postInfo-container-item">
-                      <el-input v-model="postForm.SMS_PWD.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>

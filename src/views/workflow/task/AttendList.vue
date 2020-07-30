@@ -25,7 +25,6 @@
        <el-table
          v-loading="loading"
          :data="pageData.records"
-         border
          fit
          highlight-current-row
          :header-cell-style="{backgroundColor:'#EFF1F6'}"

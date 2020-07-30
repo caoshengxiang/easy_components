@@ -10,6 +10,7 @@
         type="primary"
         icon="el-icon-edit"
         @click="type='add'"
+        round
       >
         编辑
       </el-button>
@@ -20,6 +21,7 @@
         type="primary"
         icon="el-icon-edit"
         @click="type='detail'"
+        round
       >
         取消
       </el-button>

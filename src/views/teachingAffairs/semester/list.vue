@@ -16,6 +16,7 @@
           icon="el-icon-plus"
           name=""
           :page-jump="true"
+          round
         />
         <el-input
           v-model="listQuery.name"
@@ -27,7 +28,7 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="getList">
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
         </el-button>
       </template>
@@ -36,7 +37,6 @@
         :key="tableKey"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         style="width: 100%;"
@@ -104,6 +104,7 @@
               name=""
               :page-jump="true"
               :page-query="{id: row.id}"
+              round
             />
 <!--            <el-button type="danger">删除</el-button>-->
             <PermissionButton
@@ -111,6 +112,7 @@
               type="danger"
               name=""
               @click="removeHandle(row)"
+              round
             />
           </template>
         </el-table-column>

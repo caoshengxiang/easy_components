@@ -3,7 +3,6 @@
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeIndex"
-        background-color="#fff"
         text-color="#333333"
         active-text-color="#338FFF"
         font-weight="bold"
@@ -103,6 +102,22 @@
     }
   }
 </script>
+<style lang="scss">
+  .level1 {
+    .el-menu-item.is-active {
+      background-color: #F8FAFB;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 100%;
+        background-color: #338FFF;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+</style>
 <style lang="scss" scoped>
   .level1 {
     width: 200px;

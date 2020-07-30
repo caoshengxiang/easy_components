@@ -149,7 +149,7 @@
         <!--          导出-->
         <!--        </el-button>-->
         <PermissionButton
-          menu-no="_views_baseinfo_userinfo_list"
+          menu-no="_views_baseinfo_userinfo_export"
           class-name="filter-item"
           round
           type="primary"
@@ -162,7 +162,6 @@
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         style="width:99%;margin-left: 10px"

@@ -1,7 +1,7 @@
 <template>
   <el-menu
+    class="sidebar-menu"
     :default-active="activeIndex"
-    background-color="#fff"
     text-color="#333333"
     active-text-color="#338FFF"
     font-weight="bold"
@@ -100,5 +100,21 @@
     }
   }
 </script>
+<style lang="scss">
+  .sidebar-menu {
+    .el-menu-item.is-active {
+      background-color: #F8FAFB;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 100%;
+        background-color: #338FFF;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+</style>
 <style lang="scss" scoped>
 </style>

@@ -99,7 +99,7 @@
 <style lang="scss" scoped>
   .y-detail-page-layout {
     background-color: #fff;
-    margin-top: 12px;
+    margin-top: 8px;
     position: relative;
 
     .y-options {
@@ -130,6 +130,7 @@
     border: none;
     cursor: text;
     resize: none;
+    padding-left: 10px; /*对齐*/
   }
   .y-detail-page-layout.page-disabled >>> input:disabled +*{
     display: none;

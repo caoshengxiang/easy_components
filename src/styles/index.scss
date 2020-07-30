@@ -171,11 +171,11 @@ aside {
 }
 //main-container全局样式
 .app-container {
-  padding:20px;
+  padding:10px;
   .title-container{
     width: 100%;
-    background-color: white;
-    border-bottom:1px solid #e4ecf9;
+    //background-color: white;
+    //border-bottom:1px solid #e4ecf9;
   }
 }
 
@@ -227,9 +227,6 @@ aside {
 //}
 .confirmButtonClass{
   border-radius: 15px;
-}
-.el-table th.gutter{
-  display: table-cell!important;
 }
 .link-type,
 .link-type:focus {

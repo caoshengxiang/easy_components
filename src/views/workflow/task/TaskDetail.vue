@@ -39,7 +39,6 @@
               <el-form-item label="审批记录："  prop="status" label-width="100px">
                 <el-table
                   :data="form.records"
-                  border
                   fit
                   highlight-current-row
                   style="width: 50%"

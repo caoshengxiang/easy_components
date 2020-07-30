@@ -61,7 +61,6 @@
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         style="width: 100%;"

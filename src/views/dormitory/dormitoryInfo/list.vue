@@ -88,7 +88,6 @@
         v-loading="listLoading"
         :key="tableKey"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         style="width: 100%;"
@@ -134,7 +133,7 @@
             <span>{{ row.managerPhone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="编辑" align="center" class-name="small-padding fixed-width">
+        <el-table-column label="编辑" align="center" width="140px" class-name="small-padding fixed-width">
           <template slot-scope="{row,$index}">
             <!--            <el-button type="primary" style="border-radius:15px;" size="mini" @click="handleUpdate(row)">-->
             <!--              编辑-->

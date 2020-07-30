@@ -56,7 +56,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中非学校产权校舍建筑面积：" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                      <el-input v-model="postForm.NOCHOOL_HOUSE_PROPERTY_TOTAL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -157,7 +157,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其中生活福利及附属用房：" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                      <el-input v-model="postForm.LIFE_WELFARE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -169,7 +169,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="其他用房：" class="postInfo-container-item">
-                      <el-input v-model="postForm.type" class="filter-item"/>
+                      <el-input v-model="postForm.OHTER_HOUSE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8"/>

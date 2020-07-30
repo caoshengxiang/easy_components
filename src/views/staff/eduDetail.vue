@@ -5,7 +5,7 @@
     </div>
     <y-detail-page-layout :save="handleCreate" :edit-status="false">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="基础信息" name="first">
+        <el-tab-pane label="学历证书" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 
             <div class="createPost-main-container">
@@ -19,22 +19,22 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工编号：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.staff.staffNo}}</span>
+                      <span style="padding-left: 15px;">{{postForm.staff.staffNo}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.name}}</span>
+                      <span style="padding-left: 15px;">{{postForm.user.name}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="性别：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.sex}}</span>
+                      <span style="padding-left: 15px;">{{postForm.user.sex}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.idNo}}</span>
+                      <span style="padding-left: 15px;">{{postForm.user.idNo}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -64,7 +64,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="获得专业技术职务时间：" label-width="160px" class="postInfo-container-item">
+                    <el-form-item label="获专业技术职务时间：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.staff.obtainDutyDate"
                         value-format="yyyy-MM"
@@ -179,7 +179,7 @@
 
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="最高学历(学位)" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="最高学历(学位)：" label-width="140px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.staff.highestEducation"
                         placeholder=""

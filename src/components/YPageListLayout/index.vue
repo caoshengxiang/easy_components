@@ -47,7 +47,7 @@
 
 <style lang="scss" scoped>
  .y-page-list-layout{
-   margin-top: 12px;
+   margin-top: 8px;
    background-color: #fff;
    padding: 17px;
    .y-info{

@@ -14,18 +14,28 @@
           icon="el-icon-plus"
           type="primary"
           name=""
+          round
           @click="handleAdd"
         />
+        <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable placeholder="所属部门" class="filter-item" @change="selectChange">
+          <el-option
+            v-for="item in partOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          />
+        </el-select>
         <el-input
-          v-model="listQuery.description"
+          v-model="listQuery.postName"
           placeholder="岗位名称关键字"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
+          clearable
           class="filter-item"
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="getList">
+        <el-button class="filter-item" type="primary" round @click="getList">
           搜索
         </el-button>
 
@@ -36,13 +46,13 @@
           type="primary"
           icon="el-icon-edit"
           name=""
+          round
         />
       </template>
       <el-table
         :key="tableKey"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         slot="table"
@@ -82,6 +92,7 @@
               type="primary"
               size="mini"
               name=""
+              round
               @click="handleUpdate(row)"
             />
             <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
@@ -92,6 +103,7 @@
               type="danger"
               size="mini"
               name=""
+              round
               @click="(data) =>{handleDelete(row, data)}"
             />
             <!--          <el-button type="warning" size="mini" @click="handleSetAuth(row)">-->
@@ -104,6 +116,7 @@
               name=""
               :page-jump="true"
               :page-query="{id: row.id}"
+              round
             />
           </template>
         </el-table-column>

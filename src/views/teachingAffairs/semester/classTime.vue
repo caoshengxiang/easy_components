@@ -7,7 +7,7 @@
       <template slot="left"></template>
       <template slot="right">
         <span style="color: #cccccc;font-size: 10px;">(编辑完成上课信息，点击保存)</span>
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="save">
+        <el-button round class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="save">
           保存
         </el-button>
       </template>
@@ -20,7 +20,6 @@
           :key="tableKey"
           v-loading="listLoading"
           :data="pageData.records"
-          border
           fit
           highlight-current-row
         >
@@ -80,7 +79,7 @@
           </el-table-column>
           <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
             <template slot-scope="{row,$index}">
-              <el-button type="danger" size="mini" @click="handleDelete(row)">
+              <el-button type="danger" round size="mini" @click="handleDelete(row)">
                 删除
               </el-button>
             </template>

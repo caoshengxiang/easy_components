@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
         <!--        新增岗位-->
@@ -14,6 +14,7 @@
           icon="el-icon-plus"
           type="primary"
           name=""
+          round
           @click="handleAdd"
         />
         <el-input
@@ -25,7 +26,7 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="getList">
+        <el-button class="filter-item" type="primary" round @click="getList">
           搜索
         </el-button>
 
@@ -36,16 +37,16 @@
           type="primary"
           icon="el-icon-edit"
           name=""
+          round
         />
       </template>
       <el-table
         :key="tableKey"
+        slot="table"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
-        slot="table"
       >
         <el-table-column label="部门代码" align="center" min-width="150">
           <template slot-scope="{row}">
@@ -59,7 +60,7 @@
         </el-table-column>
         <el-table-column label="上级部门" min-width="150" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.parentName || '无'}}</span>
+            <span>{{ row.parentName || '无' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="联系电话" min-width="150" align="center">
@@ -82,6 +83,7 @@
               type="primary"
               size="mini"
               name=""
+              round
               @click="handleUpdate(row)"
             />
             <!--          <el-button type="danger" size="mini" @click="handleDelete(row)">-->
@@ -92,6 +94,7 @@
               type="danger"
               size="mini"
               name=""
+              round
               @click="(data) =>{handleDelete(row, data)}"
             />
           </template>
@@ -113,11 +116,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="部门代码：" prop="code">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="temp.code" class="filter-item" />
 
         </el-form-item>
         <el-form-item label="部门名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item"/>
+          <el-input v-model="temp.name" class="filter-item" />
         </el-form-item>
 
         <el-form-item label="上级部门：" filterable prop="">
@@ -132,7 +135,7 @@
         </el-form-item>
 
         <el-form-item label="联系电话：">
-          <el-input v-model="temp.phone" class="filter-item"/>
+          <el-input v-model="temp.phone" class="filter-item" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">

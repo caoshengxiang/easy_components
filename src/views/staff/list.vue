@@ -16,6 +16,7 @@
           icon="el-icon-plus"
           name=""
           :page-jump="true"
+          round
         />
         <!--        <el-select-->
         <!--          v-model="listQuery.grade"-->
@@ -85,8 +86,8 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          icon="el-icon-search"
           @click="searchList"
+          round
         >
           搜索
         </el-button>
@@ -104,6 +105,7 @@
           icon="el-icon-download"
           name="导入模板下载"
           @click="exportFile"
+          round
         />
         <!--        <el-button-->
         <!--          class="filter-item download-button"-->
@@ -126,6 +128,7 @@
             type="primary"
             icon="el-icon-upload2"
             name="导入"
+            round
           />
         </el-upload>
       </template>
@@ -134,7 +137,6 @@
         :key="tableKey"
         v-loading="listLoading"
         :data="pageData.records"
-        border
         fit
         highlight-current-row
         style="width: 100%;"
@@ -179,6 +181,7 @@
               type="text"
               :page-jump="true"
               :page-query="{id: row.id}"
+              round
             >
               <svg-icon
                 icon-class="edit"
