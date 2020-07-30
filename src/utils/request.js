@@ -57,7 +57,7 @@ service.interceptors.response.use(
         title: '成功',
         message: '进入待审核',
         type: 'success',
-        duration: 3000
+        duration: 10000
       })
     }
     // if the custom code is not 20000, it is judged as an error.
