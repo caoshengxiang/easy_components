@@ -21,8 +21,6 @@
                       <el-select
                         disabled
                         v-model="postForm.staff.staffType"
-                        clearable
-                        filterable
                         placeholder=""
                         style="width: 100%"
                       >
@@ -35,8 +33,6 @@
                       <el-select
                         disabled
                         v-model="postForm.staff.teacherType"
-                        clearable
-                        filterable
                         placeholder=""
                         style="width: 100%"
                       >
@@ -46,7 +42,7 @@
                   </el-col>
                   <!--                  <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
                   <!--                    <el-form-item label="管理员类型：" label-width="120px" class="postInfo-container-item">-->
-                  <!--                      <el-select v-model="postForm.type" clearable filterable placeholder="" style="width: 100%">-->
+                  <!--                      <el-select v-model="postForm.type" placeholder="" style="width: 100%">-->
                   <!--                        &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
                   <!--                      </el-select>-->
                   <!--                    </el-form-item>-->
@@ -100,7 +96,6 @@
                         disabled
                         v-model="postForm.user.sex"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style="width: 100%"
                       >
@@ -144,7 +139,6 @@
                         disabled
                         v-model="postForm.staff.politics"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style="width: 100%"
                       >
@@ -191,7 +185,7 @@
                   <!--                      <el-select-->
                   <!--                        v-model="postForm.type"-->
                   <!--                        placeholder=""-->
-                  <!--                        clearable-->
+                  <!--                       -->
                   <!--                        class="filter-item"-->
                   <!--                        style=" width: 100%"-->
                   <!--                      />-->
@@ -203,9 +197,7 @@
                         disabled
                         v-model="teacherPosts"
                         placeholder=""
-                        clearable
                         multiple
-                        filterable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -273,7 +265,6 @@
                         disabled
                         v-model="postForm.staff.ifFullTime"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -288,7 +279,6 @@
                         disabled
                         v-model="postForm.staff.ifPartTime"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -303,7 +293,6 @@
                         disabled
                         v-model="postForm.staff.ifProfessional"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -318,7 +307,6 @@
                         disabled
                         v-model="postForm.staff.ifCore"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -335,7 +323,6 @@
                         disabled
                         v-model="postForm.staff.ifDouble"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -350,7 +337,6 @@
                         disabled
                         v-model="postForm.staff.ifOutstanding"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -365,7 +351,6 @@
                         disabled
                         v-model="postForm.staff.ifForeign"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -380,7 +365,6 @@
                         disabled
                         v-model="postForm.staff.ifTrainee"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -483,7 +467,6 @@
                         disabled
                         v-model="postForm.staff.employType"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -509,7 +492,6 @@
                         disabled
                         v-model="postForm.staff.specialty"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -530,7 +512,6 @@
                         disabled
                         v-model="postForm.staff.ifProfessionalForegoer"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -550,7 +531,6 @@
                         disabled
                         v-model="postForm.staff.ifProfessionalLeader"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -569,9 +549,9 @@
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="教学管理人员：" label-width="180px" class="postInfo-container-item">
                       <el-select
+                        disabled
                         v-model="postForm.staff.ifTeachingManager"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -586,7 +566,6 @@
                         disabled
                         v-model="postForm.staff.ifAllTime"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -623,7 +602,6 @@
                         disabled
                         v-model="postForm.staff.ifStudentManager"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -645,7 +623,6 @@
                         disabled
                         v-model="postForm.staff.ifPsychologicalCounselor"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -660,7 +637,6 @@
                         disabled
                         v-model="postForm.staff.ifEnrollManager"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -680,7 +656,6 @@
                         disabled
                         v-model="postForm.staff.ifSupervisor"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -702,7 +677,6 @@
                         disabled
                         v-model="postForm.staff.source"
                         placeholder=""
-                        clearable
                         class="filter-item"
                         style=" width: 100%"
                       >
@@ -768,7 +742,6 @@
                           disabled
                           v-model="row.term"
                           placeholder=""
-                          clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
@@ -791,7 +764,6 @@
                           disabled
                           v-model="row.grade"
                           placeholder=""
-                          clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
@@ -814,7 +786,6 @@
                           disabled
                           v-model="row.major"
                           placeholder=""
-                          clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
@@ -837,7 +808,6 @@
                           disabled
                           v-model="row.course"
                           placeholder=""
-                          clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
@@ -1143,7 +1113,6 @@
                           disabled
                           v-model="row.cate"
                           placeholder=""
-                          clearable
                           class="filter-item"
                           style=" width: 100%"
                         >
@@ -1301,6 +1270,9 @@
     watch: {
       detailInfo: function (value) {
         this.postForm = value
+        this.teacherPosts = value.teacherPosts.map(item => {
+          return item.postId
+        })
       },
     },
     data() {
@@ -1338,6 +1310,9 @@
       this.getOptions()
       if (this.detailInfo) {
         this.postForm = this.detailInfo
+        this.teacherPosts = this.detailInfo.teacherPosts.map(item => {
+          return item.postId
+        })
       } else {
         this.getDetail()
       }

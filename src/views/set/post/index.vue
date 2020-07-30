@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
         <!--        新增岗位-->
@@ -35,7 +35,7 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" type="primary" round @click="getList">
+        <el-button class="filter-item" type="primary" round @click="searchList">
           搜索
         </el-button>
 
@@ -51,11 +51,11 @@
       </template>
       <el-table
         :key="tableKey"
+        slot="table"
         v-loading="listLoading"
         :data="pageData.records"
         fit
         highlight-current-row
-        slot="table"
       >
         <el-table-column label="岗位编码" align="center" min-width="150">
           <template slot-scope="{row}">
@@ -130,6 +130,7 @@
     >
       <el-form
         ref="dataForm"
+        v-loading="dialogLoading"
         :rules="rules"
         :model="temp"
         label-position="right"
@@ -137,11 +138,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="岗位编码：" prop="code">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="temp.code" class="filter-item" />
 
         </el-form-item>
         <el-form-item label="岗位名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item"/>
+          <el-input v-model="temp.name" class="filter-item" />
         </el-form-item>
 
         <el-form-item label="所属部门：" filterable prop="orgId">
@@ -156,7 +157,7 @@
         </el-form-item>
 
         <el-form-item label="主要职责：">
-          <el-input v-model="temp.duty" class="filter-item"/>
+          <el-input v-model="temp.duty" class="filter-item" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -197,9 +198,10 @@
         tableKey: 0,
         pageData: {records: []},
         listLoading: false,
+        dialogLoading: false,
         listQuery: {
           current: 1,
-          size: 20
+          size: 10
         },
         dialogFormVisible: false,
         dialogStatus: '',
@@ -263,9 +265,10 @@
       createData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
+            this.dialogLoading = true
             this.$api.post.add(this.temp).then(res => {
               if (res.code === 200) {
-                this.dialogFormVisible = false
+                this.dialogLoading = false
                 this.$notify({
                   title: '成功',
                   message: '岗位创建成功',
@@ -312,6 +315,10 @@
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })
+      },
+      searchList() {
+        this.listQuery.current = 1
+        this.getList()
       },
       getList() {
         const that = this

@@ -3,7 +3,10 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout :save="handleCreate" :edit-status="true">
+    <!--    <y-detail-page-layout :save="handleCreate" :edit-status="true">-->
+    <!--      -->
+    <!--    </y-detail-page-layout>-->
+    <div class="filter-main-div">
       <div class="set-menu">
         <div class="set-menu-box">
           <div class="left">
@@ -12,16 +15,17 @@
             </div>
 
             <!--default-expand-all-->
-            <el-tree
-              ref="tree"
-              :check-strictly="true"
-              :destroy-on-close="true"
-              :data="treeData"
-              node-key="id"
-              show-checkbox
-              @check-change="handleCheckChange"
-              @node-click="nodeClick"
-            >
+            <div style="height: calc(100vh - 200px); overflow-y: auto;">
+              <el-tree
+                ref="tree"
+                :check-strictly="true"
+                :destroy-on-close="true"
+                :data="treeData"
+                node-key="id"
+                show-checkbox
+                @check-change="handleCheckChange"
+                @node-click="nodeClick"
+              >
               <span slot-scope="{ node, data }" class="custom-tree-node">
                 <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
                   <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
@@ -32,7 +36,8 @@
                 <!--            <span>{{ data }}</span>-->
                 <span style="margin-left: 5px;">{{ data.name }}</span>
               </span>
-            </el-tree>
+              </el-tree>
+            </div>
           </div>
           <div class="right">
             <div class="btn-set">
@@ -58,12 +63,23 @@
                     <!--                  </el-checkbox-group>-->
                     <!--                </el-form-item>-->
 
-                    <el-form-item label="是否为学校管理员：" v-if="menuItem.hasDataPrivilege">
+                    <el-form-item v-if="menuItem.hasDataPrivilege" label="是否为学校管理员：">
                       <el-radio-group v-model="menuItem.dataPrivilege">
-                        <el-radio :value="true" label="是"></el-radio>
-                        <el-radio :value="false" label="否"></el-radio>
+                        <el-radio :value="true" label="是"/>
+                        <el-radio :value="false" label="否"/>
                         <!--                        <el-radio label="班级">班级</el-radio>-->
                       </el-radio-group>
+                    </el-form-item>
+                    <el-form-item v-if="menuItem.hasDataPrivilege" label="">
+                      <el-button
+                        class="filter-item"
+                        style="width: 180px"
+                        type="primary"
+                        round
+                        @click="handleCreate"
+                      >
+                        保存
+                      </el-button>
                     </el-form-item>
                   </el-form>
                 </el-tab-pane>
@@ -72,7 +88,7 @@
           </div>
         </div>
       </div>
-    </y-detail-page-layout>
+    </div>
   </div>
 </template>
 

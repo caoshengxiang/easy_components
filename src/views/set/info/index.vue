@@ -46,12 +46,26 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="当前校名启用日期：" class="postInfo-container-item">
-                      <el-input v-model="postForm.SCHOOL_NAME_DATE.value" class="filter-item"/>
+<!--                      <el-input v-model="postForm.SCHOOL_NAME_DATE.value" class="filter-item"/>-->
+                      <el-date-picker
+                        v-model="postForm.SCHOOL_NAME_DATE.value"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%"
+                        placeholder=""
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建校日期：" class="postInfo-container-item">
-                      <el-input v-model="postForm.BUILD_DATE.value" class="filter-item"/>
+<!--                      <el-input v-model="postForm.BUILD_DATE.value" class="filter-item"/>-->
+                      <el-date-picker
+                        v-model="postForm.BUILD_DATE.value"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%"
+                        placeholder=""
+                      />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -85,6 +99,80 @@
                   </el-col>
                   <el-col :span="8">
                     <div>&nbsp;</div>
+                  </el-col>
+                </el-row>
+
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-bottom: 30px">
+                  <h3 class="title">
+                    <div class="avatar-wrapper icon-title" style="background:rgb(124,194,255)">示</div>
+                    <div class="icon-info">示范性中等职业学校级别</div>
+                  </h3>
+                </div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="示范性中等职业学校立项部门：" class="postInfo-container-item">
+                      <el-input v-model="postForm.PROJECT_DEPARTMENT.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="示范性中等职业学校立项日期：" class="postInfo-container-item">
+<!--                      <el-input v-model="postForm.PROJECT_DATE.value" class="filter-item"/>-->
+                      <el-date-picker
+                        v-model="postForm.PROJECT_DATE.value"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%"
+                        placeholder=""
+                      />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="重点中等职业学校级别：" class="postInfo-container-item">
+                      <el-input v-model="postForm.IMPORT_LEVEL.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="重点中等职业学校立项部门：" class="postInfo-container-item">
+                      <el-input v-model="postForm.IMPORT_PROJECT_DEPARTMENT.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="重点中等职业学校立项日期：" class="postInfo-container-item">
+<!--                      <el-input v-model="postForm.IMPORT_PROJECT_DATE.value" class="filter-item"/>-->
+                      <el-date-picker
+                        v-model="postForm.IMPORT_PROJECT_DATE.value"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%"
+                        placeholder=""
+                      />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="复核结论：" class="postInfo-container-item">
+                      <el-input v-model="postForm.CONCLUSION.value" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="复核日期：" class="postInfo-container-item">
+<!--                      <el-input v-model="postForm.MAILING_ADDR.value" class="filter-item"/>-->
+                      <el-date-picker
+                        v-model="postForm.CHECK_DATE.value"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%"
+                        placeholder=""
+                      />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
                   </el-col>
                 </el-row>
 

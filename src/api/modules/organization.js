@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { fileDown } from '../../utils/file'
 /*
 * 部门
 */
@@ -20,5 +21,8 @@ export default {
   },
   simpleAll(params) { // 下拉
     return request.get(`organization/simpleAll`, { params: params })
-  }
+  },
+  download(params) {
+    return fileDown('organization/download/exportExcel', params)
+  },
 }

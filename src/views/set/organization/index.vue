@@ -6,7 +6,7 @@
     <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
-        <!--        新增岗位-->
+        <!--        新增-->
         <!--      </el-button>-->
         <PermissionButton
           menu-no="_views_set_organization_add"
@@ -26,7 +26,7 @@
         />
       </template>
       <template slot="right">
-        <el-button class="filter-item" type="primary" round @click="getList">
+        <el-button class="filter-item" type="primary" round @click="searchList">
           搜索
         </el-button>
 
@@ -35,9 +35,9 @@
           menu-no="_views_set_organization_export"
           class-name="filter-item"
           type="primary"
-          icon="el-icon-edit"
           name=""
           round
+          @click="exportHandle"
         />
       </template>
       <el-table
@@ -109,6 +109,7 @@
     >
       <el-form
         ref="dataForm"
+        v-loading="dialogLoading"
         :rules="rules"
         :model="temp"
         label-position="right"
@@ -176,9 +177,10 @@
         tableKey: 0,
         pageData: {records: []},
         listLoading: false,
+        dialogLoading: false,
         listQuery: {
           current: 1,
-          size: 20
+          size: 10
         },
         dialogFormVisible: false,
         dialogStatus: '',
@@ -190,18 +192,18 @@
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
-          update: '编辑岗位',
-          create: '新增岗位'
+          update: '编辑',
+          create: '新增'
         },
         rules: {
           code: [{
             required: true,
-            message: '请填写岗位编码',
+            message: '请填写编码',
             trigger: 'change'
           }],
           name: [{
             required: true,
-            message: '请填写岗位名称',
+            message: '请填写名称',
             trigger: 'blur'
           }],
           parentId: [{
@@ -218,6 +220,9 @@
       this.getList()
     },
     methods: {
+      exportHandle() {
+        this.$api.organization.download()
+      },
       resetTemp() {
         this.temp = {
           code: '',
@@ -242,12 +247,13 @@
       createData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
+            this.dialogLoading = true
             this.$api.organization.add(this.temp).then(res => {
               if (res.code === 200) {
-                this.dialogFormVisible = false
+                this.dialogLoading = false
                 this.$notify({
                   title: '成功',
-                  message: '岗位创建成功',
+                  message: '创建成功',
                   type: 'success',
                   duration: 2000
                 })
@@ -265,7 +271,7 @@
                 this.dialogFormVisible = false
                 this.$notify({
                   title: '成功',
-                  message: '岗位编辑成功',
+                  message: '编辑成功',
                   type: 'success',
                   duration: 2000
                 })
@@ -291,6 +297,10 @@
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })
+      },
+      searchList() {
+        this.listQuery.current = 1
+        this.getList()
       },
       getList() {
         const that = this
