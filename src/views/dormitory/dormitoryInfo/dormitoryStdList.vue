@@ -418,12 +418,24 @@
           that.loading = false;
           if(data.code === 200){
             that.bedInfo = data.data
-
+            let i = 0
+            if(that.bedInfo.beds != null) {
             that.bedInfo.beds.forEach(function (item) {
               if(item.studentId){
                 item.studentName = item.bedNo + '-' + item.studentName + item.gradeName + item.clbumName
               }
+
+              if(!item.id){
+                item.id = i
+                i++
+              }
             })
+            }
+            else{
+              alert(123)
+              that.bedInfo = {}
+              that.bedInfo.beds = []
+            }
           }
           else{
             this.$message({
@@ -440,6 +452,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
 
+            console.log(that.bedInfo)
             let change ={
               source:{
                 id: that.source.id,
@@ -448,9 +461,10 @@
                 studentId: that.source.studentId
               },
               target:{
-                dormitoryId: that.detailNew.id,
+                dormitoryId: that.bedInfo.id,
                 bedNo: this.desBed,
-                studentId: that.source.studentId
+                studentId: that.bedInfo.beds.find(m => m.bedNo === this.desBed).studentId,
+                id: that.bedInfo.beds.find(m => m.bedNo === this.desBed).id
               }
             }
 
