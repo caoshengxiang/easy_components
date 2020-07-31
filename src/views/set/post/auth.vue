@@ -41,6 +41,15 @@
           </div>
           <div class="right">
             <div class="btn-set">
+              <el-button
+                class="filter-item"
+                style="position: absolute;right: 10px; z-index: 99;"
+                type="primary"
+                round
+                @click="handleCreate"
+              >
+                保存
+              </el-button>
               <el-tabs type="card">
                 <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '权限设置'">
                   <el-form
@@ -69,17 +78,6 @@
                         <el-radio :value="false" label="否"/>
                         <!--                        <el-radio label="班级">班级</el-radio>-->
                       </el-radio-group>
-                    </el-form-item>
-                    <el-form-item v-if="menuItem.hasDataPrivilege" label="">
-                      <el-button
-                        class="filter-item"
-                        style="width: 180px"
-                        type="primary"
-                        round
-                        @click="handleCreate"
-                      >
-                        保存
-                      </el-button>
                     </el-form-item>
                   </el-form>
                 </el-tab-pane>

@@ -1,74 +1,76 @@
 <template>
   <div class="login-container" :style="{backgroundImage: 'url('+sysCfg.BACKGROUND || logBg+')'}">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="on"
-      label-position="left"
-    >
+    <div class="login-form-box">
+      <el-form
+        ref="loginForm"
+        :model="loginForm"
+        :rules="loginRules"
+        class="login-form"
+        autocomplete="on"
+        label-position="left"
+      >
+        <el-form-item>
+          <div class="title-container">
+            <h3 class="title">{{sysCfg.SYS_NAME}}
+            </h3>
+          </div>
+        </el-form-item>
 
-      <el-form-item>
-        <div class="title-container">
-          <h3 class="title">{{sysCfg.SYS_NAME}}
-          </h3>
-        </div>
-      </el-form-item>
+        <el-form-item prop="username">
+          <el-input
+            ref="username"
+            v-model="loginForm.account"
+            placeholder="请输入账号"
+            name="username"
+            type="text"
+            tabindex="1"
+            autocomplete="on"
+          >
+            <i slot="prefix" class="el-input__icon el-icon-user"></i>
+          </el-input>
+        </el-form-item>
 
-      <el-form-item prop="username">
-        <el-input
-          ref="username"
-          v-model="loginForm.account"
-          placeholder="请输入账号"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
-        >
-          <i slot="prefix" class="el-input__icon el-icon-user"></i>
-        </el-input>
-      </el-form-item>
-
-      <el-form-item prop="password">
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.pwd"
-          :type="passwordType"
-          placeholder="请输入密码"
-          name="password"
-          tabindex="2"
-          autocomplete="on"
-          @keyup.native="checkCapslock"
-          @blur="capsTooltip = false"
-          @keyup.enter.native="handleLogin"
-        >
-          <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
-        </el-input>
-        <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
+        <el-form-item prop="password">
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="loginForm.pwd"
+            :type="passwordType"
+            placeholder="请输入密码"
+            name="password"
+            tabindex="2"
+            autocomplete="on"
+            @keyup.native="checkCapslock"
+            @blur="capsTooltip = false"
+            @keyup.enter.native="handleLogin"
+          >
+            <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
+          </el-input>
+          <span class="show-pwd" @click="showPwd">
+            <svg-icon style="color: #000;" :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
           </span>
-      </el-form-item>
+        </el-form-item>
 
-      <el-form-item>
-        <div class="login-btn">
-          <el-button
-            round
-            :loading="loading"
-            type="primary"
-            @click.native.prevent="handleLogin"
-          >登录
-          </el-button>
-        </div>
-      </el-form-item>
-    </el-form>
+        <el-form-item>
+          <div class="login-btn">
+            <el-button
+              round
+              :loading="loading"
+              type="primary"
+              @click.native.prevent="handleLogin"
+            >登录
+            </el-button>
+          </div>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
 
   import logBg from '../../assets/images/logo-bg.png'
+
   export default {
     name: 'Login',
     data() {
@@ -219,7 +221,7 @@
   $assets: '~@/assets/';
 
   .login-container {
-/*    background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
+    /*    background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
     background-size: 100% 100%;
     position: absolute;
     top: 0;
@@ -230,15 +232,19 @@
     justify-content: center;
     align-items: center;
 
-    .login-form {
+    .login-form-box {
       position: absolute;
-      width: 38%;
-      height: 63%;
-      background-color: #fff;
+      width: 500px;
+      height: 55%;
       border-radius: 20px;
-      padding: 80px;
-      box-shadow: 0px 0px 10px 5px #ddd;
-
+      /*box-shadow: 0px 0px 10px 5px #ddd;*/
+    }
+    .login-form {
+      width: 500px;
+      height: 100%;
+      padding: 60px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.4);
       .login-btn {
         padding: 30px 0;
 
