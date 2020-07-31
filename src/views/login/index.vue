@@ -286,6 +286,9 @@
         font-size: 30px;
         margin: 0 auto 40px auto;
         font-weight: bold;
+        color: #3a3a3a;
+        text-align: center;
+        min-height: 64px;
       }
     }
 

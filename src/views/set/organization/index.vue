@@ -138,15 +138,18 @@
         <el-form-item label="联系电话：">
           <el-input v-model="temp.phone" class="filter-item" />
         </el-form-item>
+        <el-form-item label="">
+          <el-button @click="dialogFormVisible = false">
+            取消
+          </el-button>
+          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
+            保存
+          </el-button>
+        </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer" style="text-align: center">
-        <el-button @click="dialogFormVisible = false">
-          取消
-        </el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          保存
-        </el-button>
-      </div>
+<!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
+<!--        -->
+<!--      </div>-->
     </el-dialog>
   </div>
 </template>
@@ -251,6 +254,7 @@
             this.$api.organization.add(this.temp).then(res => {
               if (res.code === 200) {
                 this.dialogLoading = false
+                this.dialogFormVisible = false
                 this.$notify({
                   title: '成功',
                   message: '创建成功',
@@ -259,6 +263,8 @@
                 })
                 this.getList()
               }
+            }).catch(()=> {
+              this.dialogLoading = false
             })
           }
         })
