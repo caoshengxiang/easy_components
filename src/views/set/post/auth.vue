@@ -6,7 +6,7 @@
     <!--    <y-detail-page-layout :save="handleCreate" :edit-status="true">-->
     <!--      -->
     <!--    </y-detail-page-layout>-->
-    <div class="filter-main-div">
+    <div class="filter-main-div" style="margin-top: -20px;">
       <div class="set-menu">
         <div class="set-menu-box">
           <div class="left">
@@ -18,24 +18,24 @@
             <div style="height: calc(100vh - 200px); overflow-y: auto;">
               <el-tree
                 ref="tree"
-                :check-strictly="true"
-                :destroy-on-close="true"
+                default-expand-all
+                :expand-on-click-node="false"
                 :data="treeData"
                 node-key="id"
-                show-checkbox
-                @check-change="handleCheckChange"
                 @node-click="nodeClick"
               >
-              <span slot-scope="{ node, data }" class="custom-tree-node">
-                <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
-                  <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
-                  <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
-                  <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
-                </el-tooltip>
-                <!--            <span class="tips">{{ node.level }}</span>-->
-                <!--            <span>{{ data }}</span>-->
-                <span style="margin-left: 5px;">{{ data.name }}</span>
-              </span>
+                <span slot-scope="{ node, data }" class="custom-tree-node">
+                  <el-checkbox @change="(sta) => {checkboxChange(data, node, sta)}" style="margin-right: 3px;"
+                               v-model="data.checked"></el-checkbox>
+                  <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
+                    <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
+                    <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
+                    <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
+                  </el-tooltip>
+                  <!--            <span class="tips">{{ node.level }}</span>-->
+                  <!--            <span>{{ data }}</span>-->
+                  <span style="margin-left: 5px;">{{ data.name }}</span>
+                </span>
               </el-tree>
             </div>
           </div>
@@ -92,13 +92,13 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
-  import YDetailPageLayout from '@/components/YDetailPageLayout'
+  // import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {
     name: 'Auth',
     components: {
       Breadcrumb,
-      YDetailPageLayout,
+      // YDetailPageLayout,
     },
     data() {
       return {
@@ -155,15 +155,13 @@
       },
       setParentCheck(data) { // 获取父节点id数组/修改父节点checked 为true
         const parentChecks = []
-        parentChecks.push(data.id)
-        data.checked = true
 
         function tree(data, list) {
           if (data.parentId) {
             list.forEach(item => {
               if (item.id === data.parentId) {
                 parentChecks.push(item.id)
-                data.checked = true
+                item.checked = true
                 if (item.parentId) {
                   tree(item, list)
                 }
@@ -175,19 +173,14 @@
         tree(data, this.treeListData)
         return parentChecks
       },
-      setChildrenCheck(data) { // 取消子节点选中效果，修改子节点checked 为false
+      setChildrenCheck(data, checkedStatus = true) { // 取消子节点选中效果
         const that = this
-        data.checked = false
-        that.checkedIds = Array.from(new Set(that.checkedIds)) // 去重
-        const index = that.checkedIds.indexOf(data.id)
-        that.checkedIds.splice(index, 1)
-
         const childrenIds = []
 
         function tree(list) {
           list.forEach(item => {
             // console.log('子菜单', item.name)
-            item.checked = false
+            item.checked = checkedStatus
             childrenIds.push(item.id)
             if (item.children) {
               tree(item.children)
@@ -201,30 +194,40 @@
       },
       handleCheckChange(data, checked, indeterminate) {
         // console.log(data, checked, indeterminate, 'check node')
-        if (checked === true) {
-          const pChecks = this.setParentCheck(data)
-          this.checkedIds = this.checkedIds.concat(pChecks)
-          this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
-          this.$refs.tree.setCheckedKeys(this.checkedIds)
-          // console.log(this.checkedIds, 'id数据')
-        } else {
-          const childrenIds = this.setChildrenCheck(data)
-          this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
-          // childrenIds.forEach(cId => {
-          //   const index = this.checkedIds.indexOf(cId)
-          //   if (index > -1) {
-          //     this.checkedIds.splice(index, 1)
-          //   }
-          // })
-          // console.log(childrenIds, this.checkedIds, 'id数据')
-          // this.$refs.tree.setCheckedKeys(this.checkedIds)
-        }
+        // if (checked === true) {
+        //   const pChecks = this.setParentCheck(data)
+        //   this.checkedIds = this.checkedIds.concat(pChecks)
+        //   this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
+        //   this.$refs.tree.setCheckedKeys(this.checkedIds)
+        //   console.log(this.setChildrenCheck(data, true), 'id数据')
+        // } else {
+        //   const childrenIds = this.setChildrenCheck(data)
+        //   this.checkedIds = Array.from(new Set(this.checkedIds)) // 去重
+        //   // childrenIds.forEach(cId => {
+        //   //   const index = this.checkedIds.indexOf(cId)
+        //   //   if (index > -1) {
+        //   //     this.checkedIds.splice(index, 1)
+        //   //   }
+        //   // })
+        //   // console.log(childrenIds, this.checkedIds, 'id数据')
+        //   // this.$refs.tree.setCheckedKeys(this.checkedIds)
+        // }
       },
-      nodeClick(data, node, it) {
-        // console.log(data, node, it)
+      nodeClick(data, node, it) {},
+      checkboxChange(data, node, sta) {
+        console.log(data.id, data, sta)
+        // console.log(this.$refs.tree.getCheckedKeys(), '当前被选中key')
         this.menuItem = data
-        if (!data.children || data.children.length === 0) {
-          // console.log('最后一级')
+        if (sta) { // 设为选中，父子都选中
+          // 父节点
+          const pChecks = this.setParentCheck(data)
+
+          // 字节点
+          const childrenIds = this.setChildrenCheck(data, true)
+
+        } else {
+          // 字节点
+          const childrenIds = this.setChildrenCheck(data, false)
         }
       },
       handleCreate() {
@@ -295,6 +298,9 @@
   }
 
   .custom-tree-node {
+    display: flex;
+    align-items: center;
+
     .tips {
       display: inline-block;
       width: 18px;

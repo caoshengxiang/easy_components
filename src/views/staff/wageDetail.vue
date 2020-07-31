@@ -58,6 +58,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
+                        <el-option v-for="(item, index) in AllEnum['学段']" :key="index" :label="item" :value="item" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -203,6 +204,7 @@
         },
         dataId: this.$route.query.id,
         activeName: 'first',
+        AllEnum: {},
       }
     },
     created() {
@@ -211,8 +213,22 @@
       } else {
         this.getDetail()
       }
+      this.getAllEnum()
     },
     methods: {
+      getAllEnum() {
+        const that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDetail() {
         if (this.dataId) {
           this.$api.staff.detailBase(this.dataId).then(res => {

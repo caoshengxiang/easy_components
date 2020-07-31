@@ -37,7 +37,7 @@
                       type="date"
                       value-format="yyyy-MM-dd"
                       style="width: 100%"
-                      placeholder="选择日期"
+                      placeholder=""
                     />
                   </el-form-item>
                 </el-col>
@@ -48,7 +48,7 @@
                       type="date"
                       value-format="yyyy-MM-dd"
                       style="width: 100%"
-                      placeholder="选择日期"
+                      placeholder=""
                     />
                   </el-form-item>
                 </el-col>
@@ -59,7 +59,7 @@
                       type="date"
                       value-format="yyyy-MM-dd"
                       style="width: 100%"
-                      placeholder="选择日期"
+                      placeholder=""
                     />
                   </el-form-item>
                 </el-col>
@@ -109,9 +109,34 @@
         type: 'detail',
         postForm: Object.assign({}, defaultForm),
         rules: {
-          type: [{
+          name: [{
             required: true,
-            message: '请填写年份',
+            message: '请输入学期名称',
+            trigger: 'blur'
+          }],
+          year: [{
+            required: true,
+            message: '请输入学年',
+            trigger: 'blur'
+          }],
+          code: [{
+            required: true,
+            message: '请输入学期码',
+            trigger: 'blur'
+          }],
+          startDate: [{
+            required: true,
+            message: '请选择学期开始日期',
+            trigger: 'change'
+          }],
+          courseDate: [{
+            required: true,
+            message: '请选择学期上课日期',
+            trigger: 'change'
+          }],
+          endDate: [{
+            required: true,
+            message: '请选择学期结束日期',
             trigger: 'change'
           }],
         },

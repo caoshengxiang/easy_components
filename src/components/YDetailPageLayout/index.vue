@@ -130,7 +130,7 @@
     border: none;
     cursor: text;
     resize: none;
-    padding-left: 10px; /*对齐*/
+    padding-left: 0px; /*对齐*/
   }
   .y-detail-page-layout.page-disabled >>> input:disabled +*{
     display: none;

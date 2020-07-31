@@ -19,22 +19,22 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工编号：" label-width="140px" class="postInfo-container-item">
-                      <span style="padding-left: 15px;">{{postForm.staff.staffNo}}</span>
+                      <span>{{postForm.staff.staffNo}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="140px" class="postInfo-container-item">
-                      <span style="padding-left: 15px;">{{postForm.user.name}}</span>
+                      <span>{{postForm.user.name}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="性别：" label-width="140px" class="postInfo-container-item">
-                      <span style="padding-left: 15px;">{{postForm.user.sex}}</span>
+                      <span>{{postForm.user.sex}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="140px" class="postInfo-container-item">
-                      <span style="padding-left: 15px;">{{postForm.user.idNo}}</span>
+                      <span>{{postForm.user.idNo}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -85,6 +85,12 @@
                         class="filter-item"
                         style="width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['专业技术职务级别']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -97,6 +103,12 @@
                         class="filter-item"
                         style="width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['聘任专业技术职务']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -123,6 +135,12 @@
                         class="filter-item"
                         style="width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['全日制学历(学位)']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -135,6 +153,12 @@
                         class="filter-item"
                         style="width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['学位']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -186,7 +210,14 @@
                         clearable
                         class="filter-item"
                         style=" width: 100%"
-                      />
+                      >
+                        <el-option
+                          v-for="(item, index) in AllEnum['最高学历(学位)']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -198,7 +229,12 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
-                        <!--                    <el-option v-for="item in majorInfo" :key="item.value" :label="item.label" :value="item.value" />-->
+                        <el-option
+                          v-for="(item, index) in AllEnum['学位']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -249,6 +285,12 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['职位等级']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -292,6 +334,12 @@
                         class="filter-item"
                         style=" width: 100%"
                       >
+                        <el-option
+                          v-for="(item, index) in AllEnum['职业资格证书']"
+                          :key="index"
+                          :label="item"
+                          :value="item"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -336,7 +384,10 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb, YDetailPageLayout },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
+    },
     props: {
       detailInfo: {
         type: Object,
@@ -363,6 +414,7 @@
         },
         dataId: this.$route.query.id,
         activeName: 'first',
+        AllEnum: {},
       }
     },
     created() {
@@ -371,8 +423,22 @@
       } else {
         this.getDetail()
       }
+      this.getAllEnum()
     },
     methods: {
+      getAllEnum() {
+        const that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDetail() {
         if (this.dataId) {
           this.$api.staff.detailBase(this.dataId).then(res => {
