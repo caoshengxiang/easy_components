@@ -4,24 +4,25 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
-      <!--  <template slot="left">
-         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-         <el-date-picker
-           v-model="listQuery.dateTime"
-           type="datetimerange"
-           range-separator="至"
-           start-placeholder="开始日期"
-           style="margin-left: 20px;padding-top: 2px"
-           class="filter-item"
-           value-format="yyyy-MM-dd HH:mm:ss"
-           end-placeholder="结束日期">
-         </el-date-picker>
-       </template>
-       <template slot="right">
-         <el-button class="filter-item" round type="primary" @click="searchList">
-           搜索
-         </el-button>
-       </template>-->
+      <template slot="left">
+        <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.startUserName" placeholder="申请人姓名" prefix-icon="el-icon-search"  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-date-picker
+          v-model="dateTime"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          style="margin-left: 10px;padding-top: 2px"
+          class="filter-item"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          end-placeholder="结束日期">
+        </el-date-picker>
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" round type="primary" @click="searchList">
+          搜索
+        </el-button>
+      </template>
        <el-table
          v-loading="loading"
          :data="pageData.records"
@@ -36,7 +37,7 @@
          </el-table-column>
          <el-table-column label="申请时间" prop="startTime" align="center">
          </el-table-column>
-         <el-table-column label="审核时间" prop="startName" align="center" >
+         <el-table-column label="审核时间" prop="endTime" align="center" >
        </el-table-column>
          <el-table-column label="审核状态" prop="state" align="center">
        </el-table-column>
@@ -59,6 +60,7 @@
      components: {Breadcrumb,YPageListLayout},
      data() {
        return {
+         dateTime:[],
          listQuery:{
 
          },
@@ -78,6 +80,13 @@
 
        searchList(){
          let that = this;
+         if(that.dateTime) {
+           that.listQuery.applyStartDate = that.dateTime[0]
+           that.listQuery.applyEndDate = that.dateTime[1]
+         }else{
+           that.listQuery.applyStartDate = ''
+           that.listQuery.applyEndDate = ''
+         }
          that.pagePara.current = 0
          that.getList()
        },

@@ -5,7 +5,36 @@
     </div>
 
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
-
+      <template slot="left">
+        <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-select
+          v-model="listQuery.state"
+          placeholder="审核状态"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;margin-bottom: 10px;width: 100px"
+        >
+          <el-option  key="全部" label="全部" value="" />
+          <el-option  key="待审核" label="待审核" value="1" />
+          <el-option  key="通过" label="通过" value="2" />
+          <el-option  key="拒绝" label="拒绝" value="3" />
+          <el-option  key="撤销" label="撤销" value="4" />
+        </el-select>   <el-date-picker
+          v-model="dateTime"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          style="margin-left: 10px;padding-top: 2px"
+          class="filter-item"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          end-placeholder="结束日期">
+        </el-date-picker>
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" round type="primary" @click="searchList">
+          搜索
+        </el-button>
+      </template>
       <el-table
         v-loading="loading"
         :data="pageData.records"
@@ -41,6 +70,10 @@
     components: {Breadcrumb,YPageListLayout},
     data() {
       return {
+        listQuery:{
+
+        },
+        dateTime:[],
         dialogFormVisible: false,
         detailinfo: {},
         loading:false,
@@ -61,6 +94,18 @@
       that.getList();//分页列表
     },
     methods:{
+      searchList(){
+        let that = this;
+        if(that.dateTime) {
+          that.listQuery.applyStartDate = that.dateTime[0]
+          that.listQuery.applyEndDate = that.dateTime[1]
+        }else{
+          that.listQuery.applyStartDate = ''
+          that.listQuery.applyEndDate = ''
+        }
+        that.pagePara.current = 0
+        that.getList()
+      },
       cancle(id){
         const that = this
         that.$confirm('确认撤销当前申请吗?', '警告', {
@@ -98,7 +143,7 @@
       getList(){
         const that = this;
         that.loading = true;
-        that.$api.task.myTask(that.pagePara).then(res => {
+        that.$api.task.myTask({...that.pagePara,...that.listQuery}).then(res => {
           that.loading = false;
           if(res.code === 200){
             //返回成功

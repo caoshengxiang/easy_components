@@ -5,14 +5,15 @@
     </div>
 
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
-     <!-- <template slot="left">
-        <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <template slot="left">
+        <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.startUserName" placeholder="申请人姓名" prefix-icon="el-icon-search"  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
         <el-date-picker
-          v-model="listQuery.dateTime"
+          v-model="dateTime"
           type="datetimerange"
           range-separator="至"
           start-placeholder="开始日期"
-          style="margin-left: 20px;padding-top: 2px"
+          style="margin-left: 10px;padding-top: 2px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期">
@@ -22,7 +23,7 @@
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
-      </template>-->
+      </template>
       <el-table
         v-loading="loading"
         :data="pageData.records"
@@ -31,9 +32,9 @@
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         slot="table"
       >
-        <el-table-column label="数据模块名" prop="taskName" align="center">
-        </el-table-column>
-        <el-table-column label="对应操作" prop="processName" align="center">
+        <el-table-column label="标题" prop="processName" align="center">
+      </el-table-column>
+        <el-table-column label="节点名" prop="taskName" align="center">
         </el-table-column>
         <el-table-column label="申请人" prop="startName"  align="center">
         </el-table-column>
@@ -91,6 +92,7 @@
           current:0,
           size:10
         },
+        dateTime:[],
         temp:{},
         rules: {
           type: [{required: true, message: '请选择是否通过', trigger: 'change'}],
@@ -105,6 +107,14 @@
     methods:{
       searchList(){
         let that = this;
+        if(that.dateTime) {
+          that.listQuery.applyStartDate = that.dateTime[0]
+          that.listQuery.applyEndDate = that.dateTime[1]
+        }else{
+          that.listQuery.applyStartDate = ''
+          that.listQuery.applyEndDate = ''
+        }
+
         that.pagePara.current = 0
         that.getList()
       },
