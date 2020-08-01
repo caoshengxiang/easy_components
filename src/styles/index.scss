@@ -164,10 +164,14 @@ aside {
     top: 0px;
   }
 .analysis-text{
-   color: #242530;font-weight: bold;font-size: 18px;text-align: center
+   color: #242530;font-weight: 500;font-size: 18px;text-align: left;
+  .tag{
+    margin-right: 5px;
+   color:#338FFF
+}
  }
 .analysis-text-small{
- font-size: 14px;text-align: center;margin-top: 3px;
+ font-size: 14px;text-align: left;margin-top: 3px;
 }
 //main-container全局样式
 .app-container {
@@ -370,4 +374,46 @@ aside {
 
 #nprogress .bar {
   background: #64d9d6 !important; //自定义颜色
+}
+
+.right {
+  flex: 1;
+
+  background: white;
+  margin-top: 10px;
+  padding-left: 5px;
+  padding-top: 10px;
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 35px;
+    margin-bottom: 8px;
+  }
+
+  .menu-2-box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .menu-2-item {
+    display: flex;
+    align-items: center;
+    color: #656565;
+    font-size: 12px;
+    width: 230px;
+    height: 101px;
+    background: #EBECED;
+    border-radius: 3px;
+    padding-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+
+    .text {
+      margin-left: 16px;
+    }
+  }
 }

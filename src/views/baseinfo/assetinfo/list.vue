@@ -3,23 +3,30 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <!-- <div class="right">
-       <div class="menu-2-box">
-         <div
-           :key="index"
-           class="menu-2-item hvr-underline-from-center"
-         >
-           <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>
-         </div>
-         <div
-           :key="index"
-           class="menu-2-item hvr-underline-from-center"
-         >
-           <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>
-         </div>
-       </div>
 
-     </div>-->
+    <div class="right">
+      <div class="menu-2-box">
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/32.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.totalArea}}</span>平方米</div>
+            <div class="analysis-text-small">占地面积</div>
+          </div>
+        </div>
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/32.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.aloneArea}}</span>平方米</div>
+            <div class="analysis-text-small">独立产权面积</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
         <!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/assetinfo/detail`)">-->
@@ -84,7 +91,7 @@
         </el-table-column>
         <el-table-column label="面积(平方米)" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.area }}</span>
+            <span >{{ row.area }}</span>
           </template>
         </el-table-column>
 
@@ -95,7 +102,7 @@
         </el-table-column>
         <el-table-column label="地址">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.addr }}</span>
+            <span >{{ row.addr }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
@@ -156,13 +163,29 @@
         listQuery: {
           dormitoryId: 0
         },
+        statisticsInfo: {}
       }
     },
     created() {
       const that = this
       that.getList()
+      that.getStatistics()
     },
     methods: {
+      getStatistics(){
+        let that = this
+        that.$api.statistics.getStatistics('/statistics/land/area',{ ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data;
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       searchList() {
         const that = this
         that.pagePara.current = 0
@@ -232,41 +255,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .right {
-    flex: 1;
 
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 35px;
-      margin-bottom: 8px;
-    }
-
-    .menu-2-box {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .menu-2-item {
-      display: flex;
-      align-items: center;
-      color: #656565;
-      font-size: 12px;
-      width: 230px;
-      height: 101px;
-      background: rgb(255, 185, 129);
-      border-radius: 3px;
-      padding-left: 20px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-
-      .text {
-        margin-left: 16px;
-      }
-    }
-  }
 </style>

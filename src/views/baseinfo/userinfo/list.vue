@@ -3,30 +3,29 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <!--<div class="right">
+
+    <div class="right">
       <div class="menu-2-box">
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" />
+        ><img src="../../../assets/area1.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text">12000</div>
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.total}}</span>人</div>
             <div class="analysis-text-small">在读学生总数</div>
           </div>
         </div>
         <div
           :key="index"
           class="menu-2-item hvr-underline-from-center"
-        >
-          <i class="easy-icon easy-icon-avatar" />
+        ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text">11：9</div>
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.manRate}}:{{statisticsInfo.womanRate}}</span></div>
             <div class="analysis-text-small">在读学生男女比例</div>
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
         <el-select
@@ -385,6 +384,8 @@
             trigger: 'blur'
           }],
         },
+
+        statisticsInfo: {}
       }
     },
     created() {
@@ -395,8 +396,24 @@
     //  that.getClbumList()
 
       that.getAllEnum()
+      that.getStatistics()
     },
     methods: {
+
+      getStatistics(){
+        let that = this
+        that.$api.statistics.getStatistics('/statistics/student/read',{ ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data;
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       searchList() {
         const that = this
         that.pagePara.current = 0
@@ -626,41 +643,4 @@
 </script>
 <style lang="scss" scoped>
 
-  .right {
-    flex: 1;
-
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 35px;
-      margin-bottom: 8px;
-    }
-
-    .menu-2-box {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .menu-2-item {
-      display: flex;
-      align-items: center;
-      color: #656565;
-      font-size: 12px;
-      width: 230px;
-      height: 101px;
-      background: rgb(255, 185, 129);
-      border-radius: 3px;
-      padding-left: 20px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-
-      .text {
-        margin-left: 16px;
-      }
-    }
-  }
 </style>

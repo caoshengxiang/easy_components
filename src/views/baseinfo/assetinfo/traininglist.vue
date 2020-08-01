@@ -3,17 +3,21 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <!-- <div class="right">
-       <div class="menu-2-box">
-         <div
-           :key="index"
-           class="menu-2-item hvr-underline-from-center"
-         >
-           <i class="easy-icon easy-icon-avatar" /> <span class="text">总工位数100</span>
-         </div>
-       </div>
 
-     </div>-->
+
+    <div class="right">
+      <div class="menu-2-box">
+        <div
+          :key="index"
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/32.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.stationCount}}</span>个</div>
+            <div class="analysis-text-small">总工位数</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
 <!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
@@ -149,16 +153,33 @@
           code: '',
           constructionId: ''
         },
-        constructionList: []
+        constructionList: [],
+        statisticsInfo:{}
       }
     },
     created() {
       const that = this
       that.getList() // //查询列表
 
+      that.getStatistics()
       that.organizationSimpleAll() // //查询建筑物列表
     },
     methods: {
+
+      getStatistics(){
+        let that = this
+        that.$api.statistics.getStatistics('/statistics/trainingRoom',{ ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data;
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       searchList() {
         const that = this
         that.pagePara.current = 0
@@ -231,43 +252,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .right {
-    flex: 1;
-
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 35px;
-      margin-bottom: 8px;
-    }
-
-    .menu-2-box {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .menu-2-item {
-      display: flex;
-      align-items: center;
-      color: #656565;
-      font-size: 12px;
-      width: 230px;
-      height: 101px;
-      background: rgb(255, 185, 129);
-      border-radius: 3px;
-      padding-left: 20px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-
-      .text {
-        margin-left: 16px;
-      }
-    }
-  }
-</style>
