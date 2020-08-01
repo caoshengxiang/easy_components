@@ -58,6 +58,11 @@
                     prop="msg"
                     label="审核意见">
                   </el-table-column>
+                  <el-table-column
+                    prop="approvalTime"
+                    label="审核时间"
+                  >
+                  </el-table-column>
                 </el-table>
               </el-form-item>
             </el-col>
