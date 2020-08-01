@@ -489,12 +489,6 @@
               }
             })
             this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
-              type: 'success',
-              duration: 2000
-            })
           }
         })
       },

@@ -66,7 +66,7 @@
           @click="add"
         />
         <el-select
-          v-model="listQuery.schoolGradeId"
+          v-model="listQuery.gradeId"
           placeholder="年级"
           clearable
           style="margin-left:10px;width: 100px"
@@ -75,7 +75,7 @@
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
-          v-model="listQuery.schoolSpecialtyId"
+          v-model="listQuery.specialtyId"
           placeholder="专业（根据年级加载）"
           clearable
           class="filter-item"
@@ -84,7 +84,7 @@
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
-          v-model="listQuery.schoolClbumId"
+          v-model="listQuery.clbumId"
           placeholder="班级（根据班级加载）"
           clearable
           class="filter-item"
@@ -533,6 +533,7 @@
       },
       getList() {
         const that = this
+        alert(13)
         that.$api.dormitory.getPage({ ...that.pagePara,...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
