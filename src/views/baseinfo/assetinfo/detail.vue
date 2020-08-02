@@ -12,7 +12,7 @@
               <div class="postInfo-container">
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="土地产权：" prop="property" label-width="200px" class="postInfo-container-item ">
+                    <el-form-item label="土地产权：" prop="property" label-width="120px" class="postInfo-container-item ">
                       <el-select
                         v-model="postForm.property"
                         placeholder="土地产权"
@@ -30,7 +30,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="使用状况：" prop="status" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="使用状况：" prop="status" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.status"
                         placeholder="使用状况"
@@ -43,7 +43,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label=" 所在校区：" prop="campus" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label=" 所在校区：" prop="campus" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.campus"
                         placeholder="所在校区"
@@ -59,7 +59,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="土地用途：" prop="user" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="土地用途：" prop="user" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.user"
                         placeholder="土地用途"
@@ -72,7 +72,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="土地面积（平方米）：" prop="area" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="土地面积（平方米）：" prop="area" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.area" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -80,7 +80,7 @@
                     <el-form-item
                       label="土地证号："
                       prop="certificateNum"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-input v-model="postForm.certificateNum" class="filter-item" />
@@ -90,17 +90,17 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="土地价格（万元）：" prop="price" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="土地价格（万元）：" prop="price" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.price" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="用地地址：" prop="addr" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="用地地址：" prop="addr" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.addr" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="用地备注：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="用地备注：" prop="type" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.remark" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>

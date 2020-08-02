@@ -11,7 +11,7 @@
               <div class="postInfo-container">
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="建筑物：" prop="type" label-width="200px" class="postInfo-container-item ">
+                    <el-form-item label="建筑物：" prop="type" label-width="120px" class="postInfo-container-item ">
                       <el-select
                         v-model="postForm.constructionId"
                         default-value="0"
@@ -26,12 +26,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="教室编号：" prop="code" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="教室编号：" prop="code" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.code" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label=" 使用面积：" prop="area  " label-width="200px" class="postInfo-container-item">
+                    <el-form-item label=" 使用面积：" prop="area  " label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.area" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -39,7 +39,7 @@
                 <el-row>
 
                   <el-col :span="8">
-                    <el-form-item label="教室类型：" prop="cate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="教室类型：" prop="cate" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.cate"
                         placeholder="教室类型"
@@ -52,12 +52,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="实际容纳人数：" prop="capacity" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="实际容纳人数：" prop="capacity" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.capacity" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="最大排课量：" prop="courseMax" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="最大排课量：" prop="courseMax" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.courseMax" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -67,17 +67,25 @@
                     <el-form-item
                       label="网络状态："
                       prop="networkCondition"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.networkCondition" class="filter-item" />
+                      <el-select
+                        v-model="postForm.networkCondition"
+                        placeholder="网络状态"
+                        clearable
+                        class="filter-item"
+                        style="width: 100%"
+                      >
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item
                       label="是否多媒体："
                       prop="ifMultimedia"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -92,7 +100,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="是否可用：" prop="ifAvailable" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="是否可用：" prop="ifAvailable" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.ifAvailable"
                         placeholder="是否可用"
@@ -108,19 +116,19 @@
                 <el-row>
 
                   <el-col :span="8">
-                    <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.cameraAddr" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="教室备注：" prop="remark" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="教室备注：" prop="remark" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.remark" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="教室平面图：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="教室平面图：" prop="type" label-width="120px" class="postInfo-container-item">
                       <fileUpload
                         ref="uploadCourseChapter1"
                         :isdisabled="false"
@@ -130,7 +138,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="教室图片：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="教室图片：" prop="type" label-width="120px" class="postInfo-container-item">
                       <fileUpload
                         ref="uploadCourseChapter2"
                         :isdisabled="false"
@@ -310,7 +318,7 @@
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
-                    message: '编辑用地成功',
+                    message: '编辑教室成功',
                     type: 'success',
                     duration: 2000
                   })
@@ -339,7 +347,7 @@
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
-                    message: '新增用地成功',
+                    message: '新增教室成功',
                     type: 'success',
                     duration: 2000
                   })

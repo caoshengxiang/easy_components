@@ -11,20 +11,28 @@
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="设施名称：" prop="name" label-width="200px" class="postInfo-container-item ">
+                    <el-form-item label="设施名称：" prop="name" label-width="120px" class="postInfo-container-item ">
                       <el-input v-model="postForm.name" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="设施产权：" prop="property" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.property" class="filter-item" />
+                    <el-form-item label="设施产权：" prop="property" label-width="120px" class="postInfo-container-item">
+                      <el-select
+                        v-model="postForm.property"
+                        placeholder="设施产权"
+                        clearable
+                        class="filter-item"
+                        style="width: 100%"
+                      >
+                        <el-option v-for="item in propertyRight" :key="item.name" :label="item.name" :value="item.name" />
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item
                       label=" 使用状况："
                       prop="useCondition"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -34,15 +42,14 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option key="1" label="已使用" value="1" />
-                        <el-option key="2" label="未投入使用" value="2" />
+                        <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="所属校区：" prop="campus" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="所属校区：" prop="campus" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.campus"
                         placeholder="所属校区"
@@ -55,7 +62,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建成年月：" prop="buildDate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建成年月：" prop="buildDate" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.buildDate"
                         type="date"
@@ -67,7 +74,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建设费用：" prop="buildCost" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建设费用：" prop="buildCost" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.buildCost" class="filter-item" />
 
                     </el-form-item>
@@ -76,7 +83,7 @@
                 </el-row>
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="是否正常：" prop="ifNormal" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="是否正常：" prop="ifNormal" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.ifNormal"
                         placeholder="是否正常"
@@ -92,7 +99,7 @@
                     <el-form-item
                       label="经费来源："
                       prop="financialResource"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -109,8 +116,8 @@
                   <el-col :span="8">
                     <el-form-item
                       label="使用机构（部门）："
-                      prop="buildDate"
-                      label-width="200px"
+                      prop="orgId"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -128,18 +135,18 @@
                 <el-row style="margin-left: 150px">
 
                   <el-col :span="8">
-                    <el-form-item label="型号：" prop="model" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="型号：" prop="model" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.model" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="品牌：" prop="brand" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="品牌：" prop="brand" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.brand" class="filter-item" />
 
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="报废状态：" prop="state" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="报废状态：" prop="state" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.state"
                         placeholder="报废状态"
@@ -147,7 +154,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in scrap" :key="item.name" :label="item.name" :value="item.name" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -241,7 +248,7 @@
           }],
           orgId: [{
             required: true,
-            message: '请选择所属部门',
+            message: '请选择使用机构（部门）',
             trigger: 'change'
           }],
           model: [{
@@ -263,7 +270,9 @@
         departmentList: [],
         useStatus: [],
         source: [],
-        campus: []
+        campus: [],
+        scrap: [],
+        propertyRight:[]
       }
     },
     created() {
@@ -279,6 +288,8 @@
       that.getByTypeId('campus')
       that.getByTypeId('source')
       that.getByTypeId('useStatus')
+      that.getByTypeId('scrap')
+      that.getByTypeId('propertyRight')
     },
     methods: {
 
@@ -295,6 +306,12 @@
                 break
               case 'useStatus':
                 that.useStatus = data.data
+                break
+              case 'scrap':
+                that.scrap = data.data
+                break
+              case 'propertyRight':
+                that.propertyRight = data.data
                 break
             }
           } else {

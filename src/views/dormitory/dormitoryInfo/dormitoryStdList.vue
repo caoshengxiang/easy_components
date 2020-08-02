@@ -210,7 +210,7 @@
     created(){
       let that = this;
       that.listQuery.dormitoryId = that.$route.query.id
-      that.managerName =  that.$route.query.name
+      that.managerName =  that.$route.query.managerName
       that.getList()
       that.getGradeList();//赛选框年级
       that.getSpecialtyList();
@@ -218,6 +218,7 @@
     methods:{
       getDetail(){
         let that = this;
+        that.bedInfo1 = []
         that.$api.dormitory.getDetail( that.listQuery.dormitoryId).then(data => {
           that.loading = false;
           if(data.code === 200){
@@ -324,18 +325,17 @@
         })
       },
       resetTemp() {
-        this.temp = {
-          id: undefined,
-          importance: 1,
-          remark: '',
-          timestamp: new Date(),
-          title: 1,
-          status: '11111',
-          type: ''
-        }
+        let that = this
+        that.listQuery.schoolGradeId = ''
+        that.listQuery.schoolSpecialtyId = ''
+        that.listQuery.schoolClbumId = ''
+        that.noBedStd = []
+        that.importance = []
       },
       handleCreate() {
-        this.resetTemp()
+        let that = this
+        that.resetTemp()
+        that.getDetail()
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
         this.$nextTick(() => {

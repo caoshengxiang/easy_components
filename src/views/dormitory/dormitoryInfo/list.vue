@@ -207,7 +207,7 @@
               round
               size="mini"
               :page-jump="true"
-              :page-query="{id: row.id}"
+              :page-query="{id: row.id,managerName:row.managerName}"
             >
             </PermissionButton>
           </template>
@@ -533,7 +533,6 @@
       },
       getList() {
         const that = this
-        alert(13)
         that.$api.dormitory.getPage({ ...that.pagePara,...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {

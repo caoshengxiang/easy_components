@@ -38,11 +38,7 @@
                 </el-col>
               </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="负责人电话：" prop="managerPhone" label-width="200px" class="postInfo-container-item ">
-                      <el-input v-model="postForm.managerPhone" class="filter-item"/>
 
-                    </el-form-item>    </el-col>
                 <el-col :span="8">
                   <el-form-item label="宿舍位置：" prop="location" label-width="200px" class="postInfo-container-item ">
                     <el-input v-model="postForm.location" class="filter-item"/>
@@ -53,14 +49,11 @@
                     <el-input v-model="postForm.capacity" class="filter-item"/>
 
                   </el-form-item>    </el-col>
-
-              </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item label="备注：" label-width="200px" class="postInfo-container-item ">
                       <el-input v-model="postForm.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请填写备注"/>
                     </el-form-item>    </el-col>
-                </el-row>
+              </el-row>
               </div>
             </div>
           </el-form>
@@ -144,11 +137,11 @@
     methods: {
       getStaffList() {
         const that = this
-        that.$api.baseInfo.getStaffList().then(data => {
+        that.$api.staff.staffpost().then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
-            that.staff = data.data.records
+            that.staff = data.data
           } else {
             this.$message({
               type: 'error',

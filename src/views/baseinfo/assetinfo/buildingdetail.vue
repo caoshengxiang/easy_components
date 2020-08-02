@@ -11,17 +11,17 @@
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物名称：" prop="name" label-width="200px" class="postInfo-container-item ">
+                    <el-form-item label="建筑物名称：" prop="name" label-width="120px" class="postInfo-container-item ">
                       <el-input v-model="postForm.name" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="简写名称：" prop="alias" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="简写名称：" prop="alias" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.alias" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label=" 校区：" prop="campus" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label=" 校区：" prop="campus" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.campus"
                         placeholder="教室类型"
@@ -37,7 +37,7 @@
                 <el-row style="margin-left: 150px">
 
                   <el-col :span="8">
-                    <el-form-item label="单位（部门）：" prop="orgId" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="单位（部门）：" prop="orgId" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.orgId"
                         placeholder="部门"
@@ -53,14 +53,14 @@
                     <el-form-item
                       label="建筑使用年限（年）："
                       prop="yearLimit"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-input v-model="postForm.yearLimit" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建筑物分类：" prop="cate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物分类：" prop="cate" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.cate"
                         placeholder="建筑物分类"
@@ -76,7 +76,7 @@
                 </el-row>
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物结构码：" prop="structure" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物结构码：" prop="structure" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.structure"
                         placeholder="建筑物结构码"
@@ -89,12 +89,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建筑物层数：" prop="floor" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物层数：" prop="floor" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.floor" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建成年月：" prop="buildDate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建成年月：" prop="buildDate" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.buildDate"
                         type="date"
@@ -109,7 +109,7 @@
                 <el-row style="margin-left: 150px">
 
                   <el-col :span="8">
-                    <el-form-item label="建筑物投资总额：" prop="amount" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物投资总额：" prop="amount" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.amount" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -132,7 +132,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="房屋产权：" prop="property" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="房屋产权：" prop="property" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.property"
                         placeholder="房屋产权"
@@ -153,17 +153,17 @@
 
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物占地面积：" prop="area" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物占地面积：" prop="area" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.area" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="总建成面积：" prop="buildArea" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="总建成面积：" prop="buildArea" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.buildArea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="总使用面积：" prop="useArea" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="总使用面积：" prop="useArea" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.useArea" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -172,7 +172,7 @@
                 <el-row style="margin-left: 150px">
 
                   <el-col :span="8">
-                    <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.cameraAddr" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -216,7 +216,7 @@
 
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物状况：" prop="state" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物状况：" prop="state" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.state"
                         placeholder="建筑物状况"
@@ -229,19 +229,19 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="权属证号：" prop="no" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="权属证号：" prop="no" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.no" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建筑物地址：" prop="addr" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物地址：" prop="addr" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.addr" class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物平面图：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物平面图：" prop="type" label-width="120px" class="postInfo-container-item">
                       <fileUpload
                         ref="uploadCourseChapter1"
                         :isdisabled="false"
@@ -251,7 +251,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建筑物图片：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="建筑物图片：" prop="type" label-width="120px" class="postInfo-container-item">
                       <fileUpload
                         ref="uploadCourseChapter2"
                         :isdisabled="false"
@@ -479,12 +479,9 @@
       },
       getDepartmentList() {
         const that = this
-        that.$api.baseInfo.getDepartmentList({
-          current: 0,
-          size: 10000
-        }).then(data => {
+        that.$api.organization.simpleAll().then(data => {
           if (data.code === 200) {
-            that.departmentList = data.data.records
+            that.departmentList = data.data
             console.log()
           } else {
             this.$message({

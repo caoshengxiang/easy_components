@@ -3,7 +3,7 @@
     <div class="title-container task-title">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-      <el-card >
+      <el-card style="height: 100%">
         <div slot="header" class="clearfix">
           <span>任务详情</span>
         </div>
@@ -41,7 +41,7 @@
                   :data="form.records"
                   fit
                   highlight-current-row
-                  style="width: 50%"
+                  style="width: 70%;padding-bottom: 250px"
                   :header-cell-style="{backgroundColor:'#EFF1F6'}"
                 >
                   <el-table-column
@@ -53,15 +53,21 @@
                     prop="result"
                     label="审核结果"
                   >
-                  </el-table-column>
-                  <el-table-column
-                    prop="msg"
-                    label="审核意见">
+                    <template slot-scope="{row}">
+                      <span v-if="row.result == '通过'" style="color: #00a0e9">{{row.result}}</span>
+                      <span v-else style="color: red">row.result</span>
+
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="approvalTime"
                     label="审核时间"
                   >
+                  </el-table-column>
+                  <el-table-column
+                    prop="msg"
+                    width="500px"
+                    label="审核意见">
                   </el-table-column>
                 </el-table>
               </el-form-item>
@@ -194,6 +200,7 @@
         getDetail() {
           const that = this;
           that.$utils.loading.show();
+          if(that.type  == 1){
             that.$api.task.getDetail(that.$route.query.id).then(res => {
               that.$utils.loading.hide();
               if (res.code === 200) {
@@ -206,6 +213,22 @@
                 })
               }
             })
+          }
+          else{
+            that.$api.task.getProcessNew(that.$route.query.id).then(res => {
+              that.$utils.loading.hide();
+              if (res.code === 200) {
+                //返回成功
+                that.form = res.data
+              } else {
+                that.$message({
+                  type: 'error',
+                  message: res.msg
+                })
+              }
+            })
+          }
+
         }
       }
     }

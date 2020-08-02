@@ -120,7 +120,7 @@
         </el-table-column>
         <el-table-column label="经费来源">
           <template slot-scope="{row}">
-            <span>{{ row.financialResource }}年</span>
+            <span>{{ row.financialResource }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">

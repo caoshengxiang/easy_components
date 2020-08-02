@@ -16,7 +16,7 @@
                     <el-form-item
                       label="使用教室："
                       prop="teachingRoomId"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item "
                     >
                       <el-select
@@ -31,12 +31,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="实训室名称：" prop="name" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="实训室名称：" prop="name" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.name" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label=" 建成日期：" prop="buildDate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label=" 建成日期：" prop="buildDate" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.buildDate"
                         type="date"
@@ -51,7 +51,7 @@
 
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="实训室类别：" prop="cate" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="实训室类别：" prop="cate" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.cate"
                         placeholder="实训室类别"
@@ -70,7 +70,7 @@
                   </el-col>
 
                   <el-col :span="8">
-                    <el-form-item label="使用结构（部门）：" prop="type" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="使用结构（部门）：" prop="type" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.orgId"
                         default-value="0"
@@ -87,7 +87,7 @@
                     <el-form-item
                       label="资产员："
                       prop="propertyUserId"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -104,7 +104,7 @@
                 </el-row>
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="工位数：" prop="stationNum" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="工位数：" prop="stationNum" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.stationNum" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -119,7 +119,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="实训室介绍：" prop="introduce" label-width="200px" class="postInfo-container-item">
+                    <el-form-item label="实训室介绍：" prop="introduce" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.introduce" type="textarea" class="filter-item" />
                     </el-form-item>
                   </el-col>
@@ -223,7 +223,7 @@
         that.getDetail()
       }
       that.getStaffList()
-      that.getByTypeId('experimentRoomType')
+      that.getByTypeId('trainingType')
       that.organizationSimpleAll() // //查询建筑物列表
       that.getTeachingList() // //查询建筑物列表
 

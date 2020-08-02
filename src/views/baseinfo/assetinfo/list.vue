@@ -41,9 +41,29 @@
           name=""
           :page-jump="true"
         />
+        <el-select
+          v-model="listQuery.status"
+          default-value="0"
+          placeholder="使用状况"
+          clearable
+          style="margin-left: 20px;width: 200px"
+          class="filter-item"
+        >
+          <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
+        </el-select>
+        <el-select
+          v-model="listQuery.user"
+          default-value="0"
+          placeholder="用途"
+          clearable
+          style="margin-left: 20px;width: 200px"
+          class="filter-item"
+        >
+          <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name" />
+        </el-select>
         <el-input
-          v-model="listQuery.keyword"
-          placeholder="用地编号或名称"
+          v-model="listQuery.addr"
+          placeholder="地址"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
           class="filter-item"
@@ -85,7 +105,6 @@
           <template slot-scope="{row}">
             <span>
               {{ row.user }}
-
             </span>
           </template>
         </el-table-column>
@@ -163,15 +182,40 @@
         listQuery: {
           dormitoryId: 0
         },
-        statisticsInfo: {}
+        statisticsInfo: {},
+        useStatus:[],
+        purpose:[]
       }
     },
     created() {
       const that = this
       that.getList()
       that.getStatistics()
+
+      that.getByTypeId('purpose')
+      that.getByTypeId('useStatus')
     },
     methods: {
+      getByTypeId(id) {
+        const that = this
+        that.$api.dictData.getByCode({ code: id }).then(data => {
+          if (data.code === 200) {
+            switch (id) {
+              case 'useStatus':
+                that.useStatus = data.data
+                break
+              case 'purpose':
+                that.purpose = data.data
+                break
+            }
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getStatistics(){
         let that = this
         that.$api.statistics.getStatistics('/statistics/land/area',{ ...that.listQuery }).then(data => {

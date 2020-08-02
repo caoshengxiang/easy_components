@@ -222,7 +222,7 @@
         </el-table-column>
         <el-table-column label="证件号" class-name="status-col">
           <template slot-scope="{row}">
-            <span>{{ row.certificateCode }}</span>
+            <span>{{ row.idNo }}</span>
           </template>
         </el-table-column>
         <el-table-column label="联系电话" class-name="status-col">
