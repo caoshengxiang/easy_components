@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout :save="handleCreate" :edit-status="false">
+    <y-detail-page-layout :save="handleCreate" :edit-status="false"  v-loading="vLoading">
       <el-tabs v-model="activeName">
         <el-tab-pane label="学历证书" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -415,6 +415,7 @@
         dataId: this.$route.query.id,
         activeName: 'first',
         AllEnum: {},
+        vLoading: false,
       }
     },
     created() {
@@ -449,6 +450,7 @@
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
+            this.vLoading = true
             this.$api.staff.editEduBase(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
@@ -462,6 +464,9 @@
                   this.$router.push(back)
                 }
               }
+              this.vLoading = false
+            }).catch(() => {
+              this.vLoading = false
             })
           }
         })

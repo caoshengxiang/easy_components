@@ -628,7 +628,10 @@
         if (dropType === 'inner') {
           draggingNode.data.parentId = dropNode.data.id
         }
-        console.log(this.setSortNum(this.treeData))
+        // console.log()
+        this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
+          console.log('拖拽ok')
+        })
       },
       allowDrop(draggingNode, dropNode, type) { // 	拖拽时判定目标节点能否被放置。type 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后
         // console.log(draggingNode, dropNode, type, '放置')
@@ -718,13 +721,13 @@
               }
             })
             if (repeat) {
-              this.$notify({
-                title: '成功',
-                message: '唯一键编码或URL 重复！',
-                type: 'error',
-                duration: 2000
-              })
-              return
+              // this.$notify({
+              //   title: '成功',
+              //   message: '唯一键编码或URL 重复！',
+              //   type: 'error',
+              //   duration: 2000
+              // })
+              // return
             }
             this.$api.menuSet.add(tempData).then(res => {
               this.dialogFormVisible = false
@@ -782,13 +785,13 @@
               }
             })
             if (repeat) {
-              this.$notify({
-                title: '错误',
-                message: '唯一键编码或URL 重复！',
-                type: 'error',
-                duration: 2000
-              })
-              return
+              // this.$notify({
+              //   title: '错误',
+              //   message: '唯一键编码或URL 重复！',
+              //   type: 'error',
+              //   duration: 2000
+              // })
+              // return
             }
             this.$api.menuSet.edit(tempData).then(res => {
               this.dialogFormVisible = false

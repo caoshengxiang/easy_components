@@ -20,7 +20,15 @@
         />
         <el-input
           v-model="listQuery.name"
-          placeholder="请输入学期名称搜索"
+          placeholder="请输入学期名称"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+          clearable
+        />
+        <el-input
+          v-model="listQuery.code"
+          placeholder="请输入学期码"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
           class="filter-item"
@@ -152,6 +160,7 @@
           page: 1,
           size: 10,
           name: '',
+          code: '',
           keyword: '',
         },
       }
