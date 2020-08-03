@@ -55,7 +55,7 @@
                   >
                     <template slot-scope="{row}">
                       <span v-if="row.result == '通过'" style="color: #00a0e9">{{row.result}}</span>
-                      <span v-else style="color: red">row.result</span>
+                      <span v-else style="color: red">{{row.result}}</span>
 
                     </template>
                   </el-table-column>

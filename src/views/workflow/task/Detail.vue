@@ -44,8 +44,8 @@
         <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-facilities-info>
         <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-department-info>
         <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'" :detailInfo="this.formData"></base-info-course-info>
-        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'" :detailInfo="this.formData"></base-info-major-info>
-        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-grade-info>
+        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'" :detailInfo="this.formData"></base-info-major-info>
+        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'" :detailInfo="this.formData"></base-info-grade-info>
         <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'" :detailInfo="this.formData"></base-info-class-info>
         <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'" :detailInfo="this.formData"></base-info-userInfo-info>
         <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'" :detailInfo="this.formData"></base-info-std-info>

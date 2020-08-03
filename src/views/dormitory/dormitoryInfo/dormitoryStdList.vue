@@ -230,7 +230,7 @@
             }
             tempBed.forEach(function (temp) {
               let add = true
-              that.list.forEach(function (item) {
+              that.pageData.records.forEach(function (item) {
                 if(item.bedNo === temp){
                   add = false
                 }
@@ -374,6 +374,8 @@
                   duration: 2000
                 })
 
+                this.importance = []
+                this.beds = []
                 this.getList()
               }
               else{
@@ -432,7 +434,6 @@
             })
             }
             else{
-              alert(123)
               that.bedInfo = {}
               that.bedInfo.beds = []
             }

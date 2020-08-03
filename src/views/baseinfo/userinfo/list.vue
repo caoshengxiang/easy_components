@@ -166,7 +166,7 @@
         style="width:99%;margin-left: 10px"
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
       >
-        <el-table-column label="学号" prop="id" sortable="custom" align="center">
+        <el-table-column label="学号" prop="id" sortable="custom" align="center" width="200px">
           <template slot-scope="{row}">
             <span>
               {{ row.studyCode }}
@@ -220,12 +220,12 @@
             <span>{{ row.studentType }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="证件号" class-name="status-col">
+        <el-table-column label="证件号" class-name="status-col" width="200px">
           <template slot-scope="{row}">
             <span>{{ row.idNo }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="联系电话" class-name="status-col">
+        <el-table-column label="联系电话" class-name="status-col" width="100px">
           <template slot-scope="{row}">
             <span>{{ row.homePhone }}</span>
           </template>
