@@ -527,16 +527,12 @@
                     type: 'success',
                     duration: 2000
                   })
-                  // that.$router.push({
-                  //   path:"/views/baseinfo/assetinfo/buildinglist",
-                  //   query: {
-                  //     type: "add"
-                  //   }
-                  // })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
+              that.$router.push({
+                path: '/views/baseinfo/assetinfo/buildinglist',
+                query: {
+                  menuLevel1: this.$route.query.menuLevel1
+                }
+              })
                 } else {
                   this.$message({
                     type: 'error',
@@ -556,16 +552,12 @@
                     type: 'success',
                     duration: 2000
                   })
-                  // that.$router.push({
-                  //   path:"/baseinfo/buildingindex",
-                  //   query: {
-                  //     type: "add"
-                  //   }
-                  // })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
+                  that.$router.push({
+                    path: '/views/baseinfo/assetinfo/buildinglist',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
                 } else {
                   this.$message({
                     type: 'error',

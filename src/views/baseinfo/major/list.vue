@@ -17,44 +17,22 @@
           name=""
           :page-jump="true"
         />
-        <el-select
-          v-model="listQuery.departmentId"
-          placeholder="系部"
-          clearable
-          filterable
-          style="margin-left: 10px;width: 100px"
-          class="filter-item"
-        >
-          <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
-        <el-select
-          v-model="listQuery.ifFullTime"
-          placeholder="是否全日制"
-          clearable
-          filterable
-          style="margin-left: 10px;width: 100px"
-          class="filter-item"
-        >
-          <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
-        </el-select>
-        <el-select
-          v-model="listQuery.grade"
-          placeholder="班级类型"
-          clearable
-          filterable
-          style="margin-left: 10px;width: 100px"
-          class="filter-item"
-        >
-          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
-        </el-select>
+
         <el-input
           v-model="listQuery.name"
-          placeholder="请输入关键字搜索"
+          placeholder="专业名称"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 200px;"
           class="filter-item"
           @keyup.enter.native="handleFilter"
-        />      </template>
+        />    <el-input
+        v-model="listQuery.alias"
+        placeholder="专业简称"
+        prefix-icon="el-icon-search"
+        style="margin-left: 10px;width: 200px;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"
+      />       </template>
       <template slot="right">
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索

@@ -327,10 +327,12 @@
                   //     type: "add"
                   //   }
                   // })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
+                  that.$router.push({
+                    path: '/views/baseinfo/assetinfo/trainingdlist',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
                 } else {
                   this.$message({
                     type: 'error',
@@ -356,10 +358,12 @@
                   //     type: "add"
                   //   }
                   // })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
+                  that.$router.push({
+                    path: '/views/baseinfo/assetinfo/trainingdlist',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
                 } else {
                   this.$message({
                     type: 'error',
