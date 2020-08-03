@@ -237,7 +237,7 @@
               menu-no="_views_baseinfo_userinfo_list_code"
               name="查看"
               type="text"
-              @click="productInnerQR=true"
+              @click="productInnerQR1"
             >
             </PermissionButton>
           </template>
@@ -275,9 +275,9 @@
         </el-table-column>
       </el-table>
     </y-page-list-layout>
-
-    <el-dialog style=" width:500px;text-align: center;margin-left: 30%" title="二维码" :visible.sync="productInnerQR">
+    <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码" :visible.sync="productInnerQR">
       <div class="qrcode" ref="qrCodeUrl"></div>
+
     </el-dialog>
   </div>
 </template>
@@ -387,7 +387,7 @@
       }
     },
     mounted() {
-      this.creatQrCode();
+    //  this.creatQrCode();
     },
     created() {
       const that = this
@@ -400,6 +400,11 @@
       that.getStatistics()
     },
     methods: {
+      productInnerQR1(){
+       // alert(123)
+        this.productInnerQR  = true;
+        this.creatQrCode()
+      },
       creatQrCode() {
         var qrcode = new QRCode(this.$refs.qrCodeUrl, {
           text: 'xxxx', // 需要转换为二维码的内容

@@ -120,12 +120,31 @@
       },
       taskdetail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id,type:1, menuLevel1: this.$route.query.menuLevel1 } });
-        window.open(routeData.href, '_blank');
+
+
+        const routeData = that.$router.resolve({
+          path: '/views/workflow/task/Detail',
+          query: {
+            id: id,
+            type:1,
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
+          }
+        })
+        window.open(routeData.href, '_blank')
       },
       detail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id, menuLevel1: this.$route.query.menuLevel1 } });
+        const routeData = that.$router.resolve({
+          path: '/views/workflow/task/Detail',
+          query: {
+            id: id,
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
+          }
+        })
         window.open(routeData.href, '_blank');
       },
       auditData(){
