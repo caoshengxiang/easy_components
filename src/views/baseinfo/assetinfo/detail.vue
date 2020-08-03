@@ -261,7 +261,11 @@
               // //编辑
               that.$api.assetinfo.editLand({ ...that.postForm }).then(data => {
                 that.loading = false
-                if (data.code === 200) {
+                if(data.code === 250){
+
+
+                }
+               else if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑用地成功',
@@ -292,7 +296,16 @@
               // //编辑
               that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
                 that.loading = false
-                if (data.code === 200) {
+                if(data.code === 250){
+
+                  that.$router.push({
+                    path: '/views/baseinfo/assetinfo/list',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
+                }
+                else if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增用地成功',

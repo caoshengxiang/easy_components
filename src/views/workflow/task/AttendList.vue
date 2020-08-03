@@ -45,7 +45,7 @@
          </el-table-column>
          <el-table-column label="操作" align="center" >
            <template slot-scope="{row}">
-             <el-button type="primary" round @click="$targetNewPage(`/task/detail?id=${row.taskId}&type=2`)">申请详情</el-button>
+             <el-button type="primary" round @click="goto(row.taskId)">申请详情</el-button>
            </template>
          </el-table-column>
        </el-table>
@@ -77,7 +77,20 @@
        that.getList();//分页列表
      },
      methods:{
-
+       goto(id){
+         let that =this;
+         const routeData = that.$router.resolve({
+           path: '/views/workflow/task/Detail',
+           query: {
+             id: id,
+             type:2,
+             menuLevel1: this.$route.query.menuLevel1,
+             menuId: this.$route.query.menuId,
+             back: this.$route.fullPath
+           }
+         })
+         window.open(routeData.href, '_blank');
+       },
        searchList(){
          let that = this;
          if(that.dateTime) {

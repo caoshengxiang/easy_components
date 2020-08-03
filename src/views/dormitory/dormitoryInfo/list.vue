@@ -116,7 +116,7 @@
         class-name="filter-item"
         round
         icon="el-icon-download"
-        name="导入模板下载"
+        name="人员导入模板"
         @click="downloadTemplate"
       />
       <PermissionButton
@@ -132,9 +132,33 @@
           :limit="1"
           flag="dormitoryBed/importExcel"
           :style-type="1"
-          title="导入"
+          title="人员导入"
         />
       </PermissionButton>
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="宿舍导入模板"
+          @click="downloadTemplate1"
+        />
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          type="text"
+          round
+          name=""
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="dormitory/importExcel"
+            :style-type="1"
+            title="宿舍导入"
+          />
+        </PermissionButton>
     </template>
       <el-table
         v-loading="listLoading"
@@ -378,7 +402,10 @@
         window.open(routeData.href, '_blank')
       },
       downloadTemplate() {
-        this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
+        this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '人员导入模板')
+      },
+      downloadTemplate1(){
+        this.$utils.exportUtil('/dormitory/download/importTemplate', null, '宿舍导入模板')
       },
       resetTemp() {
         this.temp = {

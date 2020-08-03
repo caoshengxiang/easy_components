@@ -258,7 +258,16 @@ aside {
     border-radius:15px;
   }
 }
-
+.qrcode{
+  display: inline-block;
+  img {
+    width: 132px;
+    height: 132px;
+    background-color: #fff; //设置白色背景色
+    padding: 6px; // 利用padding的特性，挤出白边
+    box-sizing: border-box;
+  }
+}
 //refine vue-multiselect plugin
 //.multiselect {
 //  line-height: 16px;

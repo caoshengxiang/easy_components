@@ -137,7 +137,16 @@
       },
       taskdetail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id,type:2 } });
+        const routeData = that.$router.resolve({
+          path: '/views/workflow/task/taskDetail',
+          query: {
+            id: id,
+            type:2,
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
+          }
+        })
         window.open(routeData.href, '_blank');
       },
       getList(){
