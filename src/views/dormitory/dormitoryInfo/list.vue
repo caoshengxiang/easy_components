@@ -357,7 +357,9 @@
         const routeData = that.$router.resolve({
           path: '/views/dormitory/dormitoryInfo/detail',
           query: {
-            menuLevel1: this.$route.query.menuLevel1
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
           }
         })
         window.open(routeData.href, '_blank')
@@ -368,7 +370,9 @@
           path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
           query: {
             id: id,
-            menuLevel1: this.$route.query.menuLevel1
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
           }
         })
         window.open(routeData.href, '_blank')
