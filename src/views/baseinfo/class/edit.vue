@@ -45,12 +45,9 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-show="!this.$route.query.id" v-model="postForm.postId" placeholder="岗位" clearable filterable
-                               style="width: 160px;margin-right: 10px;" @change="staffAll()">
-                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id"/>
-                    </el-select>
-                    <el-select v-model="postForm.headTeacherId" placeholder="班主任" clearable filterable
-                               style="width: 200px">
+
+                    <el-select v-model="postForm.headTeacherId" placeholder="班主任" filterable
+                               style="width: 100%">
                       <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
@@ -187,11 +184,10 @@
         that.id = that.$route.query.id
         that.getDetail()
       }
-      that.simpleAll()
       that.getAllEnum()
       that.getMajor()
       that.getGrade()
-      that.simpleAll()
+      that.staffAll()
       that.getByTypeId('campus')
     },
     methods: {
@@ -214,7 +210,7 @@
       },
       staffAll() {
         const that = this
-        that.$api.staff.staffpost({ postId: that.postForm.postId }).then(data => {
+        that.$api.staff.stafflist().then(data => {
           if (data.code === 200) {
             // 返回成功
             that.staff = data.data

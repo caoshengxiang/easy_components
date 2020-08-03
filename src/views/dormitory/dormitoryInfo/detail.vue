@@ -31,7 +31,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="宿舍负责人：" prop="managerId" label-width="200px" class="postInfo-container-item ">
-                    <el-select v-model="postForm.managerId" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+                    <el-select v-model="postForm.managerId" filterable class="filter-item" style="float: left; width: 100%" placeholder="请选择">
                       <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
