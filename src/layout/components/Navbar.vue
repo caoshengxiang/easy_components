@@ -75,6 +75,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import url('../../styles/menu/menuIcon.css');
   .logclass {
     width: 60px;
     height: 60px;

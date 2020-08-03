@@ -3,7 +3,7 @@
     <div class="title-container" style="margin-bottom: -26px;">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout :save="handleCreate" :edit-status="true" menu-no="_views_set_menu_edit">
+    <y-detail-page-layout v-loading="vloading" :save="handleCreate" :edit-status="true" menu-no="_views_set_menu_edit">
       <div class="set-menu">
         <div class="set-menu-box">
           <div class="left">
@@ -252,7 +252,18 @@
                       <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
-                      <el-input v-model="temp.pcIcon" class="filter-item"/>
+                      <el-popover
+                        placement="right"
+                        width="400"
+                        trigger="hover">
+                        <div>
+                          <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
+                        </div>
+                        <div slot="reference">
+                          <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
+                          <el-input v-else v-model="temp.pcIcon" class="filter-item"/>
+                        </div>
+                      </el-popover>
                     </el-form-item>
                     <el-form-item label="菜单端口：">
                       <el-checkbox v-model="port_m">移动端</el-checkbox>
@@ -306,6 +317,8 @@
         </div>
         <el-dialog
           width="600px"
+          :close-on-click-modal="false"
+          :close-on-press-escape="false"
           :title="textMap[dialogStatus]"
           :visible.sync="dialogFormVisible"
           :before-close="handleClose"
@@ -431,7 +444,19 @@
               <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
             </el-form-item>
             <el-form-item v-if="port_pc" label="图标：">
-              <el-input v-model="temp.pcIcon" class="filter-item"/>
+              <el-popover
+                placement="right"
+                width="400"
+                trigger="hover">
+                <div>
+                  <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
+                </div>
+                <div slot="reference">
+                  <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
+                  <el-input v-else v-model="temp.pcIcon" class="filter-item"/>
+                </div>
+              </el-popover>
+
             </el-form-item>
             <el-form-item label="菜单端口：">
               <el-checkbox v-model="port_m">移动端</el-checkbox>
@@ -467,6 +492,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButtonStop'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import menuNames from '../../../styles/menu/iconNames'
 
   export default {
     name: 'Index',
@@ -477,6 +503,7 @@
     },
     data() {
       return {
+        menuNames,
         loading: false,
         textMap: {
           update: '编辑',
@@ -509,6 +536,7 @@
         options: [],
         menuItem: {},
         treeListData: [],
+        vloading: false,
       }
     },
     created() {
@@ -629,9 +657,6 @@
           draggingNode.data.parentId = dropNode.data.id
         }
         // console.log()
-        this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
-          console.log('拖拽ok')
-        })
       },
       allowDrop(draggingNode, dropNode, type) { // 	拖拽时判定目标节点能否被放置。type 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后
         // console.log(draggingNode, dropNode, type, '放置')
@@ -766,45 +791,64 @@
           .catch(_ => {})
       },
       handleCreate() {
-        const tempData = Object.assign({}, this.temp)
-        if (this.temp.hasWorkflow && !this.temp.workflowId) {
-          this.$notify({
-            title: '错误',
-            message: '请选择工作流',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        this.$refs.dataForm.validate(valid => {
-          if (valid) {
-            let repeat = false
-            this.treeListData.forEach(item => {
-              if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
-                repeat = true
-              }
+        if (this.temp && this.temp.name) {
+          const tempData = Object.assign({}, this.temp)
+          if (this.temp.hasWorkflow && !this.temp.workflowId) {
+            this.$notify({
+              title: '错误',
+              message: '请选择工作流',
+              type: 'error',
+              duration: 2000
             })
-            if (repeat) {
-              // this.$notify({
-              //   title: '错误',
-              //   message: '唯一键编码或URL 重复！',
-              //   type: 'error',
-              //   duration: 2000
-              // })
-              // return
-            }
-            this.$api.menuSet.edit(tempData).then(res => {
-              this.dialogFormVisible = false
-              this.getMenuTreeData()
-              this.$notify({
-                title: '成功',
-                message: '编辑成功',
-                type: 'success',
-                duration: 2000
-              })
-            })
+            return
           }
-        })
+          this.$refs.dataForm.validate(valid => {
+            if (valid) {
+              let repeat = false
+              this.treeListData.forEach(item => {
+                if (item.menuNo === tempData.menuNo || item.pcUrl === tempData.pcUrl) {
+                  repeat = true
+                }
+              })
+              if (repeat) {
+                // this.$notify({
+                //   title: '错误',
+                //   message: '唯一键编码或URL 重复！',
+                //   type: 'error',
+                //   duration: 2000
+                // })
+                // return
+              }
+              this.vloading = true
+              this.$api.menuSet.edit(tempData).then(res => {
+                this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
+                  this.dialogFormVisible = false
+                  this.getMenuTreeData()
+                  this.vloading = false
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                }).catch(() => {this.vloading = false})
+                // this.vloading = false
+              }).catch(() => {this.vloading = false})
+            }
+          })
+        } else {
+          this.vloading = true
+          this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
+            this.dialogFormVisible = false
+            this.getMenuTreeData()
+            this.$notify({
+              title: '成功',
+              message: '编辑成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch(() => {this.vloading = false})
+        }
       },
       getWorkFlow() {
         this.$api.workflow.getList({
@@ -819,6 +863,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import "../../../styles/menu/menuIcon.css";
+
   .set-menu-box {
     display: flex;
     margin: 30px auto;

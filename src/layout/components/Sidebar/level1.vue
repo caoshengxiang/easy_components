@@ -17,7 +17,7 @@
           @click="menusClick(item)"
           style="display: flex;align-items: center;position: relative;right: -1px;"
         >
-          <i :class="'easy-icon easy-icon-'+item.pcIcon" style="transform: scale(0.4);width: 46px;margin-left: -20px;margin-right: -10px;"></i>
+          <i :class="'menu-sprites '+item.pcIcon + '2'" style="transform: scale(0.8);margin-right: 14px;"></i>
           {{item.name}}
         </el-menu-item>
       </el-menu>
@@ -120,6 +120,7 @@
   }
 </style>
 <style lang="scss" scoped>
+  @import url('../../../styles/menu/menuIcon.css');
   .level1 {
     width: 200px;
     background-color: #0079CA;
