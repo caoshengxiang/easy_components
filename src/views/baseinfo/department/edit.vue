@@ -22,9 +22,6 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="系部负责人：" prop="leaderId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.postId" placeholder="岗位" clearable filterable style="width: 160px;margin-right: 10px;" @change="staffAll()">
-                      <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id" />
-                    </el-select>
                     <el-select v-model="postForm.leaderId" placeholder="负责人" clearable filterable style="width: 200px">
                       <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id" />
                     </el-select>
@@ -97,7 +94,7 @@
     methods: {
       simpleAll(){
         const that = this
-        that.$api.post.simpleAll().then(data => {
+        that.$api.post.staffAll().then(data => {
           if (data.code === 200){
             // 返回成功
             that.gangwei = data.data
@@ -111,7 +108,7 @@
       },
       staffAll(){
         const that = this
-        that.$api.staff.staffpost({ postId: that.postForm.postId}).then(data => {
+        that.$api.staff.stafflist().then(data => {
           if (data.code === 200){
             // 返回成功
             that.staff = data.data
