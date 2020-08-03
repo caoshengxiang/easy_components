@@ -276,18 +276,16 @@
       </el-table>
     </y-page-list-layout>
 
-    <el-dialog title="二维码" :visible.sync="productInnerQR">
-      <div class="qcode-wrap">
-        <div v-loading="loading" class="qcode-item">
-          <img style="width: 100%" src="../../../assets/ercode.png">
-        </div>
-      </div>
+    <el-dialog style=" width:500px;text-align: center;margin-left: 30%" title="二维码" :visible.sync="productInnerQR">
+      <div class="qrcode" ref="qrCodeUrl"></div>
     </el-dialog>
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
-  import QRCode from 'qrcode'
+  //import Pagination from '@/components/Pagination'
+ // import QRCode from 'qrcode'
+
+  import QRCode from 'qrcodejs2'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   import excelImport from '@/components/excelImport.vue'
@@ -388,6 +386,9 @@
         statisticsInfo: {}
       }
     },
+    mounted() {
+      this.creatQrCode();
+    },
     created() {
       const that = this
       that.getList()// 分页列表
@@ -399,7 +400,16 @@
       that.getStatistics()
     },
     methods: {
-
+      creatQrCode() {
+        var qrcode = new QRCode(this.$refs.qrCodeUrl, {
+          text: 'xxxx', // 需要转换为二维码的内容
+          width: 100,
+          height: 100,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        })
+      },
       getStatistics(){
         let that = this
         that.$api.statistics.getStatistics('/statistics/student/read',{ ...that.listQuery }).then(data => {

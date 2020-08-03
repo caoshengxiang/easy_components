@@ -231,7 +231,7 @@
     methods: {
       getStaffList() {
         const that = this
-        that.$api.staff.staffpost().then(data => {
+        that.$api.staff.stafflist().then(data => {
           if (data.code === 200) {
             // 返回成功
             that.staff = data.data

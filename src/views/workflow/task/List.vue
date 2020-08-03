@@ -120,12 +120,12 @@
       },
       taskdetail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id,type:1 } });
+        let routeData = that.$router.resolve({ path: '/task/taskdetail', query: {  id: id,type:1, menuLevel1: this.$route.query.menuLevel1 } });
         window.open(routeData.href, '_blank');
       },
       detail(id){
         let that =this;
-        let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id } });
+        let routeData = that.$router.resolve({ path: '/task/detail', query: {  id: id, menuLevel1: this.$route.query.menuLevel1 } });
         window.open(routeData.href, '_blank');
       },
       auditData(){
