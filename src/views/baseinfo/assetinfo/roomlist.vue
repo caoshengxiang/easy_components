@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <div class="right">
+    <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
           :key="index"

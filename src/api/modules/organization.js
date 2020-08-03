@@ -25,4 +25,7 @@ export default {
   download(params) {
     return fileDown('organization/download/exportExcel', params)
   },
+  sta(params) { // 统计
+    return request.get(`organization/stat`, { params: params })
+  },
 }

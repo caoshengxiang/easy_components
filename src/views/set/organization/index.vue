@@ -3,6 +3,34 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
+    <div class="statisticsInfo">
+      <div class="menu-2-box">
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/area1.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.orgNum}}</span>人</div>
+            <div class="analysis-text-small">当前机构总数</div>
+          </div>
+        </div>
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/area.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.postNum}}</span></div>
+            <div class="analysis-text-small">当前岗位总数</div>
+          </div>
+        </div>
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/area.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.staffNum}}</span></div>
+            <div class="analysis-text-small">当前人员总数</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
@@ -215,12 +243,16 @@
             trigger: 'change'
           }]
         },
-        partOptions: []
+        partOptions: [],
+        statisticsInfo: {}
       }
     },
     created() {
       this.getPartSelect()
       this.getList()
+      this.$api.organization.sta().then(res => {
+        this.statisticsInfo = res.data
+      })
     },
     methods: {
       exportHandle() {
@@ -346,40 +378,4 @@
   }
 </script>
 <style scoped lang="scss">
-  .right {
-    flex: 1;
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 35px;
-      margin-bottom: 8px;
-    }
-
-    .menu-2-box {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .menu-2-item {
-      display: flex;
-      align-items: center;
-      color: #656565;
-      font-size: 12px;
-      width: 230px;
-      height: 101px;
-      background: rgb(255, 185, 129);
-      border-radius: 3px;
-      padding-left: 20px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-
-      .text {
-        margin-left: 16px;
-      }
-    }
-  }
 </style>

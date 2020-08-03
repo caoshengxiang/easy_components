@@ -13,7 +13,7 @@
 <!--          <span class="text">{{ item.name }}</span>-->
 <!--        </div>-->
 <!--      </div>-->
-<!--      <div class="right">-->
+<!--      <div class="statisticsInfo">-->
 <!--        <div class="title">{{ activeItem.name }}</div>-->
 <!--        <div class="menu-2-box">-->
 <!--          <div-->

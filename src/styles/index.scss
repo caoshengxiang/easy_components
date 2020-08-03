@@ -385,13 +385,9 @@ aside {
   background: #64d9d6 !important; //自定义颜色
 }
 
-.right {
+.statisticsInfo {
+  margin-top: 12px;
   flex: 1;
-
-  background: white;
-  margin-top: 10px;
-  padding-left: 5px;
-  padding-top: 10px;
   .title {
     font-size: 16px;
     font-weight: 500;
@@ -413,13 +409,13 @@ aside {
     font-size: 12px;
     width: 230px;
     height: 101px;
-    background: #EBECED;
     border-radius: 3px;
     padding-left: 20px;
     margin-right: 10px;
     margin-bottom: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    background:rgba(255,255,255,1);
+    box-shadow:0px 1px 5px 0px rgba(190,190,190,0.2);
 
     .text {
       margin-left: 16px;
