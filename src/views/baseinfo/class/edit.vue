@@ -45,7 +45,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
-                    <el-select v-model="postForm.postId" placeholder="岗位" clearable filterable
+                    <el-select v-show="!this.$route.query.id" v-model="postForm.postId" placeholder="岗位" clearable filterable
                                style="width: 160px;margin-right: 10px;" @change="staffAll()">
                       <el-option v-for="item in gangwei " :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>

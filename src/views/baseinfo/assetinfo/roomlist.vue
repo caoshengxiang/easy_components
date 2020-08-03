@@ -120,12 +120,12 @@
         </el-table-column>
         <el-table-column label="最大排课量" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.courseMax }}</span>
+            <span>{{ row.courseMax }}</span>
           </template>
         </el-table-column>
         <el-table-column label="网络状态">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.networkCondition }}</span>
+            <span>{{ row.networkCondition ?'是':'否' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="是否多媒体" align="center">
