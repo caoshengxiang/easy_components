@@ -50,15 +50,27 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // console.log(res)
-
     // 进入审批
     if (res.code && res.code === 250) {
+      const href = window.location.href
+      const qy = href.split('?')[1]
+      const qyi = qy.split('&')
+      const obj = {}
+      qyi.forEach(item => {
+        const pa = item.split('=')
+        obj[pa[0]] = pa[1]
+      })
       Notification({
         title: '成功',
         message: '进入待审核',
         type: 'success',
         duration: 10000
       })
+      if (obj.back) {
+        // console.log(obj.back)
+        $router.push(decodeURIComponent(obj.back))
+      }
+      // eslint-disable-next-line brace-style
     }
     // if the custom code is not 20000, it is judged as an error.
     else if (res.code && res.code !== 200) {

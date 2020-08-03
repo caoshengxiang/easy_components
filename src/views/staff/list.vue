@@ -260,7 +260,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          size: 20,
+          size: 10,
           // name: '',
           // staffNo: ''
         },

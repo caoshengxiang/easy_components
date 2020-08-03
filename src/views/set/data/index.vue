@@ -1,14 +1,21 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="margin-bottom: 5px;"/>
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="margin-bottom: 5px;" />
     </div>
     <div class="filter-main-div">
       <div class="filter-container" style="width:70%; float: left;">
         <div>
           <span class="filter-item">类型列表:</span>
-          <el-select v-model="dataId" style="width: 200px;margin-left: 20px;" clearable filterable placeholder="请选择"
-                     class="filter-item" @change="selectChange">
+          <el-select
+            v-model="dataId"
+            style="width: 200px;margin-left: 20px;"
+            clearable
+            filterable
+            placeholder="请选择"
+            class="filter-item"
+            @change="selectChange"
+          >
             <el-option
               v-for="item in options"
               :key="item.id"
@@ -48,16 +55,19 @@
       <div style="margin-bottom: 30px;">
         <span style="display: inline-block;margin-right: 20px;margin-left: 10px;">
           <span class="filter-item">类型名称:</span>
-          <el-input v-model="detail.name" style="margin-left: 20px;width: 200px;;margin-bottom: 10px"
-                    class="filter-item"/>
+          <el-input
+            v-model="detail.name"
+            style="margin-left: 20px;width: 200px;;margin-bottom: 10px"
+            class="filter-item"
+          />
         </span>
         <span style="display: inline-block;margin-right: 20px;margin-bottom: 10px;margin-left: 10px;">
           <span class="filter-item">唯一标识:</span>
-          <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item"/>
+          <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item" />
         </span>
         <span style="display: inline-block;margin-left: 10px;">
           <span class="filter-item">类型描述:</span>
-          <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item"/>
+          <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item" />
         </span>
       </div>
 
@@ -77,13 +87,13 @@
           <el-table-column label="名称" min-width="150" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.name }}</span>-->
-              <el-input v-model="row.name"/>
+              <el-input v-model="row.name" />
             </template>
           </el-table-column>
           <el-table-column label="描述" min-width="250" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.remark }}</span>-->
-              <el-input v-model="row.remark"/>
+              <el-input v-model="row.remark" />
             </template>
           </el-table-column>
           <el-table-column label="是否启用" width="100" align="center">

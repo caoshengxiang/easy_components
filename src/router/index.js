@@ -26,7 +26,20 @@ const routes = [
         path: 'index',
         component: () => import('@/views/home/index'),
         meta: { title: '首页' },
-        name: 'setIndex'
+        name: 'homeIndex'
+      }
+    ]
+  },
+  {
+    path: '/profile',
+    component: Layout,
+    redirect: '/profile/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/profile'),
+        meta: { title: '个人信息' },
+        name: 'profile'
       }
     ]
   },
@@ -38,11 +51,11 @@ const routes = [
     path: '/401',
     component: () => import('@/views/error-page/401')
   },
-  {
-    path: '/workflow/design',
-    component: () => import('@/views/workflow/Design'),
-    meta: { title: '流程设计' }
-  },
+  // {
+  //   path: '/workflow/design',
+  //   component: () => import('@/views/workflow/Design'),
+  //   meta: { title: '流程设计' }
+  // },
 ]
 
 const files = require.context('./modules', false, /\.js$/)

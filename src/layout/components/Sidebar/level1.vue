@@ -2,9 +2,10 @@
   <div class="level1" @click.stop>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
+        background-color="#006CB4"
         :default-active="activeIndex"
-        text-color="#333333"
-        active-text-color="#338FFF"
+        text-color="#ffffff"
+        active-text-color="#FFFFFF"
         font-weight="bold"
       >
         <!--        <el-menu-item v-if="$route.path !== '/home/index'" index="99999" @click="handleSelect('/home/index')">首页</el-menu-item>-->
@@ -14,7 +15,7 @@
           :key="'id'+item.id"
           :index="'id'+item.id"
           @click="menusClick(item)"
-          style="display: flex;align-items: center;"
+          style="display: flex;align-items: center;position: relative;right: -1px;"
         >
           <i :class="'easy-icon easy-icon-'+item.pcIcon" style="transform: scale(0.4);width: 46px;margin-left: -20px;margin-right: -10px;"></i>
           {{item.name}}
@@ -105,13 +106,13 @@
 <style lang="scss">
   .level1 {
     .el-menu-item.is-active {
-      background-color: #F8FAFB;
+      background-color: #0079CA !important;
       &:before {
         content: '';
         display: inline-block;
         width: 2px;
         height: 100%;
-        background-color: #338FFF;
+        background-color: #1C92E1;
         position: absolute;
         left: 0;
       }
@@ -121,6 +122,7 @@
 <style lang="scss" scoped>
   .level1 {
     width: 200px;
-    background-color: #fffeff;
+    background-color: #0079CA;
+    overflow: hidden;
   }
 </style>

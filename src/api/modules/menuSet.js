@@ -21,5 +21,8 @@ export default {
   },
   simpleAll(params) {
     return request.get(`menu/simpleAll`, {params: params})
+  },
+  batchUpdate(params) {
+    return request.put(`menu/batchUpdate`, params)
   }
 }
