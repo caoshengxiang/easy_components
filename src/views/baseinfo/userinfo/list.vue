@@ -237,7 +237,7 @@
               menu-no="_views_baseinfo_userinfo_list_code"
               name="查看"
               type="text"
-              @click="productInnerQR1"
+              @click="productInnerQR1(row.id)"
             >
             </PermissionButton>
           </template>
@@ -276,8 +276,7 @@
       </el-table>
     </y-page-list-layout>
     <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码" :visible.sync="productInnerQR">
-      <div class="qrcode" ref="qrCodeUrl"></div>
-
+      <div class="qrcode" ref="qrCodeUrl" id="qrcode"></div>
     </el-dialog>
   </div>
 </template>
@@ -400,20 +399,28 @@
       that.getStatistics()
     },
     methods: {
-      productInnerQR1(){
-       // alert(123)
+      productInnerQR1(id){
         this.productInnerQR  = true;
-        this.creatQrCode()
+        if(document.getElementById('qrcode')!=undefined)
+        {
+          document.getElementById('qrcode').innerHTML= ''
+        }
+        this.creatQrCode(id)
       },
-      creatQrCode() {
-        var qrcode = new QRCode(this.$refs.qrCodeUrl, {
-          text: 'xxxx', // 需要转换为二维码的内容
-          width: 100,
-          height: 100,
-          colorDark: '#000000',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
+      creatQrCode(id) {
+        const that = this
+        that.$nextTick(()=>{
+          console.log(that.$refs.qrCodeUrl)
+          var qrcode = new QRCode(that.$refs.qrCodeUrl, {
+            text: 'http://www.baidu.com?id=' + id, // 需要转换为二维码的内容
+            width: 100,
+            height: 100,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          })
         })
+
       },
       getStatistics(){
         let that = this
@@ -509,13 +516,14 @@
         })
       },
       downloadCodeImg(row) {
-        QRCode.toDataURL(this.innerUrl, {
-          width: 390
-        }, function (err, url) {
-          const a = document.createElement('a')
-          a.href = url
-          a.download = row.qrname + '.png'
-          a.click()
+        let myCanvas = document.getElementById('qrcode').getElementsByTagName('canvas');
+        let a = document.createElement('a')
+        a.href = myCanvas[0].toDataURL('image/png');
+        a.download = '二维码';
+        a.click()
+        this.$message({
+          message: "正在进行下载保存",
+          type: 'success'
         })
       },
       resetTemp() {
