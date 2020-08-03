@@ -40,5 +40,8 @@ export default {
   staffpost(params) {
     return request.get('staff/post', { params: params }) //根据岗位查询人员
   },
+  stafflist(params) {
+    return request.get('staff/list', { params: params }) //根据岗位查询人员
+  },
 
 }

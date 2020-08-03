@@ -29,12 +29,19 @@
                 {{form.startTime}}
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="24">
+            <el-form-item label="执行结果："  prop="status" label-width="100px">
+              {{form.processResult}}
+            </el-form-item>
+          </el-col>
+
+            <el-col :span="18">
               <el-form-item label="查看详情："  prop="status" label-width="100px" >
              <span  class="link-type"   @click="detail(form.taskId)" >申请详情
                   </span>
               </el-form-item>
             </el-col>
+
             <el-col :span="24" >
               <el-form-item label="审批记录："  prop="status" label-width="100px">
                 <el-table
@@ -59,6 +66,7 @@
 
                     </template>
                   </el-table-column>
+
                   <el-table-column
                     prop="approvalTime"
                     label="审核时间"

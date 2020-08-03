@@ -324,12 +324,12 @@
       },
       getDepartmentList() {
         const that = this
-        that.$api.baseInfo.getDepartmentList({
+        that.$api.organization.simpleAll({
           current: 0,
           size: 10000
         }).then(data => {
           if (data.code === 200) {
-            that.departmentList = data.data.records
+            that.departmentList = data.data
             console.log()
           } else {
             this.$message({
