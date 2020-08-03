@@ -77,7 +77,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt1" :key="item.key" :label="item.label" :value="item.key" />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -189,6 +189,13 @@
         }, {
           key: false,
           label: '否'
+        }],
+        opt1: [{
+          key: true,
+          label: '通'
+        }, {
+          key: false,
+          label: '不通'
         }],
         postForm: {},
         constructionList: [],

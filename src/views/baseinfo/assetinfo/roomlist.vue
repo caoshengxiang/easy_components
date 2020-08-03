@@ -125,7 +125,7 @@
         </el-table-column>
         <el-table-column label="网络状态">
           <template slot-scope="{row}">
-            <span>{{ row.networkCondition ?'是':'否' }}</span>
+            <span>{{ row.networkCondition ?'通':'不通' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="是否多媒体" align="center">
