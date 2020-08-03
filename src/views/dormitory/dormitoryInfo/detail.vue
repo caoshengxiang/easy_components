@@ -189,15 +189,17 @@
                 if (data.code === 200){
                   this.$notify({
                     title: '成功',
-                    message: '新增宿舍成功',
+                    message: '编辑宿舍成功',
                     type: 'success',
                     duration: 2000
                   })
+                 that.$router.push({
+                   path: '/views/dormitory/dormitoryInfo/list',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
 
-                  const back = this.$route.query.back
-                  if (back) {
-                    that.$router.push(back)
-                  }
                 } else {
                   this.$message({
                     type: 'error',
@@ -217,10 +219,12 @@
                     type: 'success',
                     duration: 2000
                   })
-                  const back = this.$route.query.back
-                  if (back) {
-                    that.$router.push(back)
-                  }
+                  that.$router.push({
+                    path: '/views/dormitory/dormitoryInfo/list',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
                 } else {
                   this.$message({
                     type: 'error',
