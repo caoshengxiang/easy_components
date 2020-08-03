@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout>
+    <y-detail-page-layout :save="handleCreate" :edit-status="true">
       <div style="padding-top: 30px;">
         <el-tabs v-model="activeName" v-loading="vLoading" element-loading-text="处理中。。。" @tab-click="handleClick">
           <el-tab-pane label="基础信息" name="first">
@@ -1413,6 +1413,7 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'StaffDetail',
@@ -1461,10 +1462,23 @@
         teacherPosts: [],
       }
     },
-    created() {
+    computed: {
+      ...mapGetters([
+        'userInfo'
+      ]),
+    },
+    watch: {
+      userInfo: {
+        deep: true,
+        immediate: true,
+        handler() {
+          this.getDetail()
+        }
+      }
+    },
+    mounted() {
       this.getAllEnum()
       this.getOptions()
-      this.getDetail()
     },
     methods: {
       getOptions() {
@@ -1527,22 +1541,15 @@
         console.log(tab, event)
       },
       getDetail() {
-        // if (this.dataId) {
-        //   this.$api.staff.detail(this.dataId).then(res => {
-        //     this.postForm = res.data
-        //     this.teacherPosts = res.data.teacherPosts.map(item => {
-        //       return item.postId
-        //     })
-        //   })
-        //   this.initData()
-        // }
-        this.$api.staff.staffUser(this.dataId).then(res => {
-          this.postForm = res.data
-          this.teacherPosts = res.data.teacherPosts.map(item => {
-            return item.postId
+        if (this.userInfo.staffId) {
+          this.$api.staff.detail(this.userInfo.staffId).then(res => {
+            this.postForm = res.data
+            this.teacherPosts = res.data.teacherPosts.map(item => {
+              return item.postId
+            })
           })
-        })
-        this.initData()
+          this.initData()
+        }
       },
       handleCreate() {
         // console.log(this.postForm, 'xxx')
