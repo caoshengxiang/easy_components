@@ -3,7 +3,7 @@
     <div class="title-container" style="margin-bottom: -26px;">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout v-loading="vloading" :save="handleCreate" :edit-status="true" menu-no="_views_set_menu_edit">
+    <y-detail-page-layout v-loading="vloading" @save="handleCreate" :edit-status="true" menu-no="_views_set_menu_edit">
       <div class="set-menu">
         <div class="set-menu-box">
           <div class="left">

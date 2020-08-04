@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="save">
+    <y-detail-page-layout @save="save">
       <el-tabs value="first" @tab-click="handleClick">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 5% ">
