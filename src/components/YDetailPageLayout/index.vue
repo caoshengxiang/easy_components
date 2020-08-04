@@ -40,13 +40,6 @@
       editStatus: {
         type: Boolean,
         default: false
-      },
-      //保存方法
-      save: {
-        type: Function,
-        default: function () {
-
-        }
       }
     },
     data() {
@@ -86,11 +79,15 @@
       },
       addFormPageClick(){
         const that = this;
-        const formObj = document.querySelectorAll('.y-detail-page-layout.page-disabled form')
+        const formObj = document.querySelectorAll('.y-detail-page-layout.page-disabled form .el-tabs__content')
         if (formObj && formObj.length > 0)
           formObj.forEach(function (obj) {
             obj.addEventListener('click', that.formPageClick, true)
           })
+      },
+      save(){
+        this.$emit('save')
+        this.isEdit = false
       }
     }
   }
@@ -132,13 +129,11 @@
     resize: none;
     padding-left: 0px; /*对齐*/
   }
-  .y-detail-page-layout.page-disabled >>> input:disabled +*{
-    display: none;
-  }
-  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-toolbarbox,.y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-bottomContainer{
-    display: none;
-  }
+  .y-detail-page-layout.page-disabled >>> input:disabled +* ,
+  .y-detail-page-layout.page-disabled >>>.el-input__suffix,
+  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-toolbarbox,
+  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-bottomContainer,
   .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor{
-    border: none;
+    display: none;
   }
 </style>
