@@ -23,7 +23,10 @@ export default {
   // resetPwd(params) {
   //   return request.post(`system/user/resetSelfPwd`, params)
   // },
-  // userList(params) {
-  //   return request.get(`system/user/page`, { params: params })
-  // }
+  modifyPass(params) {
+    return request.put(`/user/password`, {
+      lastPassword: md5(params.lastPassword),
+      newPassword: md5(params.newPassword),
+    })
+  }
 }
