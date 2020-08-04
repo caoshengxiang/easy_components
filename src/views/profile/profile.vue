@@ -1406,7 +1406,7 @@
           <!--          </el-tab-pane>-->
         </el-tabs>
 
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+        <el-dialog title="修改密码" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
           <el-form :model="dialogForm" :rules="rules" ref="dialogForm">
             <el-form-item label="旧密码" prop="lastPassword" label-width="140">
               <el-input v-model="dialogForm.lastPassword" type="password" autocomplete="off"></el-input>
@@ -1532,7 +1532,17 @@
       savePass(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$api.account.modifyPass(this.dialogForm)
+            this.$api.account.modifyPass(this.dialogForm).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '修改成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                this.dialogFormVisible = false
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;
