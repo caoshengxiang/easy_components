@@ -203,7 +203,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级："  prop="administrativeGradeId" label-width="120px" class="postInfo-container-item">
-                  <el-select  v-model="postForm.administrativeGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+                  <el-select  v-model="postForm.administrativeGradeId" placeholder="年级" clearable style="margin-left:10px;" class="filter-item">
                     <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
                 </el-form-item>
@@ -234,7 +234,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级："  prop="schoolGradeId" label-width="120px" class="postInfo-container-item">
-                  <el-select  v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
+                  <el-select  v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;" class="filter-item">
                     <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
                 </el-form-item>
@@ -263,13 +263,14 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="户口地址信息："  prop="countyName" label-width="250px" class="postInfo-container-item">
-                 <!-- <el-cascader
-                    :options="options"
-                    v-model="postForm.countyName"
-                    style="width: 100%"
-                    @change="handleChange">
-                  </el-cascader>-->
-                  <el-input    v-model="postForm.countyName"   class="filter-item" />
+                 <el-cascader
+                     :options="areasls"
+                     v-model="postForm.countyName"
+                     style="width: 100%"
+                     :props="props"
+                     @change="handleChange">
+                   </el-cascader>
+                 <!-- <el-input    v-model="postForm.countyName"   class="filter-item" />-->
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -525,6 +526,10 @@
     components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
+        props:{
+          label:'name',
+          value:'name'
+        },
         opt:[{
           key: true,
           label:'是'
@@ -545,40 +550,40 @@
           certificateType: [{ required: true, message: '请选择证件类型', trigger: 'change' }],
           idNo: [{ required: true, message: '请填写证件号码', trigger: 'change' }],
           mobile: [{ required: true, message: '请填写联系电话', trigger: 'change' }],
-         /* studentCode: [{ required: true, message: '请填写学籍号', trigger: 'change' }],
-          studyCode: [{ required: true, message: '请填写学号', trigger: 'change' }],
-          spell: [{ required: true, message: '请填写姓名拼音', trigger: 'change' }],
-          sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
-          birthday: [{ required: true, message: '请选择出生日期', trigger: 'change' }],
-          country : [{ required: true, message: '请选择国籍/地区', trigger: 'change' }],
-          compatriot: [{ required: true, message: '请选择港澳台侨外', trigger: 'change' }],
-          maritalStatus: [{ required: true, message: '请选择婚姻状况', trigger: 'change' }],
-          nation : [{ required: true, message: '请选择民族', trigger: 'change' }],
-          recruitType: [{ required: true, message: '请选择联招合作类型', trigger: 'change' }],
-          entryType: [{ required: true, message: '请选择入学方式', trigger: 'change' }],
-          englishName: [{ required: true, message: '请填写英文名称', trigger: 'change' }],
-          studentType: [{ required: true, message: '请选择学习方式', trigger: 'change' }],
-          cultivateModel: [{ required: true, message: '请选择分段培养方式', trigger: 'change' }],
-          ifTrailingChildren: [{ required: true, message: '请选择是否随迁子女', trigger: 'change' }],
-          state: [{ required: true, message: '请选择当前状态', trigger: 'change' }],
-          studyStyle : [{ required: true, message: '请选择学习形式', trigger: 'change' }],
-          studyWay : [{ required: true, message: '请选择就读方式', trigger: 'change' }],
-          cate: [{ required: true, message: '请选择学生类别', trigger: 'change' }],
-          belongPoliceStation: [{ required: true, message: '请填写所属派出所', trigger: 'change' }],
-          railwayRange: [{ required: true, message: '请填写乘火车区间', trigger: 'change' }],
-          administrativeGradeId : [{ required: true, message: '请选择年级', trigger: 'change' }],
-          administrativeSpecialtyId : [{ required: true, message: '请选择专业', trigger: 'change' }],
-          administrativeClbumId : [{ required: true, message: '请选择班级', trigger: 'change' }],
-          schoolGradeId: [{ required: true, message: '请选择学籍年级', trigger: 'change' }],
-          schoolSpecialtyId: [{ required: true, message: '请选择学籍专业', trigger: 'change' }],
-          schoolClbumId: [{ required: true, message: '请选择学籍班级', trigger: 'change' }],
-          countyName : [{ required: true, message: '请选择户口地址信息', trigger: 'change' }],
-          educationForm: [{ required: true, message: '请选择联招合作办学形式', trigger: 'change' }],
-          nativePlaceCode: [{ required: true, message: '籍贯地行政区划码', trigger: 'change' }],
-          birthPlaceCode : [{ required: true, message: '请填写出生地行政区划码', trigger: 'change' }],
-          registerAddr: [{ required: true, message: '请填写详细地址', trigger: 'change' }],
-          educationSchoolCode: [{ required: true, message: '请填写联招合作学校代码', trigger: 'change' }],
-          outsidePlace: [{ required: true, message: '请填写校外教学点', trigger: 'change' }],*/
+          /* studentCode: [{ required: true, message: '请填写学籍号', trigger: 'change' }],
+           studyCode: [{ required: true, message: '请填写学号', trigger: 'change' }],
+           spell: [{ required: true, message: '请填写姓名拼音', trigger: 'change' }],
+           sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
+           birthday: [{ required: true, message: '请选择出生日期', trigger: 'change' }],
+           country : [{ required: true, message: '请选择国籍/地区', trigger: 'change' }],
+           compatriot: [{ required: true, message: '请选择港澳台侨外', trigger: 'change' }],
+           maritalStatus: [{ required: true, message: '请选择婚姻状况', trigger: 'change' }],
+           nation : [{ required: true, message: '请选择民族', trigger: 'change' }],
+           recruitType: [{ required: true, message: '请选择联招合作类型', trigger: 'change' }],
+           entryType: [{ required: true, message: '请选择入学方式', trigger: 'change' }],
+           englishName: [{ required: true, message: '请填写英文名称', trigger: 'change' }],
+           studentType: [{ required: true, message: '请选择学习方式', trigger: 'change' }],
+           cultivateModel: [{ required: true, message: '请选择分段培养方式', trigger: 'change' }],
+           ifTrailingChildren: [{ required: true, message: '请选择是否随迁子女', trigger: 'change' }],
+           state: [{ required: true, message: '请选择当前状态', trigger: 'change' }],
+           studyStyle : [{ required: true, message: '请选择学习形式', trigger: 'change' }],
+           studyWay : [{ required: true, message: '请选择就读方式', trigger: 'change' }],
+           cate: [{ required: true, message: '请选择学生类别', trigger: 'change' }],
+           belongPoliceStation: [{ required: true, message: '请填写所属派出所', trigger: 'change' }],
+           railwayRange: [{ required: true, message: '请填写乘火车区间', trigger: 'change' }],
+           administrativeGradeId : [{ required: true, message: '请选择年级', trigger: 'change' }],
+           administrativeSpecialtyId : [{ required: true, message: '请选择专业', trigger: 'change' }],
+           administrativeClbumId : [{ required: true, message: '请选择班级', trigger: 'change' }],
+           schoolGradeId: [{ required: true, message: '请选择学籍年级', trigger: 'change' }],
+           schoolSpecialtyId: [{ required: true, message: '请选择学籍专业', trigger: 'change' }],
+           schoolClbumId: [{ required: true, message: '请选择学籍班级', trigger: 'change' }],
+           countyName : [{ required: true, message: '请选择户口地址信息', trigger: 'change' }],
+           educationForm: [{ required: true, message: '请选择联招合作办学形式', trigger: 'change' }],
+           nativePlaceCode: [{ required: true, message: '籍贯地行政区划码', trigger: 'change' }],
+           birthPlaceCode : [{ required: true, message: '请填写出生地行政区划码', trigger: 'change' }],
+           registerAddr: [{ required: true, message: '请填写详细地址', trigger: 'change' }],
+           educationSchoolCode: [{ required: true, message: '请填写联招合作学校代码', trigger: 'change' }],
+           outsidePlace: [{ required: true, message: '请填写校外教学点', trigger: 'change' }],*/
         },
         options: [{
           value: '1',
@@ -591,7 +596,8 @@
               label: '武侯区'
             }]
           }]
-        }]
+        }],
+        areasls:[]
       }
     },
     created(){
@@ -603,8 +609,48 @@
       that.getSpecialtyList();
       that.getClbumList();
       that.getAllEnum()
+      that.areaList()
     },
     methods:{
+      areaList(){
+        let that = this
+        that.$api.baseInfo.areaList().then(data => {
+          if (data.code === 200) {
+            let areas = data.data
+            that.toTree(areas)
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      toTree(data) {
+        let that = this
+        let result = []
+        if(!Array.isArray(data)) {
+          return result
+        }
+        data.forEach(item => {
+          delete item.children;
+        });
+        let map = {};
+        data.forEach(item => {
+          map[item.id] = item;
+        });
+        data.forEach(item => {
+          let parent = map[item.pid];
+          if(parent) {
+            (parent.children || (parent.children = [])).push(item);
+          } else {
+            result.push(item);
+          }
+        });
+
+        console.log(result)
+        that.areasls = result;
+      },
       getAllEnum(){
         let that = this
         that.$api.globalConfig.getAllEnum().then(data => {
@@ -675,6 +721,13 @@
           that.loading = false;
           if(data.code === 200){
             that.postForm = data.data
+            let temp = []
+            if(that.postForm.countyName){
+              that.postForm.countyName.split(',').forEach(function (item) {
+                temp.push(item)
+              })
+              that.postForm.countyName = temp
+            }
           }
           else{
             this.$message({
@@ -689,6 +742,7 @@
       },
       save(){
         let that = this
+        that.postForm.countyName = that.postForm.countyName.toString()
         this.$refs.postForm.validate(valid => {
           if (valid) {
             that.$api.student.editStudent({...that.postForm }).then(data => {

@@ -19,4 +19,7 @@ export default {
   organizationSimpleAll(params){ ////获取系部
     return request.get('organization/simpleAll', { params: params })
   },
+  areaList(){
+    return request.get('districts/list')
+  }
 }
