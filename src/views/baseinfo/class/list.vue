@@ -193,7 +193,8 @@
           size: 10
         },
         listQuery: {
-          dormitoryId: 0
+          dormitoryId: 0,
+          descs: 'id'
         },
         majorList: [],
         gradeList: [],

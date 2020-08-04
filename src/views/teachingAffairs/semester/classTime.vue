@@ -125,7 +125,8 @@
         listQuery: {
           page: 1,
           size: 200,
-          termId: this.$route.query.id
+          termId: this.$route.query.id,
+          descs: 'id',
         },
         delArr: [],
       }

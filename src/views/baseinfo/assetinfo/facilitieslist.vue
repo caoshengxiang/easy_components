@@ -179,7 +179,8 @@
         },
         listQuery: {
           code: '',
-          constructionId: ''
+          constructionId: '',
+          descs: 'id'
         },
         departmentList: [],
         statisticsInfo:{}

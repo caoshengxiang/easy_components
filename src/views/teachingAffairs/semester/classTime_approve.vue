@@ -137,6 +137,7 @@
         listQuery: {
           page: 1,
           size: 200,
+          descs: 'id',
         },
         delArr: [],
       }

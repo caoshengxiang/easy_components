@@ -331,7 +331,8 @@
           administrativeSpecialtyId: '',
           administrativeClbumId: '',
           studentType: '',
-          keyword: ''
+          keyword: '',
+          descs: 'id'
         },
         gradeInfo: [],
         classInfo: [],

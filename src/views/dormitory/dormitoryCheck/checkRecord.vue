@@ -116,7 +116,7 @@
           grade: undefined,
           major: undefined,
           full: undefined,
-          sort: '+id',
+          descs: 'id',
           description:'',
           displayTime:''
         },

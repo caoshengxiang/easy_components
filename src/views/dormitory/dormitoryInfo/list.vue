@@ -282,6 +282,7 @@
           grade: undefined,
           major: undefined,
           full: undefined,
+          descs: 'id',
         },
         gradeInfo: [],
         classInfo: [],

@@ -204,7 +204,8 @@
         dialogLoading: false,
         listQuery: {
           current: 1,
-          size: 10
+          size: 10,
+          descs: 'id'
         },
         dialogFormVisible: false,
         dialogStatus: '',
