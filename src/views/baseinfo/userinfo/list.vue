@@ -183,16 +183,16 @@
             <span>{{ row.sex }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="专业" align="center">
+        <el-table-column label="行政专业" align="center">
           <template slot-scope="{row}">
             <span>
-              {{ row.schoolSpecialtyName }}
+              {{ row.administrativeSpecialtyName }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="年级" align="center">
+        <el-table-column label="行政年级" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.schoolGradeName }}</span>
+            <span>{{ row.administrativeGradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="行政班级">
@@ -412,7 +412,7 @@
         that.$nextTick(()=>{
           console.log(that.$refs.qrCodeUrl)
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text: 'http://www.baidu.com?id=' + id, // 需要转换为二维码的内容
+            text: 'http://119.27.160.97:8532?id=' + id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',

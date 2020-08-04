@@ -19,7 +19,8 @@
         </el-date-picker>
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item"
+                   size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
       </template>
@@ -45,7 +46,8 @@
          </el-table-column>
          <el-table-column label="操作" align="center" >
            <template slot-scope="{row}">
-             <el-button type="primary" round @click="goto(row.taskId)">申请详情</el-button>
+             <el-button type="primary"
+                        size="mini" round @click="goto(row.taskId)">申请详情</el-button>
            </template>
          </el-table-column>
        </el-table>

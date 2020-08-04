@@ -89,7 +89,7 @@
         that.id = that.$route.query.id
         that.getDetail()
       }
-      that.simpleAll()
+      that.staffAll()
     },
     methods: {
       simpleAll(){

@@ -92,7 +92,7 @@
         </el-table-column>
         <el-table-column label="使用机构" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.orgName }}</span>
+            <span >{{ row.orgName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">

@@ -31,7 +31,8 @@
         </el-date-picker>
       </template>
       <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item" round
+                   size="mini" type="primary" @click="searchList">
           搜索
         </el-button>
       </template>
@@ -53,8 +54,10 @@
       </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
-            <el-button v-if="row.stateCode == 1" type="primary" round @click="cancle(row.processId)">撤销</el-button>
-            <el-button type="primary" round @click="taskdetail(row.processId)">申请详情</el-button>
+            <el-button v-if="row.stateCode == 1" type="danger"
+                       size="mini" round @click="cancle(row.processId)">撤销</el-button>
+            <el-button type="primary"
+                       size="mini" round @click="taskdetail(row.processId)">申请详情</el-button>
           </template>
         </el-table-column>
       </el-table>

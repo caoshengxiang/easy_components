@@ -51,7 +51,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item
-                      label="建筑使用年限（年）："
+                      label="建筑使用年限："
                       prop="yearLimit"
                       label-width="120px"
                       class="postInfo-container-item"
@@ -117,7 +117,7 @@
                     <el-form-item
                       label="经费来源："
                       prop="financialResource"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -153,13 +153,13 @@
 
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="建筑物占地面积：" prop="area" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.area" class="filter-item" />
+                    <el-form-item label="总建成面积：" prop="buildArea" label-width="120px" class="postInfo-container-item">
+                      <el-input v-model="postForm.buildArea" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="总建成面积：" prop="buildArea" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.buildArea" class="filter-item" />
+                    <el-form-item label="建筑物占地面积：" prop="area" label-width="120px" class="postInfo-container-item">
+                      <el-input v-model="postForm.area" class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -180,7 +180,7 @@
                     <el-form-item
                       label="抗震设防烈度："
                       prop="antiKnockDegree"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -198,7 +198,7 @@
                     <el-form-item
                       label="抗震设防标准："
                       prop="antiKnockStandard"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-select
@@ -361,19 +361,19 @@
             message: '请填写建筑物产权',
             trigger: 'change'
           }],
-          area: [{
-            required: true,
-            message: '请填写建筑物建成面积',
-            trigger: 'change'
-          }],
           buildArea: [{
             required: true,
             message: '请填写建筑物建筑面积',
             trigger: 'change'
           }],
-          useArea: [{
+       /*   useArea: [{
             required: true,
             message: '请填写使用面积',
+            trigger: 'change'
+          }],
+          area: [{
+            required: true,
+            message: '请填写建筑物建成面积',
             trigger: 'change'
           }],
           antiKnockDegree: [{
@@ -405,7 +405,7 @@
             required: true,
             message: '请填写摄像头地址',
             trigger: 'change'
-          }],
+          }],*/
         },
         departmentList: [],
         structuralNo: [], // 建筑物结构
@@ -508,11 +508,15 @@
       save() {
         const that = this
         if (that.$refs.uploadCourseChapter1.getFileList().length == 0 || that.$refs.uploadCourseChapter2.getFileList().length == 0) {
-          that.$message.error('请上传图片!')
-          return
+          //that.$message.error('请上传图片!')
+         //  return
+          that.postForm.planGraph = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+          that.postForm.pic =''// that.$refs.uploadCourseChapter2.getFileList()[0].fileName
         }
-        that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
-        that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+        else{
+          that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+          that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+        }
 
         that.$refs.postForm.validate(valid => {
           if (valid) {

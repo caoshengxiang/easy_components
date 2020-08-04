@@ -42,9 +42,12 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
-            <el-button type="primary" round @click="detail(row.taskId)">申请详情</el-button>
-            <el-button type="primary" round @click="taskdetail(row.taskId)">审核明细</el-button>
-            <el-button type="primary" round @click="handleCreate(row)">审核</el-button>
+            <el-button type="primary"
+                       size="mini" round @click="detail(row.taskId)">申请详情</el-button>
+            <el-button type="primary"
+                       size="mini" round @click="taskdetail(row.taskId)">审核明细</el-button>
+            <el-button type="primary"
+                       size="mini" round @click="handleCreate(row)">审核</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -62,10 +65,12 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center" >
-        <el-button @click="dialogFormVisible = false"  style="border-radius:15px;" >
+        <el-button @click="dialogFormVisible = false"
+                   size="mini" style="border-radius:15px;" >
           取消
         </el-button>
-        <el-button type="primary" @click="auditData()"  style="border-radius:15px;" >
+        <el-button type="primary" @click="auditData()"
+                   size="mini" style="border-radius:15px;" >
           保存
         </el-button>
       </div>

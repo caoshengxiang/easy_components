@@ -4,10 +4,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
-      <template slot="right">
-        <!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink('/workflow/detail')">-->
-        <!--          新增-->
-        <!--        </el-button>-->
+      <template slot="left">
         <PermissionButton
           menu-no="_views_workflow_Detail_add"
           class-name="filter-item"
@@ -17,6 +14,19 @@
           name=""
           :page-jump="true"
         />
+        <el-input
+          v-model="pagePara.name"
+          placeholder="请输入关键字搜索"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+          @keyup.enter.native="getList"
+        />
+      </template>
+      <template slot="right">
+        <el-button class="filter-item" round type="primary" @click="getList">
+          搜索
+        </el-button>
       </template>
       <el-table
         slot="table"
@@ -48,7 +58,7 @@
               menu-no="_views_workflow_Design_set"
               class-name="filter-item"
               name=""
-              type="primary"
+              type="warning"
               round
               size="mini"
               :page-jump="true"

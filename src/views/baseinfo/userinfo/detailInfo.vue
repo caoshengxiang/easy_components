@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="save">
+    <y-detail-page-layout @save="save">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
 
@@ -541,15 +541,15 @@
         postForm: {},
         rules: {
 
-          studentCode: [{ required: true, message: '请填写学籍号', trigger: 'change' }],
-          studyCode: [{ required: true, message: '请填写学号', trigger: 'change' }],
           name: [{ required: true, message: '请填写姓名', trigger: 'change' }],
-          spell: [{ required: true, message: '请填写姓名拼音', trigger: 'change' }],
-          sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
           certificateType: [{ required: true, message: '请选择证件类型', trigger: 'change' }],
           idNo: [{ required: true, message: '请填写证件号码', trigger: 'change' }],
-          birthday: [{ required: true, message: '请选择出生日期', trigger: 'change' }],
           mobile: [{ required: true, message: '请填写联系电话', trigger: 'change' }],
+         /* studentCode: [{ required: true, message: '请填写学籍号', trigger: 'change' }],
+          studyCode: [{ required: true, message: '请填写学号', trigger: 'change' }],
+          spell: [{ required: true, message: '请填写姓名拼音', trigger: 'change' }],
+          sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
+          birthday: [{ required: true, message: '请选择出生日期', trigger: 'change' }],
           country : [{ required: true, message: '请选择国籍/地区', trigger: 'change' }],
           compatriot: [{ required: true, message: '请选择港澳台侨外', trigger: 'change' }],
           maritalStatus: [{ required: true, message: '请选择婚姻状况', trigger: 'change' }],
@@ -578,7 +578,7 @@
           birthPlaceCode : [{ required: true, message: '请填写出生地行政区划码', trigger: 'change' }],
           registerAddr: [{ required: true, message: '请填写详细地址', trigger: 'change' }],
           educationSchoolCode: [{ required: true, message: '请填写联招合作学校代码', trigger: 'change' }],
-          outsidePlace: [{ required: true, message: '请填写校外教学点', trigger: 'change' }],
+          outsidePlace: [{ required: true, message: '请填写校外教学点', trigger: 'change' }],*/
         },
         options: [{
           value: '1',
