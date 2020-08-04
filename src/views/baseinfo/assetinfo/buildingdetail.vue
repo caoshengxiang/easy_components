@@ -366,7 +366,7 @@
             message: '请填写建筑物建筑面积',
             trigger: 'change'
           }],
-       /*   useArea: [{
+         useArea: [{
             required: true,
             message: '请填写使用面积',
             trigger: 'change'
@@ -376,7 +376,7 @@
             message: '请填写建筑物建成面积',
             trigger: 'change'
           }],
-          antiKnockDegree: [{
+       /*    antiKnockDegree: [{
             required: true,
             message: '请选择抗震设防烈度',
             trigger: 'change'

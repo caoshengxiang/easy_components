@@ -112,7 +112,7 @@
                     <el-form-item
                       label="适用专业："
                       prop="applicableMajor"
-                      label-width="200px"
+                      label-width="120px"
                       class="postInfo-container-item"
                     >
                       <el-input v-model="postForm.applicableMajor" class="filter-item" />
