@@ -16,7 +16,15 @@
         />
         <el-input
           v-model="pagePara.name"
-          placeholder="请输入关键字搜索"
+          placeholder="请输入流程名称"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+          @keyup.enter.native="getList"
+        />
+        <el-input
+          v-model="pagePara.creatorName"
+          placeholder="请输入创建用户"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
           class="filter-item"

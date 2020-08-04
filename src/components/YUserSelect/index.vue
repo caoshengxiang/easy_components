@@ -23,15 +23,6 @@
           filter-placeholder="输入姓名，模糊查询"
           :titles="['待选用户','已选用户']"
           @left-check-change="checkItem">
-          <el-popover
-            slot-scope="{ option }"
-            placement="top-start"
-            title="所属岗位"
-            width="200"
-            trigger="hover"
-            :content="getPostsAllName(option)">
-            <span slot="reference">{{ option.name }}</span>
-          </el-popover>
           <!--<div slot="left-footer" style="text-align: center;padding: 5px 0;">-->
             <!--<el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>-->
             <!--<el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>-->

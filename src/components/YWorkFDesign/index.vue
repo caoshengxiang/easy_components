@@ -427,6 +427,8 @@
                 message: res.msg
               })
             }
+          }).catch(error =>{
+            that.$utils.loading.hide();
           })
         })
       },
