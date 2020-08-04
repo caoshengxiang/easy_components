@@ -87,7 +87,6 @@
       },
       save(){
         this.$emit('save')
-        this.isEdit = false
       }
     }
   }
