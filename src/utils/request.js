@@ -61,15 +61,13 @@ service.interceptors.response.use(
         obj[pa[0]] = pa[1]
       })
 
-      MessageBox.confirm('操作成功，已经进入审批流', '提示', {
+      MessageBox.confirm('保存成功，可在我的申请查看，或返回列表', '提示', {
         confirmButtonText: '我的申请',
         cancelButtonText: '返回列表',
-        type: 'success'
+        type: 'success',
+        closeOnClickModal: false
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
+        $router.push('/views/workflow/task/MyTaskList?menuLevel1=10008&menuId=10159')
       }).catch(() => {
         if (obj.back) {
           // console.log(obj.back)

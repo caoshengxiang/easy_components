@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="false">
+    <y-detail-page-layout @save="handleCreate" :edit-status="false" v-loading="vLoading">
       <el-tabs v-model="activeName">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -19,25 +19,25 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工编号：" label-width="180px" class="postInfo-container-item">
-<!--                      <el-input disabled v-model="" class="filter-item"/>-->
+                      <!--                      <el-input disabled v-model="" class="filter-item"/>-->
                       <span>{{postForm.staff.staffNo}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="180px" class="postInfo-container-item">
-<!--                      <el-input disabled v-model="postForm.user.name" class="filter-item"/>-->
+                      <!--                      <el-input disabled v-model="postForm.user.name" class="filter-item"/>-->
                       <span>{{postForm.user.name}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="性别：" label-width="180px" class="postInfo-container-item">
-<!--                      <el-input disabled v-model="postForm.user.sex" class="filter-item"/>-->
+                      <!--                      <el-input disabled v-model="postForm.user.sex" class="filter-item"/>-->
                       <span>{{postForm.user.sex}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="180px" class="postInfo-container-item">
-<!--                      <el-input disabled v-model="postForm.user.idNo" class="filter-item"/>-->
+                      <!--                      <el-input disabled v-model="postForm.user.idNo" class="filter-item"/>-->
                       <span>{{postForm.user.idNo}}</span>
                     </el-form-item>
                   </el-col>
@@ -45,7 +45,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="基本工资：" label-width="180px" class="postInfo-container-item">
-<!--                      <el-input disabled v-model="postForm.staff.baseSalary" class="filter-item"/>-->
+                      <!--                      <el-input disabled v-model="postForm.staff.baseSalary" class="filter-item"/>-->
                       <span>{{postForm.staff.baseSalary}}</span>
                     </el-form-item>
                   </el-col>
@@ -58,7 +58,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="(item, index) in AllEnum['学段']" :key="index" :label="item" :value="item" />
+                        <el-option v-for="(item, index) in AllEnum['学段']" :key="index" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -144,7 +144,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="工资总额：" label-width="180px" class="postInfo-container-item">
-<!--                      <span style="color: red;font-size: 16px;font-weight: bold;">0</span>-->
+                      <!--                      <span style="color: red;font-size: 16px;font-weight: bold;">0</span>-->
                       <el-input v-model="postForm.staff.totalSalary" class="filter-item"/>
                     </el-form-item>
                   </el-col>
@@ -193,6 +193,7 @@
     },
     data() {
       return {
+        vLoading: false,
         type: 'detail',
         postForm: Object.assign({}, defaultForm),
         rules: {
@@ -239,6 +240,7 @@
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
+            this.vLoading = true
             this.$api.staff.editsalaryBase(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
@@ -252,6 +254,9 @@
                   this.$router.push(back)
                 }
               }
+              this.vLoading = false
+            }).catch(() => {
+              this.vLoading = false
             })
           }
         })

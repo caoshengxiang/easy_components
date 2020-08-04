@@ -253,7 +253,7 @@
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
                       <el-popover
-                        placement="right"
+                        placement="left"
                         width="400"
                         trigger="hover">
                         <div>
@@ -461,7 +461,7 @@
             </el-form-item>
             <el-form-item v-if="port_pc" label="图标：">
               <el-popover
-                placement="right"
+                placement="left"
                 width="400"
                 trigger="hover">
                 <div>
