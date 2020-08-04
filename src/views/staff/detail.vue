@@ -3,9 +3,9 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="true"  v-loading="vLoading" element-loading-text="处理中。。。">
       <div style="padding-top: 30px;">
-        <el-tabs v-model="activeName" v-loading="vLoading" element-loading-text="处理中。。。" @tab-click="handleClick">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="基础信息" name="first">
             <el-form ref="postForm" :model="postForm" class="form-container">
               <div class="createPost-main-container">
@@ -69,7 +69,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-button v-if="$route.query.id" round type="danger">初始密码</el-button>
+                        <el-button @click="initPass" v-if="$route.query.id" round type="danger">初始密码</el-button>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1413,6 +1413,7 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+
   export default {
     name: 'StaffDetail',
     components: {
@@ -1466,6 +1467,25 @@
       this.getDetail()
     },
     methods: {
+      initPass() {
+        this.$confirm('确认初始密码, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$api.staff.resetPwd(this.postForm.user.id).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '密码初始成功',
+                type: 'success',
+                duration: 2000
+              })
+            }
+          })
+        }).catch(() => {
+        })
+      },
       getOptions() {
         this.$api.term.simpleAll().then(res => {
           this.termOptions = res.data

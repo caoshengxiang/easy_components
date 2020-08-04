@@ -44,7 +44,9 @@ export default {
     return request.get('staff/user', { params: params })
   },
   stafflist(params) {
-    return request.get('staff/list', { params: params }) //根据岗位查询人员
+    return request.get('staff/list', { params: params }) // 根据岗位查询人员
   },
-
+  resetPwd(params) {
+    return request.put(`staff/${params}/reset`)
+  },
 }

@@ -163,7 +163,7 @@
           if (valid) {
             this.loading = true
             this.$store.dispatch('user/login', this.loginForm).then(() => {
-              if (this.redirect && this.redirect !== 'undefined' && this.redirect !== undefined) {
+              if (this.redirect && this.otherQuery.menuId && this.redirect !== 'undefined' && this.redirect !== undefined) {
                 this.$router.push({
                   path: this.redirect,
                   query: this.otherQuery

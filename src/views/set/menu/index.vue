@@ -847,6 +847,7 @@
               type: 'success',
               duration: 2000
             })
+            this.vloading = false
           }).catch(() => {this.vloading = false})
         }
       },

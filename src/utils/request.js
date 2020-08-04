@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Notification, Message } from 'element-ui'
+import { Notification, Message, MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import $router from '@/router'
@@ -60,16 +60,28 @@ service.interceptors.response.use(
         const pa = item.split('=')
         obj[pa[0]] = pa[1]
       })
-      Notification({
-        title: '成功',
-        message: '进入待审核',
-        type: 'success',
-        duration: 10000
+
+      MessageBox.confirm('操作成功，已经进入审批流', '提示', {
+        confirmButtonText: '我的申请',
+        cancelButtonText: '返回列表',
+        type: 'success'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        if (obj.back) {
+          // console.log(obj.back)
+          $router.push(decodeURIComponent(obj.back))
+        }
       })
-      if (obj.back) {
-        // console.log(obj.back)
-        $router.push(decodeURIComponent(obj.back))
-      }
+      // Notification({
+      //   title: '成功',
+      //   message: '进入待审核',
+      //   type: 'success',
+      //   duration: 10000
+      // })
       // eslint-disable-next-line brace-style
     }
     // if the custom code is not 20000, it is judged as an error.

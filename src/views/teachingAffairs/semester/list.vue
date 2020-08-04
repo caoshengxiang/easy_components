@@ -161,6 +161,7 @@
           name: '',
           code: '',
           keyword: '',
+          descs: 'id'
         },
       }
     },

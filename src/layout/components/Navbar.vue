@@ -64,7 +64,8 @@
     methods: {
       async logout() {
         await this.$store.dispatch('user/logout')
-        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        this.$router.push(`/login`)
       },
       setStatus(data) {
         this.showLevel1Status = data

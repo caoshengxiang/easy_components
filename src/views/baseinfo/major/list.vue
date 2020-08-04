@@ -136,6 +136,7 @@
           size: 10
         },
         listQuery: {
+          descs: 'id'
         },
         departList: [],
         AllEnum: []

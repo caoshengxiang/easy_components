@@ -149,7 +149,8 @@
         },
         listQuery: {
           code: '',
-          constructionId: ''
+          constructionId: '',
+          descs: 'id'
         },
         constructionList: [],
         statisticsInfo:{}
