@@ -1,5 +1,5 @@
 <template>
-  <div id="tags-view-container" class="tags-view-container">
+  <div id="tags-view-container" class="tags-view-container" v-show="false">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
@@ -52,6 +52,7 @@ export default {
     $route() {
       this.addTags()
       this.moveToCurrentTag()
+      console.log('tagsView route 改变监听器')
     },
     visible(value) {
       if (value) {

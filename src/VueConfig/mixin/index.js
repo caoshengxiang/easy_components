@@ -54,7 +54,7 @@ const mixin = {
     ])
   },
   created() {
-    this.currentPageMenuId = this.$route.query.menuLevel3
+    this.currentPageMenuId = this.$route.query.menuId
   }
 }
 

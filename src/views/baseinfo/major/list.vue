@@ -119,7 +119,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   export default {
-    name: 'ComplexTable',
+    name: '_views_baseinfo_major_list',
     components: {Breadcrumb, PermissionButton, YPageListLayout},
     data() {
       return {

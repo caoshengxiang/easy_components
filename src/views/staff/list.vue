@@ -236,7 +236,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'ComplexTable',
+    name: '_views_staff_list',
     components: {
       Breadcrumb,
       YPageListLayout,

@@ -58,7 +58,7 @@
    import Breadcrumb from '@/components/Breadcrumb'
    import YPageListLayout from '@/components/YPageListLayout'
    export default {
-     name: 'WorkflowList',
+     name: '_views_workflow_task_AttendList',
      components: {Breadcrumb,YPageListLayout},
      data() {
        return {

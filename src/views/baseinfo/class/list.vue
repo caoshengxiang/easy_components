@@ -178,7 +178,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'ComplexTable',
+    name: '_views_baseinfo_class_list',
     components: {
       Breadcrumb,
       PermissionButton,

@@ -8,7 +8,7 @@ import Layout from '@/layout'
  * @param roles
  */
 export function filterAsyncRoutes(menusData) {
-  console.info('原始数据', menusData)
+  // console.info('原始数据', menusData)
   const res = [{
     path: '/auth',
     component: Layout,
@@ -26,10 +26,12 @@ export function filterAsyncRoutes(menusData) {
         // console.log('菜单')
         res[0].children.push({
           path: tmp.pcUrl,
+          name: tmp.menuNo,
           component: urlMap[tmp.menuCode],
           meta: {
             title: tmp.name,
-            icon: tmp.icon
+            icon: tmp.icon,
+            noCache: tmp.cachedViews
           }
         })
       }

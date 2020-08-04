@@ -164,7 +164,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: 'ComplexTable',
+    name: '_views_baseinfo_assetinfo_facilitieslist',
     components: {
       Breadcrumb,
       PermissionButton,

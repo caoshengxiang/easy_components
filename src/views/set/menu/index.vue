@@ -562,7 +562,7 @@
       //   return dataTree
       // },
       getMenuTreeData() {
-        console.log(this.$api)
+        // console.log(this.$api)
         this.$api.menuSet.menuTree().then(res => {
           this.treeData = res.data
           const list = []
@@ -614,7 +614,7 @@
         })
       },
       handleDragStart(node, ev) {
-        console.log('drag start', node)
+        // console.log('drag start', node)
       },
       handleDragEnter(draggingNode, dropNode, ev) {
         // console.log('tree drag enter: ', dropNode.label)
@@ -648,10 +648,10 @@
         // console.log('tree drag end: ', dropNode && dropNode.label, dropType)
       },
       handleDrop(draggingNode, dropNode, dropType, ev) { // 拖拽成功完成时触发的事件
-        console.log('tree drop: ', dropNode, dropNode.data.name, dropType)
+        // console.log('tree drop: ', dropNode, dropNode.data.name, dropType)
         if (dropType === 'before' || dropType === 'after') {
           draggingNode.data.parentId = dropNode.data.parentId
-          console.log(draggingNode, '当前')
+          // console.log(draggingNode, '当前')
         }
         if (dropType === 'inner') {
           draggingNode.data.parentId = dropNode.data.id
@@ -677,11 +677,11 @@
         return draggingNode.data.menuType !== '按钮'
       },
       nodeContextmenu(event, data, node) {
-        console.log(event, data, node)
+        // console.log(event, data, node)
         // this.dialogFormVisible = true
       },
       nodeClick(data, node, it) {
-        console.log(data, node, it)
+        // console.log(data, node, it)
         this.menuItem = data
         this.loading = true
         this.getDetail(data.id, () => {
@@ -690,11 +690,11 @@
           }, 100)
         })
         if (!data.children || data.children.length === 0) {
-          console.log('最后一级')
+          // console.log('最后一级')
         }
       },
       append(data) { // 添加菜单
-        console.log(data)
+        // console.log(data)
         this.handleAdd()
         this.temp.parentId = data.id
         this.temp.parentName = data.name

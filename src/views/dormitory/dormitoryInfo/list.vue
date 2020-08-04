@@ -249,7 +249,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: 'ComplexTable',
+    name: '_views_dormitory_dormitoryInfo_list',
     components: {
       PermissionButton,
       Breadcrumb,

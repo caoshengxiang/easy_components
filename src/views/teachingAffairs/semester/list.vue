@@ -134,7 +134,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'ComplexTable',
+    name: '_views_teachingAffairs_semester_list',
     components: {
       Breadcrumb,
       YPageListLayout,

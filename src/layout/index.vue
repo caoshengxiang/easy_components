@@ -39,6 +39,7 @@
         </span>
       </el-scrollbar>
       <el-scrollbar style="flex: 1;max-height: calc(100vh - 60px);overflow-y: auto;">
+        <tags-view/>
         <app-main />
       </el-scrollbar>
     </div>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-  import { AppMain, Navbar, Sidebar } from './components'
+  import { AppMain, Navbar, Sidebar, TagsView } from './components'
   import { mapState } from 'vuex'
   import level1 from './components/Sidebar/level1'
   import $ from 'jquery'
@@ -60,6 +61,7 @@
       Sidebar,
       level1,
       drawer,
+      TagsView,
     },
     data() {
       return {
