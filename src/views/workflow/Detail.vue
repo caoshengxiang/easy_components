@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="save" :edit-status="true">
+    <y-detail-page-layout @save="save" :edit-status="true">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="form" :model="form" :rules="rules" label-width="100px">

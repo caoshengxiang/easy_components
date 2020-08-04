@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="save">
+    <y-detail-page-layout @save="save">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="padding-right: 15% ">
@@ -204,44 +204,29 @@
           size: 10
         },
         rules: {
-          property: [{
+          code: [{
             required: true,
-            message: '请选择土地产权',
+            message: '请填写教室编号',
             trigger: 'change'
           }],
-          status: [{
+          capacity: [{
             required: true,
-            message: '请选择土地使用状态',
+            message: '请填写实际容纳人数',
             trigger: 'change'
           }],
-          campus: [{
+          courseMax: [{
             required: true,
-            message: '请选择土地所在校区',
+            message: '请选择是否多媒体教室',
             trigger: 'change'
           }],
-          user: [{
+        ifMultimedia: [{
             required: true,
-            message: '请选择土地用途',
+            message: '请选择网络',
             trigger: 'change'
           }],
-          area: [{
+          ifAvailable: [{
             required: true,
-            message: '请填写土地面积',
-            trigger: 'change'
-          }],
-          certificateNum: [{
-            required: true,
-            message: '请填写土地证号',
-            trigger: 'change'
-          }],
-          price: [{
-            required: true,
-            message: '请填写土地价格',
-            trigger: 'change'
-          }],
-          addr: [{
-            required: true,
-            message: '请填写土地地址',
+            message: '请填写最大排课量',
             trigger: 'change'
           }],
         },
@@ -311,11 +296,18 @@
       save() {
         const that = this
         if (that.$refs.uploadCourseChapter1.getFileList().length === 0 || that.$refs.uploadCourseChapter2.getFileList().length === 0) {
-          that.$message.error('请上传图片!')
-          return
+         // that.$message.error('请上传图片!')
+         // return
+
+          that.postForm.planGraph = ""//that.$refs.uploadCourseChapter1.getFileList()[0].fileName""
+          that.postForm.pic = ""//that.$refs.uploadCourseChapter2.getFileList()[0].fileName""
         }
-        that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
-        that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+        else{
+
+          that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+          that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+        }
+
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if (that.$route.query.id) {
