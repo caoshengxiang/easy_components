@@ -43,8 +43,8 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="primary"
-                       size="mini" round @click="detail(row.taskId)">申请详情</el-button>
-            <el-button type="primary"
+                       size="mini" plain round @click="detail(row.taskId)">申请详情</el-button>
+            <el-button type="success"
                        size="mini" round @click="taskdetail(row.taskId)">审核明细</el-button>
             <el-button type="primary"
                        size="mini" round @click="handleCreate(row)">审核</el-button>
@@ -52,7 +52,8 @@
         </el-table-column>
       </el-table>
     </y-page-list-layout>
-    <el-dialog title="审核" :visible.sync="dialogFormVisible" >
+    <el-dialog title="审核" :visible.sync="dialogFormVisible"
+               v-loading="loading1">
       <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
         <el-form-item label="审核结果："  prop="type" >
           <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
@@ -91,6 +92,7 @@
         },
         dialogFormVisible: false,
         detailinfo: {},
+        loading1:false,
         loading:false,
         pageData:{},
         pagePara:{
@@ -156,9 +158,10 @@
         let that = this
         that.$refs.temp.validate(valid => {
           if (valid) {
+            that.loading1 = true
             if (that.temp.type == 1) {
               that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
-                that.loading = false;
+                that.loading1 = false
                 if (res.code === 200) {
                   that.$message({
                     type: 'success',
@@ -175,7 +178,7 @@
               })
             } else {
               that.$api.task.refuse({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
-                that.loading = false;
+                that.loading1 = false
                 if (res.code === 200) {
                   that.$message({
                     type: 'success',
@@ -193,6 +196,7 @@
             }
           }
         })
+
       },
       handleCreate(row) {
         let that = this

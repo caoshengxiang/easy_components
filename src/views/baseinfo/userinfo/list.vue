@@ -252,6 +252,7 @@
               class-name="filter-item"
               name="下载"
               type="primary"
+              plain
               round
               size="mini"
               @click="downloadCodeImg(row)"

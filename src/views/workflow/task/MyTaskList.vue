@@ -54,10 +54,12 @@
       </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
+            <el-button type="primary"
+                       size="mini" round @click="taskdetail(row.processId)">查看</el-button>
             <el-button v-if="row.stateCode == 1" type="danger"
                        size="mini" round @click="cancle(row.processId)">撤销</el-button>
-            <el-button type="primary"
-                       size="mini" round @click="taskdetail(row.processId)">申请详情</el-button>
+            <el-button v-else type="info" disabled
+                       size="mini" round @click="cancle(row.processId)">撤销</el-button>
           </template>
         </el-table-column>
       </el-table>

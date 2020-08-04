@@ -218,6 +218,7 @@
               menu-no="_views_dormitory_dormitoryInfo_eidt"
               class-name="filter-item"
               round
+              size="mini"
               type="primary"
               @click="edit(row.id)"
             />
@@ -227,7 +228,7 @@
             <PermissionButton
               menu-no="_views_dormitory_dormitoryInfo_dormitoryStdList"
               name=""
-              type="primary"
+              type="warning"
               round
               size="mini"
               :page-jump="true"
