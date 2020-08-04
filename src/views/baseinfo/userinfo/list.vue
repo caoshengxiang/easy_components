@@ -183,16 +183,16 @@
             <span>{{ row.sex }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="专业" align="center">
+        <el-table-column label="行政专业" align="center">
           <template slot-scope="{row}">
             <span>
-              {{ row.schoolSpecialtyName }}
+              {{ row.administrativeSpecialtyName }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="年级" align="center">
+        <el-table-column label="行政年级" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.schoolGradeName }}</span>
+            <span>{{ row.administrativeGradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="行政班级">

@@ -116,12 +116,12 @@
         </el-table-column>
         <el-table-column label="建成年月" align="center">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.buildDate }}</span>
+            <span>{{ row.buildDate }}</span>
           </template>
         </el-table-column>
         <el-table-column label="使用年限">
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.yearLimit }}年</span>
+            <span >{{ row.yearLimit }}年</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
