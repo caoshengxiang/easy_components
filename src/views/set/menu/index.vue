@@ -265,6 +265,22 @@
                         </div>
                       </el-popover>
                     </el-form-item>
+                    <el-form-item v-if="port_pc && temp.menuCode" label="是否缓存：">
+                      <span slot="label">缓存页面
+                        <el-tooltip
+                          class="item"
+                          effect="dark"
+                          content="配置缓存请先确认，组件得name值必须为当前菜单配置menuNo才会生效！"
+                          placement="top-start"
+                        >
+                          <i class="el-icon-question"/></el-tooltip>
+                        ：
+                      </span>
+                      <el-radio-group v-model="temp.cachedViews">
+                        <el-radio :label="false">缓存</el-radio>
+                        <el-radio :label="true">不缓存</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
                     <el-form-item label="菜单端口：">
                       <el-checkbox v-model="port_m">移动端</el-checkbox>
                     </el-form-item>
