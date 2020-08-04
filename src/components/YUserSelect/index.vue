@@ -32,10 +32,10 @@
             :content="getPostsAllName(option)">
             <span slot="reference">{{ option.name }}</span>
           </el-popover>
-          <div slot="left-footer" style="text-align: center;padding: 5px 0;">
-            <el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>
-            <el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>
-          </div>
+          <!--<div slot="left-footer" style="text-align: center;padding: 5px 0;">-->
+            <!--<el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>-->
+            <!--<el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>-->
+          <!--</div>-->
         </el-transfer>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="saveSelectUser">确 定</el-button>
