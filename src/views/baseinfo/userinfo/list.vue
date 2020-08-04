@@ -412,7 +412,7 @@
         that.$nextTick(()=>{
           console.log(that.$refs.qrCodeUrl)
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text: 'http://www.baidu.com?id=' + id, // 需要转换为二维码的内容
+            text: 'http://119.27.160.97:8532?id=' + id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',
