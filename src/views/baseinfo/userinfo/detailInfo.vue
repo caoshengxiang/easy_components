@@ -528,7 +528,7 @@
       return {
         props:{
           label:'name',
-          value:'name'
+          value:'id'
         },
         opt:[{
           key: true,
@@ -597,7 +597,8 @@
             }]
           }]
         }],
-        areasls:[]
+        areasls:[],
+        areas:[]
       }
     },
     created(){
@@ -612,12 +613,15 @@
       that.areaList()
     },
     methods:{
+      handleChange(e){
+        console.log(e)
+      },
       areaList(){
         let that = this
         that.$api.baseInfo.areaList().then(data => {
           if (data.code === 200) {
-            let areas = data.data
-            that.toTree(areas)
+            that.areas = data.data
+            that.toTree(that.areas)
           } else {
             this.$message({
               type: 'error',
@@ -722,12 +726,17 @@
           if(data.code === 200){
             that.postForm = data.data
             let temp = []
-            if(that.postForm.countyName){
-              that.postForm.countyName.split(',').forEach(function (item) {
-                temp.push(item)
-              })
-              that.postForm.countyName = temp
+            if(that.postForm.provinceId){
+              temp.push(that.postForm.provinceId)
             }
+            if(that.postForm.cityId){
+              temp.push(that.postForm.cityId)
+            }
+            if(that.postForm.countyId){
+              temp.push(that.postForm.countyId)
+            }
+
+            that.postForm.countyName = temp
           }
           else{
             this.$message({
@@ -742,6 +751,21 @@
       },
       save(){
         let that = this
+        if(that.postForm.countyName){
+          that.postForm.countyId = that.postForm.countyName[2]
+          that.postForm.provinceId = that.postForm.countyName[0]
+          that.postForm.cityId = that.postForm.countyName[1]
+          that.areas.forEach(function (item) {
+            if(item.id === that.postForm.countyId){
+              that.postForm.countyName = item.name
+            }else if(item.id === that.postForm.provinceId){
+              that.postForm.provinceName = item.name
+            }
+           else if(item.id === that.postForm.cityId){
+              that.postForm.cityName = item.name
+            }
+          })
+        }
         that.postForm.countyName = that.postForm.countyName.toString()
         this.$refs.postForm.validate(valid => {
           if (valid) {
