@@ -153,7 +153,12 @@
           name=""
           @click="handleDownload"
         />
+
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
       </template>
+
       <el-table
         slot="table"
         v-loading="listLoading"

@@ -93,6 +93,10 @@
           name="导入模板下载"
           @click="handleDownload"
         />
+
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
       </template>
       <el-table
         slot="table"
