@@ -7,7 +7,6 @@
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area1.png" height="50" width="50"/>
           <div class="text">
@@ -16,7 +15,6 @@
           </div>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -157,7 +155,6 @@
         />
       </template>
       <el-table
-        :key="tableKey"
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"

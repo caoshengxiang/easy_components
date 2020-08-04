@@ -134,7 +134,6 @@
       </template>
       <el-table
         slot="table"
-        :key="tableKey"
         v-loading="listLoading"
         :data="pageData.records"
         fit

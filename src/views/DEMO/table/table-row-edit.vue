@@ -39,7 +39,6 @@
     </div>
     <el-table
 
-      :key="tableKey"
       v-loading="listLoading"
       :data="tableData.children"
       border

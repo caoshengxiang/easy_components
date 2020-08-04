@@ -34,7 +34,7 @@
     <el-table
 
       v-loading="listLoading"
-      :key="tableKey"
+
       :data="list"
       border
       fit

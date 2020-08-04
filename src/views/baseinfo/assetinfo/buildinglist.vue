@@ -8,7 +8,6 @@
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/32.png" height="50" width="50"/>
           <div class="text">
@@ -17,7 +16,6 @@
           </div>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/32.png" height="50" width="50"/>
           <div class="text">
@@ -30,13 +28,11 @@
     <!--<div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
           <i class="easy-icon easy-icon-avatar" /> <span class="text">建筑物总数100</span>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
           <i class="easy-icon easy-icon-avatar" /> <span class="text">十年以上建筑物数量100</span>
@@ -81,7 +77,6 @@
         </el-button>
       </template>
       <el-table
-        :key="tableKey"
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"
@@ -98,7 +93,7 @@
         </el-table-column>
         <el-table-column label="建筑物名称" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
+            <span>{{ row.name  }}</span>
           </template>
         </el-table-column>
         <el-table-column label="简写名称" align="center">

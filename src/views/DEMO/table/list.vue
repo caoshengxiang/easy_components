@@ -45,13 +45,11 @@
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
           <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生总数12000</span>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         >
           <i class="easy-icon easy-icon-avatar" /> <span class="text">在读学生男女比例11：9</span>

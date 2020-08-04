@@ -151,11 +151,7 @@
                   <el-col :span="8">
                     <el-form-item label="授课年级：" prop="grade" label-width="200px" class="postInfo-container-item">
                       <el-checkbox-group v-model="postForm.grade">
-                        <el-checkbox label="一年级"/>
-                        <el-checkbox label="二年级"/>
-                        <el-checkbox label="三年级"/>
-                        <el-checkbox label="四年级"/>
-                        <el-checkbox label="混合年级"/>
+                        <el-checkbox :label="item" v-for="item in AllEnum.授课年级"/>
                       </el-checkbox-group>
                     </el-form-item>
                   </el-col>

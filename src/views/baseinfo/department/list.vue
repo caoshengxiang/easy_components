@@ -6,13 +6,11 @@
     <!-- <div class="statisticsInfo">
        <div class="menu-2-box">
          <div
-           :key="index"
            class="menu-2-item hvr-underline-from-center"
          >
            <i class="easy-icon easy-icon-avatar" /> <span class="text">占地面积100 平方米</span>
          </div>
          <div
-           :key="index"
            class="menu-2-item hvr-underline-from-center"
          >
            <i class="easy-icon easy-icon-avatar" /> <span class="text">独立产权面积100 平方米</span>
@@ -54,7 +52,6 @@
         </el-button>
       </template>
       <el-table
-        :key="tableKey"
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"
