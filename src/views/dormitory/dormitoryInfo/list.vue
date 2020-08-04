@@ -6,7 +6,6 @@
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -15,7 +14,6 @@
           </div>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -25,7 +23,6 @@
         </div>
 
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -35,7 +32,6 @@
         </div>
 
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -45,7 +41,6 @@
         </div>
 
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
@@ -61,6 +56,7 @@
           menu-no="_views_dormitory_dormitoryInfo_add"
           class-name="filter-item"
           round
+          size="mini"
           type="primary"
           icon="el-icon-plus"
           @click="add"
@@ -76,19 +72,19 @@
         </el-select>
         <el-select
           v-model="listQuery.specialtyId"
-          placeholder="专业（根据年级加载）"
+          placeholder="专业"
           clearable
           class="filter-item"
-          style=" margin-left:10px;width: 200px"
+          style=" margin-left:10px;width: 100px"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
           v-model="listQuery.clbumId"
-          placeholder="班级（根据班级加载）"
+          placeholder="班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 200px"
+          style="margin-left:10px;width: 100px"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -159,10 +155,14 @@
             title="宿舍导入"
           />
         </PermissionButton>
+
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
     </template>
       <el-table
         v-loading="listLoading"
-        :key="tableKey"
+
         :data="pageData.records"
         fit
         highlight-current-row

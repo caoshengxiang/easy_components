@@ -35,6 +35,10 @@
                    size="mini" type="primary" @click="searchList">
           搜索
         </el-button>
+
+        <el-button class="filter-item" round type="warning" @click="reset()">
+          重置
+        </el-button>
       </template>
       <el-table
         v-loading="loading"
@@ -99,6 +103,10 @@
       that.getList();//分页列表
     },
     methods:{
+      reset(){
+        this.listQuery = {}
+        this.dateTime = []
+      },
       searchList(){
         let that = this;
         if(that.dateTime) {

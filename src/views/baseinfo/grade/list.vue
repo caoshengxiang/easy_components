@@ -41,9 +41,11 @@
           搜索
         </el-button>
 
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
       </template>
       <el-table
-        :key="tableKey"
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"

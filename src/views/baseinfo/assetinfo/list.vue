@@ -7,7 +7,7 @@
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
-          :key="index"
+
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/32.png" height="50" width="50"/>
           <div class="text">
@@ -16,7 +16,6 @@
           </div>
         </div>
         <div
-          :key="index"
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/32.png" height="50" width="50"/>
           <div class="text">
@@ -74,9 +73,11 @@
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
       </template>
       <el-table
-        :key="tableKey"
         slot="table"
         v-loading="listLoading"
         :data="pageData.records"

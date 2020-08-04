@@ -41,7 +41,7 @@
     <el-table
 
       v-loading="listLoading"
-      :key="tableKey"
+
       :data="list"
       fit
       highlight-current-row

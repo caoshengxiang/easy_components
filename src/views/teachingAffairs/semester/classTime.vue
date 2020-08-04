@@ -17,7 +17,6 @@
         </div>
 
         <el-table
-          :key="tableKey"
           v-loading="listLoading"
           :data="pageData.records"
           fit
