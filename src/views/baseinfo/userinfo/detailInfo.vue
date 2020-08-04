@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout :save="save">
+    <y-detail-page-layout @save="save">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
 
