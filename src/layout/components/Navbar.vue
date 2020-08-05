@@ -84,7 +84,7 @@
   .logclass {
     width: 60px;
     height: 60px;
-    background-color: #006CB4;
+    background-color: #1890ff;
     box-sizing: border-box;
     float: left;
     display: flex;
