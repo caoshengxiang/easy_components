@@ -196,7 +196,7 @@
         </el-table-column>
         <el-table-column label="宿舍状态" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满':'已住满') }}</span>
+            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满': (row.state == 3 ?'已住满':'')) }}</span>
           </template>
         </el-table-column>
         <el-table-column label="负责人" align="center">
@@ -373,7 +373,8 @@
           path: '/views/dormitory/dormitoryInfo/detail',
           query: {
             id:id,
-            menuLevel1: this.$route.query.menuLevel1
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
           }
         })
         window.open(routeData.href, '_blank')
