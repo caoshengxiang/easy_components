@@ -11,8 +11,8 @@
             :src="userInfo.avatar || (userInfo.sex === '女'?avatar2:avatar)"
             class="user-avatar"
           >
-          <span style="margin-left: 10px;">{{userInfo.name}}</span>
-          <i class="el-icon-caret-bottom"/>
+          <span style="margin-left: 10px;font-size: 14px;">{{ userInfo.name }}</span>
+          <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
@@ -30,8 +30,12 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <img src="../../assets/icon/logout.png" alt="" @click="logout"
-           style="width: 16px;position: absolute;top: 22px;right: 20px;cursor: pointer;">
+      <img
+        src="../../assets/icon/logout.png"
+        alt=""
+        style="width: 16px;position: absolute;top: 22px;right: 20px;cursor: pointer;"
+        @click="logout"
+      >
     </div>
     <!--<breadcrumb id="breadcrumb-container" class="breadcrumb-container" />-->
   </div>
@@ -39,8 +43,8 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import avatar from '../../assets/avatar.png'
-  import avatar2 from '../../assets/avatar2.png'
+  import avatar from '../../assets/icon/avatar.png'
+  import avatar2 from '../../assets/icon/avatar2.png'
 
   export default {
     data() {
