@@ -136,10 +136,10 @@
         },
         getStaffList(){
           const that = this;
-          that.$api.baseInfo.getStaffList().then(res => {
+          that.$api.staff.stafflist().then(res => {
             if(res.code === 200){
-              if (res.data && res.data.records && res.data.records.length > 0){
-                that.staffListData = res.data.records;
+              if (res.data && res.data.length > 0){
+                that.staffListData = res.data;
               }
             }else{
               that.$message({
