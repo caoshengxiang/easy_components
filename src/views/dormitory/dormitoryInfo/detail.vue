@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout @save="save">
+    <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first" >
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 5% ">
@@ -80,6 +80,7 @@
     },
     data() {
       return {
+        editStatus:true,
         staff: [],
         AllEnum:[],
         type: 'detail',
@@ -130,6 +131,7 @@
       } else if (that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()
+        that.editStatus = false
       }
       that.getStaffList()
       that.getAllEnum()
@@ -196,7 +198,8 @@
                  that.$router.push({
                    path: '/views/dormitory/dormitoryInfo/list',
                     query: {
-                      menuLevel1: this.$route.query.menuLevel1
+                      menuLevel1: this.$route.query.menuLevel1,
+                      menuId: this.$route.query.menuId,
                     }
                   })
 
@@ -222,7 +225,8 @@
                   that.$router.push({
                     path: '/views/dormitory/dormitoryInfo/list',
                     query: {
-                      menuLevel1: this.$route.query.menuLevel1
+                      menuLevel1: this.$route.query.menuLevel1,
+                      menuId: this.$route.query.menuId,
                     }
                   })
                 } else {

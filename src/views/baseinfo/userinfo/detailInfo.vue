@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout @save="save">
+    <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
 
@@ -526,6 +526,7 @@
     components: {Breadcrumb,YDetailPageLayout},
     data() {
       return {
+        editStatus:true,
         props:{
           label:'name',
           value:'id'
@@ -606,6 +607,7 @@
       that.type = that.$route.query.type
       that.getDetail();
 
+      that.editStatus = false
       that.getGradeList();//赛选框年级
       that.getSpecialtyList();
       that.getClbumList();

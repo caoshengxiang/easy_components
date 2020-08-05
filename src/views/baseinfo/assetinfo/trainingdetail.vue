@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
-    <y-detail-page-layout @save="save">
+    <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="padding-right: 15% ">
@@ -159,6 +159,7 @@
     },
     data() {
       return {
+        editStatus:true,
         postForm: {},
         constructionList: [],
         teachingRoomList: [],
@@ -221,6 +222,7 @@
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
+        that.editStatus = false
       }
       that.getStaffList()
       that.getByTypeId('trainingType')
