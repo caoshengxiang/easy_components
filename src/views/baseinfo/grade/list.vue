@@ -100,7 +100,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   export default {
-    name: '_views_baseinfo_grade_list',
+    name: 'ViewsBaseinfoGradeList',
     components: {Breadcrumb, PermissionButton, YPageListLayout},
     data() {
       return {

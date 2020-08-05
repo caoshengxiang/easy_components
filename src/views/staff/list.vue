@@ -238,7 +238,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: '_views_staff_list',
+    name: 'ViewsStaffList',
     components: {
       Breadcrumb,
       YPageListLayout,

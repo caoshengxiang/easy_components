@@ -167,7 +167,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: '_views_baseinfo_assetinfo_list',
+    name: 'ViewsBaseinfoAssetinfoList',
     components: {
       Breadcrumb,
       PermissionButton,
