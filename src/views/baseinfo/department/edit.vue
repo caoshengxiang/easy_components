@@ -86,6 +86,7 @@
       const that = this
       if (that.detailInfo){
         that.postForm = that.detailInfo
+        that.editStatus = false
       } else if (that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()

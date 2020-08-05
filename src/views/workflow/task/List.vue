@@ -138,7 +138,7 @@
 
 
         const routeData = that.$router.resolve({
-          path: '/views/workflow/task/Detail',
+          path: '/views/workflow/task/TaskDetail',
           query: {
             id: id,
             type:1,
