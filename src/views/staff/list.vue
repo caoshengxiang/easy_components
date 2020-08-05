@@ -80,8 +80,6 @@
             <el-option label="岗位" value="postName" />
           </el-select>
         </el-input>
-      </template>
-      <template slot="right">
         <el-button
           class="filter-item"
           style="margin-left: 10px;"
@@ -91,6 +89,11 @@
         >
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
+      </template>
+      <template slot="right">
         <!--        <el-button-->
         <!--          class="filter-item download-button"-->
         <!--          style="margin-left: 10px;"-->

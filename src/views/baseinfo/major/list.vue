@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round style="margin-left: 0px;" type="primary" @click="$utils.routerLink(`/views/baseinfo/major/edit`)">-->
-<!--          新增专业信息-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round style="margin-left: 0px;" type="primary" @click="$utils.routerLink(`/views/baseinfo/major/edit`)">-->
+        <!--          新增专业信息-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_major_add"
           class-name="filter-item"
@@ -24,23 +24,23 @@
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 200px;"
           class="filter-item"
-          @keyup.enter.native="handleFilter"
-        />    <el-input
-        v-model="listQuery.alias"
-        placeholder="专业简称"
-        prefix-icon="el-icon-search"
-        style="margin-left: 10px;width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />       </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        />
+        <el-input
+          v-model="listQuery.alias"
+          placeholder="专业简称"
+          prefix-icon="el-icon-search"
+          style="margin-left: 10px;width: 200px;"
+          class="filter-item"
+        />
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
 
         <el-button class="filter-item" round type="warning" @click="listQuery = {}">
           重置
         </el-button>
+      </template>
+      <template slot="right">
       </template>
       <el-table
         slot="table"
@@ -97,9 +97,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_major_edit"
               class-name="filter-item"
@@ -121,9 +121,14 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
+
   export default {
     name: '_views_baseinfo_major_list',
-    components: {Breadcrumb, PermissionButton, YPageListLayout},
+    components: {
+      Breadcrumb,
+      PermissionButton,
+      YPageListLayout
+    },
     data() {
       return {
 
@@ -146,19 +151,19 @@
         AllEnum: []
       }
     },
-    created(){
-      const that = this;
-      that.getList();
+    created() {
+      const that = this
+      that.getList()
       that.getdepartList()
       that.getAllEnum()
     },
     methods: {
-      searchList(){
-        const that = this;
+      searchList() {
+        const that = this
         that.pagePara.current = 0
         that.getList()
       },
-      getAllEnum(){
+      getAllEnum() {
         const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
@@ -171,11 +176,14 @@
           }
         })
       },
-      getdepartList(){
-        const that = this;
-        that.$api.department.list({current: 0, size: 10000}).then(data => {
-          that.loading = false;
-          if (data.code === 200){
+      getdepartList() {
+        const that = this
+        that.$api.department.list({
+          current: 0,
+          size: 10000
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             // 返回成功
             that.departList = data.data.records
           } else {
@@ -186,8 +194,8 @@
           }
         })
       },
-      add(){
-        const that =this;
+      add() {
+        const that = this
         that.$router.push({
           path: '/views/baseinfo/major/edit',
           query: {
@@ -195,8 +203,8 @@
           }
         })
       },
-      detail(id){
-        const that =this;
+      detail(id) {
+        const that = this
         that.$router.push({
           path: '/views/baseinfo/major/edit',
           query: {
@@ -205,11 +213,11 @@
           }
         })
       },
-      getList(){
-        const that = this;
-        that.$api.major.list({...that.listQuery, ...that.pagePara}).then(data => {
-          that.loading = false;
-          if (data.code === 200){
+      getList() {
+        const that = this
+        that.$api.major.list({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
           } else {
@@ -219,7 +227,7 @@
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
     }
   }
@@ -228,6 +236,7 @@
 <style lang="scss" scoped>
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

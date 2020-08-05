@@ -97,13 +97,15 @@
           prefix-icon="el-icon-search"
           style="margin-left:10px;width: 200px;"
           class="filter-item"
-          @keyup.enter.native="handleFilter"
         />
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
+          搜索
+        </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
       </template>
       <template slot="right">
-      <el-button class="filter-item " round type="primary" @click="searchList">
-        搜索
-      </el-button>
       <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
       <!--          导入模板下载-->
       <!--        </el-button>-->
@@ -155,10 +157,6 @@
             title="宿舍导入"
           />
         </PermissionButton>
-
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
-          重置
-        </el-button>
     </template>
       <el-table
         v-loading="listLoading"

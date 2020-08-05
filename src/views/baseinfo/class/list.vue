@@ -61,11 +61,14 @@
         >
           <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
         </el-select>
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" size="mini" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" size="mini" @click="searchList">
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
+      </template>
+      <template slot="right">
         <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" size="mini" @click="handleDownload">-->
         <!--          导入模板下载-->
         <!--        </el-button>-->
@@ -93,10 +96,6 @@
           name="导入模板下载"
           @click="handleDownload"
         />
-
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
-          重置
-        </el-button>
       </template>
       <el-table
         slot="table"

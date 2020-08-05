@@ -34,11 +34,15 @@
           class="filter-item"
           clearable
         />
-      </template>
-      <template slot="right">
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
+      </template>
+      <template slot="right">
+
       </template>
       <el-table
         slot="table"
