@@ -18,15 +18,16 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期">
         </el-date-picker>
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
 
         <el-button class="filter-item" round type="warning" @click="reset()">
           重置
         </el-button>
+      </template>
+      <template slot="right">
+
       </template>
       <el-table
         v-loading="loading"
@@ -138,7 +139,7 @@
 
 
         const routeData = that.$router.resolve({
-          path: '/views/workflow/task/Detail',
+          path: '/views/workflow/task/TaskDetail',
           query: {
             id: id,
             type:1,

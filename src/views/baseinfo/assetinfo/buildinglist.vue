@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
 
@@ -41,9 +41,9 @@
     </div>-->
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
-<!--          新增建筑物-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
+        <!--          新增建筑物-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_assetinfo_building_add"
           class-name="filter-item"
@@ -60,7 +60,7 @@
           style="margin-left: 20px; width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-input
           v-model="listQuery.name"
@@ -70,15 +70,16 @@
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
 
         <el-button class="filter-item" round type="warning" @click="listQuery = {}">
           重置
         </el-button>
+      </template>
+      <template slot="right">
+
       </template>
       <el-table
         slot="table"
@@ -120,14 +121,14 @@
         </el-table-column>
         <el-table-column label="使用年限">
           <template slot-scope="{row}">
-            <span >{{ row.yearLimit }}年</span>
+            <span>{{ row.yearLimit }}年</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_building_edit"
               class-name="filter-item"
@@ -139,9 +140,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_buildinglist_remove"
               class-name="filter-item"
@@ -196,12 +197,12 @@
     },
     methods: {
 
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/construction',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/construction', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',

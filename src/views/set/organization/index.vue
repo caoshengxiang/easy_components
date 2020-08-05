@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <div class="statisticsInfo">
       <div class="menu-2-box">
@@ -9,7 +9,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area1.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.orgNum}}</span>人</div>
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.orgNum}}</span></div>
             <div class="analysis-text-small">当前机构总数</div>
           </div>
         </div>
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
+    <y-page-list-layout :get-page-list="getList">
       <template slot="left">
         <!--      <el-button class="filter-item" icon="el-icon-plus" style="margin-left: 0px;" type="primary" @click="handleAdd">-->
         <!--        新增-->
@@ -45,18 +45,19 @@
           round
           @click="handleAdd"
         />
-        <el-input
-          v-model="listQuery.name"
-          placeholder="部门名称"
-          prefix-icon="el-icon-search"
-          style="margin-left: 20px;width: 200px;"
-          class="filter-item"
-        />
+<!--        <el-input-->
+<!--          v-model="listQuery.name"-->
+<!--          clearable-->
+<!--          placeholder="部门名称"-->
+<!--          prefix-icon="el-icon-search"-->
+<!--          style="margin-left: 20px;width: 200px;"-->
+<!--          class="filter-item"-->
+<!--        />-->
+<!--        <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">-->
+<!--          搜索-->
+<!--        </el-button>-->
       </template>
       <template slot="right">
-        <el-button class="filter-item" type="primary" round @click="searchList">
-          搜索
-        </el-button>
 
         <!--      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>-->
         <PermissionButton
@@ -71,10 +72,12 @@
       <el-table
         :key="tableKey"
         slot="table"
+        row-key="id"
         v-loading="listLoading"
-        :data="pageData.records"
+        :data="pageData"
         fit
         highlight-current-row
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       >
         <el-table-column label="部门代码" align="center" min-width="150">
           <template slot-scope="{row}">
@@ -145,11 +148,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="部门代码：" prop="code">
-          <el-input v-model="temp.code" class="filter-item" />
+          <el-input v-model="temp.code" class="filter-item"/>
 
         </el-form-item>
         <el-form-item label="部门名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item" />
+          <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
 
         <el-form-item label="上级部门：" filterable prop="">
@@ -164,7 +167,7 @@
         </el-form-item>
 
         <el-form-item label="联系电话：">
-          <el-input v-model="temp.phone" class="filter-item" />
+          <el-input v-model="temp.phone" class="filter-item"/>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="dialogFormVisible = false">
@@ -175,9 +178,9 @@
           </el-button>
         </el-form-item>
       </el-form>
-<!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
-<!--        -->
-<!--      </div>-->
+      <!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
+      <!--        -->
+      <!--      </div>-->
     </el-dialog>
   </div>
 </template>
@@ -187,7 +190,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: 'PostIndex',
+    name: 'Organization',
     components: {
       Breadcrumb,
       PermissionButton,
@@ -206,12 +209,12 @@
     data() {
       return {
         tableKey: 0,
-        pageData: {records: []},
+        pageData: [],
         listLoading: false,
         dialogLoading: false,
         listQuery: {
           current: 1,
-          size: 10,
+          size: 30,
           descs: 'id'
         },
         dialogFormVisible: false,
@@ -251,11 +254,13 @@
     created() {
       this.getPartSelect()
       this.getList()
-      this.$api.organization.sta().then(res => {
-        this.statisticsInfo = res.data
-      })
     },
     methods: {
+      getstatisticsInfo() {
+        this.$api.organization.sta().then(res => {
+          this.statisticsInfo = res.data
+        })
+      },
       exportHandle() {
         this.$api.organization.download()
       },
@@ -296,7 +301,7 @@
                 })
                 this.getList()
               }
-            }).catch(()=> {
+            }).catch(() => {
               this.dialogLoading = false
             })
           }
@@ -345,7 +350,15 @@
         const that = this
         this.listLoading = true
         // console.log(that.listQuery)
-        this.$api.organization.list(that.listQuery).then(res => {
+        // this.$api.organization.list(that.listQuery).then(res => {
+        //   that.pageData = res.data
+        //   setTimeout(() => {
+        //     that.listLoading = false
+        //   }, 200)
+        // }).catch(() => {
+        //   that.listLoading = false
+        // })
+        this.$api.organization.tree().then(res => {
           that.pageData = res.data
           setTimeout(() => {
             that.listLoading = false
@@ -353,6 +366,7 @@
         }).catch(() => {
           that.listLoading = false
         })
+        this.getstatisticsInfo()
       },
       handleDelete(row, data) {
         // console.log(data)

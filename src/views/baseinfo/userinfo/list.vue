@@ -91,11 +91,14 @@
           style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
         />
-      </template>
-      <template slot="right">
-        <el-button class="filter-item"         size="mini" round type="primary" @click="searchList">
+        <el-button class="filter-item"    style="margin-left: 20px;"     size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
+      </template>
+      <template slot="right">
         <!--        <el-button class="filter-item"          size="mini" round type="primary" @click="downloadTemplate">-->
         <!--          学生信息模板下载-->
         <!--        </el-button>-->
@@ -162,10 +165,6 @@
           name=""
           @click="handleDownload"
         />
-
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
-          重置
-        </el-button>
       </template>
 
       <el-table
@@ -525,7 +524,9 @@
           path: '/views/baseinfo/userinfo/detailInfo',
           query: {
             id: id,
-            type: 'detail'
+            type: 'detail',
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
           }
         })
       },

@@ -277,8 +277,8 @@
                         ：
                       </span>
                       <el-radio-group v-model="temp.cachedViews">
-                        <el-radio :label="false">缓存</el-radio>
-                        <el-radio :label="true">不缓存</el-radio>
+                        <el-radio :label="false">不缓存</el-radio>
+                        <el-radio :label="true">缓存</el-radio>
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="菜单端口：">

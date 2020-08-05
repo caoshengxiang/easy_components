@@ -105,11 +105,21 @@
         var that = this;
 
         if(res.code == 200){
-          that.$message.success('导入成功!');
+          this.$notify({
+            title: '成功',
+            message: '导入成功',
+            type: 'success',
+            duration: 2000
+          })
           window.location.reload();
         }
         else{
-          that.$message.success(res.msg);
+          this.$notify({
+            title: '失败',
+            message: res.msg,
+            type: 'error',
+            duration: 2000
+          })
         }
         setTimeout(() => {
           that.uploadConfig.loading = false;
@@ -118,7 +128,12 @@
       handleImagefail(res, file)
       {
         var that = this;
-        that.$message.success('导入失败!');
+        this.$notify({
+          title: '成功',
+          message: '导入失败',
+          type: 'success',
+          duration: 2000
+        })
       },
       beforeImageUpload(file) {
         var that= this;

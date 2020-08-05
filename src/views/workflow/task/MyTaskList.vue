@@ -29,9 +29,7 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期">
         </el-date-picker>
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round
+        <el-button class="filter-item" round style="margin-left: 20px"
                    size="mini" type="primary" @click="searchList">
           搜索
         </el-button>
@@ -39,6 +37,8 @@
         <el-button class="filter-item" round type="warning" @click="reset()">
           重置
         </el-button>
+      </template>
+      <template slot="right">
       </template>
       <el-table
         v-loading="loading"

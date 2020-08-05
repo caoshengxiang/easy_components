@@ -55,11 +55,14 @@
           <el-option key="1" label="语文组" value="1" />
           <el-option key="2" label="数学组" value="2" />
         </el-select>
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
+        </el-button>
+      </template>
+      <template slot="right">
         <PermissionButton
           menu-no="_views_baseinfo_course_import"
           class-name="filter-item"
@@ -84,9 +87,6 @@
             title="课程导入"
           />
         </PermissionButton>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
-          重置
-        </el-button>
       </template>
       <el-table
         slot="table"

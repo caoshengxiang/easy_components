@@ -68,14 +68,14 @@
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {}">
           重置
         </el-button>
+      </template>
+      <template slot="right">
       </template>
       <el-table
         slot="table"

@@ -2,7 +2,7 @@
   <div class="level1" @click.stop>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        background-color="#006CB4"
+        background-color="#1890ff"
         :default-active="activeIndex"
         text-color="#ffffff"
         active-text-color="#FFFFFF"
@@ -112,9 +112,9 @@
         display: inline-block;
         width: 2px;
         height: 100%;
-        background-color: #1C92E1;
+        background-color: #fff;
         position: absolute;
-        left: 0;
+        left: -1px;
       }
     }
   }
@@ -123,7 +123,7 @@
   @import url('../../../styles/menu/menuIcon.css');
   .level1 {
     width: 200px;
-    background-color: #0079CA;
+    background-color: #1890ff;
     overflow: hidden;
   }
 </style>

@@ -11,12 +11,12 @@
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
-                  <el-form-item label="年级名称：" prop="code" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="年级编号：" prop="code" label-width="120px" class="postInfo-container-item">
                     <el-input v-model="postForm.code" class="filter-item" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="年级编号：" prop="name" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="年级名称：" prop="name" label-width="120px" class="postInfo-container-item">
                     <el-input v-model="postForm.name" class="filter-item" />
                   </el-form-item>
                 </el-col>
@@ -72,6 +72,7 @@
       const that = this
       if (that.detailInfo){
         that.postForm = that.detailInfo
+        that.editStatus = false
       } else if (that.$route.query.id){
         that.id = that.$route.query.id
         that.getDetail()

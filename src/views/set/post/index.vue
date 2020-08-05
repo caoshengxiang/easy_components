@@ -33,11 +33,11 @@
           clearable
           class="filter-item"
         />
-      </template>
-      <template slot="right">
-        <el-button class="filter-item" type="primary" round @click="searchList">
+        <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">
           搜索
         </el-button>
+      </template>
+      <template slot="right">
 
         <!--      <el-button class="filter-item download-button" type="primary" icon="el-icon-edit">导出</el-button>-->
         <PermissionButton

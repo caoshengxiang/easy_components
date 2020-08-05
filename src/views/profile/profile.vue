@@ -3,9 +3,9 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="true" v-loading="vLoading" element-loading-text="处理中。。。">
       <div style="padding-top: 30px;">
-        <el-tabs v-model="activeName" v-loading="vLoading" element-loading-text="处理中。。。" @tab-click="handleClick">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="基础信息" name="first">
             <el-form ref="postForm" :model="postForm" class="form-container">
               <div class="createPost-main-container">
@@ -25,15 +25,16 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-select
-                          v-model="postForm.staff.staffType"
-                          clearable
-                          filterable
-                          placeholder=""
-                          style="width: 100%"
-                        >
-                          <el-option v-for="(item, index) in AllEnum['员工类型']" :key="index" :label="item" :value="item"/>
-                        </el-select>
+<!--                        <el-select-->
+<!--                          v-model="postForm.staff.staffType"-->
+<!--                          clearable-->
+<!--                          filterable-->
+<!--                          placeholder=""-->
+<!--                          style="width: 100%"-->
+<!--                        >-->
+<!--                          <el-option v-for="(item, index) in AllEnum['员工类型']" :key="index" :label="item" :value="item"/>-->
+<!--                        </el-select>-->
+                        <span>{{postForm.staff.staffType}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -44,24 +45,25 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-select
-                          v-model="postForm.staff.teacherType"
-                          clearable
-                          filterable
-                          placeholder=""
-                          style="width: 100%"
-                        >
-                          <el-option v-for="(item, index) in AllEnum['教师类型']" :key="index" :label="item" :value="item"/>
-                        </el-select>
+<!--                        <el-select-->
+<!--                          v-model="postForm.staff.teacherType"-->
+<!--                          clearable-->
+<!--                          filterable-->
+<!--                          placeholder=""-->
+<!--                          style="width: 100%"-->
+<!--                        >-->
+<!--                          <el-option v-for="(item, index) in AllEnum['教师类型']" :key="index" :label="item" :value="item"/>-->
+<!--                        </el-select>-->
+                        {{postForm.staff.teacherType}}
                       </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                      <el-form-item label="管理员类型：" label-width="120px" class="postInfo-container-item">
-                        <el-select v-model="postForm.type" clearable filterable placeholder="" style="width: 100%">
-                          <!--          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />-->
-                        </el-select>
-                      </el-form-item>
-                    </el-col>
+<!--                    <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
+<!--                      <el-form-item label="管理员类型：" label-width="120px" class="postInfo-container-item">-->
+<!--                        <el-select v-model="postForm.type" clearable filterable placeholder="" style="width: 100%">-->
+<!--                          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+<!--                        </el-select>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
                       <el-form-item
                         label="密码管理："
@@ -81,7 +83,8 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>
+<!--                        <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>-->
+                        {{postForm.staff.currentUnitCode}}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -92,7 +95,8 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>
+<!--                        <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>-->
+                        {{postForm.staff.currentUnitName}}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -115,7 +119,8 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-input v-model="postForm.staff.staffNo" class="filter-item"/>
+<!--                        <el-input v-model="postForm.staff.staffNo" class="filter-item"/>-->
+                        {{postForm.staff.staffNo}}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -126,7 +131,8 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-input v-model="postForm.user.name" class="filter-item"/>
+<!--                        <el-input v-model="postForm.user.name" class="filter-item"/>-->
+                        {{postForm.user.name}}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -137,16 +143,17 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-select
-                          v-model="postForm.user.sex"
-                          placeholder=""
-                          clearable
-                          class="filter-item"
-                          style="width: 100%"
-                        >
-                          <el-option key="1" label="男" value="男"/>
-                          <el-option key="2" label="女" value="女"/>
-                        </el-select>
+<!--                        <el-select-->
+<!--                          v-model="postForm.user.sex"-->
+<!--                          placeholder=""-->
+<!--                          clearable-->
+<!--                          class="filter-item"-->
+<!--                          style="width: 100%"-->
+<!--                        >-->
+<!--                          <el-option key="1" label="男" value="男"/>-->
+<!--                          <el-option key="2" label="女" value="女"/>-->
+<!--                        </el-select>-->
+                        {{postForm.user.sex}}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -157,7 +164,8 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-                        <el-input v-model="postForm.user.idNo" class="filter-item"/>
+<!--                        <el-input v-model="postForm.user.idNo" class="filter-item"/>-->
+                        {{postForm.user.idNo}}
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1630,7 +1638,7 @@
       handleCreate() {
         // console.log(this.postForm, 'xxx')
 
-        if (!this.postForm.staff.staffType) {
+       /* if (!this.postForm.staff.staffType) {
           this.$notify({
             title: '错误',
             message: '请选择员工类型',
@@ -1719,7 +1727,7 @@
             duration: 2000
           })
           return
-        }
+        }*/
 
         this.vLoading = true
 

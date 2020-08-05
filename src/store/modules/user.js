@@ -1,7 +1,6 @@
 import API from '@/api'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
-import avatarDefault from '@/assets/avatar.svg'
 
 const state = {
   token: getToken(),
@@ -18,7 +17,7 @@ const mutations = {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar || avatarDefault // 默认头像
+    state.avatar = avatar
   },
   SET_USERINFO: (state, userInfo) => {
     state.userInfo = userInfo

@@ -115,7 +115,7 @@
       z-index: 100000;
       top: 60px;
       height: calc(100% - 60px);
-      background: #006CB4;
+      background: #1890ff;
       transition: all 0.5s;
     }
 
