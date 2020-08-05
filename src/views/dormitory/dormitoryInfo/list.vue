@@ -9,25 +9,18 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.manTotal}}:{{statisticsInfo.womanTotal}}</span></div>
-            <div class="analysis-text-small">当前床位总数男女比例</div>
+            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manTotal}} </span></div>
+            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanTotal}}</span></div>
+            <div class="analysis-text-small">当前床位总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.manCount}}:{{statisticsInfo.womanCount}}</span></div>
-            <div class="analysis-text-small">当前入住总数男女比例</div>
-          </div>
-        </div>
-
-        <div
-          class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
-          <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.fullManCount}}:{{statisticsInfo.fullWomanCount}}</span></div>
-            <div class="analysis-text-small">当前已满寝室男女比例</div>
+            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manCount}}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanCount}}</span></div>
+            <div class="analysis-text-small">当前入住总数</div>
           </div>
         </div>
 
@@ -35,8 +28,9 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.notFullManCount}}:{{statisticsInfo.notFullWomanCount}}</span></div>
-            <div class="analysis-text-small">当前未满寝室男女比例</div>
+            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.fullManCount}}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.fullWomanCount}}</span></div>
+            <div class="analysis-text-small">当前已满寝室数</div>
           </div>
         </div>
 
@@ -44,8 +38,19 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/area.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.emptyManCount}}:{{statisticsInfo.emptyWomanCount}}</span></div>
-            <div class="analysis-text-small">当前空寝室男女比例</div>
+            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.notFullManCount}}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.notFullWomanCount}}</span></div>
+            <div class="analysis-text-small">当前未满寝室数</div>
+          </div>
+        </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/area.png" height="50" width="50"/>
+          <div class="text">
+            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.emptyManCount}}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.emptyWomanCount}}</span></div>
+            <div class="analysis-text-small">当前空寝室数</div>
           </div>
         </div>
       </div>
