@@ -345,6 +345,25 @@
       },
       createData() {
         let that = this
+        if(this.importance.length == 0){
+          this.$notify({
+            title: '失败',
+            message: '请选择床位',
+            type: 'false',
+            duration: 2000
+          })
+          return;
+        }
+
+        if(this.beds.length == 0){
+          this.$notify({
+            title: '失败',
+            message: '请选择学生',
+            type: 'false',
+            duration: 2000
+          })
+          return;
+        }
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             if(this.importance.length != this.beds.length){

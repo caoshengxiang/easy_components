@@ -40,7 +40,7 @@
           v-model="listQuery.schoolGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
           class="filter-item"
           @change="getClbumList"
         >
@@ -53,7 +53,7 @@
           clearable
           class="filter-item"
           @change="getClbumList"
-          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -62,7 +62,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
@@ -71,15 +71,24 @@
           placeholder="学生类型"
           clearable
           class="filter-item"
-          style="margin-left:10px;  width: 100px;margin-bottom: 10px;"
+          style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
         >
           <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item" />
+        </el-select>
+        <el-select
+          v-model="listQuery.state"
+          placeholder="当前状态"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
+        >
+          <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item" />
         </el-select>
         <el-input
           v-model="listQuery.keyword"
           placeholder="学号或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 150px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
         />
       </template>
@@ -326,6 +335,7 @@
         total: 0,
         listLoading: true,
         listQuery: {
+          state: '在读',
           type: '',
           schoolGradeId: '',
           schoolSpecialtyId: '',

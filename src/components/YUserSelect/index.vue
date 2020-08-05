@@ -23,15 +23,6 @@
           filter-placeholder="输入姓名，模糊查询"
           :titles="['待选用户','已选用户']"
           @left-check-change="checkItem">
-          <el-popover
-            slot-scope="{ option }"
-            placement="top-start"
-            title="所属岗位"
-            width="200"
-            trigger="hover"
-            :content="getPostsAllName(option)">
-            <span slot="reference">{{ option.name }}</span>
-          </el-popover>
           <!--<div slot="left-footer" style="text-align: center;padding: 5px 0;">-->
             <!--<el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>-->
             <!--<el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>-->
@@ -145,10 +136,10 @@
         },
         getStaffList(){
           const that = this;
-          that.$api.baseInfo.getStaffList().then(res => {
+          that.$api.staff.stafflist().then(res => {
             if(res.code === 200){
-              if (res.data && res.data.records && res.data.records.length > 0){
-                that.staffListData = res.data.records;
+              if (res.data && res.data.length > 0){
+                that.staffListData = res.data;
               }
             }else{
               that.$message({
