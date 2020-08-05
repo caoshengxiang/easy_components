@@ -294,7 +294,7 @@
                       <el-input v-model="temp.mobileUrl" class="filter-item"/>
                     </el-form-item>
                     <el-form-item v-if="port_m" label="图标：" prop="name">
-                      <el-input v-model="temp.mobileIcon" class="filter-item"/>
+                      <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
                     </el-form-item>
                     <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;"/>
                     <el-form-item label="是否有数据权限：">
@@ -487,7 +487,7 @@
               <el-input v-model="temp.mobileUrl" class="filter-item"/>
             </el-form-item>
             <el-form-item v-if="port_m" label="图标：" prop="name">
-              <el-input v-model="temp.mobileIcon" class="filter-item"/>
+              <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -508,6 +508,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButtonStop'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import YSelectIco from '@/components/YSelectIco'
   import menuNames from '../../../styles/menu/iconNames'
 
   export default {
@@ -516,6 +517,7 @@
       Breadcrumb,
       PermissionButton,
       YDetailPageLayout,
+      YSelectIco,
     },
     data() {
       return {
