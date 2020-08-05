@@ -143,7 +143,7 @@
 
   import Breadcrumb from '@/components/Breadcrumb'
   export default {
-    name: '_views_dormitory_classRecord_list',
+    name: 'ViewsDormitoryClassRecordList',
     components: {Breadcrumb,Pagination},
     filters: {
       statusFilter(status) {

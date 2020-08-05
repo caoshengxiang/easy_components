@@ -7,6 +7,11 @@ import Layout from '@/layout'
  * @param routes asyncRoutes
  * @param roles
  */
+function toHump(name) {
+  return name.replace(/\_(\w)/g, function(all, letter){
+    return letter.toUpperCase();
+  });
+}
 export function filterAsyncRoutes(menusData) {
   // console.info('原始数据', menusData)
   const res = [{
@@ -26,11 +31,11 @@ export function filterAsyncRoutes(menusData) {
         tree(tmp.children)
       }
       if (!item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))) {
-        // console.log('菜单')
+        // console.log('菜单', toHump(tmp.menuNo))
         if (menuCodeList.indexOf(tmp.menuCode) > -1) {
           res.push({
             path: tmp.pcUrl,
-            name: tmp.menuNo,
+            name: toHump(tmp.menuNo),
             component: urlMap[tmp.menuCode],
             meta: {
               title: tmp.name,
@@ -42,7 +47,7 @@ export function filterAsyncRoutes(menusData) {
         } else {
           res[0].children.push({
             path: tmp.pcUrl,
-            name: tmp.menuNo,
+            name: toHump(tmp.menuNo),
             component: urlMap[tmp.menuCode],
             meta: {
               title: tmp.name,

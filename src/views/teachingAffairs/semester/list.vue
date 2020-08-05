@@ -137,7 +137,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: '_views_teachingAffairs_semester_list',
+    name: 'ViewsTeachingAffairsSemesterList',
     components: {
       Breadcrumb,
       YPageListLayout,

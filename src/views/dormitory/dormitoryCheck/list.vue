@@ -156,7 +156,7 @@
 
   import Breadcrumb from '@/components/Breadcrumb'
   export default {
-    name: '_views_dormitory_dormitoryCheck_list',
+    name: 'ViewsDormitoryDormitoryCheckList',
     components: {Breadcrumb,Pagination},
     filters: {
       statusFilter(status) {

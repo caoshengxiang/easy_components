@@ -270,7 +270,7 @@
                         <el-tooltip
                           class="item"
                           effect="dark"
-                          content="配置缓存请先确认，组件得name值必须为当前菜单配置menuNo才会生效！"
+                          content="配置缓存请先确认，组件得name值必须为当前菜单配置menuNo（_后得第一个字母大写并删除_）才会生效！"
                           placement="top-start"
                         >
                           <i class="el-icon-question"/></el-tooltip>

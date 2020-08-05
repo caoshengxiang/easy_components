@@ -194,7 +194,7 @@
   import excelImport from '@/components/excelImport.vue'
 
   export default {
-    name: '_views_baseinfo_course_list',
+    name: 'ViewsBaseinfoCourseList',
     components: {
       Breadcrumb,
       PermissionButton,

@@ -100,7 +100,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: '_views_workflow_List',
+    name: 'ViewsWorkflowList',
     components: {
       Breadcrumb,
       YPageListLayout,

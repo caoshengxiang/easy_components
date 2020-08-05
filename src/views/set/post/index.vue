@@ -17,7 +17,7 @@
           round
           @click="handleAdd"
         />
-        <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable placeholder="所属部门" class="filter-item" @change="selectChange">
+        <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable placeholder="所属部门" class="filter-item">
           <el-option
             v-for="item in partOptions"
             :key="item.id"
@@ -35,6 +35,9 @@
         />
         <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">
           搜索
+        </el-button>
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+          重置
         </el-button>
       </template>
       <template slot="right">

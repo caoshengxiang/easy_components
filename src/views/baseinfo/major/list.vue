@@ -123,7 +123,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: '_views_baseinfo_major_list',
+    name: 'ViewsBaseinfoMajorList',
     components: {
       Breadcrumb,
       PermissionButton,

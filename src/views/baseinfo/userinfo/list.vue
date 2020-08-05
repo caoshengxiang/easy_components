@@ -302,7 +302,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: '_views_baseinfo_userinfo_list',
+    name: 'ViewsBaseinfoUserinfoList',
     components: {
       Breadcrumb,
       PermissionButton,

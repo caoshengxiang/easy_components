@@ -180,7 +180,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: '_views_baseinfo_class_list',
+    name: 'ViewsBaseinfoClassList',
     components: {
       Breadcrumb,
       PermissionButton,

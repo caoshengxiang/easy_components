@@ -251,7 +251,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
 
   export default {
-    name: '_views_dormitory_dormitoryInfo_list',
+    name: 'ViewsDormitoryDormitoryInfoList',
     components: {
       PermissionButton,
       Breadcrumb,
