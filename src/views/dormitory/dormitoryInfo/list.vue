@@ -93,7 +93,7 @@
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item" style="width: 100px">
+        <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item" style="width: 100px;margin-left: 10px">
           <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input
@@ -236,8 +236,7 @@
               type="warning"
               round
               size="mini"
-              :page-jump="true"
-              :page-query="{id: row.id,managerName:row.managerName}"
+              @click="person(row.id,row.managerName)"
             >
             </PermissionButton>
           </template>
@@ -372,6 +371,19 @@
       downloadCodeTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
       },
+      person(id,managerName){
+        const that = this
+        const routeData = that.$router.resolve({
+          path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
+          query: {
+            id:id,
+            managerName: managerName,
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
+          }
+        })
+        window.open(routeData.href, '_blank')
+      },
       edit(id) {
         const that = this
         const routeData = that.$router.resolve({
@@ -392,7 +404,7 @@
             menuLevel1: this.$route.query.menuLevel1,
             menuId: this.$route.query.menuId,
             back: this.$route.fullPath
-          }
+          },
         })
         window.open(routeData.href, '_blank')
       },
