@@ -774,21 +774,18 @@
             that.$api.student.editStudent({...that.postForm }).then(data => {
               that.loading = false;
               if(data.code === 200){
-                // this.$message({
-                //   type: 'success',
-                //   message: "操作成功"
-                // })
-                this.$notify({
-                  title: '成功',
-                  message: '操作成功',
+                this.$message({
                   type: 'success',
-                  duration: 2000
+                  message: "操作成功"
                 })
-                // 两百需要页面处理，200 没法拦截
-                const back = this.$route.query.back
-                if (back) {
-                  that.$router.push(back)
-                }
+
+                  that.$router.push({
+                    path: '/views/baseinfo/userinfo/list',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1,
+                      menuId: this.$route.query.menuId,
+                    }
+                  })
               }
               else{
                 this.$message({
