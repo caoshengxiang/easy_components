@@ -45,8 +45,8 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="基本工资：" label-width="180px" class="postInfo-container-item">
-                      <!--                      <el-input disabled v-model="postForm.staff.baseSalary" class="filter-item"/>-->
-                      <span>{{postForm.staff.baseSalary}}</span>
+                      <el-input v-model="postForm.staff.baseSalary" class="filter-item"/>
+<!--                      <span>{{postForm.staff.baseSalary}}</span>-->
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">

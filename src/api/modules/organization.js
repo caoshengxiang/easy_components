@@ -7,6 +7,9 @@ export default {
   list(params) {
     return request.get(`organization`, { params: params })
   },
+  tree(params) {
+    return request.get(`organization/tree`, { params: params })
+  },
   detail(params) {
     return request.get(`organization/${params}`)
   },

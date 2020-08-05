@@ -15,7 +15,7 @@ export function filterAsyncRoutes(menusData) {
     children: []
   }]
 
-  //排除不需要默认布局Layout路由菜单编码列表
+  // 排除不需要默认布局Layout路由菜单编码列表
   const menuCodeList = ['_views_workflow_Design']
 
   function tree(menusData) {
@@ -27,7 +27,7 @@ export function filterAsyncRoutes(menusData) {
       }
       if (!item.external && item.pcUrl && (item.menuType === '菜单' || (item.menuType === '按钮'))) {
         // console.log('菜单')
-        if(menuCodeList.indexOf(tmp.menuCode) > -1){
+        if (menuCodeList.indexOf(tmp.menuCode) > -1) {
           res.push({
             path: tmp.pcUrl,
             name: tmp.menuNo,
@@ -35,10 +35,11 @@ export function filterAsyncRoutes(menusData) {
             meta: {
               title: tmp.name,
               icon: tmp.icon,
-              noCache: tmp.cachedViews
+              noCache: tmp.cachedViews,
+              id: tmp.id
             }
           })
-        }else{
+        } else {
           res[0].children.push({
             path: tmp.pcUrl,
             name: tmp.menuNo,
@@ -46,7 +47,8 @@ export function filterAsyncRoutes(menusData) {
             meta: {
               title: tmp.name,
               icon: tmp.icon,
-              noCache: tmp.cachedViews
+              noCache: tmp.cachedViews,
+              id: tmp.id
             }
           })
         }

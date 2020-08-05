@@ -79,7 +79,7 @@
 
         // 计算父级
         let matched = []
-        let menuId = this.$route.query.menuId
+        let menuId = this.$route.meta.id
 
         function getMatched(list, menuId) {
           list.forEach(item => {
@@ -90,7 +90,7 @@
                 meta: { title: item.name }
               })
               if (item.parentId) {
-                console.info(item, item.parentId)
+                // console.info(item, item.parentId)
                 getMatched(list, item.parentId)
               }
             }
@@ -98,11 +98,11 @@
         }
 
         if (this.treeListData.length && this.$route.query.menuId) {
-          console.log(menuId)
+          // console.log(menuId)
           getMatched(this.treeListData, menuId)
         }
         this.levelList = matched
-        console.log(matched, '面包屑')
+        // console.log(matched, '面包屑')
       },
       isDashboard(route) {
         const name = route && route.name
