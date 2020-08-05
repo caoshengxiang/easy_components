@@ -67,9 +67,9 @@
                     <el-form-item label="获专业技术职务时间：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.staff.obtainDutyDate"
-                        value-format="yyyy-MM"
-                        type="month"
-                        placeholder="选择月"
+                        value-format="yyyy-MM-dd"
+                        type="date"
+                        placeholder=""
                         style="width: 100%;"
                       />
                     </el-form-item>
@@ -166,9 +166,9 @@
                     <el-form-item label="毕业时间：" label-width="140px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.staff.graduateDate"
-                        value-format="yyyy-MM"
-                        type="month"
-                        placeholder="选择月"
+                        value-format="yyyy-MM-dd"
+                        type="date"
+                        placeholder=""
                         style="width: 100%"
                       />
                     </el-form-item>
