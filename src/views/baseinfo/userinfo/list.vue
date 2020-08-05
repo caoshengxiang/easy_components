@@ -525,7 +525,9 @@
           path: '/views/baseinfo/userinfo/detailInfo',
           query: {
             id: id,
-            type: 'detail'
+            type: 'detail',
+            menuLevel1: this.$route.query.menuLevel1,
+            menuId: this.$route.query.menuId,
           }
         })
       },
