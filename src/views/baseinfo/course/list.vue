@@ -60,7 +60,30 @@
         <el-button class="filter-item" round type="primary" @click="searchList">
           搜索
         </el-button>
-
+        <PermissionButton
+          menu-no="_views_baseinfo_course_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="课程模板"
+          @click="downloadTemplate"
+        />
+        <PermissionButton
+          menu-no="_views_baseinfo_course_import"
+          class-name="filter-item"
+          type="text"
+          round
+          name="课程导入"
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="/course/importExcel"
+            :style-type="1"
+            title="课程导入"
+          />
+        </PermissionButton>
         <el-button class="filter-item" round type="warning" @click="listQuery = {}">
           重置
         </el-button>
@@ -168,13 +191,15 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import excelImport from '@/components/excelImport.vue'
 
   export default {
     name: '_views_baseinfo_course_list',
     components: {
       Breadcrumb,
       PermissionButton,
-      YPageListLayout
+      YPageListLayout,
+      excelImport
     },
     data() {
       return {
@@ -194,6 +219,9 @@
       that.getList()
     },
     methods: {
+      downloadTemplate() {
+        this.$utils.exportUtil('/course/download/importTemplate', null, '课程模板')
+      },
       searchList() {
         const that = this
         that.pagePara.current = 0
