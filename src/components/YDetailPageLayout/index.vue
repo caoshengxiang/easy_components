@@ -1,6 +1,6 @@
 <template>
   <div :class="`y-detail-page-layout ${isEdit?'':'page-disabled'}`">
-    <slot></slot>
+    <div class="y-page-content"><slot></slot></div>
     <div class="y-options" v-if="$slots.default">
       <template v-if="!isEdit">
         <PermissionButton v-if="menuNo" type="primary" round @click="isEdit = true" :menu-no="menuNo"></PermissionButton>
@@ -10,7 +10,7 @@
         <PermissionButton v-if="menuNo" type="primary" round @click="save" :menu-no="menuNo" name="保存"></PermissionButton>
         <el-button v-else type="primary" round @click="save">保存</el-button>
         <PermissionButton v-if="menuNo" type="info" round @click="isEdit = false" :menu-no="menuNo" name="取消"></PermissionButton>
-        <el-button v-else type="info" round @click="isEdit = false">取消</el-button>
+        <el-button v-if="!editStatus" type="info" round @click="isEdit = false">取消</el-button>
       </template>
     </div>
   </div>
@@ -27,7 +27,7 @@
         this.isEdit = value
       },
       isEdit: function (value) {
-        this.initPageStatus(value)
+        this.initPageStatus(value,false)
       }
     },
     props: {
@@ -48,10 +48,10 @@
       }
     },
     mounted(){
-      this.initPageStatus(this.isEdit)
+      this.initPageStatus(this.isEdit,true)
     },
     methods:{
-      initPageStatus(editStatus){
+      initPageStatus(editStatus,bindEventStatus){
         const that = this
         that.$nextTick(() => {
           let formList = document.querySelectorAll(".y-detail-page-layout .el-form")
@@ -69,7 +69,8 @@
               obj.contentWindow.document.body.setAttribute("contenteditable",editStatus)
             })
 
-            that.addFormPageClick()
+            if (bindEventStatus)
+              that.addFormPageClick()
           }
         })
       },
@@ -79,7 +80,7 @@
       },
       addFormPageClick(){
         const that = this;
-        const formObj = document.querySelectorAll('.y-detail-page-layout.page-disabled form .el-tabs__content')
+        const formObj = document.querySelectorAll('.y-detail-page-layout .y-page-content')
         if (formObj && formObj.length > 0)
           formObj.forEach(function (obj) {
             obj.addEventListener('click', that.formPageClick, true)
@@ -131,8 +132,7 @@
   .y-detail-page-layout.page-disabled >>> input:disabled +* ,
   .y-detail-page-layout.page-disabled >>>.el-input__suffix,
   .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-toolbarbox,
-  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-bottomContainer,
-  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor{
+  .y-detail-page-layout.page-disabled >>>.edui-default .edui-editor-bottomContainer{
     display: none;
   }
 </style>
