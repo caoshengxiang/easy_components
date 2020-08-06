@@ -34,6 +34,9 @@
         <li v-show="rcContentMenus.indexOf('btn7')>-1" data-id="btn7" @click="resetDesign"><i
           class="el-icon-refresh"
         />&nbsp;<span>重置</span></li>
+        <li data-id="btn7" @click="openRemark"><i
+          class="el-icon-document"
+        />&nbsp;<span>流程设计说明</span></li>
       </ul>
     </e-vue-contextmenu>
     <el-dialog
@@ -73,6 +76,20 @@
     </el-dialog>
     <y-user-select :title="`请选择审批用户`" v-model="selectUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds"></y-user-select>
     <y-post-select :title="`请选择审批岗位`" v-model="selectPostUserDialogStatus" @getSelectedUser="getSelectedUser" :initSelectedUser="currentNodeForm.userIds" :multiSelect="false"></y-post-select>
+    <el-drawer
+      :class="`remark ${remarkMaxSize?'remarkMaxSize':''}`"
+      :visible.sync="remarkStatus"
+      direction="rtl"
+      :show-close="false">
+      <div slot="title" class="head">
+        <span class="title">流程设计说明</span>
+        <div class="btn">
+          <span :title="remarkMaxSize?'最小化':'最大化'" @click="remarkMaxSize = !remarkMaxSize"><i :class="remarkMaxSize?'el-icon-c-scale-to-original':'el-icon-full-screen'"></i></span>
+          <span title="关闭" @click="remarkStatus = false"><i class="el-icon-close"></i></span>
+        </div>
+      </div>
+      <div class="box" v-html="form.description"></div>
+    </el-drawer>
   </div>
 </template>
 
@@ -146,7 +163,9 @@
           nodeType:[
             { required: true, message: '请选择', trigger: 'blur' }
           ]
-        }
+        },
+        remarkStatus:false,
+        remarkMaxSize:false
       }
     },
     created(){
@@ -607,6 +626,10 @@
         }
 
         return ''
+      },
+      openRemark(){
+        this.$refs.ctxshow.hideMenu()
+        this.remarkStatus = true
       }
     }
   }
@@ -622,27 +645,84 @@
   @import "./assets/css/main.scss";
 </style>
 <style lang="scss">
-  .workflow-design #canvas {
-    .djs-label {
-      fill: #0e76a8 !important;
-      display: inherit !important;
-    }
+  .workflow-design{
+    .remark{
+      top:80px;
+      bottom: 80px;
+      &.remarkMaxSize{
+        .el-drawer{
+          width: 100% !important;
+        }
+      }
+      .el-drawer{
 
-    &.disabledUpdateText .djs-direct-editing-parent {
-      display: none;
+      }
+      .box{
+        padding: 0 15px;
+      }
+      .el-drawer__body{
+        overflow: auto;
+      }
+      .el-drawer__header{
+        color: #338FFF;
+        border-bottom: 1px solid #EDEFF5;
+        padding-bottom: 20px;
+        position: relative;
+        .head{
+          flex: none;
+          .title{
+            position: relative;
+            &:after{
+              width: 100%;
+              content: '';
+              position: absolute;
+              top: 100%;
+              margin-top: 18px;
+              left: 0;
+              height:4px;
+              background:rgba(51,143,255,1);
+              border-radius:2px;
+            }
+          }
+          .btn{
+            position: absolute;
+            top:10px;
+            right: 15px;
+            z-index: 9999;
+            span{
+              padding: 0 5px;
+              i{
+                font-size:24px;
+                font-weight: 600;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
     }
+    #canvas {
+      .djs-label {
+        fill: #0e76a8 !important;
+        display: inherit !important;
+      }
 
-    .djs-connection path {
-      stroke: #0e76a8 !important;
-    }
+      &.disabledUpdateText .djs-direct-editing-parent {
+        display: none;
+      }
 
-    defs marker path {
-      fill: #0e76a8 !important;
-      stroke: #0e76a8 !important;
-    }
+      .djs-connection path {
+        stroke: #0e76a8 !important;
+      }
 
-    .djs-palette {
-      display: none;
+      defs marker path {
+        fill: #0e76a8 !important;
+        stroke: #0e76a8 !important;
+      }
+
+      .djs-palette {
+        display: none;
+      }
     }
   }
 </style>
