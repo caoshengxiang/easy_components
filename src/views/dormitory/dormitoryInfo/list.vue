@@ -156,7 +156,7 @@
           style="padding: 0;margin-bottom: 10px;"
         >
           <excelImport
-            ref="uploadControl"
+            ref="uploadControl1"
             flag="dormitory/importExcel"
             :style-type="1"
             title="宿舍导入"

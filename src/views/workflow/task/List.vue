@@ -309,11 +309,10 @@
       },
       handleCreate(row) {
         let that = this
-        that.temp = {}
         that.dialogFormVisible = true
         that.temp = Object.assign({}, row)
         that.$nextTick(() => {
-          that.$refs['dataForm'].clearValidate()
+          that.$refs['temp'].clearValidate()
         })
       },
       getList(){

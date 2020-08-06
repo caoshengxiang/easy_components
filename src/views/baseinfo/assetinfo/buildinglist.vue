@@ -252,11 +252,11 @@
       getDepartmentList() {
         const that = this
         that.pagePara.size = 10000
-        that.$api.baseInfo.getDepartmentList({ ...that.pagePara }).then(data => {
+        that.$api.organization.simpleAll().then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
-            that.departmentList = data.data.records
+            that.departmentList = data.data
           } else {
             this.$message({
               type: 'error',

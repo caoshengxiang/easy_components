@@ -51,6 +51,8 @@
            <template slot-scope="{row}">
              <el-button type="primary"
                         size="mini" round @click="goto(row.taskId)">申请详情</el-button>
+             <el-button type="success"
+                        size="mini" round @click="taskdetail(row.taskId)">审核明细</el-button>
            </template>
          </el-table-column>
        </el-table>
@@ -82,6 +84,20 @@
        that.getList();//分页列表
      },
      methods:{
+       taskdetail(id){
+         let that =this;
+         const routeData = that.$router.resolve({
+           path: '/views/workflow/task/TaskDetail',
+           query: {
+             id: id,
+             type:1,
+             menuLevel1: this.$route.query.menuLevel1,
+             menuId: this.$route.query.menuId,
+             back: this.$route.fullPath
+           }
+         })
+         window.open(routeData.href, '_blank')
+       },
        reset(){
          this.listQuery = {}
          this.dateTime = []

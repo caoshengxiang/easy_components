@@ -41,7 +41,7 @@
         <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.formData"></base-info-building-info>
         <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-room-info>
         <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'" :detailInfo="this.formData"></base-info-training-info>
-        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.formData"></base-info-facilities-info>
+        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'" :detailInfo="this.formData"></base-info-facilities-info>
         <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.formData"></base-info-department-info>
         <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'" :detailInfo="this.formData"></base-info-course-info>
         <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'" :detailInfo="this.formData"></base-info-major-info>
@@ -66,7 +66,7 @@
         <base-info-building-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'" :detailInfo="this.originData"></base-info-building-info>
         <base-info-room-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-room-info>
         <base-info-training-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'" :detailInfo="this.originData"></base-info-training-info>
-        <base-info-facilities-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'" :detailInfo="this.originData"></base-info-facilities-info>
+        <base-info-facilities-info  v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'" :detailInfo="this.originData"></base-info-facilities-info>
         <base-info-department-info  v-if="this.form.menuNo === '_views_baseinfo_department_list'" :detailInfo="this.originData"></base-info-department-info>
         <base-info-course-info  v-if="this.form.menuNo === '_views_baseinfo_course_list'" :detailInfo="this.originData"></base-info-course-info>
         <base-info-major-info  v-if="this.form.menuNo === '_views_baseinfo_major_list'" :detailInfo="this.originData"></base-info-major-info>

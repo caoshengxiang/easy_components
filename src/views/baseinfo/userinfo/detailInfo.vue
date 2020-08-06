@@ -602,11 +602,42 @@
         areas:[]
       }
     },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     created(){
       let that = this;
       that.type = that.$route.query.type
-      that.getDetail();
+      if (that.detailInfo) {
+        that.postForm = that.detailInfo
+        let temp = []
+        if(that.postForm.provinceId){
+          temp.push(that.postForm.provinceId)
+        }
+        if(that.postForm.cityId){
+          temp.push(that.postForm.cityId)
+        }
+        if(that.postForm.countyId){
+          temp.push(that.postForm.countyId)
+        }
 
+        that.postForm.countyName = temp
+        that.editStatus = false
+      } else if (that.$route.query.id) {
+        that.id = that.$route.query.id
+        that.getDetail();
+        that.editStatus = false
+      }
       that.editStatus = false
       that.getGradeList();//赛选框年级
       that.getSpecialtyList();

@@ -33,7 +33,7 @@
         <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="getList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="pagePara = {}" size="mini">
           重置
         </el-button>
       </template>

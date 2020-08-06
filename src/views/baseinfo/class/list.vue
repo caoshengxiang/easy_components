@@ -87,6 +87,8 @@
             flag="clbum/importExcel"
             :style-type="1"
             title="导入"
+
+            @fath = "getList"
           />
         </PermissionButton>
         <PermissionButton

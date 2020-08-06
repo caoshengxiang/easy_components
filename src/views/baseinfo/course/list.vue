@@ -32,7 +32,6 @@
           size="mini"
           :page-jump="true"
 
-          @fath = "getList"
         />
         <el-input
           v-model="listQuery.code"

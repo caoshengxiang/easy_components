@@ -53,12 +53,12 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="实际容纳人数：" prop="capacity" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.capacity" class="filter-item" />
+                      <el-input v-model="postForm.capacity" type="number"  class="filter-item" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="最大排课量：" prop="courseMax" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.courseMax" class="filter-item" />
+                      <el-input v-model="postForm.courseMax" type="number"  class="filter-item" />
                     </el-form-item>
                   </el-col>
                 </el-row>
