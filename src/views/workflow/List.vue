@@ -112,7 +112,10 @@
         pageData: {},
         pagePara: {
           current: 0,
-          size: 10
+          size: 10,
+        },
+        searDataPara:{
+          descs: 'id'
         }
       }
     },
@@ -124,7 +127,7 @@
       getList() {
         const that = this
         that.loading = true
-        that.$api.workflow.getList(that.pagePara).then(res => {
+        that.$api.workflow.getList({...that.pagePara,...that.searDataPara}).then(res => {
           that.loading = false
           if (res.code === 200) {
             // 返回成功

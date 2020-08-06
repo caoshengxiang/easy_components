@@ -9,8 +9,10 @@
       <template v-else>
         <PermissionButton v-if="menuNo" type="primary" round @click="save" :menu-no="menuNo" name="保存"></PermissionButton>
         <el-button v-else type="primary" round @click="save">保存</el-button>
-        <PermissionButton v-if="menuNo" type="info" round @click="isEdit = false" :menu-no="menuNo" name="取消"></PermissionButton>
-        <el-button v-if="!editStatus" type="info" round @click="isEdit = false">取消</el-button>
+        <PermissionButton v-if="menuNo && !editStatus" type="info" round @click="isEdit = false" :menu-no="menuNo" name="取消"></PermissionButton>
+        <template v-else>
+          <el-button v-if="!editStatus" type="info" round @click="isEdit = false">取消</el-button>
+        </template>
       </template>
     </div>
   </div>
@@ -80,7 +82,7 @@
       },
       addFormPageClick(){
         const that = this;
-        const formObj = document.querySelectorAll('.y-detail-page-layout .y-page-content')
+        const formObj = document.querySelectorAll('.y-detail-page-layout .y-page-content .el-tab-pane')
         if (formObj && formObj.length > 0)
           formObj.forEach(function (obj) {
             obj.addEventListener('click', that.formPageClick, true)
