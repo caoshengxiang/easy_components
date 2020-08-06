@@ -17,6 +17,7 @@ export function filterAsyncRoutes(menusData) {
   const res = [{
     path: '/auth',
     component: Layout,
+    meta: {},
     children: []
   }]
 
@@ -39,9 +40,9 @@ export function filterAsyncRoutes(menusData) {
             component: urlMap[tmp.menuCode],
             meta: {
               title: tmp.name,
-              icon: tmp.icon,
+              icon: tmp.pcIcon,
               noCache: tmp.cachedViews,
-              id: tmp.id
+              ...tmp
             }
           })
         } else {
@@ -53,7 +54,7 @@ export function filterAsyncRoutes(menusData) {
               title: tmp.name,
               icon: tmp.icon,
               noCache: tmp.cachedViews,
-              id: tmp.id
+              ...tmp
             }
           })
         }
@@ -68,7 +69,8 @@ export function filterAsyncRoutes(menusData) {
 const state = {
   routes: [],
   addRoutes: [],
-  menus: []
+  menus: [],
+  menusLevelList: []
 }
 
 const mutations = {
@@ -78,6 +80,9 @@ const mutations = {
   },
   SET_MENUS: (state, data) => {
     state.menus = data
+  },
+  SET_LELLIST: (state, data) => {
+    state.menusLevelList = data
   }
 }
 
@@ -88,6 +93,13 @@ const actions = {
       commit('SET_ROUTES', accessedRoutes)
       commit('SET_MENUS', menusData)
       resolve(accessedRoutes)
+    })
+  },
+  menusLevelList({ commit }, list) {
+    // console.info(list, 'action')
+    return new Promise(resolve => {
+      commit('SET_LELLIST', list)
+      resolve(resolve)
     })
   }
 }

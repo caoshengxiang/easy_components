@@ -21,17 +21,25 @@
     data() {
       return {
         activeIndex: '',
-        menuLevel1: null,
-        menuId: null,
-        menus: [],
+        // menuLevel1: null,
+        // menuId: null,
+        // menus: [],
         currentMenus: [],
-        timer: null,
+        // timer: null,
       }
     },
     computed: {
       ...mapGetters([
-        'permission_menus',
+        // 'permission_menus',
+        'permission_menusLevelList',
       ]),
+      // hasData() {
+      //   if (this.permission_menus.length && this.permission_menusLevelList.length) {
+      //     return true
+      //   } else {
+      //     return false
+      //   }
+      // }
     },
     watch: {
       '$route': {
@@ -42,57 +50,55 @@
           if (this.$route.path === '/home/index') {
             //
           } else {
-            this.menuLevel1 = this.$route.query.menuLevel1
-            this.menuId = this.$route.query.menuId
+            this.menuLevel1 = this.permission_menusLevelList[0].id
+            this.menuId = this.$route.meta.id
             this.activeIndex = 'id' + this.menuId
-            // this.timer = setInterval(() => {
-            //   console.log(1)
-            //   if (this.permission_menus && this.permission_menus.length) {
-            //     clearInterval(this.timer)
-            //     this.getCurrentMenu(this.permission_menus)
-            //   }
-            // }, 200)
-            this.getCurrentMenu(this.permission_menus)
           }
         }
       },
-      permission_menus: {
+      permission_menusLevelList: {
         immediate: true, // immediate选项可以开启首次赋值监听
         deep: true,
         handler(newv) {
-          this.menus = newv
-          this.currentMenus = []
-          this.getCurrentMenu(this.menus)
+          // this.menus = newv
+          // this.currentMenus = []
+          // this.getCurrentMenu(this.menus)
+          console.log(newv, 'sidebarindex')
+          if (newv.length){
+            this.currentMenus = newv[0].meta.children
+            this.activeIndex = 'id' + this.$route.meta.id
+          }
         }
       }
     },
     created() {
-      this.menuLevel1 = this.$route.query.menuLevel1
-      this.activeIndex = 'id' + this.menuId
-      this.currentMenus = []
-      this.getCurrentMenu(this.menus)
+      // this.menuLevel1 = this.permission_menusLevelList[0].id
+      this.activeIndex = 'id' + this.$route.meta.id
+      // this.currentMenus = []
+      // this.getCurrentMenu(this.menus)
     },
     methods: {
       initData() {
-        this.activeIndex = ''
-        this.menuLevel1 = null
-        this.menuId = null
-        this.menus = []
-        this.currentMenus = []
+        // this.activeIndex = ''
+        // this.menuLevel1 = null
+        // this.menuId = null
+        // this.menus = []
+        // this.currentMenus = []
       },
       getCurrentMenu(menus) {
-        console.log(menus)
-        menus = menus || []
-        menus.forEach(item => {
-          if (parseInt(item.id, 10) === parseInt(this.$route.query.menuLevel1, 10)) {
-            this.currentMenus = item.children
-          }
-          // else {
-          //   if (item.children && item.children.length && item.menuType === '目录') {
-          //     this.getCurrentMenu(item.children)
-          //   }
-          // }
-        })
+        // console.log(menus)
+        // menus = menus || []
+        // menus.forEach(item => {
+        //   if (parseInt(item.id, 10) === parseInt(this.permission_menusLevelList[0].id, 10)) {
+        //     this.currentMenus = item.children
+        //   }
+        //   // else {
+        //   //   if (item.children && item.children.length && item.menuType === '目录') {
+        //   //     this.getCurrentMenu(item.children)
+        //   //   }
+        //   // }
+        // })
+        this.currentMenus = this.permission_menusLevelList[0].children
       },
       handleSelect(url) {
         this.$router.push(url)

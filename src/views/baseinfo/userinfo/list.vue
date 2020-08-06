@@ -526,8 +526,8 @@
           query: {
             id: id,
             type: 'detail',
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
           }
         })
       },

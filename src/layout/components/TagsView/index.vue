@@ -52,7 +52,7 @@ export default {
     $route() {
       this.addTags()
       this.moveToCurrentTag()
-      console.log('tagsView route 改变监听器')
+      // console.log('tagsView route 改变监听器')
     },
     visible(value) {
       if (value) {

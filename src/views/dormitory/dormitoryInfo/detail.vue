@@ -198,10 +198,10 @@
                   })
                  that.$router.push({
                    path: '/views/dormitory/dormitoryInfo/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1,
-                      menuId: this.$route.query.menuId,
-                    }
+                    // query: {
+                    //   menuLevel1: this.$route.query.menuLevel1,
+                    //   menuId: this.$route.query.menuId,
+                    // }
                   })
 
                 } else {
@@ -225,10 +225,10 @@
                   })
                   that.$router.push({
                     path: '/views/dormitory/dormitoryInfo/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1,
-                      menuId: this.$route.query.menuId,
-                    }
+                    // query: {
+                    //   menuLevel1: this.$route.query.menuLevel1,
+                    //   menuId: this.$route.query.menuId,
+                    // }
                   })
                 } else {
                   this.$message({

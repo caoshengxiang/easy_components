@@ -1,5 +1,5 @@
 <template>
-  <el-submenu v-if="menu.menuType === '目录'" :index="menu.id + ''">
+  <el-submenu v-if="menu.menuType === '目录'" :index="'id'+menu.id">
     <template slot="title">
       <i
         :class="iconName"
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'MenuTree',
     props: {
@@ -29,13 +31,14 @@
     },
     data() {
       return {
-        menuId: this.$route.query.menuId || '',
+        menuId: this.$route.meta.id || '',
         iconName: ''
       }
     },
-    created() {
-      // eslint-disable-next-line eqeqeq
-      this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.menuId == this.menu.id ? '' : '1')
+    computed: {
+      ...mapGetters([
+        'permission_menusLevelList',
+      ]),
     },
     watch: {
       '$route': {
@@ -43,9 +46,13 @@
         immediate: true,
         handler() {
           // eslint-disable-next-line eqeqeq
-          this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.$route.query.menuId == this.menu.id ? '' : '1')
+          this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.$route.meta.id == this.menu.id ? '' : '1')
         }
       }
+    },
+    created() {
+      // eslint-disable-next-line eqeqeq
+      this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.menuId == this.menu.id ? '' : '1')
     },
     methods: {
       handleRoute(menu) {
@@ -57,8 +64,8 @@
           this.$router.push({
             path: menu.pcUrl,
             query: {
-              menuLevel1: this.$route.query.menuLevel1,
-              menuId: menu.id,
+              // menuLevel1: this.$route.query.menuLevel1,
+              // menuId: menu.id,
             }
           })
         }

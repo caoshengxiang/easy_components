@@ -10,6 +10,52 @@ import getPageTitle from '@/utils/get-page-title'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/auth-redirect', '/404', '/401'] // no redirect whitelist
+export function getList(tree) {
+  const list = []
+
+  function treeMap(data) {
+    data.forEach(item => {
+      list.push(item)
+      if (item.children && item.children.length > 0) {
+        treeMap(item.children)
+      }
+    })
+  }
+
+  treeMap(tree)
+  return list
+}
+
+export function getBreadcrumb(treeListData, menuId) {
+  // 计算父级
+  let matched = []
+
+  function getMatched(list, menuId) {
+    list.forEach(item => {
+      // eslint-disable-next-line eqeqeq
+      if (menuId == item.id) {
+        matched.unshift({
+          // path: item.pcUrl?`${item.pcUrl}?menuLevel1=${this.$route.query.menuLevel1}&menuId=${item.id}`:'',
+          meta: {
+            title: item.name,
+            icon: item.pcIcon,
+            noCache: item.cachedViews,
+            ...item
+          }
+        })
+        if (item.parentId) {
+          // console.info(item, item.parentId)
+          getMatched(list, item.parentId)
+        }
+      }
+    })
+  }
+
+  // console.log(treeListData, 'getter 路由数据')
+  getMatched(treeListData, menuId)
+  // console.log(matched, menuId, '菜单路径数组')
+  return matched
+}
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -31,7 +77,11 @@ router.beforeEach(async (to, from, next) => {
     } else { // 判断vuex存储的权限路由是否存在，否则重新获取用户信息，计算路由。（user都存于vuex，刷新自然会重新获取用户信息。页面获取用户信息可通过getter获取）
       /**/
       if (store.getters.userInfo && store.getters.permission_routes && store.getters.permission_routes.length > 0) {
-      // if (store.getters.permission_routes && store.getters.permission_routes.length > 0) {
+        // 计算下菜单路径
+        let menuId = to.meta && to.meta.id
+        if (menuId && store.getters.permission_menus) {
+          await store.dispatch('permission/menusLevelList', getBreadcrumb(getList(store.getters.permission_menus), menuId))
+        }
         next()
       } else {
         const { name, postList } = await store.dispatch('user/userInfo')

@@ -377,8 +377,8 @@
           query: {
             id:id,
             managerName: managerName,
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
           }
         })
         window.open(routeData.href, '_blank')
@@ -389,8 +389,8 @@
           path: '/views/dormitory/dormitoryInfo/detail',
           query: {
             id:id,
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
           }
         })
         window.open(routeData.href, '_blank')
@@ -400,8 +400,8 @@
         const routeData = that.$router.resolve({
           path: '/views/dormitory/dormitoryInfo/detail',
           query: {
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           },
         })
@@ -413,8 +413,8 @@
           path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
           query: {
             id: id,
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })

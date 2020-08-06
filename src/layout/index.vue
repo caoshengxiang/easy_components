@@ -21,7 +21,7 @@
     <div style="padding-top: 60px;display: flex;">
       <el-scrollbar class="scrollbar-wrapper">
         <sidebar class="side-bar" :class="{'side-bar-close': !sideBarStatus, 'side-bar-open': sideBarStatus }" />
-        <span v-if="$route.query.menuId">
+        <span v-if="$route.meta.id">
           <img
             v-if="sideBarStatus"
             style="position: fixed; left: 185px;top: 50%;width: 15px;z-index: 999;cursor: pointer;"
@@ -48,7 +48,7 @@
 
 <script>
   import { AppMain, Navbar, Sidebar, TagsView } from './components'
-  import { mapState } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   import level1 from './components/Sidebar/level1'
   import $ from 'jquery'
   import drawer from './components/drawer'
@@ -74,7 +74,7 @@
         deep: true,
         immediate: true,
         handler() {
-          if (!this.$route.query.menuId) {
+          if (!this.$route.meta) {
             this.sideBarStatus = false
           }
         }

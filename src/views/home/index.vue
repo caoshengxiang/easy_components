@@ -94,8 +94,8 @@
             this.$router.push({
               path: jumpItem.pcUrl,
               query: {
-                menuLevel1: this.activeItem.id,
-                menuId: jumpItem.id
+                // menuLevel1: this.activeItem.id,
+                // menuId: jumpItem.id
               }
             })
           }

@@ -167,8 +167,8 @@
     methods: {
       handle() {
         const qy = {
-          menuLevel1: this.$route.query.menuLevel1,
-          menuId: this.$route.query.menuid,
+          // menuLevel1: this.$route.query.menuLevel1,
+          // menuId: this.$route.query.menuid,
           back: this.$route.fullPath
         }
         if (this.pageJump) {

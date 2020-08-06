@@ -8,5 +8,6 @@ const getters = {
   userInfo: state => state.user.userInfo,
   permission_routes: state => state.permission.routes,
   permission_menus: state => state.permission.menus || [],
+  permission_menusLevelList: state => state.permission.menusLevelList || [],
 }
 export default getters

@@ -67,7 +67,7 @@ service.interceptors.response.use(
         type: 'success',
         closeOnClickModal: false
       }).then(() => {
-        $router.push('/views/workflow/task/MyTaskList?menuLevel1=10008&menuId=10159')
+        $router.push('/views/workflow/task/MyTaskList')
       }).catch(() => {
         if (obj.back) {
           // console.log(obj.back)
