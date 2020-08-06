@@ -15,6 +15,7 @@
           type="primary"
           icon="el-icon-plus"
           name=""
+          size="mini"
           :page-jump="true"
           round
         />
@@ -86,10 +87,11 @@
           type="primary"
           @click="searchList"
           round
+          size="mini"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
           重置
         </el-button>
       </template>

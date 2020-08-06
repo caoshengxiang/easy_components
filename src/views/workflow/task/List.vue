@@ -22,7 +22,7 @@
           搜索
         </el-button>
 
-        <el-button class="filter-item" round type="warning" @click="reset()">
+        <el-button class="filter-item" round type="warning" @click="reset()" size="mini">
           重置
         </el-button>
       </template>
