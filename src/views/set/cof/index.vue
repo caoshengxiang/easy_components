@@ -237,6 +237,7 @@
         param.append('file', file, file.name)
         this.$api.common.upload(param).then((res) => {
           this.postForm[key]['value'] = res.data.url
+          // this.postForm[key]['value'] = res.data.fileName
         })
         return false
       }
