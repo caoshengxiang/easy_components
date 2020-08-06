@@ -21,6 +21,9 @@
         <el-button class="filter-item" style="margin-left: 20px" size="mini"  round type="primary" @click="searchList">
           搜索
         </el-button>
+        <el-button class="filter-item" :disabled="this.multipleSelection.length == 0"  style="margin-left: 20px" size="mini"  round type="success" @click="batchAuditVi">
+          批量审核
+        </el-button>
 
         <el-button class="filter-item" round type="warning" @click="reset()" size="mini">
           重置
@@ -33,14 +36,19 @@
         v-loading="loading"
         :data="pageData.records"
         fit
+        ref="multipleTable"
         highlight-current-row
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
         :header-row-style ="{backgroundColor:'#42b983'}"
-
+        @selection-change="handleSelectionChange"
         slot="table"
       >
+        <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
         <el-table-column label="标题" prop="processName" align="center">
-      </el-table-column>
+        </el-table-column>
         <el-table-column label="节点名" prop="taskName" align="center">
         </el-table-column>
         <el-table-column label="申请人" prop="startName"  align="center">
@@ -83,6 +91,31 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <el-dialog :title="batchAudit == 0?'审核':'批量审核'" :visible.sync="dialogFormVisible"
+               v-loading="loading1">
+      <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
+        <el-form-item label="审核结果："  prop="type" >
+          <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+            <el-option key="1" label="通过" value="1"  />
+            <el-option key="2" label="拒绝" value="2"  />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="审核意见：" prop="msg" >
+          <el-input type="textarea"  v-model="temp.msg"  class="filter-item"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align: center" >
+        <el-button @click="cancleAudit"
+                   size="mini" style="border-radius:15px;" >
+          取消
+        </el-button>
+        <el-button type="primary" @click="auditData()"
+                   size="mini" style="border-radius:15px;" >
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -111,7 +144,9 @@
         rules: {
           type: [{required: true, message: '请选择是否通过', trigger: 'change'}],
           msg: [{required: true, message: '请输入审核意见', trigger: 'change'}],
-        }
+        },
+        multipleSelection:[],
+        batchAudit: 0
       }
     },
     created(){
@@ -119,6 +154,18 @@
       that.getList();//分页列表
     },
     methods:{
+      batchAuditVi(){
+        this.dialogFormVisible = true
+        this.batchAudit  =1;
+      },
+      cancleAudit(){
+        this.dialogFormVisible = false
+        this.batchAudit  = 0;
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+
+      },
       reset(){
         this.listQuery = {}
         this.dateTime = []
@@ -170,8 +217,56 @@
         that.$refs.temp.validate(valid => {
           if (valid) {
             that.loading1 = true
+
+            if(this.batchAudit  == 0){
+              if (that.temp.type == 1) {
+                that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+                  that.loading1 = false
+                  if (res.code === 200) {
+                    that.$message({
+                      type: 'success',
+                      message: "操作成功"
+                    })
+                    that.dialogFormVisible = false
+                    this.batchAudit  = 0;
+                    that.getList()
+                  } else {
+                    that.$message({
+                      type: 'error',
+                      message: data.msg
+                    })
+                  }
+                })
+              } else {
+                that.$api.task.refuse({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+                  that.loading1 = false
+                  if (res.code === 200) {
+                    that.$message({
+                      type: 'success',
+                      message: "操作成功"
+                    })
+                    that.dialogFormVisible = false
+                    this.batchAudit  = 0;
+                    that.getList()
+                  } else {
+                    that.$message({
+                      type: 'error',
+                      message: data.msg
+                    })
+                  }
+                })
+              }
+            }
+          }else
+          {
+            let temp = []
+            //批量审核或者拒绝
+            this.multipleSelection.forEach(function (item) {
+              temp.push({taskId:item.taskId,msg:that.temp.msg})
+            })
+
             if (that.temp.type == 1) {
-              that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+              that.$api.task.batchAgree({...temp}).then(res => {
                 that.loading1 = false
                 if (res.code === 200) {
                   that.$message({
@@ -179,6 +274,7 @@
                     message: "操作成功"
                   })
                   that.dialogFormVisible = false
+                  this.batchAudit  = 0;
                   that.getList()
                 } else {
                   that.$message({
@@ -188,7 +284,7 @@
                 }
               })
             } else {
-              that.$api.task.refuse({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
+              that.$api.task.batchRefuse({...temp}).then(res => {
                 that.loading1 = false
                 if (res.code === 200) {
                   that.$message({
@@ -196,6 +292,7 @@
                     message: "操作成功"
                   })
                   that.dialogFormVisible = false
+                  this.batchAudit  = 0;
                   that.getList()
                 } else {
                   that.$message({

@@ -32,4 +32,11 @@ export default {
   getProcessNew(params) {
     return request.get('approval/task/process/' +  params)
   },
+
+  batchAgree(params) {
+    return request.post(`approval/task/batch/agree`, params)
+  },
+  batchRefuse(params) {
+    return request.post(`/approval/task/batch/agree`, params)
+  },
 }
