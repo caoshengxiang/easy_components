@@ -133,10 +133,10 @@
       >
         <excelImport
           ref="uploadControl"
-          :limit="1"
           flag="dormitoryBed/importExcel"
           :style-type="1"
           title="人员导入"
+          @fath = "getList"
         />
       </PermissionButton>
         <PermissionButton
@@ -157,10 +157,10 @@
         >
           <excelImport
             ref="uploadControl"
-            :limit="1"
             flag="dormitory/importExcel"
             :style-type="1"
             title="宿舍导入"
+            @fath = "getList"
           />
         </PermissionButton>
     </template>

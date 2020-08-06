@@ -7,7 +7,6 @@
       :show-file-list="false"
       :on-success="handleImageSuccess"
       :before-upload="beforeImageUpload"
-      :limit="limit"
       :headers="myHeaders"
       :title="title"
       ref="uploadCtl"
@@ -36,12 +35,6 @@
     },
     //接收参数
     props:{
-      //最大上传数量 默认1
-      limit:{
-        type:Number,
-        required:false,
-        default:1
-      },
       //初始化文件列表 默认为空
       fileList:{
         type:String,
@@ -97,7 +90,8 @@
             type: 'success',
             duration: 2000
           })
-          window.location.reload();
+          this.$parent.getList();
+          this.$emit('getList')
         }
         else{
           this.$notify({
@@ -106,6 +100,7 @@
             type: 'error',
             duration: 2000
           })
+          this.$emit('fath');
         }
       },
       handleImagefail(res, file)

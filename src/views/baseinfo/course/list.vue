@@ -31,6 +31,8 @@
           name=""
           size="mini"
           :page-jump="true"
+
+          @fath = "getList"
         />
         <el-input
           v-model="listQuery.code"
@@ -87,6 +89,7 @@
             flag="/course/importExcel"
             :style-type="1"
             title="课程导入"
+            @fath = "getList"
           />
         </PermissionButton>
       </template>
