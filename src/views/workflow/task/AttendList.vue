@@ -17,7 +17,7 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期">
         </el-date-picker>
-        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
+        <el-button class="filter-item" size="mini"  style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
 

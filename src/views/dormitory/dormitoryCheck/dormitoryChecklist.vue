@@ -47,7 +47,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="内务考核" prop="id" sortable="custom" align="center">
+      <el-table-column label="内务考核" prop="id"  align="center">
         <template slot-scope="{row}">
             <span  class="link-type">
           <router-link tag="a" :to="{path:'/dormitory/checkRecord',query:{id: row.id}}"
@@ -56,7 +56,7 @@
             </span>
         </template>
       </el-table-column>
-      <el-table-column label="纪律考核" prop="id" sortable="custom" align="center">
+      <el-table-column label="纪律考核" prop="id"  align="center">
         <template slot-scope="{row}">
           <span  class="link-type">
           <router-link tag="a" :to="{path:'/dormitory/dormitoryCheckRecord',query:{id: row.id}}"

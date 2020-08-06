@@ -87,7 +87,7 @@
         highlight-current-row
         style="width: 100%;"
       >
-        <el-table-column label="土地产权" prop="id" sortable="custom" align="center">
+        <el-table-column label="土地产权" prop="id"  align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.property }}

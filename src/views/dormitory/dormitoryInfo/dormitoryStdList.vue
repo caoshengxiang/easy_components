@@ -21,7 +21,7 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="床位号" prop="bedNo" sortable="custom" align="center" width="150">
+        <el-table-column label="床位号" prop="bedNo"  align="center" width="150">
           <template slot-scope="{row}">
           {{ row.bedNo }}
           </template>

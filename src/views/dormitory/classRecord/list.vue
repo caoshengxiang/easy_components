@@ -47,7 +47,7 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="年份" prop="id" sortable="custom" align="center" width="150">
+      <el-table-column label="年份" prop="id"  align="center" width="150">
         <template slot-scope="{row}">
           <span  >
                                               {{ row.id }}
