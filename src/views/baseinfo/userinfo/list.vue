@@ -176,7 +176,7 @@
         style="width:99%;margin-left: 10px"
         :header-cell-style="{backgroundColor:'#EFF1F6'}"
       >
-        <el-table-column label="学号" prop="id" sortable="custom" align="center" width="200px">
+        <el-table-column label="学号" prop="id"  align="center" width="200px">
           <template slot-scope="{row}">
             <span>
               {{ row.studyCode }}

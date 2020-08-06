@@ -21,7 +21,6 @@
   }
 
 }
-
 .el-table th.gutter{
   display: table-cell!important;
 }

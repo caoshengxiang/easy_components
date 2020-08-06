@@ -29,6 +29,7 @@
           type="primary"
           icon="el-icon-plus"
           name=""
+          size="mini"
           :page-jump="true"
         />
         <el-input
@@ -55,7 +56,8 @@
           <el-option key="1" label="语文组" value="1" />
           <el-option key="2" label="数学组" value="2" />
         </el-select>
-        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
+                   size="mini">
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
@@ -96,7 +98,7 @@
         highlight-current-row
         style="width: 100%;"
       >
-        <el-table-column label="课程编号" prop="id" sortable="custom" align="center">
+        <el-table-column label="课程编号" prop="id"  align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.code }}

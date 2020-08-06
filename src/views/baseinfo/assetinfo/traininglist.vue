@@ -69,7 +69,7 @@
         style="width: 100%;"
       >
 
-        <el-table-column label="实训室名称" prop="id" sortable="custom" align="center">
+        <el-table-column label="实训室名称" prop="id"  align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.name }}

@@ -103,7 +103,8 @@
           style="margin-left:10px;width: 200px;"
           class="filter-item"
         />
-        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
+                   size="mini">
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
@@ -172,7 +173,7 @@
         style="width: 100%;"
         slot="table"
       >
-        <el-table-column label="宿舍编号" prop="id" sortable="custom" align="center">
+        <el-table-column label="宿舍编号" prop="id"  align="center">
           <template slot-scope="{row}">
             {{ row.code }}
           </template>
