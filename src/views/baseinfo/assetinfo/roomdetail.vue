@@ -114,7 +114,11 @@
                   </el-col>
                 </el-row>
                 <el-row>
-
+                  <el-col :span="8">
+                    <el-form-item label="教室地址：" prop="address" label-width="120px" class="postInfo-container-item">
+                      <el-input v-model="postForm.address" type="textarea" class="filter-item" />
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.cameraAddr" class="filter-item" />
@@ -228,6 +232,11 @@
           ifAvailable: [{
             required: true,
             message: '请填写最大排课量',
+            trigger: 'change'
+          }],
+          address:[{
+            required: true,
+            message: '请填写教室地址',
             trigger: 'change'
           }],
         },

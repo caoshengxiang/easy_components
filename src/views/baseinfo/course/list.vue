@@ -87,6 +87,7 @@
             flag="/course/importExcel"
             :style-type="1"
             title="课程导入"
+            @fath = "getList"
           />
         </PermissionButton>
       </template>

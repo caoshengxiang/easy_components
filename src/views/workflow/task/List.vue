@@ -217,7 +217,6 @@
         that.$refs.temp.validate(valid => {
           if (valid) {
             that.loading1 = true
-
             if(this.batchAudit  == 0){
               if (that.temp.type == 1) {
                 that.$api.task.agree({id: that.temp.taskId, msg: that.temp.msg}).then(res => {
@@ -257,50 +256,52 @@
                 })
               }
             }
-          }else
-          {
-            let temp = []
-            //批量审核或者拒绝
-            this.multipleSelection.forEach(function (item) {
-              temp.push({taskId:item.taskId,msg:that.temp.msg})
-            })
+            else
+            {
+              let temp = []
+              //批量审核或者拒绝
+              this.multipleSelection.forEach(function (item) {
 
-            if (that.temp.type == 1) {
-              that.$api.task.batchAgree({...temp}).then(res => {
-                that.loading1 = false
-                if (res.code === 200) {
-                  that.$message({
-                    type: 'success',
-                    message: "操作成功"
-                  })
-                  that.dialogFormVisible = false
-                  this.batchAudit  = 0;
-                  that.getList()
-                } else {
-                  that.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
-                }
+                temp.push({taskId:item.taskId,msg:that.temp.msg})
               })
-            } else {
-              that.$api.task.batchRefuse({...temp}).then(res => {
-                that.loading1 = false
-                if (res.code === 200) {
-                  that.$message({
-                    type: 'success',
-                    message: "操作成功"
-                  })
-                  that.dialogFormVisible = false
-                  this.batchAudit  = 0;
-                  that.getList()
-                } else {
-                  that.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
-                }
-              })
+
+              if (that.temp.type == 1) {
+                that.$api.task.batchAgree({...temp}).then(res => {
+                  that.loading1 = false
+                  if (res.code === 200) {
+                    that.$message({
+                      type: 'success',
+                      message: "操作成功"
+                    })
+                    that.dialogFormVisible = false
+                    this.batchAudit  = 0;
+                    that.getList()
+                  } else {
+                    that.$message({
+                      type: 'error',
+                      message: data.msg
+                    })
+                  }
+                })
+              } else {
+                that.$api.task.batchRefuse({...temp}).then(res => {
+                  that.loading1 = false
+                  if (res.code === 200) {
+                    that.$message({
+                      type: 'success',
+                      message: "操作成功"
+                    })
+                    that.dialogFormVisible = false
+                    this.batchAudit  = 0;
+                    that.getList()
+                  } else {
+                    that.$message({
+                      type: 'error',
+                      message: data.msg
+                    })
+                  }
+                })
+              }
             }
           }
         })

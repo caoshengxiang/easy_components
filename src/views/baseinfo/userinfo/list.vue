@@ -123,10 +123,10 @@
         >
           <excelImport
             ref="uploadControl"
-            :limit="1"
             flag="student/importExcel"
             :style-type="1"
             title="更新学生信息"
+            @fath = "getList"
           />
         </PermissionButton>
 
@@ -145,13 +145,14 @@
           round
           name="更新学籍号"
           style="padding: 0;margin-bottom: 10px;"
+
         >
           <excelImport
             ref="uploadControl"
-            :limit="1"
             flag="/student/importCodeExcel"
             :style-type="1"
             title="更新学籍号"
+            @fath = "getList"
           />
         </PermissionButton>
         <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" @click="handleDownload">-->
