@@ -40,7 +40,19 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    }
+    },
+    proxy: {
+      '/api': {
+        target: 'http://119.27.160.97:8530',
+        changeOrigin: true,
+        pathRewrite: {}
+      },
+      '/dfs': {
+        target: 'http://119.27.160.97:8531',
+        changeOrigin: true,
+        pathRewrite: {}
+      }
+    },
     // before: require('./mock/mock-server.js')
   },
   configureWebpack: config => {
@@ -183,11 +195,11 @@ module.exports = {
 /* 这里是我们自己修改的模板样式，webpack，会自动生成一个sprite.css的样式，有时候生成的不满意，
 我们可以在这里修改，可以自己打印一下 data里面的参数，看着就会大概明白（先看下面的配置，最后看这个模板）
 */
-var templateFunction = function(data) {
+var templateFunction = function (data) {
   var shared = '.easy-icon { background-image: url(I);background-size: Wpx Hpx;display: inline-block;}'.replace('I', data.sprites[0].image).replace('W', data.spritesheet.width)
     .replace('H', data.spritesheet.height)
 
-  var perSprite = data.sprites.map(function(sprite) {
+  var perSprite = data.sprites.map(function (sprite) {
     return '.easy-icon-N { width: Wpx; height: Hpx; background-position: Xpx Ypx; }'
       .replace('N', sprite.name)
       .replace('W', sprite.width)
