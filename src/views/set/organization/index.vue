@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container organization-index">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
@@ -45,17 +45,17 @@
           round
           @click="handleAdd"
         />
-<!--        <el-input-->
-<!--          v-model="listQuery.name"-->
-<!--          clearable-->
-<!--          placeholder="部门名称"-->
-<!--          prefix-icon="el-icon-search"-->
-<!--          style="margin-left: 20px;width: 200px;"-->
-<!--          class="filter-item"-->
-<!--        />-->
-<!--        <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">-->
-<!--          搜索-->
-<!--        </el-button>-->
+        <!--        <el-input-->
+        <!--          v-model="listQuery.name"-->
+        <!--          clearable-->
+        <!--          placeholder="部门名称"-->
+        <!--          prefix-icon="el-icon-search"-->
+        <!--          style="margin-left: 20px;width: 200px;"-->
+        <!--          class="filter-item"-->
+        <!--        />-->
+        <!--        <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">-->
+        <!--          搜索-->
+        <!--        </el-button>-->
       </template>
       <template slot="right">
 
@@ -392,5 +392,13 @@
     }
   }
 </script>
+<style lang="scss">
+  .oraganization-index {
+    .el-table [class*=el-table__row--level] .el-table__expand-icon {
+      position: relative;
+      left: -20px;
+    }
+  }
+</style>
 <style scoped lang="scss">
 </style>
