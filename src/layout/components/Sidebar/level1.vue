@@ -52,7 +52,7 @@
           if (newv && newv.length && !this.activeIndex) {
             this.activeItem = newv[0]
             this.activeIndex = 'id' + this.activeItem.id
-            this.jumpMenu(this.activeItem)
+            // this.jumpMenu(this.activeItem)
           }
         }
       }

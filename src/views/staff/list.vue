@@ -91,7 +91,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="resetSearch()" size="mini">
           重置
         </el-button>
       </template>
@@ -277,6 +277,13 @@
       that.getList()
     },
     methods: {
+      resetSearch() {
+        this.listQuery = {
+          current: 1,
+          size: 10,
+          descs: 'id'
+        }
+      },
       exportFile() {
         this.$api.staff.download()
       },

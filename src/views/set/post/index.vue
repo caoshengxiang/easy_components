@@ -37,7 +37,7 @@
         <el-button style="margin-left: 20px;" class="filter-item" type="primary" round @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="resetSearch()" size="mini">
           重置
         </el-button>
       </template>
@@ -251,6 +251,13 @@
       this.getList()
     },
     methods: {
+      resetSearch() {
+        this.listQuery = {
+          current: 1,
+            size: 10,
+            descs: 'id'
+        }
+      },
       resetTemp() {
         this.temp = {
           code: '',

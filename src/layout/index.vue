@@ -48,7 +48,7 @@
 
 <script>
   import { AppMain, Navbar, Sidebar, TagsView } from './components'
-  import { mapState } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   import level1 from './components/Sidebar/level1'
   import $ from 'jquery'
   import drawer from './components/drawer'

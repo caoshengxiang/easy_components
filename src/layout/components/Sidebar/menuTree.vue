@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'MenuTree',
     props: {
@@ -33,9 +35,10 @@
         iconName: ''
       }
     },
-    created() {
-      // eslint-disable-next-line eqeqeq
-      this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.menuId == this.menu.id ? '' : '1')
+    computed: {
+      ...mapGetters([
+        'permission_menusLevelList',
+      ]),
     },
     watch: {
       '$route': {
@@ -46,6 +49,10 @@
           this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.$route.meta.id == this.menu.id ? '' : '1')
         }
       }
+    },
+    created() {
+      // eslint-disable-next-line eqeqeq
+      this.iconName = 'menu-sprites ' + this.menu.pcIcon + (this.menuId == this.menu.id ? '' : '1')
     },
     methods: {
       handleRoute(menu) {
