@@ -57,7 +57,8 @@
     },
     computed: {
       ...mapGetters([
-        'userInfo'
+        'userInfo',
+
       ])
     },
     created() {

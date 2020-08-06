@@ -1,12 +1,12 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator=">">
     <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item,index) in levelList" :key="index">
+      <el-breadcrumb-item v-for="(item,index) in permission_menusLevelList" :key="index">
         <!--        <span v-if="item.redirect==='noRedirect'||index==levelList.length-1"-->
         <!--              class="no-redirect">{{ item.meta.title }}</span>-->
         <!--        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>-->
         <span
-          v-if="index === levelList.length - 1"
+          v-if="index === permission_menusLevelList.length - 1"
           class="no-redirect"
           style="color:#338FFF"
         >{{ item.meta.title }}</span>
@@ -23,87 +23,12 @@
   export default {
     data() {
       return {
-        levelList: null,
-        treeListData: [],
       }
     },
     computed: {
-      ...mapGetters(['permission_menus'])
-    },
-    watch: {
-      // $route(route) {
-      //   // if you go to the redirect page, do not update the breadcrumbs
-      //   if (route.path.startsWith('/redirect/')) {
-      //     return
-      //   }
-      //   this.getBreadcrumb()
-      // },
-      permission_menus: {
-        immediate: true, // immediate选项可以开启首次赋值监听
-        deep: true,
-        handler(newv) {
-          if (newv && newv.length) {
-            this.getList(newv)
-            this.getBreadcrumb()
-          }
-        }
-      }
-    },
-    created() {
-      this.getBreadcrumb()
+      ...mapGetters(['permission_menusLevelList'])
     },
     methods: {
-      getList(tree) {
-        const list = []
-
-        function treeMap(data) {
-          data.forEach(item => {
-            list.push(item)
-            if (item.children && item.children.length > 0) {
-              treeMap(item.children)
-            }
-          })
-        }
-
-        treeMap(tree)
-        this.treeListData = list
-      },
-      getBreadcrumb() {
-        // only show routes with meta.title
-        // let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-        // const first = matched[0]
-        // // if (!this.isDashboard(first)) {
-        // //   matched = [{ path: '/home', meta: { title: '首页' }}].concat(matched)
-        // // }
-        // this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
-
-        // 计算父级
-        let matched = []
-        let menuId = this.$route.meta.id
-
-        function getMatched(list, menuId) {
-          list.forEach(item => {
-            // eslint-disable-next-line eqeqeq
-            if (menuId == item.id) {
-              matched.unshift({
-                // path: item.pcUrl?`${item.pcUrl}?menuLevel1=${this.$route.query.menuLevel1}&menuId=${item.id}`:'',
-                meta: { title: item.name }
-              })
-              if (item.parentId) {
-                // console.info(item, item.parentId)
-                getMatched(list, item.parentId)
-              }
-            }
-          })
-        }
-
-        if (this.treeListData.length && this.$route.query.menuId) {
-          // console.log(menuId)
-          getMatched(this.treeListData, menuId)
-        }
-        this.levelList = matched
-        // console.log(matched, '面包屑')
-      },
       isDashboard(route) {
         const name = route && route.name
         if (!name) {

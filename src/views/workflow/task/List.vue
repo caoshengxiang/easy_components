@@ -145,8 +145,8 @@
           query: {
             id: id,
             type:1,
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })
@@ -158,8 +158,8 @@
           path: '/views/workflow/task/Detail',
           query: {
             id: id,
-            menuLevel1: this.$route.query.menuLevel1,
-            menuId: this.$route.query.menuId,
+            // menuLevel1: this.$route.query.menuLevel1,
+            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })

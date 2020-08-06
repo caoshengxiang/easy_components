@@ -42,7 +42,7 @@ const mixin = {
       deep: true,
       handler(newv) {
         if (newv && newv.length) {
-          this.permissionButtons = getCurrentPageButtons(newv, parseInt(this.$route.query.menuId, 10))
+          this.permissionButtons = getCurrentPageButtons(newv, parseInt(this.$route.meta.id, 10))
           // console.log(this.permissionButtons, '当前页面按钮信息')
         }
       }

@@ -81,7 +81,7 @@
       >
         <el-table-column label="部门代码" align="center" min-width="150">
           <template slot-scope="{row}">
-            <span>{{ row.code }}</span>
+            <span style="padding-left: 20px;">{{ row.code }}</span>
           </template>
         </el-table-column>
         <el-table-column label="部门名称" min-width="150" align="center">
@@ -128,6 +128,9 @@
               round
               @click="(data) =>{handleDelete(row, data)}"
             />
+            <el-button type="info" round @click="goPostList(row)">
+              岗位
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -389,14 +392,20 @@
           })
           .catch(err => { console.error(err) })
       },
+      goPostList(row) {
+        this.$router.push(`/views/set/post?org=${row.name}`)
+      }
     }
   }
 </script>
 <style lang="scss">
-  .oraganization-index {
+  .organization-index {
     .el-table [class*=el-table__row--level] .el-table__expand-icon {
       position: relative;
-      left: -20px;
+      left: 0px;
+      color: red;
+      font-weight: bold;
+      transform: scale(1.6);
     }
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
       <template slot="left">
@@ -17,7 +17,8 @@
           round
           @click="handleAdd"
         />
-        <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable placeholder="所属部门" class="filter-item">
+        <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable
+                   placeholder="所属部门" class="filter-item">
           <el-option
             v-for="item in partOptions"
             :key="item.id"
@@ -140,11 +141,11 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="岗位编码：" prop="code">
-          <el-input v-model="temp.code" class="filter-item" />
+          <el-input v-model="temp.code" class="filter-item"/>
 
         </el-form-item>
         <el-form-item label="岗位名称：" prop="name">
-          <el-input v-model="temp.name" class="filter-item" />
+          <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
 
         <el-form-item label="所属部门：" filterable prop="orgId">
@@ -159,7 +160,7 @@
         </el-form-item>
 
         <el-form-item label="主要职责：">
-          <el-input v-model="temp.duty" class="filter-item" />
+          <el-input v-model="temp.duty" class="filter-item"/>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="dialogFormVisible = false">
@@ -170,9 +171,9 @@
           </el-button>
         </el-form-item>
       </el-form>
-<!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
+      <!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
 
-<!--      </div>-->
+      <!--      </div>-->
     </el-dialog>
   </div>
 </template>
@@ -201,7 +202,7 @@
     data() {
       return {
         tableKey: 0,
-        pageData: {records: []},
+        pageData: { records: [] },
         listLoading: false,
         dialogLoading: false,
         listQuery: {
@@ -243,6 +244,9 @@
       }
     },
     created() {
+      if (this.$route.query.org) {
+        this.listQuery.orgName = this.$route.query.org
+      }
       this.getPartSelect()
       this.getList()
     },
@@ -284,7 +288,7 @@
                 })
                 this.getList()
               }
-            }).catch(()=> {
+            }).catch(() => {
               this.dialogLoading = false
             })
           }
@@ -369,6 +373,7 @@
 <style scoped lang="scss">
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;

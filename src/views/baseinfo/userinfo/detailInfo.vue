@@ -781,10 +781,10 @@
 
                   that.$router.push({
                     path: '/views/baseinfo/userinfo/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1,
-                      menuId: this.$route.query.menuId,
-                    }
+                    // query: {
+                    //   menuLevel1: this.$route.query.menuLevel1,
+                    //   menuId: this.$route.query.menuId,
+                    // }
                   })
               }
               else{

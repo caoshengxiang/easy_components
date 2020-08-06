@@ -1,6 +1,7 @@
 /* 禁用F12功能 */
 import noDebuger from '@/utils/noDebuger'
 
+console.info(process.env.NODE_ENV, 'process.env.NODE_ENV')
 if (process.env.NODE_ENV === 'production') { // 生产环境禁用调试
   noDebuger()
 }

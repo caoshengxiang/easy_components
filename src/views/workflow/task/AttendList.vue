@@ -93,8 +93,8 @@
            query: {
              id: id,
              type:2,
-             menuLevel1: this.$route.query.menuLevel1,
-             menuId: this.$route.query.menuId,
+             // menuLevel1: this.$route.query.menuLevel1,
+             // menuId: this.$route.query.menuId,
              back: this.$route.fullPath
            }
          })

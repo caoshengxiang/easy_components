@@ -31,13 +31,17 @@
   export default {
     data() {
       return {
-        activeIndex: 'id' + this.$route.query.menuLevel1,
-        activeItem: {}
+        // activeIndex: 'id' + this.permission_menusLevelList[0].id,
+        activeIndex: '',
+        activeItem: {},
+        treeListData: [],
+        levelList: []
       }
     },
     computed: {
       ...mapGetters([
         'permission_menus',
+        'permission_menusLevelList'
       ]),
     },
     watch: {
@@ -62,7 +66,7 @@
         this.$emit('getStatus', false)
       },
       jumpMenu(mn) {
-        // 跳转涉及到 menuTree.vue   PermissionButton.vue    login
+        // 跳转涉及到 menuTree.vue   PermissionButton.vue    login.vue home/index.vue
 
         let jumpItem = null
 
@@ -91,8 +95,8 @@
             this.$router.push({
               path: jumpItem.pcUrl,
               query: {
-                menuLevel1: this.activeItem.id,
-                menuId: jumpItem.id
+                // menuLevel1: this.activeItem.id,
+                // menuId: jumpItem.id
               }
             })
           }
