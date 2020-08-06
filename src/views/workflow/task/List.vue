@@ -266,7 +266,7 @@
               })
 
               if (that.temp.type == 1) {
-                that.$api.task.batchAgree({...temp}).then(res => {
+                that.$api.task.batchAgree(temp).then(res => {
                   that.loading1 = false
                   if (res.code === 200) {
                     that.$message({
@@ -284,7 +284,7 @@
                   }
                 })
               } else {
-                that.$api.task.batchRefuse({...temp}).then(res => {
+                that.$api.task.batchRefuse(temp).then(res => {
                   that.loading1 = false
                   if (res.code === 200) {
                     that.$message({
