@@ -9,7 +9,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a9.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.stationCount}}</span>个</div>
             <div class="analysis-text-small">总工位数</div>
@@ -245,6 +245,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

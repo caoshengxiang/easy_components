@@ -7,7 +7,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p1.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manTotal}} </span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanTotal}}</span></div>
@@ -16,7 +16,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p2.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanCount}}</span></div>
@@ -26,7 +26,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p3.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.fullManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.fullWomanCount}}</span></div>
@@ -36,7 +36,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p4.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.notFullManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.notFullWomanCount}}</span></div>
@@ -46,7 +46,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p5.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.emptyManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.emptyWomanCount}}</span></div>
@@ -588,7 +588,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

@@ -8,7 +8,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area1.png" height="50" width="50"/>
+        ><img src="../../../assets/p7.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.total}}</span>人</div>
             <div class="analysis-text-small">在读学生总数</div>
@@ -16,7 +16,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p8.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.manRate}}:{{statisticsInfo.womanRate}}</span></div>
             <div class="analysis-text-small">在读学生男女比例</div>

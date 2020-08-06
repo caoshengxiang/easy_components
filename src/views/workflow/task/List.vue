@@ -185,15 +185,14 @@
       },
       taskdetail(id){
         let that =this;
-
-
         const routeData = that.$router.resolve({
           path: '/views/workflow/task/TaskDetail',
           query: {
             id: id,
             type:1,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
+            show:1,
+             menuLevel1: this.$route.query.menuLevel1,
+             menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })

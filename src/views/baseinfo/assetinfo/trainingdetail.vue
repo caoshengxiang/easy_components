@@ -61,9 +61,9 @@
                       >
                         <el-option
                           v-for="item in experimentRoomType"
-                          :key="item.id"
+                          :key="item.name"
                           :label="item.name"
-                          :value="item.id"
+                          :value="item.name"
                         />
                       </el-select>
                     </el-form-item>

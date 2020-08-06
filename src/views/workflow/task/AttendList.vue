@@ -91,6 +91,7 @@
            query: {
              id: id,
              type:1,
+             show:2,
              menuLevel1: this.$route.query.menuLevel1,
              menuId: this.$route.query.menuId,
              back: this.$route.fullPath
