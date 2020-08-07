@@ -155,8 +155,12 @@
     },
     methods:{
       batchAuditVi(){
-        this.dialogFormVisible = true
-        this.batchAudit  =1;
+        let that = this
+        that.dialogFormVisible = true
+        that.batchAudit  =1;
+        that.$nextTick(() => {
+          that.$refs['temp'].clearValidate()
+        })
       },
       cancleAudit(){
         this.dialogFormVisible = false
