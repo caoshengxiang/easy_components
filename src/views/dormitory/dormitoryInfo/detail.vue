@@ -264,7 +264,7 @@
           .el-form-item__label {
             width: 21px;
             height: 9px;
-            font-size: 9px;
+            font-size: 14px;
             font-weight: 500;
             color: rgba(102, 102, 102, 1);
           }
