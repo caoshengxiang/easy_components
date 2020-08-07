@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
 
@@ -41,9 +41,9 @@
      </div>-->
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
-<!--          新增设施-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
+        <!--          新增设施-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_assetinfo_facilities_add"
           class-name="filter-item"
@@ -61,7 +61,7 @@
           style="margin-left: 20px; width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-input
           v-model="listQuery.name"
@@ -81,15 +81,16 @@
       </template>
       <template slot="right">
       </template>
-      <el-table
-        slot="table"
-        v-loading="listLoading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width: 100%;"
-      >
-        <el-table-column label="设施名称" prop="id"  align="center">
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
+        <el-table-column label="设施名称" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.name }}
@@ -126,9 +127,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_facilities_edit"
               class-name="filter-item"
@@ -140,9 +141,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_facilitieslist_remove"
               class-name="filter-item"
@@ -155,7 +156,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+        <!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
   </div>
 </template>
@@ -184,23 +186,23 @@
           descs: 'id'
         },
         departmentList: [],
-        statisticsInfo:{}
+        statisticsInfo: {}
       }
     },
     created() {
       const that = this
       that.getList() // //查询列表
-     that.getStatistics()
+      that.getStatistics()
       that.getDepartmentList() // //查询建筑物列表
     },
     methods: {
 
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/facility',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/facility', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',

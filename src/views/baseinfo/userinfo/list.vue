@@ -168,15 +168,16 @@
         />
       </template>
 
-      <el-table
-        slot="table"
-        v-loading="listLoading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width:99%;margin-left: 10px"
-        :header-cell-style="{backgroundColor:'#EFF1F6'}"
-      >
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:99%;margin-left: 10px">
+<!--      <el-table-->
+<!--        slot="table"-->
+<!--        v-loading="listLoading"-->
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        highlight-current-row-->
+<!--        style="width:99%;margin-left: 10px"-->
+<!--        :header-cell-style="{backgroundColor:'#EFF1F6'}"-->
+<!--      >-->
         <el-table-column label="学号" prop="id"  align="center" width="200px">
           <template slot-scope="{row}">
             <span>
@@ -285,7 +286,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+<!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
     <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码" :visible.sync="productInnerQR">
       <div class="qrcode" ref="qrCodeUrl" id="qrcode"></div>
@@ -293,7 +295,7 @@
   </div>
 </template>
 <script>
-  //import Pagination from '@/components/Pagination'
+  // import Pagination from '@/components/Pagination'
  // import QRCode from 'qrcode'
 
   import QRCode from 'qrcodejs2'

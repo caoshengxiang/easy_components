@@ -42,16 +42,14 @@
       </el-button>
 
     </div>
-
-    <el-table
-
-      v-loading="listLoading"
-
-      :data="list"
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
+    <parentTable v-loading="listLoading" :data="list" style="width: 100%;">
+<!--    <el-table-->
+<!--      v-loading="listLoading"-->
+<!--      :data="list"-->
+<!--      fit-->
+<!--      highlight-current-row-->
+<!--      style="width: 100%;"-->
+<!--    >-->
       <el-table-column label="姓名" prop="id"  align="center" width="150">
         <template slot-scope="{row}">
           <span >
@@ -118,8 +116,8 @@
           <span >{{ row.content3 }}</span>
         </template>
       </el-table-column>
-    </el-table>
-
+<!--    </el-table>-->
+    </parentTable>
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >

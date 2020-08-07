@@ -11,16 +11,16 @@
       </template>
       <template slot="right">
       </template>
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+<!--      <el-table-->
+<!--        v-loading="listLoading"-->
 
-      <el-table
-        v-loading="listLoading"
-
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width: 100%;"
-        slot="table"
-      >
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        highlight-current-row-->
+<!--        style="width: 100%;"-->
+<!--        slot="table"-->
+<!--      >-->
         <el-table-column label="床位号" prop="bedNo"  align="center" width="150">
           <template slot-scope="{row}">
           {{ row.bedNo }}
@@ -71,7 +71,8 @@
             </el-button>
           </template>
         </el-table-column>
-      </el-table>
+<!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
 
 

@@ -92,14 +92,15 @@
           />
         </PermissionButton>
       </template>
-      <el-table
-        slot="table"
-        v-loading="listLoading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width: 100%;"
-      >
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+<!--      <el-table-->
+<!--        slot="table"-->
+<!--        v-loading="listLoading"-->
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        highlight-current-row-->
+<!--        style="width: 100%;"-->
+<!--      >-->
         <el-table-column label="课程编号" prop="id"  align="center">
           <template slot-scope="{row}">
             <span>
@@ -187,7 +188,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+<!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
   </div>
 </template>

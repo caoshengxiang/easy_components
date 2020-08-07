@@ -91,8 +91,8 @@
       return {
         logBg,
         loginForm: {
-          account: 'test001',
-          pwd: 'school123456',
+          account: '',
+          pwd: '',
           userType: '教职工'
         },
         loginRules: {

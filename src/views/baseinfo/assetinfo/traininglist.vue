@@ -60,14 +60,15 @@
       </template>
       <template slot="right">
       </template>
-      <el-table
-        slot="table"
-        v-loading="listLoading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width: 100%;"
-      >
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+<!--      <el-table-->
+<!--        slot="table"-->
+<!--        v-loading="listLoading"-->
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        highlight-current-row-->
+<!--        style="width: 100%;"-->
+<!--      >-->
 
         <el-table-column label="实训室名称" prop="id"  align="center">
           <template slot-scope="{row}">
@@ -130,7 +131,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+<!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
   </div>
 </template>

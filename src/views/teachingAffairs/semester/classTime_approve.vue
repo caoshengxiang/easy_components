@@ -23,47 +23,49 @@
         >
           <el-table-column label="序号" align="center" min-width="60">
             <template slot-scope="{row, $index}">
-              <el-input disabled v-model="row.seq"></el-input>
+              <span>{{ row.seq }}</span>
+              <!--              <el-input disabled v-model="row.seq"></el-input>-->
             </template>
           </el-table-column>
           <el-table-column label="时间段" min-width="100" align="center">
             <template slot-scope="{row}">
-              <!--          <span>{{ row.name }}</span>-->
-              <el-select disabled v-model="row.period" clearable filterable placeholder="请选择" class="filter-item">
-                <el-option label="上午" value="上午"></el-option>
-                <el-option label="下午" value="下午"></el-option>
-              </el-select>
+              <span>{{ row.period }}</span>
+              <!--              <el-select disabled v-model="row.period" clearable filterable placeholder="请选择" class="filter-item">-->
+              <!--                <el-option label="上午" value="上午"></el-option>-->
+              <!--                <el-option label="下午" value="下午"></el-option>-->
+              <!--              </el-select>-->
             </template>
           </el-table-column>
           <el-table-column label="节次" min-width="150" align="center">
             <template slot-scope="{row}">
-              <!--          <span>{{ row.des }}</span>-->
-              <el-input disabled v-model="row.segment"></el-input>
+              <span>{{ row.segment }}</span>
+              <!--              <el-input disabled v-model="row.segment"></el-input>-->
             </template>
           </el-table-column>
           <el-table-column label="课间活动" min-width="100" align="center">
             <template slot-scope="{row}">
-              <!--          <span>{{ row.des }}</span>-->
-              <el-select disabled v-model="row.ifBreaktime" clearable filterable placeholder="请选择" class="filter-item">
-                <el-option label="是" :value="true"></el-option>
-                <el-option label="否" :value="false"></el-option>
-              </el-select>
+              <span>{{ row.ifBreaktime?'是':'否' }}</span>
+              <!--              <el-select disabled v-model="row.ifBreaktime" clearable filterable placeholder="请选择" class="filter-item">-->
+              <!--                <el-option label="是" :value="true"></el-option>-->
+              <!--                <el-option label="否" :value="false"></el-option>-->
+              <!--              </el-select>-->
             </template>
           </el-table-column>
           <el-table-column label="上课时间" min-width="200" align="center">
             <template slot-scope="{row}">
-              <el-time-picker
-                disabled
-                v-model="row.time"
-                is-range
-                value-format="HH:mm:ss"
-                range-separator="至"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                placeholder="选择时间范围"
-                style="width: 100%"
-              >
-              </el-time-picker>
+              <!--              <el-time-picker-->
+              <!--                disabled-->
+              <!--                v-model="row.time"-->
+              <!--                is-range-->
+              <!--                value-format="HH:mm:ss"-->
+              <!--                range-separator="至"-->
+              <!--                start-placeholder="开始时间"-->
+              <!--                end-placeholder="结束时间"-->
+              <!--                placeholder="选择时间范围"-->
+              <!--                style="width: 100%"-->
+              <!--              >-->
+              <!--              </el-time-picker>-->
+              <span>{{ row.startTime }} - {{row.endTime}}</span>
             </template>
           </el-table-column>
           <el-table-column label="创建人" min-width="150" align="center">
@@ -76,19 +78,19 @@
               <span>{{ row.created }} </span>
             </template>
           </el-table-column>
-<!--          <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">-->
-<!--            <template slot-scope="{row,$index}">-->
-<!--              <el-button type="danger" size="mini" @click="handleDelete(row)">-->
-<!--                删除-->
-<!--              </el-button>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
+          <!--          <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">-->
+          <!--            <template slot-scope="{row,$index}">-->
+          <!--              <el-button type="danger" size="mini" @click="handleDelete(row)">-->
+          <!--                删除-->
+          <!--              </el-button>-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
         </el-table>
-<!--        <div style="text-align: center">-->
-<!--          <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">-->
-<!--            添加数据列-->
-<!--          </el-button>-->
-<!--        </div>-->
+        <!--        <div style="text-align: center">-->
+        <!--          <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" @click="addRow">-->
+        <!--            添加数据列-->
+        <!--          </el-button>-->
+        <!--        </div>-->
       </div>
     </y-page-list-layout>
   </div>
