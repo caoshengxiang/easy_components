@@ -236,7 +236,7 @@
                       v-if="port_pc"
                       label="URL："
                       :rules="[
-                        { required: true, message: '请输入URL', trigger: 'blur' }
+                        // { required: true, message: '请输入URL', trigger: 'blur' }
                       ]"
                     >
                       <span slot="label">URL
@@ -288,7 +288,7 @@
                       v-if="port_m"
                       label="URL："
                       :rules="[
-                        { required: true, message: '请输入名称', trigger: 'blur' }
+                        // { required: true, message: '请输入名称', trigger: 'blur' }
                       ]"
                     >
                       <el-input v-model="temp.mobileUrl" class="filter-item"/>

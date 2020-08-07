@@ -150,7 +150,8 @@
       methods: {
         detail(id){
           let that =this;
-          let routeData = that.$router.resolve({ path: 'Detail', query: {  id: id } });
+          let detailPath = this.$route.query.detailPath || '/views/workflow/task/Detail'
+          let routeData = that.$router.resolve({ path: detailPath, query: {  id: id } });
           window.open(routeData.href, '_blank');
 
         },
