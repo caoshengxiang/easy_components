@@ -37,7 +37,7 @@
         </el-select>
 
         <el-select
-          v-model="listQuery.schoolGradeId"
+          v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
           style="margin-left:10px;width: 100px;margin-bottom: 10px;"
@@ -48,7 +48,7 @@
         </el-select>
 
         <el-select
-          v-model="listQuery.schoolSpecialtyId"
+          v-model="listQuery.administrativeSpecialtyId"
           placeholder="请选择专业"
           clearable
           class="filter-item"
@@ -58,7 +58,7 @@
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select
-          v-model="listQuery.schoolClbumId"
+          v-model="listQuery.administrativeClbumId"
           placeholder="请选择班级"
           clearable
           class="filter-item"
@@ -641,7 +641,7 @@
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList().then(data => {
+        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.administrativeGradeId,specialtyId:that.listQuery.administrativeSpecialtyId}).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功

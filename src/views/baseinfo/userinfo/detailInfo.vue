@@ -325,7 +325,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="电子邮箱："  prop="mail" label-width="150px" class="postInfo-container-item">
-                  <el-input  v-model="postForm.mail"   class="filter-item" />
+                  <el-input  v-model="postForm.email"   class="filter-item" />
                 </el-form-item>
               </el-col>
               <el-col :span="6">

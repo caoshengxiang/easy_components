@@ -72,6 +72,7 @@
           clearable
           style="margin-left:10px;width: 100px"
           class="filter-item"
+          @change="getClbumList"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -81,6 +82,7 @@
           clearable
           class="filter-item"
           style=" margin-left:10px;width: 100px"
+          @change="getClbumList"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -567,7 +569,7 @@
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList().then(data => {
+        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.gradeId,specialtyId:that.listQuery.v}).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
