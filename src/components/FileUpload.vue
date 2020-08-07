@@ -217,7 +217,7 @@
         const allowFileTypes = that.allowFileTypes.split("|");
         console.log("fileNameSuffix"+fileNameSuffix)
         console.log("allowFileTypes"+allowFileTypes.length)
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        const isLt2M = file.size / 1024 / 1024 < 20;
         if (allowFileTypes && allowFileTypes.length > 0) {
           for (var i = 0; i < allowFileTypes.length; i++) {
             if (allowFileTypes[i].toUpperCase() == fileNameSuffix.toUpperCase()) {
@@ -231,7 +231,7 @@
           return false;
         }
         if (that.styleType == 1 && !isLt2M) {
-          that.$message.error('上传图片大小不能超过 2MB!');
+          that.$message.error('上传图片大小不能超过 20MB!');
           return false;
         }
         that.uploadConfig.loading = true;
