@@ -127,7 +127,7 @@
     },
     methods:{
       reset(){
-        this.listQuery = {}
+        this.listQuery = {descs: 'id'}
         this.dateTime = []
       },
       searchList(){

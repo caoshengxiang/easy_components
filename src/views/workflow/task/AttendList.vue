@@ -100,7 +100,7 @@
          window.open(routeData.href, '_blank')
        },
        reset(){
-         this.listQuery = {}
+         this.listQuery = {descs: 'id'}
          this.dateTime = []
        },
        goto(id){

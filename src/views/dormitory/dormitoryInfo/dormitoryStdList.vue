@@ -314,7 +314,6 @@
         that.$api.student.getStdNoBedList({...param}).then(data => {
           that.loading = false;
           if(data.code === 200){
-            alert(123)
             //返回成功
             that.noBedStd = data.data
           }
