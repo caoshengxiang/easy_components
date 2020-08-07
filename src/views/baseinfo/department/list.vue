@@ -50,7 +50,7 @@
           搜索
         </el-button>
 
-        <el-button class="filter-item" round type="warning" @click="listQuery = {}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
           重置
         </el-button>
       </template>
