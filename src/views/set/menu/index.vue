@@ -261,7 +261,7 @@
                         </div>
                         <div slot="reference">
                           <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
-                          <el-input v-else v-model="temp.pcIcon" class="filter-item"/>
+                          <el-button type="primary" v-else>图标库</el-button>
                         </div>
                       </el-popover>
                     </el-form-item>
