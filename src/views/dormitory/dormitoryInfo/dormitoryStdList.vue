@@ -444,7 +444,7 @@
             if(that.bedInfo.beds != null) {
             that.bedInfo.beds.forEach(function (item) {
               if(item.studentId){
-                item.studentName = item.bedNo + '-' + item.studentName + item.gradeName + item.clbumName
+                item.studentName = item.bedNo + '-' + item.studentName + (item.gradeName == null ? '': item.gradeName)+ (item.clbumName == null ? '': item.clbumName)
               }
 
               if(!item.id){
