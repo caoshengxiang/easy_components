@@ -191,9 +191,8 @@
             id: id,
             type:1,
             show:1,
-             menuLevel1: this.$route.query.menuLevel1,
-             menuId: this.$route.query.menuId,
-            back: this.$route.fullPath
+            back: this.$route.fullPath,
+            detailPath: '/views/workflow/task/Detail/todo'
           }
         })
         window.open(routeData.href, '_blank')
@@ -201,11 +200,9 @@
       detail(id){
         let that =this;
         const routeData = that.$router.resolve({
-          path: '/views/workflow/task/Detail',
+          path: '/views/workflow/task/Detail/todo',
           query: {
             id: id,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })

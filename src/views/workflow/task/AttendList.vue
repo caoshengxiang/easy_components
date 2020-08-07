@@ -87,14 +87,13 @@
        taskdetail(id){
          let that =this;
          const routeData = that.$router.resolve({
-           path: '/views/workflow/task/TaskDetail',
+           path: '/views/workflow/task/AttendList/TaskDetail',
            query: {
              id: id,
              type:1,
              show:2,
-             menuLevel1: this.$route.query.menuLevel1,
-             menuId: this.$route.query.menuId,
-             back: this.$route.fullPath
+             back: this.$route.fullPath,
+             detailPath: '/views/workflow/task/Detail'
            }
          })
          window.open(routeData.href, '_blank')
@@ -110,8 +109,6 @@
            query: {
              id: id,
              type:2,
-             // menuLevel1: this.$route.query.menuLevel1,
-             // menuId: this.$route.query.menuId,
              back: this.$route.fullPath
            }
          })

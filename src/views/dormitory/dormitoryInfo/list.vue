@@ -401,10 +401,8 @@
       add() {
         const that = this
         const routeData = that.$router.resolve({
-          path: '/views/dormitory/dormitoryInfo/detail',
+          path: '/views/dormitory/dormitoryInfo/add',
           query: {
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           },
         })
