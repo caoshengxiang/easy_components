@@ -3,14 +3,14 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
     </div>
-    <el-table
-      v-loading="listLoading"
-
-      :data="list"
-      fit
-      highlight-current-row
-      style="width: 100%;margin-top: 60px"
-    >
+    <parentTable v-loading="listLoading" :data="list" style="width: 100%;">
+<!--    <el-table-->
+<!--      v-loading="listLoading"-->
+<!--      :data="list"-->
+<!--      fit-->
+<!--      highlight-current-row-->
+<!--      style="width: 100%;margin-top: 60px"-->
+<!--    >-->
       <el-table-column label="学号"  align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp }}</span>
@@ -65,8 +65,8 @@
             </span>
         </template>
       </el-table-column>
-    </el-table>
-
+<!--    </el-table>-->
+    </parentTable>
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>

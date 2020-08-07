@@ -39,14 +39,15 @@
       </template>
       <template slot="right">
       </template>
-      <el-table
-        slot="table"
-        v-loading="loading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        :header-cell-style="{backgroundColor:'#EFF1F6'}"
-      >
+      <parentTable v-loading="loading" :data="pageData.records" slot="table">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="loading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        :header-cell-style="{backgroundColor:'#EFF1F6'}"-->
+        <!--      >-->
         <el-table-column label="流程名称" prop="name" align="center"/>
         <el-table-column label="创建用户" prop="creatorName" width="350px" align="center"/>
         <el-table-column label="创建时间" prop="created" align="center" width="350"/>
@@ -90,7 +91,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+        <!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
   </div>
 </template>
@@ -114,7 +116,7 @@
           current: 0,
           size: 10,
         },
-        searDataPara:{
+        searDataPara: {
           descs: 'id'
         }
       }
@@ -127,7 +129,7 @@
       getList() {
         const that = this
         that.loading = true
-        that.$api.workflow.getList({...that.pagePara,...that.searDataPara}).then(res => {
+        that.$api.workflow.getList({ ...that.pagePara, ...that.searDataPara }).then(res => {
           that.loading = false
           if (res.code === 200) {
             // 返回成功

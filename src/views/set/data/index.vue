@@ -72,13 +72,14 @@
       </div>
 
       <div style="padding: 10px;">
-        <el-table
-          :key="tableKey"
-          v-loading="listLoading"
-          :data="tableData"
-          fit
-          highlight-current-row
-        >
+        <parentTable v-loading="listLoading" :data="tableData" style="">
+<!--        <el-table-->
+<!--          :key="tableKey"-->
+<!--          v-loading="listLoading"-->
+<!--          :data="tableData"-->
+<!--          fit-->
+<!--          highlight-current-row-->
+<!--        >-->
           <el-table-column label="编号" align="center" width="100">
             <template slot-scope="{row, $index}">
               <span>{{ $index + 1 }}</span>
@@ -109,7 +110,8 @@
               </el-button>
             </template>
           </el-table-column>
-        </el-table>
+<!--        </el-table>-->
+        </parentTable>
         <div style="text-align: center">
           <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" round @click="addRow">
             添加数据列

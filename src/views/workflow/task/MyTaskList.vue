@@ -40,14 +40,7 @@
       </template>
       <template slot="right">
       </template>
-      <el-table
-        v-loading="loading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        :header-cell-style="{backgroundColor:'#EFF1F6'}"
-        slot="table"
-      >
+      <parentTable v-loading="loading" :data="pageData.records" slot="table">
         <el-table-column label="标题" prop="processName" align="center">
         </el-table-column>
         <el-table-column label="申请时间" prop="startTime" align="center">
@@ -55,7 +48,7 @@
         <el-table-column label="完成时间" prop="endTime" align="center">
         </el-table-column>
         <el-table-column label="审核状态" prop="state" align="center">
-      </el-table-column>
+        </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="primary"
@@ -66,13 +59,43 @@
                        size="mini" round @click="cancle(row.processId)">撤销</el-button>
           </template>
         </el-table-column>
-      </el-table>
+      </parentTable>
+<!--      <el-table-->
+<!--        v-loading="loading"-->
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        max-height="600"-->
+<!--        highlight-current-row-->
+<!--        :header-cell-style="{backgroundColor:'#EFF1F6'}"-->
+<!--        slot="table"-->
+<!--      >-->
+<!--        <el-table-column label="标题" prop="processName" align="center">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="申请时间" prop="startTime" align="center">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="完成时间" prop="endTime" align="center">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="审核状态" prop="state" align="center">-->
+<!--      </el-table-column>-->
+<!--        <el-table-column label="操作" align="center">-->
+<!--          <template slot-scope="{row}">-->
+<!--            <el-button type="primary"-->
+<!--                       size="mini" round @click="taskdetail(row.processId)">查看</el-button>-->
+<!--            <el-button v-if="row.stateCode == 1" type="danger"-->
+<!--                       size="mini" round @click="cancle(row.processId)">撤销</el-button>-->
+<!--            <el-button v-else type="info" disabled-->
+<!--                       size="mini" round @click="cancle(row.processId)">撤销</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+<!--      </el-table>-->
+
     </y-page-list-layout>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
+  // import parentTable from '../../../components/BaseTable/parentTable'
 
   export default {
     name: 'ViewsWorkflowTaskMyTaskList',

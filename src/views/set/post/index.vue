@@ -53,13 +53,14 @@
           round
         />
       </template>
-      <el-table
-        slot="table"
-        v-loading="listLoading"
-        :data="pageData.records"
-        fit
-        highlight-current-row
-      >
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--      >-->
         <el-table-column label="岗位编码" align="center" min-width="150">
           <template slot-scope="{row}">
             <span>{{ row.code }}</span>
@@ -123,7 +124,8 @@
             />
           </template>
         </el-table-column>
-      </el-table>
+        <!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
     <el-dialog
       width="600px"
@@ -254,8 +256,8 @@
       resetSearch() {
         this.listQuery = {
           current: 1,
-            size: 10,
-            descs: 'id'
+          size: 10,
+          descs: 'id'
         }
       },
       resetTemp() {

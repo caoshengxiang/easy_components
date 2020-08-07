@@ -11,5 +11,4 @@ import './prototype/webStorage'
 import './prototype/utils'
 
 // globalComponents
-// import './globalComponents/video'
-// import './globalComponents/dataView'
+import './globalComponents/index'

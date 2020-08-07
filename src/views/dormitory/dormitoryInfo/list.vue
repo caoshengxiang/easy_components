@@ -164,15 +164,15 @@
           />
         </PermissionButton>
     </template>
-      <el-table
-        v-loading="listLoading"
-
-        :data="pageData.records"
-        fit
-        highlight-current-row
-        style="width: 100%;"
-        slot="table"
-      >
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+<!--      <el-table-->
+<!--        v-loading="listLoading"-->
+<!--        :data="pageData.records"-->
+<!--        fit-->
+<!--        highlight-current-row-->
+<!--        style="width: 100%;"-->
+<!--        slot="table"-->
+<!--      >-->
         <el-table-column label="宿舍编号" prop="id"  align="center">
           <template slot-scope="{row}">
             {{ row.code }}
@@ -240,7 +240,8 @@
             </PermissionButton>
           </template>
         </el-table-column>
-      </el-table>
+<!--      </el-table>-->
+      </parentTable>
     </y-page-list-layout>
   </div>
 </template>
