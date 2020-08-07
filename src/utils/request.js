@@ -53,15 +53,18 @@ service.interceptors.response.use(
     // 进入审批
     if (res.code && res.code === 250) {
       const href = window.location.href
-      const qy = href.split('?')[1]
-      const qyi = qy.split('&')
       const obj = {}
-      qyi.forEach(item => {
-        const pa = item.split('=')
-        obj[pa[0]] = pa[1]
-      })
 
-      MessageBox.confirm('保存成功，可在我的申请查看，或返回列表', '提示', {
+      if (href.indexOf('?') > -1) {
+        const qy = href.split('?')[1]
+        const qyi = qy.split('&')
+        qyi.forEach(item => {
+          const pa = item.split('=')
+          obj[pa[0]] = pa[1]
+        })
+      }
+
+      MessageBox.confirm('操作成功，可在我的申请查看，或返回列表', '提示', {
         confirmButtonText: '我的申请',
         cancelButtonText: '返回列表',
         type: 'success',
