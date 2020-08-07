@@ -158,13 +158,20 @@
         let that = this
         that.dialogFormVisible = true
         that.batchAudit  =1;
+        that.temp = {}
         that.$nextTick(() => {
           that.$refs['temp'].clearValidate()
         })
       },
       cancleAudit(){
+        let that = this
         this.dialogFormVisible = false
         this.batchAudit  = 0;
+
+        that.temp = {}
+        that.$nextTick(() => {
+          that.$refs['temp'].clearValidate()
+        })
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
