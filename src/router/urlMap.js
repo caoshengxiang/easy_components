@@ -14,6 +14,7 @@ url: 就以/view/ 下的文件路径
 注意 URL 在同一个系统下 是不能重复！ URL 为router的path，因此切记不能重复
 * */
 
+import _views_home_dataCenter from '@/views/home/dataCenterIndex'
 import _views_set_menu from '@/views/set/menu'
 import _views_set_post from '@/views/set/post'
 import _views_set_post_auth from '@/views/set/post/auth'
@@ -75,6 +76,7 @@ import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
 * 页面全路径url: 对应的路由组件
 * */
 export default {
+  _views_home_dataCenter, // 数据中心默认页
   _views_workflow_task_list, // 待办列表
   _views_workflow_task_Detail, // 任务详情
   _views_workflow_task_TaskDetail, // 任务详情
