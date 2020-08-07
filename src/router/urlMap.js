@@ -22,6 +22,7 @@ import _views_set_data from '@/views/set/data'
 import _views_set_info from '@/views/set/info'
 import _views_set_teaching from '@/views/set/teaching'
 import _views_set_cof from '@/views/set/cof'
+import _views_set_logs from '@/views/set/logs/list'
 import _views_staff_list from '@/views/staff/list'
 import _views_staff_detail from '@/views/staff/detail'
 import _views_staff_eduDetail from '@/views/staff/eduDetail'
@@ -90,6 +91,7 @@ export default {
   _views_set_info, // 基础信息
   _views_set_teaching, // 教学相关
   _views_set_cof, // 系统配置
+  _views_set_logs, // 操作日志
   _views_staff_list, // 教职工信息
   _views_staff_detail, // 教职工详情
   _views_staff_eduDetail, // 学历证书
