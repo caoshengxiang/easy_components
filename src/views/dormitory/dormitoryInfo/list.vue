@@ -570,7 +570,7 @@
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.gradeId,specialtyId:that.listQuery.v}).then(data => {
+        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.gradeId,specialtyId:that.listQuery.specialtyId}).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
