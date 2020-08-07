@@ -186,7 +186,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="图片：" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
                       <el-upload
                         class="avatar-uploader"
                         :show-file-list="false"
@@ -277,7 +277,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="图片：" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
                       <el-upload
                         class="avatar-uploader"
                         :show-file-list="false"
@@ -348,7 +348,7 @@
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="图片：" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
                       <el-upload
                         class="avatar-uploader"
                         :show-file-list="false"
@@ -422,7 +422,7 @@
                 </el-row>
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                    <el-form-item label="图片：" label-width="140px" class="postInfo-container-item">
+                    <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
                       <el-upload
                         class="avatar-uploader"
                         :show-file-list="false"
@@ -524,11 +524,11 @@
         const isLt10M = file.size / 1024 / 1024 < 10
 
         if (!isImg) {
-          this.$message.error('上传头像图片只能是 图片 格式!')
+          this.$message.error('上传图片只能是 图片 格式!')
           return false
         }
         if (!isLt10M) {
-          this.$message.error('上传头像图片大小不能超过 10MB!')
+          this.$message.error('上传图片大小不能超过 10MB!')
           return false
         }
 

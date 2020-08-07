@@ -22,9 +22,9 @@
           fit
           highlight-current-row
         >
-          <el-table-column label="序号" align="center" min-width="60">
+          <el-table-column label="序号" align="center" min-width="100">
             <template slot-scope="{row, $index}">
-              <el-input v-model="row.seq"></el-input>
+              <el-input type="number" v-model.number="row.seq"></el-input>
             </template>
           </el-table-column>
           <el-table-column label="时间段" min-width="100" align="center">
