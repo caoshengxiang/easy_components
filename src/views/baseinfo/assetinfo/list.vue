@@ -9,7 +9,7 @@
         <div
 
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a1.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.totalArea}}</span>平方米</div>
             <div class="analysis-text-small">占地面积</div>
@@ -17,7 +17,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a2.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.aloneArea}}</span>平方米</div>
             <div class="analysis-text-small">独立产权面积</div>
@@ -291,6 +291,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

@@ -9,7 +9,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a7.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.totalCount}}</span>栋</div>
             <div class="analysis-text-small">建筑物总数</div>
@@ -17,7 +17,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a8.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.tenYearCount}}</span>栋</div>
             <div class="analysis-text-small">十年以上建筑物数量</div>
@@ -254,11 +254,11 @@
       getDepartmentList() {
         const that = this
         that.pagePara.size = 10000
-        that.$api.baseInfo.getDepartmentList({ ...that.pagePara }).then(data => {
+        that.$api.organization.simpleAll().then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
-            that.departmentList = data.data.records
+            that.departmentList = data.data
           } else {
             this.$message({
               type: 'error',
@@ -275,6 +275,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

@@ -7,7 +7,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p1.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manTotal}} </span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanTotal}}</span></div>
@@ -16,7 +16,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p2.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanCount}}</span></div>
@@ -26,7 +26,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p3.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.fullManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.fullWomanCount}}</span></div>
@@ -36,7 +36,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p4.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.notFullManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.notFullWomanCount}}</span></div>
@@ -46,7 +46,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/area.png" height="50" width="50"/>
+        ><img src="../../../assets/p5.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.emptyManCount}}</span></div>
             <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.emptyWomanCount}}</span></div>
@@ -72,6 +72,7 @@
           clearable
           style="margin-left:10px;width: 100px"
           class="filter-item"
+          @change="getClbumList"
         >
           <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -81,6 +82,7 @@
           clearable
           class="filter-item"
           style=" margin-left:10px;width: 100px"
+          @change="getClbumList"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -156,7 +158,7 @@
           style="padding: 0;margin-bottom: 10px;"
         >
           <excelImport
-            ref="uploadControl"
+            ref="uploadControl1"
             flag="dormitory/importExcel"
             :style-type="1"
             title="宿舍导入"
@@ -568,7 +570,7 @@
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList().then(data => {
+        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.gradeId,specialtyId:that.listQuery.v}).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
@@ -589,7 +591,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

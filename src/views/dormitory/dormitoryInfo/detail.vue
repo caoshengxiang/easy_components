@@ -46,7 +46,7 @@
                   </el-form-item>    </el-col>
                 <el-col :span="8">
                   <el-form-item label="容纳人数：" prop="capacity" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.capacity" class="filter-item"/>
+                    <el-input v-model="postForm.capacity" type="number" class="filter-item"/>
 
                   </el-form-item>    </el-col>
                   <el-col :span="8">

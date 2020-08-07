@@ -9,7 +9,7 @@
         <div
 
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/p6.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{pageData.total}}</span>个班级</div>
             <div class="analysis-text-small">班级总数</div>
@@ -87,6 +87,8 @@
             flag="clbum/importExcel"
             :style-type="1"
             title="导入"
+
+            @fath = "getList"
           />
         </PermissionButton>
         <PermissionButton

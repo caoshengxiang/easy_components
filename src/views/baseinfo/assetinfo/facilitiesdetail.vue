@@ -74,8 +74,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="建设费用：" prop="buildCost" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.buildCost" class="filter-item" />
+                    <el-form-item label="建设费用（元）：" prop="buildCost" label-width="120px" class="postInfo-container-item">
+                      <el-input v-model="postForm.buildCost" type="number" class="filter-item" />
 
                     </el-form-item>
                   </el-col>

@@ -185,15 +185,14 @@
       },
       taskdetail(id){
         let that =this;
-
-
         const routeData = that.$router.resolve({
           path: '/views/workflow/task/TaskDetail',
           query: {
             id: id,
             type:1,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
+            show:1,
+             menuLevel1: this.$route.query.menuLevel1,
+             menuId: this.$route.query.menuId,
             back: this.$route.fullPath
           }
         })
@@ -309,11 +308,10 @@
       },
       handleCreate(row) {
         let that = this
-        that.temp = {}
         that.dialogFormVisible = true
         that.temp = Object.assign({}, row)
         that.$nextTick(() => {
-          that.$refs['dataForm'].clearValidate()
+          that.$refs['temp'].clearValidate()
         })
       },
       getList(){

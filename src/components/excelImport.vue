@@ -90,8 +90,7 @@
             type: 'success',
             duration: 2000
           })
-          this.$parent.getList();
-          this.$emit('getList')
+          this.$emit('fath')
         }
         else{
           this.$notify({
@@ -100,7 +99,6 @@
             type: 'error',
             duration: 2000
           })
-          this.$emit('fath');
         }
       },
       handleImagefail(res, file)

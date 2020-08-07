@@ -23,7 +23,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="预分配人数：" prop="allocationNum" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.allocationNum" class="filter-item"/>
+                    <el-input v-model="postForm.allocationNum" type="number"  class="filter-item"/>
                   </el-form-item>
                 </el-col>
               </el-row>

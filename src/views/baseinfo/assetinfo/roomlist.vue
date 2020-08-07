@@ -7,7 +7,7 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a3.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.internetCount}}</span> 间 </div>
             <div class="analysis-text-small">有网教教室总量</div>
@@ -15,7 +15,7 @@
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a4.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.multimediaCount}}</span>间</div>
             <div class="analysis-text-small">多媒体教室总量</div>
@@ -24,7 +24,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a5.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.totalCount}}</span>间</div>
             <div class="analysis-text-small">总容量</div>
@@ -33,7 +33,7 @@
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/32.png" height="50" width="50"/>
+        ><img src="../../../assets/a6.png" height="50" width="50"/>
           <div class="text">
             <div class="analysis-text"><span class="tag">{{statisticsInfo.maxCourseCount}}</span>节</div>
             <div class="analysis-text-small">总最大排课量</div>
@@ -286,6 +286,7 @@
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
+            that.getStatistics()
           } else {
             this.$message({
               type: 'error',
