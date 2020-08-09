@@ -249,7 +249,7 @@
               menu-no="_views_baseinfo_userinfo_list_code"
               name="查看"
               type="text"
-              @click="productInnerQR1(row.id)"
+              @click="productInnerQR1(row,false)"
             >
             </PermissionButton>
           </template>
@@ -267,7 +267,7 @@
               plain
               round
               size="mini"
-              @click="downloadCodeImg(row)"
+              @click="productInnerQR1(row,true)"
             >
             </PermissionButton>
 <!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
@@ -415,28 +415,33 @@
       that.getStatistics()
     },
     methods: {
-      productInnerQR1(id){
+      productInnerQR1(row,down){
+
         this.productInnerQR  = true;
+
         if(document.getElementById('qrcode')!=undefined)
         {
           document.getElementById('qrcode').innerHTML= ''
         }
-        this.creatQrCode(id)
+
+        this.creatQrCode(row,down)
       },
-      creatQrCode(id) {
+      creatQrCode(row,down) {
         const that = this
         that.$nextTick(()=>{
-          console.log(that.$refs.qrCodeUrl)
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text: 'http://119.27.160.97:8532?id=' + id, // 需要转换为二维码的内容
+            text: 'http://119.27.160.97:8532?id=' + row.id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.H
           })
-        })
 
+          if(down){
+            this.downloadCodeImg(row)
+          }
+        })
       },
       getStatistics(){
         let that = this
@@ -533,16 +538,53 @@
           }
         })
       },
+      myBrowser(){
+        let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        let isOpera = userAgent.indexOf("Opera") > -1;
+        if (isOpera) {
+          return "Opera"
+        }; //判断是否Opera浏览器
+        if (userAgent.indexOf("Firefox") > -1) {
+          return "FF";
+        } //判断是否Firefox浏览器
+        if (userAgent.indexOf("Chrome") > -1){
+          return "Chrome";
+        }
+        if (userAgent.indexOf("Safari") > -1) {
+          return "Safari";
+        } //判断是否Safari浏览器
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+          return "IE";
+        }; //判断是否IE浏览器
+        if (userAgent.indexOf("Trident") > -1) {
+          return "Edge";
+        } //判断是否Edge浏览器
+      },
       downloadCodeImg(row) {
-        let myCanvas = document.getElementById('qrcode').getElementsByTagName('canvas');
-        let a = document.createElement('a')
-        a.href = myCanvas[0].toDataURL('image/png');
-        a.download = '二维码';
-        a.click()
+       // this.productInnerQR1(row.id)
+        if(this.myBrowser()==="IE"||this.myBrowser()==="Edge"){
+          let canvas =  document.getElementById('qrcode').getElementsByTagName('canvas')[0];//取到canvas
+          let url = canvas.toDataURL('image/jpeg');//把canvas转换成base64
+          let blob = canvas.msToBlob();
+          window.navigator.msSaveBlob(blob,row.name + '.png');
+
+
+        }else{
+          let myCanvas = document.getElementById('qrcode').getElementsByTagName('canvas');
+          let a = document.createElement('a')
+          a.href = myCanvas[0].toDataURL('image/png');
+          a.download = row.name;
+          a.click()
+
+
+        }
         this.$message({
           message: "正在进行下载保存",
           type: 'success'
         })
+
+        this.productInnerQR  = false;
+
       },
       resetTemp() {
         this.temp = {
@@ -671,6 +713,7 @@
             // 返回成功
             that.pageData = data.data
             that.getStatistics()
+            //that.productInnerQR1(0,true)
           } else {
             this.$message({
               type: 'error',

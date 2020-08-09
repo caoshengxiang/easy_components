@@ -96,13 +96,13 @@
                v-loading="loading1">
       <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px" style="width: 600px; margin-left:50px;">
         <el-form-item label="审核结果："  prop="type" >
-          <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+          <el-select v-model="temp.type" class="filter-item" style="float: left; width: 80%" placeholder="请选择">
             <el-option key="1" label="通过" value="1"  />
             <el-option key="2" label="拒绝" value="2"  />
           </el-select>
         </el-form-item>
         <el-form-item label="审核意见：" prop="msg" >
-          <el-input type="textarea"  v-model="temp.msg"  class="filter-item"/>
+          <el-input type="textarea"  v-model="temp.msg" style="float: left; width: 80%"  class="filter-item"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center" >
