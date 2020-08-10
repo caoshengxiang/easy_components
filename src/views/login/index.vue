@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" :style="{backgroundImage: 'url('+sysCfg.BACKGROUND || logBg+')'}">
+  <div class="login-container" :style="{backgroundImage: 'url('+sysCfg.BACKGROUND+')'}">
     <div class="login-form-box">
       <el-form
         ref="loginForm"
@@ -221,7 +221,7 @@
   $assets: '~@/assets/';
 
   .login-container {
-    /*    background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
+/*        background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
     background-size: 100% 100%;
     position: absolute;
     top: 0;
@@ -233,7 +233,7 @@
     align-items: center;
 
     .login-form-box {
-      position: absolute;
+      /*position: absolute;*//*兼容360*/
       width: 500px;
       height: 55%;
       border-radius: 20px;

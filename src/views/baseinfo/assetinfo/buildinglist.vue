@@ -127,7 +127,7 @@
             <span>{{ row.yearLimit }}年</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col">
+        <el-table-column label="操作" class-name="status-col" width="160">
           <template slot-scope="{row}">
             <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
             <!--              编辑-->

@@ -1,16 +1,15 @@
 <template>
   <el-table
+    slot="table"
     size="medium"
     v-loading="loading"
     :data="data"
     fit
     :max-height="maxHeight"
     highlight-current-row
-    :header-cell-style="{backgroundColor:'#eef2fe'}"
-    slot="table"
-    @selection-change="selectionChange"
     :header-row-style="{color: '#333333'}"
     style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
+    @selection-change="selectionChange"
   >
     <slot></slot>
   </el-table>

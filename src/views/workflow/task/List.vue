@@ -36,16 +36,16 @@
 
       </template>
       <el-table
+        size="medium"
         v-loading="loading"
         :data="pageData.records"
         fit
         ref="multipleTable"
         highlight-current-row
-        :header-cell-style="{backgroundColor:'#EFF1F6'}"
-        :header-row-style="{backgroundColor:'#42b983'}"
+        :header-row-style="{color: '#333333'}"
         @selection-change="handleSelectionChange"
         slot="table"
-        style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED"
+        style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
       >
         <!--      <parentTable v-loading="loading" :data="pageData.records" @selection-change="handleSelectionChange" slot="table">-->
         <el-table-column
