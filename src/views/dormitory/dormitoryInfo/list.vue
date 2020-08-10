@@ -396,8 +396,7 @@
           path: '/views/dormitory/dormitoryInfo/detail',
           query: {
             id:id,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
+            back: this.$route.fullPath
           }
         })
         window.open(routeData.href, '_blank')

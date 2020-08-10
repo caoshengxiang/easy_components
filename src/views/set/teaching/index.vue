@@ -4,7 +4,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true" menu-no="_views_set_teaching_edit">
-      <el-tabs value="first">
+      <el-tabs value="first" style="position: relative; top: -18px;"><!--兼容对齐加了一个空的-->
         <el-tab-pane label="基础信息" name="first">
           <el-form
             v-loading="listLoading"
@@ -18,7 +18,7 @@
               <div class="postInfo-container">
 
                 <div style="margin-bottom: 30px">
-                  <h3 class="title">
+                  <h3 class="title" style="margin-top: 0;">
                     <div class="avatar-wrapper icon-title" style="background:rgb(54,163,247)">地</div>
                     <div class="icon-info">占地面积(平方米)</div>
                   </h3>
@@ -392,6 +392,7 @@
             </div>
           </el-form>
         </el-tab-pane>
+        <el-tab-pane label="" name="two"></el-tab-pane>
       </el-tabs>
     </y-detail-page-layout>
   </div>

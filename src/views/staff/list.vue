@@ -18,56 +18,20 @@
           size="mini"
           :page-jump="true"
           round
+          style="float: left"
         />
-        <!--        <el-select-->
-        <!--          v-model="listQuery.grade"-->
-        <!--          placeholder="管理员类型"-->
-        <!--          clearable-->
-        <!--          filterable-->
-        <!--          style="margin-left: 20px;width: 100px"-->
-        <!--          class="filter-item"-->
-        <!--        >-->
-        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-        <!--        </el-select>-->
-        <!--        <el-select-->
-        <!--          v-model="listQuery.grade"-->
-        <!--          placeholder="部门"-->
-        <!--          clearable-->
-        <!--          filterable-->
-        <!--          style="margin-left: 20px;width: 100px"-->
-        <!--          class="filter-item"-->
-        <!--        >-->
-        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-        <!--        </el-select>-->
-        <!--        <el-select-->
-        <!--          v-model="listQuery.grade"-->
-        <!--          placeholder="岗位"-->
-        <!--          clearable-->
-        <!--          filterable-->
-        <!--          style="margin-left: 20px;width: 100px"-->
-        <!--          class="filter-item"-->
-        <!--        >-->
-        <!--          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-        <!--        </el-select>-->
         <el-select
           v-model="listQuery.sex"
           placeholder="性别"
           clearable
           filterable
-          style="margin-left: 20px;width: 100px"
+          style="margin-left: 20px;width: 100px;float: left;"
           class="filter-item"
         >
           <el-option label="男" value="男" />
           <el-option label="女" value="女" />
         </el-select>
-        <!--        <el-input-->
-        <!--          v-model=""-->
-        <!--          placeholder="请输入关键字搜索"-->
-        <!--          prefix-icon="el-icon-search"-->
-        <!--          style="margin-left: 20px;width: 200px;"-->
-        <!--          class="filter-item"-->
-        <!--        />-->
-        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable style="margin-left: 20px;width: 320px;">
+        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable style="margin-left: 20px;width: 320px;float: left;">
           <el-select
             slot="prepend"
             v-model="listQueryKey"
@@ -83,7 +47,7 @@
         </el-input>
         <el-button
           class="filter-item"
-          style="margin-left: 10px;"
+          style="margin-left: 10px;float: left;"
           type="primary"
           @click="searchList"
           round
@@ -91,7 +55,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="resetSearch()" size="mini">
+        <el-button class="filter-item" style="float: left;" round type="warning" @click="resetSearch()" size="mini">
           重置
         </el-button>
       </template>
