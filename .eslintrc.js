@@ -15,13 +15,15 @@ module.exports = {
   //it is base on https://github.com/vuejs/eslint-config-vue
   // 0的意思是off关闭,1是warning警告,2是error 报错
   rules: {
-    'vue/max-attributes-per-line': [2, {
+    'vue/max-attributes-per-line': [0, {
       'singleline': 10,
       'multiline': {
         'max': 1,
         'allowFirstLine': false
       }
     }],
+    'vue/attributes-order': 'off',
+    'vue/attribute-hyphenation': 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': 'off',

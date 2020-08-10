@@ -5,8 +5,10 @@
     fit
     :max-height="maxHeight"
     highlight-current-row
-    :header-cell-style="{backgroundColor:'#EFF1F6'}"
+    :header-cell-style="{backgroundColor:'#eef2fe'}"
     slot="table"
+    @selection-change="selectionChange"
+    style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED"
   >
     <slot></slot>
   </el-table>
@@ -27,6 +29,11 @@
       maxHeight() {
         let clientHeight = document.documentElement.clientHeight
         return clientHeight-310
+      }
+    },
+    methods: {
+      selectionChange(val) {
+        this.$emit('selectionChange', val)
       }
     }
   }

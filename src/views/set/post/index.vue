@@ -73,7 +73,7 @@
         </el-table-column>
         <el-table-column label="所属部门" min-width="150" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.orgName }}</span>
+            <el-tag>{{ row.orgName || '无' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="主要职责" min-width="150" align="center">

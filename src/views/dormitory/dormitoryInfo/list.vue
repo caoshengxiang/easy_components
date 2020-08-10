@@ -202,7 +202,11 @@
         </el-table-column>
         <el-table-column label="宿舍状态" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满': (row.state == 3 ?'已住满':'')) }}</span>
+<!--            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满': (row.state == 3 ?'已住满':'')) }}</span>-->
+
+            <el-tag v-if="row.state == 1" type="info">未入住</el-tag>
+            <el-tag v-if="row.state == 2" type="info">未住满</el-tag>
+            <el-tag v-if="row.state == 3" type="warning">已住满</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="负责人" align="center">

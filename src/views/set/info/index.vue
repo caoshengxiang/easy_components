@@ -8,44 +8,44 @@
         <el-tab-pane label="基础信息" name="first">
           <el-form
             v-loading="listLoading"
-            label-width="200px"
+            label-width="160px"
             ref="postForm"
             :model="postForm"
             class="form-container">
 
             <div class="createPost-main-container">
               <div class="postInfo-container">
-                <div style="margin-bottom: 30px">
+                <div style="margin-bottom: 30px" class="info-title-box">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title">基</div>
                     <div class="icon-info">学校基本信息</div>
                   </h3>
                 </div>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="学校标识码：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="学校标识码" class="postInfo-container-item">
                       <el-input v-model="postForm.CODE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="学校名称：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="学校名称" class="postInfo-container-item">
                       <el-input v-model="postForm.SCHOOL_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="所在地区：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="所在地区" class="postInfo-container-item">
                       <el-input v-model="postForm.REGION.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="所在城市：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="所在城市" class="postInfo-container-item">
                       <el-input v-model="postForm.CITY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="当前校名启用日期：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="当前校名启用日期" class="postInfo-container-item">
 <!--                      <el-input v-model="postForm.SCHOOL_NAME_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.SCHOOL_NAME_DATE.value"
@@ -56,8 +56,8 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="建校日期：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="建校日期" class="postInfo-container-item">
 <!--                      <el-input v-model="postForm.BUILD_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.BUILD_DATE.value"
@@ -70,53 +70,53 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="建校基础：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="建校基础" class="postInfo-container-item">
                       <el-input v-model="postForm.BUILD_BASE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="学校举办者：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="学校举办者" class="postInfo-container-item">
                       <el-input v-model="postForm.SCHOOL_HOST.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="上级主管：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="上级主管" class="postInfo-container-item">
                       <el-input v-model="postForm.SUPERVISOR.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="教学主管部门：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="教学主管部门" class="postInfo-container-item">
                       <el-input v-model="postForm.TEACHING_DEPARTMENT.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="学校性质类别：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="学校性质类别" class="postInfo-container-item">
                       <el-input v-model="postForm.SCHOOL_PROPERTY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="12" :lg="8">
                     <div>&nbsp;</div>
                   </el-col>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
-                <div style="margin-bottom: 30px">
+                <div style="margin-bottom: 30px" class="info-title-box">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(124,194,255)">示</div>
                     <div class="icon-info">示范性中等职业学校级别</div>
                   </h3>
                 </div>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="示范性中等职业学校立项部门：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="示范性中等职业学校立项部门" class="postInfo-container-item">
                       <el-input v-model="postForm.PROJECT_DEPARTMENT.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="示范性中等职业学校立项日期：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="示范性中等职业学校立项日期" class="postInfo-container-item">
 <!--                      <el-input v-model="postForm.PROJECT_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.PROJECT_DATE.value"
@@ -127,20 +127,20 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="重点中等职业学校级别：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="重点中等职业学校级别" class="postInfo-container-item">
                       <el-input v-model="postForm.IMPORT_LEVEL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="重点中等职业学校立项部门：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="重点中等职业学校立项部门" class="postInfo-container-item">
                       <el-input v-model="postForm.IMPORT_PROJECT_DEPARTMENT.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="重点中等职业学校立项日期：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="重点中等职业学校立项日期" class="postInfo-container-item">
 <!--                      <el-input v-model="postForm.IMPORT_PROJECT_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.IMPORT_PROJECT_DATE.value"
@@ -151,17 +151,17 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="12" :lg="8">
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="复核结论：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="复核结论" class="postInfo-container-item">
                       <el-input v-model="postForm.CONCLUSION.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="复核日期：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="复核日期" class="postInfo-container-item">
 <!--                      <el-input v-model="postForm.MAILING_ADDR.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.CHECK_DATE.value"
@@ -172,127 +172,127 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="12" :lg="8">
                   </el-col>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
-                <div style="margin-bottom: 30px">
+                <div style="margin-bottom: 30px" class="info-title-box">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">法</div>
                     <div class="icon-info">法人信息</div>
                   </h3>
                 </div>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="通信地址：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="通信地址" class="postInfo-container-item">
                       <el-input v-model="postForm.MAILING_ADDR.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="邮政编码：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="邮政编码" class="postInfo-container-item">
                       <el-input v-model="postForm.POSTAL_CODE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="学校网址：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="学校网址" class="postInfo-container-item">
                       <el-input v-model="postForm.SCHOOL_WEBSITE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息教工号：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息教工号" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_NO.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息姓名：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息姓名" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息性别：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息性别" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_SEX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息职务：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息职务" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_DUTY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息区号-电话号码：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息区号-电话号码" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_PHONE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息手机号：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息手机号" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_MOBILE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="法定代表人信息电子邮箱：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="法定代表人信息电子邮箱" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_EMAIL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8"></el-col>
-                  <el-col :span="8"></el-col>
+                  <el-col :span="12" :lg="8"></el-col>
+                  <el-col :span="12" :lg="8"></el-col>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
-                <div style="margin-bottom: 30px">
+                <div style="margin-bottom: 30px" class="info-title-box">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:rgb(100,217,214)">联</div>
                     <div class="icon-info">联系人信息</div>
                   </h3>
                 </div>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息教工号：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息教工号" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_NO.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息姓名：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息姓名" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_NAME.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息性别：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息性别" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_SEX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息职务：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息职务" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_DUTY.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息区号-电话号码：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息区号-电话号码" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_PHONE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息手机号：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息手机号" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_MOBILE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="联系人信息电子邮箱：" class="postInfo-container-item">
+                  <el-col :span="12" :lg="8">
+                    <el-form-item label="联系人信息电子邮箱" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_EMAIL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8"></el-col>
-                  <el-col :span="8"></el-col>
+                  <el-col :span="12" :lg="8"></el-col>
+                  <el-col :span="12" :lg="8"></el-col>
                 </el-row>
               </div>
             </div>
@@ -391,36 +391,6 @@
       position: absolute;
       right: 10px;
       top: 0;
-    }
-
-    .avatar-wrapper {
-      width: 20px;
-      height: 20px;
-      position: relative;
-      border-radius: 50%;
-      background-color: #2A8FE3;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .viewTable .title {
-      text-align: left
-    }
-
-    .icon-title {
-      font-size: 10px;
-      float: left;
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .icon-info {
-      text-align: left;
-      padding-top: 5px;
-      margin-left: 30px;
-      height: 10px;
-      font-size: 10px;
-      font-weight: bold;
-      color: rgba(51, 51, 51, 1);
     }
 
   }

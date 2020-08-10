@@ -11,7 +11,7 @@
       <template>
         <slot name="table"></slot>
       </template>
-      <pagination v-if="pageList.total>0" :total="pageList.total" :page.sync="pagePara.current" :limit.sync="pagePara.size" @pagination="getPageList" />
+      <pagination style="border: 1px solid #EBECED" v-if="pageList.total>0" :total="pageList.total" :page.sync="pagePara.current" :limit.sync="pagePara.size" @pagination="getPageList" />
     </div>
 </template>
 
@@ -44,7 +44,20 @@
       }
     }
 </script>
-
+<style lang="scss">
+  .y-page-list-layout{
+    .y-left {
+      .el-input--small .el-input__inner {
+        border-radius: 20px;
+      }
+      .el-input-group {
+        .el-input__inner {
+          border-radius: 0 !important;
+        }
+      }
+    }
+  }
+</style>
 <style lang="scss" scoped>
  .y-page-list-layout{
    margin-top: 8px;

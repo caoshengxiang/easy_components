@@ -12,7 +12,7 @@
   <el-menu-item v-else :index="'id'+menu.id" @click="handleRoute(menu)">
     <i
       :class="iconName"
-      style="transform: scale(0.8);margin-right: 14px;width: 18px"
+      style="transform: scale(0.8);margin-right: 10px;width: 20px"
     />
     <span slot="title">{{ menu.name }}</span>
   </el-menu-item>

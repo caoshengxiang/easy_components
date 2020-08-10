@@ -5,10 +5,8 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="position: relative">
+      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container postInfo-container" style="position: relative">
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick" >
-
-
           <el-tab-pane label="基本信息" name="first">
             <div style="margin-bottom: 30px">
               <h3 class="title">  <div   class="avatar-wrapper icon-title" style="background:rgb(64,71,255)">基</div><div class="icon-info">单位信息</div></h3>

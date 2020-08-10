@@ -4,7 +4,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     </div>
 
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList"  v-loading="loading">
       <template slot="left">
         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search"  style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
         <el-select
@@ -40,7 +40,7 @@
       </template>
       <template slot="right">
       </template>
-      <parentTable v-loading="loading" :data="pageData.records" slot="table">
+      <parentTable :data="pageData.records" slot="table">
         <el-table-column label="标题" prop="processName" align="center">
         </el-table-column>
         <el-table-column label="申请时间" prop="startTime" align="center">
@@ -48,6 +48,12 @@
         <el-table-column label="完成时间" prop="endTime" align="center">
         </el-table-column>
         <el-table-column label="审核状态" prop="state" align="center">
+          <template slot-scope="{row}">
+            <el-tag v-if="row.state === '通过'" type="success">{{ row.state }}</el-tag>
+            <el-tag v-else-if="row.state === '拒绝'" type="danger">{{ row.state }}</el-tag>
+            <!--            <el-tag type="info">{{ row.state }}</el-tag>-->
+            <span v-else>{{ row.state }}</span>
+          </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">

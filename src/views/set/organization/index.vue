@@ -86,12 +86,14 @@
         </el-table-column>
         <el-table-column label="部门名称" min-width="150" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
+<!--            <span>{{ row.name }}</span>-->
+            <el-tag type="info">{{ row.name }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="上级部门" min-width="150" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.parentName || '无' }}</span>
+<!--            <span>{{ row.parentName || '无' }}</span>-->
+            <el-tag>{{ row.parentName || '无' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="联系电话" min-width="150" align="center">

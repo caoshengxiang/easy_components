@@ -258,37 +258,6 @@
       right: 10px;
       top: 0px;
     }
-
-    .avatar-wrapper {
-      width: 20px;
-      height: 20px;
-      position: relative;
-      border-radius: 50%;
-      background-color: #2A8FE3;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .viewTable .title {
-      text-align: left
-    }
-
-    .icon-title {
-      font-size: 10px;
-      float: left;
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .icon-info {
-      text-align: left;
-      padding-top: 5px;
-      margin-left: 30px;
-      height: 10px;
-      font-size: 10px;
-      font-weight: bold;
-      color: rgba(51, 51, 51, 1);
-    }
-
   }
 
   .download-button {
