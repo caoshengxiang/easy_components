@@ -38,7 +38,7 @@
           >
         </span>
       </el-scrollbar>
-      <el-scrollbar style="flex: 1;max-height: calc(100vh - 60px);overflow-y: auto;">
+      <el-scrollbar style="flex: 1;max-height: calc(100vh - 60px);overflow-y: auto;" :class="{'side-right': !sideBarStatus}">
         <tags-view/>
         <app-main />
       </el-scrollbar>
@@ -149,12 +149,15 @@
     max-height: calc(100vh - 60px);
 
     &.side-bar-close {
-      width: 0;
+      width: 0px;
     }
 
     &.side-bar-open {
       width: 200px;
     }
+  }
+  .side-right {
+    margin-left: 10px;
   }
 
   .scrollbar-wrapper {

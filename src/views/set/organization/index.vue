@@ -70,6 +70,7 @@
         />
       </template>
       <el-table
+        size="medium"
         :key="tableKey"
         slot="table"
         row-key="id"
@@ -78,6 +79,9 @@
         fit
         highlight-current-row
         :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+        :header-row-style="{color: '#333333'}"
+        style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
+        :header-cell-style="{backgroundColor:'#eef2fe'}"
       >
         <el-table-column label="部门代码" align="center" min-width="150">
           <template slot-scope="{row}">

@@ -1,5 +1,6 @@
 <template>
   <el-table
+    size="medium"
     v-loading="loading"
     :data="data"
     fit
@@ -8,7 +9,8 @@
     :header-cell-style="{backgroundColor:'#eef2fe'}"
     slot="table"
     @selection-change="selectionChange"
-    style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED"
+    :header-row-style="{color: '#333333'}"
+    style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
   >
     <slot></slot>
   </el-table>

@@ -107,7 +107,8 @@
   }
 </script>
 <style lang="scss">
-  .sidebar-menu {
+  .sidebar-menu.el-menu {
+    border-right: 0;
     .el-menu-item.is-active {
       background-color: #F8FAFB;
       &:before {
