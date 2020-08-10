@@ -256,7 +256,8 @@
           </el-tab-pane>
           <el-tab-pane label="生源及其他信息" name="third">
             <div style="margin-bottom: 30px">
-              <h3 class="title">  <div   class="avatar-wrapper icon-title" style="background:#43D6B3">户</div><div class="icon-info" style="width: 75px">生源户口情况</div></h3>
+              <h3 class="title">  <div   class="avatar-wrapper icon-title" style="background:#43D6B3">户</div>
+                <div class="icon-info" style="">生源户口情况</div></h3>
             </div>
             <el-row>
               <el-col :span="8">
