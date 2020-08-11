@@ -100,12 +100,6 @@
               <el-tabs type="card">
                 <el-tab-pane :label="(menuItem.name ? menuItem.name + '-':'') + '详细'">
 
-                  <!--              <el-alert-->
-                  <!--                title="提示：如果菜单下面存在子菜单，那么该菜单只会被作为目录，不会跳转对应页面"-->
-                  <!--                type="warning"-->
-                  <!--                show-icon-->
-                  <!--              />-->
-
                   <el-form
                     v-if="menuItem.name"
                     ref="dataForm"
@@ -129,6 +123,27 @@
                         />
                       </el-select>
                     </el-form-item>
+                    <el-form-item label="状态：">
+                      <el-radio-group v-model="temp.enabled">
+                        <el-radio :label="true">正常</el-radio>
+                        <el-radio :label="false">禁用</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="外部系统：">
+                      <el-radio-group v-model="temp.external" :disabled="isFEBuilder !== '17358684442'">
+                        <el-radio :label="true">外部系统</el-radio>
+                        <el-radio :label="false">内部系统</el-radio>
+                      </el-radio-group>
+                      <el-alert
+                        v-if="isFEBuilder === '17358684442'"
+                        :closable="false"
+                        title="警告："
+                        description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
+                        type="error"
+                        style="line-height: 18px;"
+                        show-icon
+                      />
+                    </el-form-item>
                     <el-form-item label="菜单类型：">
                       <span slot="label">菜单类型
                         <el-tooltip
@@ -140,10 +155,10 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-radio-group v-model="temp.menuType">
+                      <el-radio-group v-model="temp.menuType" :disabled="!temp.external">
                         <el-radio label="目录">目录</el-radio>
                         <el-radio label="菜单">菜单</el-radio>
-                        <el-radio label="按钮">按钮</el-radio>
+                        <el-radio label="按钮" v-if="!temp.external">按钮</el-radio> <!--内部系统才有-->
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item
@@ -173,9 +188,7 @@
                     <el-form-item
                       label="编码："
                       prop="menuNo"
-                      :rules="[
-                        { required: true, message: '请输入编码', trigger: 'blur' }
-                      ]"
+                      v-if="isFEBuilder === '17358684442'"
                     >
                       <span slot="label">编码
                         <el-tooltip
@@ -196,6 +209,7 @@
                     <el-form-item
                       label="组件映射："
                       prop="menuCode"
+                      v-if="isFEBuilder === '17358684442'"
                     >
                       <span slot="label">组件映射
                         <el-tooltip
@@ -209,35 +223,12 @@
                       </span>
                       <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item"/>
                     </el-form-item>
-                    <el-form-item label="状态：">
-                      <el-radio-group v-model="temp.enabled">
-                        <el-radio :label="true">正常</el-radio>
-                        <el-radio :label="false">禁用</el-radio>
-                      </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="外部系统：">
-                      <el-radio-group v-model="temp.external">
-                        <el-radio :label="true">外部系统</el-radio>
-                        <el-radio :label="false">内部系统</el-radio>
-                      </el-radio-group>
-                      <el-alert
-                        :closable="false"
-                        title="警告："
-                        description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
-                        type="error"
-                        style="line-height: 18px;"
-                        show-icon
-                      />
-                    </el-form-item>
                     <el-form-item label="菜单端口：">
                       <el-checkbox v-model="port_pc">web端</el-checkbox>
                     </el-form-item>
                     <el-form-item
                       v-if="port_pc"
                       label="URL："
-                      :rules="[
-                        // { required: true, message: '请输入URL', trigger: 'blur' }
-                      ]"
                     >
                       <span slot="label">URL
                         <el-tooltip
@@ -257,7 +248,8 @@
                         width="400"
                         trigger="hover">
                         <div>
-                          <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
+                          <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item"
+                             @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
                         </div>
                         <div slot="reference">
                           <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
@@ -287,9 +279,6 @@
                     <el-form-item
                       v-if="port_m"
                       label="URL："
-                      :rules="[
-                        // { required: true, message: '请输入名称', trigger: 'blur' }
-                      ]"
                     >
                       <el-input v-model="temp.mobileUrl" class="filter-item"/>
                     </el-form-item>
@@ -297,7 +286,7 @@
                       <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
                     </el-form-item>
                     <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;"/>
-                    <el-form-item label="是否有数据权限：">
+                    <el-form-item label="是否有数据权限：" v-if="isFEBuilder === '17358684442'">
                       <el-radio-group v-model="temp.hasDataPrivilege">
                         <el-radio :label="false">无</el-radio>
                         <el-radio :label="true">有</el-radio>
@@ -357,6 +346,25 @@
             >
               <span>{{ temp.parentName }}</span>
             </el-form-item>
+            <el-form-item label="状态：">
+              <el-radio-group v-model="temp.enabled">
+                <el-radio :label="true">正常</el-radio>
+                <el-radio :label="false">禁用</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="外部系统：" v-if="isFEBuilder === '17358684442'">
+              <el-radio-group v-model="temp.external">
+                <el-radio :label="true">外部系统</el-radio>
+                <el-radio :label="false">内部系统</el-radio>
+              </el-radio-group>
+              <el-alert
+                :closable="false"
+                title="警告："
+                description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
+                type="error"
+                style="line-height: 18px;"
+              />
+            </el-form-item>
             <el-form-item label="菜单类型：">
               <span slot="label">菜单类型
                 <el-tooltip
@@ -371,7 +379,7 @@
               <el-radio-group v-model="temp.menuType">
                 <el-radio label="目录">目录</el-radio>
                 <el-radio label="菜单">菜单</el-radio>
-                <el-radio label="按钮">按钮</el-radio>
+                <el-radio label="按钮" v-if="!temp.external">按钮</el-radio> <!--内部系统才有-->
               </el-radio-group>
             </el-form-item>
             <el-form-item
@@ -383,78 +391,56 @@
             >
               <el-input v-model="temp.name" placeholder="请输入简短名称" class="filter-item"/>
             </el-form-item>
-            <el-form-item
-              label="编码："
-              prop="menuNo"
-              :rules="[
-                { required: true, message: '请输入编码', trigger: 'blur' }
-              ]"
-            >
-              <span slot="label">编码
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"
-                  placement="top-start"
-                >
-                  <i class="el-icon-question"/></el-tooltip>
-                ：
-              </span>
-              <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item"/>
-            </el-form-item>
-            <el-form-item
-              label="组件映射："
-              prop="menuNo"
-            >
-              <span slot="label">组件映射
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）"
-                  placement="top-start"
-                >
-                  <i class="el-icon-question"/></el-tooltip>
-                ：
-              </span>
-              <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item"/>
-            </el-form-item>
-            <el-form-item label="状态：">
-              <el-radio-group v-model="temp.enabled">
-                <el-radio :label="true">正常</el-radio>
-                <el-radio :label="false">禁用</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="外部系统：">
-              <el-radio-group v-model="temp.external">
-                <el-radio :label="true">外部系统</el-radio>
-                <el-radio :label="false">内部系统</el-radio>
-              </el-radio-group>
-              <el-alert
-                :closable="false"
-                title="警告："
-                description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
-                type="error"
-                style="line-height: 18px;"
-              />
-            </el-form-item>
+            <!--            <el-form-item-->
+            <!--              label="编码："-->
+            <!--              prop="menuNo"-->
+            <!--              :rules="[-->
+            <!--                { required: true, message: '请输入编码', trigger: 'blur' }-->
+            <!--              ]"-->
+            <!--            >-->
+            <!--              <span slot="label">编码-->
+            <!--                <el-tooltip-->
+            <!--                  class="item"-->
+            <!--                  effect="dark"-->
+            <!--                  content="菜单和按钮必须配置编码，且必须是唯一标识不能重复！用于权限控制"-->
+            <!--                  placement="top-start"-->
+            <!--                >-->
+            <!--                  <i class="el-icon-question"/></el-tooltip>-->
+            <!--                ：-->
+            <!--              </span>-->
+            <!--              <el-input v-model="temp.menuNo" placeholder="请输入唯一编码" class="filter-item"/>-->
+            <!--            </el-form-item>-->
+            <!--            <el-form-item-->
+            <!--              label="组件映射："-->
+            <!--              prop="menuNo"-->
+            <!--            >-->
+            <!--              <span slot="label">组件映射-->
+            <!--                <el-tooltip-->
+            <!--                  class="item"-->
+            <!--                  effect="dark"-->
+            <!--                  content="（配置请咨询管理员,配置前请确认router/urlMap.js文件是否有相应配置）。菜单和绑定页面的按钮约定为页面url 以下划线连接（url为组件的路径）,不绑定页面的按钮约定为 页面编码_按钮标识（如：岗位列表的新增按钮编码为  _views_set_post_add）"-->
+            <!--                  placement="top-start"-->
+            <!--                >-->
+            <!--                  <i class="el-icon-question"/></el-tooltip>-->
+            <!--                ：-->
+            <!--              </span>-->
+            <!--              <el-input v-model="temp.menuCode" placeholder="请输入组件映射" class="filter-item"/>-->
+            <!--            </el-form-item>-->
             <el-form-item label="菜单端口：">
               <el-checkbox v-model="port_pc">web端</el-checkbox>
             </el-form-item>
             <el-form-item
               v-if="port_pc"
               label="URL："
-              :rules="[
-                { required: true, message: '请输入URL', trigger: 'blur' }
-              ]"
             >
               <span slot="label">URL
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。"
-                  placement="top-start"
-                >
-                  <i class="el-icon-question"/></el-tooltip>
+                <!--                <el-tooltip-->
+                <!--                  class="item"-->
+                <!--                  effect="dark"-->
+                <!--                  content="内部系统url 约定为 组件路径（注意：URL 不得重复）, 可以试试把编码粘贴这里，失去焦点。"-->
+                <!--                  placement="top-start"-->
+                <!--                >-->
+                <!--                  <i class="el-icon-question"/></el-tooltip>-->
                 ：
               </span>
               <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
@@ -465,11 +451,12 @@
                 width="400"
                 trigger="hover">
                 <div>
-                  <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
+                  <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item"
+                     style="margin: 3px;cursor: pointer;"></i>
                 </div>
                 <div slot="reference">
                   <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
-                  <el-input v-else v-model="temp.pcIcon" class="filter-item"/>
+                  <el-button type="primary" v-else>图标库</el-button>
                 </div>
               </el-popover>
 
@@ -480,9 +467,6 @@
             <el-form-item
               v-if="port_m"
               label="URL："
-              :rules="[
-                { required: true, message: '请输入名称', trigger: 'blur' }
-              ]"
             >
               <el-input v-model="temp.mobileUrl" class="filter-item"/>
             </el-form-item>
@@ -534,7 +518,7 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: false,
+          external: true,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
@@ -555,6 +539,7 @@
         menuItem: {},
         treeListData: [],
         vloading: false,
+        isFEBuilder: this.$route.query.isFEBuilder, // true 17358684442
       }
     },
     created() {
@@ -604,7 +589,7 @@
           menuNo: '',
           menuCode: '',
           enabled: true,
-          external: false,
+          external: true,
           pcUrl: '',
           pcIcon: '',
           mobileUrl: '',
@@ -674,7 +659,17 @@
         if (dropType === 'inner') {
           draggingNode.data.parentId = dropNode.data.id
         }
-        // console.log()
+
+        this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
+          this.dialogFormVisible = false
+          this.vloading = false
+          this.$notify({
+            title: '成功',
+            message: '编辑成功',
+            type: 'success',
+            duration: 2000
+          })
+        }).catch(() => { this.vloading = false })
       },
       allowDrop(draggingNode, dropNode, type) { // 	拖拽时判定目标节点能否被放置。type 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后
         // console.log(draggingNode, dropNode, type, '放置')
@@ -839,34 +834,17 @@
               }
               this.vloading = true
               this.$api.menuSet.edit(tempData).then(res => {
-                this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
-                  this.dialogFormVisible = false
-                  this.getMenuTreeData()
-                  this.vloading = false
-                  this.$notify({
-                    title: '成功',
-                    message: '编辑成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                }).catch(() => {this.vloading = false})
-                // this.vloading = false
-              }).catch(() => {this.vloading = false})
+                this.getMenuTreeData()
+                this.$notify({
+                  title: '成功',
+                  message: '编辑成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                this.vloading = false
+              }).catch(() => { this.vloading = false })
             }
           })
-        } else {
-          this.vloading = true
-          this.$api.menuSet.batchUpdate(this.setSortNum(this.treeData)).then(res => {
-            this.dialogFormVisible = false
-            this.getMenuTreeData()
-            this.$notify({
-              title: '成功',
-              message: '编辑成功',
-              type: 'success',
-              duration: 2000
-            })
-            this.vloading = false
-          }).catch(() => {this.vloading = false})
         }
       },
       getWorkFlow() {

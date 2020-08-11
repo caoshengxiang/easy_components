@@ -63,7 +63,7 @@
           // this.menus = newv
           // this.currentMenus = []
           // this.getCurrentMenu(this.menus)
-          console.log(newv, 'sidebarindex')
+          // console.log(newv, 'sidebarindex')
           if (newv.length){
             this.currentMenus = newv[0].meta.children
             this.activeIndex = 'id' + this.$route.meta.id

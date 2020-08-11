@@ -64,7 +64,7 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
-          @click="add"
+          :page-jump="true"
         />
         <el-select
           v-model="listQuery.gradeId"
@@ -220,17 +220,18 @@
           </template>
         </el-table-column>
         <el-table-column label="编辑" align="center" width="140px" class-name="small-padding fixed-width">
-          <template slot-scope="{row,$index}">
+          <template slot-scope="{row, $index}">
             <!--            <el-button type="primary" style="border-radius:15px;" size="mini" @click="handleUpdate(row)">-->
             <!--              编辑-->
             <!--            </el-button>-->
             <PermissionButton
-              menu-no="_views_dormitory_dormitoryInfo_eidt"
+              menu-no="_views_dormitory_dormitoryInfo_detail"
               class-name="filter-item"
               round
               size="mini"
               type="primary"
-              @click="edit(row.id)"
+              :page-jump="true"
+              :page-query="{id: row.id}"
             />
             <!--            <el-button type="primary" style="border-radius:15px;" size="mini" @click="detail(row.id)">-->
             <!--              人员-->
@@ -241,7 +242,8 @@
               type="warning"
               round
               size="mini"
-              @click="person(row.id,row.managerName)"
+              :page-jump="true"
+              :page-query="{id: row.id, managerName: row.managerName}"
             >
             </PermissionButton>
           </template>
@@ -252,7 +254,6 @@
   </div>
 </template>
 <script>
-  import Pagination from '@/components/Pagination'
   import Breadcrumb from '@/components/Breadcrumb'
   import excelImport from '@/components/excelImport.vue'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
@@ -263,7 +264,6 @@
     components: {
       PermissionButton,
       Breadcrumb,
-      Pagination,
       excelImport,
       YPageListLayout
     },
@@ -376,53 +376,6 @@
       },
       downloadCodeTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '宿舍导入模板')
-      },
-      person(id,managerName){
-        const that = this
-        const routeData = that.$router.resolve({
-          path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
-          query: {
-            id:id,
-            managerName: managerName,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
-          }
-        })
-        window.open(routeData.href, '_blank')
-      },
-      edit(id) {
-        const that = this
-        const routeData = that.$router.resolve({
-          path: '/views/dormitory/dormitoryInfo/detail',
-          query: {
-            id:id,
-            back: this.$route.fullPath
-          }
-        })
-        window.open(routeData.href, '_blank')
-      },
-      add() {
-        const that = this
-        const routeData = that.$router.resolve({
-          path: '/views/dormitory/dormitoryInfo/add',
-          query: {
-            back: this.$route.fullPath
-          },
-        })
-        window.open(routeData.href, '_blank')
-      },
-      detail(id) {
-        const that = this
-        const routeData = that.$router.resolve({
-          path: '/views/dormitory/dormitoryInfo/dormitoryStdList',
-          query: {
-            id: id,
-            // menuLevel1: this.$route.query.menuLevel1,
-            // menuId: this.$route.query.menuId,
-            back: this.$route.fullPath
-          }
-        })
-        window.open(routeData.href, '_blank')
       },
       downloadTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '人员导入模板')
