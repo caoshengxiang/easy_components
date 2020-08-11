@@ -4,7 +4,6 @@
     size="medium"
     v-loading="loading"
     :data="data"
-    height="500"
     fit
     :max-height="maxHeight"
     highlight-current-row

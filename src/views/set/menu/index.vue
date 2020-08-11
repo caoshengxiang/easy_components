@@ -257,7 +257,7 @@
                         </div>
                       </el-popover>
                     </el-form-item>
-                    <el-form-item v-if="port_pc && temp.menuCode" label="是否缓存：">
+                    <el-form-item v-if="port_pc && temp.menuCode && isFEBuilder !== '17358684442'" label="是否缓存：">
                       <span slot="label">缓存页面
                         <el-tooltip
                           class="item"
