@@ -80,7 +80,7 @@
                     <!--                删除-->
                     <!--              </el-button>-->
                     <PermissionButton
-                      v-if="!data.children || data.children.length===0"
+                      v-if="(!data.children || data.children.length===0) && isFEBuilder === '17358684442'"
                       menu-no="_views_set_menu_remove"
                       type="text"
                       size="mini"
