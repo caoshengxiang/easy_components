@@ -240,7 +240,7 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-input v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
+                      <el-input :disabled="!temp.external" v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
                       <el-popover
@@ -257,7 +257,7 @@
                         </div>
                       </el-popover>
                     </el-form-item>
-                    <el-form-item v-if="port_pc && temp.menuCode && isFEBuilder !== '17358684442'" label="是否缓存：">
+                    <el-form-item v-if="port_pc && temp.menuCode && isFEBuilder === '17358684442'" label="是否缓存：">
                       <span slot="label">缓存页面
                         <el-tooltip
                           class="item"
@@ -280,7 +280,7 @@
                       v-if="port_m"
                       label="URL："
                     >
-                      <el-input v-model="temp.mobileUrl" class="filter-item"/>
+                      <el-input :disabled="!temp.external" v-model="temp.mobileUrl" class="filter-item"/>
                     </el-form-item>
                     <el-form-item v-if="port_m" label="图标：" prop="name">
                       <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
