@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <!--    <y-detail-page-layout :save="handleCreate" :edit-status="true">-->
     <!--      -->
@@ -31,9 +31,9 @@
                     @change="(sta) => {checkboxChange(data, node, sta)}"
                   />
                   <el-tooltip class="item" effect="dark" :content="data.menuType" placement="top-start">
-                    <i v-if="data.menuType==='目录'" class="el-icon-folder-opened" />
-                    <i v-if="data.menuType==='菜单'" class="el-icon-document" />
-                    <i v-if="data.menuType==='按钮'" class="el-icon-thumb" />
+                    <i v-if="data.menuType==='目录'" class="el-icon-folder-opened"/>
+                    <i v-if="data.menuType==='菜单'" class="el-icon-document"/>
+                    <i v-if="data.menuType==='按钮'" class="el-icon-thumb"/>
                   </el-tooltip>
                   <!--            <span class="tips">{{ node.level }}</span>-->
                   <!--            <span>{{ data }}</span>-->
@@ -77,8 +77,8 @@
 
                     <el-form-item v-if="menuItem.hasDataPrivilege" label="是否为学校管理员：">
                       <el-radio-group v-model="menuItem.dataPrivilege">
-                        <el-radio :value="true" label="是" />
-                        <el-radio :value="false" label="否" />
+                        <el-radio :value="true" label="是"/>
+                        <el-radio :value="false" label="否"/>
                         <!--                        <el-radio label="班级">班级</el-radio>-->
                       </el-radio-group>
                     </el-form-item>

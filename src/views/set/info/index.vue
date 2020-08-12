@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true" menu-no="_views_set_info_edit">
-      <el-tabs value ="first"  style="position: relative; top: -18px;"><!--兼容对齐加了一个空的-->
+      <el-tabs value="first" style="position: relative; top: -18px;"><!--兼容对齐加了一个空的-->
         <el-tab-pane label="基础信息" name="first">
           <el-form
             v-loading="listLoading"
@@ -46,7 +46,7 @@
                   </el-col>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="当前校名启用日期" class="postInfo-container-item">
-<!--                      <el-input v-model="postForm.SCHOOL_NAME_DATE.value" class="filter-item"/>-->
+                      <!--                      <el-input v-model="postForm.SCHOOL_NAME_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.SCHOOL_NAME_DATE.value"
                         type="date"
@@ -58,7 +58,7 @@
                   </el-col>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="建校日期" class="postInfo-container-item">
-<!--                      <el-input v-model="postForm.BUILD_DATE.value" class="filter-item"/>-->
+                      <!--                      <el-input v-model="postForm.BUILD_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.BUILD_DATE.value"
                         type="date"
@@ -117,7 +117,7 @@
                   </el-col>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="示范性中等职业学校立项日期" class="postInfo-container-item">
-<!--                      <el-input v-model="postForm.PROJECT_DATE.value" class="filter-item"/>-->
+                      <!--                      <el-input v-model="postForm.PROJECT_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.PROJECT_DATE.value"
                         type="date"
@@ -141,7 +141,7 @@
                   </el-col>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="重点中等职业学校立项日期" class="postInfo-container-item">
-<!--                      <el-input v-model="postForm.IMPORT_PROJECT_DATE.value" class="filter-item"/>-->
+                      <!--                      <el-input v-model="postForm.IMPORT_PROJECT_DATE.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.IMPORT_PROJECT_DATE.value"
                         type="date"
@@ -162,7 +162,7 @@
                   </el-col>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="复核日期" class="postInfo-container-item">
-<!--                      <el-input v-model="postForm.MAILING_ADDR.value" class="filter-item"/>-->
+                      <!--                      <el-input v-model="postForm.MAILING_ADDR.value" class="filter-item"/>-->
                       <el-date-picker
                         v-model="postForm.CHECK_DATE.value"
                         type="date"
@@ -308,12 +308,14 @@
   import { validURL } from '@/utils/validate'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
-  const defaultForm = {
-  }
+  const defaultForm = {}
 
   export default {
     name: 'SetInfo',
-    components: { Breadcrumb, YDetailPageLayout },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
+    },
     data() {
       return {
         listLoading: false,

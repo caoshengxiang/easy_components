@@ -6,9 +6,9 @@
 
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
-<!--          新增学期-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
+        <!--          新增学期-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_teachingAffairs_semester_add"
           class-name="filter-item"
@@ -45,14 +45,14 @@
 
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="学期名称" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
@@ -85,7 +85,7 @@
         </el-table-column>
         <el-table-column label="上课时间设置" align="center">
           <template slot-scope="{row}">
-<!--            <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>-->
+            <!--            <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>-->
             <PermissionButton
               menu-no="_views_teachingAffairs_semester_classTime"
               type="text"
@@ -108,8 +108,8 @@
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
             <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
-<!--            <el-button type="primary" @click="detail(row)">详情</el-button>-->
-<!--            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>-->
+            <!--            <el-button type="primary" @click="detail(row)">详情</el-button>-->
+            <!--            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>-->
             <PermissionButton
               menu-no="_views_teachingAffairs_semester_edit"
               type="primary"
@@ -118,7 +118,7 @@
               :page-query="{id: row.id}"
               round
             />
-<!--            <el-button type="danger">删除</el-button>-->
+            <!--            <el-button type="danger">删除</el-button>-->
             <PermissionButton
               menu-no="_views_teachingAffairs_semester_remove"
               type="danger"
@@ -128,7 +128,7 @@
             />
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>

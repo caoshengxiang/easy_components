@@ -95,7 +95,8 @@
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item" style="width: 100px;margin-left: 10px">
+        <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item"
+                   style="width: 100px;margin-left: 10px">
           <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input
@@ -114,33 +115,33 @@
         </el-button>
       </template>
       <template slot="right">
-      <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
-      <!--          导入模板下载-->
-      <!--        </el-button>-->
-      <PermissionButton
-        menu-no="_views_dormitory_dormitoryInfo_import"
-        class-name="filter-item"
-        round
-        icon="el-icon-download"
-        name="人员导入模板"
-        @click="downloadTemplate"
-      />
-      <PermissionButton
-        menu-no="_views_dormitory_dormitoryInfo_import"
-        class-name="filter-item"
-        type="text"
-        round
-        name=""
-        style="padding: 0;margin-bottom: 10px;"
-      >
-        <excelImport
-          ref="uploadControl"
-          flag="dormitoryBed/importExcel"
-          :style-type="1"
-          title="人员导入"
-          @fath = "getList"
+        <!--        <el-button class="filter-item" round type="primary" @click="downloadTemplate">-->
+        <!--          导入模板下载-->
+        <!--        </el-button>-->
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          round
+          icon="el-icon-download"
+          name="人员导入模板"
+          @click="downloadTemplate"
         />
-      </PermissionButton>
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryInfo_import"
+          class-name="filter-item"
+          type="text"
+          round
+          name=""
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <excelImport
+            ref="uploadControl"
+            flag="dormitoryBed/importExcel"
+            :style-type="1"
+            title="人员导入"
+            @fath="getList"
+          />
+        </PermissionButton>
         <PermissionButton
           menu-no="_views_dormitory_dormitoryInfo_import"
           class-name="filter-item"
@@ -162,20 +163,20 @@
             flag="dormitory/importExcel"
             :style-type="1"
             title="宿舍导入"
-            @fath = "getList"
+            @fath="getList"
           />
         </PermissionButton>
-    </template>
+      </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--        slot="table"-->
-<!--      >-->
-        <el-table-column label="宿舍编号" prop="id"  align="center">
+        <!--      <el-table-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--        slot="table"-->
+        <!--      >-->
+        <el-table-column label="宿舍编号" prop="id" align="center">
           <template slot-scope="{row}">
             {{ row.code }}
           </template>
@@ -202,7 +203,7 @@
         </el-table-column>
         <el-table-column label="宿舍状态" align="center">
           <template slot-scope="{row}">
-<!--            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满': (row.state == 3 ?'已住满':'')) }}</span>-->
+            <!--            <span>{{ row.state == 1?'未入住':(row.state == 2?'未住满': (row.state == 3 ?'已住满':'')) }}</span>-->
 
             <el-tag v-if="row.state == 1" type="info">未入住</el-tag>
             <el-tag v-if="row.state == 2" type="info">未住满</el-tag>
@@ -248,7 +249,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -278,12 +279,13 @@
       },
     },
     data() {
-      return { pageData:{},
+      return {
+        pageData: {},
         statisticsInfo: {},
         tableKey: 0,
         list: [],
         total: 20,
-        listLoading: true,
+        listLoading: false,
         pagePara: {
           current: 0,
           size: 10
@@ -299,7 +301,7 @@
         classInfo: [],
         majorInfo: [],
         staff: [],
-        AllEnum:[],
+        AllEnum: [],
         IsFull: [{
           label: '全部',
           value: 0
@@ -342,12 +344,11 @@
       that.getStatistics()
     },
     methods: {
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/dormitory',{ ...that.listQuery }).then(data => {
-          that.loading = false
+        that.$api.statistics.getStatistics('/statistics/dormitory', { ...that.listQuery }).then(data => {
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -380,7 +381,7 @@
       downloadTemplate() {
         this.$utils.exportUtil('/dormitoryBed/download/importTemplate', null, '人员导入模板')
       },
-      downloadTemplate1(){
+      downloadTemplate1() {
         this.$utils.exportUtil('/dormitory/download/importTemplate', null, '宿舍导入模板')
       },
       resetTemp() {
@@ -399,7 +400,7 @@
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
         this.$nextTick(() => {
-       //    this.$refs['dataForm'].clearValidate()
+          //    this.$refs['dataForm'].clearValidate()
         })
       },
       createData() {
@@ -407,7 +408,6 @@
         that.$refs['dataForm'].validate((valid) => {
           if (valid) {
             that.$api.dormitory.addDormitory({ ...that.temp }).then(data => {
-              that.loading = false
               if (data.code === 200) {
                 this.$message({
                   type: 'success',
@@ -439,7 +439,6 @@
       handleUpdate(row) {
         const that = this
         that.$api.dormitory.getDetail(row.id).then(data => {
-          that.loading = false
           if (data.code === 200) {
             row = data.data
             that.temp = Object.assign({}, row) // copy obj
@@ -456,7 +455,6 @@
         that.$refs['dataForm'].validate((valid) => {
           if (valid) {
             that.$api.dormitory.editDormitory({ ...that.temp }).then(data => {
-              that.loading = false
               if (data.code === 200) {
                 this.$message({
                   type: 'success',
@@ -477,7 +475,6 @@
       getStaffList() {
         const that = this
         that.$api.baseInfo.getStaffList().then(data => {
-          that.loading = false
           if (data.code === 200) {
             // 返回成功
             that.staff = data.data.records
@@ -488,12 +485,10 @@
             })
           }
         })
-        that.listLoading = false
       },
       getGradeList() {
         const that = this
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false
           if (data.code === 200) {
             // 返回成功
             that.classInfo = data.data
@@ -504,12 +499,10 @@
             })
           }
         })
-        that.listLoading = false
       },
       getSpecialtyList() {
         const that = this
         that.$api.baseInfo.getSpecialtyList().then(data => {
-          that.loading = false
           if (data.code === 200) {
             // 返回成功
             that.majorInfo = data.data
@@ -520,12 +513,13 @@
             })
           }
         })
-        that.listLoading = false
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.gradeId,specialtyId:that.listQuery.specialtyId}).then(data => {
-          that.loading = false
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.listQuery.gradeId,
+          specialtyId: that.listQuery.specialtyId
+        }).then(data => {
           if (data.code === 200) {
             // 返回成功
             that.gradeInfo = data.data
@@ -536,16 +530,16 @@
             })
           }
         })
-        that.listLoading = false
       },
       getList() {
         const that = this
-        that.$api.dormitory.getPage({ ...that.pagePara,...that.listQuery }).then(data => {
-          that.loading = false
+        that.listLoading = true
+        that.$api.dormitory.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
             that.getStatistics()
+            that.listLoading = false
           } else {
             this.$message({
               type: 'error',
@@ -553,7 +547,6 @@
             })
           }
         })
-        that.listLoading = false
       },
       handleDelete(row, index) {
         const that = this

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true">
       <el-tabs value="first">
@@ -17,17 +17,17 @@
               <el-row>
                 <el-col :span="24">
                   <el-form-item label="学期名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.name" class="filter-item" />
+                    <el-input v-model="postForm.name" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="学年：" prop="year" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.year" class="filter-item" />
+                    <el-input v-model="postForm.year" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="学期码：" prop="code" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.code" class="filter-item" />
+                    <el-input v-model="postForm.code" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">

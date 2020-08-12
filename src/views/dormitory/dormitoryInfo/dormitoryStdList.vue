@@ -1,29 +1,29 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-button class="filter-item"  style="margin-left: 0px;" round  type="primary" @click="handleCreate">
+        <el-button class="filter-item" style="margin-left: 0px;" round type="primary" @click="handleCreate">
           新增学生
         </el-button>
       </template>
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        v-loading="listLoading"-->
+        <!--      <el-table-->
+        <!--        v-loading="listLoading"-->
 
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--        slot="table"-->
-<!--      >-->
-        <el-table-column label="床位号" prop="bedNo"  align="center" width="150">
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--        slot="table"-->
+        <!--      >-->
+        <el-table-column label="床位号" prop="bedNo" align="center" width="150">
           <template slot-scope="{row}">
-          {{ row.bedNo }}
+            {{ row.bedNo }}
           </template>
         </el-table-column>
         <el-table-column label="学号" width="150px" align="center">
@@ -31,7 +31,7 @@
             <span>{{ row.studyCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="姓名" min-width="150px"  align="center">
+        <el-table-column label="姓名" min-width="150px" align="center">
           <template slot-scope="{row}">
             <span>{{ row.studentName }}</span>
           </template>
@@ -41,24 +41,24 @@
             <span>{{ row.specialtyName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="年级"  width="110px" align="center">
+        <el-table-column label="年级" width="110px" align="center">
           <template slot-scope="{row}">
-            <span >{{ row.gradeName }}</span>
+            <span>{{ row.gradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="班级" width="80px">
           <template slot-scope="{row}">
-            <span >{{ row.clbumName }}</span>
+            <span>{{ row.clbumName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="班主任" align="center" width="95">
           <template slot-scope="{row}">
-            <span >{{ row.teacherName }}</span>
+            <span>{{ row.teacherName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="联系电话" class-name="status-col" width="100">
           <template slot-scope="{row}">
-            <span >{{ row.teacherMobile }}</span>
+            <span>{{ row.teacherMobile }}</span>
           </template>
         </el-table-column>
         <el-table-column label="编辑" align="center" width="230" class-name="small-padding fixed-width">
@@ -71,62 +71,66 @@
             </el-button>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
 
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px"
+               style="width: 400px; margin-left:50px;">
         <el-form-item label="宿舍编号：">
-          <el-input v-model="dormitoryDetail.code" v-if="dialogStatus=='create'"   class="filter-item" disabled/>
-          <el-input v-model="dormitoryDetail.code" v-else @blur="changeDo"   class="filter-item" />
+          <el-input v-model="dormitoryDetail.code" v-if="dialogStatus=='create'" class="filter-item" disabled/>
+          <el-input v-model="dormitoryDetail.code" v-else @blur="changeDo" class="filter-item"/>
 
         </el-form-item>
         <!--  <el-form-item label="Date" prop="timestamp">
             <el-date-picker v-model="temp.timestamp"  style="float: left;" type="datetime" placeholder="Please pick a date" />
           </el-form-item>-->
-        <el-form-item label="宿舍类型：" >
-          <el-input v-model="dormitoryDetail.cate"  v-if="dialogStatus=='create'"   class="filter-item" disabled/>
-          <el-input v-model="bedInfo.cate"  v-else   class="filter-item" disabled/>
+        <el-form-item label="宿舍类型：">
+          <el-input v-model="dormitoryDetail.cate" v-if="dialogStatus=='create'" class="filter-item" disabled/>
+          <el-input v-model="bedInfo.cate" v-else class="filter-item" disabled/>
         </el-form-item>
-        <el-form-item label="宿舍负责人：" >
-          <el-input v-model="managerName"  v-if="dialogStatus=='create'"  class="filter-item" disabled/>
-          <el-input v-model="bedInfo.teacherName"  v-else  class="filter-item" disabled/>
+        <el-form-item label="宿舍负责人：">
+          <el-input v-model="managerName" v-if="dialogStatus=='create'" class="filter-item" disabled/>
+          <el-input v-model="bedInfo.teacherName" v-else class="filter-item" disabled/>
         </el-form-item>
         <el-form-item label="选择床位：" prop="importance" v-if="dialogStatus=='create'">
-          <el-checkbox-group v-model="importance"  style="float: left;">
+          <el-checkbox-group v-model="importance" style="float: left;">
             <el-checkbox :label="item" :value="item" v-for="item in bedInfo1"></el-checkbox>
           </el-checkbox-group>
 
         </el-form-item>
-        <el-form-item label="选择学生："  v-if="dialogStatus=='create'">
+        <el-form-item label="选择学生：" v-if="dialogStatus=='create'">
           <div style="white-space: nowrap">
-            <el-select v-model="listQuery.schoolGradeId" @change="getClbumList" placeholder="年级" clearable style="margin-left:10px;width: 100px" class="filter-item">
-              <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id" />
+            <el-select v-model="listQuery.schoolGradeId" @change="getClbumList" placeholder="年级" clearable
+                       style="margin-left:10px;width: 100px" class="filter-item">
+              <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
-            <el-select v-model="listQuery.schoolSpecialtyId" @change="getClbumList"  placeholder="专业（根据年级加载）" clearable class="filter-item" style=" width: 200px">
-              <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id" />
+            <el-select v-model="listQuery.schoolSpecialtyId" @change="getClbumList" placeholder="专业（根据年级加载）" clearable
+                       class="filter-item" style=" width: 200px">
+              <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
-            <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" @change="getStdNoBedList" clearable class="filter-item" style="width: 200px">
-              <el-option key="0" label="全部班级" value="0" />
-              <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
+            <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" @change="getStdNoBedList" clearable
+                       class="filter-item" style="width: 200px">
+              <el-option key="0" label="全部班级" value="0"/>
+              <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </div>
         </el-form-item>
-        <el-form-item   style="width: 800px" v-if="dialogStatus=='create'">
-          <el-checkbox-group v-model="beds"  style="float: left;">
+        <el-form-item style="width: 800px" v-if="dialogStatus=='create'">
+          <el-checkbox-group v-model="beds" style="float: left;">
             <el-checkbox :label="item.id" v-for="item in noBedStd">{{item.name}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="床位："  v-if="dialogStatus!='create'">
-          <el-select v-model="desBed" placeholder="床位"  style="float: left;" class="filter-item">
-            <el-option  :label="item.studentName" :value="item.bedNo" v-for="item in bedInfo.beds" />
+        <el-form-item label="床位：" v-if="dialogStatus!='create'">
+          <el-select v-model="desBed" placeholder="床位" style="float: left;" class="filter-item">
+            <el-option :label="item.studentName" :value="item.bedNo" v-for="item in bedInfo.beds"/>
           </el-select>
         </el-form-item>
 
       </el-form>
-      <div slot="footer" class="dialog-footer" style="text-align: center" >
+      <div slot="footer" class="dialog-footer" style="text-align: center">
         <el-button @click="dialogFormVisible = false">
           取消
         </el-button>
@@ -138,8 +142,6 @@
   </div>
 
 
-
-
 </template>
 <script>
   import Pagination from '@/components/Pagination'
@@ -148,7 +150,11 @@
 
   export default {
     name: 'ComplexTable',
-    components: {Pagination,Breadcrumb,YPageListLayout},
+    components: {
+      Pagination,
+      Breadcrumb,
+      YPageListLayout
+    },
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -161,32 +167,32 @@
     },
     data() {
       return {
-        detailNew:{},
-        bedInfo:{},
-        bedInfo1:[],
-        importance:[],
-        beds:[],
-        displayTime:'',
+        detailNew: {},
+        bedInfo: {},
+        bedInfo1: [],
+        importance: [],
+        beds: [],
+        displayTime: '',
         tableKey: 0,
         list: [],
         total: 20,
         listLoading: true,
-        pageData:{},
-        pagePara:{
-          current:0,
-          size:10
+        pageData: {},
+        pagePara: {
+          current: 0,
+          size: 10
         },
         listQuery: {
-          dormitoryId:0,
+          dormitoryId: 0,
           descs: 'id',
         },
-        source:{},
-        desBed:{},
-        managerName:'',
-        dormitoryDetail:{},
+        source: {},
+        desBed: {},
+        managerName: '',
+        dormitoryDetail: {},
         gradeInfo: [],
-        classInfo:[],
-        majorInfo:[],
+        classInfo: [],
+        majorInfo: [],
         noBedStd: [],
         dialogFormVisible: false,
         dialogStatus: '',
@@ -196,7 +202,7 @@
           title: 1,
           type: '',
           status: '11111',
-          timestamp:''
+          timestamp: ''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
@@ -204,46 +210,53 @@
           create: '新增学生'
         },
         rules: {
-          type: [{ required: true, message: '请选择床位', trigger: 'change' }],
-          status: [{ required: true, message: '请选择学生', trigger: 'blur' }],
+          type: [{
+            required: true,
+            message: '请选择床位',
+            trigger: 'change'
+          }],
+          status: [{
+            required: true,
+            message: '请选择学生',
+            trigger: 'blur'
+          }],
         },
       }
     },
-    created(){
-      let that = this;
+    created() {
+      let that = this
       that.listQuery.dormitoryId = that.$route.query.id
-      that.managerName =  that.$route.query.managerName
+      that.managerName = that.$route.query.managerName
       that.getList()
-      that.getGradeList();//赛选框年级
-      that.getSpecialtyList();
+      that.getGradeList()//赛选框年级
+      that.getSpecialtyList()
     },
-    methods:{
-      getDetail(){
-        let that = this;
+    methods: {
+      getDetail() {
+        let that = this
         that.bedInfo1 = []
-        that.$api.dormitory.getDetail( that.listQuery.dormitoryId).then(data => {
-          that.loading = false;
-          if(data.code === 200){
+        that.$api.dormitory.getDetail(that.listQuery.dormitoryId).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.dormitoryDetail = data.data
             let tempBed = []
-            for(let i = 0; i < that.dormitoryDetail.capacity;i++){
-                tempBed.push((i+1) + '床')
+            for (let i = 0; i < that.dormitoryDetail.capacity; i++) {
+              tempBed.push((i + 1) + '床')
             }
             tempBed.forEach(function (temp) {
               let add = true
               that.pageData.records.forEach(function (item) {
-                if(item.bedNo === temp){
+                if (item.bedNo === temp) {
                   add = false
                 }
               })
 
-              if(add){
+              if (add) {
                 that.bedInfo1.push(temp)
               }
             })
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -251,73 +264,71 @@
           }
         })
       },
-      getGradeList(){
-        let that = this;
+      getGradeList() {
+        let that = this
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.classInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getSpecialtyList(){
-        let that = this;
+      getSpecialtyList() {
+        let that = this
         that.$api.baseInfo.getSpecialtyList().then(data => {
-          that.loading = false;
-          if(data.code === 200){
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.majorInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getClbumList(){
-        let that = this;
-        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.schoolGradeId,specialtyId:that.listQuery.schoolSpecialtyId}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
+      getClbumList() {
+        let that = this
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.listQuery.schoolGradeId,
+          specialtyId: that.listQuery.schoolSpecialtyId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.gradeInfo = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
-      getStdNoBedList(){
-        let that = this;
+      getStdNoBedList() {
+        let that = this
         let param = {}
-        if(that.listQuery.schoolClbumId > 0){
+        if (that.listQuery.schoolClbumId > 0) {
           param.clbumId = that.listQuery.schoolClbumId
-        }
-        else{
+        } else {
           param = {}
         }
-        that.$api.student.getStdNoBedList({...param}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
+        that.$api.student.getStdNoBedList({ ...param }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.noBedStd = data.data
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -345,48 +356,48 @@
       },
       createData() {
         let that = this
-        if(this.importance.length == 0){
+        if (this.importance.length == 0) {
           this.$notify({
             title: '失败',
             message: '请选择床位',
             type: 'false',
             duration: 2000
           })
-          return;
+          return
         }
 
-        if(this.beds.length == 0){
+        if (this.beds.length == 0) {
           this.$notify({
             title: '失败',
             message: '请选择学生',
             type: 'false',
             duration: 2000
           })
-          return;
+          return
         }
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            if(this.importance.length != this.beds.length){
+            if (this.importance.length != this.beds.length) {
               this.$notify({
                 title: '失败',
                 message: '床位数和学生数必须相等',
                 type: 'false',
                 duration: 2000
               })
-              return;
+              return
             }
             let addInfo = []
-            for(let i = 0; i < this.importance.length ; i++){
+            for (let i = 0; i < this.importance.length; i++) {
               addInfo.push({
-                dormitoryId:that.listQuery.dormitoryId,
-                bedNo:that.importance[i],
-                studentId:(that.beds[i])
+                dormitoryId: that.listQuery.dormitoryId,
+                bedNo: that.importance[i],
+                studentId: (that.beds[i])
               })
             }
 
             that.$api.dormitory.addDormitoryBed(addInfo).then(data => {
-              that.loading = false;
-              if(data.code === 200){
+              that.loading = false
+              if (data.code === 200) {
                 this.$notify({
                   title: '成功',
                   message: '新增人员成功',
@@ -397,8 +408,7 @@
                 this.importance = []
                 this.beds = []
                 this.getList()
-              }
-              else{
+              } else {
                 this.$message({
                   type: 'error',
                   message: data.msg
@@ -432,33 +442,31 @@
           this.$refs['dataForm'].clearValidate()
         })
       },
-      changeDo(){
+      changeDo() {
         //// 根据宿舍编号查询出床位列表
         let that = this
-        let ss = that.dormitoryDetail.code;
-        that.$api.dormitory.dormitoryBedState({code: that.dormitoryDetail.code}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
+        let ss = that.dormitoryDetail.code
+        that.$api.dormitory.dormitoryBedState({ code: that.dormitoryDetail.code }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             that.bedInfo = data.data
             let i = 0
-            if(that.bedInfo.beds != null) {
-            that.bedInfo.beds.forEach(function (item) {
-              if(item.studentId){
-                item.studentName = item.bedNo + '-' + item.studentName + (item.gradeName == null ? '': item.gradeName)+ (item.clbumName == null ? '': item.clbumName)
-              }
+            if (that.bedInfo.beds != null) {
+              that.bedInfo.beds.forEach(function (item) {
+                if (item.studentId) {
+                  item.studentName = item.bedNo + '-' + item.studentName + (item.gradeName == null ? '' : item.gradeName) + (item.clbumName == null ? '' : item.clbumName)
+                }
 
-              if(!item.id){
-                item.id = i
-                i++
-              }
-            })
-            }
-            else{
+                if (!item.id) {
+                  item.id = i
+                  i++
+                }
+              })
+            } else {
               that.bedInfo = {}
               that.bedInfo.beds = []
             }
-          }
-          else{
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
@@ -466,7 +474,7 @@
           }
         })
 
-        that.detailNew = {id:5}
+        that.detailNew = { id: 5 }
       },
       updateData() {
         let that = this
@@ -474,14 +482,14 @@
           if (valid) {
 
             console.log(that.bedInfo)
-            let change ={
-              source:{
+            let change = {
+              source: {
                 id: that.source.id,
                 dormitoryId: that.listQuery.dormitoryId,
-                bedNo:that.source.bedNo,
+                bedNo: that.source.bedNo,
                 studentId: that.source.studentId
               },
-              target:{
+              target: {
                 dormitoryId: that.bedInfo.id,
                 bedNo: this.desBed,
                 studentId: that.bedInfo.beds.find(m => m.bedNo === this.desBed).studentId,
@@ -489,10 +497,9 @@
               }
             }
 
-
-            that.$api.dormitory.exchangeDormitoryBed({...change}).then(data => {
-              that.loading = false;
-              if(data.code === 200){
+            that.$api.dormitory.exchangeDormitoryBed({ ...change }).then(data => {
+              that.loading = false
+              if (data.code === 200) {
                 this.$notify({
                   title: '成功',
                   message: '调换床位成功',
@@ -501,8 +508,7 @@
                 })
 
                 this.getList()
-              }
-              else{
+              } else {
                 this.$message({
                   type: 'error',
                   message: data.msg
@@ -514,17 +520,17 @@
         })
       },
       handleDelete(row, index) {
-        let that = this;
+        let that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
 
-            that.$api.dormitory.deleteDormitoryBed({id:row.id}).then(data => {
-              that.loading = false;
-              if(data.code === 200){
+            that.$api.dormitory.deleteDormitoryBed({ id: row.id }).then(data => {
+              that.loading = false
+              if (data.code === 200) {
                 this.$notify({
                   title: '成功',
                   message: '删除床位成功',
@@ -533,8 +539,7 @@
                 })
 
                 this.getList()
-              }
-              else{
+              } else {
                 this.$message({
                   type: 'error',
                   message: data.msg
@@ -545,31 +550,32 @@
           .catch(err => { console.error(err) })
 
       },
-      getList(){
-        let that = this;
-        that.$api.dormitory.getDormitoryBedPage({...that.listQuery,...that.pagePara}).then(data => {
-          that.loading = false;
-          if(data.code === 200){
+      getList() {
+        let that = this
+        that.$api.dormitory.getDormitoryBedPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
             //返回成功
             that.pageData = data.data
             this.total = data.data.total
 
-            that.getDetail();
-          }
-          else{
+            that.getDetail()
+          } else {
             this.$message({
               type: 'error',
               message: data.msg
             })
           }
         })
-        that.listLoading = false;
+        that.listLoading = false
       },
     }
   }
 </script>
 <style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
+  .download-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
     <div class="statisticsInfo">
@@ -18,7 +18,8 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p8.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.manRate}}:{{statisticsInfo.womanRate}}</span></div>
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.manRate}}:{{statisticsInfo.womanRate}}</span>
+            </div>
             <div class="analysis-text-small">在读学生男女比例</div>
           </div>
         </div>
@@ -33,7 +34,7 @@
           class="filter-item"
           style="margin-left:10px;margin-bottom: 10px;width: 100px"
         >
-          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
         </el-select>
 
         <el-select
@@ -44,7 +45,7 @@
           class="filter-item"
           @change="getClbumList"
         >
-          <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
 
         <el-select
@@ -55,7 +56,7 @@
           @change="getClbumList"
           style="margin-left:10px;width: 100px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
           v-model="listQuery.administrativeClbumId"
@@ -64,7 +65,7 @@
           class="filter-item"
           style="margin-left:10px;width: 100px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
           v-model="listQuery.studentType"
@@ -73,7 +74,7 @@
           class="filter-item"
           style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.state"
@@ -82,7 +83,7 @@
           class="filter-item"
           style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-input
           v-model="listQuery.keyword"
@@ -91,7 +92,7 @@
           style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
         />
-        <el-button class="filter-item"    style="margin-left: 20px;"     size="mini" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
@@ -126,7 +127,7 @@
             flag="student/importExcel"
             :style-type="1"
             title="更新学生信息"
-            @fath = "getList"
+            @fath="getList"
           />
         </PermissionButton>
 
@@ -152,7 +153,7 @@
             flag="/student/importCodeExcel"
             :style-type="1"
             title="更新学籍号"
-            @fath = "getList"
+            @fath="getList"
           />
         </PermissionButton>
         <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" @click="handleDownload">-->
@@ -169,16 +170,16 @@
       </template>
 
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:99%;margin-left: 10px">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width:99%;margin-left: 10px"-->
-<!--        :header-cell-style="{backgroundColor:'#EFF1F6'}"-->
-<!--      >-->
-        <el-table-column label="学号" prop="id"  align="center" width="200px">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width:99%;margin-left: 10px"-->
+        <!--        :header-cell-style="{backgroundColor:'#EFF1F6'}"-->
+        <!--      >-->
+        <el-table-column label="学号" prop="id" align="center" width="200px">
           <template slot-scope="{row}">
             <span>
               {{ row.studyCode }}
@@ -244,7 +245,7 @@
         </el-table-column>
         <el-table-column label="二维码" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <span class="link-type" @click="productInnerQR=true">查看</span>-->
+            <!--            <span class="link-type" @click="productInnerQR=true">查看</span>-->
             <PermissionButton
               menu-no="_views_baseinfo_userinfo_list_code"
               name="查看"
@@ -256,9 +257,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="150">
           <template slot-scope="{row}">
-<!--            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">-->
-<!--              下载-->
-<!--            </el-button>-->
+            <!--            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">-->
+            <!--              下载-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_userinfo_list_code"
               class-name="filter-item"
@@ -270,9 +271,9 @@
               @click="productInnerQR1(row,true)"
             >
             </PermissionButton>
-<!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
-<!--              详情-->
-<!--            </el-button>-->
+            <!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
+            <!--              详情-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_userinfo_detailInfo"
               class-name="filter-item"
@@ -286,17 +287,18 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
-    <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码" :visible.sync="productInnerQR">
+    <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码"
+               :visible.sync="productInnerQR">
       <div class="qrcode" ref="qrCodeUrl" id="qrcode"></div>
     </el-dialog>
   </div>
 </template>
 <script>
   // import Pagination from '@/components/Pagination'
- // import QRCode from 'qrcode'
+  // import QRCode from 'qrcode'
 
   import QRCode from 'qrcodejs2'
   import Breadcrumb from '@/components/Breadcrumb'
@@ -335,7 +337,7 @@
         tableKey: 0,
         list: [],
         total: 0,
-        listLoading: true,
+        listLoading: false,
         listQuery: {
           state: '在读',
           type: '',
@@ -402,33 +404,32 @@
       }
     },
     mounted() {
-    //  this.creatQrCode();
+      //  this.creatQrCode();
     },
     created() {
       const that = this
       that.getList()// 分页列表
       that.getGradeList()// 赛选框年级
       that.getSpecialtyList()
-    //  that.getClbumList()
+      //  that.getClbumList()
 
       that.getAllEnum()
       that.getStatistics()
     },
     methods: {
-      productInnerQR1(row,down){
+      productInnerQR1(row, down) {
 
-        this.productInnerQR  = true;
+        this.productInnerQR = true
 
-        if(document.getElementById('qrcode')!=undefined)
-        {
-          document.getElementById('qrcode').innerHTML= ''
+        if (document.getElementById('qrcode') != undefined) {
+          document.getElementById('qrcode').innerHTML = ''
         }
 
-        this.creatQrCode(row,down)
+        this.creatQrCode(row, down)
       },
-      creatQrCode(row,down) {
+      creatQrCode(row, down) {
         const that = this
-        that.$nextTick(()=>{
+        that.$nextTick(() => {
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
             text: 'http://119.27.160.97:8532?id=' + row.id, // 需要转换为二维码的内容
             width: 100,
@@ -438,17 +439,17 @@
             correctLevel: QRCode.CorrectLevel.H
           })
 
-          if(down){
+          if (down) {
             this.downloadCodeImg(row)
           }
         })
       },
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/student/read',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/student/read', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -538,52 +539,52 @@
           }
         })
       },
-      myBrowser(){
-        let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-        let isOpera = userAgent.indexOf("Opera") > -1;
+      myBrowser() {
+        let userAgent = navigator.userAgent //取得浏览器的userAgent字符串
+        let isOpera = userAgent.indexOf('Opera') > -1
         if (isOpera) {
-          return "Opera"
-        }; //判断是否Opera浏览器
-        if (userAgent.indexOf("Firefox") > -1) {
-          return "FF";
-        } //判断是否Firefox浏览器
-        if (userAgent.indexOf("Chrome") > -1){
-          return "Chrome";
+          return 'Opera'
         }
-        if (userAgent.indexOf("Safari") > -1) {
-          return "Safari";
+         //判断是否Opera浏览器
+        if (userAgent.indexOf('Firefox') > -1) {
+          return 'FF'
+        } //判断是否Firefox浏览器
+        if (userAgent.indexOf('Chrome') > -1) {
+          return 'Chrome'
+        }
+        if (userAgent.indexOf('Safari') > -1) {
+          return 'Safari'
         } //判断是否Safari浏览器
-        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
-          return "IE";
-        }; //判断是否IE浏览器
-        if (userAgent.indexOf("Trident") > -1) {
-          return "Edge";
+        if (userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera) {
+          return 'IE'
+        }
+         //判断是否IE浏览器
+        if (userAgent.indexOf('Trident') > -1) {
+          return 'Edge'
         } //判断是否Edge浏览器
       },
       downloadCodeImg(row) {
-       // this.productInnerQR1(row.id)
-        if(this.myBrowser()==="IE"||this.myBrowser()==="Edge"){
-          let canvas =  document.getElementById('qrcode').getElementsByTagName('canvas')[0];//取到canvas
-          let url = canvas.toDataURL('image/jpeg');//把canvas转换成base64
-          let blob = canvas.msToBlob();
-          window.navigator.msSaveBlob(blob,row.name + '.png');
+        // this.productInnerQR1(row.id)
+        if (this.myBrowser() === 'IE' || this.myBrowser() === 'Edge') {
+          let canvas = document.getElementById('qrcode').getElementsByTagName('canvas')[0]//取到canvas
+          let url = canvas.toDataURL('image/jpeg')//把canvas转换成base64
+          let blob = canvas.msToBlob()
+          window.navigator.msSaveBlob(blob, row.name + '.png')
 
-
-        }else{
-          let myCanvas = document.getElementById('qrcode').getElementsByTagName('canvas');
+        } else {
+          let myCanvas = document.getElementById('qrcode').getElementsByTagName('canvas')
           let a = document.createElement('a')
-          a.href = myCanvas[0].toDataURL('image/png');
-          a.download = row.name;
+          a.href = myCanvas[0].toDataURL('image/png')
+          a.download = row.name
           a.click()
-
 
         }
         this.$message({
-          message: "正在进行下载保存",
+          message: '正在进行下载保存',
           type: 'success'
         })
 
-        this.productInnerQR  = false;
+        this.productInnerQR = false
 
       },
       resetTemp() {
@@ -665,7 +666,6 @@
             })
           }
         })
-        that.listLoading = false
       },
       getSpecialtyList() {
         const that = this
@@ -681,11 +681,13 @@
             })
           }
         })
-        that.listLoading = false
       },
       getClbumList() {
         const that = this
-        that.$api.baseInfo.getClbumList({gradeId:that.listQuery.administrativeGradeId,specialtyId:that.listQuery.administrativeSpecialtyId}).then(data => {
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.listQuery.administrativeGradeId,
+          specialtyId: that.listQuery.administrativeSpecialtyId
+        }).then(data => {
           that.loading = false
           if (data.code === 200) {
             // 返回成功
@@ -697,7 +699,6 @@
             })
           }
         })
-        that.listLoading = false
       },
       getList() {
         const that = this
@@ -707,8 +708,9 @@
           that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
           that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
         }
+        that.listLoading = true
         that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -720,8 +722,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
@@ -12,12 +12,12 @@
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
                     <el-form-item label="建筑物名称：" prop="name" label-width="120px" class="postInfo-container-item ">
-                      <el-input v-model="postForm.name" class="filter-item" />
+                      <el-input v-model="postForm.name" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="简写名称：" prop="alias" label-width="130px" class="postInfo-container-item">
-                      <el-input v-model="postForm.alias" class="filter-item" />
+                      <el-input v-model="postForm.alias" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -29,7 +29,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -45,7 +45,7 @@
                         style="width: 100%"
                         class="filter-item"
                       >
-                        <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in departmentList" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -56,7 +56,7 @@
                       label-width="130px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.yearLimit" class="filter-item" />
+                      <el-input v-model="postForm.yearLimit" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -68,7 +68,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in typeNo" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in typeNo" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -84,13 +84,13 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in structuralNo" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in structuralNo" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建筑物层数：" prop="floor" label-width="130px" class="postInfo-container-item">
-                      <el-input v-model="postForm.floor" class="filter-item" />
+                      <el-input v-model="postForm.floor" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -110,7 +110,7 @@
 
                   <el-col :span="8">
                     <el-form-item label="建筑物投资总额：" prop="amount" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.amount" class="filter-item" />
+                      <el-input v-model="postForm.amount" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -127,7 +127,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in source" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in source" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -153,18 +153,19 @@
 
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
-                    <el-form-item label="总建成面积（㎡）：" prop="buildArea" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.buildArea" type="number" class="filter-item" />
+                    <el-form-item label="总建成面积（㎡）：" prop="buildArea" label-width="120px"
+                                  class="postInfo-container-item">
+                      <el-input v-model="postForm.buildArea" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建筑物占地面积（㎡）：" prop="area" label-width="130px" class="postInfo-container-item">
-                      <el-input v-model="postForm.area"  type="number" class="filter-item" />
+                      <el-input v-model="postForm.area" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="总使用面积（㎡）：" prop="useArea" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.useArea"  type="number" class="filter-item" />
+                      <el-input v-model="postForm.useArea" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -173,7 +174,7 @@
 
                   <el-col :span="8">
                     <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.cameraAddr" class="filter-item" />
+                      <el-input v-model="postForm.cameraAddr" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -190,7 +191,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in code1" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in code1" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -208,7 +209,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in code2" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in code2" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -224,18 +225,18 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in buildStatus" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in buildStatus" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="权属证号：" prop="no" label-width="130px" class="postInfo-container-item">
-                      <el-input v-model="postForm.no" class="filter-item" />
+                      <el-input v-model="postForm.no" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="建筑物地址：" prop="addr" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.addr" class="filter-item" />
+                      <el-input v-model="postForm.addr" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -297,7 +298,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         editCourseChapterForm1: {},
         editCourseChapterForm2: {},
         postForm: {},
@@ -367,7 +368,7 @@
             message: '请填写建筑物建筑面积',
             trigger: 'change'
           }],
-         useArea: [{
+          useArea: [{
             required: true,
             message: '请填写使用面积',
             trigger: 'change'
@@ -377,36 +378,36 @@
             message: '请填写建筑物建成面积',
             trigger: 'change'
           }],
-       /*    antiKnockDegree: [{
-            required: true,
-            message: '请选择抗震设防烈度',
-            trigger: 'change'
-          }],
-          antiKnockStandard: [{
-            required: true,
-            message: '请选择抗震设防标准',
-            trigger: 'change'
-          }],
-          state: [{
-            required: true,
-            message: '请选择建筑物状况',
-            trigger: 'change'
-          }],
-          no: [{
-            required: true,
-            message: '请填写权属证号',
-            trigger: 'change'
-          }],
-          addr: [{
-            required: true,
-            message: '请填写建筑物地',
-            trigger: 'change'
-          }],
-          cameraAddr: [{
-            required: true,
-            message: '请填写摄像头地址',
-            trigger: 'change'
-          }],*/
+          /*    antiKnockDegree: [{
+               required: true,
+               message: '请选择抗震设防烈度',
+               trigger: 'change'
+             }],
+             antiKnockStandard: [{
+               required: true,
+               message: '请选择抗震设防标准',
+               trigger: 'change'
+             }],
+             state: [{
+               required: true,
+               message: '请选择建筑物状况',
+               trigger: 'change'
+             }],
+             no: [{
+               required: true,
+               message: '请填写权属证号',
+               trigger: 'change'
+             }],
+             addr: [{
+               required: true,
+               message: '请填写建筑物地',
+               trigger: 'change'
+             }],
+             cameraAddr: [{
+               required: true,
+               message: '请填写摄像头地址',
+               trigger: 'change'
+             }],*/
         },
         departmentList: [],
         structuralNo: [], // 建筑物结构
@@ -512,11 +513,10 @@
         const that = this
         if (that.$refs.uploadCourseChapter1.getFileList().length == 0 || that.$refs.uploadCourseChapter2.getFileList().length == 0) {
           //that.$message.error('请上传图片!')
-         //  return
+          //  return
           that.postForm.planGraph = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName
-          that.postForm.pic =''// that.$refs.uploadCourseChapter2.getFileList()[0].fileName
-        }
-        else{
+          that.postForm.pic = ''// that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+        } else {
           that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
           that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
         }
@@ -534,12 +534,12 @@
                     type: 'success',
                     duration: 2000
                   })
-              that.$router.push({
-                path: '/views/baseinfo/assetinfo/buildinglist',
-                query: {
-                  menuLevel1: this.$route.query.menuLevel1
-                }
-              })
+                  that.$router.push({
+                    path: '/views/baseinfo/assetinfo/buildinglist',
+                    query: {
+                      menuLevel1: this.$route.query.menuLevel1
+                    }
+                  })
                 } else {
                   this.$message({
                     type: 'error',

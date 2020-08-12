@@ -2,7 +2,6 @@
   <el-table
     slot="table"
     size="medium"
-    v-loading="loading"
     :data="data"
     fit
     :max-height="maxHeight"

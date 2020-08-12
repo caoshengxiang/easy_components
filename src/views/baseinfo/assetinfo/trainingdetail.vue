@@ -2,7 +2,7 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
@@ -26,13 +26,13 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in teachingRoomList" :key="item.id" :label="item.code" :value="item.id" />
+                        <el-option v-for="item in teachingRoomList" :key="item.id" :label="item.code" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="实训室名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.name" class="filter-item" />
+                      <el-input v-model="postForm.name" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -79,7 +79,7 @@
                         style="width: 100%"
                         class="filter-item"
                       >
-                        <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -97,7 +97,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -105,7 +105,7 @@
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
                     <el-form-item label="工位数：" prop="stationNum" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.stationNum" class="filter-item" />
+                      <el-input v-model="postForm.stationNum" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -115,12 +115,12 @@
                       label-width="120px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.applicableMajor" class="filter-item" />
+                      <el-input v-model="postForm.applicableMajor" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="实训室介绍：" prop="introduce" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.introduce" type="textarea" class="filter-item" />
+                      <el-input v-model="postForm.introduce" type="textarea" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -159,7 +159,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         postForm: {},
         constructionList: [],
         teachingRoomList: [],

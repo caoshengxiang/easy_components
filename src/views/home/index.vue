@@ -1,31 +1,31 @@
 <template>
   <div class="home">
     <div class="menu-box">
-<!--      <div class="left">-->
-<!--        <div-->
-<!--          v-for="(item, index) in permission_menus"-->
-<!--          :key="index"-->
-<!--          class="menu-1-item hvr-underline-from-left"-->
-<!--          :class="{active: activeItem.name === item.name}"-->
-<!--          @click="menusClick(item)"-->
-<!--        >-->
-<!--          <svg-icon icon-class="dashboard"/>-->
-<!--          <span class="text">{{ item.name }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="statisticsInfo">-->
-<!--        <div class="title">{{ activeItem.name }}</div>-->
-<!--        <div class="menu-2-box">-->
-<!--          <div-->
-<!--            v-for="(item, index) in activeItem.children"-->
-<!--            :key="index"-->
-<!--            class="menu-2-item hvr-underline-from-center"-->
-<!--            @click="jumpMenu(item)"-->
-<!--          >-->
-<!--            <i class="easy-icon easy-icon-avatar"/> <span class="text">{{ item.name }}</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="left">-->
+      <!--        <div-->
+      <!--          v-for="(item, index) in permission_menus"-->
+      <!--          :key="index"-->
+      <!--          class="menu-1-item hvr-underline-from-left"-->
+      <!--          :class="{active: activeItem.name === item.name}"-->
+      <!--          @click="menusClick(item)"-->
+      <!--        >-->
+      <!--          <svg-icon icon-class="dashboard"/>-->
+      <!--          <span class="text">{{ item.name }}</span>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div class="statisticsInfo">-->
+      <!--        <div class="title">{{ activeItem.name }}</div>-->
+      <!--        <div class="menu-2-box">-->
+      <!--          <div-->
+      <!--            v-for="(item, index) in activeItem.children"-->
+      <!--            :key="index"-->
+      <!--            class="menu-2-item hvr-underline-from-center"-->
+      <!--            @click="jumpMenu(item)"-->
+      <!--          >-->
+      <!--            <i class="easy-icon easy-icon-avatar"/> <span class="text">{{ item.name }}</span>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>

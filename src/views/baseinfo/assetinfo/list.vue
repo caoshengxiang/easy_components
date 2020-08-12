@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
     <div class="statisticsInfo">
@@ -49,7 +49,7 @@
           style="margin-left: 20px;width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
+          <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name"/>
         </el-select>
         <el-select
           v-model="listQuery.user"
@@ -59,7 +59,7 @@
           style="margin-left: 20px;width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name" />
+          <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name"/>
         </el-select>
         <el-input
           v-model="listQuery.addr"
@@ -80,15 +80,15 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
-        <el-table-column label="土地产权" prop="id"  align="center">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
+        <el-table-column label="土地产权" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.property }}
@@ -114,7 +114,7 @@
         </el-table-column>
         <el-table-column label="面积(平方米)" align="center">
           <template slot-scope="{row}">
-            <span >{{ row.area }}</span>
+            <span>{{ row.area }}</span>
           </template>
         </el-table-column>
 
@@ -125,14 +125,14 @@
         </el-table-column>
         <el-table-column label="地址">
           <template slot-scope="{row}">
-            <span >{{ row.addr }}</span>
+            <span>{{ row.addr }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="160">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_edit"
               class-name="filter-item"
@@ -144,9 +144,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_list_remove"
               class-name="filter-item"
@@ -159,7 +159,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
 
@@ -179,6 +179,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -189,8 +190,8 @@
           descs: 'id'
         },
         statisticsInfo: {},
-        useStatus:[],
-        purpose:[]
+        useStatus: [],
+        purpose: []
       }
     },
     created() {
@@ -222,12 +223,12 @@
           }
         })
       },
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/land/area',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -286,8 +287,9 @@
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -298,8 +300,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

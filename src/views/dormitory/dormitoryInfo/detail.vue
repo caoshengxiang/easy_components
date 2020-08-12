@@ -2,62 +2,69 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
-      <el-tabs value="first" >
+      <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 5% ">
             <div class="createPost-main-container">
               <div class="postInfo-container">
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item label="宿舍编号：" prop="code" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.code" class="filter-item"/>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍编号：" prop="code" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.code" class="filter-item"/>
 
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
-                    <el-select v-model="postForm.cate" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-                      <el-option
-                        v-for="item in AllEnum.宿舍类型"
-                        :key="item"
-                        :label="item"
-                        :value="item"
-                      />
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="宿舍负责人：" prop="managerId" label-width="200px" class="postInfo-container-item ">
-                    <el-select v-model="postForm.managerId" filterable class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-                      <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
+                      <el-select v-model="postForm.cate" class="filter-item" style="float: left; width: 100%"
+                                 placeholder="请选择">
+                        <el-option
+                          v-for="item in AllEnum.宿舍类型"
+                          :key="item"
+                          :label="item"
+                          :value="item"
+                        />
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍负责人：" prop="managerId" label-width="200px" class="postInfo-container-item ">
+                      <el-select v-model="postForm.managerId" filterable class="filter-item"
+                                 style="float: left; width: 100%" placeholder="请选择">
+                        <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
 
-                <el-col :span="8">
-                  <el-form-item label="宿舍位置：" prop="location" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.location" class="filter-item"/>
+                  <el-col :span="8">
+                    <el-form-item label="宿舍位置：" prop="location" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.location" class="filter-item"/>
 
-                  </el-form-item>    </el-col>
-                <el-col :span="8">
-                  <el-form-item label="容纳人数：" prop="capacity" label-width="200px" class="postInfo-container-item ">
-                    <el-input v-model="postForm.capacity" type="number" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="容纳人数：" prop="capacity" label-width="200px" class="postInfo-container-item ">
+                      <el-input v-model="postForm.capacity" type="number" class="filter-item"/>
 
-                  </el-form-item>    </el-col>
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item label="备注：" label-width="200px" class="postInfo-container-item ">
-                      <el-input v-model="postForm.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请填写备注"/>
-                    </el-form-item>    </el-col>
-              </el-row>
+                      <el-input v-model="postForm.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea"
+                                placeholder="请填写备注"/>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
               </div>
             </div>
           </el-form>
-        </el-tab-pane></el-tabs>
+        </el-tab-pane>
+      </el-tabs>
 
     </y-detail-page-layout>
   </div>
@@ -69,7 +76,10 @@
 
   export default {
     name: 'ComplexTable',
-    components: { Breadcrumb, YDetailPageLayout },
+    components: {
+      Breadcrumb,
+      YDetailPageLayout
+    },
     props: {
       detailInfo: {
         type: Object,
@@ -80,9 +90,9 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         staff: [],
-        AllEnum:[],
+        AllEnum: [],
         type: 'detail',
         postForm: {},
         rules: {
@@ -126,10 +136,10 @@
     },
     created() {
       const that = this
-      if (that.detailInfo){
+      if (that.detailInfo) {
         that.postForm = that.detailInfo
         that.editStatus = false
-      } else if (that.$route.query.id){
+      } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
         that.editStatus = false
@@ -167,12 +177,12 @@
           }
         })
       },
-      getDetail(){
-        const that = this;
+      getDetail() {
+        const that = this
         that.$api.dormitory.getDetail(that.id).then(data => {
-          that.loading = false;
-          if (data.code === 200){
-            that.postForm = data.data;
+          that.loading = false
+          if (data.code === 200) {
+            that.postForm = data.data
           } else {
             this.$message({
               type: 'error',
@@ -181,23 +191,23 @@
           }
         })
       },
-      save(){
+      save() {
         const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-            if (that.$route.query.id){
+            if (that.$route.query.id) {
               // //编辑
-              that.$api.dormitory.editDormitory({...that.postForm}).then(data => {
-                that.loading = false;
-                if (data.code === 200){
+              that.$api.dormitory.editDormitory({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑宿舍成功',
                     type: 'success',
                     duration: 2000
                   })
-                 that.$router.push({
-                   path: '/views/dormitory/dormitoryInfo/list',
+                  that.$router.push({
+                    path: '/views/dormitory/dormitoryInfo/list',
                     // query: {
                     //   menuLevel1: this.$route.query.menuLevel1,
                     //   menuId: this.$route.query.menuId,
@@ -214,9 +224,9 @@
             } else {
               // //新增
               // //编辑
-              that.$api.dormitory.addDormitory({...that.postForm}).then(data => {
-                that.loading = false;
-                if (data.code === 200){
+              that.$api.dormitory.addDormitory({ ...that.postForm }).then(data => {
+                that.loading = false
+                if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增宿舍成功',

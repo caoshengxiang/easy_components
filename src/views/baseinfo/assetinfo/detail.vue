@@ -2,7 +2,7 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
@@ -38,7 +38,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in useStatus" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -51,7 +51,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -67,13 +67,13 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in purpose" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="土地面积（平方米）：" prop="area" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.area" class="filter-item" />
+                      <el-input v-model="postForm.area" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -83,7 +83,7 @@
                       label-width="120px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.certificateNum" class="filter-item" />
+                      <el-input v-model="postForm.certificateNum" class="filter-item"/>
                     </el-form-item>
                   </el-col>
 
@@ -91,17 +91,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="土地价格（万元）：" prop="price" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.price" class="filter-item" />
+                      <el-input v-model="postForm.price" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="用地地址：" prop="addr" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.addr" class="filter-item" />
+                      <el-input v-model="postForm.addr" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="用地备注：" prop="type" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.remark" type="textarea" class="filter-item" />
+                      <el-input v-model="postForm.remark" type="textarea" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -135,7 +135,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         opt: [{
           key: true,
           label: '是'
@@ -264,11 +264,9 @@
               // //编辑
               that.$api.assetinfo.editLand({ ...that.postForm }).then(data => {
                 that.loading = false
-                if(data.code === 250){
+                if (data.code === 250) {
 
-
-                }
-               else if (data.code === 200) {
+                } else if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑用地成功',
@@ -299,7 +297,7 @@
               // //编辑
               that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
                 that.loading = false
-                if(data.code === 250){
+                if (data.code === 250) {
 
                   that.$router.push({
                     path: '/views/baseinfo/assetinfo/list',
@@ -307,8 +305,7 @@
                       menuLevel1: this.$route.query.menuLevel1
                     }
                   })
-                }
-                else if (data.code === 200) {
+                } else if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增用地成功',

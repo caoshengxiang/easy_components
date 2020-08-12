@@ -13,30 +13,32 @@
         <!--        <el-button class="filter-item"          size="mini" round type="primary" @click="$utils.routerLink(`/views/baseinfo/class/edit`)">-->
         <!--          新增班级-->
         <!--        </el-button>-->
-<!--        <PermissionButton-->
-<!--          menu-no=""-->
-<!--          class-name="filter-item"-->
-<!--          round-->
-<!--          type="primary"-->
-<!--          icon="el-icon-plus"-->
-<!--          name=""-->
-<!--          size="mini"-->
-<!--          :page-jump="true"-->
-<!--        />-->
-        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable style="float: left;margin-left: 20px;width: 320px;">
+        <!--        <PermissionButton-->
+        <!--          menu-no=""-->
+        <!--          class-name="filter-item"-->
+        <!--          round-->
+        <!--          type="primary"-->
+        <!--          icon="el-icon-plus"-->
+        <!--          name=""-->
+        <!--          size="mini"-->
+        <!--          :page-jump="true"-->
+        <!--        />-->
+        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable
+                  style="float: left;margin-left: 20px;width: 320px;">
           <el-select
             slot="prepend"
             v-model="listQueryKey"
             style="width: 90px;"
             placeholder="请选择"
           >
-            <el-option label="全部" value="keyword" />
-            <el-option label="模块标题" value="title" />
-            <el-option label="业务类型" value="businessType" />
-            <el-option label="操作人" value="operName" />
+            <el-option label="全部" value="keyword"/>
+            <el-option label="模块标题" value="title"/>
+            <el-option label="业务类型" value="businessType"/>
+            <el-option label="操作人" value="operName"/>
           </el-select>
         </el-input>
-        <el-button class="filter-item" style="margin-left: 20px;float: left" round type="primary" size="mini" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;float: left" round type="primary" size="mini"
+                   @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" style="float: left" @click="resetSearch()" size="mini">
@@ -62,7 +64,7 @@
             :style-type="1"
             title="导入"
 
-            @fath = "getList"
+            @fath="getList"
           />
         </PermissionButton>
         <PermissionButton
@@ -75,14 +77,14 @@
         />
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="模块标题" align="center">
           <template slot-scope="{row}">
             <span>{{ row.title }}</span>
@@ -113,16 +115,16 @@
             <span>{{ row.operTime }}</span>
           </template>
         </el-table-column>
-<!--        <el-table-column label="创建时间" align="center">-->
-<!--          <template slot-scope="{row}">-->
-<!--            <span>{{ row.created }} </span>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
+        <!--        <el-table-column label="创建时间" align="center">-->
+        <!--          <template slot-scope="{row}">-->
+        <!--            <span>{{ row.created }} </span>-->
+        <!--          </template>-->
+        <!--        </el-table-column>-->
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no=""
               class-name="filter-item"
@@ -136,7 +138,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
 
@@ -181,7 +183,7 @@
       resetSearch() {
         this.listQuery = {
           description: '',
-            descs: 'id'
+          descs: 'id'
         }
         this.listQueryKey = 'keyword'
         this.searchList()

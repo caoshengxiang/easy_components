@@ -7,7 +7,8 @@
       <template slot="left"></template>
       <template slot="right">
         <span style="color: #cccccc;font-size: 10px;">(编辑完成上课信息，点击保存)</span>
-        <el-button round class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="save">
+        <el-button round class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit"
+                   @click="save">
           保存
         </el-button>
       </template>

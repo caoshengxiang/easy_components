@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
 
@@ -19,9 +19,9 @@
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
-<!--          新增实训室-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="detail()">-->
+        <!--          新增实训室-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_assetinfo_training_add"
           class-name="filter-item"
@@ -40,7 +40,7 @@
           style="margin-left: 20px;width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-input
           v-model="listQuery.name"
@@ -61,16 +61,16 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
 
-        <el-table-column label="实训室名称" prop="id"  align="center">
+        <el-table-column label="实训室名称" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.name }}
@@ -97,14 +97,14 @@
         </el-table-column>
         <el-table-column label="使用机构" align="center">
           <template slot-scope="{row}">
-            <span >{{ row.orgName }}</span>
+            <span>{{ row.orgName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="160">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_training_edit"
               class-name="filter-item"
@@ -116,9 +116,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_traininglist_remove"
               class-name="filter-item"
@@ -131,7 +131,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -150,6 +150,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -161,7 +162,7 @@
           descs: 'id'
         },
         constructionList: [],
-        statisticsInfo:{}
+        statisticsInfo: {}
       }
     },
     created() {
@@ -173,12 +174,12 @@
     },
     methods: {
 
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/trainingRoom',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/trainingRoom', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -238,12 +239,12 @@
             })
           }
         })
-        that.listLoading = false
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.assetinfo.getTrainingRoomPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -254,8 +255,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

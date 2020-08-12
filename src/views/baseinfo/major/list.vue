@@ -45,14 +45,14 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="专业代码" align="center">
           <template slot-scope="{row}">
             <span>{{ row.code }}</span>
@@ -116,7 +116,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -219,19 +219,14 @@
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.major.list({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

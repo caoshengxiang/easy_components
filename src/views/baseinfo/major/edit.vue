@@ -2,7 +2,7 @@
 
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
@@ -14,23 +14,23 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业代码：" prop="code" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code" class="filter-item" />
+                      <el-input v-model="postForm.code" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.name" class="filter-item" />
+                      <el-input v-model="postForm.name" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="专业简称：" prop="alias" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.alias" class="filter-item" />
+                      <el-input v-model="postForm.alias" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="所属部系：" prop="departmentId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.departmentId" clearable filterable style="width: 100%">
-                        <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -40,13 +40,13 @@
                     <el-form-item label="学制：" prop="academicYear" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.academicYear" clearable filterable style="width: 100%">
 
-                        <el-option v-for="item in AllEnum.学制" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.学制" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="班级类型：" prop="classType" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.classType" placeholder="多个以中文逗号隔开" class="filter-item" />
+                      <el-input v-model="postForm.classType" placeholder="多个以中文逗号隔开" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -56,7 +56,7 @@
                       label-width="120px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.skillDirection" placeholder="" class="filter-item" />
+                      <el-input v-model="postForm.skillDirection" placeholder="" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -66,7 +66,7 @@
                       label-width="120px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.studyDuration" class="filter-item" />
+                      <el-input v-model="postForm.studyDuration" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -114,7 +114,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -141,7 +141,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -171,7 +171,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.重点专业" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.重点专业" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -189,7 +189,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.特色专业" :key="item" :label="item" :value="item" />
+                        <el-option v-for="item in AllEnum.特色专业" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -209,7 +209,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -227,7 +227,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -245,11 +245,11 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6" />
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
               </div>
             </div>
@@ -281,7 +281,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
 
         opt: [{
           key: true,

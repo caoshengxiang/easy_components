@@ -25,15 +25,15 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-select-->
-<!--                          v-model="postForm.staff.staffType"-->
-<!--                          clearable-->
-<!--                          filterable-->
-<!--                          placeholder=""-->
-<!--                          style="width: 100%"-->
-<!--                        >-->
-<!--                          <el-option v-for="(item, index) in AllEnum['员工类型']" :key="index" :label="item" :value="item"/>-->
-<!--                        </el-select>-->
+                        <!--                        <el-select-->
+                        <!--                          v-model="postForm.staff.staffType"-->
+                        <!--                          clearable-->
+                        <!--                          filterable-->
+                        <!--                          placeholder=""-->
+                        <!--                          style="width: 100%"-->
+                        <!--                        >-->
+                        <!--                          <el-option v-for="(item, index) in AllEnum['员工类型']" :key="index" :label="item" :value="item"/>-->
+                        <!--                        </el-select>-->
                         <span>{{postForm.staff.staffType}}</span>
                       </el-form-item>
                     </el-col>
@@ -45,25 +45,25 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-select-->
-<!--                          v-model="postForm.staff.teacherType"-->
-<!--                          clearable-->
-<!--                          filterable-->
-<!--                          placeholder=""-->
-<!--                          style="width: 100%"-->
-<!--                        >-->
-<!--                          <el-option v-for="(item, index) in AllEnum['教师类型']" :key="index" :label="item" :value="item"/>-->
-<!--                        </el-select>-->
+                        <!--                        <el-select-->
+                        <!--                          v-model="postForm.staff.teacherType"-->
+                        <!--                          clearable-->
+                        <!--                          filterable-->
+                        <!--                          placeholder=""-->
+                        <!--                          style="width: 100%"-->
+                        <!--                        >-->
+                        <!--                          <el-option v-for="(item, index) in AllEnum['教师类型']" :key="index" :label="item" :value="item"/>-->
+                        <!--                        </el-select>-->
                         {{postForm.staff.teacherType}}
                       </el-form-item>
                     </el-col>
-<!--                    <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
-<!--                      <el-form-item label="管理员类型：" label-width="120px" class="postInfo-container-item">-->
-<!--                        <el-select v-model="postForm.type" clearable filterable placeholder="" style="width: 100%">-->
-<!--                          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
-<!--                        </el-select>-->
-<!--                      </el-form-item>-->
-<!--                    </el-col>-->
+                    <!--                    <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
+                    <!--                      <el-form-item label="管理员类型：" label-width="120px" class="postInfo-container-item">-->
+                    <!--                        <el-select v-model="postForm.type" clearable filterable placeholder="" style="width: 100%">-->
+                    <!--                          &lt;!&ndash;          <el-option v-for="item in  " :key="item.value" :label="item.label" :value="item.value" />&ndash;&gt;-->
+                    <!--                        </el-select>-->
+                    <!--                      </el-form-item>-->
+                    <!--                    </el-col>-->
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
                       <el-form-item
                         label="密码管理："
@@ -83,7 +83,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>-->
+                        <!--                        <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>-->
                         {{postForm.staff.currentUnitCode}}
                       </el-form-item>
                     </el-col>
@@ -95,7 +95,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>-->
+                        <!--                        <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>-->
                         {{postForm.staff.currentUnitName}}
                       </el-form-item>
                     </el-col>
@@ -119,7 +119,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-input v-model="postForm.staff.staffNo" class="filter-item"/>-->
+                        <!--                        <el-input v-model="postForm.staff.staffNo" class="filter-item"/>-->
                         {{postForm.staff.staffNo}}
                       </el-form-item>
                     </el-col>
@@ -131,7 +131,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-input v-model="postForm.user.name" class="filter-item"/>-->
+                        <!--                        <el-input v-model="postForm.user.name" class="filter-item"/>-->
                         {{postForm.user.name}}
                       </el-form-item>
                     </el-col>
@@ -143,16 +143,16 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-select-->
-<!--                          v-model="postForm.user.sex"-->
-<!--                          placeholder=""-->
-<!--                          clearable-->
-<!--                          class="filter-item"-->
-<!--                          style="width: 100%"-->
-<!--                        >-->
-<!--                          <el-option key="1" label="男" value="男"/>-->
-<!--                          <el-option key="2" label="女" value="女"/>-->
-<!--                        </el-select>-->
+                        <!--                        <el-select-->
+                        <!--                          v-model="postForm.user.sex"-->
+                        <!--                          placeholder=""-->
+                        <!--                          clearable-->
+                        <!--                          class="filter-item"-->
+                        <!--                          style="width: 100%"-->
+                        <!--                        >-->
+                        <!--                          <el-option key="1" label="男" value="男"/>-->
+                        <!--                          <el-option key="2" label="女" value="女"/>-->
+                        <!--                        </el-select>-->
                         {{postForm.user.sex}}
                       </el-form-item>
                     </el-col>
@@ -164,7 +164,7 @@
                         label-width="120px"
                         class="postInfo-container-item"
                       >
-<!--                        <el-input v-model="postForm.user.idNo" class="filter-item"/>-->
+                        <!--                        <el-input v-model="postForm.user.idNo" class="filter-item"/>-->
                         {{postForm.user.idNo}}
                       </el-form-item>
                     </el-col>
@@ -1552,8 +1552,8 @@
               }
             })
           } else {
-            console.log('error submit!!');
-            return false;
+            console.log('error submit!!')
+            return false
           }
         })
       },
@@ -1638,96 +1638,96 @@
       handleCreate() {
         // console.log(this.postForm, 'xxx')
 
-       /* if (!this.postForm.staff.staffType) {
-          this.$notify({
-            title: '错误',
-            message: '请选择员工类型',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.staff.teacherType) {
-          this.$notify({
-            title: '错误',
-            message: '请选择教师类型',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.staff.currentUnitCode) {
-          this.$notify({
-            title: '错误',
-            message: '请输入单位编号',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.staff.currentUnitName) {
-          this.$notify({
-            title: '错误',
-            message: '请输入单位名称',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.staff.staffNo) {
-          this.$notify({
-            title: '错误',
-            message: '请输入教职工号',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.user.name) {
-          this.$notify({
-            title: '错误',
-            message: '请输入职工姓名',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.user.sex) {
-          this.$notify({
-            title: '错误',
-            message: '请选择性别',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.user.idNo) {
-          this.$notify({
-            title: '错误',
-            message: '请输入身份证号',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.teacherPosts || !this.teacherPosts.length) {
-          this.$notify({
-            title: '错误',
-            message: '请选择岗位',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        if (!this.postForm.staff.employeeTime) {
-          this.$notify({
-            title: '错误',
-            message: '请选择入职时间',
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }*/
+        /* if (!this.postForm.staff.staffType) {
+           this.$notify({
+             title: '错误',
+             message: '请选择员工类型',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.staff.teacherType) {
+           this.$notify({
+             title: '错误',
+             message: '请选择教师类型',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.staff.currentUnitCode) {
+           this.$notify({
+             title: '错误',
+             message: '请输入单位编号',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.staff.currentUnitName) {
+           this.$notify({
+             title: '错误',
+             message: '请输入单位名称',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.staff.staffNo) {
+           this.$notify({
+             title: '错误',
+             message: '请输入教职工号',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.user.name) {
+           this.$notify({
+             title: '错误',
+             message: '请输入职工姓名',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.user.sex) {
+           this.$notify({
+             title: '错误',
+             message: '请选择性别',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.user.idNo) {
+           this.$notify({
+             title: '错误',
+             message: '请输入身份证号',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.teacherPosts || !this.teacherPosts.length) {
+           this.$notify({
+             title: '错误',
+             message: '请选择岗位',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }
+         if (!this.postForm.staff.employeeTime) {
+           this.$notify({
+             title: '错误',
+             message: '请选择入职时间',
+             type: 'error',
+             duration: 2000
+           })
+           return
+         }*/
 
         this.vLoading = true
 

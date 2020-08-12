@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="avatar.png" alt="">
-    <div class="bg" />
+    <div class="bg"/>
   </div>
 </template>
 

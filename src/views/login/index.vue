@@ -167,12 +167,12 @@
                 this.$router.push({
                   path: this.redirect,
                   query: this.otherQuery
-                })
+                }, () => {}, () => {}) // Error via a navigation guard.
               } else {
                 this.$router.push({
                   path: '/home',
                   query: this.otherQuery
-                })
+                }, () => {}, () => {})
               }
               this.loading = false
             }).catch(() => {
@@ -221,7 +221,7 @@
   $assets: '~@/assets/';
 
   .login-container {
-/*        background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
+    /*        background: url($assets + "images/logo-bg.png") 0 0 no-repeat;*/
     background-size: 100% 100%;
     position: absolute;
     top: 0;
@@ -239,12 +239,14 @@
       border-radius: 20px;
       /*box-shadow: 0px 0px 10px 5px #ddd;*/
     }
+
     .login-form {
       width: 500px;
       height: 100%;
       padding: 60px;
       border-radius: 20px;
       background-color: rgba(255, 255, 255, 0.4);
+
       .login-btn {
         padding: 30px 0;
 

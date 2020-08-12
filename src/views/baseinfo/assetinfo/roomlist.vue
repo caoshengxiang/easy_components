@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <div class="statisticsInfo">
       <div class="menu-2-box">
@@ -9,7 +9,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/a3.png" height="50" width="50"/>
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.internetCount}}</span> 间 </div>
+            <div class="analysis-text"><span class="tag">{{statisticsInfo.internetCount}}</span> 间</div>
             <div class="analysis-text-small">有网教教室总量</div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           style="margin-left: 20px;width: 200px"
           class="filter-item"
         >
-          <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-input
           v-model="listQuery.code"
@@ -86,15 +86,15 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
-        <el-table-column label="所属建筑物名称" prop="id"  align="center">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
+        <el-table-column label="所属建筑物名称" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.constructionName }}
@@ -134,16 +134,16 @@
             <span>{{ row.ifMultimedia ?'是':'否' }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="教室地址" >
+        <el-table-column label="教室地址">
           <template slot-scope="{row}">
             <span>{{ row.address }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="160">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_room_edit"
               class-name="filter-item"
@@ -155,9 +155,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_assetinfo_roomlist_remove"
               class-name="filter-item"
@@ -170,7 +170,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -189,6 +189,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -212,12 +213,12 @@
       that.getConstructionPage() // //查询建筑物列表
     },
     methods: {
-      getStatistics(){
+      getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/teachingRoom',{ ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/teachingRoom', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
-            that.statisticsInfo = data.data;
+            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -277,12 +278,12 @@
             })
           }
         })
-        that.listLoading = false
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.assetinfo.getTeachingRoomPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -293,8 +294,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

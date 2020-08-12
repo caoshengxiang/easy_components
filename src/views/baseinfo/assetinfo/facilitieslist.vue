@@ -175,6 +175,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -263,12 +264,12 @@
             })
           }
         })
-        that.listLoading = false
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.assetinfo.getFacilityPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -279,8 +280,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

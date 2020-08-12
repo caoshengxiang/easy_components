@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="float: left"/>
     </div>
     <div class="filter-container" style=";margin-top: 10px;float: left">
-      <el-button class="filter-item" style="margin-left: 0px;"  type="primary" @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 0px;" type="primary" @click="handleCreate">
         新增扣分记录
       </el-button>
     </div>
@@ -21,7 +21,7 @@
           <span>{{ row.timestamp | parseTimeNew('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名" min-width="150px"  align="center">
+      <el-table-column label="姓名" min-width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.title }}</span>
         </template>
@@ -31,26 +31,26 @@
           <span>{{ row.content_short }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="分数"  width="110px" align="center">
+      <el-table-column label="分数" width="110px" align="center">
         <template slot-scope="{row}">
-          <span >{{ row.content }}</span>
+          <span>{{ row.content }}</span>
         </template>
       </el-table-column>
       <el-table-column label="扣分时间" width="80px">
         <template slot-scope="{row}">
-          <span >{{ row.content1 }}</span>
+          <span>{{ row.content1 }}</span>
         </template>
       </el-table-column>
       <el-table-column label="扣分原因" align="center" width="95">
         <template slot-scope="{row}">
-          <span >{{ row.content2 }}</span>
+          <span>{{ row.content2 }}</span>
         </template>
       </el-table-column>
       <el-table-column label="编辑" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-            <el-button type="primary" size="mini" @click="handleUpdate(row)">
-              编辑
-            </el-button>
+          <el-button type="primary" size="mini" @click="handleUpdate(row)">
+            编辑
+          </el-button>
           <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
             删除
           </el-button>
@@ -58,22 +58,25 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" >
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit"
+                @pagination="getList"/>
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px"
+               style="width: 400px; margin-left:50px;">
 
-        <el-form-item label="扣除原因：" >
+        <el-form-item label="扣除原因：">
           <el-select v-model="temp.timestamp" class="filter-item" style="float: left;" placeholder="请选择">
-            <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name" :value="item.key"  />
+            <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name"
+                       :value="item.key"/>
           </el-select>
         </el-form-item>
         <el-form-item label="扣除分数：" prop="status">
-          <el-input v-model="temp.status"  class="filter-item"/>
+          <el-input v-model="temp.status" class="filter-item"/>
 
         </el-form-item>
 
       </el-form>
-      <div slot="footer" class="dialog-footer" style="text-align: center" >
+      <div slot="footer" class="dialog-footer" style="text-align: center">
         <el-button @click="dialogFormVisible = false">
           取消
         </el-button>
@@ -88,9 +91,13 @@
   import Pagination from '@/components/Pagination'
 
   import Breadcrumb from '@/components/Breadcrumb'
+
   export default {
     name: 'ComplexTable',
-    components: {Breadcrumb,Pagination},
+    components: {
+      Breadcrumb,
+      Pagination
+    },
     filters: {
       statusFilter(status) {
         const statusMap = {
@@ -103,8 +110,14 @@
     },
     data() {
       return {
-        calendarTypeOptions1: [ { key: 1, display_name: '不出早操' }, { key: 2, display_name: '进女生宿舍' }],
-        displayTime:'',
+        calendarTypeOptions1: [{
+          key: 1,
+          display_name: '不出早操'
+        }, {
+          key: 2,
+          display_name: '进女生宿舍'
+        }],
+        displayTime: '',
         tableKey: 0,
         list: [],
         total: 20,
@@ -117,13 +130,61 @@
           major: undefined,
           full: undefined,
           descs: 'id',
-          description:'',
-          displayTime:''
+          description: '',
+          displayTime: ''
         },
-        gradeInfo: [{label:"全部",value:0},{label:"一年级",value:1}, {label:"二年级",value:2}, {label:"三年级",value:3}],
-        classInfo:[{label:"全部",value:0},{label:"一班",value:1}, {label:"二班",value:2}, {label:"三班",value:3}],
-        majorInfo:[{label:"全部",value:0},{label:"数学",value:1}, {label:"软件",value:2}, {label:"英语",value:3}],
-        IsFull:[{label:"全部",value:0},{label:"未住",value:1}, {label:"未住满",value:2}, {label:"已住满",value:3}],
+        gradeInfo: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '一年级',
+          value: 1
+        }, {
+          label: '二年级',
+          value: 2
+        }, {
+          label: '三年级',
+          value: 3
+        }],
+        classInfo: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '一班',
+          value: 1
+        }, {
+          label: '二班',
+          value: 2
+        }, {
+          label: '三班',
+          value: 3
+        }],
+        majorInfo: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '数学',
+          value: 1
+        }, {
+          label: '软件',
+          value: 2
+        }, {
+          label: '英语',
+          value: 3
+        }],
+        IsFull: [{
+          label: '全部',
+          value: 0
+        }, {
+          label: '未住',
+          value: 1
+        }, {
+          label: '未住满',
+          value: 2
+        }, {
+          label: '已住满',
+          value: 3
+        }],
         dialogFormVisible: false,
         dialogStatus: '',
         temp: {
@@ -132,7 +193,7 @@
           title: 1,
           type: '',
           status: '',
-          timestamp:''
+          timestamp: ''
         },
         statusOptions: ['published', 'draft', 'deleted'],
         textMap: {
@@ -140,17 +201,25 @@
           create: '新增扣分记录'
         },
         rules: {
-          type: [{ required: true, message: '请填写宿舍编号', trigger: 'change' }],
-          status: [{ required: true, message: '请填写宿舍联系人', trigger: 'blur' }],
+          type: [{
+            required: true,
+            message: '请填写宿舍编号',
+            trigger: 'change'
+          }],
+          status: [{
+            required: true,
+            message: '请填写宿舍联系人',
+            trigger: 'blur'
+          }],
         },
       }
     },
-    created(){
-      let that = this;
+    created() {
+      let that = this
       console.log(this.$route.query.id)
-      that.getList();
+      that.getList()
     },
-    methods:{
+    methods: {
       resetTemp() {
         this.temp = {
           id: undefined,
@@ -181,7 +250,8 @@
               message: 'Created Successfully',
               type: 'success',
               duration: 2000
-            })}
+            })
+          }
         })
       },
       handleAdd() {
@@ -217,13 +287,13 @@
         })
       },
       handleDelete(row, index) {
-        let that = this;
+        let that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
             that.list.splice(index, 1)
             this.$message({
               type: 'success',
@@ -233,66 +303,66 @@
           .catch(err => { console.error(err) })
 
       },
-      getList(){
-        let that = this;
-        console.log(that.listQuery);
-        that.list =[{
-          "id": 21,
-          "timestamp": 100001,
-          "title": "杨大帅",
-          "content_short": '软件',
-          "content": '年级',
-          "content1": '班级',
-          "content2": '杨再林',
-          "content3": '15196637504'
+      getList() {
+        let that = this
+        console.log(that.listQuery)
+        that.list = [{
+          'id': 21,
+          'timestamp': 100001,
+          'title': '杨大帅',
+          'content_short': '软件',
+          'content': '年级',
+          'content1': '班级',
+          'content2': '杨再林',
+          'content3': '15196637504'
         }, {
-          "id": 22,
-          "timestamp":  1000011,
-          "title": "陈晓",
-          "content_short": '数学',
-          "content": '年级',
-          "content1": '班级',
-          "content2": '杨再林',
-          "content3": '15196637504'
+          'id': 22,
+          'timestamp': 1000011,
+          'title': '陈晓',
+          'content_short': '数学',
+          'content': '年级',
+          'content1': '班级',
+          'content2': '杨再林',
+          'content3': '15196637504'
         }, {
-          "id": 23,
-          "timestamp": 1000012,
-          "title": "易中天",
-          "content_short": '软件',
-          "content": '年级',
-          "content1": '班级',
-          "content2": '杨再林',
-          "content3": '15196637504'
+          'id': 23,
+          'timestamp': 1000012,
+          'title': '易中天',
+          'content_short': '软件',
+          'content': '年级',
+          'content1': '班级',
+          'content2': '杨再林',
+          'content3': '15196637504'
         }, {
-          "id": 24,
-          "timestamp": 1000013,
-          "title": "刘德华",
-          "content_short": '软件',
-          "content": '年级',
-          "content1": '班级',
-          "content2": '杨再林',
-          "content3": '15196637504'
+          'id': 24,
+          'timestamp': 1000013,
+          'title': '刘德华',
+          'content_short': '软件',
+          'content': '年级',
+          'content1': '班级',
+          'content2': '杨再林',
+          'content3': '15196637504'
         }, {
-          "id": 25,
-          "timestamp": 1000041,
-          "title": "刘亦菲",
-          "content_short": '软件',
-          "content": '年级',
-          "content1": '班级',
-          "content2": '杨再林',
-          "content3": '15196637504'
+          'id': 25,
+          'timestamp': 1000041,
+          'title': '刘亦菲',
+          'content_short': '软件',
+          'content': '年级',
+          'content1': '班级',
+          'content2': '杨再林',
+          'content3': '15196637504'
         }]
 
-        that.listLoading = false;
+        that.listLoading = false
       },
       handleDelete(row, index) {
-        let that = this;
+        let that = this
         that.$confirm('确认删除当前记录吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
-          .then(async() => {
+          .then(async () => {
             that.list.splice(index, 1)
             this.$message({
               type: 'success',
@@ -306,7 +376,9 @@
   }
 </script>
 <style>
-  .download-button{
-    margin-bottom: 5px;margin-top: 5px;float: right
+  .download-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right
   }
 </style>

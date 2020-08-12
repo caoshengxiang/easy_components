@@ -5,7 +5,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
-      <el-tabs value="first" >
+      <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="margin: auto;">
             <div class="createPost-main-container">
@@ -23,7 +23,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="预分配人数：" prop="allocationNum" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.allocationNum" type="number"  class="filter-item"/>
+                    <el-input v-model="postForm.allocationNum" type="number" class="filter-item"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -107,7 +107,7 @@
     data() {
       return {
 
-        editStatus:true,
+        editStatus: true,
         campus: [],
         opt: [{
           key: true,

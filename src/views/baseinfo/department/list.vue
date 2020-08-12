@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <!-- <div class="statisticsInfo">
        <div class="menu-2-box">
@@ -20,14 +20,14 @@
      </div>-->
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button-->
-<!--          class="filter-item"-->
-<!--          round-->
-<!--          type="primary"-->
-<!--          @click="$utils.routerLink(`/views/baseinfo/department/edit`)"-->
-<!--        >-->
-<!--          新增系部-->
-<!--        </el-button>-->
+        <!--        <el-button-->
+        <!--          class="filter-item"-->
+        <!--          round-->
+        <!--          type="primary"-->
+        <!--          @click="$utils.routerLink(`/views/baseinfo/department/edit`)"-->
+        <!--        >-->
+        <!--          新增系部-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_department_add"
           class-name="filter-item"
@@ -57,14 +57,14 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="系部编号" align="center">
           <template slot-scope="{row}">
             <span>{{ row.code }}</span>
@@ -92,9 +92,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_department_edit"
               class-name="filter-item"
@@ -107,7 +107,7 @@
             ></PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -126,6 +126,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -169,19 +170,14 @@
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.department.list({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

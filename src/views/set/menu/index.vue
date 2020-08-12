@@ -240,7 +240,8 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-input :disabled="!temp.external" v-model="temp.pcUrl" class="filter-item" @change="autoFormat"/>
+                      <el-input :disabled="!temp.external" v-model="temp.pcUrl" class="filter-item"
+                                @change="autoFormat"/>
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
                       <el-popover

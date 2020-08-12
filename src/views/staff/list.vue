@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
     <y-page-list-layout :page-list="pageData" :page-para="listQuery" :get-page-list="getList">
@@ -28,21 +28,22 @@
           style="margin-left: 20px;width: 100px;float: left;"
           class="filter-item"
         >
-          <el-option label="男" value="男" />
-          <el-option label="女" value="女" />
+          <el-option label="男" value="男"/>
+          <el-option label="女" value="女"/>
         </el-select>
-        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable style="margin-left: 20px;width: 320px;float: left;">
+        <el-input v-model="listQuery.description" placeholder="请输入内容" clearable
+                  style="margin-left: 20px;width: 320px;float: left;">
           <el-select
             slot="prepend"
             v-model="listQueryKey"
             style="width: 90px;"
             placeholder="请选择"
           >
-            <el-option label="全部" value="keyword" />
-            <el-option label="工号" value="staffNo" />
-            <el-option label="姓名" value="name" />
-            <el-option label="部门" value="organizationName" />
-            <el-option label="岗位" value="postName" />
+            <el-option label="全部" value="keyword"/>
+            <el-option label="工号" value="staffNo"/>
+            <el-option label="姓名" value="name"/>
+            <el-option label="部门" value="organizationName"/>
+            <el-option label="岗位" value="postName"/>
           </el-select>
         </el-input>
         <el-button
@@ -102,14 +103,14 @@
         </el-upload>
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="职工编号" align="center">
           <template slot-scope="{row}">
             <span>{{ row.staffNo }}</span>
@@ -195,7 +196,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>

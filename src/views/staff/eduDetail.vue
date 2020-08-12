@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="false"  v-loading="vLoading">
+    <y-detail-page-layout @save="handleCreate" :edit-status="false" v-loading="vLoading">
       <el-tabs v-model="activeName">
         <el-tab-pane label="学历证书" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">

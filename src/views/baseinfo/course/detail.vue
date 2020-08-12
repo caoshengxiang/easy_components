@@ -228,25 +228,28 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                  <el-form-item label="所属教研组："  label-width="200px" class="postInfo-container-item">
-                    <el-select v-model="postForm.researchGroupId" placeholder="所属教研组（一期未启用）" clearable class="filter-item" style="width: 100%">
-                      <el-option key="1" label="语文组" value="1" />
-                      <el-option key="2" label="数学组" value="2" />
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="教材（一期未启用）："  label-width="200px" class="postInfo-container-item">
-                    <el-select v-model="postForm.textbookId" placeholder="教材" clearable class="filter-item" style="width: 50%">
-                      <el-option key="1" label="语文" value="1" />
-                      <el-option key="2" label="数学" value="2" />
-                    </el-select>
-                    <el-select v-model="postForm.textbookId" placeholder="教材" clearable class="filter-item" style="width: 50%">
-                      <el-option key="1" label="九年义务教育语文" value="1" />
-                      <el-option key="2" label="马克里" value="2" />
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                    <el-form-item label="所属教研组：" label-width="200px" class="postInfo-container-item">
+                      <el-select v-model="postForm.researchGroupId" placeholder="所属教研组（一期未启用）" clearable
+                                 class="filter-item" style="width: 100%">
+                        <el-option key="1" label="语文组" value="1"/>
+                        <el-option key="2" label="数学组" value="2"/>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="教材（一期未启用）：" label-width="200px" class="postInfo-container-item">
+                      <el-select v-model="postForm.textbookId" placeholder="教材" clearable class="filter-item"
+                                 style="width: 50%">
+                        <el-option key="1" label="语文" value="1"/>
+                        <el-option key="2" label="数学" value="2"/>
+                      </el-select>
+                      <el-select v-model="postForm.textbookId" placeholder="教材" clearable class="filter-item"
+                                 style="width: 50%">
+                        <el-option key="1" label="九年义务教育语文" value="1"/>
+                        <el-option key="2" label="马克里" value="2"/>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
 
               </div>
@@ -271,7 +274,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         opt: [{
           key: true,
           label: '是'
@@ -391,7 +394,8 @@
         teachingRoom: [], // 授课低点
         AllEnum: {}// 全部枚举
       }
-    } , watch: {
+    },
+    watch: {
       detailInfo: function (value) {
         this.postForm = value
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
     <div class="statisticsInfo">
@@ -19,9 +19,9 @@
 
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/course/detail`)">-->
-<!--          新增课程-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/course/detail`)">-->
+        <!--          新增课程-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_course_add"
           class-name="filter-item"
@@ -54,8 +54,8 @@
           class="filter-item"
           style="margin-left:20px;width:200px"
         >
-          <el-option key="1" label="语文组" value="1" />
-          <el-option key="2" label="数学组" value="2" />
+          <el-option key="1" label="语文组" value="1"/>
+          <el-option key="2" label="数学组" value="2"/>
         </el-select>
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
                    size="mini">
@@ -88,20 +88,20 @@
             flag="/course/importExcel"
             :style-type="1"
             title="课程导入"
-            @fath = "getList"
+            @fath="getList"
           />
         </PermissionButton>
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
-        <el-table-column label="课程编号" prop="id"  align="center">
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
+        <el-table-column label="课程编号" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.code }}
@@ -159,9 +159,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="160px">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_course_edit"
               class-name="filter-item"
@@ -173,9 +173,9 @@
               :page-query="{id: row.id}"
             >
             </PermissionButton>
-<!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
-<!--              删除-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
+            <!--              删除-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_course_delete"
               class-name="filter-item"
@@ -188,7 +188,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -209,6 +209,7 @@
     },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -281,8 +282,9 @@
       },
       getList() {
         const that = this
+        that.listLoading = true
         that.$api.course.list({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.loading = false
+          that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -292,8 +294,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false
+        }).catch(() => { that.listLoading = false })
       },
     }
   }

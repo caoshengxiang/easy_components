@@ -10,13 +10,11 @@
     name: 'Home',
     components: {},
     data() {
-      return {
-      }
+      return {}
     },
     created() {
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>
 <style lang="scss" scoped>

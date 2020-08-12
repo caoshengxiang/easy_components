@@ -1,7 +1,7 @@
 <template>
   <div class="assetinfo-detail app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
@@ -20,19 +20,19 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id" />
+                        <el-option v-for="item in constructionList" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
 
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="教室编号：" prop="code" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code" class="filter-item" />
+                      <el-input v-model="postForm.code" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label=" 使用面积：" prop="area  " label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.area" class="filter-item" />
+                      <el-input v-model="postForm.area" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -47,18 +47,18 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in roomType" :key="item.name" :label="item.name" :value="item.name" />
+                        <el-option v-for="item in roomType" :key="item.name" :label="item.name" :value="item.name"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="实际容纳人数：" prop="capacity" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.capacity" type="number"  class="filter-item" />
+                      <el-input v-model="postForm.capacity" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="最大排课量：" prop="courseMax" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.courseMax" type="number"  class="filter-item" />
+                      <el-input v-model="postForm.courseMax" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -77,7 +77,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt1" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt1" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -95,7 +95,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -108,7 +108,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key" />
+                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -116,17 +116,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="教室地址：" prop="address" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.address" type="textarea" class="filter-item" />
+                      <el-input v-model="postForm.address" type="textarea" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="摄像头地址：" prop="cameraAddr" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.cameraAddr" class="filter-item" />
+                      <el-input v-model="postForm.cameraAddr" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="教室备注：" prop="remark" label-width="120px" class="postInfo-container-item">
-                      <el-input v-model="postForm.remark" type="textarea" class="filter-item" />
+                      <el-input v-model="postForm.remark" type="textarea" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -187,7 +187,7 @@
     },
     data() {
       return {
-        editStatus:true,
+        editStatus: true,
         opt: [{
           key: true,
           label: '是'
@@ -224,7 +224,7 @@
             message: '请选择是否多媒体教室',
             trigger: 'change'
           }],
-        ifMultimedia: [{
+          ifMultimedia: [{
             required: true,
             message: '请选择网络',
             trigger: 'change'
@@ -234,7 +234,7 @@
             message: '请填写最大排课量',
             trigger: 'change'
           }],
-          address:[{
+          address: [{
             required: true,
             message: '请填写教室地址',
             trigger: 'change'
@@ -308,13 +308,12 @@
       save() {
         const that = this
         if (that.$refs.uploadCourseChapter1.getFileList().length === 0 || that.$refs.uploadCourseChapter2.getFileList().length === 0) {
-         // that.$message.error('请上传图片!')
-         // return
+          // that.$message.error('请上传图片!')
+          // return
 
-          that.postForm.planGraph = ""//that.$refs.uploadCourseChapter1.getFileList()[0].fileName""
-          that.postForm.pic = ""//that.$refs.uploadCourseChapter2.getFileList()[0].fileName""
-        }
-        else{
+          that.postForm.planGraph = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName""
+          that.postForm.pic = ''//that.$refs.uploadCourseChapter2.getFileList()[0].fileName""
+        } else {
 
           that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
           that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName

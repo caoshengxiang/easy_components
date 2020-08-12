@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="margin-bottom: 5px;" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="margin-bottom: 5px;"/>
     </div>
     <div class="filter-main-div">
       <div class="filter-container" style="width:70%; float: left;">
@@ -63,23 +63,23 @@
         </span>
         <span style="display: inline-block;margin-right: 20px;margin-bottom: 10px;margin-left: 10px;">
           <span class="filter-item">唯一标识:</span>
-          <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item" />
+          <el-input v-model="detail.code" style="margin-left: 20px;width: 200px;" class="filter-item"/>
         </span>
         <span style="display: inline-block;margin-left: 10px;">
           <span class="filter-item">类型描述:</span>
-          <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item" />
+          <el-input v-model="detail.remark" style="margin-left: 20px;width: 200px;" class="filter-item"/>
         </span>
       </div>
 
       <div style="padding: 10px;">
         <parentTable v-loading="listLoading" :data="tableData" style="">
-<!--        <el-table-->
-<!--          :key="tableKey"-->
-<!--          v-loading="listLoading"-->
-<!--          :data="tableData"-->
-<!--          fit-->
-<!--          highlight-current-row-->
-<!--        >-->
+          <!--        <el-table-->
+          <!--          :key="tableKey"-->
+          <!--          v-loading="listLoading"-->
+          <!--          :data="tableData"-->
+          <!--          fit-->
+          <!--          highlight-current-row-->
+          <!--        >-->
           <el-table-column label="编号" align="center" width="100">
             <template slot-scope="{row, $index}">
               <span>{{ $index + 1 }}</span>
@@ -88,13 +88,13 @@
           <el-table-column label="名称" min-width="150" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.name }}</span>-->
-              <el-input v-model="row.name" />
+              <el-input v-model="row.name"/>
             </template>
           </el-table-column>
           <el-table-column label="描述" min-width="250" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.remark }}</span>-->
-              <el-input v-model="row.remark" />
+              <el-input v-model="row.remark"/>
             </template>
           </el-table-column>
           <el-table-column label="是否启用" width="100" align="center">
@@ -110,7 +110,7 @@
               </el-button>
             </template>
           </el-table-column>
-<!--        </el-table>-->
+          <!--        </el-table>-->
         </parentTable>
         <div style="text-align: center">
           <el-button style="margin: 10px auto;" type="primary" icon="el-icon-plus" round @click="addRow">

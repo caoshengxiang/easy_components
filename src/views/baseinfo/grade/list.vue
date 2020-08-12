@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="title-container">
-      <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <!-- <div class="statisticsInfo">
        <div class="menu-2-box">
@@ -22,9 +22,9 @@
      </div>-->
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
-<!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/grade/edit`)">-->
-<!--          新增年级-->
-<!--        </el-button>-->
+        <!--        <el-button class="filter-item" round type="primary" @click="$utils.routerLink(`/views/baseinfo/grade/edit`)">-->
+        <!--          新增年级-->
+        <!--        </el-button>-->
         <PermissionButton
           menu-no="_views_baseinfo_grade_add"
           class-name="filter-item"
@@ -35,7 +35,8 @@
           size="mini"
           :page-jump="true"
         />
-        <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search" style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search"
+                  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
                    size="mini">
           搜索
@@ -48,19 +49,19 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-<!--      <el-table-->
-<!--        slot="table"-->
-<!--        v-loading="listLoading"-->
-<!--        :data="pageData.records"-->
-<!--        fit-->
-<!--        highlight-current-row-->
-<!--        style="width: 100%;"-->
-<!--      >-->
+        <!--      <el-table-->
+        <!--        slot="table"-->
+        <!--        v-loading="listLoading"-->
+        <!--        :data="pageData.records"-->
+        <!--        fit-->
+        <!--        highlight-current-row-->
+        <!--        style="width: 100%;"-->
+        <!--      >-->
         <el-table-column label="编号" align="center">
-                 <template slot-scope="{row}">
-                   <span>{{ row.code }}</span>
-                 </template>
-               </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.code }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="年级名称" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
@@ -78,9 +79,9 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-<!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
-<!--              编辑-->
-<!--            </el-button>-->
+            <!--            <el-button type="primary" round size="mini" @click="detail(row.id)">-->
+            <!--              编辑-->
+            <!--            </el-button>-->
             <PermissionButton
               menu-no="_views_baseinfo_grade_edit"
               class-name="filter-item"
@@ -94,7 +95,7 @@
             </PermissionButton>
           </template>
         </el-table-column>
-<!--      </el-table>-->
+        <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
 
@@ -104,11 +105,17 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
+
   export default {
     name: 'ViewsBaseinfoGradeList',
-    components: {Breadcrumb, PermissionButton, YPageListLayout},
+    components: {
+      Breadcrumb,
+      PermissionButton,
+      YPageListLayout
+    },
     data() {
       return {
+        listLoading: false,
         pageData: {},
         pagePara: {
           current: 0,
@@ -120,19 +127,19 @@
         },
       }
     },
-    created(){
-      const that = this;
-      that.getList();
+    created() {
+      const that = this
+      that.getList()
     },
 
     methods: {
-      searchList(){
-        const that = this;
+      searchList() {
+        const that = this
         that.pagePara.current = 0
         that.getList()
       },
-      add(){
-        const that =this;
+      add() {
+        const that = this
         that.$router.push({
           path: '/views/baseinfo/grade/edit',
           query: {
@@ -140,8 +147,8 @@
           }
         })
       },
-      detail(id){
-        const that =this;
+      detail(id) {
+        const that = this
         that.$router.push({
           path: '/views/baseinfo/grade/edit',
           query: {
@@ -150,11 +157,12 @@
           }
         })
       },
-      getList(){
-        const that = this;
-        that.$api.grade.list({...that.listQuery, ...that.pagePara}).then(data => {
-          that.loading = false;
-          if (data.code === 200){
+      getList() {
+        const that = this
+        that.listLoading = true
+        that.$api.grade.list({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.listLoading = false
+          if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
           } else {
@@ -163,8 +171,7 @@
               message: data.msg
             })
           }
-        })
-        that.listLoading = false;
+        }).catch(() => { that.listLoading = false })
       },
     }
   }
@@ -173,6 +180,7 @@
 <style lang="scss" scoped>
   .right {
     flex: 1;
+
     .title {
       font-size: 16px;
       font-weight: 500;
