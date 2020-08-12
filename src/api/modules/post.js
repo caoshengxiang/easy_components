@@ -20,5 +20,8 @@ export default {
   },
   simpleAll(params) { // 下拉
     return request.get(`post/simpleAll`, { params: params })
-  }
+  },
+  copyPost(params) { // 下拉
+    return request.put(`post/copy/${params}`)
+  },
 }

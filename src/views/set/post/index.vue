@@ -86,7 +86,7 @@
             <span>{{ row.created }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="编辑" align="center" width="250" class-name="small-padding fixed-width">
+        <el-table-column label="编辑" align="center" width="280" class-name="small-padding fixed-width">
           <template slot-scope="{row,$index}">
             <!--          <el-button type="primary" size="mini" @click="handleUpdate(row)">-->
             <!--            编辑-->
@@ -122,6 +122,9 @@
               :page-query="{id: row.id}"
               round
             />
+            <el-button type="info" round size="mini" @click="copyPost(row)">
+              复制
+            </el-button>
           </template>
         </el-table-column>
         <!--      </el-table>-->
@@ -366,9 +369,15 @@
           .then(async () => {
             this.$api.post.delete(row.id).then(res => {
               if (res.code === 200) {
-                this.$message({
+                // this.$message({
+                //   type: 'success',
+                //   message: '删除成功'
+                // })
+                this.$notify({
+                  title: '成功',
+                  message: '删除成功',
                   type: 'success',
-                  message: '删除成功'
+                  duration: 2000
                 })
                 this.getList()
               }
@@ -376,6 +385,19 @@
           })
           .catch(err => { console.error(err) })
       },
+      copyPost(row) {
+        this.$api.post.copyPost(row.id).then(res => {
+          if (res.code === 200) {
+            this.getList()
+            this.$notify({
+              title: '成功',
+              message: '复制成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+        })
+      }
     }
   }
 </script>
