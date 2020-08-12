@@ -1,6 +1,5 @@
 <template>
-  <div class="data-center-home">
-  </div>
+  <div class="data-center-home"/>
 </template>
 
 <script>

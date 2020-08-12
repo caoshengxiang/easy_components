@@ -8,7 +8,8 @@
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"
-                   style="width: 600px;margin: auto;">
+                   style="width: 600px;margin: auto;"
+          >
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">

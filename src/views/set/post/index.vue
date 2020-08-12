@@ -18,7 +18,8 @@
           @click="handleAdd"
         />
         <el-select v-model="listQuery.orgName" style="width: 200px;margin-left: 20px;" clearable filterable
-                   placeholder="所属部门" class="filter-item">
+                   placeholder="所属部门" class="filter-item"
+        >
           <el-option
             v-for="item in partOptions"
             :key="item.id"

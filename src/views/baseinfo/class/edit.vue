@@ -38,7 +38,8 @@
                 <el-col :span="8">
                   <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item">
                     <el-select v-model="postForm.specialtyId" placeholder="专业" clearable filterable
-                               style="width: 100%;">
+                               style="width: 100%;"
+                    >
                       <el-option v-for="item in majorList" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
@@ -47,7 +48,8 @@
                   <el-form-item label="班主任：" prop="headTeacherId" label-width="120px" class="postInfo-container-item">
 
                     <el-select v-model="postForm.headTeacherId" placeholder="班主任" filterable
-                               style="width: 100%">
+                               style="width: 100%"
+                    >
                       <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
                   </el-form-item>
@@ -64,7 +66,8 @@
                 <el-col :span="8">
                   <el-form-item label="班级类型：" prop="classType" label-width="120px" class="postInfo-container-item">
                     <el-select v-model="postForm.classType" placeholder="班级类型" clearable filterable
-                               style="width: 100%;">
+                               style="width: 100%;"
+                    >
                       <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </el-form-item>

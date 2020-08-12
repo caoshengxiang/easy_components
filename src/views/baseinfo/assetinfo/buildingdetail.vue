@@ -154,7 +154,8 @@
                 <el-row style="margin-left: 150px">
                   <el-col :span="8">
                     <el-form-item label="总建成面积（㎡）：" prop="buildArea" label-width="120px"
-                                  class="postInfo-container-item">
+                                  class="postInfo-container-item"
+                    >
                       <el-input v-model="postForm.buildArea" type="number" class="filter-item"/>
                     </el-form-item>
                   </el-col>
@@ -282,11 +283,6 @@
       Breadcrumb,
       fileUpload,
       YDetailPageLayout
-    },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
     },
     props: {
       detailInfo: {
@@ -419,6 +415,11 @@
         buildStatus: [],
         campus: []
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       const that = this

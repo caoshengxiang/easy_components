@@ -28,6 +28,7 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': 'off',
     'vue/no-v-html': 'off',
+    'vue/html-closing-bracket-spacing': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [0, {
       'before': true,
@@ -165,8 +166,8 @@ module.exports = {
         ':': 'before'
       }
     }],
-    'padded-blocks': [2, 'never'],
-    'quotes': [2, 'single', {
+    'padded-blocks': [0, 'never'],
+    'quotes': [1, 'single', {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],

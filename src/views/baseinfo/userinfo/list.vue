@@ -8,17 +8,17 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p7.png" height="50" width="50"/>
+        ><img src="../../../assets/p7.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.total}}</span>人</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.total }}</span>人</div>
             <div class="analysis-text-small">在读学生总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p8.png" height="50" width="50"/>
+        ><img src="../../../assets/p8.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.manRate}}:{{statisticsInfo.womanRate}}</span>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.manRate }}:{{ statisticsInfo.womanRate }}</span>
             </div>
             <div class="analysis-text-small">在读学生男女比例</div>
           </div>
@@ -146,7 +146,6 @@
           round
           name="更新学籍号"
           style="padding: 0;margin-bottom: 10px;"
-
         >
           <excelImport
             ref="uploadControl"
@@ -251,8 +250,7 @@
               name="查看"
               type="text"
               @click="productInnerQR1(row,false)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="150">
@@ -269,8 +267,7 @@
               round
               size="mini"
               @click="productInnerQR1(row,true)"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
             <!--              详情-->
             <!--            </el-button>-->
@@ -283,16 +280,16 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
     <el-dialog style=" width:500px;text-align: center;margin-left: 30%;height: 1000px" title="二维码"
-               :visible.sync="productInnerQR">
-      <div class="qrcode" ref="qrCodeUrl" id="qrcode"></div>
+               :visible.sync="productInnerQR"
+    >
+      <div class="qrcode" ref="qrCodeUrl" id="qrcode"/>
     </el-dialog>
   </div>
 </template>

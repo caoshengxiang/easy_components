@@ -9,8 +9,7 @@
           新增学生
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        v-loading="listLoading"-->
@@ -75,10 +74,10 @@
       </parentTable>
     </y-page-list-layout>
 
-
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px"
-               style="width: 400px; margin-left:50px;">
+               style="width: 400px; margin-left:50px;"
+      >
         <el-form-item label="宿舍编号：">
           <el-input v-model="dormitoryDetail.code" v-if="dialogStatus=='create'" class="filter-item" disabled/>
           <el-input v-model="dormitoryDetail.code" v-else @blur="changeDo" class="filter-item"/>
@@ -97,30 +96,33 @@
         </el-form-item>
         <el-form-item label="选择床位：" prop="importance" v-if="dialogStatus=='create'">
           <el-checkbox-group v-model="importance" style="float: left;">
-            <el-checkbox :label="item" :value="item" v-for="item in bedInfo1"></el-checkbox>
+            <el-checkbox :label="item" :value="item" v-for="item in bedInfo1"/>
           </el-checkbox-group>
 
         </el-form-item>
         <el-form-item label="选择学生：" v-if="dialogStatus=='create'">
           <div style="white-space: nowrap">
             <el-select v-model="listQuery.schoolGradeId" @change="getClbumList" placeholder="年级" clearable
-                       style="margin-left:10px;width: 100px" class="filter-item">
-              <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                       style="margin-left:10px;width: 100px" class="filter-item"
+            >
+              <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
             <el-select v-model="listQuery.schoolSpecialtyId" @change="getClbumList" placeholder="专业（根据年级加载）" clearable
-                       class="filter-item" style=" width: 200px">
-              <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                       class="filter-item" style=" width: 200px"
+            >
+              <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
             <el-select v-model="listQuery.schoolClbumId" placeholder="班级（根据班级加载）" @change="getStdNoBedList" clearable
-                       class="filter-item" style="width: 200px">
+                       class="filter-item" style="width: 200px"
+            >
               <el-option key="0" label="全部班级" value="0"/>
-              <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+              <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </div>
         </el-form-item>
         <el-form-item style="width: 800px" v-if="dialogStatus=='create'">
           <el-checkbox-group v-model="beds" style="float: left;">
-            <el-checkbox :label="item.id" v-for="item in noBedStd">{{item.name}}</el-checkbox>
+            <el-checkbox :label="item.id" v-for="item in noBedStd">{{ item.name }}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="床位：" v-if="dialogStatus!='create'">
@@ -140,7 +142,6 @@
       </div>
     </el-dialog>
   </div>
-
 
 </template>
 <script>

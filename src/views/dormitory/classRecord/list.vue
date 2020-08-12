@@ -20,7 +20,8 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-button class="filter-item" round style="margin-left: 0px;" type="primary" icon="el-icon-plus"
-                   @click="handleAdd">
+                   @click="handleAdd"
+        >
           新增考核统计
         </el-button>
         <el-select
@@ -53,7 +54,8 @@
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item"
-                   style="width: 100px;margin-left: 10px">
+                   style="width: 100px;margin-left: 10px"
+        >
           <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input
@@ -64,7 +66,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
@@ -73,7 +76,8 @@
       </template>
       <template slot="right">
         <el-button class="filter-item" round style="margin-left: 10px;" type="primary"
-                   @click="exportClassRecord">
+                   @click="exportClassRecord"
+        >
           导出班级宿舍考核
         </el-button>
       </template>
@@ -87,14 +91,14 @@
         <!--    >-->
         <el-table-column label="年份" prop="id" align="center" width="150">
           <template slot-scope="{row}">
-          <span>
-                                              {{ row.id }}
-                  </span>
+            <span>
+              {{ row.id }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="次数" width="150px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.timestamp}}</span>
+            <span>{{ row.timestamp }}</span>
           </template>
         </el-table-column>
         <el-table-column label="专业" align="center">
@@ -105,7 +109,7 @@
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
             <span>
-        {{ row.id }}
+              {{ row.id }}
             </span>
           </template>
         </el-table-column>
@@ -134,7 +138,8 @@
     </y-page-list-layout>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="100px"
-               style="width: 400px; margin-left:50px;">
+               style="width: 400px; margin-left:50px;"
+      >
         <el-form-item label="考核次数" prop="type">
           <el-input v-model="temp.type" class="filter-item"/>
 
@@ -145,7 +150,8 @@
         <el-form-item label="年份" prop="title">
           <el-select v-model="temp.title" class="filter-item" style="float: left;" placeholder="请选择">
             <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name"
-                       :value="item.key"/>
+                       :value="item.key"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="学期" prop="status">
@@ -155,11 +161,11 @@
         </el-form-item>
         <el-form-item label="周数" prop="importance" style="width: 800px">
           <el-checkbox-group v-model="importance" style="float: left;">
-            <el-checkbox label="1周"></el-checkbox>
-            <el-checkbox label="2周"></el-checkbox>
-            <el-checkbox label="三周"></el-checkbox>
-            <el-checkbox label="四周"></el-checkbox>
-            <el-checkbox label="五周"></el-checkbox>
+            <el-checkbox label="1周"/>
+            <el-checkbox label="2周"/>
+            <el-checkbox label="三周"/>
+            <el-checkbox label="四周"/>
+            <el-checkbox label="五周"/>
           </el-checkbox-group>
         </el-form-item>
         <!-- <el-form-item label="Remark">

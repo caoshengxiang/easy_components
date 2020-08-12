@@ -7,7 +7,8 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList" v-loading="loading">
       <template slot="left">
         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search" style="width: 200px;"
-                  class="filter-item" @keyup.enter.native="handleFilter"/>
+                  class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-select
           v-model="listQuery.state"
           placeholder="审核状态"
@@ -29,10 +30,11 @@
           style="margin-left: 10px;padding-top: 2px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
-          end-placeholder="结束日期">
-        </el-date-picker>
+          end-placeholder="结束日期"
+        />
         <el-button class="filter-item" round style="margin-left: 20px"
-                   size="mini" type="primary" @click="searchList">
+                   size="mini" type="primary" @click="searchList"
+        >
           搜索
         </el-button>
 
@@ -40,15 +42,11 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable :data="pageData.records" slot="table">
-        <el-table-column label="标题" prop="processName" align="center">
-        </el-table-column>
-        <el-table-column label="申请时间" prop="startTime" align="center">
-        </el-table-column>
-        <el-table-column label="完成时间" prop="endTime" align="center">
-        </el-table-column>
+        <el-table-column label="标题" prop="processName" align="center"/>
+        <el-table-column label="申请时间" prop="startTime" align="center"/>
+        <el-table-column label="完成时间" prop="endTime" align="center"/>
         <el-table-column label="审核状态" prop="state" align="center">
           <template slot-scope="{row}">
             <el-tag v-if="row.state === '通过'" type="success">{{ row.state }}</el-tag>
@@ -60,13 +58,16 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="primary"
-                       size="mini" round @click="taskdetail(row.processId)">查看
+                       size="mini" round @click="taskdetail(row.processId)"
+            >查看
             </el-button>
             <el-button v-if="row.stateCode == 1" type="danger"
-                       size="mini" round @click="cancle(row.processId)">撤销
+                       size="mini" round @click="cancle(row.processId)"
+            >撤销
             </el-button>
             <el-button v-else type="info" disabled
-                       size="mini" round @click="cancle(row.processId)">撤销
+                       size="mini" round @click="cancle(row.processId)"
+            >撤销
             </el-button>
           </template>
         </el-table-column>

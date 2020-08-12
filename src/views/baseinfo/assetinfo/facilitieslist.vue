@@ -4,22 +4,21 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
-
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/b1.png" height="50" width="50"/>
+        ><img src="../../../assets/b1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.total}}</span>处</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.total }}</span>处</div>
             <div class="analysis-text-small">设施总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/b2.png" height="50" width="50"/>
+        ><img src="../../../assets/b2.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.totalCost}}</span>元</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.totalCost }}</span>元</div>
             <div class="analysis-text-small">设施总建设费</div>
           </div>
         </div>
@@ -71,7 +70,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
 
@@ -79,8 +79,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -99,7 +98,7 @@
         </el-table-column>
         <el-table-column label="建成年月" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.buildDate  }}</span>
+            <span>{{ row.buildDate }}</span>
           </template>
         </el-table-column>
         <el-table-column label="设施产权" align="center">
@@ -139,8 +138,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
             <!--              删除-->
             <!--            </el-button>-->
@@ -152,8 +150,7 @@
               round
               size="mini"
               @click="deleteInfo(row.id)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->
@@ -285,5 +282,4 @@
     }
   }
 </script>
-
 

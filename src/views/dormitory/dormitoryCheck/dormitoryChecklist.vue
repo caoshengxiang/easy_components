@@ -49,26 +49,29 @@
 
       <el-table-column label="内务考核" prop="id" align="center">
         <template slot-scope="{row}">
-            <span class="link-type">
-          <router-link tag="a" :to="{path:'/dormitory/checkRecord',query:{id: row.id}}"
-                       class="routerWork">{{ row.id }}
-          </router-link>
-            </span>
+          <span class="link-type">
+            <router-link tag="a" :to="{path:'/dormitory/checkRecord',query:{id: row.id}}"
+                         class="routerWork"
+            >{{ row.id }}
+            </router-link>
+          </span>
         </template>
       </el-table-column>
       <el-table-column label="纪律考核" prop="id" align="center">
         <template slot-scope="{row}">
           <span class="link-type">
-          <router-link tag="a" :to="{path:'/dormitory/dormitoryCheckRecord',query:{id: row.id}}"
-                       class="routerWork">{{ row.id }}
-          </router-link>
-            </span>
+            <router-link tag="a" :to="{path:'/dormitory/dormitoryCheckRecord',query:{id: row.id}}"
+                         class="routerWork"
+            >{{ row.id }}
+            </router-link>
+          </span>
         </template>
       </el-table-column>
       <!--    </el-table>-->
     </parentTable>
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit"
-                @pagination="getList"/>
+                @pagination="getList"
+    />
   </div>
 </template>
 <script>

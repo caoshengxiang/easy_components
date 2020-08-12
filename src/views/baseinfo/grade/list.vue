@@ -36,9 +36,11 @@
           :page-jump="true"
         />
         <el-input v-model="listQuery.name" placeholder="请输入关键字搜索" prefix-icon="el-icon-search"
-                  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
+                  style="margin-left: 20px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
 
@@ -46,8 +48,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -91,8 +92,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

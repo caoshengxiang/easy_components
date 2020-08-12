@@ -7,25 +7,25 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/sta1.png" height="50" width="50"/>
+        ><img src="../../../assets/sta1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.orgNum}}</span></div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.orgNum }}</span></div>
             <div class="analysis-text-small">当前机构总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/sta2.png" height="50" width="50"/>
+        ><img src="../../../assets/sta2.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.postNum}}</span></div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.postNum }}</span></div>
             <div class="analysis-text-small">当前岗位总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/sta3.png" height="50" width="50"/>
+        ><img src="../../../assets/sta3.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.staffNum}}</span></div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.staffNum }}</span></div>
             <div class="analysis-text-small">当前人员总数</div>
           </div>
         </div>

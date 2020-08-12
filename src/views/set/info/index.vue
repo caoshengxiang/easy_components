@@ -11,7 +11,8 @@
             label-width="160px"
             ref="postForm"
             :model="postForm"
-            class="form-container">
+            class="form-container"
+          >
 
             <div class="createPost-main-container">
               <div class="postInfo-container">
@@ -151,8 +152,7 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12" :lg="8">
-                  </el-col>
+                  <el-col :span="12" :lg="8"/>
                 </el-row>
                 <el-row>
                   <el-col :span="12" :lg="8">
@@ -172,8 +172,7 @@
                       />
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12" :lg="8">
-                  </el-col>
+                  <el-col :span="12" :lg="8"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -240,8 +239,8 @@
                       <el-input v-model="postForm.LEGAL_PERSON_EMAIL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12" :lg="8"></el-col>
-                  <el-col :span="12" :lg="8"></el-col>
+                  <el-col :span="12" :lg="8"/>
+                  <el-col :span="12" :lg="8"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -291,14 +290,14 @@
                       <el-input v-model="postForm.CONTACTER_PERSON_EMAIL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12" :lg="8"></el-col>
-                  <el-col :span="12" :lg="8"></el-col>
+                  <el-col :span="12" :lg="8"/>
+                  <el-col :span="12" :lg="8"/>
                 </el-row>
               </div>
             </div>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="" name="two"></el-tab-pane>
+        <el-tab-pane label="" name="two"/>
       </el-tabs>
     </y-detail-page-layout>
   </div>

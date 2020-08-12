@@ -19,22 +19,22 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工编号：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.staff.staffNo}}</span>
+                      <span>{{ postForm.staff.staffNo }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.name}}</span>
+                      <span>{{ postForm.user.name }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="性别：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.sex}}</span>
+                      <span>{{ postForm.user.sex }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="140px" class="postInfo-container-item">
-                      <span>{{postForm.user.idNo}}</span>
+                      <span>{{ postForm.user.idNo }}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -112,10 +112,8 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -202,10 +200,8 @@
                       </el-upload>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -364,12 +360,9 @@
                       </el-upload>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -438,12 +431,9 @@
                       </el-upload>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
               </div>
             </div>
@@ -480,11 +470,6 @@
         }
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     data() {
       return {
         type: 'detail',
@@ -503,6 +488,11 @@
         dialogVisible: false,
         dialogImageUrl: ''
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       if (this.detailInfo) {

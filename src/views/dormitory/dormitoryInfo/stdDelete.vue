@@ -24,7 +24,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="宿舍负责人：" prop="managerName" label-width="200px"
-                                  class="postInfo-container-item ">
+                                  class="postInfo-container-item "
+                    >
                       <el-input v-model="postForm.managerName" class="filter-item"/>
                     </el-form-item>
                   </el-col>

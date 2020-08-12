@@ -11,34 +11,34 @@
         <el-row style="text-align: left">
           <el-col :span="6">
             <el-form-item label="模块：" prop="status" label-width="100px">
-              {{form.moduleName}}
+              {{ form.moduleName }}
             </el-form-item>
           </el-col>
           <el-col :span="18">
             <el-form-item label="操作类型：" prop="status" label-width="100px">
-              {{form.operationName}}
+              {{ form.operationName }}
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="申请人：" prop="status" label-width="100px">
-              {{form.startName}}
+              {{ form.startName }}
             </el-form-item>
           </el-col>
           <el-col :span="18">
             <el-form-item label="申请时间：" prop="status" label-width="100px">
-              {{form.startTime}}
+              {{ form.startTime }}
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="执行结果：" prop="status" label-width="100px">
-              {{form.processResult}}
+              {{ form.processResult }}
             </el-form-item>
           </el-col>
 
           <el-col :span="18">
             <el-form-item label="查看详情：" prop="status" label-width="100px">
-             <span class="link-type" @click="detail(form.taskId)">申请详情
-                  </span>
+              <span class="link-type" @click="detail(form.taskId)">申请详情
+              </span>
             </el-form-item>
           </el-col>
 
@@ -54,15 +54,14 @@
                 <el-table-column
                   prop="name"
                   label="审核人"
-                >
-                </el-table-column>
+                />
                 <el-table-column
                   prop="result"
                   label="审核结果"
                 >
                   <template slot-scope="{row}">
-                    <span v-if="row.result == '通过'" style="color: #00a0e9">{{row.result}}</span>
-                    <span v-else style="color: red">{{row.result}}</span>
+                    <span v-if="row.result == '通过'" style="color: #00a0e9">{{ row.result }}</span>
+                    <span v-else style="color: red">{{ row.result }}</span>
 
                   </template>
                 </el-table-column>
@@ -70,13 +69,12 @@
                 <el-table-column
                   prop="approvalTime"
                   label="审核时间"
-                >
-                </el-table-column>
+                />
                 <el-table-column
                   prop="msg"
                   width="500px"
-                  label="审核意见">
-                </el-table-column>
+                  label="审核意见"
+                />
               </el-table>
             </el-form-item>
           </el-col>

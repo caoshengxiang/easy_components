@@ -392,7 +392,7 @@
             </div>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="" name="two"></el-tab-pane>
+        <el-tab-pane label="" name="two"/>
       </el-tabs>
     </y-detail-page-layout>
   </div>

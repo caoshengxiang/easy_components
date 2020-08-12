@@ -34,7 +34,7 @@
                         <!--                        >-->
                         <!--                          <el-option v-for="(item, index) in AllEnum['员工类型']" :key="index" :label="item" :value="item"/>-->
                         <!--                        </el-select>-->
-                        <span>{{postForm.staff.staffType}}</span>
+                        <span>{{ postForm.staff.staffType }}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -54,7 +54,7 @@
                         <!--                        >-->
                         <!--                          <el-option v-for="(item, index) in AllEnum['教师类型']" :key="index" :label="item" :value="item"/>-->
                         <!--                        </el-select>-->
-                        {{postForm.staff.teacherType}}
+                        {{ postForm.staff.teacherType }}
                       </el-form-item>
                     </el-col>
                     <!--                    <el-col :xs="24" :sm="12" :lg="6" :span="6">-->
@@ -84,7 +84,7 @@
                         class="postInfo-container-item"
                       >
                         <!--                        <el-input v-model="postForm.staff.currentUnitCode" class="filter-item"/>-->
-                        {{postForm.staff.currentUnitCode}}
+                        {{ postForm.staff.currentUnitCode }}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -96,7 +96,7 @@
                         class="postInfo-container-item"
                       >
                         <!--                        <el-input v-model="postForm.staff.currentUnitName" class="filter-item"/>-->
-                        {{postForm.staff.currentUnitName}}
+                        {{ postForm.staff.currentUnitName }}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -120,7 +120,7 @@
                         class="postInfo-container-item"
                       >
                         <!--                        <el-input v-model="postForm.staff.staffNo" class="filter-item"/>-->
-                        {{postForm.staff.staffNo}}
+                        {{ postForm.staff.staffNo }}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -132,7 +132,7 @@
                         class="postInfo-container-item"
                       >
                         <!--                        <el-input v-model="postForm.user.name" class="filter-item"/>-->
-                        {{postForm.user.name}}
+                        {{ postForm.user.name }}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -153,7 +153,7 @@
                         <!--                          <el-option key="1" label="男" value="男"/>-->
                         <!--                          <el-option key="2" label="女" value="女"/>-->
                         <!--                        </el-select>-->
-                        {{postForm.user.sex}}
+                        {{ postForm.user.sex }}
                       </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :lg="6" :span="6">
@@ -165,7 +165,7 @@
                         class="postInfo-container-item"
                       >
                         <!--                        <el-input v-model="postForm.user.idNo" class="filter-item"/>-->
-                        {{postForm.user.idNo}}
+                        {{ postForm.user.idNo }}
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1417,13 +1417,13 @@
         <el-dialog title="修改密码" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
           <el-form :model="dialogForm" :rules="rules" ref="dialogForm">
             <el-form-item label="旧密码" prop="lastPassword" label-width="140">
-              <el-input v-model="dialogForm.lastPassword" type="password" autocomplete="off"></el-input>
+              <el-input v-model="dialogForm.lastPassword" type="password" autocomplete="off"/>
             </el-form-item>
             <el-form-item label="新密码" prop="newPassword" label-width="140">
-              <el-input v-model="dialogForm.newPassword" type="password" autocomplete="off"></el-input>
+              <el-input v-model="dialogForm.newPassword" type="password" autocomplete="off"/>
             </el-form-item>
             <el-form-item label="确认密码" prop="newPassword2" label-width="140">
-              <el-input v-model="dialogForm.newPassword2" type="password" autocomplete="off"></el-input>
+              <el-input v-model="dialogForm.newPassword2" type="password" autocomplete="off"/>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">

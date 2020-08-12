@@ -7,49 +7,49 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p1.png" height="50" width="50"/>
+        ><img src="../../../assets/p1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manTotal}} </span></div>
-            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanTotal}}</span></div>
+            <div class="analysis-text"><span class="tag">男生：{{ statisticsInfo.manTotal }} </span></div>
+            <div class="analysis-text"><span class="tag">女生：{{ statisticsInfo.womanTotal }}</span></div>
             <div class="analysis-text-small">当前床位总数</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p2.png" height="50" width="50"/>
+        ><img src="../../../assets/p2.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.manCount}}</span></div>
-            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.womanCount}}</span></div>
+            <div class="analysis-text"><span class="tag">男生：{{ statisticsInfo.manCount }}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{ statisticsInfo.womanCount }}</span></div>
             <div class="analysis-text-small">当前入住总数</div>
           </div>
         </div>
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p3.png" height="50" width="50"/>
+        ><img src="../../../assets/p3.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.fullManCount}}</span></div>
-            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.fullWomanCount}}</span></div>
+            <div class="analysis-text"><span class="tag">男生：{{ statisticsInfo.fullManCount }}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{ statisticsInfo.fullWomanCount }}</span></div>
             <div class="analysis-text-small">当前已满寝室数</div>
           </div>
         </div>
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p4.png" height="50" width="50"/>
+        ><img src="../../../assets/p4.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.notFullManCount}}</span></div>
-            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.notFullWomanCount}}</span></div>
+            <div class="analysis-text"><span class="tag">男生：{{ statisticsInfo.notFullManCount }}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{ statisticsInfo.notFullWomanCount }}</span></div>
             <div class="analysis-text-small">当前未满寝室数</div>
           </div>
         </div>
 
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p5.png" height="50" width="50"/>
+        ><img src="../../../assets/p5.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">男生：{{statisticsInfo.emptyManCount}}</span></div>
-            <div class="analysis-text"><span class="tag">女生：{{statisticsInfo.emptyWomanCount}}</span></div>
+            <div class="analysis-text"><span class="tag">男生：{{ statisticsInfo.emptyManCount }}</span></div>
+            <div class="analysis-text"><span class="tag">女生：{{ statisticsInfo.emptyWomanCount }}</span></div>
             <div class="analysis-text-small">当前空寝室数</div>
           </div>
         </div>
@@ -96,7 +96,8 @@
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item"
-                   style="width: 100px;margin-left: 10px">
+                   style="width: 100px;margin-left: 10px"
+        >
           <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input
@@ -107,7 +108,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
@@ -245,8 +247,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id, managerName: row.managerName}"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

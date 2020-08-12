@@ -4,14 +4,13 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
-      <template slot="left"></template>
-      <template slot="right">
-      </template>
+      <template slot="left"/>
+      <template slot="right"/>
       <div slot="table">
         <el-row style="margin-bottom: 20px;">
-          <el-col :span="8">学期名称：{{pageData.name}}</el-col>
-          <el-col :span="8">学年：{{pageData.year}}</el-col>
-          <el-col :span="8">学期码：{{pageData.code}}</el-col>
+          <el-col :span="8">学期名称：{{ pageData.name }}</el-col>
+          <el-col :span="8">学年：{{ pageData.year }}</el-col>
+          <el-col :span="8">学期码：{{ pageData.code }}</el-col>
         </el-row>
 
         <el-table
@@ -65,7 +64,7 @@
               <!--                style="width: 100%"-->
               <!--              >-->
               <!--              </el-time-picker>-->
-              <span>{{ row.startTime }} - {{row.endTime}}</span>
+              <span>{{ row.startTime }} - {{ row.endTime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="创建人" min-width="150" align="center">
@@ -123,11 +122,6 @@
         }
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.pageData = value
-      },
-    },
     data() {
       return {
         value: null,
@@ -143,6 +137,11 @@
         },
         delArr: [],
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.pageData = value
+      },
     },
     created() {
       if (this.detailInfo) {

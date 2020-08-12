@@ -9,17 +9,17 @@
         <div
 
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/a1.png" height="50" width="50"/>
+        ><img src="../../../assets/a1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.totalArea}}</span>平方米</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.totalArea }}</span>平方米</div>
             <div class="analysis-text-small">占地面积</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/a2.png" height="50" width="50"/>
+        ><img src="../../../assets/a2.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.aloneArea}}</span>平方米</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.aloneArea }}</span>平方米</div>
             <div class="analysis-text-small">独立产权面积</div>
           </div>
         </div>
@@ -70,15 +70,15 @@
           @keyup.enter.native="handleFilter"
         />
         <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -142,8 +142,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
             <!--              删除-->
             <!--            </el-button>-->
@@ -155,8 +154,7 @@
               round
               size="mini"
               @click="deleteInfo(row.id)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

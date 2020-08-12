@@ -11,7 +11,7 @@
       >
         <el-form-item>
           <div class="title-container">
-            <h3 class="title">{{sysCfg.SYS_NAME}}
+            <h3 class="title">{{ sysCfg.SYS_NAME }}
             </h3>
           </div>
         </el-form-item>
@@ -26,7 +26,7 @@
             tabindex="1"
             autocomplete="on"
           >
-            <i slot="prefix" class="el-input__icon el-icon-user"></i>
+            <i slot="prefix" class="el-input__icon el-icon-user"/>
           </el-input>
         </el-form-item>
 
@@ -44,7 +44,7 @@
             @blur="capsTooltip = false"
             @keyup.enter.native="handleLogin"
           >
-            <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
+            <i slot="prefix" class="el-input__icon el-icon-unlock"/>
           </el-input>
           <span class="show-pwd" @click="showPwd">
             <svg-icon style="color: #000;" :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>

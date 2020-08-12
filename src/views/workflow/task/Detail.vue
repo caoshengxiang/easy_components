@@ -12,22 +12,22 @@
           <el-row style="text-align: left">
             <el-col :span="6">
               <el-form-item label="模块：" prop="status" label-width="100px">
-                {{form.moduleName}}
+                {{ form.moduleName }}
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="操作类型：" prop="status" label-width="100px">
-                {{form.operationName}}
+                {{ form.operationName }}
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="申请人：" prop="status" label-width="100px">
-                {{form.startName}}
+                {{ form.startName }}
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="申请时间：" prop="status" label-width="100px">
-                {{form.startTime}}
+                {{ form.startTime }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -38,88 +38,126 @@
           <span>申请内容</span>
         </div>
         <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'"
-                              :detailInfo="this.formData"></base-info-asset-info>
+                              :detailInfo="this.formData"
+        />
         <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'"
-                                 :detailInfo="this.formData"></base-info-building-info>
+                                 :detailInfo="this.formData"
+        />
         <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'"
-                             :detailInfo="this.formData"></base-info-room-info>
+                             :detailInfo="this.formData"
+        />
         <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'"
-                                 :detailInfo="this.formData"></base-info-training-info>
+                                 :detailInfo="this.formData"
+        />
         <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'"
-                                   :detailInfo="this.formData"></base-info-facilities-info>
+                                   :detailInfo="this.formData"
+        />
         <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'"
-                                   :detailInfo="this.formData"></base-info-department-info>
+                                   :detailInfo="this.formData"
+        />
         <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'"
-                               :detailInfo="this.formData"></base-info-course-info>
+                               :detailInfo="this.formData"
+        />
         <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'"
-                              :detailInfo="this.formData"></base-info-major-info>
+                              :detailInfo="this.formData"
+        />
         <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'"
-                              :detailInfo="this.formData"></base-info-grade-info>
+                              :detailInfo="this.formData"
+        />
         <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'"
-                              :detailInfo="this.formData"></base-info-class-info>
+                              :detailInfo="this.formData"
+        />
         <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'"
-                                 :detailInfo="this.formData"></base-info-userInfo-info>
+                                 :detailInfo="this.formData"
+        />
         <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'"
-                            :detailInfo="this.formData"></base-info-std-info>
+                            :detailInfo="this.formData"
+        />
         <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'"
-                                  :detailInfo="this.formData"></base-info-dormitory-info>
+                                  :detailInfo="this.formData"
+        />
         <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'"
-                                  :detailInfo="this.formData"></base-info-stdDelete-info>
+                                  :detailInfo="this.formData"
+        />
         <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'"
-                                :detailInfo="this.formData"></base-info-stdMove-info>
+                                :detailInfo="this.formData"
+        />
         <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'"
-                                     :detailInfo="this.formData"></TeachingAffairsSemesterEdit>
+                                     :detailInfo="this.formData"
+        />
         <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'"
-                                          :detailInfo="this.formData"></TeachingAffairsSemesterClassTime>
-        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.formData"></staffDetail>
+                                          :detailInfo="this.formData"
+        />
+        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.formData"/>
         <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'"
-                        :detailInfo="this.formData"></staffEduDetail>
+                        :detailInfo="this.formData"
+        />
         <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'"
-                         :detailInfo="this.formData"></staffwageDetail>
+                         :detailInfo="this.formData"
+        />
       </el-card>
       <el-card v-if="show">
         <div slot="header" class="clearfix">
           <span>申请历史</span>
         </div>
         <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'"
-                              :detailInfo="this.originData"></base-info-asset-info>
+                              :detailInfo="this.originData"
+        />
         <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'"
-                                 :detailInfo="this.originData"></base-info-building-info>
+                                 :detailInfo="this.originData"
+        />
         <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'"
-                             :detailInfo="this.originData"></base-info-room-info>
+                             :detailInfo="this.originData"
+        />
         <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'"
-                                 :detailInfo="this.originData"></base-info-training-info>
+                                 :detailInfo="this.originData"
+        />
         <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'"
-                                   :detailInfo="this.originData"></base-info-facilities-info>
+                                   :detailInfo="this.originData"
+        />
         <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'"
-                                   :detailInfo="this.originData"></base-info-department-info>
+                                   :detailInfo="this.originData"
+        />
         <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'"
-                               :detailInfo="this.originData"></base-info-course-info>
+                               :detailInfo="this.originData"
+        />
         <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'"
-                              :detailInfo="this.originData"></base-info-major-info>
+                              :detailInfo="this.originData"
+        />
         <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'"
-                              :detailInfo="this.originData"></base-info-grade-info>
+                              :detailInfo="this.originData"
+        />
         <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'"
-                              :detailInfo="this.originData"></base-info-class-info>
+                              :detailInfo="this.originData"
+        />
         <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'"
-                                 :detailInfo="this.originData"></base-info-userInfo-info>
+                                 :detailInfo="this.originData"
+        />
         <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'"
-                            :detailInfo="this.originData"></base-info-std-info>
+                            :detailInfo="this.originData"
+        />
         <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'"
-                                  :detailInfo="this.originData"></base-info-dormitory-info>
+                                  :detailInfo="this.originData"
+        />
         <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'"
-                                  :detailInfo="this.originData"></base-info-stdDelete-info>
+                                  :detailInfo="this.originData"
+        />
         <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'"
-                                :detailInfo="this.originData"></base-info-stdMove-info>
+                                :detailInfo="this.originData"
+        />
         <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'"
-                                     :detailInfo="this.originData"></TeachingAffairsSemesterEdit>
+                                     :detailInfo="this.originData"
+        />
         <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'"
-                                          :detailInfo="this.originData"></TeachingAffairsSemesterClassTime>
-        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.originData"></staffDetail>
+                                          :detailInfo="this.originData"
+        />
+        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.originData"/>
         <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'"
-                        :detailInfo="this.originData"></staffEduDetail>
+                        :detailInfo="this.originData"
+        />
         <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'"
-                         :detailInfo="this.originData"></staffwageDetail>
+                         :detailInfo="this.originData"
+        />
       </el-card>
     </y-detail-page-layout>
   </div>

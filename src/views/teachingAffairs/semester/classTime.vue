@@ -4,18 +4,17 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
-      <template slot="left"></template>
+      <template slot="left"/>
       <template slot="right">
         <span style="color: #cccccc;font-size: 10px;">(编辑完成上课信息，点击保存)</span>
         <el-button round class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit"
-                   @click="save">
+                   @click="save"
+        >
           保存
         </el-button>
       </template>
       <div slot="table">
-        <div>
-
-        </div>
+        <div/>
 
         <el-table
           v-loading="listLoading"
@@ -25,30 +24,30 @@
         >
           <el-table-column label="序号" align="center" min-width="100">
             <template slot-scope="{row, $index}">
-              <el-input type="number" v-model.number="row.seq"></el-input>
+              <el-input type="number" v-model.number="row.seq"/>
             </template>
           </el-table-column>
           <el-table-column label="时间段" min-width="100" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.name }}</span>-->
               <el-select v-model="row.period" clearable filterable placeholder="请选择" class="filter-item">
-                <el-option label="上午" value="上午"></el-option>
-                <el-option label="下午" value="下午"></el-option>
+                <el-option label="上午" value="上午"/>
+                <el-option label="下午" value="下午"/>
               </el-select>
             </template>
           </el-table-column>
           <el-table-column label="节次" min-width="150" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.des }}</span>-->
-              <el-input v-model="row.segment"></el-input>
+              <el-input v-model="row.segment"/>
             </template>
           </el-table-column>
           <el-table-column label="课间活动" min-width="100" align="center">
             <template slot-scope="{row}">
               <!--          <span>{{ row.des }}</span>-->
               <el-select v-model="row.ifBreaktime" clearable filterable placeholder="请选择" class="filter-item">
-                <el-option label="是" :value="true"></el-option>
-                <el-option label="否" :value="false"></el-option>
+                <el-option label="是" :value="true"/>
+                <el-option label="否" :value="false"/>
               </el-select>
             </template>
           </el-table-column>
@@ -63,8 +62,7 @@
                 end-placeholder="结束时间"
                 placeholder="选择时间范围"
                 style="width: 100%"
-              >
-              </el-time-picker>
+              />
             </template>
           </el-table-column>
           <el-table-column label="创建人" min-width="150" align="center">

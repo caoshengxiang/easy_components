@@ -241,19 +241,22 @@
                         ：
                       </span>
                       <el-input :disabled="!temp.external" v-model="temp.pcUrl" class="filter-item"
-                                @change="autoFormat"/>
+                                @change="autoFormat"
+                      />
                     </el-form-item>
                     <el-form-item v-if="port_pc" label="图标：">
                       <el-popover
                         placement="left"
                         width="400"
-                        trigger="hover">
+                        trigger="hover"
+                      >
                         <div>
                           <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item"
-                             @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"></i>
+                             @click="temp.pcIcon = item" style="margin: 3px;cursor: pointer;"
+                          />
                         </div>
                         <div slot="reference">
-                          <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
+                          <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"/>
                           <el-button type="primary" v-else>图标库</el-button>
                         </div>
                       </el-popover>
@@ -284,7 +287,7 @@
                       <el-input :disabled="!temp.external" v-model="temp.mobileUrl" class="filter-item"/>
                     </el-form-item>
                     <el-form-item v-if="port_m" label="图标：" prop="name">
-                      <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
+                      <y-select-ico v-model="temp.mobileIcon"/>
                     </el-form-item>
                     <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;"/>
                     <el-form-item label="是否有数据权限：" v-if="isFEBuilder === '17358684442'">
@@ -450,13 +453,15 @@
               <el-popover
                 placement="left"
                 width="400"
-                trigger="hover">
+                trigger="hover"
+              >
                 <div>
                   <i :class="'menu-sprites ' + item" v-for="item in menuNames" :key="item" @click="temp.pcIcon = item"
-                     style="margin: 3px;cursor: pointer;"></i>
+                     style="margin: 3px;cursor: pointer;"
+                  />
                 </div>
                 <div slot="reference">
-                  <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"></i>
+                  <i style="margin-top: 5px;" v-if="temp.pcIcon" :class="'menu-sprites ' + temp.pcIcon"/>
                   <el-button type="primary" v-else>图标库</el-button>
                 </div>
               </el-popover>
@@ -472,7 +477,7 @@
               <el-input v-model="temp.mobileUrl" class="filter-item"/>
             </el-form-item>
             <el-form-item v-if="port_m" label="图标：" prop="name">
-              <y-select-ico v-model="temp.mobileIcon"></y-select-ico>
+              <y-select-ico v-model="temp.mobileIcon"/>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer" style="text-align: center">

@@ -59,15 +59,18 @@
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit"
-                @pagination="getList"/>
+                @pagination="getList"
+    />
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="110px"
-               style="width: 400px; margin-left:50px;">
+               style="width: 400px; margin-left:50px;"
+      >
 
         <el-form-item label="扣除原因：">
           <el-select v-model="temp.timestamp" class="filter-item" style="float: left;" placeholder="请选择">
             <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name"
-                       :value="item.key"/>
+                       :value="item.key"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="扣除分数：" prop="status">

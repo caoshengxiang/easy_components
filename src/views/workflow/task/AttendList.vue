@@ -6,9 +6,11 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search" style="width: 200px;"
-                  class="filter-item" @keyup.enter.native="handleFilter"/>
+                  class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-input v-model="listQuery.startUserName" placeholder="申请人姓名" prefix-icon="el-icon-search"
-                  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
+                  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-date-picker
           v-model="dateTime"
           type="datetimerange"
@@ -17,8 +19,8 @@
           style="margin-left: 10px;padding-top: 2px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
-          end-placeholder="结束日期">
-        </el-date-picker>
+          end-placeholder="结束日期"
+        />
         <el-button class="filter-item" size="mini" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
@@ -27,8 +29,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <!--      <el-table-->
       <!--        :data="pageData.records"-->
       <!--        fit-->
@@ -37,14 +38,10 @@
       <!--        slot="table"-->
       <!--      >-->
       <parentTable v-loading="loading" :data="pageData.records" slot="table">
-        <el-table-column label="标题" prop="processName" align="center">
-        </el-table-column>
-        <el-table-column label="申请人" prop="startName" align="center">
-        </el-table-column>
-        <el-table-column label="申请时间" prop="startTime" align="center">
-        </el-table-column>
-        <el-table-column label="审核时间" prop="endTime" align="center">
-        </el-table-column>
+        <el-table-column label="标题" prop="processName" align="center"/>
+        <el-table-column label="申请人" prop="startName" align="center"/>
+        <el-table-column label="申请时间" prop="startTime" align="center"/>
+        <el-table-column label="审核时间" prop="endTime" align="center"/>
         <el-table-column label="审核状态" prop="state" align="center">
           <template slot-scope="{row}">
             <el-tag v-if="row.state === '通过'" type="success">{{ row.state }}</el-tag>
@@ -53,15 +50,16 @@
             <span v-else>{{ row.state }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="审核意见" prop="msg" align="center">
-        </el-table-column>
+        <el-table-column label="审核意见" prop="msg" align="center"/>
         <el-table-column label="操作" align="center" width="200">
           <template slot-scope="{row}">
             <el-button type="primary"
-                       size="mini" round @click="goto(row.taskId)">申请详情
+                       size="mini" round @click="goto(row.taskId)"
+            >申请详情
             </el-button>
             <el-button type="success"
-                       size="mini" round @click="taskdetail(row.taskId)">审核明细
+                       size="mini" round @click="taskdetail(row.taskId)"
+            >审核明细
             </el-button>
           </template>
         </el-table-column>

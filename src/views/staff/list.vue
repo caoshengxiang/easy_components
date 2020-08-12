@@ -32,7 +32,8 @@
           <el-option label="女" value="女"/>
         </el-select>
         <el-input v-model="listQuery.description" placeholder="请输入内容" clearable
-                  style="margin-left: 20px;width: 320px;float: left;">
+                  style="margin-left: 20px;width: 320px;float: left;"
+        >
           <el-select
             slot="prepend"
             v-model="listQueryKey"

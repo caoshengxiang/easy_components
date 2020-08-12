@@ -1,6 +1,6 @@
 <template>
   <div>
-    <y-work-f-design :id="id"></y-work-f-design>
+    <y-work-f-design :id="id"/>
   </div>
 </template>
 

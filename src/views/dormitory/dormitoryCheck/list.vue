@@ -55,7 +55,8 @@
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select v-model="listQuery.state" placeholder="是否住满" clearable class="filter-item"
-                   style="width: 100px;margin-left: 10px">
+                   style="width: 100px;margin-left: 10px"
+        >
           <el-option v-for="item in IsFull" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input
@@ -66,7 +67,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
@@ -96,7 +98,7 @@
         </el-table-column>
         <el-table-column label="学期" width="150px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.timestamp}}</span>
+            <span>{{ row.timestamp }}</span>
           </template>
         </el-table-column>
         <el-table-column label="周数" min-width="150px" align="center">

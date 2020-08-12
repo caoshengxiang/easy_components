@@ -53,8 +53,7 @@
                       label="密码管理："
                       label-width="120px"
                       class="postInfo-container-item"
-                    >
-                    </el-form-item>
+                    />
                   </el-col>
                 </el-row>
                 <el-row>
@@ -906,7 +905,8 @@
                     >
                       <template slot-scope="{row}">
                         <el-input disabled v-model="row.cooperationSituation" autosize type="textarea"
-                                  class="filter-item"/>
+                                  class="filter-item"
+                        />
                       </template>
                     </el-table-column>
                   </el-table>
@@ -980,7 +980,8 @@
                     >
                       <template slot-scope="{row}">
                         <el-input disabled v-model="row.cooperationSituation" autosize type="textarea"
-                                  class="filter-item"/>
+                                  class="filter-item"
+                        />
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1119,7 +1120,8 @@
                           style=" width: 100%"
                         >
                           <el-option v-for="(item, index) in AllEnum['教师培训类型']" :key="index" :label="item"
-                                     :value="item"/>
+                                     :value="item"
+                          />
                         </el-select>
                       </template>
                     </el-table-column>
@@ -1270,14 +1272,6 @@
         }
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-        this.teacherPosts = value.teacherPosts.map(item => {
-          return item.postId
-        })
-      },
-    },
     data() {
       return {
         type: 'detail',
@@ -1307,6 +1301,14 @@
         postOptions: [],
         teacherPosts: [],
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+        this.teacherPosts = value.teacherPosts.map(item => {
+          return item.postId
+        })
+      },
     },
     created() {
       this.getAllEnum()

@@ -7,9 +7,11 @@
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-input v-model="listQuery.title" placeholder="标题" prefix-icon="el-icon-search" style="width: 200px;"
-                  class="filter-item" @keyup.enter.native="handleFilter"/>
+                  class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-input v-model="listQuery.startUserName" placeholder="申请人姓名" prefix-icon="el-icon-search"
-                  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
+                  style="margin-left: 10px;width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"
+        />
         <el-date-picker
           v-model="dateTime"
           type="datetimerange"
@@ -18,13 +20,14 @@
           style="margin-left: 10px;padding-top: 2px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
-          end-placeholder="结束日期">
-        </el-date-picker>
+          end-placeholder="结束日期"
+        />
         <el-button class="filter-item" style="margin-left: 20px" size="mini" round type="primary" @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" :disabled="this.multipleSelection.length == 0" style="margin-left: 20px"
-                   size="mini" round type="success" @click="batchAuditVi">
+                   size="mini" round type="success" @click="batchAuditVi"
+        >
           批量审核
         </el-button>
 
@@ -32,9 +35,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-
-      </template>
+      <template slot="right"/>
       <el-table
         size="medium"
         v-loading="loading"
@@ -50,26 +51,25 @@
         <!--      <parentTable v-loading="loading" :data="pageData.records" @selection-change="handleSelectionChange" slot="table">-->
         <el-table-column
           type="selection"
-          width="55">
-        </el-table-column>
-        <el-table-column label="标题" prop="processName" align="center">
-        </el-table-column>
-        <el-table-column label="节点名" prop="taskName" align="center">
-        </el-table-column>
-        <el-table-column label="申请人" prop="startName" align="center">
-        </el-table-column>
-        <el-table-column label="申请时间" prop="startTime" align="center">
-        </el-table-column>
+          width="55"
+        />
+        <el-table-column label="标题" prop="processName" align="center"/>
+        <el-table-column label="节点名" prop="taskName" align="center"/>
+        <el-table-column label="申请人" prop="startName" align="center"/>
+        <el-table-column label="申请时间" prop="startTime" align="center"/>
         <el-table-column label="操作" align="center" width="260">
           <template slot-scope="{row}">
             <el-button type="primary"
-                       size="mini" plain round @click="detail(row.taskId)">申请详情
+                       size="mini" plain round @click="detail(row.taskId)"
+            >申请详情
             </el-button>
             <el-button type="success"
-                       size="mini" round @click="taskdetail(row.taskId)">审核明细
+                       size="mini" round @click="taskdetail(row.taskId)"
+            >审核明细
             </el-button>
             <el-button type="primary"
-                       size="mini" round @click="handleCreate(row)">审核
+                       size="mini" round @click="handleCreate(row)"
+            >审核
             </el-button>
           </template>
         </el-table-column>
@@ -77,9 +77,11 @@
       <!--      </parentTable>-->
     </y-page-list-layout>
     <el-dialog title="审核" :visible.sync="dialogFormVisible"
-               v-loading="loading1">
+               v-loading="loading1"
+    >
       <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px"
-               style="width: 600px; margin-left:50px;">
+               style="width: 600px; margin-left:50px;"
+      >
         <el-form-item label="审核结果：" prop="type">
           <el-select v-model="temp.type" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
             <el-option key="1" label="通过" value="1"/>
@@ -92,20 +94,24 @@
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
         <el-button @click="dialogFormVisible = false"
-                   size="mini" style="border-radius:15px;">
+                   size="mini" style="border-radius:15px;"
+        >
           取消
         </el-button>
         <el-button type="primary" @click="auditData()"
-                   size="mini" style="border-radius:15px;">
+                   size="mini" style="border-radius:15px;"
+        >
           保存
         </el-button>
       </div>
     </el-dialog>
 
     <el-dialog :title="batchAudit == 0?'审核':'批量审核'" :visible.sync="dialogFormVisible"
-               v-loading="loading1">
+               v-loading="loading1"
+    >
       <el-form ref="temp" :model="temp" :rules="rules" label-position="right" label-width="110px"
-               style="width: 600px; margin-left:50px;">
+               style="width: 600px; margin-left:50px;"
+      >
         <el-form-item label="审核结果：" prop="type">
           <el-select v-model="temp.type" class="filter-item" style="float: left; width: 80%" placeholder="请选择">
             <el-option key="1" label="通过" value="1"/>
@@ -118,11 +124,13 @@
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
         <el-button @click="cancleAudit"
-                   size="mini" style="border-radius:15px;">
+                   size="mini" style="border-radius:15px;"
+        >
           取消
         </el-button>
         <el-button type="primary" @click="auditData()"
-                   size="mini" style="border-radius:15px;">
+                   size="mini" style="border-radius:15px;"
+        >
           保存
         </el-button>
       </div>

@@ -99,11 +99,6 @@
         }
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     data() {
       return {
         type: 'detail',
@@ -142,6 +137,11 @@
         },
         dataId: this.$route.query.id,
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       if (this.detailInfo) {

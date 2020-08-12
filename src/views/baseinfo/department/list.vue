@@ -46,7 +46,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
 
@@ -54,8 +55,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -104,7 +104,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            ></PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

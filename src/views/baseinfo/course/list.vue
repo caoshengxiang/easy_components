@@ -8,9 +8,9 @@
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/p9.png" height="50" width="50"/>
+        ><img src="../../../assets/p9.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{pageData.total}}</span>门</div>
+            <div class="analysis-text"><span class="tag">{{ pageData.total }}</span>门</div>
             <div class="analysis-text-small">当前课程总门数</div>
           </div>
         </div>
@@ -31,7 +31,6 @@
           name=""
           size="mini"
           :page-jump="true"
-
         />
         <el-input
           v-model="listQuery.code"
@@ -58,7 +57,8 @@
           <el-option key="2" label="数学组" value="2"/>
         </el-select>
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
@@ -171,8 +171,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="primary" round size="mini" @click="deleteInfo(row.id)">-->
             <!--              删除-->
             <!--            </el-button>-->
@@ -184,8 +183,7 @@
               round
               size="mini"
               @click="deleteInfo(row.id)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

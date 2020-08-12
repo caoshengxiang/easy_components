@@ -41,9 +41,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <!--      <el-table-->
         <!--        slot="table"-->

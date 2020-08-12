@@ -5,8 +5,7 @@
     </div>
 
     <div class="statisticsInfo">
-      <div class="menu-2-box">
-      </div>
+      <div class="menu-2-box"/>
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
@@ -24,7 +23,8 @@
         <!--          :page-jump="true"-->
         <!--        />-->
         <el-input v-model="listQuery.description" placeholder="请输入内容" clearable
-                  style="float: left;margin-left: 20px;width: 320px;">
+                  style="float: left;margin-left: 20px;width: 320px;"
+        >
           <el-select
             slot="prepend"
             v-model="listQueryKey"
@@ -38,7 +38,8 @@
           </el-select>
         </el-input>
         <el-button class="filter-item" style="margin-left: 20px;float: left" round type="primary" size="mini"
-                   @click="searchList">
+                   @click="searchList"
+        >
           搜索
         </el-button>
         <el-button class="filter-item" round type="warning" style="float: left" @click="resetSearch()" size="mini">
@@ -134,8 +135,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

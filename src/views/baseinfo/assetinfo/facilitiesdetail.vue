@@ -25,7 +25,8 @@
                         style="width: 100%"
                       >
                         <el-option v-for="item in propertyRight" :key="item.name" :label="item.name"
-                                   :value="item.name"/>
+                                   :value="item.name"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -181,11 +182,6 @@
       // fileUpload,
       YDetailPageLayout
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     props: {
       detailInfo: {
         type: Object,
@@ -276,6 +272,11 @@
         scrap: [],
         propertyRight: []
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       const that = this

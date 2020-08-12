@@ -37,8 +37,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="loading" :data="pageData.records" slot="table">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -63,8 +62,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="warning" round @click="$targetNewPage(`/workflow/design?id=${row.id}`)">设计流程</el-button>-->
             <PermissionButton
               menu-no="_views_workflow_Design_set"
@@ -76,8 +74,7 @@
               :page-jump="true"
               :page-query="{id: row.id}"
               :_target="true"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="danger" round @click="deleteInfo(row.id)">删除</el-button>-->
             <PermissionButton
               menu-no="_views_workflow_List_remove"
@@ -87,8 +84,7 @@
               round
               size="mini"
               @click="deleteInfo(row.id)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->

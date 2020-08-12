@@ -20,7 +20,8 @@
                   <el-col :span="8">
                     <el-form-item label="宿舍类型：" prop="cate" label-width="200px" class="postInfo-container-item ">
                       <el-select v-model="postForm.cate" class="filter-item" style="float: left; width: 100%"
-                                 placeholder="请选择">
+                                 placeholder="请选择"
+                      >
                         <el-option
                           v-for="item in AllEnum.宿舍类型"
                           :key="item"
@@ -33,7 +34,8 @@
                   <el-col :span="8">
                     <el-form-item label="宿舍负责人：" prop="managerId" label-width="200px" class="postInfo-container-item ">
                       <el-select v-model="postForm.managerId" filterable class="filter-item"
-                                 style="float: left; width: 100%" placeholder="请选择">
+                                 style="float: left; width: 100%" placeholder="请选择"
+                      >
                         <el-option v-for="item in staff" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
@@ -56,7 +58,8 @@
                   <el-col :span="8">
                     <el-form-item label="备注：" label-width="200px" class="postInfo-container-item ">
                       <el-input v-model="postForm.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea"
-                                placeholder="请填写备注"/>
+                                placeholder="请填写备注"
+                      />
                     </el-form-item>
                   </el-col>
                 </el-row>

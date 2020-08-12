@@ -172,11 +172,6 @@
       YDetailPageLayout,
       fileUpload
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     props: {
       detailInfo: {
         type: Object,
@@ -243,6 +238,11 @@
         id: 0,
         roomType: []
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       const that = this

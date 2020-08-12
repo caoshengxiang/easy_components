@@ -144,11 +144,6 @@
       Breadcrumb,
       YDetailPageLayout
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     props: {
       detailInfo: {
         type: Object,
@@ -214,6 +209,11 @@
         experimentRoomType: [],
         staff: []
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       const that = this

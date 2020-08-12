@@ -6,7 +6,8 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container postInfo-container"
-               style="position: relative">
+               style="position: relative"
+      >
         <el-tabs v-model="activeName" type="border-card" style="width: 100%" @tab-click="handleClick">
           <el-tab-pane label="基本信息" name="first">
             <div style="margin-bottom: 30px">
@@ -48,7 +49,8 @@
               <el-col :span="6">
                 <el-form-item label="证件类型：" prop="certificateType" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.certificateType" placeholder="证件类型" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -63,8 +65,8 @@
                   <el-date-picker
                     v-model="postForm.birthday"
                     type="date"
-                    placeholder="出生日期">
-                  </el-date-picker>
+                    placeholder="出生日期"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -77,7 +79,8 @@
               <el-col :span="6">
                 <el-form-item label="国籍/地区：" prop="country" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.country" placeholder="国籍/地区" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.国籍地区" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -85,7 +88,8 @@
               <el-col :span="6">
                 <el-form-item label="港澳台侨外：" prop="compatriot" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.compatriot" placeholder="港澳台侨外" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.港澳台侨外" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -93,7 +97,8 @@
               <el-col :span="6">
                 <el-form-item label="婚姻状况：" prop="maritalStatus" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.maritalStatus" placeholder="婚姻状况" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.婚姻状况" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -103,14 +108,15 @@
               <el-col :span="6">
                 <el-form-item label="民族：" prop="nation" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.nation" placeholder="民族" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"></div>
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:rgba(255,175,41,1)">基</div>
@@ -121,7 +127,8 @@
               <el-col :span="6">
                 <el-form-item label="联招合作类型：" prop="recruitType" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.recruitType" placeholder="联招合作类型" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.联招合作类型" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -129,7 +136,8 @@
               <el-col :span="6">
                 <el-form-item label="入学方式：" prop="entryType" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.entryType" placeholder="入学方式" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.入学方式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -141,7 +149,8 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="所属派出所：" prop="belongPoliceStation" label-width="120px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.belongPoliceStation" class="filter-item"/>
 
                 </el-form-item>
@@ -151,7 +160,8 @@
               <el-col :span="6">
                 <el-form-item label="学生类别：" prop="cate" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.cate" placeholder="学生类别" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.学生类别" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -159,7 +169,8 @@
               <el-col :span="6">
                 <el-form-item label="就读方式：" prop="studyWay" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.studyWay" placeholder="就读方式" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -167,7 +178,8 @@
               <el-col :span="6">
                 <el-form-item label="学习形式：" prop="studyStyle" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.学习形式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -175,7 +187,8 @@
               <el-col :span="6">
                 <el-form-item label="当前状态：" prop="state" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.state" placeholder="当前状态" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -190,9 +203,11 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="是否随迁子女：" prop="ifTrailingChildren" label-width="120px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.ifTrailingChildren" placeholder="是否随迁子女" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                   </el-select>
                 </el-form-item>
@@ -200,7 +215,8 @@
               <el-col :span="6">
                 <el-form-item label="分段培养方式：" prop="cultivateModel" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.cultivateModel" placeholder="分段培养方式" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.分段培养方式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -208,7 +224,8 @@
               <el-col :span="6">
                 <el-form-item label="学生类型：" prop="studentType" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.studentType" placeholder="学生类型" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -227,36 +244,42 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级：" prop="administrativeGradeId" label-width="120px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.administrativeGradeId" placeholder="年级" clearable
-                             style="margin-left:10px;" class="filter-item">
-                    <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             style="margin-left:10px;" class="filter-item"
+                  >
+                    <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="专业：" prop="administrativeSpecialtyId" label-width="120px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item"
-                             style=" width: 200px">
-                    <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             style=" width: 200px"
+                  >
+                    <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
 
                 <el-form-item label="班级：" prop="administrativeClbumId" label-width="120px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.administrativeClbumId" placeholder="班级" clearable class="filter-item"
-                             style="width: 200px">
-                    <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             style="width: 200px"
+                  >
+                    <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
 
             </el-row>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"></div>
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#FF687B">学</div>
@@ -268,16 +291,18 @@
               <el-col :span="6">
                 <el-form-item label="年级：" prop="schoolGradeId" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;"
-                             class="filter-item">
-                    <el-option v-for="item in  classInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             class="filter-item"
+                  >
+                    <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="专业：" prop="schoolSpecialtyId" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.schoolSpecialtyId" placeholder="专业" clearable class="filter-item"
-                             style=" width: 200px">
-                    <el-option v-for="item in  majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             style=" width: 200px"
+                  >
+                    <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
 
                 </el-form-item>
@@ -285,8 +310,9 @@
               <el-col :span="6">
                 <el-form-item label="班级：" prop="schoolClbumId" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.schoolClbumId" placeholder="班级" clearable class="filter-item"
-                             style="width: 200px">
-                    <el-option v-for="item in  gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                             style="width: 200px"
+                  >
+                    <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -307,20 +333,22 @@
                     v-model="postForm.countyName"
                     style="width: 100%"
                     :props="props"
-                    @change="handleChange">
-                  </el-cascader>
+                    @change="handleChange"
+                  />
                   <!-- <el-input    v-model="postForm.countyName"   class="filter-item" />-->
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="籍贯地行政区划码：" prop="nativePlaceCode" label-width="250px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.nativePlaceCode" class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="出生地行政区划码：" prop="birthPlaceCode" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.birthPlaceCode" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -328,15 +356,15 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="户口所在地区县以下详细地址：" prop="registerAddr" label-width="250px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.registerAddr" class="filter-item"/>
                 </el-form-item>
               </el-col>
 
             </el-row>
 
-
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"></div>
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">联</div>
@@ -346,16 +374,19 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="联招合作办学形式：" prop="educationForm" label-width="250px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.educationForm" placeholder="联招合作办学形式" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.联招合作办学形式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="联招合作学校代码：" prop="educationSchoolCode" label-width="250px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.educationSchoolCode" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -396,8 +427,7 @@
               </el-col>
             </el-row>
 
-
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"></div>
+            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#9E9CF4">家</div>
@@ -412,25 +442,30 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1关系：" prop="memberRelationship" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberRelationship" placeholder="成员1关系" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1是否监护人：" prop="memberGuardian" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberGuardian" placeholder="成员1是否监护人" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1出生年月：" prop="memberBirthday" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.memberBirthday" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -438,9 +473,11 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员1证件类型：" prop="memberCertificationType" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberCertificationType" placeholder="成员1证件类型" clearable
-                             class="filter-item" style="width: 100%">
+                             class="filter-item" style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -453,16 +490,19 @@
               <el-col :span="6">
                 <el-form-item label="成员1民族：" prop="memberNation" label-width="150px" class="postInfo-container-item">
                   <el-select v-model="postForm.memberNation" placeholder="成员1民族" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1政治面貌：" prop="memberPoliticsStatus" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberPoliticsStatus" placeholder="成员1政治面貌" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -477,14 +517,16 @@
               <el-col :span="6">
                 <el-form-item label="成员1健康状况：" prop="memberHealth" label-width="150px" class="postInfo-container-item">
                   <el-select v-model="postForm.memberHealth" placeholder="成员1健康状况" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员1工作或学习单位：" prop="memberWorkUnit" label-width="170px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.memberWorkUnit" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -495,8 +537,7 @@
               </el-col>
             </el-row>
 
-
-            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);"></div>
+            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
 
             <el-row>
               <el-col :span="6">
@@ -506,25 +547,30 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2关系：" prop="memberRelationship2" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberRelationship2" placeholder="成员2关系" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2是否监护人：" prop="memberGuardian2" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberGuardian2" placeholder="成员2是否监护人" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2出生年月：" prop="memberBirthday2" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.memberBirthday2" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -532,9 +578,11 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="成员2证件类型：" prop="memberCertificationType2" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberCertificationType2" placeholder="成员2证件类型" clearable
-                             class="filter-item" style="width: 100%">
+                             class="filter-item" style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -547,16 +595,19 @@
               <el-col :span="6">
                 <el-form-item label="成员2民族：" prop="memberNation2" label-width="150px" class="postInfo-container-item">
                   <el-select v-model="postForm.memberNation2" placeholder="成员2民族" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2政治面貌：" prop="memberPoliticsStatus2" label-width="150px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-select v-model="postForm.memberPoliticsStatus2" placeholder="成员2政治面貌" clearable
-                             class="filter-item" style="width: 100%">
+                             class="filter-item" style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
@@ -571,14 +622,16 @@
               <el-col :span="6">
                 <el-form-item label="成员2健康状况：" prop="memberHealth2" label-width="150px" class="postInfo-container-item">
                   <el-select v-model="postForm.memberHealth2" placeholder="成员2健康状况" clearable class="filter-item"
-                             style="width: 100%">
+                             style="width: 100%"
+                  >
                     <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="成员2工作或学习单位：" prop="memberWorkUnit2" label-width="170px"
-                              class="postInfo-container-item">
+                              class="postInfo-container-item"
+                >
                   <el-input v-model="postForm.memberWorkUnit2" class="filter-item"/>
                 </el-form-item>
               </el-col>
@@ -606,6 +659,14 @@
       Breadcrumb,
       YDetailPageLayout
     },
+    props: {
+      detailInfo: {
+        type: Object,
+        default() {
+          return null
+        }
+      }
+    },
     data() {
       return {
         editStatus: true,
@@ -620,7 +681,7 @@
           key: false,
           label: '否'
         }],
-        AllEnum: {},//全部枚举
+        AllEnum: {}, //全部枚举
         activeName: 'first',
         gradeInfo: [],
         classInfo: [],
@@ -698,14 +759,6 @@
         }],
         areasls: [],
         areas: []
-      }
-    },
-    props: {
-      detailInfo: {
-        type: Object,
-        default() {
-          return null
-        }
       }
     },
     watch: {

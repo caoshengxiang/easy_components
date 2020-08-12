@@ -20,25 +20,25 @@
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工编号：" label-width="180px" class="postInfo-container-item">
                       <!--                      <el-input disabled v-model="" class="filter-item"/>-->
-                      <span>{{postForm.staff.staffNo}}</span>
+                      <span>{{ postForm.staff.staffNo }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="职工姓名：" label-width="180px" class="postInfo-container-item">
                       <!--                      <el-input disabled v-model="postForm.user.name" class="filter-item"/>-->
-                      <span>{{postForm.user.name}}</span>
+                      <span>{{ postForm.user.name }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="性别：" label-width="180px" class="postInfo-container-item">
                       <!--                      <el-input disabled v-model="postForm.user.sex" class="filter-item"/>-->
-                      <span>{{postForm.user.sex}}</span>
+                      <span>{{ postForm.user.sex }}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="身份证号：" label-width="180px" class="postInfo-container-item">
                       <!--                      <el-input disabled v-model="postForm.user.idNo" class="filter-item"/>-->
-                      <span>{{postForm.user.idNo}}</span>
+                      <span>{{ postForm.user.idNo }}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -62,10 +62,8 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
 
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -148,12 +146,9 @@
                       <el-input v-model="postForm.staff.totalSalary" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
-                  <el-col :xs="24" :sm="12" :lg="6" :span="6">
-                  </el-col>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
+                  <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
                 </el-row>
               </div>
             </div>
@@ -186,11 +181,6 @@
         }
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     data() {
       return {
         vLoading: false,
@@ -207,6 +197,11 @@
         activeName: 'first',
         AllEnum: {},
       }
+    },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
     },
     created() {
       if (this.detailInfo) {

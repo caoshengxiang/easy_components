@@ -4,14 +4,13 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
-
     <div class="statisticsInfo">
       <div class="menu-2-box">
         <div
           class="menu-2-item hvr-underline-from-center"
-        ><img src="../../../assets/a9.png" height="50" width="50"/>
+        ><img src="../../../assets/a9.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{statisticsInfo.stationCount}}</span>个</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.stationCount }}</span>个</div>
             <div class="analysis-text-small">总工位数</div>
           </div>
         </div>
@@ -50,7 +49,8 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini">
+                   size="mini"
+        >
           搜索
         </el-button>
 
@@ -58,8 +58,7 @@
           重置
         </el-button>
       </template>
-      <template slot="right">
-      </template>
+      <template slot="right"/>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -114,8 +113,7 @@
               size="mini"
               :page-jump="true"
               :page-query="{id: row.id}"
-            >
-            </PermissionButton>
+            />
             <!--            <el-button type="primary" round size="mini">-->
             <!--              删除-->
             <!--            </el-button>-->
@@ -127,8 +125,7 @@
               round
               size="mini"
               @click="deleteInfo(row.id)"
-            >
-            </PermissionButton>
+            />
           </template>
         </el-table-column>
         <!--      </el-table>-->
