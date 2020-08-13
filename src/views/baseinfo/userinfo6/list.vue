@@ -242,37 +242,24 @@
             <span>{{ row.homePhone }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="二维码" class-name="status-col">
-          <template slot-scope="{row}">
-            <!--            <span class="link-type" @click="productInnerQR=true">查看</span>-->
-            <PermissionButton
-              menu-no="_views_baseinfo_userinfo_list_code"
-              name="查看"
-              type="text"
-              @click="productInnerQR1(row,false)"
-            />
-          </template>
-        </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="150">
           <template slot-scope="{row}">
             <!--            <el-button style="border-radius:15px;" type="primary" @click="downloadCodeImg(row)">-->
             <!--              下载-->
             <!--            </el-button>-->
             <PermissionButton
-              menu-no="_views_baseinfo_userinfo_list_code"
+              menu-no="_views_baseinfo_userinfo6_list_re"
               class-name="filter-item"
-              name="下载"
               type="primary"
               plain
               round
               size="mini"
-              @click="productInnerQR1(row,true)"
             />
             <!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
             <!--              详情-->
             <!--            </el-button>-->
             <PermissionButton
-              menu-no="_views_baseinfo_userinfo_detailInfo"
+              menu-no="_views_baseinfo_userinfo6_list_print"
               class-name="filter-item"
               name=""
               type="primary"
@@ -304,7 +291,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'ViewsBaseinfoUserinfoList',
+    name: 'ViewsBaseinfoUserinfo6List',
     components: {
       Breadcrumb,
       PermissionButton,

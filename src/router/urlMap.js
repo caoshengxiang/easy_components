@@ -41,7 +41,6 @@ import _views_dormitory_classRecord_list from '@/views/dormitory/classRecord/lis
 import _views_baseinfo_course_list from '@/views/baseinfo/course/list'
 import _views_baseinfo_course_detail from '@/views/baseinfo/course/detail'
 import _views_baseinfo_userinfo_list from '@/views/baseinfo/userinfo/list'
-import _views_baseinfo_userinfo_detail from '@/views/baseinfo/userinfo/detail'
 import _views_baseinfo_userinfo_detailInfo from '@/views/baseinfo/userinfo/detailInfo'
 import _views_baseinfo_assetinfo_list from '@/views/baseinfo/assetinfo/list'
 import _views_baseinfo_assetinfo_detail from '@/views/baseinfo/assetinfo/detail'
@@ -56,12 +55,10 @@ import _views_baseinfo_assetinfo_facilitiesdetail from '@/views/baseinfo/assetin
 import _views_baseinfo_department_list from '@/views/baseinfo/department/list'
 import _views_baseinfo_department_edit from '@/views/baseinfo/department/edit'
 import _views_baseinfo_major_list from '@/views/baseinfo/major/list'
-// import _views_baseinfo_major_detail from '@/views/baseinfo/major/detail'
 import _views_baseinfo_major_edit from '@/views/baseinfo/major/edit'
 import _views_baseinfo_grade_list from '@/views/baseinfo/grade/list'
 import _views_baseinfo_grade_edit from '@/views/baseinfo/grade/edit'
 import _views_baseinfo_class_list from '@/views/baseinfo/class/list'
-// import _views_baseinfo_class_detail from '@/views/baseinfo/class/detail'
 import _views_baseinfo_class_edit from '@/views/baseinfo/class/edit'
 import _views_workflow_List from '@/views/workflow/List'
 import _views_workflow_Design from '@/views/workflow/Design'
@@ -71,6 +68,11 @@ import _views_workflow_task_AttendList from '@/views/workflow/task/AttendList'
 import _views_workflow_task_Detail from '@/views/workflow/task/Detail'
 import _views_workflow_task_TaskDetail from '@/views/workflow/task/TaskDetail'
 import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
+
+/*二期*/
+import _views_baseinfo_userinfo6_list from '../views/baseinfo/userinfo6/list'
+import _views_baseinfo_userinfo6_detail from '../views/baseinfo/userinfo6/detailInfo'
+
 /*
 * 字段说明：
 * 页面全路径url: 对应的路由组件
@@ -111,7 +113,6 @@ export default {
   _views_baseinfo_course_list, // 课程列表
   _views_baseinfo_course_detail, // 课程详情
   _views_baseinfo_userinfo_list, // 学生列表
-  _views_baseinfo_userinfo_detail, // 学生信息采集
   _views_baseinfo_userinfo_detailInfo, // 学生信息采集
   _views_baseinfo_assetinfo_list, // 用地管理
   _views_baseinfo_assetinfo_detail, // 用地登记信息
@@ -126,11 +127,13 @@ export default {
   _views_baseinfo_department_list, // 系部信息管理
   _views_baseinfo_department_edit, // 系部信息管理
   _views_baseinfo_major_list, // 专业信息管理
-  // _views_baseinfo_major_detail, // 专业信息管理
   _views_baseinfo_major_edit, // 专业信息管理
   _views_baseinfo_grade_list, // 年级信息管理
   _views_baseinfo_grade_edit, // 年级信息管理
   _views_baseinfo_class_list, // 班级信息管理
-  // _views_baseinfo_class_detail, // 班级信息管理
   _views_baseinfo_class_edit, // 班级信息管理
+  /* 二期  start */
+  _views_baseinfo_userinfo6_list, // 六类学生
+  _views_baseinfo_userinfo6_detail, // 六类学生打印
+  /* 二期  end */
 }
