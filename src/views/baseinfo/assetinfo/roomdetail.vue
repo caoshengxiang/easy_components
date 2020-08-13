@@ -225,12 +225,12 @@
             trigger: 'change'
           }],
           ifAvailable: [{
-            required: true,
+            required: true,;
             message: '请填写最大排课量',
             trigger: 'change'
           }],
           address: [{
-            required: true,；
+            required: true,
             message: '请填写教室地址',
             trigger: 'change'
           }],
