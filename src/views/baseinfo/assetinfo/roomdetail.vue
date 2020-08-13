@@ -230,7 +230,7 @@
             trigger: 'change'
           }],
           address: [{
-            required: true,
+            required: true,；
             message: '请填写教室地址',
             trigger: 'change'
           }],
