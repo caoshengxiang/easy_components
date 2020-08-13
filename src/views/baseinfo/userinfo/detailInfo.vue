@@ -13,7 +13,7 @@
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:rgb(64,71,255)">基</div>
-                <div class="icon-info">单位信息</div>
+                <div class="icon-info">基本信息</div>
               </h3>
             </div>
             <el-row>
