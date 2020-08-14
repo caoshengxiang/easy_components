@@ -38,8 +38,6 @@
                       <el-input v-model="postForm.REGION.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="所在城市" class="postInfo-container-item">
                       <el-input v-model="postForm.CITY.value" class="filter-item"/>
@@ -69,8 +67,6 @@
                       />
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="建校基础" class="postInfo-container-item">
                       <el-input v-model="postForm.BUILD_BASE.value" class="filter-item"/>
@@ -86,8 +82,6 @@
                       <el-input v-model="postForm.SUPERVISOR.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="教学主管部门" class="postInfo-container-item">
                       <el-input v-model="postForm.TEACHING_DEPARTMENT.value" class="filter-item"/>
@@ -133,8 +127,6 @@
                       <el-input v-model="postForm.IMPORT_LEVEL.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="重点中等职业学校立项部门" class="postInfo-container-item">
                       <el-input v-model="postForm.IMPORT_PROJECT_DEPARTMENT.value" class="filter-item"/>
@@ -153,8 +145,6 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12" :lg="8"/>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="复核结论" class="postInfo-container-item">
                       <el-input v-model="postForm.CONCLUSION.value" class="filter-item"/>
@@ -198,8 +188,6 @@
                       <el-input v-model="postForm.SCHOOL_WEBSITE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="法定代表人信息教工号" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_NO.value" class="filter-item"/>
@@ -215,8 +203,6 @@
                       <el-input v-model="postForm.LEGAL_PERSON_SEX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="法定代表人信息职务" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_DUTY.value" class="filter-item"/>
@@ -232,8 +218,6 @@
                       <el-input v-model="postForm.LEGAL_PERSON_MOBILE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="法定代表人信息电子邮箱" class="postInfo-container-item">
                       <el-input v-model="postForm.LEGAL_PERSON_EMAIL.value" class="filter-item"/>
@@ -266,8 +250,6 @@
                       <el-input v-model="postForm.CONTACTER_PERSON_SEX.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="联系人信息职务" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_DUTY.value" class="filter-item"/>
@@ -283,8 +265,6 @@
                       <el-input v-model="postForm.CONTACTER_PERSON_MOBILE.value" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12" :lg="8">
                     <el-form-item label="联系人信息电子邮箱" class="postInfo-container-item">
                       <el-input v-model="postForm.CONTACTER_PERSON_EMAIL.value" class="filter-item"/>
