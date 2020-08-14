@@ -289,16 +289,6 @@
         position: relative;
         @include clearfix;
         margin-bottom: 10px;
-
-        .postInfo-container-item {
-          .el-form-item__label {
-            width: 21px;
-            height: 9px;
-            font-size: 14px;
-            font-weight: 500;
-            color: rgba(102, 102, 102, 1);
-          }
-        }
       }
     }
 

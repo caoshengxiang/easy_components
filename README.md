@@ -159,3 +159,5 @@ rule规则修改还是在 .eslintrc.js
        1. 移动端涉及到导入导出的都去掉
        1. vue style 要加 scoped， 不能加得情况也必须有命名空间。避免污染其他页面
        1. 项目通用性得页面，可以在 views/DOME/ 下写一些demo方便使用
+       1. 主键的 name 命名： 与编码一致（用于 keep-alive缓存） 如：编码为：_views_baseinfo_department_list  那么组件name 为 ViewsBaseinfoDepartmentList
+       1. 为了调试方便  编码、url、组件映射 都是 组件在/views 下的路径一致

@@ -155,7 +155,7 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-radio-group v-model="temp.menuType" :disabled="!temp.external">
+                      <el-radio-group v-model="temp.menuType" :disabled="!temp.external & isFEBuilder!=='17358684442'">
                         <el-radio label="目录">目录</el-radio>
                         <el-radio label="菜单">菜单</el-radio>
                         <el-radio label="按钮" v-if="!temp.external">按钮</el-radio> <!--内部系统才有-->
@@ -240,7 +240,7 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-input :disabled="!temp.external" v-model="temp.pcUrl" class="filter-item"
+                      <el-input :disabled="!temp.external & isFEBuilder!=='17358684442'" v-model="temp.pcUrl" class="filter-item"
                                 @change="autoFormat"
                       />
                     </el-form-item>
