@@ -185,19 +185,7 @@
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
-                      <el-upload
-                        class="avatar-uploader"
-                        :show-file-list="false"
-                        :on-preview="handlePictureCardPreview"
-                        :before-upload="(file) => { return beforeAvatarUpload(file, 'graduateCertificate')}"
-                      >
-                        <el-image
-                          v-if="postForm.staff.graduateCertificate"
-                          style="max-width: 300px;"
-                          :src="postForm.staff.graduateCertificate"
-                        />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                      </el-upload>
+                      <UploadImage v-model="postForm.staff.graduateCertificate"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -274,19 +262,7 @@
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
-                      <el-upload
-                        class="avatar-uploader"
-                        :show-file-list="false"
-                        :on-preview="handlePictureCardPreview"
-                        :before-upload="(file) => { return beforeAvatarUpload(file, 'highestCertificate')}"
-                      >
-                        <el-image
-                          v-if="postForm.staff.highestCertificate"
-                          style="max-width: 300px;"
-                          :src="postForm.staff.highestCertificate"
-                        />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                      </el-upload>
+                      <UploadImage v-model="postForm.staff.highestCertificate"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -345,19 +321,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
-                      <el-upload
-                        class="avatar-uploader"
-                        :show-file-list="false"
-                        :on-preview="handlePictureCardPreview"
-                        :before-upload="(file) => { return beforeAvatarUpload(file, 'dutyCertificate')}"
-                      >
-                        <el-image
-                          v-if="postForm.staff.dutyCertificate"
-                          style="max-width: 300px;"
-                          :src="postForm.staff.dutyCertificate"
-                        />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                      </el-upload>
+                      <UploadImage v-model="postForm.staff.dutyCertificate"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -369,7 +333,7 @@
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
                     <div class="avatar-wrapper icon-title" style="background:#43D6B3">职</div>
-                    <div class="icon-info" style="width: 75px">职业资格证书</div>
+                    <div class="icon-info">职业资格证书</div>
                   </h3>
                 </div>
                 <el-row>
@@ -416,19 +380,7 @@
                 <el-row>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6">
                     <el-form-item label="证书图片：" label-width="140px" class="postInfo-container-item">
-                      <el-upload
-                        class="avatar-uploader"
-                        :show-file-list="false"
-                        :on-preview="handlePictureCardPreview"
-                        :before-upload="(file) => { return beforeAvatarUpload(file, 'qulificationCertificate')}"
-                      >
-                        <el-image
-                          v-if="postForm.staff.qulificationCertificate"
-                          style="max-width: 300px;"
-                          :src="postForm.staff.qulificationCertificate"
-                        />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"/>
-                      </el-upload>
+                      <UploadImage v-model="postForm.staff.qulificationCertificate"/>
                     </el-form-item>
                   </el-col>
                   <el-col :xs="24" :sm="12" :lg="6" :span="6"/>
@@ -441,15 +393,12 @@
         </el-tab-pane>
       </el-tabs>
     </y-detail-page-layout>
-
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
   </div>
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import UploadImage from '../../components/Upload/UploadImage'
 
   const defaultForm = {
     user: {},
@@ -460,7 +409,8 @@
     name: 'ComplexTable',
     components: {
       Breadcrumb,
-      YDetailPageLayout
+      YDetailPageLayout,
+      UploadImage,
     },
     props: {
       detailInfo: {
@@ -485,8 +435,6 @@
         activeName: 'first',
         AllEnum: {},
         vLoading: false,
-        dialogVisible: false,
-        dialogImageUrl: ''
       }
     },
     watch: {
@@ -503,32 +451,6 @@
       this.getAllEnum()
     },
     methods: {
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url
-        this.dialogVisible = true
-      },
-      beforeAvatarUpload(file, key) {
-        // const isJPG = file.type === 'image/jpeg'
-        // const isPNG = file.type === 'image/png'
-        const isImg = file.type.indexOf('image') > -1
-        const isLt10M = file.size / 1024 / 1024 < 10
-
-        if (!isImg) {
-          this.$message.error('上传图片只能是 图片 格式!')
-          return false
-        }
-        if (!isLt10M) {
-          this.$message.error('上传图片大小不能超过 10MB!')
-          return false
-        }
-
-        const param = new FormData()
-        param.append('file', file, file.name)
-        this.$api.common.upload(param).then((res) => {
-          this.postForm['staff'][key] = res.data.url
-        })
-        return false
-      },
       getAllEnum() {
         const that = this
         that.$api.globalConfig.getAllEnum().then(data => {
@@ -577,32 +499,4 @@
   }
 </script>
 <style lang="scss" scoped>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-    border: 1px solid #e2e2e2;
-    border-radius: 5px;
-  }
-
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
 </style>
