@@ -104,12 +104,9 @@ export default {
   _views_teachingAffairs_semester_edit, // 学期编辑
   _views_teachingAffairs_semester_classTime, // 上课时间设置
   _views_dormitory_dormitoryInfo_list, // 宿舍列表
-  _views_dormitory_dormitoryInfo_detail,//宿舍详情
+  _views_dormitory_dormitoryInfo_detail, //宿舍详情
   _views_dormitory_dormitoryInfo_dormitoryStdList, // 宿舍人员
   _views_dormitory_dormitoryCheck_list, // 宿舍考核列表
-  _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍人员考核管理
-  _views_dormitory_dormitoryCheck_checkRecord, // 扣分记录
-  _views_dormitory_classRecord_list, // 班级考核记录
   _views_baseinfo_course_list, // 课程列表
   _views_baseinfo_course_detail, // 课程详情
   _views_baseinfo_userinfo_list, // 学生列表
@@ -133,7 +130,22 @@ export default {
   _views_baseinfo_class_list, // 班级信息管理
   _views_baseinfo_class_edit, // 班级信息管理
   /* 二期  start */
+  _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍人员考核管理
+  _views_dormitory_dormitoryCheck_checkRecord, // 扣分记录
+  _views_dormitory_classRecord_list, // 班级考核记录
   _views_baseinfo_userinfo6_list, // 六类学生
   _views_baseinfo_userinfo6_detail, // 六类学生打印
+  _views_recruit_birthplace_list: ()=>import('../views/recruit/birthplace/list'), // 生源地
+  _views_recruit_birthplace_edit: ()=>import('../views/recruit/birthplace/edit'), // 生源地编辑/详情
+  _views_recruit_plan_list: ()=>import('../views/recruit/plan/list'), // 招生计划
+  _views_recruit_plan_edit: ()=>import('../views/recruit/plan/edit'), // 招生计划编辑/详情
+  _views_recruit_task_list: ()=>import('../views/recruit/task/list'), // 招生任务
+  _views_recruit_task_edit: ()=>import('../views/recruit/task/edit'), // 招生任务编辑/详情
+  _views_recruit_preregistration_list: ()=>import('../views/recruit/preregistration/list'), // 预报名
+  _views_recruit_preregistration_edit: ()=>import('../views/recruit/preregistration/edit'), // 预报名编辑/详情
+  _views_recruit_registration_list: ()=>import('../views/recruit/registration/list'), // 报到注册
+  _views_recruit_registration_edit: ()=>import('../views/recruit/registration/edit'), // 报到注册编辑/详情
+  _views_recruit_expiration_list: ()=>import('../views/recruit/expiration/list'), // 预报名失效
+  _views_recruit_expiration_edit: ()=>import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
   /* 二期  end */
 }
