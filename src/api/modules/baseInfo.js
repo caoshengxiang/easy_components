@@ -21,5 +21,8 @@ export default {
   },
   areaList(){
     return request.get('districts/list')
+  },
+  getTermList(params) { // 学期列表 todo 等待base接口
+    return request.get('term/list', { params })
   }
 }
