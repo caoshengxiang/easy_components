@@ -92,7 +92,7 @@ router.beforeEach(async (to, from, next) => {
           path: '*',
           redirect: '/404',
           hidden: true
-        }) // 不能在自己写的路由里边添加404 要在addRoutes中添加404页面不然就会跳转404
+        }) // 不能在自己写的路由里边添加404 要在addRoutes中添加404页面不然不会跳转404
 
         // console.log('动态菜单', accessRoutes)
 
