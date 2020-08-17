@@ -1,6 +1,6 @@
 <template>
   <common-layout>
-    <y-detail-page-layout @save="save" :editStatus="editStatus">
+    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="设置评语" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
@@ -51,7 +51,15 @@
           returnDateOneTwo: [{ required: true, message: '请输入一二年级返校日期', trigger: 'change' }],
           returnDateThree: [{ required: true, message: '请输入三年级返校日期', trigger: 'change' }],
           noticeDate: [{ required: true, message: '请输入通知书发放日期', trigger: 'change' }]
-        }
+        },
+        loading: false
+      }
+    },
+    created() {
+      const { id } = this.$route.query;
+      if (id) {
+        this.editStatus = false;
+        this.getData(id);
       }
     },
     methods: {
@@ -65,6 +73,10 @@
             this.$message.warning('请完善表单信息！');
           }
         })
+      },
+      getData(id) {
+        this.loading = true;
+        // todo 对接口
       }
     }
   };
