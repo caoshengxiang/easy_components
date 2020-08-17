@@ -16,22 +16,22 @@
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
-                  <el-form-item label="学期名称：" prop="name" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学期名称：" prop="name" label-width="140px" class="postInfo-container-item">
                     <el-input v-model="postForm.name" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学年：" prop="year" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学年：" prop="year" label-width="140px" class="postInfo-container-item">
                     <el-input v-model="postForm.year" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期码：" prop="code" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学期码：" prop="code" label-width="140px" class="postInfo-container-item">
                     <el-input v-model="postForm.code" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期开始日期：" prop="startDate" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学期开始日期：" prop="startDate" label-width="140px" class="postInfo-container-item">
                     <el-date-picker
                       v-model="postForm.startDate"
                       type="date"
@@ -42,7 +42,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期上课日期：" prop="courseDate" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学期上课日期：" prop="courseDate" label-width="140px" class="postInfo-container-item">
                     <el-date-picker
                       v-model="postForm.courseDate"
                       type="date"
@@ -53,7 +53,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期结束日期：" prop="endDate" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="学期结束日期：" prop="endDate" label-width="140px" class="postInfo-container-item">
                     <el-date-picker
                       v-model="postForm.endDate"
                       type="date"
