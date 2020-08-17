@@ -50,11 +50,10 @@
         type="primary"
         @click="query"
         round
-        size="mini"
       >
         搜索
       </el-button>
-      <el-button class="filter-item" style="float: left;" round type="warning" @click="search" size="mini">
+      <el-button class="filter-item" style="float: left;" round type="warning" @click="search">
         重置
       </el-button>
     </el-form-item>

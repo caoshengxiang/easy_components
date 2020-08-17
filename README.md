@@ -99,11 +99,11 @@ rule规则修改还是在 .eslintrc.js
         ```
         import PermissionButton from '@/components/PermissionButton/PermissionButton'
         // 纯操作性的 name不写会自动从配置中读取
-        <PermissionButton menu-no="_views_set_post_edit" type="primary" size="mini" name="编辑" @click="handleUpdate(row)"/>
+        <PermissionButton menu-no="_views_set_post_edit" type="primary" name="编辑" @click="handleUpdate(row)"/>
         // 需要获取按钮 数据的. 需要自己做跳转一定注意url 菜单层级参数  name不写会自动从配置中读取
-        <PermissionButton menu-no="_views_set_post_remove" type="danger" size="mini" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
+        <PermissionButton menu-no="_views_set_post_remove" type="danger" name="删除" @click="(data) =>{handleDelete(row, data)}"/>
         // 纯跳转性的  name不写会自动从配置中读取
-        <PermissionButton menu-no="_views_set_post_auth" type="warning" size="mini" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
+        <PermissionButton menu-no="_views_set_post_auth" type="warning" name="权限" :page-jump="true" :page-query="{id: row.id}"/>
         
         // 需要阻止冒泡调用 PermissionButtonStop.vue 组件
         import PermissionButton from '@/components/PermissionButton/PermissionButtonStop'

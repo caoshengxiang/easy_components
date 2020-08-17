@@ -22,16 +22,16 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期"
         />
-        <el-button class="filter-item" style="margin-left: 20px" size="mini" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
         <el-button class="filter-item" :disabled="this.multipleSelection.length == 0" style="margin-left: 20px"
-                   size="mini" round type="success" @click="batchAuditVi"
+                   round type="success" @click="batchAuditVi"
         >
           批量审核
         </el-button>
 
-        <el-button class="filter-item" round type="warning" @click="reset()" size="mini">
+        <el-button class="filter-item" round type="warning" @click="reset()">
           重置
         </el-button>
       </template>

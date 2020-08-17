@@ -53,11 +53,10 @@
           type="primary"
           @click="searchList"
           round
-          size="mini"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" style="float: left;" round type="warning" @click="resetSearch()" size="mini">
+        <el-button class="filter-item" style="float: left;" round type="warning" @click="resetSearch()">
           重置
         </el-button>
       </template>

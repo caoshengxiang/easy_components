@@ -92,10 +92,10 @@
           style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
         />
-        <el-button class="filter-item" style="margin-left: 20px;" size="mini" round type="primary" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
           重置
         </el-button>
       </template>

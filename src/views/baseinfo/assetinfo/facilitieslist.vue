@@ -50,7 +50,6 @@
           type="primary"
           icon="el-icon-plus"
           name=""
-          size="mini"
           :page-jump="true"
         />
         <el-select
@@ -70,12 +69,11 @@
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList"
-                   size="mini"
         >
           搜索
         </el-button>
 
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
           重置
         </el-button>
       </template>

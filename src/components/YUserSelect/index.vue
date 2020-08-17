@@ -24,8 +24,8 @@
           :titles="['待选用户','已选用户']"
           @left-check-change="checkItem">
           <!--<div slot="left-footer" style="text-align: center;padding: 5px 0;">-->
-            <!--<el-button type="warning" class="transfer-footer" size="mini" round>高级搜索</el-button>-->
-            <!--<el-button type="info" class="transfer-footer" size="mini" round>重置</el-button>-->
+            <!--<el-button type="warning" class="transfer-footer" round>高级搜索</el-button>-->
+            <!--<el-button type="info" class="transfer-footer" round>重置</el-button>-->
           <!--</div>-->
         </el-transfer>
         <div slot="footer" class="dialog-footer">

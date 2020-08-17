@@ -29,7 +29,6 @@
           type="primary"
           icon="el-icon-plus"
           name=""
-          size="mini"
           :page-jump="true"
         />
         <el-select
@@ -62,10 +61,10 @@
         >
           <el-option v-for="item in campus" :key="item.name" :label="item.name" :value="item.name"/>
         </el-select>
-        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" size="mini" @click="searchList">
+        <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
           重置
         </el-button>
       </template>

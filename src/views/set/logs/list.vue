@@ -19,7 +19,6 @@
         <!--          type="primary"-->
         <!--          icon="el-icon-plus"-->
         <!--          name=""-->
-        <!--          size="mini"-->
         <!--          :page-jump="true"-->
         <!--        />-->
         <el-input v-model="listQuery.description" placeholder="请输入内容" clearable
@@ -37,12 +36,12 @@
             <el-option label="操作人" value="operName"/>
           </el-select>
         </el-input>
-        <el-button class="filter-item" style="margin-left: 20px;float: left" round type="primary" size="mini"
+        <el-button class="filter-item" style="margin-left: 20px;float: left" round type="primary"
                    @click="searchList"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" style="float: left" @click="resetSearch()" size="mini">
+        <el-button class="filter-item" round type="warning" style="float: left" @click="resetSearch()">
           重置
         </el-button>
       </template>

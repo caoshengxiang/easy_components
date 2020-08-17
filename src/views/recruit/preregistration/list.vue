@@ -37,7 +37,7 @@
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="resetSearch()" size="mini">
+        <el-button class="filter-item" round type="warning" @click="resetSearch()">
           重置
         </el-button>
       </template>
