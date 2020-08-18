@@ -73,8 +73,8 @@ import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
 import _views_baseinfo_userinfo6_list from '../views/baseinfo/userinfo6/list'
 import _views_baseinfo_userinfo6_detail from '../views/baseinfo/userinfo6/detailInfo'
 
-import moralManage from './urlMapModules/moralManage';
-import leagueActivities from './urlMapModules/leagueActivities';
+import moralManage from './urlMapModules/moralManage'
+import leagueActivities from './urlMapModules/leagueActivities'
 
 /*
 * 字段说明：
@@ -133,24 +133,26 @@ export default {
   _views_baseinfo_class_list, // 班级信息管理
   _views_baseinfo_class_edit, // 班级信息管理
   /* 二期  start */
-  _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍人员考核管理
+  _views_dormitory_dormitoryCheck_dormitoryChecklist, // 宿舍考核管理
+  _views_dormitory_dormitoryCheck_list_add: () => import('../views/dormitory/dormitoryCheck/add'),
   _views_dormitory_dormitoryCheck_checkRecord, // 扣分记录
   _views_dormitory_classRecord_list, // 班级考核记录
+  _views_dormitory_classRecord_list_add: () => import('../views/dormitory/classRecord/add'), // 班级考核记录
   _views_baseinfo_userinfo6_list, // 六类学生
   _views_baseinfo_userinfo6_detail, // 六类学生打印
-  _views_recruit_birthplace_list: ()=>import('../views/recruit/birthplace/list'), // 生源地
-  _views_recruit_birthplace_edit: ()=>import('../views/recruit/birthplace/edit'), // 生源地编辑/详情
-  _views_recruit_plan_list: ()=>import('../views/recruit/plan/list'), // 招生计划
-  _views_recruit_plan_edit: ()=>import('../views/recruit/plan/edit'), // 招生计划编辑/详情
-  _views_recruit_task_list: ()=>import('../views/recruit/task/list'), // 招生任务
-  _views_recruit_task_edit: ()=>import('../views/recruit/task/edit'), // 招生任务编辑/详情
-  _views_recruit_preregistration_list: ()=>import('../views/recruit/preregistration/list'), // 预报名
-  _views_recruit_preregistration_edit: ()=>import('../views/recruit/preregistration/edit'), // 预报名编辑/详情
-  _views_recruit_registration_list: ()=>import('../views/recruit/registration/list'), // 报到注册
-  _views_recruit_registration_edit: ()=>import('../views/recruit/registration/edit'), // 报到注册编辑/详情
-  _views_recruit_expiration_list: ()=>import('../views/recruit/expiration/list'), // 预报名失效
-  _views_recruit_expiration_edit: ()=>import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
-  /* 二期  end */
+  _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
+  _views_recruit_birthplace_edit: () => import('../views/recruit/birthplace/edit'), // 生源地编辑/详情
+  _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划
+  _views_recruit_plan_edit: () => import('../views/recruit/plan/edit'), // 招生计划编辑/详情
+  _views_recruit_task_list: () => import('../views/recruit/task/list'), // 招生任务
+  _views_recruit_task_edit: () => import('../views/recruit/task/edit'), // 招生任务编辑/详情
+  _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
+  _views_recruit_preregistration_edit: () => import('../views/recruit/preregistration/edit'), // 预报名编辑/详情
+  _views_recruit_registration_list: () => import('../views/recruit/registration/list'), // 报到注册
+  _views_recruit_registration_edit: () => import('../views/recruit/registration/edit'), // 报到注册编辑/详情
+  _views_recruit_expiration_list: () => import('../views/recruit/expiration/list'), // 预报名失效
+  _views_recruit_expiration_edit: () => import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
   ...moralManage, // 德育管理界面
   ...leagueActivities, //团学活动管理
+  /* 二期  end */
 }
