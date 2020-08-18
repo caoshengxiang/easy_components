@@ -74,8 +74,7 @@ import _views_baseinfo_userinfo6_list from '../views/baseinfo/userinfo6/list'
 import _views_baseinfo_userinfo6_detail from '../views/baseinfo/userinfo6/detailInfo'
 
 import moralManage from './urlMapModules/moralManage'
-import moralManage from './urlMapModules/moralManage';
-import leagueActivities from './urlMapModules/leagueActivities';
+import leagueActivities from './urlMapModules/leagueActivities'
 
 /*
 * 字段说明：
@@ -154,6 +153,6 @@ export default {
   _views_recruit_expiration_list: () => import('../views/recruit/expiration/list'), // 预报名失效
   _views_recruit_expiration_edit: () => import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
   ...moralManage, // 德育管理界面
-  /* 二期  end */
   ...leagueActivities, //团学活动管理
+  /* 二期  end */
 }
