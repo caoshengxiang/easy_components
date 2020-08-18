@@ -135,6 +135,7 @@ export default {
   _views_dormitory_dormitoryCheck_list_add: () => import('../views/dormitory/dormitoryCheck/add'),
   _views_dormitory_dormitoryCheck_checkRecord, // 扣分记录
   _views_dormitory_classRecord_list, // 班级考核记录
+  _views_dormitory_classRecord_list_add: () => import('../views/dormitory/classRecord/add'), // 班级考核记录
   _views_baseinfo_userinfo6_list, // 六类学生
   _views_baseinfo_userinfo6_detail, // 六类学生打印
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地

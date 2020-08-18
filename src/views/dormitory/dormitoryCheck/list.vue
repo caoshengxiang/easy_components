@@ -80,20 +80,53 @@
         <el-button class="filter-item" style="margin-left: 20px" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'};searchList()">
           重置
         </el-button>
       </template>
       <template slot="right">
-        <el-button class="filter-item download-button" round style="margin-left: 10px;" type="primary">
-          导出扣分记录
-        </el-button>
-        <el-button class="filter-item download-button" round type="primary">
-          导出宿舍考核
-        </el-button>
-        <el-button class="filter-item download-button" round type="primary">
-          导出当天宿舍得分
-        </el-button>
+        <!--导出扣分记录-->
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryCheck_list_export_deduction"
+          class-name="filter-item"
+          type="primary"
+          @click="exportFileDeduction"
+          round
+        />
+        <!--导出宿舍考核-->
+        <PermissionButton
+          menu-no="_views_dormitory_dormitoryCheck_list_export_dormitoryCheck"
+          class-name="filter-item"
+          @click="exportFileDormitoryCheck"
+          type="primary"
+          round
+        />
+        <!--导出当天宿舍得分-->
+        <div style="display: inline-block;">
+          <PermissionButton
+            menu-no="_views_dormitory_dormitoryCheck_list_export_dateScore"
+            class-name="filter-item"
+            type="text"
+            round
+            style="padding: 0;margin-bottom: 10px;"
+          >
+            <el-date-picker
+              round
+              style="width: 140px;"
+              v-model="dayVal"
+              type="date"
+              value-format="yyyy-MM-dd"
+              placeholder="选择日期">
+            </el-date-picker>
+          </PermissionButton>
+          <PermissionButton
+            menu-no="_views_dormitory_dormitoryCheck_list_export_dateScore"
+            class-name="filter-item"
+            @click="exportFileDateScore"
+            type="primary"
+            round
+          />
+        </div>
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <el-table-column label="年份" prop="id" align="center" width="150">
@@ -115,11 +148,8 @@
         </el-table-column>
         <el-table-column label="宿舍编号" width="110px" align="center">
           <template slot-scope="{row}">
-            <span class="link-type">
-              <router-link tag="a" :to="{path:'/dormitory/userManage',query:{id: row.id}}"
-                           class="routerWork"
-              >{{ row.code }}
-              </router-link>
+            <span>
+              {{ row.code }}
             </span>
           </template>
         </el-table-column>
@@ -158,11 +188,24 @@
             <span>{{ row.score }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" class-name="status-col" width="100">
+        <el-table-column label="操作" class-name="status-col" width="260">
           <template slot-scope="{row}">
-            <el-button type="warning" size="mini" round @click="deduction(row)">
-              扣分
-            </el-button>
+            <!--扣分-->
+            <PermissionButton
+              menu-no="_views_dormitory_dormitoryCheck_list_dormitoryDeduction"
+              class-name="filter-item"
+              @click="deduction(row)"
+              type="warning"
+              round
+            />
+            <PermissionButton
+              menu-no="_views_dormitory_dormitoryCheck_dormitoryChecklist"
+              class-name="filter-item"
+              type="primary"
+              round
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            />
           </template>
         </el-table-column>
       </parentTable>
@@ -190,6 +233,7 @@
         </el-form-item>
         <el-form-item label="扣除分数：" prop="score">
           <el-input v-model.number="temp.score" type="number" class="filter-item"/>
+          <div style="color: #cccccc;font-size: 12px;">为宿舍每个人增加一条扣分记录 相当于批量操作</div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -243,16 +287,12 @@
       return {
         /*list*/
         listLoading: false,
-        pageData: {},
+        pageData: { records: [] },
         pagePara: {
           current: 0,
           size: 10
         },
         listQuery: {
-          class: undefined,
-          grade: undefined,
-          major: undefined,
-          full: undefined,
           descs: 'id',
         },
         /*list*/
@@ -306,6 +346,7 @@
         reasonOptions: [],
         deductionSaveLoading: false,
         /*dialog*/
+        dayVal: this.$moment(new Date(), 'YYYY-MM-DD'),
       }
     },
     created() {
@@ -340,6 +381,7 @@
       deduction(row) {
         this.dialogFormVisible = true
         this.row = row
+        this.dialogTitle = '宿舍人员批量扣分'
       },
       deductionSave() {
         this.$refs['dataForm'].validate((valid) => {
@@ -357,6 +399,7 @@
                 })
               }
               this.deductionSaveLoading = false
+              this.getList()
             }).catch(() => { this.deductionSaveLoading = false })
           }
         })
@@ -396,6 +439,15 @@
         } else {
           this.temp.score = ''
         }
+      },
+      exportFileDeduction() {
+        this.$api.dormitoryCheck.dormitoryStuRecordDownload({ ...this.pagePara, ...this.listQuery })
+      },
+      exportFileDormitoryCheck() {
+        this.$api.dormitoryCheck.download({ ...this.pagePara, ...this.listQuery })
+      },
+      exportFileDateScore() {
+        this.$api.dormitoryCheck.dayDownload({ day: this.dayVal })
       },
       // handleCreate() {
       //   this.resetTemp()

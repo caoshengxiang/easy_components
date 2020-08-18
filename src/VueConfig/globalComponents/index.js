@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import parentTable from '../../components/BaseTable/parentTable'
-import PermissionButton from '@/components/PermissionButton/PermissionButton'
-import YPageListLayout from '@/components/YPageListLayout'
+import PermissionButton from '../../components/PermissionButton/PermissionButton'
+import YPageListLayout from '../../components/YPageListLayout'
 
 function plugins() {
   Vue.component('parentTable', parentTable)

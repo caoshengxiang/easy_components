@@ -51,7 +51,19 @@
                       />
                     </PermissionButton>
 
-        // 3. 新开页面 设置属性 _target 为true
+        // 3.
+         <PermissionButton
+          menu-no="_views_baseinfo_userinfo_list_importInfo"
+          class-name="filter-item"
+          round
+          type="text"
+          name=""
+          style="padding: 0;margin-bottom: 10px;"
+        >
+          <el-button>里面也是按钮</el-button>
+        </PermissionButton>
+
+        // 4. 新开页面 设置属性 _target 为true
 -->
 <template>
   <el-button
