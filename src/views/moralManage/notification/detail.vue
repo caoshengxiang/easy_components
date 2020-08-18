@@ -146,12 +146,10 @@
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path: '/views/moralMange/notification/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1
-                    }
-                  })
+                  const back = this.$route.query.back
+                  if (back) {
+                    this.$router.push(back)
+                  }
                 } else {
                   this.$message({
                     type: 'error',
@@ -163,12 +161,10 @@
               that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
                 that.loading = false
                 if (data.code === 250) {
-                  that.$router.push({
-                    path: '/views/moralMange/notification/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1
-                    }
-                  })
+                  const back = this.$route.query.back
+                  if (back) {
+                    this.$router.push(back)
+                  }
                 } else if (data.code === 200) {
                   this.$notify({
                     title: '成功',
@@ -176,12 +172,10 @@
                     type: 'success',
                     duration: 2000
                   })
-                  that.$router.push({
-                    path: '/views/baseinfo/assetinfo/list',
-                    query: {
-                      menuLevel1: this.$route.query.menuLevel1
-                    }
-                  })
+                  const back = this.$route.query.back
+                  if (back) {
+                    this.$router.push(back)
+                  }
                 } else {
                   this.$message({
                     type: 'error',
