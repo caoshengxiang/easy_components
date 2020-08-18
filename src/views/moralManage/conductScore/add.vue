@@ -1,7 +1,7 @@
 <template>
   <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
     <el-tabs value="first">
-      <el-tab-pane label="心中操行分类型" name="first">
+      <el-tab-pane label="新增操行分类型" name="first">
         <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="160px">
           <el-row>
             <el-col :span="24">
