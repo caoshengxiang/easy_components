@@ -11,6 +11,10 @@ import _views_moralManage_conductScore_list from '@/views/moralManage/conductSco
 import _views_moralManage_conductScore_setting from '@/views/moralManage/conductScore/setting';
 import _views_moralManage_conductScore_add from '@/views/moralManage/conductScore/add';
 import _views_moralManage_conductScore_check from '@/views/moralManage/conductScore/check';
+import _views_moralManage_commentManage_list from '@/views/moralManage/commentManage/list';
+import _views_moralManage_commentManage_detail from '@/views/moralManage/commentManage/detail';
+import _views_moralManage_commonCommentManage_list from '@/views/moralManage/commonCommentManage/list';
+import _views_moralManage_commonCommentManage_detail from '@/views/moralManage/commonCommentManage/detail';
 
 export default {
   _views_moralManage_notice_list,
@@ -25,5 +29,9 @@ export default {
   _views_moralManage_classNotice_setComment,
   _views_moralManage_classNotice_setNotice,
   _views_moralManage_conductScore_add,
-  _views_moralManage_conductScore_check
+  _views_moralManage_conductScore_check,
+  _views_moralManage_commentManage_list,
+  _views_moralManage_commentManage_detail,
+  _views_moralManage_commonCommentManage_list,
+  _views_moralManage_commonCommentManage_detail
 }
