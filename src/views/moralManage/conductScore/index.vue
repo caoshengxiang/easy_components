@@ -65,7 +65,7 @@
               menu-no="_views_moralManage_conductScore_view"
               name=""
               type="primary"
-              @click="pre(row)"
+              @click="drawLine()"
               round
             >
               查看
@@ -74,7 +74,7 @@
               menu-no="_views_moralManage_conductScore_ussetting"
               name=""
               type="primary"
-              @click="pre(row)"
+              @click="dialogFormVisible1 = true"
               round
             >
               操行分设置
@@ -83,7 +83,51 @@
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
+    <el-dialog title="学生操行分查看" :visible.sync="dialogFormVisible">
+      <div ref="mychart" id="myChart" :style="{width: '800px', height: '300px'}">
+      </div>
+    </el-dialog>
 
+
+    <el-dialog title="操行分设置" :visible.sync="dialogFormVisible1">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px"
+               style="width: 80%; margin-left:50px;"
+      >
+        <el-form-item class="postInfo-container-item " label="类型：">
+          <service-select
+            v-model="listQuery.gradeId"
+            name="name"
+            field="id"
+            :data-service="$api.baseInfo.getGradeList"
+            placeholder="请选择类型"
+            style="margin-left: 10px;width: 100%"
+            clearable
+          />
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="详情：">
+          <service-select
+            v-model="listQuery.gradeId"
+            name="name"
+            field="id"
+            :data-service="$api.baseInfo.getGradeList"
+            placeholder="请选择详情"
+            style="margin-left: 10px;width: 100%"
+            clearable
+          />
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="分数：">
+        -5
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align: center">
+        <el-button @click="dialogFormVisible1 = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="saveData()">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -102,6 +146,9 @@ export default {
   },
   data() {
     return {
+      temp:{},
+      dialogFormVisible1:false,
+      dialogFormVisible: false,
       listLoading: false,
       pageData: {},
       pagePara: {
@@ -120,44 +167,30 @@ export default {
   created() {
     const that = this
     that.getList()
-    that.getStatistics()
-
-    that.getByTypeId('purpose')
-    that.getByTypeId('useStatus')
   },
   methods: {
-    getByTypeId(id) {
-      const that = this
-      that.$api.dictData.getByCode({ code: id }).then(data => {
-        if (data.code === 200) {
-          switch (id) {
-            case 'useStatus':
-              that.useStatus = data.data
-              break
-            case 'purpose':
-              that.purpose = data.data
-              break
-          }
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+    saveData(){
+      alert('保存数据')
+      this.dialogFormVisible1 = false
     },
-    getStatistics() {
-      let that = this
-      that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          that.statisticsInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
+    drawLine () {
+      this.dialogFormVisible = true
+
+      this.$nextTick(function(){
+        var echarts = require('echarts');
+        var myChart = echarts.init(this.$refs.mychart);
+        myChart.setOption({
+          tooltip: {},
+          xAxis: {
+            data: ['2020-2', '2020-2', '2020-2', '2020-2', '2020-2', '2020-2']
+          },
+          yAxis: {},
+          series: [{
+            name: '销量',
+            type: 'line',
+            data: [5, 20, 36, 10, 10, 20]
+          }]
+        });
       })
     },
     searchList() {
@@ -166,7 +199,6 @@ export default {
 
       that.getList()
     },
-
     deleteInfo(id) {
       const that = this
       that.$confirm('请确认是否删除该数据?', '提示', {

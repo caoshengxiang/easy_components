@@ -45,6 +45,10 @@ Vue.use(EVueContextmenu)
 
 Vue.config.productionTip = false
 
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts
+
 // Vue.mixin(mixin)
 new Vue({
   // mixins: [mixin],
