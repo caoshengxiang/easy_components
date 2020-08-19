@@ -15,6 +15,9 @@ import _views_moralManage_commentManage_list from '@/views/moralManage/commentMa
 import _views_moralManage_commentManage_detail from '@/views/moralManage/commentManage/detail';
 import _views_moralManage_commonCommentManage_list from '@/views/moralManage/commonCommentManage/list';
 import _views_moralManage_commonCommentManage_detail from '@/views/moralManage/commonCommentManage/detail';
+import _views_moralManage_scoreManage_list from '@/views/moralManage/scoreManage/list';
+import _views_moralManage_scoreManage_detail from '@/views/moralManage/scoreManage/detail';
+import _views_moralManage_scoreManage_userScore from '@/views/moralManage/scoreManage/userScore';
 
 export default {
   _views_moralManage_notice_list,
@@ -33,5 +36,8 @@ export default {
   _views_moralManage_commentManage_list,
   _views_moralManage_commentManage_detail,
   _views_moralManage_commonCommentManage_list,
-  _views_moralManage_commonCommentManage_detail
+  _views_moralManage_commonCommentManage_detail,
+  _views_moralManage_scoreManage_list,
+  _views_moralManage_scoreManage_detail,
+  _views_moralManage_scoreManage_userScore
 }

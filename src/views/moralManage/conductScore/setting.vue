@@ -41,6 +41,27 @@
         </el-button>
       </template>
       <template slot="right">
+
+        <span style=" font-size: 14px;color: #999999;margin-right: 5px">自动审核：</span>
+        <el-switch
+          class="filter-item"
+          v-model="switchs"
+          on-color="#13ce66"
+          off-color="#ff4949"
+          on-text="aa"
+          @change="changeSwitch()"
+          off-text="bb">
+        </el-switch>
+
+        <el-button class="filter-item" style="margin-left: 10px" round type="primary" @click="dialogFormVisible=true">
+          操行分设置
+        </el-button>
+        <el-button class="filter-item" round type="warning" @click="dialogFormVisible1 = true">
+          预警设置
+        </el-button>
+
+      </template>
+      <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <el-table-column label="类型" prop="property" align="center" >
@@ -52,25 +73,7 @@
         <el-table-column label="操作" fixed="right" align="center" width="220px">
           <template v-slot="{ row }">
             <PermissionButton
-              menu-no="_views_moralManage_classNotice_setComment"
-              name=""
-              type="primary"
-              @click="pre(row)"
-              round
-            >
-              预览
-            </PermissionButton>
-            <PermissionButton
-              menu-no="_views_moralManage_classNotice_setComment"
-              name=""
-              type="primary"
-              @click="setComment(row)"
-              round
-            >
-              评语
-            </PermissionButton>
-            <PermissionButton
-              menu-no="_views_moralManage_classNotice_remove"
+              menu-no="_views_moralManage_conductScore_remove"
               class-name="filter-item"
               name=""
               type="danger"
@@ -82,7 +85,63 @@
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
+    <el-dialog title="操行分设置" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px"
+               style="width: 80%; margin-left:50px;"
+      >
+        <el-form-item class="postInfo-container-item " label="学生默认操行分：">
+          <el-input v-model="temp.code" class="filter-item"/>
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="学生操行分标准：">
+          <el-input v-model="temp.code" class="filter-item"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align: center">
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="saveData()">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
 
+    <el-dialog title="预警设置" :visible.sync="dialogFormVisible1">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="200px"
+               style="width: 80%; margin-left:50px;"
+      >
+        <el-form-item class="postInfo-container-item " label="学生操行分预警分值：">
+          <el-input v-model="temp.code" class="filter-item"/>
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="操行分低于平均分是否预警：">
+          <el-radio-group v-model="radio">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item class="postInfo-container-item " label="一月减少操行分预警分值：">
+          <el-input v-model="temp.code" class="filter-item"/>
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="操行分高于平均分是否表扬：">
+          <el-radio-group v-model="radio1">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item class="postInfo-container-item " label="一月增加操行分表扬值：">
+          <el-input v-model="temp.code" class="filter-item"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align: center">
+        <el-button @click="dialogFormVisible1 = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="saveDataOne()">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -101,6 +160,10 @@ export default {
   },
   data() {
     return {
+      radio:1,
+      radio1:2,
+      dialogFormVisible1: false,
+      dialogFormVisible: false,
       listLoading: false,
       pageData: {},
       pagePara: {
@@ -109,11 +172,13 @@ export default {
       },
       listQuery: {
         dormitoryId: 0,
-        descs: 'id'
+        descs: 'id',
       },
+      switchs:true,
       statisticsInfo: {},
       useStatus: [],
-      purpose: []
+      purpose: [],
+      temp:{}
     }
   },
   created() {
@@ -125,6 +190,17 @@ export default {
     that.getByTypeId('useStatus')
   },
   methods: {
+    saveDataOne(){
+      alert('保存预警信息')
+      this.dialogFormVisible1 = false
+    },
+    saveData(){
+      alert('保存数据')
+      this.dialogFormVisible = false
+    },
+    changeSwitch(){
+      alert(this.switchs)
+    },
     getByTypeId(id) {
       const that = this
       that.$api.dictData.getByCode({ code: id }).then(data => {
