@@ -48,6 +48,22 @@
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
+
+        <el-input
+          v-model="listQuery.subject"
+          placeholder="任务主题"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+        />
+
+        <el-input
+          v-model="listQuery.speakerName"
+          placeholder="宣讲人"
+          prefix-icon="el-icon-search"
+          style="margin-left: 20px;width: 200px;"
+          class="filter-item"
+        />
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
         </el-button>

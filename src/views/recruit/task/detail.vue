@@ -63,10 +63,11 @@
                 <el-col :span="24">
                   <el-form-item label="招生生源地：" prop="admissionIds" label-width="150px" class="postInfo-container-item">
                     <el-select v-model="postForm.admissionIds"
-                               style="width:100%" multiple placeholder="请选择招生生源地">
+                               style="width:100%"
+                               @change="changeValue" multiple placeholder="请选择招生生源地">
                       <el-option
                         v-for="item in areaInfo"
-                        :key="item.name"
+                        :key="item.id"
                         :label="item.name"
                         :value="item.id">
                       </el-option>
@@ -270,7 +271,15 @@ export default {
       if (this.dataId) {
         this.$api.adminssionTask.detail(this.dataId).then(res => {
           this.postForm = res.data
-
+          let temp = []
+          if(this.postForm.admissionIds) {
+            this.postForm.admissionIds.split(',').forEach(function (item) {
+              temp.push(parseInt(item))
+            })
+          }else{
+            this.postForm.admissionIds = []
+          }
+          this.postForm.admissionIds = temp
           this.postForm.deadTime = []
           this.postForm.deadTime.push(this.postForm.startTime)
           this.postForm.deadTime.push(this.postForm.endTime)
