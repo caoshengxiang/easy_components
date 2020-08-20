@@ -186,8 +186,23 @@
       that.getList()
       that.getSpecialtyList()
       that.getGradeList()
+      that.getStatistics()
     },
     methods: {
+      getStatistics() {
+        let that = this
+        that.$api.statistics.getStatistics('/admissionPlan/pageStatics', { ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getSpecialtyList() {
         const that = this
         that.$api.baseInfo.getSpecialtyList().then(data => {
@@ -254,8 +269,7 @@
         this.listLoading = true
         // console.log(that.listQuery)
         this.$api.plan.list({ ...that.listQuery, ...that.pagePara }).then(res => {
-          that.pageData = res.data.page
-          that.statisticsInfo = res.data.staticsData
+          that.pageData = res.data
           setTimeout(() => {
             that.listLoading = false
           }, 200)

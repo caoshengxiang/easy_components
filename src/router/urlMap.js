@@ -146,7 +146,7 @@ export default {
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划
   _views_recruit_plan_detail: () => import('../views/recruit/plan/detail'), // 招生计划编辑/详情
   _views_recruit_task_list: () => import('../views/recruit/task/list'), // 招生任务
-  _views_recruit_task_edit: () => import('../views/recruit/task/edit'), // 招生任务编辑/详情
+  _views_recruit_task_detail: () => import('../views/recruit/task/detail'), // 招生任务编辑/详情
   _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
   _views_recruit_preregistration_edit: () => import('../views/recruit/preregistration/edit'), // 预报名编辑/详情
   _views_recruit_registration_list: () => import('../views/recruit/registration/list'), // 报到注册
