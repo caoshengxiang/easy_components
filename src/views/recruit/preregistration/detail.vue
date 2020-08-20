@@ -247,7 +247,7 @@
                   </el-col>
                   <el-col :span="6" v-if="postForm.memberGuardian2">
                     <el-form-item label="二诊分数：" prop="type" label-width="150px" class="postInfo-container-item">
-                      <el-input  style="margin-left:5px;width: 100%" v-model="postForm.planCount" class="filter-item"/>
+                      <el-input  style="x`width: 100%" v-model="postForm.planCount" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
@@ -263,18 +263,18 @@
                   <el-col :span="6" v-if="postForm.memberGuardian2" >
                     <el-form-item label="中考分数：" prop="planCount" label-width="150px" class="postInfo-container-item">
 
-                      <el-input style="margin-left:5px;width: 100%" v-model="postForm.planCount" class="filter-item"/>
+                      <el-input style="width: 100%" v-model="postForm.planCount" class="filter-item"/>
                     </el-form-item>
                   </el-col>
 
                   <el-col :span="6" v-if="postForm.memberGuardian2" >
                     <el-form-item label="中考报名号：" prop="planCount" label-width="150px" class="postInfo-container-item">
 
-                      <el-input  v-if="postForm.memberGuardian2" style="margin-left:5px;width: 100%" v-model="postForm.planCount" class="filter-item"/>
+                      <el-input  v-if="postForm.memberGuardian2" style="width: 100%" v-model="postForm.planCount" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
-               
+
               </div>
             </div>
           </el-form>
