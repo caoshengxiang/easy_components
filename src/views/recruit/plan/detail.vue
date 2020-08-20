@@ -16,51 +16,50 @@
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
-                  <el-form-item label="学期名称：" prop="name" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.name" class="filter-item"/>
+                  <el-form-item label="招生年级：" prop="gradeId" label-width="150px" class="postInfo-container-item">
+                    <el-select
+                      v-model="postForm.gradeId"
+                      placeholder="请选择年级"
+                      clearable
+                      style="width: 100%"
+                      class="filter-item"
+                    >
+                      <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                    </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学年：" prop="year" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.year" class="filter-item"/>
+                  <el-form-item label="招生专业：" prop="specialtyId" label-width="150px" class="postInfo-container-item">
+                    <el-select
+                      v-model="postForm.specialtyId"
+                      placeholder="请选择专业"
+                      clearable
+                      class="filter-item"
+                      style="width: 100%"
+                    >
+                      <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
+                    </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期码：" prop="code" label-width="120px" class="postInfo-container-item">
-                    <el-input v-model="postForm.code" class="filter-item"/>
+                  <el-form-item label="计划招生人数：" prop="planCount" label-width="150px" class="postInfo-container-item">
+                    <el-input v-model="postForm.planCount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期开始日期：" prop="startDate" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="截止时间：" prop="deadTime" label-width="150px" class="postInfo-container-item">
                     <el-date-picker
-                      v-model="postForm.startDate"
-                      type="date"
-                      value-format="yyyy-MM-dd"
+                      v-model="postForm.deadTime"
+                      type="datetime"
+                      value-format="yyyy-MM-dd HH:mm:ss"
                       style="width: 100%"
                       placeholder=""
                     />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="学期上课日期：" prop="courseDate" label-width="120px" class="postInfo-container-item">
-                    <el-date-picker
-                      v-model="postForm.courseDate"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      style="width: 100%"
-                      placeholder=""
-                    />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="学期结束日期：" prop="endDate" label-width="120px" class="postInfo-container-item">
-                    <el-date-picker
-                      v-model="postForm.endDate"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      style="width: 100%"
-                      placeholder=""
-                    />
+                  <el-form-item label="备注：" prop="courseDate" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -75,15 +74,6 @@
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
-
-  const defaultForm = {
-    name: '',
-    code: '',
-    year: '',
-    startDate: '',
-    courseDate: '',
-    endDate: '',
-  }
 
   export default {
     name: 'ComplexTable',
@@ -101,39 +91,31 @@
     },
     data() {
       return {
+        specialty: [],
+        gradeInfo: [],
         type: 'detail',
-        postForm: Object.assign({}, defaultForm),
+        postForm: {},
         rules: {
-          name: [{
+          gradeId: [{
             required: true,
-            message: '请输入学期名称',
+            message: '请选择年纪',
             trigger: 'blur'
           }],
-          year: [{
+          specialtyId: [{
             required: true,
-            message: '请输入学年',
+            message: '请选择专业',
             trigger: 'blur'
           }],
-          code: [{
+          planCount: [{
             required: true,
-            message: '请输入学期码',
+            message: '请输入计划招生人数',
             trigger: 'blur'
           }],
-          startDate: [{
+          deadTime: [{
             required: true,
-            message: '请选择学期开始日期',
+            message: '请选择截止时间',
             trigger: 'change'
-          }],
-          courseDate: [{
-            required: true,
-            message: '请选择学期上课日期',
-            trigger: 'change'
-          }],
-          endDate: [{
-            required: true,
-            message: '请选择学期结束日期',
-            trigger: 'change'
-          }],
+          }]
         },
         dataId: this.$route.query.id,
       }
@@ -144,16 +126,50 @@
       },
     },
     created() {
+      let that = this
       if (this.detailInfo) {
         this.postForm = this.detailInfo
       } else {
         this.getDetail()
       }
+
+      that.getSpecialtyList()
+      that.getGradeList()
     },
     methods: {
+      getSpecialtyList() {
+        const that = this
+        that.$api.baseInfo.getSpecialtyList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.specialty = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getGradeList() {
+        const that = this
+        that.$api.baseInfo.getGradeList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.gradeInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       getDetail() {
         if (this.dataId) {
-          this.$api.term.detail(this.dataId).then(res => {
+          this.$api.plan.detail(this.dataId).then(res => {
             this.postForm = res.data
           })
         }
@@ -162,7 +178,7 @@
         if (this.dataId) { // 编辑
           this.$refs.postForm.validate(valid => {
             if (valid) {
-              this.$api.term.edit(this.postForm).then(res => {
+              this.$api.plan.edit(this.postForm).then(res => {
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
@@ -181,7 +197,7 @@
         } else { // 新增
           this.$refs.postForm.validate(valid => {
             if (valid) {
-              this.$api.term.add(this.postForm).then(res => {
+              this.$api.plan.add(this.postForm).then(res => {
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',

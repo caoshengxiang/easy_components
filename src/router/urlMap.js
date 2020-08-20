@@ -72,7 +72,8 @@ import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
 /*二期*/
 import _views_baseinfo_userinfo6_list from '../views/baseinfo/userinfo6/list'
 import _views_baseinfo_userinfo6_detail from '../views/baseinfo/userinfo6/detailInfo'
-
+import _views_recruit_plan_list from '@/views/recruit/plan/list'
+import _views_recruit_plan_detail from '@/views/recruit/plan/detail'
 import moralManage from './urlMapModules/moralManage'
 import leagueActivities from './urlMapModules/leagueActivities'
 
@@ -143,7 +144,7 @@ export default {
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
   _views_recruit_birthplace_edit: () => import('../views/recruit/birthplace/edit'), // 生源地编辑/详情
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划
-  _views_recruit_plan_edit: () => import('../views/recruit/plan/edit'), // 招生计划编辑/详情
+  _views_recruit_plan_detail: () => import('../views/recruit/plan/detail'), // 招生计划编辑/详情
   _views_recruit_task_list: () => import('../views/recruit/task/list'), // 招生任务
   _views_recruit_task_edit: () => import('../views/recruit/task/edit'), // 招生任务编辑/详情
   _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
