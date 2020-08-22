@@ -76,6 +76,7 @@ import _views_recruit_plan_list from '@/views/recruit/plan/list'
 import _views_recruit_plan_detail from '@/views/recruit/plan/detail'
 import moralManage from './urlMapModules/moralManage'
 import leagueActivities from './urlMapModules/leagueActivities'
+import rewardsAndPunishments from "./urlMapModules/rewardsAndPunishments";
 
 /*
 * 字段说明：
@@ -155,5 +156,6 @@ export default {
   _views_recruit_expiration_edit: () => import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
   ...moralManage, // 德育管理界面
   ...leagueActivities, //团学活动管理
+  ...rewardsAndPunishments
   /* 二期  end */
 }
