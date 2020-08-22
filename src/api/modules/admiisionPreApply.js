@@ -6,19 +6,25 @@ export default {
   applyvalidPage(params) {
     return request.get(`admiisionPreApply/applyvalidPage`, { params: params })
   },
+  applyvalidDelete(params) {
+    return request.delete(`admiisionPreApply/deletewf/${params}`)
+  },
+  applyvalidRecover(params) {
+    return request.get(`admiisionPreApply/recover/${params}`)
+  },
   list(params) {
     return request.get(`admiisionPreApply`, { params: params })
   },
   detail(params) {
-    return request.get(`adminssionTask/${params}`)
+    return request.get(`admiisionPreApply/${params}`)
   },
   add(params) {
-    return request.post(`adminssionTask`, params)
+    return request.post(`admiisionPreApply`, params)
   },
   edit(params) {
-    return request.put(`adminssionTask`, params)
+    return request.put(`admiisionPreApply`, params)
   },
   delete(params) {
-    return request.delete(`adminssionTask/${params}`)
+    return request.delete(`admiisionPreApply/${params}`)
   },
 }

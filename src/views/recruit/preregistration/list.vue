@@ -16,7 +16,7 @@
         />
         <el-input
           v-model="listQuery.schoolName"
-          placeholder="请输入身份证或者姓名"
+          placeholder="学校名称"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 200px;"
           class="filter-item"
@@ -32,7 +32,7 @@
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
+          <span>{{ row.gradeName }}</span>
         </template>
       </el-table-column>
         <el-table-column label="姓名" align="center">
@@ -52,43 +52,43 @@
         </el-table-column>
         <el-table-column label="意向专业" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyId }} </span>
+            <span>{{ row.specialtyName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="班级类型" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.admissionSourceName }} </span>
+            <span>{{ row.classType }} </span>
           </template>
         </el-table-column>
         <el-table-column label="毕业学校" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.admissionSourceName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="预报名时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.applyTime }} </span>
           </template>
         </el-table-column>
         <el-table-column label="经办人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.creatorName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="缴费状态" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.feeState == 1?'未缴费':( row.feeState == 2?'已缴费': (row.feeState == 3?'已退费':'未知')) }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.operatorName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
             <PermissionButton
-              menu-no="_views_recruit_birthplace_edit"
+              menu-no="_views_recruit_preregistration_edit"
               type="primary"
               name=""
               :page-jump="true"
@@ -96,7 +96,7 @@
               round
             />
             <PermissionButton
-              menu-no="_views_recruit_birthplace_remove"
+              menu-no="_views_recruit_preregistration_remove"
               type="danger"
               name=""
               @click="removeHandle(row)"
@@ -189,7 +189,7 @@ export default {
         type: 'warning'
       })
         .then(async () => {
-          this.$api.admissionSource.delete(row.id).then(res => {
+          this.$api.admiisionPreApply.delete(row.id).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',

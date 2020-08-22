@@ -43,12 +43,12 @@
         </el-table-column>
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeGradeId }} </span>
+            <span>{{ row.gradeName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="意向专业" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyId }} </span>
+            <span>{{ row.specialtyName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="生源地" align="center">
@@ -58,32 +58,31 @@
         </el-table-column>
         <el-table-column label="类型" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.classType }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.operatorName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.weight }} </span>
+            <span>{{ row.applyTime }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
             <PermissionButton
-              menu-no="_views_recruit_birthplace_edit"
+              menu-no="_views_recruit_pre_recover"
               type="primary"
               name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
+              @click="recoverHandle(row)"
               round
             />
             <!--            <el-button type="danger">删除</el-button>-->
             <PermissionButton
-              menu-no="_views_recruit_birthplace_remove"
+              menu-no="_views_recruit_pre_remove"
               type="danger"
               name=""
               @click="removeHandle(row)"
@@ -176,11 +175,32 @@ export default {
         type: 'warning'
       })
         .then(async () => {
-          this.$api.admissionSource.delete(row.id).then(res => {
+          this.$api.admiisionPreApply.applyvalidDelete(row.id).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
                 message: '删除成功'
+              })
+              this.getList()
+            }
+          })
+        })
+        .catch(err => { console.error(err) })
+    },
+    recoverHandle(row) {
+      // console.log(data)
+      const that = this
+      that.$confirm('确认还原当前记录吗?', '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async () => {
+          this.$api.admiisionPreApply.applyvalidRecover(row.id).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: '还原成功'
               })
               this.getList()
             }
