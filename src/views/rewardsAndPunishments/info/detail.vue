@@ -179,9 +179,6 @@
       detailInfo: function (value) {
         this.postForm = value
       },
-      isEdit:function () {
-        return this.$refs.layoutRef.isEdit
-      }
     },
     created() {
       const that = this
