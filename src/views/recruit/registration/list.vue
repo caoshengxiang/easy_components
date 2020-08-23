@@ -164,7 +164,7 @@
           type="primary"
           name=""
           style="margin-top: 10px"
-          @click="handleDownload3"
+          @click="handleDownload4"
         />
         <PermissionButton
           menu-no="_views_recruit_reg_export5"
@@ -172,7 +172,7 @@
           round
           type="primary"
           name=""
-          @click="handleDownload3"
+          @click="handleDownload5"
         />
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
@@ -281,7 +281,7 @@
         total: 0,
         listLoading: false,
         listQuery: {
-          descs: 'id'
+         // descs: 'id'
         },
         pagePara: {
           current: 0,
@@ -308,6 +308,13 @@
       handleDownload3(url) {
         this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
       },
+      handleDownload4(url) {
+        this.$utils.exportUtil('/admiisionPreApply/regPageSourceExcelExport', this.listQuery, '导出头像信息')
+      },
+      handleDownload5(url) {
+        this.$utils.exportUtil('/admiisionPreApply/regPageExportAvatarsZip', this.listQuery, '导出生源地报名信息')
+      },
+
       getClbumList() {
         const that = this
         that.$api.baseInfo.getClbumList({
