@@ -3,6 +3,47 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+
+    <div class="statisticsInfo">
+      <div class="menu-2-box">
+        <div
+
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a1.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.currentPlanCount }}</span>人</div>
+            <div class="analysis-text-small">当前年份计划总数</div>
+          </div>
+        </div>
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a2.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.preCount }}</span>人</div>
+            <div class="analysis-text-small">预报名总人数</div>
+          </div>
+        </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a2.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.preFailCount }}</span>人</div>
+            <div class="analysis-text-small">预报名失效总人数</div>
+          </div>
+        </div>
+
+        <div
+
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a1.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.regCount }}</span>人</div>
+            <div class="analysis-text-small">报到人数</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
         <PermissionButton
@@ -14,11 +55,39 @@
           :page-jump="true"
           round
         />
+        <el-select
+          v-model="listQuery.administrativeGradeId"
+          placeholder="请选择年级"
+          clearable
+          style="margin-left:10px;width: 150px"
+          class="filter-item"
+        >
+          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+
+        <el-select
+          v-model="listQuery.administrativeSpecialtyId"
+          placeholder="请选择专业"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;width: 150px"
+        >
+          <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select
+          v-model="listQuery.admissionSourceId"
+          placeholder="请选择生源地"
+          clearable
+          style="margin-left:10px;width: 150px"
+          class="filter-item"
+        >
+          <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
         <el-input
-          v-model="listQuery.schoolName"
-          placeholder="学校名称"
+          v-model="listQuery.keyword"
+          placeholder="请输入电话或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left: 10px;width: 200px;"
+          style="margin-left:10px;width: 150px"
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
@@ -28,7 +97,32 @@
           重置
         </el-button>
       </template>
-      <template slot="right"/>
+      <template slot="right">
+        <PermissionButton
+          menu-no="_views_recruit_pre_export1"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload1"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_pre_export2"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload2"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_pre_export3"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload3"
+        />
+      </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
         <template slot-scope="{row}">
@@ -136,6 +230,7 @@ export default {
       statisticsInfo:{},
       specialty: [],
       gradeInfo: [],
+      areaInfo:[],
       tableKey: 0,
       pageData: { },
       total: 0,
@@ -153,11 +248,66 @@ export default {
     const that = this
     that.getList()
     that.getGradeList()
+    that.getSpecialtyList()
+    this.admissionSource()
+    that.getStatistics()
   },
   methods: {
-    getGradeList() {
+    handleDownload1(url) {
+      this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
+    },
+    handleDownload2(url) {
+      this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
+    },
+    handleDownload3(url) {
+      this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
+    },
+    getStatistics() {
+      let that = this
+      that.$api.statistics.getStatistics('/admiisionPreApply/preApplypageStatics', { ...that.listQuery }).then(data => {
+        that.loading = false
+        if (data.code === 200) {
+          that.statisticsInfo = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
+    admissionSource() {
       const that = this
       that.$api.admissionSource.listAll().then(data => {
+        that.loading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.areaInfo = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    }, getSpecialtyList() {
+      const that = this
+      that.$api.baseInfo.getSpecialtyList().then(data => {
+        that.loading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.specialty = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
+    getGradeList() {
+      const that = this
+      that.$api.baseInfo.getGradeList().then(data => {
         that.loading = false
         if (data.code === 200) {
           // 返回成功

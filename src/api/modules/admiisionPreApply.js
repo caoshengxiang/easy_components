@@ -27,4 +27,13 @@ export default {
   delete(params) {
     return request.delete(`admiisionPreApply/${params}`)
   },
+  regPage(params) {
+    return request.get(`admiisionPreApply/regPage`, { params: params })
+  },
+  refund(params) {
+    return request.delete(`admiisionPreApply/refund/${params}`)
+  },
+  changeStudentState(params) {
+    return request.get(`admiisionPreApply/changeStudentState/${params}`)
+  },
 }

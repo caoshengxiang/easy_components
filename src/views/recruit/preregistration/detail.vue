@@ -85,7 +85,7 @@
                         <fileUpload
                           ref="uploadCourseChapter"
                           :isdisabled="false"
-                          :file-list="[{path:postForm.avatr}]"
+                          :file-list="[{path:postForm.avatar}]"
                           :style-type="1"
                         />
                       </el-form-item>
@@ -444,6 +444,12 @@ export default {
     },
     handleCreate() {
       let that = this
+
+      if (that.$refs.uploadCourseChapter.getFileList().length === 0) {
+        that.postForm.avatar = ''
+      } else {
+        that.postForm.avatar = that.$refs.uploadCourseChapter.getFileList()[0].fileName
+      }
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {

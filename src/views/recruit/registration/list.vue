@@ -4,13 +4,59 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
 
+    <div class="statisticsInfo">
+      <div class="menu-2-box">
+        <div
+
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a1.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.planCount }}</span>人</div>
+            <div class="analysis-text-small">计划人数</div>
+          </div>
+        </div>
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a2.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.preCount }}</span>人</div>
+            <div class="analysis-text-small">预报名人数</div>
+          </div>
+        </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a2.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.currentRegCount }}</span>人</div>
+            <div class="analysis-text-small">当前年份报到总人数</div>
+          </div>
+        </div>
+
+        <div
+
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a1.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.losedCount }}</span>人</div>
+            <div class="analysis-text-small">招生流失人数</div>
+          </div>
+        </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/a2.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.refundCount }}</span>人</div>
+            <div class="analysis-text-small">已退费人数</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
-        <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
-        <!--          新增学期-->
-        <!--        </el-button>-->
         <PermissionButton
-          menu-no="_views_teachingAffairs_semester_add"
+          menu-no="_views_recruit_preregistration_detail"
           class-name="filter-item"
           type="primary"
           icon="el-icon-plus"
@@ -18,21 +64,65 @@
           :page-jump="true"
           round
         />
-        <el-input
-          v-model="listQuery.name"
-          placeholder="请输入学期名称"
-          prefix-icon="el-icon-search"
-          style="margin-left: 20px;width: 200px;"
-          class="filter-item"
+        <el-select
+          v-model="listQuery.administrativeGradeId"
+          placeholder="请选择年级"
           clearable
+          style="width: 150px"
+          class="filter-item"
+        >
+          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+
+        <el-select
+          v-model="listQuery.administrativeSpecialtyId"
+          placeholder="请选择专业"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;width: 150px"
+        >
+          <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+
+        <el-select
+          v-model="listQuery.administrativeClbumId"
+          placeholder="请选择班级"
+          clearable
+          class="filter-item"
+          style="margin-left:10px;width: 150px"
+        >
+          <el-option v-for="item in clbumInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select
+          v-model="listQuery.admissionSourceId"
+          placeholder="请选择生源地"
+          clearable
+          style="margin-left:10px;width: 150px"
+          class="filter-item"
+        >
+          <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <el-select v-model="listQuery.state" placeholder="是否缴费" clearable class="filter-item"
+                   style="width: 120px;padding-left: 10px"
+        >
+          <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+        </el-select>
+        <el-date-picker
+          v-model="dateTime"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          style="margin-left: 10px;width: 400px;margin-top: 10px"
+          class="filter-item"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          end-placeholder="结束日期"
         />
         <el-input
-          v-model="listQuery.code"
-          placeholder="请输入学期码"
+          v-model="listQuery.keyword"
+          placeholder="身份证、学生姓名、经办人"
           prefix-icon="el-icon-search"
-          style="margin-left: 20px;width: 200px;"
+          style="margin-left:10px;width: 150px"
           class="filter-item"
-          clearable
         />
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
@@ -40,85 +130,104 @@
         <el-button class="filter-item" round type="warning" @click="resetSearch()">
           重置
         </el-button>
+
       </template>
-      <template slot="right"/>
+      <template slot="right" style="float: right">
+        <PermissionButton
+          menu-no="_views_recruit_reg_export1"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload1"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_reg_export2"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload2"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_reg_export3"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload3"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_reg_export4"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          style="margin-top: 10px"
+          @click="handleDownload3"
+        />
+        <PermissionButton
+          menu-no="_views_recruit_reg_export5"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="handleDownload3"
+        />
+      </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
-        <!--      <el-table-->
-        <!--        slot="table"-->
-        <!--        v-loading="listLoading"-->
-        <!--        :data="pageData.records"-->
-        <!--        fit-->
-        <!--        highlight-current-row-->
-        <!--        style="width: 100%;"-->
-        <!--      >-->
-        <el-table-column label="学期名称" align="center">
+        <el-table-column label="年级" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.gradeName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="姓名" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="学年" align="center">
+        <el-table-column label="联系电话" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.year }} </span>
+            <span>{{ row.homePhone }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="学期码" align="center">
+        <el-table-column label="证件号  " align="center">
           <template slot-scope="{row}">
-            <span>{{ row.code }} </span>
+            <span>{{ row.homeAddr }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="学期开始日期" align="center">
+        <el-table-column label="意向专业" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.startDate }} </span>
+            <span>{{ row.specialtyName }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="学期上课日期" align="center">
+        <el-table-column label="班级类型" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.courseDate }} </span>
+            <span>{{ row.classType }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="学期结束日期" align="center">
+        <el-table-column label="报名时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.endDate }} </span>
+            <span>{{ row.admissionSourceName }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="上课时间设置" align="center">
-          <template slot-scope="{row}">
-            <!--            <el-button type="text" @click="handleSetClassTime(row)">设置</el-button>-->
-            <PermissionButton
-              menu-no="_views_teachingAffairs_semester_classTime"
-              type="text"
-              name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column label="创建人" align="center">
+        <el-table-column label="招生经办人" align="center">
           <template slot-scope="{row}">
             <span>{{ row.creatorName }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.created }} </span>
-          </template>
-        </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
-            <!--          <svg-icon icon-class="edit" style="color: #157ddd;transform: scale(1.5);cursor: pointer;" @click.native="handleWageInfo(row)"/>-->
-            <!--            <el-button type="primary" @click="detail(row)">详情</el-button>-->
-            <!--            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>-->
             <PermissionButton
-              menu-no="_views_teachingAffairs_semester_edit"
+              menu-no="_views_recruit_preregistration_edit"
               type="primary"
               name=""
               :page-jump="true"
               :page-query="{id: row.id}"
               round
             />
-            <!--            <el-button type="danger">删除</el-button>-->
             <PermissionButton
-              menu-no="_views_teachingAffairs_semester_remove"
+              menu-no="_views_recruit_preregistration_remove"
               type="danger"
               name=""
               @click="removeHandle(row)"
@@ -137,7 +246,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'ViewsRecruitGegistrationList',
+    name: 'ViewsRecruitPlanList',
     components: {
       Breadcrumb,
       YPageListLayout,
@@ -155,34 +264,129 @@
     },
     data() {
       return {
+        dateTime: [],
+        opt: [{
+          key: 1,
+          label: '是'
+        }, {
+          key: 0,
+          label: '否'
+        }],
+        statisticsInfo:{},
+        specialty: [],
+        gradeInfo: [],
+        areaInfo:[],
         tableKey: 0,
-        pageData: { records: [] },
+        pageData: { },
         total: 0,
         listLoading: false,
         listQuery: {
-          page: 1,
-          size: 10,
-          name: '',
-          code: '',
-          keyword: '',
           descs: 'id'
+        },
+        pagePara: {
+          current: 0,
+          size: 10
         },
       }
     },
     created() {
       const that = this
       that.getList()
+      that.getGradeList()
+      that.getSpecialtyList()
+      this.admissionSource()
+      this.getClbumList()
+      that.getStatistics()
     },
     methods: {
+      handleDownload1(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
+      },
+      handleDownload2(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
+      },
+      handleDownload3(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
+      },
+      getClbumList() {
+        const that = this
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.listQuery.administrativeGradeId,
+          specialtyId: that.listQuery.administrativeSpecialtyId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.clbumInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getStatistics() {
+        let that = this
+        that.$api.statistics.getStatistics('/admiisionPreApply/regPageStatics', { ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      admissionSource() {
+        const that = this
+        that.$api.admissionSource.listAll().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.areaInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }, getSpecialtyList() {
+        const that = this
+        that.$api.baseInfo.getSpecialtyList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.specialty = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getGradeList() {
+        const that = this
+        that.$api.baseInfo.getGradeList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.gradeInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       resetSearch() {
-        this.listQuery = {
-          page: 1,
-          size: 10,
-          name: '',
-          code: '',
-          keyword: '',
-          descs: 'id'
-        }
+        this.listQuery = { descs: 'id' }
+        this.dateTime = []
       },
       removeHandle(row) {
         // console.log(data)
@@ -193,7 +397,7 @@
           type: 'warning'
         })
           .then(async () => {
-            this.$api.term.delete(row.id).then(res => {
+            this.$api.admiisionPreApply.delete(row.id).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
@@ -208,8 +412,15 @@
       getList() {
         const that = this
         this.listLoading = true
+        if (that.dateTime) {
+          that.listQuery.startTime = that.dateTime[0]
+          that.listQuery.endTime = that.dateTime[1]
+        } else {
+          that.listQuery.startTime = ''
+          that.listQuery.endTime = ''
+        }
         // console.log(that.listQuery)
-        this.$api.term.list(that.listQuery).then(res => {
+        this.$api.admiisionPreApply.regPage({ ...that.listQuery, ...that.pagePara }).then(res => {
           that.pageData = res.data
           setTimeout(() => {
             that.listLoading = false
