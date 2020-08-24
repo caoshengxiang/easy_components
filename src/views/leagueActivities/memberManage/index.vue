@@ -7,22 +7,37 @@
       <template slot="left">
         <el-form inline :model="form">
           <el-form-item>
-            <PermissionButton round menu-no="_views_leagueActivities_branchManage_add" type="primary" name="新增社员" :page-jump="true" />
+            <PermissionButton round menu-no="_views_leagueActivities_memberManage_add" type="primary" name="新增社员" :page-jump="true" />
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.communityName" placeholder="社团名称" />
+            <service-select
+              v-model="form.clubId"
+              name="name"
+              field="id"
+              :data-service="$api.LACommunityManage.simpleAll"
+              placeholder="社团"
+              clearable
+            />
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.jobs" placeholder="职务" />
+            <service-select
+              v-model="form.clubDutyId"
+              name="name"
+              field="id"
+              :data-service="$api.LAMemberManage.dutySimpleAll"
+              :default-query="form.clubId"
+              placeholder="职务"
+              clearable
+            />
           </el-form-item>
           <el-form-item>
-            <el-date-picker v-model="form.timeStart" placeholder="任职时间开始" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.employeeDateStart" placeholder="任职时间开始" value-format="yyyy-MM-dd" />
           </el-form-item>
           <el-form-item label-width="20px" label="-">
-            <el-date-picker v-model="form.timeStart" placeholder="任职时间结束" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.employeeDateEnd" placeholder="任职时间结束" value-format="yyyy-MM-dd" />
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.name" placeholder="姓名" />
+            <el-input v-model="form.studentName" placeholder="姓名" />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -44,46 +59,47 @@
       <template slot="right">
         <el-form inline>
           <el-form-item>
-            <el-upload
-              class="filter-item"
-              style="display: inline-block;margin-left: 10px;"
-              action=""
-              :before-upload="beforeUpload"
+            <PermissionButton
+              menu-no="_views_leagueActivities_memberManage_import"
+              name="导入"
+              round
+              type="text"
             >
-              <PermissionButton
-                menu-no="_views_leagueActivities_memberManage_import"
-                name="导入"
-                round
-                type="primary"
-                icon="el-icon-upload2"
+              <excelImport
+                ref="uploadControl"
+                :limit="1"
+                flag="clubMember/importExcel"
+                :style-type="2"
+                title="导入"
+                @fath="search"
               />
-            </el-upload>
+            </PermissionButton>
           </el-form-item>
           <el-form-item>
             <PermissionButton
               menu-no="_views_leagueActivities_memberManage_download"
               round
               icon="el-icon-download"
-              name="学生信息模板下载"
+              name="社员导入模板下载"
               @click="downloadTemplate"
             />
           </el-form-item>
         </el-form>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="社团名称" prop="communityName" />
-        <el-table-column label="社员姓名" prop="name" />
-        <el-table-column label="班级" prop="class" />
-        <el-table-column label="年级" align="center" prop="grade" />
-        <el-table-column label="专业" prop="specialty" />
-        <el-table-column label="社团职务" prop="jobs" />
-        <el-table-column label="任职日期" align="center" prop="jobDate" />
-        <el-table-column label="入社日期" align="center" prop="createdDate" />
-        <el-table-column label="工作内容" prop="workContent" />
-        <el-table-column label="社团评价" prop="comment" />
-        <el-table-column label="状态" align="center" prop="status" />
-        <el-table-column label="备注" prop="remark" />
-        <el-table-column label="操作" align="center" width="180">
+        <el-table-column label="社团名称" prop="clubName" width="160" />
+        <el-table-column label="社员姓名" prop="studentName" width="120" />
+        <el-table-column label="班级" prop="clbum" width="120" />
+        <el-table-column label="年级" align="center" prop="grade" width="120" />
+        <el-table-column label="专业" prop="specialty" width="120" />
+        <el-table-column label="社团职务" prop="dutyName" width="120" />
+        <el-table-column label="任职日期" align="center" prop="employeeDate" width="160" />
+        <el-table-column label="入社日期" align="center" prop="entryDate" width="160" />
+        <el-table-column label="工作内容" prop="content" width="180" />
+        <el-table-column label="社团评价" prop="evaluation" width="180" />
+        <el-table-column label="状态" align="center" prop="state" width="120" />
+        <el-table-column label="备注" prop="remark" width="180" />
+        <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_memberManage_detail"
@@ -97,7 +113,7 @@
               menu-no="_views_leagueActivities_memberManage_delete"
               name="删除"
               type="danger"
-              @click="deleteRow(row)"
+              @click="deleteRow(row.id)"
               round
             />
           </template>
@@ -110,12 +126,18 @@
 <script>
   import YPageListLayout from '@/components/YPageListLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import excelImport from '@/components/excelImport'
+  import ServiceSelect from '@/components/ServiceSelect';
+  import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
     name: 'memberManage',
     components: {
       YPageListLayout,
       PermissionButton,
+      excelImport,
+      ServiceSelect,
+      Breadcrumb
     },
     data() {
       return {
@@ -127,7 +149,7 @@
         },
         tableData: { records: [] },
         form: {
-          communityName: this.$route.query.communityName
+          clubId: this.$route.query.clubId
         }
       }
     },
@@ -138,8 +160,7 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        // todo 对接口
-        this.$api.moralManageNotice.page(Object.assign({}, this.pageInfo, this.form))
+        this.$api.LAMemberManage.page(Object.assign({}, this.pageInfo, this.form))
           .then(res => {
             this.tableData = res.data;
           })
@@ -148,38 +169,22 @@
           });
       },
       // 删除行项
-      deleteRow() {
+      deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
+            this.$api.LAMemberManage.remove(id)
+              .then(() => {
+                this.search();
+              })
           });
-      },
-      // 上传
-      beforeUpload(file) {
-        const param = new FormData();
-        param.append('file', file, file.name);
-        // todo 对接口
-        this.$api.staff.importExcel(param).then((res) => {
-          if (res.code === 200) {
-            this.$notify({
-              title: '成功',
-              message: '导入成功',
-              type: 'success',
-              duration: 2000
-            });
-            this.$refs.queryForm.search();
-          }
-        });
-        return false
       },
       // 下载模板
       downloadTemplate() {
-        // todo 对接口
-        this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
+        this.$utils.exportUtil('/clubMember/download/importTemplate', null, '社员导入模板')
       },
       // 查询
       search() {

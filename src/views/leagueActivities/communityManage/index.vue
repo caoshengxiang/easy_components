@@ -90,14 +90,14 @@
               menu-no="_views_leagueActivities_communityManage_delete"
               name="删除"
               type="danger"
-              @click="deleteRow(row)"
+              @click="deleteRow(row.id)"
               round
             />
             <PermissionButton
               menu-no="_views_leagueActivities_memberManage_list"
               name="社员管理"
               :page-jump="true"
-              :page-query="{ communityName: row.name }"
+              :page-query="{ clubId: row.id }"
               round
             />
           </template>
@@ -154,14 +154,14 @@
           });
       },
       // 删除行项
-      deleteRow(row) {
+      deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
           .then(() => {
-            this.$api.LACommunityManage.remove(row.id)
+            this.$api.LACommunityManage.remove(id)
               .then(() => {
                 this.search();
               })
