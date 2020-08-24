@@ -5,42 +5,46 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增社团" name="first">
-          <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
+        <el-tab-pane label="新增团员" name="first">
+          <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="120px">
             <el-row>
               <el-col :span="24">
-                <el-form-item label="社团：" prop="communityName">
-                  <el-input v-model="form.communityName" />
+                <el-form-item label="团支部：" prop="branchName">
+                  <!-- todo 对接口 -->
+                  <service-select
+                    v-model="form.branchName"
+                    name="name"
+                    field="id"
+                    :data-service="$api.baseInfo.getGradeList"
+                    clearable
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="职务：" prop="job">
-                  <el-input v-model="form.job" />
+                <el-form-item label="身份证号：" prop="idNo">
+                  <el-input v-model="form.idNo" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="学生：" prop="name">
-                  <el-input v-model="form.name" />
+                <el-form-item label="职位：" prop="job">
+                  <!-- todo 对接口 -->
+                  <service-select
+                    v-model="form.job"
+                    name="name"
+                    field="id"
+                    :data-service="$api.baseInfo.getGradeList"
+                    clearable
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="任职日期：" prop="jobDate">
+                <el-form-item label="任职时间：" prop="jobDate">
                   <el-date-picker v-model="form.jobDate" value-format="yyyy-MM-dd" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="入社日期：" prop="createdDate">
+                <el-form-item label="入团时间：" prop="createdDate">
                   <el-date-picker v-model="form.createdDate" value-format="yyyy-MM-dd" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="状态：" prop="status">
-                  <el-input v-model="form.status" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="社团评价：" prop="comment">
-                  <el-input type="textarea" :rows="6" v-model="form.comment" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
@@ -63,11 +67,13 @@
 
 <script>
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import ServiceSelect from '@/components/ServiceSelect'
 
   export default {
-    communityName: 'memberManageDetail',
+    idNo: 'leagueMemberDetail',
     components: {
-      YDetailPageLayout
+      YDetailPageLayout,
+      ServiceSelect
     },
     props: {
       detailInfo: {
@@ -85,13 +91,11 @@
           jobs: ['']
         },
         rules: {
-          communityName: [{ required: true, message: '请输入社团名称', trigger: 'blur' }],
-          job: [{ required: true, message: '请输入职务', trigger: 'blur' }],
-          name: [{ required: true, message: '请输入学生姓名', trigger: 'blur' }],
-          jobDate: [{ required: true, message: '请输入任职日期', trigger: 'change' }],
-          createdDate: [{ required: true, message: '请输入入社日期', trigger: 'change' }],
-          status: [{ required: true, message: '请输入状态', trigger: 'blur' }],
-          comment: [{ required: true, message: '请输入社团评价', trigger: 'blur' }],
+          branchName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
+          idNo: [{ required: true, message: '请输入身份证号', trigger: 'blur' }],
+          job: [{ required: true, message: '请输入职位', trigger: 'change' }],
+          jobDate: [{ required: true, message: '请输入任职时间', trigger: 'change' }],
+          createdDate: [{ required: true, message: '请输入入团时间', trigger: 'change' }],
           workContent: [{ required: true, message: '请输入工作内容', trigger: 'blur' }],
         }
       }

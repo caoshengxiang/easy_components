@@ -8,13 +8,24 @@
     @change="handleChange"
     @visible-change="handleVisibleChange"
   >
-    <el-option
-      v-for="(obj, index) in dataList"
-      :key="index"
-      :label="obj[name]"
-      :value="obj[field]"
-      @click.native="$emit('after-select', obj)"
-    />
+    <template v-if="pureList">
+      <el-option
+        v-for="(obj, index) in dataList"
+        :key="index"
+        :label="obj"
+        :value="obj"
+        @click.native="$emit('after-select', obj)"
+      />
+    </template>
+    <template v-else>
+      <el-option
+        v-for="(obj, index) in dataList"
+        :key="index"
+        :label="obj[name]"
+        :value="obj[field]"
+        @click.native="$emit('after-select', obj)"
+      />
+    </template>
   </el-select>
 </template>
 
@@ -68,6 +79,13 @@
       immediate: {
         type: Boolean,
         default: true
+      },
+      /**
+       * data数据格式 true 值数组  false 对象数组
+       */
+      pureList: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -113,12 +131,16 @@
           .then(res => {
             if (res.code === 200) {
               const data = res.data;
-              // eslint-disable-next-line no-prototype-builtins
-              const index = data.findIndex(obj => !obj.hasOwnProperty(this.field));
-              if (index === -1) {
+              if (this.pureList) {
                 this.dataList = data
               } else {
-                this.$message({ type: 'warning', message: `数据中存在不含有${this.field}属性的对象！` })
+                // eslint-disable-next-line no-prototype-builtins
+                const index = data.findIndex(obj => !obj.hasOwnProperty(this.field));
+                if (index === -1) {
+                  this.dataList = data
+                } else {
+                  this.$message({ type: 'warning', message: `数据中存在不含有${this.field}属性的对象！` })
+                }
               }
               this.loading = false
             }

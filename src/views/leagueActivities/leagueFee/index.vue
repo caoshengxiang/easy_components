@@ -7,22 +7,23 @@
       <template slot="left">
         <el-form inline :model="form">
           <el-form-item>
-            <PermissionButton round menu-no="_views_leagueActivities_branchManage_add" type="primary" name="新增社员" :page-jump="true" />
+            <PermissionButton round menu-no="_views_leagueActivities_leagueFee_add" type="primary" name="新增社员" :page-jump="true" />
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.communityName" placeholder="社团名称" />
+            <el-input v-model="form.communityName" placeholder="支部名称" />
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.jobs" placeholder="职务" />
+            <el-select v-model="form.fee">
+              <el-option label="收入" value="收入" />
+              <el-option label="支出" value="支出" />
+              <el-option label="上缴" value="上缴" />
+            </el-select>
           </el-form-item>
           <el-form-item>
-            <el-date-picker v-model="form.timeStart" placeholder="任职时间开始" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.timeStart" placeholder="时间开始" value-format="yyyy-MM-dd" />
           </el-form-item>
           <el-form-item label-width="20px" label="-">
-            <el-date-picker v-model="form.timeStart" placeholder="任职时间结束" value-format="yyyy-MM-dd" />
-          </el-form-item>
-          <el-form-item>
-            <el-input v-model="form.name" placeholder="姓名" />
+            <el-date-picker v-model="form.timeStart" placeholder="时间结束" value-format="yyyy-MM-dd" />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -41,52 +42,18 @@
           </el-form-item>
         </el-form>
       </template>
-      <template slot="right">
-        <el-form inline>
-          <el-form-item>
-            <el-upload
-              class="filter-item"
-              style="display: inline-block;margin-left: 10px;"
-              action=""
-              :before-upload="beforeUpload"
-            >
-              <PermissionButton
-                menu-no="_views_leagueActivities_memberManage_import"
-                name="导入"
-                round
-                type="primary"
-                icon="el-icon-upload2"
-              />
-            </el-upload>
-          </el-form-item>
-          <el-form-item>
-            <PermissionButton
-              menu-no="_views_leagueActivities_memberManage_download"
-              round
-              icon="el-icon-download"
-              name="学生信息模板下载"
-              @click="downloadTemplate"
-            />
-          </el-form-item>
-        </el-form>
-      </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="社团名称" prop="communityName" />
-        <el-table-column label="社员姓名" prop="name" />
-        <el-table-column label="班级" prop="class" />
-        <el-table-column label="年级" align="center" prop="grade" />
-        <el-table-column label="专业" prop="specialty" />
-        <el-table-column label="社团职务" prop="jobs" />
-        <el-table-column label="任职日期" align="center" prop="jobDate" />
-        <el-table-column label="入社日期" align="center" prop="createdDate" />
-        <el-table-column label="工作内容" prop="workContent" />
-        <el-table-column label="社团评价" prop="comment" />
-        <el-table-column label="状态" align="center" prop="status" />
+        <el-table-column label="团支部" prop="name" />
+        <el-table-column label="收入" prop="fee" />
+        <el-table-column label="金额" prop="amount" />
+        <el-table-column label="时间" align="center" prop="createdDate" />
         <el-table-column label="备注" prop="remark" />
+        <el-table-column label="创建时间" align="center" prop="createDate" />
+        <el-table-column label="创建人" prop="creator" />
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="{ row }">
             <PermissionButton
-              menu-no="_views_leagueActivities_memberManage_detail"
+              menu-no="_views_leagueActivities_leagueFee_detail"
               name="详情"
               type="primary"
               :page-jump="true"
@@ -94,7 +61,7 @@
               round
             />
             <PermissionButton
-              menu-no="_views_leagueActivities_memberManage_delete"
+              menu-no="_views_leagueActivities_leagueFee_delete"
               name="删除"
               type="danger"
               @click="deleteRow(row)"
@@ -112,10 +79,10 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
-    name: 'memberManage',
+    name: 'leagueFee',
     components: {
       YPageListLayout,
-      PermissionButton,
+      PermissionButton
     },
     data() {
       return {

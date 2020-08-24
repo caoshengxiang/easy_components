@@ -1,5 +1,8 @@
 <template>
-  <common-layout>
+  <div class="app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+    </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="新增学生干部" name="first">
@@ -46,17 +49,15 @@
         </el-tab-pane>
       </el-tabs>
     </y-detail-page-layout>
-  </common-layout>
+  </div>
 </template>
 
 <script>
-  import CommonLayout from '../common/CommonLayout'
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   export default {
     communityName: 'studentCadresDetail',
     components: {
-      CommonLayout,
       YDetailPageLayout
     },
     props: {

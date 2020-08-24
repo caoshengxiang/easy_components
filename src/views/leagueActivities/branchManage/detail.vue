@@ -5,27 +5,39 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增团员活动" name="first">
+        <el-tab-pane label="新增团支部" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
             <el-row>
               <el-col :span="24">
-                <el-form-item label="团支部：" prop="community">
-                  <el-input v-model="form.community" />
+                <el-form-item label="团支部名称：" prop="name">
+                  <el-input v-model="form.name" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="负责人：" prop="chargePerson">
-                  <el-input v-model="form.chargePerson" />
+                <el-form-item label="负责人：" prop="dutyPerson">
+                  <el-input v-model="form.dutyPerson" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动类型：" prop="activityType">
-                  <el-input v-model="form.activityLoction" />
+                <el-form-item label="电话：" prop="phone">
+                  <el-input v-model="form.phone" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动内容：" prop="activityContent">
-                  <el-input v-model="form.activityContent" type="textarea"/>
+                <el-form-item label="成立日期：" prop="createdDate">
+                  <el-date-picker v-model="form.createdDate" value-format="yyyy-MM-dd" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="24">
+                <el-form-item label="关联班级：" prop="type">
+                  <!-- todo 对接口 -->
+                  <service-select
+                    v-model="form.type"
+                    name="name"
+                    field="id"
+                    :data-service="$api.baseInfo.getGradeList"
+                    clearable
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -38,11 +50,13 @@
 
 <script>
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import ServiceSelect from '@/components/ServiceSelect'
 
   export default {
-    communityName: 'leagueMemberActivitiesDetail',
+    name: 'branchManageDetail',
     components: {
-      YDetailPageLayout
+      YDetailPageLayout,
+      ServiceSelect
     },
     props: {
       detailInfo: {
@@ -57,33 +71,22 @@
         loading: false,
         editStatus: true,
         form: {
-          jobs: []
+          jobs: ['']
         },
-        jobsOptions: [{
-          value: '教务处',
-          label: '教务处'
-        }, {
-          value: '团委',
-          label: '团委'
-        }, {
-          value: '党委',
-          label: '党委'
-        }, {
-          value: '学生会',
-          label: '学生会'
-        }],
         rules: {
-          studentID: [{ required: true, message: '请输入学生身份证号', trigger: 'blur' }],
-          level: [{ required: true, message: '请输入级别', trigger: 'blur' }],
-          unit: [{ required: true, message: '请输入任职单位', trigger: 'blur' }],
-          cadresName: [{ required: true, message: '请输入干部名称', trigger: 'blur' }],
-          semester: [{ required: true, message: '请输入学期', trigger: 'blur' }],
-          jobs: [{ required: true, message: '请输入学生干部岗位', trigger: 'blur' }],
+          name: [{ required: true, message: '请输入团支部名称', trigger: 'blur' }],
+          dutyPerson: [{ required: true, message: '请输入负责人', trigger: 'blur' }],
+          phone: [
+            { required: true, message: '请输入电话', trigger: 'blur' },
+            { pattern: /^1[345789]\d{9}$/, message: '格式不正确！', trigger: 'blur' }
+          ],
+          createdDate: [{ required: true, message: '请输入成立日期', trigger: 'change' }],
+          type: [{ required: true, message: '请输入关联班级', trigger: 'change' }],
         }
       }
     },
     created() {
-      this.getData();
+     this.getData();
     },
     methods: {
       getData() {
@@ -103,6 +106,12 @@
             this.$message.warning('请完善表单信息！');
           }
         })
+      },
+      addJob() {
+        this.form.jobs.push('');
+      },
+      removeJob(index) {
+        this.form.jobs.splice(index, 1);
       }
     }
   };

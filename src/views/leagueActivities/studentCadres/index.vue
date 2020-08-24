@@ -1,5 +1,8 @@
 <template>
-  <common-layout>
+  <div class="app-container">
+    <div class="title-container">
+      <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <PermissionButton
@@ -103,19 +106,17 @@
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
-  </common-layout>
+  </div>
 </template>
 
 <script>
   import YPageListLayout from '@/components/YPageListLayout'
-  import CommonLayout from '../common/CommonLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
   export default {
     name: 'studentActivities',
     components: {
       YPageListLayout,
-      CommonLayout,
       PermissionButton
     },
     data() {
