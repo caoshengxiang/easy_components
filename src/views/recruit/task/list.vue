@@ -215,14 +215,8 @@ export default {
       })
     },
     resetSearch() {
-      this.listQuery = {
-        page: 1,
-        size: 10,
-        name: '',
-        code: '',
-        keyword: '',
-        descs: 'id'
-      }
+      this.listQuery = { descs: 'id' }
+      this.getList()
     },
     removeHandle(row) {
       // console.log(data)

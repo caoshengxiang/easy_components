@@ -190,6 +190,7 @@
               round
             />
             <PermissionButton
+              v-if="row.feeState == 1"
               menu-no="_views_recruit_preregistration_remove"
               type="warning"
               name=""
@@ -322,13 +323,9 @@
       },
       resetSearch() {
         this.listQuery = {
-          page: 1,
-          size: 10,
-          name: '',
-          code: '',
-          keyword: '',
           descs: 'id'
         }
+        this.getList()
       },
       removeHandle(row) {
         // console.log(data)

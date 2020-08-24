@@ -410,6 +410,7 @@
       resetSearch() {
         this.listQuery = { descs: 'id' }
         this.dateTime = []
+        this.getList()
       },
       removeHandle(row) {
         // console.log(data)

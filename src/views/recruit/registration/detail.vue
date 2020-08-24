@@ -176,7 +176,7 @@
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#FD774B">行</div>
-                <div class="icon-info">行政班级</div>
+                <div class="icon-info">学业基本情况</div>
               </h3>
             </div>
 
