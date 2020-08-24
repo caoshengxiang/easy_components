@@ -59,7 +59,7 @@ const elementIcons = [
   'picture-outline',
   'delete',
   'search',
-  'edit',
+  'detail.vue',
   'edit-outline',
   'rank',
   'refresh',

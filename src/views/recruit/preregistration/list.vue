@@ -125,10 +125,10 @@
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.gradeName }}</span>
-        </template>
-      </el-table-column>
+          <template slot-scope="{row}">
+            <span>{{ row.gradeName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="姓名" align="center">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
@@ -171,7 +171,7 @@
         </el-table-column>
         <el-table-column label="缴费状态" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.feeState == 1?'未缴费':( row.feeState == 2?'已缴费': (row.feeState == 3?'已退费':'未知')) }} </span>
+            <span>{{ row.feeState == 1?'未缴费':( row.feeState == 2?'已退费': (row.feeState == 3?'已缴费':'未知')) }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作人" align="center">
@@ -191,7 +191,7 @@
             />
             <PermissionButton
               menu-no="_views_recruit_preregistration_remove"
-              type="danger"
+              type="warning"
               name=""
               @click="removeHandle(row)"
               round
@@ -204,205 +204,205 @@
   </div>
 </template>
 <script>
-import YPageListLayout from '@/components/YPageListLayout'
-import Breadcrumb from '@/components/Breadcrumb'
-import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import YPageListLayout from '@/components/YPageListLayout'
+  import Breadcrumb from '@/components/Breadcrumb'
+  import PermissionButton from '@/components/PermissionButton/PermissionButton'
 
-export default {
-  name: 'ViewsRecruitPlanList',
-  components: {
-    Breadcrumb,
-    YPageListLayout,
-    PermissionButton,
-  },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
+  export default {
+    name: 'ViewsRecruitPlanList',
+    components: {
+      Breadcrumb,
+      YPageListLayout,
+      PermissionButton,
     },
-  },
-  data() {
-    return {
-      statisticsInfo:{},
-      specialty: [],
-      gradeInfo: [],
-      areaInfo:[],
-      tableKey: 0,
-      pageData: { },
-      total: 0,
-      listLoading: false,
-      listQuery: {
-        descs: 'id'
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          published: 'success',
+          draft: 'info',
+          deleted: 'danger'
+        }
+        return statusMap[status]
       },
-      pagePara: {
-        current: 0,
-        size: 10
+    },
+    data() {
+      return {
+        statisticsInfo:{},
+        specialty: [],
+        gradeInfo: [],
+        areaInfo:[],
+        tableKey: 0,
+        pageData: { },
+        total: 0,
+        listLoading: false,
+        listQuery: {
+          descs: 'id'
+        },
+        pagePara: {
+          current: 0,
+          size: 10
+        },
+      }
+    },
+    created() {
+      const that = this
+      that.getList()
+      that.getGradeList()
+      that.getSpecialtyList()
+      this.admissionSource()
+      that.getStatistics()
+    },
+    methods: {
+      handleDownload1(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
+      },
+      handleDownload2(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
+      },
+      handleDownload3(url) {
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
+      },
+      getStatistics() {
+        let that = this
+        that.$api.statistics.getStatistics('/admiisionPreApply/preApplypageStatics', { ...that.listQuery }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            that.statisticsInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      admissionSource() {
+        const that = this
+        that.$api.admissionSource.listAll().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.areaInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }, getSpecialtyList() {
+        const that = this
+        that.$api.baseInfo.getSpecialtyList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.specialty = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      getGradeList() {
+        const that = this
+        that.$api.baseInfo.getGradeList().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.gradeInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      resetSearch() {
+        this.listQuery = {
+          page: 1,
+          size: 10,
+          name: '',
+          code: '',
+          keyword: '',
+          descs: 'id'
+        }
+      },
+      removeHandle(row) {
+        // console.log(data)
+        const that = this
+        that.$confirm('确认缴费完成吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            this.$api.admiisionPreApply.pay(row.id).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '缴费成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
+      },
+      getList() {
+        const that = this
+        this.listLoading = true
+        // console.log(that.listQuery)
+        this.$api.admiisionPreApply.list({ ...that.listQuery, ...that.pagePara }).then(res => {
+          that.pageData = res.data
+          setTimeout(() => {
+            that.listLoading = false
+          }, 200)
+        }).catch(() => {
+          that.listLoading = false
+        })
       },
     }
-  },
-  created() {
-    const that = this
-    that.getList()
-    that.getGradeList()
-    that.getSpecialtyList()
-    this.admissionSource()
-    that.getStatistics()
-  },
-  methods: {
-    handleDownload1(url) {
-      this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
-    },
-    handleDownload2(url) {
-      this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
-    },
-    handleDownload3(url) {
-      this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
-    },
-    getStatistics() {
-      let that = this
-      that.$api.statistics.getStatistics('/admiisionPreApply/preApplypageStatics', { ...that.listQuery }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          that.statisticsInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
-    },
-    admissionSource() {
-      const that = this
-      that.$api.admissionSource.listAll().then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.areaInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
-    }, getSpecialtyList() {
-      const that = this
-      that.$api.baseInfo.getSpecialtyList().then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.specialty = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
-    },
-    getGradeList() {
-      const that = this
-      that.$api.baseInfo.getGradeList().then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.gradeInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
-    },
-    resetSearch() {
-      this.listQuery = {
-        page: 1,
-        size: 10,
-        name: '',
-        code: '',
-        keyword: '',
-        descs: 'id'
-      }
-    },
-    removeHandle(row) {
-      // console.log(data)
-      const that = this
-      that.$confirm('确认删除当前记录吗?', '警告', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(async () => {
-          this.$api.admiisionPreApply.delete(row.id).then(res => {
-            if (res.code === 200) {
-              this.$message({
-                type: 'success',
-                message: '删除成功'
-              })
-              this.getList()
-            }
-          })
-        })
-        .catch(err => { console.error(err) })
-    },
-    getList() {
-      const that = this
-      this.listLoading = true
-      // console.log(that.listQuery)
-      this.$api.admiisionPreApply.list({ ...that.listQuery, ...that.pagePara }).then(res => {
-        that.pageData = res.data
-        setTimeout(() => {
-          that.listLoading = false
-        }, 200)
-      }).catch(() => {
-        that.listLoading = false
-      })
-    },
   }
-}
 </script>
 <style lang="scss" scoped>
-.right {
-  flex: 1;
+  .right {
+    flex: 1;
 
-  .title {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(51, 51, 51, 1);
-    line-height: 35px;
-    margin-bottom: 8px;
-  }
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 35px;
+      margin-bottom: 8px;
+    }
 
-  .menu-2-box {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+    .menu-2-box {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
 
-  .menu-2-item {
-    display: flex;
-    align-items: center;
-    color: #656565;
-    font-size: 12px;
-    width: 230px;
-    height: 101px;
-    background: rgb(255, 185, 129);
-    border-radius: 3px;
-    padding-left: 20px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    .menu-2-item {
+      display: flex;
+      align-items: center;
+      color: #656565;
+      font-size: 12px;
+      width: 230px;
+      height: 101px;
+      background: rgb(255, 185, 129);
+      border-radius: 3px;
+      padding-left: 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 
-    .text {
-      margin-left: 16px;
+      .text {
+        margin-left: 16px;
+      }
     }
   }
-}
 </style>

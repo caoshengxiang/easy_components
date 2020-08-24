@@ -198,7 +198,7 @@
         this.postForm.NOTICE.value = this.$refs.contentUEditor3.getUEContent()
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.globalConfig.edit({
+            this.$api.globalConfig.detail({
               key: 'sys',
               fieldValues: this.postForm
             }).then(res => {

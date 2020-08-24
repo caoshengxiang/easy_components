@@ -304,7 +304,7 @@
           if (valid) {
             if (that.$route.query.id) {
               // //编辑
-              that.$api.clbum.edit({ ...that.postForm }).then(data => {
+              that.$api.clbum.detail({ ...that.postForm }).then(data => {
                 that.loading = false
                 if (data.code === 200) {
                   this.$notify({

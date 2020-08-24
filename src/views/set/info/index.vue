@@ -324,7 +324,7 @@
       handleCreate() {
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.globalConfig.edit({
+            this.$api.globalConfig.detail({
               key: 'BASE_INFO',
               fieldValues: this.postForm
             }).then(res => {

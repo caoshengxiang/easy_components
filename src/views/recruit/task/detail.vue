@@ -293,7 +293,7 @@ export default {
             this.postForm.startTime = this.postForm.deadTime[0]
             this.postForm.endTime = this.postForm.deadTime[1]
             this.postForm.admissionIds = this.postForm.admissionIds.toString()
-            this.$api.adminssionTask.edit(this.postForm).then(res => {
+            this.$api.adminssionTask.detail(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',

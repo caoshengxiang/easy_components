@@ -839,7 +839,7 @@
                 // return
               }
               this.vloading = true
-              this.$api.menuSet.edit(tempData).then(res => {
+              this.$api.menuSet.detail(tempData).then(res => {
                 this.getMenuTreeData()
                 this.$notify({
                   title: '成功',

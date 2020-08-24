@@ -151,7 +151,7 @@ export default {
   _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
   _views_recruit_preregistration_detail: () => import('../views/recruit/preregistration/detail'), // 预报名编辑/详情
   _views_recruit_registration_list: () => import('../views/recruit/registration/list'), // 报到注册
-  _views_recruit_registration_edit: () => import('../views/recruit/registration/edit'), // 报到注册编辑/详情
+  _views_recruit_registration_detail: () => import('../views/recruit/registration/detail'), // 报到注册编辑/详情
   _views_recruit_expiration_list: () => import('../views/recruit/expiration/list'), // 预报名失效
   _views_recruit_expiration_edit: () => import('../views/recruit/expiration/edit'), // 预报名失效编辑/详情
   ...moralManage, // 德育管理界面

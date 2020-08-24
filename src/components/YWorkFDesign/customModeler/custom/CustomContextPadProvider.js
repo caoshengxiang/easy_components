@@ -40,7 +40,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
 
     function connectLineElement() {
         return {
-            group: 'edit',
+            group: 'detail.vue',
             className: 'el-icon-share',
             title: translate('连线'),
             action: {

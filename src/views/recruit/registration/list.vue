@@ -107,22 +107,22 @@
         >
           <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
         </el-select>
+        <el-input
+          v-model="listQuery.keyword"
+          placeholder="身份证、学生姓名、经办人"
+          prefix-icon="el-icon-search"
+          style="margin-left:10px;width: 250px"
+          class="filter-item"
+        />
         <el-date-picker
           v-model="dateTime"
           type="datetimerange"
           range-separator="至"
           start-placeholder="开始日期"
-          style="margin-left: 10px;width: 400px;margin-top: 10px"
+          style="width: 350px;margin-top: 10px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期"
-        />
-        <el-input
-          v-model="listQuery.keyword"
-          placeholder="身份证、学生姓名、经办人"
-          prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 150px"
-          class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
           搜索
@@ -178,7 +178,7 @@
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.gradeName }}</span>
+            <span>{{ row.administrativeGradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="姓名" align="center">
@@ -193,12 +193,12 @@
         </el-table-column>
         <el-table-column label="证件号  " align="center">
           <template slot-scope="{row}">
-            <span>{{ row.homeAddr }} </span>
+            <span>{{ row.idNo }} </span>
           </template>
         </el-table-column>
         <el-table-column label="意向专业" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.specialtyName }} </span>
+            <span>{{ row.administrativeSpecialtyName }} </span>
           </template>
         </el-table-column>
         <el-table-column label="班级类型" align="center">
@@ -208,7 +208,7 @@
         </el-table-column>
         <el-table-column label="报名时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.admissionSourceName }} </span>
+            <span>{{ row.applyTime }} </span>
           </template>
         </el-table-column>
         <el-table-column label="招生经办人" align="center">
@@ -216,21 +216,36 @@
             <span>{{ row.creatorName }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="220">
+        <el-table-column label="操作" align="center" width="300">
           <template slot-scope="{row}">
             <PermissionButton
-              menu-no="_views_recruit_preregistration_edit"
+              menu-no="_views_recruit_registration_detail"
               type="primary"
               name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
+              @click="removeHandle(row)"
               round
             />
             <PermissionButton
-              menu-no="_views_recruit_preregistration_remove"
-              type="danger"
+              menu-no="_views_recruit_registration_refund"
+              type="warning"
               name=""
               @click="removeHandle(row)"
+              round
+            />
+            <PermissionButton
+              menu-no="_views_recruit_registration_changeStudentState"
+              type="danger"
+              name=""
+              @click="changeStudentState(row)"
+              v-if="row.state === '在读'"
+              round
+            />
+            <PermissionButton
+              menu-no="_views_recruit_registration_changeStudentState1"
+              type="danger"
+              name=""
+              @click="changeStudentState1(row)"
+              v-if="row.state === '招生流失'"
               round
             />
           </template>
@@ -281,7 +296,7 @@
         total: 0,
         listLoading: false,
         listQuery: {
-         // descs: 'id'
+          // descs: 'id'
         },
         pagePara: {
           current: 0,
@@ -398,17 +413,61 @@
       removeHandle(row) {
         // console.log(data)
         const that = this
-        that.$confirm('确认删除当前记录吗?', '警告', {
+        that.$confirm('确认退费吗?', '警告', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'
         })
           .then(async () => {
-            this.$api.admiisionPreApply.delete(row.id).then(res => {
+            this.$api.admiisionPreApply.refund(row.applyId).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
-                  message: '删除成功'
+                  message: '退费成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
+      },
+      changeStudentState1(row) {
+        // console.log(data)
+        const that = this
+        that.$confirm('确认恢复正常吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            let fomm = {studentId:row.studentId,state:'在读'}
+            this.$api.admiisionPreApply.changeStudentState({...fomm}).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '操作成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
+      },
+      changeStudentState(row) {
+        // console.log(data)
+        const that = this
+        that.$confirm('确认招生流失吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            let fomm = {studentId:row.studentId,state:'招生流失'}
+            this.$api.admiisionPreApply.changeStudentState({...fomm}).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '操作成功'
                 })
                 this.getList()
               }
