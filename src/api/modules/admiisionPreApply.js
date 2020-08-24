@@ -42,4 +42,7 @@ export default {
   regApply(params){
     return request.put('student/regApply/' +  params.id, params )
   },
+  getClassTypesBySpId(params){
+    return request.put(`admiisionPreApply/getClassTypesBySpId/${params}`)
+  }
 }

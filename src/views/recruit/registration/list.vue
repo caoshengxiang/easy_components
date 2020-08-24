@@ -79,7 +79,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 150px"
         >
           <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -89,7 +89,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 150px"
         >
           <el-option v-for="item in clbumInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -97,13 +97,13 @@
           v-model="listQuery.admissionSourceId"
           placeholder="请选择生源地"
           clearable
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 150px"
           class="filter-item"
         >
           <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select v-model="listQuery.state" placeholder="是否缴费" clearable class="filter-item"
-                   style="width: 120px;padding-left: 10px"
+                   style="margin-top:3px;width: 120px;padding-left: 5px"
         >
           <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
         </el-select>
@@ -119,7 +119,7 @@
           type="datetimerange"
           range-separator="至"
           start-placeholder="开始日期"
-          style="width: 350px;margin-top: 10px"
+          style="width: 350px;margin-top: 3px;margin-left: 5px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期"
@@ -163,7 +163,7 @@
           round
           type="primary"
           name=""
-          style="margin-top: 10px"
+          style="margin-top: 3px"
           @click="handleDownload4"
         />
         <PermissionButton
@@ -172,6 +172,7 @@
           round
           type="primary"
           name=""
+          style="margin-top: 3px"
           @click="handleDownload5"
         />
       </template>

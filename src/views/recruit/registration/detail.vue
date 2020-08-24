@@ -196,7 +196,7 @@
                 <el-form-item label="专业：" prop="administrativeSpecialtyId" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item"
+                  <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业" @change="changeSpe" clearable class="filter-item"
                              style="width: 100%"
                   >
                     <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -224,7 +224,7 @@
                   <el-select v-model="postForm.classType" placeholder="班级类型" clearable class="filter-item"
                              style="width: 100%"
                   >
-                    <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
+                    <el-option v-for="item in classTypes" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -456,7 +456,8 @@
           }]
         }],
         areasls: [],
-        areas: []
+        areas: [],
+        classTypes:[]
       }
     },
     watch: {
@@ -495,6 +496,19 @@
       that.areaList()
     },
     methods: {
+      changeSpe(){
+        let that = this
+        that.$api.admiisionPreApply.getClassTypesBySpId(that.postForm.administrativeSpecialtyId).then(data => {
+          if (data.code === 200) {
+            that.classTypes = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       handleChange(e) {
         console.log(e)
       },
@@ -614,6 +628,8 @@
             if (that.postForm.countyId) {
               temp.push(that.postForm.countyId)
             }
+
+            that.changeSpe()
 
           } else {
             this.$message({

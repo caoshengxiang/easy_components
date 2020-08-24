@@ -87,7 +87,7 @@
           v-model="listQuery.keyword"
           placeholder="请输入电话或者姓名"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 150px"
+          style="margin-top:3px;margin-left:10px;width: 150px"
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
@@ -118,6 +118,7 @@
           menu-no="_views_recruit_pre_export3"
           class-name="filter-item"
           round
+          style="margin-top:3px;"
           type="primary"
           name=""
           @click="handleDownload3"
@@ -192,7 +193,7 @@
             <PermissionButton
               v-if="row.feeState == 1"
               menu-no="_views_recruit_preregistration_remove"
-              type="warning"
+              type="danger"
               name=""
               @click="removeHandle(row)"
               round
