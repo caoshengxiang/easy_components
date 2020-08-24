@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="false">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -453,7 +453,7 @@ export default {
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.admiisionPreApply.detail(this.postForm).then(res => {
+            this.$api.admiisionPreApply.edit(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',

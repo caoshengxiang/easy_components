@@ -39,4 +39,7 @@ export default {
   changeStudentState(params) {
     return request.get(`admiisionPreApply/changeStudentState`, { params: params })
   },
+  regApply(params){
+    return request.put('student/regApply/' +  params.id, params )
+  },
 }

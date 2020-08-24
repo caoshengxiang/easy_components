@@ -222,7 +222,8 @@
               menu-no="_views_recruit_registration_detail"
               type="primary"
               name=""
-              @click="removeHandle(row)"
+              :page-jump="true"
+              :page-query="{id: row.studentId}"
               round
             />
             <PermissionButton
@@ -315,13 +316,13 @@
     },
     methods: {
       handleDownload1(url) {
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
+        this.$utils.exportUtil('/admiisionPreApply/regPageStudentDetailSourceExcelExport', this.listQuery, '导出生源地详细报名信息')
       },
       handleDownload2(url) {
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
+        this.$utils.exportUtil('/admiisionPreApply/regPagDepApplyExcelExport', this.listQuery, '导出系部招生情况')
       },
       handleDownload3(url) {
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
+        this.$utils.exportUtil('/admiisionPreApply/regPageStudentDetailExcelExport', this.listQuery, '导出学生详细')
       },
       handleDownload4(url) {
         this.$utils.exportUtil('/admiisionPreApply/regPageSourceExcelExport', this.listQuery, '导出头像信息')

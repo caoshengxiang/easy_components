@@ -18,11 +18,6 @@
             </div>
             <el-row>
               <el-col :span="6">
-                <el-form-item label="学籍号：" prop="studentCode" label-width="120px" class="postInfo-container-item">
-                  <el-input v-model="postForm.studentCode" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
                 <el-form-item label="学号：" prop="studyCode" label-width="120px" class="postInfo-container-item">
                   <el-input v-model="postForm.studyCode" class="filter-item"/>
                 </el-form-item>
@@ -35,6 +30,11 @@
               <el-col :span="6">
                 <el-form-item label="姓名拼音：" prop="spell" label-width="120px" class="postInfo-container-item">
                   <el-input v-model="postForm.spell" class="filter-item"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="联系电话：" prop="mobile" label-width="120px" class="postInfo-container-item">
+                  <el-input v-model="postForm.mobile" class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -65,42 +65,9 @@
                   <el-date-picker
                     v-model="postForm.birthday"
                     type="date"
+                    style="width: 100%"
                     placeholder="出生日期"
                   />
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="联系电话：" prop="mobile" label-width="120px" class="postInfo-container-item">
-                  <el-input v-model="postForm.mobile" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="国籍/地区：" prop="country" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.country" placeholder="国籍/地区" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.国籍地区" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="港澳台侨外：" prop="compatriot" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.compatriot" placeholder="港澳台侨外" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.港澳台侨外" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="婚姻状况：" prop="maritalStatus" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.maritalStatus" placeholder="婚姻状况" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.婚姻状况" :key="item" :label="item" :value="item"/>
-                  </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -114,6 +81,39 @@
                   </el-select>
                 </el-form-item>
               </el-col>
+              <el-col :span="6">
+                <el-form-item label="政治面貌：" prop="politicsStatus" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-select v-model="postForm.politicsStatus" placeholder="政治面貌" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="健康状况：" prop="health" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.health" placeholder="健康状况" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="学生来源：" prop="studentResource" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.studentResource" placeholder="学生来源" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.学生来源" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+            </el-row>
+            <el-row>
             </el-row>
 
             <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -125,114 +125,53 @@
             </div>
             <el-row>
               <el-col :span="6">
-                <el-form-item label="联招合作类型：" prop="recruitType" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.recruitType" placeholder="联招合作类型" clearable class="filter-item"
+                <el-form-item label="招生对象：" prop="recruit" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.recruit" placeholder="招生对象" clearable class="filter-item"
                              style="width: 100%"
                   >
-                    <el-option v-for="item in AllEnum.联招合作类型" :key="item" :label="item" :value="item"/>
+                    <el-option v-for="item in AllEnum.招生对象" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="入学方式：" prop="entryType" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.entryType" placeholder="入学方式" clearable class="filter-item"
+                <el-form-item label="招生方式：" prop="recruitWay" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.recruitWay" placeholder="招生方式" clearable class="filter-item"
                              style="width: 100%"
                   >
-                    <el-option v-for="item in AllEnum.入学方式" :key="item" :label="item" :value="item"/>
+                    <el-option v-for="item in AllEnum.招生方式" :key="item" :label="item" :value="item"/>
                   </el-select>
                 </el-form-item>
               </el-col>
+
               <el-col :span="6">
-                <el-form-item label="英文姓名：" prop="englishName" label-width="120px" class="postInfo-container-item">
-                  <el-input v-model="postForm.englishName" class="filter-item"/>
+                <el-form-item label="入学年月：" prop="studyDate" label-width="120px" class="postInfo-container-item">
+                  <el-date-picker
+                    v-model="postForm.studyDate"
+                    type="date"
+                    placeholder="入学年月"
+                     style="width: 100%"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="所属派出所：" prop="belongPoliceStation" label-width="120px"
+                <el-form-item label="生源地行政区划码：" prop="sourcePlaceCode" label-width="120px" class="postInfo-container-item">
+                  <el-input v-model="postForm.sourcePlaceCode" class="filter-item"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="毕业学校：" prop="graduateSchool" label-width="120px" class="postInfo-container-item">
+                  <el-input v-model="postForm.graduateSchool" class="filter-item"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="监护人电话：" prop="memberMobile" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-input v-model="postForm.belongPoliceStation" class="filter-item"/>
+                  <el-input v-model="postForm.memberMobile" class="filter-item"/>
 
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="学生类别：" prop="cate" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.cate" placeholder="学生类别" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.学生类别" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="就读方式：" prop="studyWay" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.studyWay" placeholder="就读方式" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.就读方式" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="学习形式：" prop="studyStyle" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.学习形式" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="当前状态：" prop="state" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.state" placeholder="当前状态" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="乘火车区间：" prop="railwayRange" label-width="120px" class="postInfo-container-item">
-                  <el-input v-model="postForm.railwayRange" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="是否随迁子女：" prop="ifTrailingChildren" label-width="120px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.ifTrailingChildren" placeholder="是否随迁子女" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="分段培养方式：" prop="cultivateModel" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.cultivateModel" placeholder="分段培养方式" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.分段培养方式" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="学生类型：" prop="studentType" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.studentType" placeholder="学生类型" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-          <el-tab-pane label="班级信息" name="second">
 
             <div style="margin-bottom: 30px">
               <h3 class="title">
@@ -247,7 +186,7 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeGradeId" placeholder="年级" clearable
-                             style="margin-left:10px;" class="filter-item"
+                             style="margin-left:10px;width: 100%" class="filter-item"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
@@ -258,7 +197,7 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item"
-                             style=" width: 200px"
+                             style="width: 100%"
                   >
                     <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
@@ -270,159 +209,102 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeClbumId" placeholder="班级" clearable class="filter-item"
-                             style="width: 200px"
+                             style="width: 100%"
                   >
                     <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
 
+              <el-col :span="6">
+
+                <el-form-item label="班级类型：" prop="classType" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-select v-model="postForm.classType" placeholder="班级类型" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+
+                <el-form-item label="户口所在地行政区域划码：" prop="registerPlaceCode" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-input v-model="postForm.registerPlaceCode" class="filter-item"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+
+                <el-form-item label="户口性质：" prop="registerProperties" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-select v-model="postForm.registerProperties" placeholder="户口性质" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.户口性质" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+
+                <el-form-item label="学生居住地类型：" prop="registerAddrType" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-select v-model="postForm.registerAddrType" placeholder="学生居住地类型" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.学生居住地类型" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+
+                <el-form-item label="是否建档立卡贫困户：" prop="ifPool" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-select v-model="postForm.ifPool" placeholder="是否建档立卡贫困户" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
             </el-row>
 
             <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
                 <div class="avatar-wrapper icon-title" style="background:#FF687B">学</div>
-                <div class="icon-info">学籍班级</div>
+                <div class="icon-info">考试考试信息</div>
               </h3>
             </div>
 
             <el-row>
-              <el-col :span="6">
-                <el-form-item label="年级：" prop="schoolGradeId" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;"
-                             class="filter-item"
-                  >
-                    <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="专业：" prop="schoolSpecialtyId" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.schoolSpecialtyId" placeholder="专业" clearable class="filter-item"
-                             style=" width: 200px"
-                  >
-                    <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
-                  </el-select>
 
-                </el-form-item>
-              </el-col>
               <el-col :span="6">
-                <el-form-item label="班级：" prop="schoolClbumId" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.schoolClbumId" placeholder="班级" clearable class="filter-item"
-                             style="width: 200px"
-                  >
-                    <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-          <el-tab-pane label="生源及其他信息" name="third">
-            <div style="margin-bottom: 30px">
-              <h3 class="title">
-                <div class="avatar-wrapper icon-title" style="background:#43D6B3">户</div>
-                <div class="icon-info" style="">生源户口情况</div>
-              </h3>
-            </div>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item label="户口地址信息：" prop="countyName" label-width="250px" class="postInfo-container-item">
-                  <el-cascader
-                    :options="areasls"
-                    v-model="postForm.countyName"
-                    style="width: 100%"
-                    :props="props"
-                    @change="handleChange"
-                  />
-                  <!-- <el-input    v-model="postForm.countyName"   class="filter-item" />-->
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="籍贯地行政区划码：" prop="nativePlaceCode" label-width="250px"
+                <el-form-item label="准考证号：" prop="candidateNumber" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-input v-model="postForm.nativePlaceCode" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="出生地行政区划码：" prop="birthPlaceCode" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.birthPlaceCode" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item label="户口所在地区县以下详细地址：" prop="registerAddr" label-width="250px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.registerAddr" class="filter-item"/>
+                  <el-input v-model="postForm.candidateNumber" class="filter-item"/>
                 </el-form-item>
               </el-col>
 
-            </el-row>
+              <el-col :span="6">
+                <el-form-item label="考生号：" prop="examineeNumber" label-width="120px"
+                              class="postInfo-container-item"
+                >
+                  <el-input v-model="postForm.examineeNumber" class="filter-item"/>
+                </el-form-item>
+              </el-col>
 
-            <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
-            <div style="margin-bottom: 30px">
-              <h3 class="title">
-                <div class="avatar-wrapper icon-title" style="background:#9E9CF4">联</div>
-                <div class="icon-info">联招合作/校外教学</div>
-              </h3>
-            </div>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item label="联招合作办学形式：" prop="educationForm" label-width="250px"
+              <el-col :span="6">
+                <el-form-item label="考试总分：" prop="totalScore" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.educationForm" placeholder="联招合作办学形式" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.联招合作办学形式" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="联招合作学校代码：" prop="educationSchoolCode" label-width="250px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.educationSchoolCode" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="校外教学点：" prop="outsidePlace" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.outsidePlace" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-          <el-tab-pane label="家庭成员及监护人信息" name="fourth">
-            <div style="margin-bottom: 30px">
-              <h3 class="title">
-                <div class="avatar-wrapper icon-title" style="background:#9E9CF4">学</div>
-                <div class="icon-info">学生基本信息选填</div>
-              </h3>
-            </div>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="电子邮箱：" prop="mail" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.email" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="家庭现地址：" prop="homeAddr" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.homeAddr" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="家庭邮政编码：" prop="postCode" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.postCode" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="家庭电话：" prop="homePhone" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.homePhone" class="filter-item"/>
+                  <el-input v-model="postForm.totalScore" class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -430,214 +312,30 @@
             <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
             <div style="margin-bottom: 30px">
               <h3 class="title">
-                <div class="avatar-wrapper icon-title" style="background:#9E9CF4">家</div>
-                <div class="icon-info">学生家庭成员及监护人信息为选填项（成员1和成员2信息可以都不填写）</div>
+                <div class="avatar-wrapper icon-title" style="background:#FF687B">选</div>
+                <div class="icon-info">考生选填信息</div>
               </h3>
             </div>
             <el-row>
               <el-col :span="6">
-                <el-form-item label="成员1姓名：" prop="memberName" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberName" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1关系：" prop="memberRelationship" label-width="150px"
+                <el-form-item label="考生特长：" prop="speciality" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.memberRelationship" placeholder="成员1关系" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item"/>
-                  </el-select>
+                  <el-input v-model="postForm.speciality" class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="成员1是否监护人：" prop="memberGuardian" label-width="150px"
+                <el-form-item label="考生既往病史：" prop="pastHistory" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.memberGuardian" placeholder="成员1是否监护人" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
-                  </el-select>
+                  <el-input v-model="postForm.pastHistory" class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="成员1出生年月：" prop="memberBirthday" label-width="150px"
+                <el-form-item label="体检结论：" prop="physicalExamination" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-input v-model="postForm.memberBirthday" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="成员1证件类型：" prop="memberCertificationType" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberCertificationType" placeholder="成员1证件类型" clearable
-                             class="filter-item" style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1身份证件号：" prop="memberIdNo" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberIdNo" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1民族：" prop="memberNation" label-width="150px" class="postInfo-container-item">
-                  <el-select v-model="postForm.memberNation" placeholder="成员1民族" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1政治面貌：" prop="memberPoliticsStatus" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberPoliticsStatus" placeholder="成员1政治面貌" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="成员1电话：" prop="memberMobile" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberMobile" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1健康状况：" prop="memberHealth" label-width="150px" class="postInfo-container-item">
-                  <el-select v-model="postForm.memberHealth" placeholder="成员1健康状况" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1工作或学习单位：" prop="memberWorkUnit" label-width="170px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.memberWorkUnit" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员1职务：" prop="memberJob" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberJob" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <div style="margin-top:20px;margin-bottom:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
-
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="成员2姓名：" prop="memberName2" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberName2" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2关系：" prop="memberRelationship2" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberRelationship2" placeholder="成员2关系" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.关系" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2是否监护人：" prop="memberGuardian2" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberGuardian2" placeholder="成员2是否监护人" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2出生年月：" prop="memberBirthday2" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.memberBirthday2" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="成员2证件类型：" prop="memberCertificationType2" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberCertificationType2" placeholder="成员2证件类型" clearable
-                             class="filter-item" style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.证件类型" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2身份证件号：" prop="memberIdNo2" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberIdNo2" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2民族：" prop="memberNation2" label-width="150px" class="postInfo-container-item">
-                  <el-select v-model="postForm.memberNation2" placeholder="成员2民族" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.民族" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2政治面貌：" prop="memberPoliticsStatus2" label-width="150px"
-                              class="postInfo-container-item"
-                >
-                  <el-select v-model="postForm.memberPoliticsStatus2" placeholder="成员2政治面貌" clearable
-                             class="filter-item" style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.政治面貌" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="成员2电话：" prop="memberMobile2" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberMobile2" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2健康状况：" prop="memberHealth2" label-width="150px" class="postInfo-container-item">
-                  <el-select v-model="postForm.memberHealth2" placeholder="成员2健康状况" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.健康状况" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2工作或学习单位：" prop="memberWorkUnit2" label-width="170px"
-                              class="postInfo-container-item"
-                >
-                  <el-input v-model="postForm.memberWorkUnit2" class="filter-item"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成员2职务：" prop="memberJob2" label-width="150px" class="postInfo-container-item">
-                  <el-input v-model="postForm.memberJob2" class="filter-item"/>
+                  <el-input v-model="postForm.physicalExamination" class="filter-item"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -917,7 +615,6 @@
               temp.push(that.postForm.countyId)
             }
 
-            that.postForm.countyName = temp
           } else {
             this.$message({
               type: 'error',
@@ -931,21 +628,6 @@
       },
       save() {
         let that = this
-        if (that.postForm.countyName) {
-          that.postForm.countyId = that.postForm.countyName[2]
-          that.postForm.provinceId = that.postForm.countyName[0]
-          that.postForm.cityId = that.postForm.countyName[1]
-          that.areas.forEach(function (item) {
-            if (item.id === that.postForm.countyId) {
-              that.postForm.countyName = item.name
-            } else if (item.id === that.postForm.provinceId) {
-              that.postForm.provinceName = item.name
-            } else if (item.id === that.postForm.cityId) {
-              that.postForm.cityName = item.name
-            }
-          })
-        }
-        that.postForm.countyName = that.postForm.countyName.toString()
         this.$refs.postForm.validate(valid => {
           if (valid) {
             that.$api.student.editStudent({ ...that.postForm }).then(data => {
@@ -957,7 +639,7 @@
                 })
 
                 that.$router.push({
-                  path: '/views/baseinfo/userinfo/list',
+                  path: '/views/recruit/registration/list',
                   // query: {
                   //   menuLevel1: this.$route.query.menuLevel1,
                   //   menuId: this.$route.query.menuId,
