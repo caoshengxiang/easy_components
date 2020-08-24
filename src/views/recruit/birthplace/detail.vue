@@ -120,7 +120,7 @@ export default {
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.admissionSource.detail(this.postForm).then(res => {
+            this.$api.admissionSource.edit(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
