@@ -200,9 +200,9 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6" v-if="postForm.bsJoined">
+                  <el-col :span="6" v-show="postForm.bsJoined">
                     <el-form-item label="病情描述" prop="bsDetail" label-width="150px" class="postInfo-container-item">
-                      <el-input  type="textarea" :rows="3" maxlength="500" v-model="postForm.bsDetail" show-word-limit />
+                      <el-input  type="textarea" :rows="3" maxlength="500" v-model="postForm.bsDetail"  />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -244,9 +244,9 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6" v-if="postForm.ezJoined">
-                    <el-form-item label="二诊分数：" prop="ezSocre" label-width="150px" class="postInfo-container-item">
-                      <el-input  style="x`width: 100%" v-model="postForm.ezSocre" class="filter-item"/>
+                  <el-col :span="6" v-show="postForm.ezJoined" >
+                    <el-form-item  label="二诊分数：" prop="ezSocre" label-width="150px" class="postInfo-container-item">
+                      <el-input  style="width: 100%" v-model="postForm.ezSocre" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
@@ -259,13 +259,13 @@
                     </el-form-item>
                   </el-col>
 
-                  <el-col :span="6" v-if="postForm.zkJoined" >
+                  <el-col :span="6" v-show="postForm.zkJoined" >
                     <el-form-item label="中考分数：" prop="zkScore" label-width="150px" class="postInfo-container-item">
 
                       <el-input style="width: 100%" v-model="postForm.zkScore" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6" v-if="postForm.zkJoined" >
+                  <el-col :span="6" v-show="postForm.zkJoined" >
                     <el-form-item label="中考报名号：" prop="zkNum" label-width="150px" class="postInfo-container-item">
                       <el-input   style="width: 100%" v-model="postForm.zkNum" class="filter-item"/>
                     </el-form-item>
