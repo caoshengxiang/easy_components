@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
+    <y-detail-page-layout @save="save" :editStatus.sync="editStatus" :form.sync="form" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="新增社团" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
@@ -28,7 +28,7 @@
                   <service-select
                     v-model="form.principalName"
                     name="name"
-                    field="id"
+                    field="name"
                     :data-service="$api.staff.stafflist"
                     placeholder="负责人"
                     clearable
@@ -71,7 +71,7 @@
               <el-col :span="24">
                 <el-form-item label="社团职务：" prop="clubDutyList">
                   <template v-for="(job, index) in form.clubDutyList">
-                    <el-row :key="index" class="job-row">
+                    <el-row :key="index" :class="{ 'detail-job-row': !editStatus, 'job-row': true }">
                       <el-col :span="18">
                         <el-input v-model="job.name" />
                       </el-col>
@@ -103,7 +103,7 @@
 </template>
 
 <script>
-  import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import YDetailPageLayout from '@/components/YDetailPageLayout/ext'
   import ServiceSelect from '@/components/ServiceSelect'
   import Breadcrumb from '@/components/Breadcrumb'
 
@@ -155,12 +155,12 @@
       // 详情
       getData() {
         if (this.detailInfo) {
-          this.form = this.detailInfo
+          this.form = Object.assign({ removeDutyIds: [] }, this.detailInfo);
         } else if (this.$route.query.id) {
           this.loading = true;
           this.$api.LACommunityManage.detail(this.$route.query.id)
             .then(res => {
-              this.form = res.data;
+              this.form = Object.assign({ removeDutyIds: [] }, res.data);
               this.$nextTick(function() {
                 this.editStatus = false;
                 this.loading = false;
@@ -206,10 +206,10 @@
       },
       // 删除职位
       removeJob(job, index) {
-        this.form.clubDutyList.splice(index, 1);
         if (job.id) {
           this.form.removeDutyIds.push(job.id);
         }
+        this.form.clubDutyList.splice(index, 1);
       }
     }
   };
@@ -221,6 +221,9 @@
     margin: auto;
     .job-row {
       margin: 12px 0;
+    }
+    .detail-job-row {
+      margin: 0;
     }
   }
 </style>

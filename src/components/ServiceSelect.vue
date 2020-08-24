@@ -56,7 +56,7 @@
        * 默认查询
        */
       defaultQuery: {
-        type: Object,
+        type: [Object, Number, String, Array],
         default: null
       },
       /**
@@ -74,7 +74,7 @@
         default: 'value'
       },
       /**
-       * 是否每次打开下拉框都请求数据
+       * true 每次打开下拉面板都请求数据  false 组件渲染时请求一次数据
        */
       immediate: {
         type: Boolean,
