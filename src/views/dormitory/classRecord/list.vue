@@ -264,7 +264,7 @@
         })
       },
       exportClassRecord() {
-        this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel()
+        this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })
       },
     }
   }
