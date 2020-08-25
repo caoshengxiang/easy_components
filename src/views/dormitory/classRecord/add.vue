@@ -33,7 +33,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="考核周数：" prop="week">
-              <el-select v-model="postForm.weeks" placeholder="请选择" style="width: 300px">
+              <el-select multiple v-model="postForm.weeks" placeholder="请选择" style="width: 300px">
                 <el-option v-for="item in weeksOptions" :key="item" :label="item"
                            :value="item"
                 />
@@ -72,7 +72,7 @@
         postForm: {
           year: '',
           time: '',
-          weeks: '',
+          weeks: [],
           termId: '',
         },
         rules: {
@@ -161,6 +161,7 @@
         } else { // 新增
           this.$refs.postForm.validate(valid => {
             if (valid) {
+              this.postForm.weeks = this.postForm.weeks.join()
               this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentListAdd(this.postForm).then(res => {
                 if (res.code === 200) {
                   this.$notify({
