@@ -6,6 +6,14 @@
         </div>
         <div class="y-right">
           <slot name="right"></slot>
+          <el-dropdown trigger="click" v-show="showExportBox">
+            <el-button type="primary" round>
+              导出<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <div class="y-page-list-export-box" ref="exportBtnBox"></div>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
       <template>
@@ -41,7 +49,29 @@
 
           }
         }
-      }
+      },
+      data(){
+          return{
+            showExportBox:false
+          }
+      },
+      mounted(){
+          const that = this
+        let exportCount = 0
+        that.$slots.right.forEach(function (item) {
+          if (item.elm.innerText.indexOf('导出') > -1) {
+            exportCount++
+          }
+        })
+        if (exportCount > 1){
+          that.$slots.right.forEach(function (item) {
+            if (item.elm.innerText.indexOf('导出') > -1) {
+              that.$refs.exportBtnBox.append(item.elm)
+            }
+          })
+          that.showExportBox = true
+        }
+      },
     }
 </script>
 <style lang="scss">
@@ -56,6 +86,9 @@
         }
       }
     }
+  }
+  .y-page-list-export-box{
+    padding: 15px;
   }
 </style>
 <style lang="scss" scoped>
