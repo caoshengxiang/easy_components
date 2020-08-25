@@ -55,20 +55,11 @@
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
-        <PermissionButton
-          menu-no="_views_recruit_preregistration_detail"
-          class-name="filter-item"
-          type="primary"
-          icon="el-icon-plus"
-          name=""
-          :page-jump="true"
-          round
-        />
         <el-select
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
-          style="width: 150px"
+          style="width: 120px"
           class="filter-item"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -79,7 +70,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:5px;width: 150px"
+          style="margin-left:5px;width: 120px"
         >
           <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -89,7 +80,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:5px;width: 150px"
+          style="margin-left:5px;width: 120px"
         >
           <el-option v-for="item in clbumInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -97,7 +88,7 @@
           v-model="listQuery.admissionSourceId"
           placeholder="请选择生源地"
           clearable
-          style="margin-left:5px;width: 150px"
+          style="margin-left:5px;width: 130px"
           class="filter-item"
         >
           <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -111,7 +102,7 @@
           v-model="listQuery.keyword"
           placeholder="身份证、学生姓名、经办人"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 250px"
+          style="margin-left:10px;width: 200px"
           class="filter-item"
         />
         <el-date-picker
@@ -119,7 +110,7 @@
           type="datetimerange"
           range-separator="至"
           start-placeholder="开始日期"
-          style="width: 350px;margin-top: 3px;margin-left: 5px"
+          style="width: 250px;margin-top: 3px;margin-left: 5px"
           class="filter-item"
           value-format="yyyy-MM-dd HH:mm:ss"
           end-placeholder="结束日期"
@@ -131,8 +122,6 @@
           重置
         </el-button>
 
-      </template>
-      <template slot="right" style="float: right">
         <PermissionButton
           menu-no="_views_recruit_reg_export1"
           class-name="filter-item"
@@ -176,6 +165,7 @@
           @click="handleDownload5"
         />
       </template>
+
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
@@ -409,7 +399,7 @@
         })
       },
       resetSearch() {
-        this.listQuery = { descs: 'id' }
+        this.listQuery = {}
         this.dateTime = []
         this.getList()
       },

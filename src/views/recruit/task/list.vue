@@ -11,7 +11,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/a1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsInfo.totalTasks }}</span>人</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.totalTasks }}</span>条</div>
             <div class="analysis-text-small">当前年份招生任务总条数</div>
           </div>
         </div>
@@ -234,6 +234,7 @@ export default {
                 message: '删除成功'
               })
               this.getList()
+              this.getStatistics()
             }
           })
         })

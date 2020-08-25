@@ -255,6 +255,7 @@
                   message: '删除成功'
                 })
                 this.getList()
+                that.getStatistics()
               }
             })
           })
