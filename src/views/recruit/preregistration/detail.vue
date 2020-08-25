@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="false">
+    <y-detail-page-layout @save="handleCreate" :edit-status="true">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -35,7 +35,7 @@
                           <el-date-picker
                             v-model="postForm.birthday"
                             type="date"
-                            value-format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd HH:mm:ss"
                             placeholder="出生日期"
                             style="width:100%"
                           />
