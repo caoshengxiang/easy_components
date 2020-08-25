@@ -151,7 +151,7 @@
             that.postForm.leaderName = that.staff.find(m => m.id === that.postForm.leaderId).name
             if (that.$route.query.id) {
               // //编辑
-              that.$api.department.detail({ ...that.postForm }).then(data => {
+              that.$api.department.edit({ ...that.postForm }).then(data => {
                 that.loading = false
                 if (data.code === 200) {
                   this.$notify({

@@ -318,7 +318,7 @@
       updateData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            this.$api.organization.detail(this.temp).then(res => {
+            this.$api.organization.edit(this.temp).then(res => {
               if (res.code === 200) {
                 this.dialogFormVisible = false
                 this.$notify({

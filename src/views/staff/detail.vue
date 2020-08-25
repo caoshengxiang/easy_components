@@ -1655,7 +1655,7 @@
         this.$refs.postForm.validate(valid => {
           if (valid) {
             if (this.dataId) {
-              this.$api.staff.detail(Object.assign({}, this.postForm, {
+              this.$api.staff.edit(Object.assign({}, this.postForm, {
                 delTeacherPracticeProjects: this.delTeacherPracticeProjects,
                 delTeacherPatents: this.delTeacherPatents,
                 delTeacherAwards: this.delTeacherAwards,

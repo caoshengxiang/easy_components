@@ -163,7 +163,7 @@
           del: this.delArr
         }
         // console.log(this.pageData.records, this.pageData.records.concat(this.delArr))
-        this.$api.termCourseSchedule.detail({
+        this.$api.termCourseSchedule.edit({
           id: this.$route.query.id,
           list: this.pageData.records.concat(this.delArr)
         }).then(res => {

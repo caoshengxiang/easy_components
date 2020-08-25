@@ -241,7 +241,7 @@
         //   postId: this.$route.query.id,
         //   permissionTree: JSON.stringify(this.treeData)
         // }))
-        this.$api.postAuth.detail({
+        this.$api.postAuth.edit({
           postId: this.$route.query.id,
           permissionTree: JSON.stringify(this.treeData)
         }).then(res => {
