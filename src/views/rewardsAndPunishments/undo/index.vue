@@ -5,25 +5,24 @@
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
-        <el-select
+        <service-select
           v-model="listQuery.specialtyId"
+          name="name"
+          field="id"
+          :data-service="$api.baseInfo.getSpecialtyList"
           placeholder="专业"
+          style="margin-left: 10px;width: 160px"
           clearable
-          class="filter-item"
-          style=" margin-left:10px;width: 120px"
-          @change="getClbumList"
-        >
-          <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
-        </el-select>
-        <el-select
+        />
+        <service-select
           v-model="listQuery.clbumId"
+          name="name"
+          field="id"
+          :data-service="$api.baseInfo.getClbumList"
           placeholder="班级"
+          style="margin-left: 10px;width: 160px"
           clearable
-          class="filter-item"
-          style="margin-left:10px;width: 120px"
-        >
-          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
-        </el-select>
+        />
         <el-select
           v-model="listQuery.oper"
           placeholder="奖/惩"
@@ -102,7 +101,7 @@
         </el-table-column>
         <el-table-column label="撤销文件" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button round @click="openLinkUrl('dfs/'+row.cancelFile)">下载</el-button>
+            <el-button round @click="openLinkUrl('/dfs'+row.cancelFile)">下载</el-button>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="180">
@@ -125,6 +124,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
+  import ServiceSelect from '@/components/ServiceSelect'
 
   export default {
     name: 'RewardsAndPunishmentsCancelRecordList',
@@ -152,13 +152,11 @@
     created() {
       const that = this
       that.getList()
-      that.getGradeList()// 筛选框年级
-      that.getSpecialtyList()
-      that.getClbumList()
       that.getAllEnum()
     },
     components: {
       Breadcrumb,
+      ServiceSelect
     },
     methods: {
       openLinkUrl(url) {
@@ -166,51 +164,6 @@
       },
       exportClassRecord() {
         this.$api.rewardsAndPunishments.downloadRewardsPunishmentCancel({ ...this.pagePara, ...this.listQuery })
-      },
-      getGradeList() {
-        const that = this
-        that.$api.baseInfo.getGradeList().then(data => {
-          if (data.code === 200) {
-            // 返回成功
-            that.classInfo = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      getSpecialtyList() {
-        const that = this
-        that.$api.baseInfo.getSpecialtyList().then(data => {
-          if (data.code === 200) {
-            // 返回成功
-            that.majorInfo = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      getClbumList() {
-        const that = this
-        that.$api.baseInfo.getClbumList({
-          gradeId: that.listQuery.gradeId,
-          specialtyId: that.listQuery.specialtyId
-        }).then(data => {
-          if (data.code === 200) {
-            // 返回成功
-            that.gradeInfo = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
       },
       getAllEnum() {
         const that = this
