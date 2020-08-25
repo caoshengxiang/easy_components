@@ -173,7 +173,7 @@
       allowFileTypes: {
         type: String,
         required: false,
-        default: ".jpg|.jpeg|.gif|.png|.rar|.pdf|.txt|.DOC|.DOCX|.XLS|.XLSX|.PPT|.PPTX|.mp4"
+        default: ".jpg|.jpeg|.png"
       },
       //缩略图大小（宽高 例如：100x100）(本项目不支持)
       thumbnailSize: {

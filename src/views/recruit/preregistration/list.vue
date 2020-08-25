@@ -59,7 +59,7 @@
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 120px"
           class="filter-item"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -70,7 +70,7 @@
           placeholder="请选择专业"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 120px"
         >
           <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -78,22 +78,22 @@
           v-model="listQuery.admissionSourceId"
           placeholder="请选择生源地"
           clearable
-          style="margin-left:10px;width: 150px"
+          style="margin-left:5px;width: 130px"
           class="filter-item"
         >
           <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-input
           v-model="listQuery.keyword"
-          placeholder="请输入电话或者姓名"
+          placeholder="电话或姓名"
           prefix-icon="el-icon-search"
-          style="margin-top:3px;margin-left:10px;width: 150px"
+          style="margin-top:3px;margin-left:5px;width: 150px"
           class="filter-item"
         />
-        <el-button class="filter-item" style="margin-left: 10px;" type="primary" round @click="getList">
+        <el-button class="filter-item" style="margin-left: 5px;" type="primary" round @click="getList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="resetSearch()">
+        <el-button class="filter-item"  style="margin-left:5px" round type="warning" @click="resetSearch()">
           重置
         </el-button>
       </template>
@@ -104,6 +104,7 @@
           round
           type="primary"
           name=""
+          style="margin-left:5px"
           @click="handleDownload1"
         />
         <PermissionButton
@@ -112,13 +113,14 @@
           round
           type="primary"
           name=""
+          style="margin-left:5px"
           @click="handleDownload2"
         />
         <PermissionButton
           menu-no="_views_recruit_pre_export3"
           class-name="filter-item"
           round
-          style="margin-top:3px;"
+          style="margin-left:5px;margin-top:3px;"
           type="primary"
           name=""
           @click="handleDownload3"
