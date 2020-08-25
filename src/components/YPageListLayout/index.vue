@@ -57,19 +57,21 @@
       },
       mounted(){
           const that = this
-        let exportCount = 0
-        that.$slots.right.forEach(function (item) {
-          if (item.elm.innerText.indexOf('导出') > -1) {
-            exportCount++
-          }
-        })
-        if (exportCount > 1){
+        if (that.$slots.right && that.$slots.right.length > 0){
+          let exportCount = 0
           that.$slots.right.forEach(function (item) {
             if (item.elm.innerText.indexOf('导出') > -1) {
-              that.$refs.exportBtnBox.append(item.elm)
+              exportCount++
             }
           })
-          that.showExportBox = true
+          if (exportCount > 1){
+            that.$slots.right.forEach(function (item) {
+              if (item.elm.innerText.indexOf('导出') > -1) {
+                that.$refs.exportBtnBox.append(item.elm)
+              }
+            })
+            that.showExportBox = true
+          }
         }
       },
     }

@@ -160,7 +160,14 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="毕业学校：" prop="graduateSchool" label-width="120px" class="postInfo-container-item">
-                  <el-input v-model="postForm.graduateSchool" class="filter-item"/>
+                  <el-select
+                    v-model="postForm.graduateSchool"
+                    placeholder="生源地"
+                    clearable
+                    class="filter-item"
+                  >
+                    <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                  </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -367,6 +374,7 @@
     },
     data() {
       return {
+        areaInfo:[],
         editStatus: true,
         props: {
           label: 'name',
@@ -494,8 +502,25 @@
       that.getClbumList()
       that.getAllEnum()
       that.areaList()
+      that.admissionSource()
     },
     methods: {
+
+      admissionSource() {
+        const that = this
+        that.$api.admissionSource.listAll().then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.areaInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       changeSpe(){
         let that = this
         that.$api.admiisionPreApply.getClassTypesBySpId(that.postForm.administrativeSpecialtyId).then(data => {
