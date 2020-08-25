@@ -149,6 +149,7 @@
                         clearable
                         class="filter-item"
                         style="width: 100%"
+                        @change="changeSpe"
                       >
                         <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
@@ -163,7 +164,7 @@
                         class="filter-item"
                         style="width: 100%"
                       >
-                        <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in classTypes" :key="item" :label="item" :value="item"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -303,6 +304,7 @@ export default {
   },
   data() {
     return {
+      classTypes:[],
       opt2: [{
         key: 1,
         label: '有病史'
@@ -377,6 +379,19 @@ export default {
     that.getAreaList()
   },
   methods: {
+    changeSpe(){
+      let that = this
+      that.$api.admiisionPreApply.getClassTypesBySpId(that.postForm.administrativeSpecialtyId).then(data => {
+        if (data.code === 200) {
+          that.classTypes = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     getAreaList() {
       const that = this
       that.$api.admissionSource.listAll().then(data => {
