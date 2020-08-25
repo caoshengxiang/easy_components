@@ -138,6 +138,7 @@
         },
         listQuery: {
           descs: 'id',
+          type: this.$route.query.type
         },
         /*dialog*/
         dialogFormVisible: false,

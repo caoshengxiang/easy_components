@@ -58,7 +58,7 @@
               <!--              {{ row.disciplineScore }}-->
               <router-link tag="a" :to="{path:'/views/dormitory/dormitoryCheck/checkRecord',query:{id: row.id,dormitoryWeeklyAssessmentId: $route.query.id,type: '纪律考核'}}"
                            class="routerWork"
-              >{{ row.dormScore }}</router-link>
+              >{{ row.disciplineScore }}</router-link>
             </span>
           </template>
         </el-table-column>

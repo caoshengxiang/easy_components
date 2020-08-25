@@ -15,24 +15,24 @@
             label-width="140px"
           >
             <el-form-item label="考核次数：" prop="time">
-              <el-input v-model.number="postForm.time" type="number" style="width: 300px;"/>
+              <el-input v-model.number="postForm.time" min="1" type="number" style="width: 300px;"/>
             </el-form-item>
 
-            <el-form-item label="学期：">
+            <el-form-item label="学期：" prop="termId">
               <el-select v-model="postForm.termId" placeholder="请选择" style="width: 300px" @change="getWeeks">
                 <el-option v-for="item in termOptions" :key="item.id" :label="item.name"
                            :value="item.id"
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="年份：" prop="week">
+            <el-form-item label="年份：" prop="year">
               <el-select v-model="postForm.year" placeholder="请选择" style="width: 300px" @change="getWeeks">
                 <el-option v-for="item in yearsOptions" :key="item" :label="item"
                            :value="item"
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="考核周数：" prop="week">
+            <el-form-item label="考核周数：" prop="weeks">
               <el-select multiple v-model="postForm.weeks" placeholder="请选择" style="width: 300px">
                 <el-option v-for="item in weeksOptions" :key="item" :label="item"
                            :value="item"
