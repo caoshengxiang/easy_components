@@ -116,7 +116,7 @@
         //上传文件配置属性
         uploadConfig: {
           loading: false,
-          prefixServerFileUrl: "/dfs",//this.$config.prefixServerFileUrl,
+          prefixServerFileUrl: "",//this.$config.prefixServerFileUrl,
           uploadFileApiUrl: process.env.VUE_APP_BASE_API + 'upload',//this.$config.uploadFileApiUrl,
           previewImageUrl: "",
           succeedFileList: [],

@@ -311,9 +311,9 @@
       save() {
         const that = this
         if (that.$refs.cancelFile.getFileList().length === 0 ) {
-          that.postForm.cancelFile = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+          that.postForm.cancelFile = ''//that.$refs.uploadCourseChapter1.getFileList()[0].url
         } else {
-          that.postForm.cancelFile = that.$refs.cancelFile.getFileList()[0].fileName
+          that.postForm.cancelFile = that.$refs.cancelFile.getFileList()[0].url
         }
         that.$refs.postForm.validate(valid => {
           if (valid) {

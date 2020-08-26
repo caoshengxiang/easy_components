@@ -308,9 +308,9 @@
       save() {
         const that = this
         if (that.$refs.attachment.getFileList().length === 0 ) {
-          that.postForm.attachment = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName
+          that.postForm.attachment = ''//that.$refs.uploadCourseChapter1.getFileList()[0].url
         } else {
-          that.postForm.attachment = that.$refs.attachment.getFileList()[0].fileName
+          that.postForm.attachment = that.$refs.attachment.getFileList()[0].url
         }
 
         that.$refs.postForm.validate(valid => {

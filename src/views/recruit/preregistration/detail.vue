@@ -463,7 +463,7 @@ export default {
       if (that.$refs.uploadCourseChapter.getFileList().length === 0) {
         that.postForm.avatar = ''
       } else {
-        that.postForm.avatar = that.$refs.uploadCourseChapter.getFileList()[0].fileName
+        that.postForm.avatar = that.$refs.uploadCourseChapter.getFileList()[0].url
       }
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {

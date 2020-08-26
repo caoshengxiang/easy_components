@@ -515,11 +515,11 @@
         if (that.$refs.uploadCourseChapter1.getFileList().length == 0 || that.$refs.uploadCourseChapter2.getFileList().length == 0) {
           //that.$message.error('请上传图片!')
           //  return
-          that.postForm.planGraph = ''//that.$refs.uploadCourseChapter1.getFileList()[0].fileName
-          that.postForm.pic = ''// that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+          that.postForm.planGraph = ''//that.$refs.uploadCourseChapter1.getFileList()[0].url
+          that.postForm.pic = ''// that.$refs.uploadCourseChapter2.getFileList()[0].url
         } else {
-          that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].fileName
-          that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].fileName
+          that.postForm.planGraph = that.$refs.uploadCourseChapter1.getFileList()[0].url
+          that.postForm.pic = that.$refs.uploadCourseChapter2.getFileList()[0].url
         }
 
         that.$refs.postForm.validate(valid => {
