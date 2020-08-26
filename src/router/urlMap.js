@@ -72,6 +72,8 @@ import _views_workflow_task_MyTaskList from '@/views/workflow/task/MyTaskList'
 /*二期*/
 import _views_baseinfo_userinfo6_list from '../views/baseinfo/userinfo6/list'
 import _views_baseinfo_userinfo6_detail from '../views/baseinfo/userinfo6/detailInfo'
+import _views_student_grant_list from '../views/student/grant/list'
+import _views_student_grant_detail from '../views/student/grant/detail'
 import _views_recruit_plan_list from '@/views/recruit/plan/list'
 import _views_recruit_plan_detail from '@/views/recruit/plan/detail'
 import moralManage from './urlMapModules/moralManage'
@@ -143,6 +145,8 @@ export default {
   _views_dormitory_classRecord_list_add: () => import('../views/dormitory/classRecord/add'), // 班级考核记录
   _views_baseinfo_userinfo6_list, // 六类学生
   _views_baseinfo_userinfo6_detail, // 六类学生打印
+  _views_student_grant_list, // 助学金
+  _views_student_grant_detail, // 助学金详情
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
   _views_recruit_birthplace_detail: () => import('../views/recruit/birthplace/detail'), // 生源地编辑/详情
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划

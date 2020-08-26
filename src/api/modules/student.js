@@ -8,6 +8,9 @@ export default {
   getList(params){
     return request.get('system/user/info/front', { params: params })
   },
+  getStudentList(params){
+    return request.get('/student/list', { params: params })
+  },
   getDetail(params) {
     return request.get('/student/'+ params)
   },
