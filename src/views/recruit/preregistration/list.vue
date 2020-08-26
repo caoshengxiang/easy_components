@@ -258,12 +258,41 @@
     },
     methods: {
       handleDownload1(url) {
+
+        if(!this.listQuery.administrativeGradeId){
+
+          this.$message({
+            type: 'info',
+            message: '请先选择年级'
+          })
+
+          return
+        }
         this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
       },
       handleDownload2(url) {
+
+        if(!this.listQuery.administrativeGradeId){
+
+          this.$message({
+            type: 'info',
+            message: '请先选择年级'
+          })
+
+          return
+        }
         this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
       },
       handleDownload3(url) {
+
+        if(!this.listQuery.administrativeGradeId){
+          this.$message({
+            type: 'info',
+            message: '请先选择年级'
+          })
+
+          return
+        }
         this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
       },
       getStatistics() {

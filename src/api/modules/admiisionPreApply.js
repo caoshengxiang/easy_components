@@ -43,6 +43,6 @@ export default {
     return request.put('student/regApply/' +  params.id, params )
   },
   getClassTypesBySpId(params){
-    return request.put(`admiisionPreApply/getClassTypesBySpId/${params}`)
+    return request.get(`admiisionPreApply/getClassTypesBySpId/${params}`)
   }
 }
