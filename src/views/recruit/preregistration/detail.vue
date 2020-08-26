@@ -454,6 +454,8 @@ export default {
       if (this.dataId) {
         this.$api.admiisionPreApply.detail(this.dataId).then(res => {
           this.postForm = res.data
+
+          this.changeSpe()
         })
       }
     },
