@@ -57,7 +57,7 @@
         <el-table-column label="团支部" prop="leagueName" min-width="120" />
         <el-table-column label="收支类型" prop="fee" min-width="120" />
         <el-table-column label="金额" prop="amount" min-width="120" />
-        <el-table-column label="时间" align="center" prop="occurTime" min-width="140" />
+        <el-table-column label="时间" align="center" prop="occurTime" min-width="180" />
         <el-table-column label="备注" prop="remark" min-width="180" />
         <el-table-column label="创建时间" align="center" prop="createDate" minx-width="180" />
         <el-table-column label="创建人" prop="creator" min-width="120" />

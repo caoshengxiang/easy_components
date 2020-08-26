@@ -39,7 +39,7 @@
               </el-col>
               <el-col :span="24">
                 <el-form-item label="时间：" prop="occurTime">
-                  <el-date-picker v-model="form.occurTime" value-format="yyyy-MM-dd" />
+                  <el-date-picker v-model="form.occurTime" value-format="yyyy-MM-dd HH:mm:ss" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
@@ -79,11 +79,9 @@
       return {
         loading: false,
         editStatus: true,
-        form: {
-          jobs: ['']
-        },
+        form: {},
         rules: {
-          branchName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
+          leagueName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
           cate: [{ required: true, message: '请输入收支', trigger: 'change' }],
           amount: [
             { required: true, message: '请输入金额', trigger: 'blur' },
