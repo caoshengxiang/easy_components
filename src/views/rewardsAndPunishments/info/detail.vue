@@ -69,10 +69,11 @@
                     <el-form-item label="附件：" prop="attachment" label-width="120px" class="postInfo-container-item ">
                       <fileUpload
                         :limit="1"
-                      :fileList="[{path:postForm.attachment}]"
-                      ref="attachment"
-                      :styleType="2"
-                      v-if="!loading"/>
+                        :fileList="[{path:postForm.attachment}]"
+                        ref="attachment"
+                        allowFileTypes=".docx|.doc|.xlsx|.xls"
+                        :styleType="2"
+                        v-if="!loading"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">

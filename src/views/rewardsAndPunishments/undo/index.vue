@@ -101,7 +101,15 @@
         </el-table-column>
         <el-table-column label="撤销文件" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button round @click="openLinkUrl('/dfs'+row.cancelFile)">下载</el-button>
+<!--            <el-button round @click="openLinkUrl(row.cancelFile)">下载</el-button>-->
+            <PermissionButton
+              menu-no="_views_rewardsAndPunishments_undo_download"
+              class-name="filter-item"
+              round
+              size="mini"
+              name=""
+              @click="openLinkUrl(row.cancelFile)"
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="180">

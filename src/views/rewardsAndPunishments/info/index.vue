@@ -109,7 +109,15 @@
         </el-table-column>
         <el-table-column label="奖惩文件" class-name="status-col" width="100px">
           <template slot-scope="{row}">
-            <el-button round @click="openLinkUrl('/dfs'+row.attachment)">下载</el-button>
+<!--            <el-button round @click="openLinkUrl(row.attachment)">下载</el-button>-->
+            <PermissionButton
+              menu-no="_views_rewardsAndPunishments_info_download"
+              class-name="filter-item"
+              round
+              size="mini"
+              name=""
+              @click="openLinkUrl(row.attachment)"
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="180">
@@ -175,6 +183,7 @@
     },
     methods: {
       openLinkUrl(url) {
+        console.log(url)
         location.href = url;
       },
       exportClassRecord() {
