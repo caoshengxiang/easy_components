@@ -66,6 +66,7 @@
                         flag="routineWork"
                         :multiple="true"
                         :styleType="2"
+                        allowFileTypes=".docx|.doc|.xlsx|.xls"
                         v-if="!loading"/>
                     </el-form-item>
                   </el-col>
