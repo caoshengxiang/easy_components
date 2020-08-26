@@ -2,9 +2,9 @@ const scpClient = require('scp2')
 const ora = require('ora')
 const chalk = require('chalk')
 const serverList = require('./config')
-const spinner = ora('正在发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + '服务器...')
-spinner.start()
 let server = process.env.NODE_ENV === 'prod' ? serverList[1] : serverList[0]
+const spinner = ora('正在发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + `服务器(${server.host})...`)
+spinner.start()
 scpClient.scp(
   'dist/',
   {

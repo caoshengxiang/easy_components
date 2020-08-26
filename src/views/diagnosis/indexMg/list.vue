@@ -129,11 +129,58 @@
 
         <el-table-column label="操作">
           <template slot-scope="{row}">
-            <el-button round type="primary">编辑</el-button>
+            <el-button round type="primary" @click="editHandle">编辑</el-button>
           </template>
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
+    <el-dialog
+      width="600px"
+      title="菜单编辑"
+      :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
+    >
+      <el-form
+        ref="dataForm"
+        label-position="right"
+        label-width="120px"
+        style="width: 400px; margin-left:50px;"
+      >
+<!--        <el-form-item label="部门代码：" prop="code">-->
+<!--          <el-input v-model="temp.code" class="filter-item"/>-->
+
+<!--        </el-form-item>-->
+<!--        <el-form-item label="部门名称：" prop="name">-->
+<!--          <el-input v-model="temp.name" class="filter-item"/>-->
+<!--        </el-form-item>-->
+
+<!--        <el-form-item label="上级部门：" filterable prop="">-->
+<!--          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">-->
+<!--            <el-option-->
+<!--              v-for="item in partOptions"-->
+<!--              :key="item.id"-->
+<!--              :label="item.name"-->
+<!--              :value="item.id"-->
+<!--            />-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+
+<!--        <el-form-item label="联系电话：">-->
+<!--          <el-input v-model="temp.phone" class="filter-item"/>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="">-->
+<!--          <el-button @click="dialogFormVisible = false">-->
+<!--            取消-->
+<!--          </el-button>-->
+<!--          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">-->
+<!--            保存-->
+<!--          </el-button>-->
+<!--        </el-form-item>-->
+      </el-form>
+      <!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
+      <!--        -->
+      <!--      </div>-->
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -157,7 +204,8 @@
           descs: 'id',
           level1: '',
         },
-        indexOptions: []
+        indexOptions: [],
+        dialogFormVisible: false,
       }
     },
     created() {
@@ -194,7 +242,10 @@
         console.log(val, '选择')
         // console.log(this.$refs.multipleTable.$refs.table)
         // console.log(this.$refs.multipleTable.testMethods())
-      }
+      },
+      editHandle() {
+        this.dialogFormVisible = true
+      },
       // exportClassRecord() {
       //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })
       // },
