@@ -1,5 +1,6 @@
 <template>
   <el-table
+    ref="table"
     slot="table"
     size="medium"
     :data="data"
@@ -23,7 +24,7 @@
           return []
         },
         require: true
-      }
+      },
     },
     computed: {
       maxHeight() {
@@ -34,7 +35,7 @@
     methods: {
       selectionChange(val) {
         this.$emit('selectionChange', val)
-      }
+      },
     }
   }
 </script>

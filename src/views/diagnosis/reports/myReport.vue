@@ -19,16 +19,30 @@
     <!--    </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
+        <el-select v-model="listQuery.level1" style="width: 140px;" clearable filterable
+                   placeholder="调研年份" class="filter-item"
+        >
+          <!--          <el-option-->
+          <!--            v-for="item in yearsOptions"-->
+          <!--            :key="item.id"-->
+          <!--            :label="item.name"-->
+          <!--            :value="item.name"-->
+          <!--          />-->
+        </el-select>
+        <el-button class="filter-item" type="success" round style="margin-left: 10px;">
+          新建
+        </el-button>
+        <span style="color: #cccccc;font-size: 12px;margin-left: 3px;">新建年报默认填入上一年的数据！</span>
       </template>
       <template slot="right">
         <!--导出-->
-<!--        <PermissionButton-->
-<!--          menu-no="_views_dormitory_classRecord_export"-->
-<!--          class-name="filter-item"-->
-<!--          @click="exportClassRecord"-->
-<!--          type="primary"-->
-<!--          round-->
-<!--        />-->
+        <!--        <PermissionButton-->
+        <!--          menu-no="_views_dormitory_classRecord_export"-->
+        <!--          class-name="filter-item"-->
+        <!--          @click="exportClassRecord"-->
+        <!--          type="primary"-->
+        <!--          round-->
+        <!--        />-->
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
         <el-table-column label="年份" prop="id" align="center" width="150">
@@ -38,44 +52,38 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="次数" width="150px" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.time }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="专业" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyName }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="年级" align="center">
-          <template slot-scope="{row}">
-            <span>
-              {{ row.administrativeGradeName }}
-            </span>
-          </template>
+        <el-table-column label="年报" align="center">
+          <el-table-column label="完成进度" align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.time }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="生成报告" align="center">
+            <template slot-scope="{row}">
+              <el-button type="text">生成</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="下载报告" align="center">
+            <template slot-scope="{row}">
+              <el-button type="text">下载</el-button>
+            </template>
+          </el-table-column>
         </el-table-column>
         <el-table-column label="班级" align="center">
           <template slot-scope="{row}">
             <span>{{ row.administrativeClbumName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="班主任">
+        <el-table-column label="创建人" align="center">
           <template slot-scope="{row}">
             <span>{{ row.headTeacherName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="联系电话" align="center">
+        <el-table-column label="时间" align="center">
           <template slot-scope="{row}">
             <span>{{ row.mobile }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="本次得分" class-name="status-col">
-          <template slot-scope="{row}">
-            <span>{{ row.score }}</span>
-          </template>
-        </el-table-column>
-        <!--    </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -84,7 +92,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
-    name: 'ViewsDiagnosisAlertList',
+    name: 'ViewsDiagnosisMyReport',
     components: {
       Breadcrumb,
     },
@@ -113,20 +121,20 @@
         that.getList()
       },
       getList() {
-        const that = this
-        that.listLoading = true
-        that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
-          that.listLoading = false
-          if (data.code === 200) {
-            // 返回成功
-            that.pageData = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
+        // const that = this
+        // that.listLoading = true
+        // that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
+        //   that.listLoading = false
+        //   if (data.code === 200) {
+        //     // 返回成功
+        //     that.pageData = data.data
+        //   } else {
+        //     this.$message({
+        //       type: 'error',
+        //       message: data.msg
+        //     })
+        //   }
+        // })
       },
       // exportClassRecord() {
       //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })

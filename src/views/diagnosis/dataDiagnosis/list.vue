@@ -38,44 +38,23 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="次数" width="150px" align="center">
+        <el-table-column label="诊断编辑" width="150px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.time }}</span>
+            <el-button type="text">诊断编辑</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="专业" align="center">
+        <el-table-column label="创建人" align="center">
           <template slot-scope="{row}">
             <span>{{ row.administrativeSpecialtyName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="年级" align="center">
+        <el-table-column label="时间" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.administrativeGradeName }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="班级" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.administrativeClbumName }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="班主任">
-          <template slot-scope="{row}">
-            <span>{{ row.headTeacherName }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="联系电话" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.mobile }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="本次得分" class-name="status-col">
-          <template slot-scope="{row}">
-            <span>{{ row.score }}</span>
-          </template>
-        </el-table-column>
-        <!--    </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
@@ -84,7 +63,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
-    name: 'ViewsDiagnosisAlertList',
+    name: 'ViewsDiagnosisDataDiagnosisList',
     components: {
       Breadcrumb,
     },

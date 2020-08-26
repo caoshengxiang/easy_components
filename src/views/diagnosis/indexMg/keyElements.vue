@@ -19,6 +19,32 @@
     <!--    </div>-->
     <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
+        <el-select v-model="listQuery.level1" style="width: 200px;" clearable filterable
+                   placeholder="诊断项目" class="filter-item"
+        >
+          <el-option
+            v-for="item in indexOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          />
+        </el-select>
+        <el-select v-model="listQuery.level1" style="width: 200px;margin-left: 20px;" clearable filterable
+                   placeholder="诊断要素" class="filter-item"
+        >
+          <el-option
+            v-for="item in indexOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          />
+        </el-select>
+        <el-button class="filter-item" round type="primary" style="margin-left: 10px;">
+          编辑
+        </el-button>
+        <el-button class="filter-item" type="success" round>
+          新增
+        </el-button>
       </template>
       <template slot="right">
         <!--导出-->
@@ -31,48 +57,48 @@
 <!--        />-->
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="年份" prop="id" align="center" width="150">
+        <el-table-column label="编号" prop="id" align="center" width="150">
           <template slot-scope="{row}">
             <span>
               {{ row.year }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="次数" width="150px" align="center">
+        <el-table-column label="诊断点名称" width="150px" align="center">
           <template slot-scope="{row}">
             <span>{{ row.time }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="专业" align="center">
+        <el-table-column label="涉及指标编号" align="center">
           <template slot-scope="{row}">
             <span>{{ row.administrativeSpecialtyName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="年级" align="center">
+        <el-table-column label="原因集合" align="center">
           <template slot-scope="{row}">
             <span>
               {{ row.administrativeGradeName }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column label="班级" align="center">
+        <el-table-column label="措施集合" align="center">
           <template slot-scope="{row}">
             <span>{{ row.administrativeClbumName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="班主任">
+        <el-table-column label="效果集合">
           <template slot-scope="{row}">
             <span>{{ row.headTeacherName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="联系电话" align="center">
+        <el-table-column label="状态" align="center">
           <template slot-scope="{row}">
             <span>{{ row.mobile }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="本次得分" class-name="status-col">
+        <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <span>{{ row.score }}</span>
+            <el-button round type="primary">编辑</el-button>
           </template>
         </el-table-column>
         <!--    </el-table>-->
@@ -84,7 +110,7 @@
   import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
-    name: 'ViewsDiagnosisAlertList',
+    name: 'ViewsDiagnosisIndexMgKeyElementsList',
     components: {
       Breadcrumb,
     },
@@ -100,6 +126,7 @@
         listQuery: {
           descs: 'id',
         },
+        indexOptions: []
       }
     },
     created() {
@@ -113,20 +140,20 @@
         that.getList()
       },
       getList() {
-        const that = this
-        that.listLoading = true
-        that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
-          that.listLoading = false
-          if (data.code === 200) {
-            // 返回成功
-            that.pageData = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
+        // const that = this
+        // that.listLoading = true
+        // that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
+        //   that.listLoading = false
+        //   if (data.code === 200) {
+        //     // 返回成功
+        //     that.pageData = data.data
+        //   } else {
+        //     this.$message({
+        //       type: 'error',
+        //       message: data.msg
+        //     })
+        //   }
+        // })
       },
       // exportClassRecord() {
       //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })
