@@ -5,7 +5,7 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus.sync="editStatus" :form.sync="form" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增社团" name="first">
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增社团' : '社团详情'" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
             <el-row>
               <el-col :span="24">

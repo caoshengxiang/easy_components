@@ -14,10 +14,10 @@
               <el-input v-model="form.name" placeholder="支部名称" />
             </el-form-item>
             <el-form-item>
-              <el-date-picker v-model="form.timeStart" placeholder="成立时间开始" value-format="yyyy-MM-dd" />
+              <el-date-picker v-model="form.buildDateStart" placeholder="成立时间开始" value-format="yyyy-MM-dd" />
             </el-form-item>
             <el-form-item label-width="20px" label="-">
-              <el-date-picker v-model="form.timeStart" placeholder="成立时间结束" value-format="yyyy-MM-dd" />
+              <el-date-picker v-model="form.buildDateEnd" placeholder="成立时间结束" value-format="yyyy-MM-dd" />
             </el-form-item>
             <el-form-item>
               <el-button
@@ -40,13 +40,13 @@
               <img class="item-img" src="../../../assets/a1.png" alt="" >
               <div class="item-info">
                 <div class="item-head">团支部总数</div>
-                <div class="item-data">{{ statisticsData.communitySum || 0 }}</div>
+                <div class="item-data">{{ branchTotal }}</div>
               </div>
             </div>
-            <div class="statistics-item" v-for="(item, index) in statisticsList" :key="index">
+            <div class="statistics-item" v-for="(item, index) in statisticsData.list" :key="index">
               <img class="item-img" src="../../../assets/a1.png" alt="" >
               <div class="item-info">
-                <div class="item-head">{{ `${item.name}团员数` }}</div>
+                <div class="item-head">{{ `${item.key}团员数` }}</div>
                 <div class="item-data">{{ item.value || 0 }}</div>
               </div>
             </div>
@@ -54,34 +54,34 @@
               <img class="item-img" src="../../../assets/a1.png" alt="" >
               <div class="item-info">
                 <div class="item-head">收入合计</div>
-                <div class="item-data">{{ statisticsData.communitySum || 0 }}</div>
+                <div class="item-data">{{ statisticsData.incomeTotal || 0 }}</div>
               </div>
             </div>
             <div class="statistics-item">
               <img class="item-img" src="../../../assets/a1.png" alt="" >
               <div class="item-info">
                 <div class="item-head">支出合计</div>
-                <div class="item-data">{{ statisticsData.communitySum || 0 }}</div>
+                <div class="item-data">{{ statisticsData.outComeTotal || 0 }}</div>
               </div>
             </div>
             <div class="statistics-item">
               <img class="item-img" src="../../../assets/a1.png" alt="" >
               <div class="item-info">
                 <div class="item-head">当前结余</div>
-                <div class="item-data">{{ statisticsData.communitySum || 0 }}</div>
+                <div class="item-data">{{ statisticsData.restTotal || 0 }}</div>
               </div>
             </div>
           </div>
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="名称" prop="name" />
-        <el-table-column label="负责人" prop="dutyPerson" />
-        <el-table-column label="电话" align="center" prop="phone" />
-        <el-table-column label="成立日期" align="center" prop="createdDate" />
-        <el-table-column label="创建时间" align="center" prop="createDate" />
-        <el-table-column label="创建人" prop="creator" />
-        <el-table-column label="操作" align="center" width="400">
+        <el-table-column label="名称" prop="name" min-width="120" />
+        <el-table-column label="负责人" prop="principal" min-width="120" />
+        <el-table-column label="电话" align="center" prop="phone" min-width="120" />
+        <el-table-column label="成立日期" align="center" prop="buildDate" min-width="140" />
+        <el-table-column label="创建时间" align="center" prop="created" min-width="180" />
+        <el-table-column label="创建人" prop="creator" min-width="120" />
+        <el-table-column label="操作" align="center" width="380" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_branchManage_detail"
@@ -95,21 +95,21 @@
               menu-no="_views_leagueActivities_branchManage_delete"
               name="删除"
               type="danger"
-              @click="deleteRow(row)"
+              @click="deleteRow(row.id)"
               round
             />
             <PermissionButton
               menu-no="_views_leagueActivities_leagueMember_list"
               name="团员管理"
               :page-jump="true"
-              :page-query="{ branchName: row.name }"
+              :page-query="{ youthLeagueBranchId: row.id }"
               round
             />
             <PermissionButton
               menu-no="_views_leagueActivities_leagueFee_list"
               name="团费管理"
               :page-jump="true"
-              :page-query="{ branchName: row.name }"
+              :page-query="{ youthLeagueBranchId: row.id }"
               round
             />
           </template>
@@ -122,12 +122,14 @@
 <script>
   import YPageListLayout from '@/components/YPageListLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
     name: 'branchManage',
     components: {
       YPageListLayout,
-      PermissionButton
+      PermissionButton,
+      Breadcrumb
     },
     data() {
       return {
@@ -140,21 +142,10 @@
         },
         tableData: { records: [] },
         form: {}, // 查询条件
-        statisticsData: {}, // 统计信息
-        statisticsList: [
-          {
-            name: '2020级',
-            value: 2000
-          },
-          {
-            name: '2019级',
-            value: 1000
-          },
-          {
-            name: '2018级',
-            value: 500
-          }
-        ], // 统计信息（列表）
+        statisticsData: {
+          list: []
+        }, // 统计信息
+        branchTotal: 0 // 团支部总数
       }
     },
     created () {
@@ -165,24 +156,27 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        // todo 对接口
-        this.$api.moralManageNotice.page(Object.assign({}, this.pageInfo, this.form))
+        this.$api.LABranchManage.page(Object.assign({}, this.pageInfo, this.form))
           .then(res => {
             this.tableData = res.data;
+            this.branchTotal = res.data.total;
           })
           .finally(() => {
             this.loading = false;
           });
       },
       // 删除行项
-      deleteRow() {
+      deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
+            this.$api.LABranchManage.remove(id)
+              .then(() => {
+                this.search();
+              })
           });
       },
       // 查询
@@ -196,7 +190,11 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        //  todo 对接口
+        this.$api.LABranchManage.stat()
+          .then(res => {
+            this.statisticsData = res.data;
+            this.statisticsLoading = false;
+          })
       }
     }
   };

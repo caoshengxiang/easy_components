@@ -19,10 +19,10 @@ export default {
   update(data) { // 更新
     return request.put(`clubMember`, data)
   },
-  dutySimpleAll(id) {
+  dutySimpleAll(id) { // 根据社团获取职位列表
     return request.get('clubDuty/getListByClubId', { params: { id } })
   },
-  filterStudent(name) {
+  filterStudent(name) { // 模糊查询学生（简单信息）
     return request.get('student/searchByName', { params: { name } })
   }
 };

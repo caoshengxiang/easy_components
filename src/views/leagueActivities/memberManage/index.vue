@@ -57,34 +57,28 @@
         </el-form>
       </template>
       <template slot="right">
-        <el-form inline>
-          <el-form-item>
-            <PermissionButton
-              menu-no="_views_leagueActivities_memberManage_import"
-              name="导入"
-              round
-              type="text"
-            >
-              <excelImport
-                ref="uploadControl"
-                :limit="1"
-                flag="clubMember/importExcel"
-                :style-type="2"
-                title="导入"
-                @fath="search"
-              />
-            </PermissionButton>
-          </el-form-item>
-          <el-form-item>
-            <PermissionButton
-              menu-no="_views_leagueActivities_memberManage_download"
-              round
-              icon="el-icon-download"
-              name="社员导入模板下载"
-              @click="downloadTemplate"
-            />
-          </el-form-item>
-        </el-form>
+        <PermissionButton
+          menu-no="_views_leagueActivities_memberManage_import"
+          name="导入"
+          round
+          type="text"
+        >
+          <excelImport
+            ref="uploadControl"
+            :limit="1"
+            flag="clubMember/importExcel"
+            :style-type="2"
+            title="导入"
+            @fath="search"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_leagueActivities_memberManage_download"
+          round
+          icon="el-icon-download"
+          name="社员导入模板下载"
+          @click="downloadTemplate"
+        />
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="社团名称" prop="clubName" width="160" />

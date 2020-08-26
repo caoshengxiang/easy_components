@@ -5,28 +5,31 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增团费" name="first">
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增团费' : '团费详情'" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="120px">
             <el-row>
               <el-col :span="24">
-                <el-form-item label="团支部：" prop="branchName">
-                  <!-- todo 对接口 -->
+                <el-form-item label="团支部：" prop="leagueName">
                   <service-select
-                    v-model="form.branchName"
-                    amount="amount"
-                    field="id"
-                    :data-service="$api.baseInfo.getGradeList"
+                    v-model="form.leagueName"
+                    name="name"
+                    field="name"
+                    :data-service="$api.LABranchManage.simpleAll"
                     clearable
+                    @after-select="afterLeagueSelect"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="收支：" prop="fee">
-                  <el-select v-model="form.fee">
-                    <el-option label="收入" value="收入" />
-                    <el-option label="支出" value="支出" />
-                    <el-option label="上缴" value="上缴" />
-                  </el-select>
+                <el-form-item label="收支类型：" prop="cate">
+                  <service-select
+                    v-model="form.cate"
+                    :data-service="$api.LACommunityManage.characterList"
+                    :default-query="{ key: '收支类型' }"
+                    clearable
+                    pureList
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
@@ -35,8 +38,8 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="时间：" prop="createdDate">
-                  <el-date-picker v-model="form.createdDate" value-format="yyyy-MM-dd" />
+                <el-form-item label="时间：" prop="occurTime">
+                  <el-date-picker v-model="form.occurTime" value-format="yyyy-MM-dd" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
@@ -55,12 +58,14 @@
 <script>
   import YDetailPageLayout from '@/components/YDetailPageLayout'
   import ServiceSelect from '@/components/ServiceSelect'
+  import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
     communityName: 'memberManageDetail',
     components: {
       YDetailPageLayout,
-      ServiceSelect
+      ServiceSelect,
+      Breadcrumb
     },
     props: {
       detailInfo: {
@@ -79,12 +84,12 @@
         },
         rules: {
           branchName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
-          fee: [{ required: true, message: '请输入收支', trigger: 'blur' }],
+          cate: [{ required: true, message: '请输入收支', trigger: 'change' }],
           amount: [
             { required: true, message: '请输入金额', trigger: 'blur' },
             { pattern: /^(([1-9]\d*(\.\d+)?)|(0\.\d+))$/, message: '请输入大于0的数字！', trigger: 'blur' }
           ],
-          createdDate: [{ required: true, message: '请输入时间', trigger: 'change' }],
+          occurTime: [{ required: true, message: '请输入时间', trigger: 'change' }],
         }
       }
     },
@@ -97,19 +102,46 @@
           this.form = this.detailInfo
         } else if (this.$route.query.id) {
           this.loading = true;
-          this.editStatus = false;
-          // todo 对接口
+          this.$api.LALeagueFee.detail(this.$route.query.id)
+            .then(res => {
+              this.form = res.data;
+              this.$nextTick(function() {
+                this.editStatus = false;
+                this.loading = false;
+              });
+            })
         }
       },
       save() {
         this.$refs.form.validate(valid => {
           if (valid) {
-            // todo 对接口
+            this.loading = true;
+            let dataService = this.$api.LALeagueFee.add; // 新增
+            if (this.detailInfo || this.$route.query.id) { // 编辑
+              dataService = this.$api.LALeagueFee.update;
+            }
+            dataService(this.form)
+              .then(() => {
+                this.loading = false;
+                this.$notify({
+                  title: '成功',
+                  message: '保存成功',
+                  type: 'success',
+                  duration: 2000
+                });
+                const back = this.$route.query.back;
+                if (back) {
+                  this.$router.push(back)
+                }
+              })
           } else {
             this.$message.warning('请完善表单信息！');
           }
         })
-      }
+      },
+      afterLeagueSelect(row) {
+        this.$set(this.form, 'youthLeagueBranchId', row.id)
+      },
     }
   };
 </script>

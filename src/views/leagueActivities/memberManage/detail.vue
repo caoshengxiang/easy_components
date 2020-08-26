@@ -5,7 +5,7 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增社团" name="first">
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增社员' : '社员详情'" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
             <el-row>
               <el-col :span="24">
@@ -19,6 +19,7 @@
                     @change="onClubChange"
                     clearable
                     @after-select="afterClubSelect"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </el-col>
@@ -35,23 +36,25 @@
                     placeholder="职务"
                     clearable
                     @after-select="afterClubDutySelect"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="学生：" prop="studentName">
+                <el-form-item label="学生：" prop="item">
                   <el-select
-                    v-model="form.studentName"
+                    v-model="form.item"
                     filterable
                     remote
                     placeholder="请输入关键词"
                     :remote-method="filterStudent"
                     :loading="studentLoading"
+                    style="width: 100%"
                   >
                     <el-option
                       v-for="item in studentOptions"
                       :key="item.id"
-                      :label="item.name"
+                      :label="`${item.idNo}-${item.clbum || '暂无'}-${item.name}`"
                       :value="item.id"
                       @click.native="afterStudentSelect(item)"
                     />
@@ -77,6 +80,7 @@
                     placeholder="性质"
                     clearable
                     pureList
+                    style="width: 100%"
                   />
                 </el-form-item>
               </el-col>
@@ -132,7 +136,7 @@
         rules: {
           clubName: [{ required: true, message: '请输入社团名称', trigger: 'blur' }],
           dutyName: [{ required: true, message: '请输入职务', trigger: 'blur' }],
-          studentName: [{ required: true, message: '请输入学生姓名', trigger: 'blur' }],
+          item: [{ required: true, message: '请输入学生', trigger: 'blur' }],
           employeeDate: [{ required: true, message: '请输入任职日期', trigger: 'change' }],
           entryDate: [{ required: true, message: '请输入入社日期', trigger: 'change' }],
           state: [{ required: true, message: '请输入状态', trigger: 'blur' }],
