@@ -54,7 +54,7 @@
         </el-table-column>
         <el-table-column label="完成进度" width="150px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.time }}</span>
+            <round-progress :plan="row.progress"></round-progress>
           </template>
         </el-table-column>
         <el-table-column label="编辑" align="center">
@@ -74,7 +74,7 @@
             <span>{{ row.administrativeClbumName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="text">导入</el-button>
             <el-button type="text">导出</el-button>
@@ -85,7 +85,7 @@
             <el-button type="text">导出表格数据</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="同步数据" class-name="status-col">
+        <el-table-column label="同步数据" align="center">
           <template slot-scope="{row}">
             <el-button type="text">同步数据</el-button>
           </template>
@@ -97,11 +97,13 @@
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
+  import roundProgress from '../../../components/roundProgress'
 
   export default {
     name: 'ViewsDiagnosisDataFillingList',
     components: {
       Breadcrumb,
+      roundProgress,
     },
     data() {
       return {
@@ -128,7 +130,6 @@
         that.getList()
       },
       getList() {
-        // const that = this
         // that.listLoading = true
         // that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
         //   that.listLoading = false
@@ -142,6 +143,10 @@
         //     })
         //   }
         // })
+        this.pageData = {
+          records: [{ progress: 30 }, { progress: 70 }, { progress: 0 }, { progress: 100 }],
+          total: 4
+        }
       },
       // exportClassRecord() {
       //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })

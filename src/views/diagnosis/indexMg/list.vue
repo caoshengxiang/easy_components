@@ -57,10 +57,10 @@
         <!--        <el-button class="filter-item" round type="warning" @click="resetSearch()">-->
         <!--          重置-->
         <!--        </el-button>-->
-        <el-button class="filter-item" round type="primary" style="margin-left: 10px;">
+        <el-button class="filter-item" round type="primary" style="margin-left: 10px;"  @click="editHandle">
           编辑
         </el-button>
-        <el-button class="filter-item" type="success" round>
+        <el-button class="filter-item" type="success" round  @click="editHandle">
           新增
         </el-button>
       </template>
@@ -74,7 +74,8 @@
         <!--          round-->
         <!--        />-->
       </template>
-      <parentTable ref="multipleTable" @selectionChange="handleSelectionChange" v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable ref="multipleTable" @selectionChange="handleSelectionChange" v-loading="listLoading"
+                   :data="pageData.records" slot="table" style="width: 100%;">
         <el-table-column align="center" type="selection" width="55">
         </el-table-column>
         <el-table-column label="名称" prop="name" align="center" width="150">
@@ -136,7 +137,7 @@
     </y-page-list-layout>
     <el-dialog
       width="600px"
-      title="菜单编辑"
+      title="指标编辑"
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
@@ -146,36 +147,98 @@
         label-width="120px"
         style="width: 400px; margin-left:50px;"
       >
-<!--        <el-form-item label="部门代码：" prop="code">-->
-<!--          <el-input v-model="temp.code" class="filter-item"/>-->
+        <el-form-item label="指标等级：" prop="code">
+          <el-select v-model="temp.level" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+            <el-option
+              v-for="item in indexLevelOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="快速定位：" prop="name" v-if="temp.level === 2">
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="一级指标">
+            <!--            <el-option-->
+            <!--              v-for="item in partOptions"-->
+            <!--              :key="item.id"-->
+            <!--              :label="item.name"-->
+            <!--              :value="item.id"-->
+            <!--            />-->
+          </el-select>
+        </el-form-item>
+        <el-form-item label="快速定位：" prop="name" v-if="temp.level === 3">
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 50%;" placeholder="一级指标">
+            <!--            <el-option-->
+            <!--              v-for="item in partOptions"-->
+            <!--              :key="item.id"-->
+            <!--              :label="item.name"-->
+            <!--              :value="item.id"-->
+            <!--            />-->
+          </el-select>
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 50%;" placeholder="二级指标">
+            <!--            <el-option-->
+            <!--              v-for="item in partOptions"-->
+            <!--              :key="item.id"-->
+            <!--              :label="item.name"-->
+            <!--              :value="item.id"-->
+            <!--            />-->
+          </el-select>
+        </el-form-item>
+        <el-form-item label="指标名称：" prop="name">
+          <el-input v-model="temp.name" class="filter-item"/>
+        </el-form-item>
+        <el-form-item label="指标编号：" prop="name">
+          <el-input v-model="temp.name" class="filter-item"/>
+        </el-form-item>
 
-<!--        </el-form-item>-->
-<!--        <el-form-item label="部门名称：" prop="name">-->
-<!--          <el-input v-model="temp.name" class="filter-item"/>-->
-<!--        </el-form-item>-->
+        <el-form-item label="指标值类型：" filterable prop="">
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+            <!--            <el-option-->
+            <!--              v-for="item in partOptions"-->
+            <!--              :key="item.id"-->
+            <!--              :label="item.name"-->
+            <!--              :value="item.id"-->
+            <!--            />-->
+          </el-select>
+        </el-form-item>
 
-<!--        <el-form-item label="上级部门：" filterable prop="">-->
-<!--          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">-->
-<!--            <el-option-->
-<!--              v-for="item in partOptions"-->
-<!--              :key="item.id"-->
-<!--              :label="item.name"-->
-<!--              :value="item.id"-->
-<!--            />-->
-<!--          </el-select>-->
-<!--        </el-form-item>-->
-
-<!--        <el-form-item label="联系电话：">-->
-<!--          <el-input v-model="temp.phone" class="filter-item"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="">-->
-<!--          <el-button @click="dialogFormVisible = false">-->
-<!--            取消-->
-<!--          </el-button>-->
-<!--          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">-->
-<!--            保存-->
-<!--          </el-button>-->
-<!--        </el-form-item>-->
+        <el-form-item label="状态：">
+          <el-radio-group v-model="temp.resource">
+            <el-radio label="正常"></el-radio>
+            <el-radio label="禁用"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注：">
+          <el-input v-model="temp.phone" class="filter-item"/>
+        </el-form-item>
+        <el-form-item label="自动填入：">
+          <el-radio-group v-model="temp.resource">
+            <el-radio label="正常"></el-radio>
+            <el-radio label="禁用"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="填入方式：">
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+            <!--            <el-option-->
+            <!--              v-for="item in partOptions"-->
+            <!--              :key="item.id"-->
+            <!--              :label="item.name"-->
+            <!--              :value="item.id"-->
+            <!--            />-->
+          </el-select>
+        </el-form-item>
+        <el-form-item label="对应指标编号：">
+          <el-input v-model="temp.phone" class="filter-item"/>
+        </el-form-item>
+        <el-form-item label="">
+          <el-button @click="dialogFormVisible = false">
+            取消
+          </el-button>
+          <el-button type="primary">
+            保存
+          </el-button>
+        </el-form-item>
       </el-form>
       <!--      <div slot="footer" class="dialog-footer" style="text-align: center">-->
       <!--        -->
@@ -206,6 +269,14 @@
         },
         indexOptions: [],
         dialogFormVisible: false,
+        temp: {
+          level: ''
+        },
+        indexLevelOptions: [
+          {name: '一级指标', id: 1},
+          {name: '二级指标', id: 2},
+          {name: '三级指标', id: 3},
+        ]
       }
     },
     created() {
@@ -234,7 +305,7 @@
         //   }
         // })
         that.pageData = {
-          records: [{name: '办学年份'}],
+          records: [{ name: '办学年份' }],
           total: 1
         }
       },
