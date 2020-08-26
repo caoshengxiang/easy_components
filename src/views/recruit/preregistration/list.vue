@@ -268,7 +268,7 @@
 
           return
         }
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出学生生源地预招人数对比')
+        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySourceExcel', this.listQuery, '导出学生生源地预招人数对比')
       },
       handleDownload2(url) {
 
