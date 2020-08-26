@@ -10,38 +10,69 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p7.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsInfo.total }}</span>人</div>
-            <div class="analysis-text-small">在读学生总数</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.hard }}</span>人</div>
+            <div class="analysis-text-small">学生困难</div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p8.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsInfo.manRate }}:{{ statisticsInfo.womanRate }}</span>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.homeChanged }}人</span>
             </div>
-            <div class="analysis-text-small">在读学生男女比例</div>
+            <div class="analysis-text-small">家庭变故</div>
           </div>
         </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/p8.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.actionConfused }}人</span>
+            </div>
+            <div class="analysis-text-small">行为困扰</div>
+          </div>
+        </div>
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/p8.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.confused }}人</span>
+            </div>
+            <div class="analysis-text-small">心里困惑</div>
+          </div>
+        </div>
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/p8.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.physicalDefect }}人</span>
+            </div>
+            <div class="analysis-text-small">生理缺陷</div>
+          </div>
+        </div>
+
+
+        <div
+          class="menu-2-item hvr-underline-from-center"
+        ><img src="../../../assets/p8.png" height="50" width="50">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.leftBehind }}人</span>
+            </div>
+            <div class="analysis-text-small">留守学生</div>
+          </div>
+        </div>
+
       </div>
     </div>
     <y-page-list-layout :page-list="pageData" :page-para="pagePara" :get-page-list="getList">
       <template slot="left">
         <el-select
-          v-model="listQuery.type"
-          placeholder="查询类型"
-          clearable
-          class="filter-item"
-          style="margin-left:10px;margin-bottom: 10px;width: 100px"
-        >
-          <el-option v-for="item in AllEnum.班级类型" :key="item" :label="item" :value="item"/>
-        </el-select>
-
-        <el-select
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
-          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
           class="filter-item"
           @change="getClbumList"
         >
@@ -54,7 +85,7 @@
           clearable
           class="filter-item"
           @change="getClbumList"
-          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -63,7 +94,7 @@
           placeholder="请选择班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;width: 100px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -72,24 +103,15 @@
           placeholder="学生类型"
           clearable
           class="filter-item"
-          style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
+          style="margin-left:10px;  width: 120px;margin-bottom: 10px;"
         >
           <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item"/>
         </el-select>
-        <el-select
-          v-model="listQuery.state"
-          placeholder="当前状态"
-          clearable
-          class="filter-item"
-          style="margin-left:10px;  width: 80px;margin-bottom: 10px;"
-        >
-          <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item"/>
-        </el-select>
         <el-input
           v-model="listQuery.keyword"
-          placeholder="学号或者姓名"
+          placeholder="关键字"
           prefix-icon="el-icon-search"
-          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
+          style="margin-left:10px;width: 200px;margin-bottom: 10px;"
           class="filter-item"
         />
         <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
@@ -254,6 +276,7 @@
               plain
               round
               size="mini"
+              @click="recoverStudentType(row.id)"
             />
             <!--            <el-button style="border-radius:15px;" type="primary" @click="detailInfo(row.id)">-->
             <!--              详情-->
@@ -401,6 +424,27 @@
       that.getStatistics()
     },
     methods: {
+      recoverStudentType(id){
+        // console.log(data)
+        const that = this
+        that.$confirm('确定还原当前学生吗?', '警告', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async () => {
+            this.$api.student.recoverStudentType(id).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '还原成功'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(err => { console.error(err) })
+      },
       productInnerQR1(row, down) {
 
         this.productInnerQR = true
@@ -430,7 +474,7 @@
       },
       getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/student/read', { ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/statistics/sexstudent', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
             that.statisticsInfo = data.data
@@ -529,7 +573,7 @@
         if (isOpera) {
           return 'Opera'
         }
-         //判断是否Opera浏览器
+        //判断是否Opera浏览器
         if (userAgent.indexOf('Firefox') > -1) {
           return 'FF'
         } //判断是否Firefox浏览器
@@ -542,7 +586,7 @@
         if (userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera) {
           return 'IE'
         }
-         //判断是否IE浏览器
+        //判断是否IE浏览器
         if (userAgent.indexOf('Trident') > -1) {
           return 'Edge'
         } //判断是否Edge浏览器
@@ -693,6 +737,7 @@
           that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
         }
         that.listLoading = true
+        that.listQuery.sexStudent = true;
         that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
           that.listLoading = false
           if (data.code === 200) {

@@ -20,4 +20,7 @@ export default {
   download(params){
     return file.fileDown('student', params)
   },
+  recoverStudentType(params){
+    return request.put('student/recoverStudentType/' +  params )
+  },
 }
