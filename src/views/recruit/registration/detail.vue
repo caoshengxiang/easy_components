@@ -494,9 +494,9 @@
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
-        that.editStatus = false
+        that.editStatus = true
       }
-      that.editStatus = false
+
       that.getGradeList()//赛选框年级
       that.getSpecialtyList()
       that.getClbumList()
