@@ -16,18 +16,6 @@
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
-                  <el-form-item label="年份：" prop="year" label-width="150px" class="postInfo-container-item">
-                    <el-input
-                      placeholder="年份" v-model="postForm.year" class="filter-item"/>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="月份：" prop="month" label-width="150px" class="postInfo-container-item">
-                    <el-input
-                      placeholder="月份" v-model="postForm.month" class="filter-item"/>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
                   <el-form-item label="年级：" prop="gradeId" label-width="150px" class="postInfo-container-item">
                     <el-select
                       v-model="postForm.administrativeGradeId"
@@ -86,40 +74,57 @@
                   </el-form-item>
                 </el-col>
 
-
                 <el-col :span="24">
-                  <el-form-item label="类型：" prop="grantType" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="流失状态：" prop="loseState" label-width="150px" class="postInfo-container-item">
                     <el-select
-                      v-model="postForm.grantType"
-                      placeholder="类型"
+                      v-model="postForm.loseState"
+                      placeholder="流失状态"
                       clearable
-                      style="width:100%"
                       class="filter-item"
+                      style="width: 100%;"
                     >
-                      <el-option v-for="item in grantType" :key="item.key" :label="item.label" :value="item.key"/>
+                      <el-option :key="1" label="正常" :value="1"/>
+                      <el-option :key="2" label="流失" :value="2"/>
+                      <el-option  :key="3" label="疑似流失" :value="3"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="24">
-                  <el-form-item label="应发奖金：" prop="shouldPayAmount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="应发奖金" v-model="postForm.shouldPayAmount" class="filter-item"/>
+                  <el-form-item label="疑似/流失时间：" prop="loseTime" label-width="150px" class="postInfo-container-item">
+                    <el-date-picker v-model="postForm.loseTime" placeholder="活动时间开始"
+                                    type="date"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
+                                    style="width: 100%"/>
+
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="24">
-                  <el-form-item label="实发奖金：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="实发奖金" v-model="postForm.actualPayAmount" class="filter-item"/>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="24">
-                  <el-form-item label="银行卡号：" prop="bankCard" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="银行卡号" v-model="postForm.bankCard" class="filter-item"/>
+                  <el-form-item label="原因描述：" prop="reason" label-width="150px" class="postInfo-container-item">
+                    <el-checkbox-group v-model="reason">
+                      <el-checkbox :label="item" v-for="item in AllEnum.专业技术职务级别"/>
+                    </el-checkbox-group>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="申请描述：" prop="remark" label-width="150px" class="postInfo-container-item">
-                    <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.remark" show-word-limit />
+                  <el-form-item label="学生去向：" prop="studentQx" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.studentQx" show-word-limit />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="回流措施：" prop="huiliuWay" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.huiliuWay" show-word-limit />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="效果：" prop="effect" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.effect" show-word-limit />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="备注：" prop="remark" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -161,6 +166,7 @@ export default {
         key: 2,
         label: '助学金'
       }],
+      reason:[],
       areaInfo:[],
       specialty: [],
       gradeInfo: [],
@@ -170,50 +176,19 @@ export default {
       type: 'detail',
       postForm: {},
       rules: {
-        year: [{
-          required: true,
-          message: '年份',
-          trigger: 'blur'
-        }],
-        month: [{
-          required: true,
-          message: '月份',
-          trigger: 'blur'
-        }],
-        studentId: [{
-          required: true,
-          message: '学生',
-          trigger: 'blur'
-        }],
-        grantType: [{
-          required: true,
-          message: '助学类型',
-          trigger: 'change'
-        }],
-        shouldPayAmount: [{
-          required: true,
-          message: '应发金额',
-          trigger: 'change'
-        }],
-        actualPayAmount: [{
-          required: true,
-          message: '实发金额',
-          trigger: 'change'
-        }],
-        bankCard: [{
-          required: true,
-          message: '银行卡号',
-          trigger: 'change'
-        }],
-        remark: [{
-          required: true,
-          message: '描述',
-          trigger: 'change'
-        }]
+        studentId: [{required: true, message: '学生',  trigger: 'blur' }],
+        loseState: [{required: true, message: '流失状态',  trigger: 'blur' }],
+        loseTime: [{required: true, message: '疑似/流失时间',  trigger: 'blur' }],
+        reason: [{required: true, message: '原因描述',  trigger: 'blur' }],
+        studentQx: [{required: true, message: '学生去向',  trigger: 'blur' }],
+        huiliuWay: [{required: true, message: '回流措施',  trigger: 'blur' }],
+        effect: [{required: true, message: '效果',  trigger: 'blur' }],
+        remark: [{required: true, message: '备注',  trigger: 'blur' }],
       },
       departmentList: [],
       staff: [],
       dataId: this.$route.query.id,
+      AllEnum: {}// 全部枚举
     }
   },
   watch: {
@@ -228,17 +203,16 @@ export default {
     } else {
       this.getDetail()
     }
-    that.getDepartmentList() // //查询建筑物列表
+    that.getAllEnum()
     that.getSpecialtyList()
     that.getGradeList()
   },
   methods: {
-    getDepartmentList() {
+    getAllEnum() {
       const that = this
-      that.$api.organization.simpleAll().then(data => {
-        that.loading = false
+      that.$api.globalConfig.getAllEnum().then(data => {
         if (data.code === 200) {
-          that.departmentList = data.data
+          that.AllEnum = data.data
         } else {
           this.$message({
             type: 'error',
@@ -316,16 +290,23 @@ export default {
     },
     getDetail() {
       if (this.dataId) {
-        this.$api.grant.detail(this.dataId).then(res => {
+        this.$api.loseStudent.detail(this.dataId).then(res => {
           this.postForm = res.data
+
+          if(this.postForm.reason){
+            this.postForm.reason.split(',').forEach(function (item) {
+              this.reason.push(item)
+            })
+          }
         })
       }
     },
     handleCreate() {
+      this.postForm.reason = this.reason.toString()
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.grant.edit(this.postForm).then(res => {
+            this.$api.loseStudent.edit(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
@@ -344,7 +325,7 @@ export default {
       } else { // 新增
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.grant.add(this.postForm).then(res => {
+            this.$api.loseStudent.add(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
