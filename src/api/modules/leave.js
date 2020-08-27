@@ -18,4 +18,7 @@ export default {
   delete(params) {
     return request.delete(`leave/${params}`)
   },
+  audit(params) {
+    return request.get(`leave/audit/${params.id}`, { params: params })
+  },
 }

@@ -76,6 +76,8 @@ import _views_student_grant_list from '../views/student/grant/list'
 import _views_student_grant_detail from '../views/student/grant/detail'
 import _views_student_leave_list from '../views/student/leave/list'
 import _views_student_leave_detail from '../views/student/leave/detail'
+import _views_student_leave_audit from '../views/student/leave/audit'
+
 import _views_recruit_plan_list from '@/views/recruit/plan/list'
 import _views_recruit_plan_detail from '@/views/recruit/plan/detail'
 import moralManage from './urlMapModules/moralManage'
@@ -151,6 +153,7 @@ export default {
   _views_student_grant_detail, // 助学金详情
   _views_student_leave_list, // 请假
   _views_student_leave_detail, // 请假详情
+  _views_student_leave_audit,//请假审核
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
   _views_recruit_birthplace_detail: () => import('../views/recruit/birthplace/detail'), // 生源地编辑/详情
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划

@@ -200,6 +200,41 @@ aside {
   margin-top: 3px;
 }
 
+
+.viewTable,.viewTable tr th, .viewTable tr td {
+  border:1px solid #ddd;
+  padding: 5px 10px;
+}
+.viewTable .tdclass{
+   height: 50px;
+ }
+.viewTable {
+  width: 90%;
+  border-collapse: collapse; padding:2px;
+  text-align: center;
+}
+.viewTable .title{
+  text-align: left;
+}
+.viewTable .hd-img{
+  position: relative;
+}
+.viewTable .hd-img img{
+  max-width: 100%;
+}
+.viewTable .col-name{
+  width: 200px;
+}
+.viewTable .col-name1{
+  width: 50px;
+}
+.viewTable .el-select,.viewTable .el-date-editor{
+  width: 100%;
+}
+.viewTable .require{
+  color: red;
+}
+
 //main-container全局样式
 .app-container {
   padding: 10px;
