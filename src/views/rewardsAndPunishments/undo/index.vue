@@ -117,7 +117,7 @@
             <PermissionButton
               menu-no="_views_rewardsAndPunishments_undo_detail"
               class-name="filter-item"
-              name=""
+              name="编辑"
               type="primary"
               :page-jump="true"
               :page-query="{id: row.id}"

@@ -180,11 +180,11 @@
         that.editStatus = false
       } else if (that.$route.query.rewardPunishmnetId) {
         that.getRewardPunishmentDetail(that.$route.query.rewardPunishmnetId)
-        that.editStatus = false
+        // that.editStatus = false
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
-        that.editStatus = false
+        // that.editStatus = false
       }
       that.getGradeList()
       that.getSpecialtyList()

@@ -125,7 +125,7 @@
             <PermissionButton
               menu-no="_views_rewardsAndPunishments_info_detail"
               class-name="filter-item"
-              name=""
+              name="详情"
               type="primary"
               :page-jump="true"
               :page-query="{id: row.id}"
@@ -183,7 +183,6 @@
     },
     methods: {
       openLinkUrl(url) {
-        console.log(url)
         location.href = url;
       },
       exportClassRecord() {
