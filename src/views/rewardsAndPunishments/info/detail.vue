@@ -180,13 +180,22 @@
         noBedStd: [],
         AllEnum:{},
         loading:false,
-        originData:{}
+        originData:{},
+        loadComplete: false
       }
     },
     watch: {
       detailInfo: function (value) {
         this.postForm = value
       },
+      loadComplete: function (value) {
+        if (value) {
+          this.getGradeList()
+          this.getSpecialtyList()
+          this.getClbumList()
+          this.getStdNoBedList()
+        }
+      }
     },
     created() {
       const that = this
@@ -195,16 +204,13 @@
         that.postForm = that.detailInfo
         this.originData = {...that.postForm}
         that.editStatus = false
+        that.loadComplete = true
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
         that.getDetail()
         that.editStatus = false
       }
-      that.getClbumList()
       that.getSysCfg()
-      that.getGradeList()
-      that.getStdNoBedList()
-      that.getSpecialtyList()
       that.getAllEnum()
     },
     methods: {
@@ -237,8 +243,13 @@
           }
         })
       },
-      getClbumList() {
+      getClbumList(row) {
         const that = this
+        console.log(row)
+        if (row) {
+          that.postForm.clbumId = ''
+          that.postForm.studentId = ''
+        }
         that.$api.baseInfo.getClbumList({
           gradeId: that.postForm.gradeId,
           specialtyId: that.postForm.specialtyId
@@ -254,8 +265,11 @@
           }
         })
       },
-      getStdNoBedList() {
+      getStdNoBedList(row) {
         let that = this
+        if (row) {
+          that.postForm.studentId = ''
+        }
         let param = {}
         if (that.postForm.clbumId > 0) {
           param.clbumId = that.postForm.clbumId
@@ -295,7 +309,6 @@
         })
       },
       printInfo() {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxx')
         printPdf('#rewardsAndPunishmentsDetailInfo', '奖惩')
       },
       getDetail() {
@@ -305,6 +318,7 @@
           if (data.code === 200) {
             that.postForm = data.data
             that.originData = {...that.postForm}
+            that.loadComplete = true
           } else {
             this.$message({
               type: 'error',
