@@ -166,6 +166,8 @@ export default {
   ...moralManage, // 德育管理界面
   ...leagueActivities, //团学活动管理
   ...rewardsAndPunishments,
-  ...diagnosis, // 诊改系统
   /* 二期  end */
+  /* 三期  start */
+  ...diagnosis, // 诊改系统
+  /* 三期  end */
 }

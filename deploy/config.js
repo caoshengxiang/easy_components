@@ -9,7 +9,7 @@ const SERVER_LIST = [
     port: 22, // 端口
     username: 'root',
     password: 'B89cukAsnvwbclMX',
-    path: '/usr/local/nginx/html/zsy/admin' // 项目静态文件存放地址
+    path: '/usr/local/nginx/html/zsy3/admin' // 项目静态文件存放地址
   },
   {
     id: 'prod',
