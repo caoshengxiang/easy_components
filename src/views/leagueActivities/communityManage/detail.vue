@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus.sync="editStatus" :form.sync="form" v-loading="loading">
+    <y-detail-page-layout @save="save" :editStatus.sync="editStatus" :show-cancel="false" :form.sync="form" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增社团' : '社团详情'" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
@@ -156,13 +156,13 @@
       getData() {
         if (this.detailInfo) {
           this.form = Object.assign({ removeDutyIds: [] }, this.detailInfo);
+          this.editStatus = false;
         } else if (this.$route.query.id) {
           this.loading = true;
           this.$api.LACommunityManage.detail(this.$route.query.id)
             .then(res => {
               this.form = Object.assign({ removeDutyIds: [] }, res.data);
               this.$nextTick(function() {
-                this.editStatus = false;
                 this.loading = false;
               });
             })

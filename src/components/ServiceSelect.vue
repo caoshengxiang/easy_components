@@ -5,8 +5,10 @@
     filterable
     :value="textValue"
     :loading="loading"
+    :multiple="multiple"
     @change="handleChange"
     @visible-change="handleVisibleChange"
+    @remove-tag="removeTag"
   >
     <template v-if="pureList">
       <el-option
@@ -14,7 +16,7 @@
         :key="index"
         :label="obj"
         :value="obj"
-        @click.native="$emit('after-select', obj)"
+        @click.native="afterSelect(obj)"
       />
     </template>
     <template v-else>
@@ -23,7 +25,7 @@
         :key="index"
         :label="obj[name]"
         :value="obj[field]"
-        @click.native="$emit('after-select', obj)"
+        @click.native="afterSelect(obj)"
       />
     </template>
   </el-select>
@@ -42,7 +44,7 @@
        * 组件值
        */
       value: {
-        type: [String, Number],
+        type: [String, Number, Array],
         default: ''
       },
       /**
@@ -86,12 +88,20 @@
       pureList: {
         type: Boolean,
         default: false
+      },
+      /**
+       * 多选
+       */
+      multiple: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
         loading: false,
-        dataList: []
+        dataList: [],
+        selection: []
       }
     },
     computed: {
@@ -145,6 +155,17 @@
               this.loading = false
             }
           })
+      },
+      afterSelect(option) {
+        if (!this.multiple) {
+          this.$emit('after-select', option);
+        } else {
+          this.$emit('after-select', option, this.value.includes(option[this.field]));
+        }
+      },
+      removeTag(val) {
+        const option = this.dataList.find(item => val === item[this.field]);
+        this.$emit('after-select', option, false);
       }
     }
   }
