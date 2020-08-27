@@ -15,17 +15,28 @@
           name=""
           :page-jump="true"
         />
-        <el-input v-model="listQuery.youthLeagueBranch" placeholder="支部名称"
+<!--        <el-input v-model="listQuery.youthLeagueBranchId" placeholder="支部名称"-->
+<!--                  style=" margin-left:10px;width: 180px"/>-->
+        <service-select
+          v-model="listQuery.youthLeagueBranchId"
+          :data-service="$api.LABranchManage.simpleAll"
+          name="name"
+          field="id"
+          placeholder="支部名称"
+          clearable
+          class="filter-item"
+          :immediate="false"
+          style="margin-left: 10px; width: 180px"
+        />
+        <el-input v-model="listQuery.principal" placeholder="负责人"
                   style=" margin-left:10px;width: 180px"/>
-        <el-input v-model="listQuery.chargePerson" placeholder="负责人"
-                  style=" margin-left:10px;width: 180px"/>
-        <el-input v-model="listQuery.activityType" placeholder="活动类型"
+        <el-input v-model="listQuery.cate" placeholder="活动类型"
                   style=" margin-left:10px;width: 180px"/>
         <el-button
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="search"
+          @click="getData"
           round
           size="mini"
         >
@@ -39,32 +50,32 @@
           <div class="statistics-item">
             <img class="item-img" src="../../../assets/a1.png" alt="">
             <div class="item-info">
-              <div class="item-head">最近一个月总数</div>
-              <div class="item-data">{{ data.communitySum || 0 }}</div>
+              <div class="item-head">近一月活动总数</div>
+              <div class="item-data">{{ statisticsData.latestMonthNum || 0 }}</div>
             </div>
           </div>
           <div class="statistics-item">
             <img class="item-img" src="../../../assets/a1.png" alt="">
             <div class="item-info">
-              <div class="item-head">活动最多的社团及活动数量</div>
-              <div class="item-data">{{data.community || ''}} {{ data.communitySum || 0 }}</div>
+              <div class="item-head">活动最多的团支部及活动数量</div>
+              <div class="item-data">{{statisticsData.leagueName || ''}} {{ statisticsData.maxNum || 0 }}</div>
             </div>
           </div>
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="团支部" prop="youthLeagueBranch"/>
-        <el-table-column label="负责人" prop="chargePerson"/>
-        <el-table-column label="活动时间" align="center" prop="activityDate"/>
-        <el-table-column label="活动类型" align="center" prop="activityDate"/>
-        <el-table-column label="活动内容" prop="activityContent"/>
+        <el-table-column label="团支部" prop="leagueName"/>
+        <el-table-column label="负责人" prop="principal"/>
+        <el-table-column label="活动时间" align="center" prop="activityTime" min-width="160"/>
+        <el-table-column label="活动类型" prop="cate"/>
+<!--        <el-table-column label="活动内容" prop="content"/>-->
         <el-table-column label="创建时间" align="center" prop="createDate"/>
-        <el-table-column label="创建人" align="center" prop="founder"/>
+        <el-table-column label="创建人" prop="creator"/>
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_leagueMemberActivities_detail"
-              name="详情"
+              name="编辑"
               type="primary"
               :page-jump="true"
               :page-query="{ id: row.id }"
@@ -74,7 +85,7 @@
               menu-no="_views_leagueActivities_leagueMemberActivities_delete"
               name="删除"
               type="danger"
-              @click="deleteRow(row)"
+              @click="deleteRow(row.id)"
               round
             />
           </template>
@@ -87,12 +98,16 @@
 <script>
   import YPageListLayout from '@/components/YPageListLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import Breadcrumb from '@/components/Breadcrumb'
+  import ServiceSelect from '@/components/ServiceSelect'
 
   export default {
     name: 'leagueMemberActivities',
     components: {
       YPageListLayout,
       PermissionButton,
+      Breadcrumb,
+      ServiceSelect
     },
     data() {
       return {
@@ -103,7 +118,7 @@
           size: 10,
           descs: 'id'
         },
-        data: {},
+        statisticsData: {},
         selection: [],
         statisticsLoading: false,
         listQuery: {descs: 'id'}
@@ -111,15 +126,12 @@
     },
     created() {
       this.getData();
+      this.getStatisticsData()
     },
     methods: {
-      getData(query) {
+      getData() {
         this.loading = true;
-        // todo 对接口
-        if (query) {
-          this.filters = query;
-        }
-        this.$api.moralManageNotice.page(Object.assign({}, this.pageInfo, this.filters))
+        this.$api.leagueMemberActivities.getPage(Object.assign({}, this.pageInfo, this.listQuery))
           .then(res => {
             this.tableData = res.data;
           })
@@ -127,7 +139,7 @@
             this.loading = false;
           });
       },
-      deleteRow() {
+      deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -135,8 +147,19 @@
         })
           .then(() => {
             // todo 对接口
+            this.$api.leagueMemberActivities.remove(id).then(res=>{
+              this.getData()
+            })
           });
       },
+      getStatisticsData() {
+        this.statisticsLoading = true;
+        this.$api.leagueMemberActivities.stat()
+          .then(res => {
+            this.statisticsData = res.data;
+            this.statisticsLoading = false;
+          })
+      }
     },
   }
 </script>

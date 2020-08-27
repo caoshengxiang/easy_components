@@ -15,25 +15,54 @@
           name=""
           :page-jump="true"
         />
-        <el-input v-model="listQuery.communityName" placeholder="年级"
-                  style="margin-left:10px;width: 180px"
+        <service-select
+          v-model="listQuery.gradeId"
+          :data-service="$api.baseInfo.getGradeList"
+          name="name"
+          field="id"
+          placeholder="年级"
+          clearable
+          class="filter-item"
+          :immediate="false"
+          style="margin-left: 10px; width: 180px"
         />
-        <el-input v-model="listQuery.jobs" placeholder="专业" style="margin-left:10px;width: 180px"/>
-        <el-select
+        <service-select
+          v-model="listQuery.specialtyId"
+          :data-service="$api.baseInfo.getSpecialtyList"
+          name="name"
+          field="id"
+          placeholder="专业"
+          clearable
+          class="filter-item"
+          :immediate="false"
+          style="margin-left: 10px; width: 180px"
+        />
+        <service-select
           v-model="listQuery.clbumId"
+          :data-service="$api.baseInfo.getClbumList"
+          name="name"
+          field="id"
           placeholder="班级"
           clearable
           class="filter-item"
-          style="margin-left:10px;"
-        >
-          <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
-        </el-select>
-        <el-select v-model="listQuery.timestamp" class="filter-item"
-                   style="margin-left: 10px;" placeholder="学期">
-          <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name"
-                     :value="item.key"
-          />
-        </el-select>
+          :immediate="false"
+          style="margin-left: 10px; width: 180px"
+        />
+<!--        <el-select v-model="listQuery.timestamp" class="filter-item"-->
+<!--                   style="margin-left: 10px;" placeholder="学期">-->
+<!--          <el-option v-for="item in calendarTypeOptions1" :key="item.key" :label="item.display_name"-->
+<!--                     :value="item.key"-->
+<!--          />-->
+<!--        </el-select>-->
+        <service-select
+          v-model="listQuery.termId"
+          name="name"
+          field="id"
+          :data-service="$api.baseInfo.getTermList"
+          placeholder="学期"
+          :immediate="false"
+          clearable
+        />
         <el-input v-model="listQuery.name" placeholder="姓名" style="margin-left:10px;width: 180px"/>
         <el-button
           class="filter-item"
@@ -53,43 +82,27 @@
             <img class="item-img" src="../../../assets/a1.png" alt="">
             <div class="item-info">
               <div class="item-head">学生干部总数</div>
-              <div class="item-data">{{ data.communitySum || 0 }}</div>
-            </div>
-          </div>
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">校级干部</div>
-              <div class="item-data">{{ data.communitySum || 0 }}</div>
-            </div>
-          </div>
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">各级别人数</div>
-              <div class="item-data">{{ data.communitySum || 0 }}</div>
+              <div class="item-data">{{ studentLeaderTotal || 0 }}</div>
             </div>
           </div>
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="学年" prop="communityName"/>
-        <el-table-column label="学期" prop="name"/>
-        <el-table-column label="学生姓名" prop="class"/>
-        <el-table-column label="年级" align="center" prop="grade"/>
+        <el-table-column label="学年" prop="year"/>
+        <el-table-column label="学期" prop="termName"/>
+        <el-table-column label="学生姓名" prop="name"/>
+        <el-table-column label="年级" prop="grade"/>
         <el-table-column label="专业" prop="specialty"/>
-        <el-table-column label="班级" prop="jobs"/>
-        <el-table-column label="级别" align="center" prop="jobDate"/>
-        <el-table-column label="任职单位" align="center" prop="remark"/>
-        <el-table-column label="干部名称" prop="workContent"/>
-        <el-table-column label="创建人" prop="comment"/>
-        <el-table-column label="创建时间" align="center" prop="createdDate"/>
-        <el-table-column label="评价" prop="remark"/>
-        <el-table-column label="操作" align="center" width="180">
+        <el-table-column label="班级" prop="clbum"/>
+        <el-table-column label="学生干部岗位" prop="postName"/>
+        <el-table-column label="创建人" prop="creator"/>
+        <el-table-column label="创建时间" align="center" prop="created" min-width="160"/>
+        <el-table-column label="评价" prop="score"/>
+        <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_studentCadres_detail"
-              name="详情"
+              name="编辑"
               type="primary"
               :page-jump="true"
               :page-query="{ id: row.id }"
@@ -99,7 +112,7 @@
               menu-no="_views_leagueActivities_studentCadres_delete"
               name="删除"
               type="danger"
-              @click="deleteRow(row)"
+              @click="deleteRow(row.id)"
               round
             />
           </template>
@@ -112,12 +125,16 @@
 <script>
   import YPageListLayout from '@/components/YPageListLayout'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import Breadcrumb from '@/components/Breadcrumb'
+  import ServiceSelect from "../../../components/ServiceSelect";
 
   export default {
-    name: 'studentActivities',
+    name: 'studentCadres',
     components: {
+      ServiceSelect,
       YPageListLayout,
-      PermissionButton
+      PermissionButton,
+      Breadcrumb
     },
     data() {
       return {
@@ -134,7 +151,7 @@
           descs: 'id',
         },
         gradeInfo: [],
-        data: {}
+        studentLeaderTotal: 0
       }
     },
     created() {
@@ -142,21 +159,21 @@
       this.getClbumList()
     },
     methods: {
-      getData(query) {
+      getData() {
         this.loading = true;
         // todo 对接口
-        if (query) {
-          this.filters = query;
-        }
-        this.$api.moralManageNotice.page(Object.assign({}, this.pageInfo, this.listQuery))
+        this.$api.studentCadres.getPage(Object.assign({}, this.pageInfo, this.listQuery))
           .then(res => {
             this.tableData = res.data;
+            if ( Object.keys(this.listQuery).length === 1 ) {
+              this.studentLeaderTotal = res.data.total
+            }
           })
           .finally(() => {
             this.loading = false;
           });
       },
-      deleteRow() {
+      deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -164,6 +181,9 @@
         })
           .then(() => {
             // todo 对接口
+            this.$api.studentCadres.remove(id).then(res=>{
+              this.getData()
+            })
           });
       },
       getClbumList() {

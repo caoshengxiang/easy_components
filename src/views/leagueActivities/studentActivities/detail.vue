@@ -5,37 +5,52 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
-        <el-tab-pane label="新增学生活动" name="first">
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增学生活动' : '编辑学生活动'" name="first">
           <el-form ref="form" :model="form" :rules="rules" class="form-container" label-width="160px">
             <el-row>
               <el-col :span="24">
-                <el-form-item label="社团名称：" prop="community">
-                  <el-input v-model="form.community" />
+                <el-form-item label="社团名称：" prop="clubName">
+                  <service-select
+                    v-model="form.clubName"
+                    name="name"
+                    field="name"
+                    :data-service="$api.LACommunityManage.simpleAll"
+                    clearable
+                    @after-select="afterClubSelect"
+                    style="width: 100%"
+                  />
+                </el-form-item>
+
+              </el-col>
+              <el-col :span="24">
+                <el-form-item label="活动主题：" prop="theme">
+                  <el-input v-model="form.theme" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动主题：" prop="activitySubject">
-                  <el-input v-model="form.activitySubject" />
+                <el-form-item label="负责人：" prop="principal">
+                  <el-input v-model="form.principal" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="负责人：" prop="chargePerson">
-                  <el-input v-model="form.chargePerson" />
+                <el-form-item label="活动时间：" prop="activityTime">
+                  <el-date-picker
+                    v-model="form.activityTime"
+                    type="datetime"
+                    style="width:100%"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="选择时间"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动时间：" prop="activityDate">
-                  <el-input v-model="form.activityDate" />
+                <el-form-item label="活动地点：" prop="addr">
+                  <el-input v-model="form.addr" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="活动地点：" prop="activityLoction">
-                  <el-input v-model="form.activityLoction" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item label="活动内容：" prop="activityContent">
-                  <el-input v-model="form.activityContent" type="textarea"/>
+                <el-form-item label="活动内容：" prop="content">
+                  <el-input v-model="form.content" type="textarea"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -48,11 +63,15 @@
 
 <script>
   import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import Breadcrumb from '@/components/Breadcrumb'
+  import ServiceSelect from '@/components/ServiceSelect'
 
   export default {
     communityName: 'studentActivitiesDetail',
     components: {
-      YDetailPageLayout
+      YDetailPageLayout,
+      Breadcrumb,
+      ServiceSelect
     },
     props: {
       detailInfo: {
@@ -69,19 +88,6 @@
         form: {
           jobs: []
         },
-        jobsOptions: [{
-          value: '教务处',
-          label: '教务处'
-        }, {
-          value: '团委',
-          label: '团委'
-        }, {
-          value: '党委',
-          label: '党委'
-        }, {
-          value: '学生会',
-          label: '学生会'
-        }],
         rules: {
           studentID: [{ required: true, message: '请输入学生身份证号', trigger: 'blur' }],
           level: [{ required: true, message: '请输入级别', trigger: 'blur' }],
@@ -99,16 +105,71 @@
       getData() {
         if (this.detailInfo) {
           this.form = this.detailInfo
+          this.editStatus = false
         } else if (this.$route.query.id) {
           this.loading = true;
-          this.editStatus = false;
           // todo 对接口
+          this.$api.studentActivities.getDetail(this.$route.query.id).then(res => {
+            this.loading = false
+            if (res.code === 200) {
+              this.form = res.data
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
+          })
         }
+      },
+      afterClubSelect(row) {
+        this.$set(this.form, 'clubId', row.id);
       },
       save() {
         this.$refs.form.validate(valid => {
           if (valid) {
             // todo 对接口
+            if (this.$route.query.id) {
+              this.$api.studentActivities.editStudentActivity({...this.form}).then(res => {
+                this.loading = false
+                if (res.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑学生活动成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  this.$router.push({
+                    path: '/views/leagueActivities/studentActivities',
+                  })
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: res.msg
+                  })
+                }
+              })
+            } else {
+              this.$api.studentActivities.addStudentActivity({...this.form}).then(res => {
+                this.loading = false
+                if (res.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '新增学生活动成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  this.$router.push({
+                    path: '/views/leagueActivities/studentActivities',
+                  })
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: res.msg
+                  })
+                }
+              })
+            }
           } else {
             this.$message.warning('请完善表单信息！');
           }
