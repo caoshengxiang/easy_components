@@ -53,7 +53,7 @@
       </template>
       <template slot="right">
         <PermissionButton
-          menu-no="_views_leagueActivities_memberManage_import"
+          menu-no="_views_leagueActivities_leagueMember_import"
           name="导入"
           round
           type="text"
