@@ -32,7 +32,7 @@ export default {
     return fileDown('indicatorYearData/download/exportExcel', params)
   },
   indicatorImportExcel(params) {
-    return request.post('staff/importExcel', params)
+    return request.post('indicatorYearData/importExcel', params)
   },
   // detail(params) {
   //   return request.get(`post/${params}`)
