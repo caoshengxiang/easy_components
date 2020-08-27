@@ -41,9 +41,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="学生：" prop="item">
+                <el-form-item label="学生：" prop="studentName">
                   <el-select
-                    v-model="form.item"
+                    v-model="form.studentName"
                     filterable
                     remote
                     placeholder="请输入关键词"
@@ -136,7 +136,7 @@
         rules: {
           clubName: [{ required: true, message: '请输入社团名称', trigger: 'blur' }],
           dutyName: [{ required: true, message: '请输入职务', trigger: 'blur' }],
-          item: [{ required: true, message: '请输入学生', trigger: 'blur' }],
+          studentName: [{ required: true, message: '请输入学生', trigger: 'blur' }],
           employeeDate: [{ required: true, message: '请输入任职日期', trigger: 'change' }],
           entryDate: [{ required: true, message: '请输入入社日期', trigger: 'change' }],
           state: [{ required: true, message: '请输入状态', trigger: 'blur' }],
