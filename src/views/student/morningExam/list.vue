@@ -87,6 +87,17 @@
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
+
+        <el-date-picker
+          v-model="dateTime"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          style="width: 250px;margin-top: 3px;margin-left: 5px"
+          class="filter-item"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          end-placeholder="结束日期"
+        />
         <el-input
           v-model="listQuery.keyword"
           placeholder="关键字"
@@ -214,6 +225,7 @@ export default {
         current: 0,
         size: 10
       },
+      dateTime:[],
     }
   },
   created() {
@@ -291,6 +303,7 @@ export default {
     },
     resetSearch() {
       this.listQuery = { descs: 'id' }
+      this.dateTime = []
       this.getList()
     },
     removeHandle(row) {
@@ -318,6 +331,14 @@ export default {
     getList() {
       const that = this
       this.listLoading = true
+
+      if (that.dateTime) {
+        that.listQuery.startTime = that.dateTime[0]
+        that.listQuery.endTime = that.dateTime[1]
+      } else {
+        that.listQuery.startTime = ''
+        that.listQuery.endTime = ''
+      }
       this.$api.morningExam.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
         setTimeout(() => {
