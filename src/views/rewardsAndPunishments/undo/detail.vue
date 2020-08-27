@@ -4,6 +4,8 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
+      <el-tabs>
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增撤销' : '编辑撤销'">
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" style="padding-right: 15%; padding-top: 100px">
             <div class="createPost-main-container">
               <div class="postInfo-container">
@@ -131,6 +133,8 @@
               </div>
             </div>
           </el-form>
+        </el-tab-pane>
+      </el-tabs>
     </y-detail-page-layout>
   </div>
 </template>
