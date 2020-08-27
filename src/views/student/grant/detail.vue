@@ -164,6 +164,8 @@ export default {
       areaInfo:[],
       specialty: [],
       gradeInfo: [],
+      classInfo:[],
+      majorInfo:[],
       studentInfo:[],
       type: 'detail',
       postForm: {},
@@ -342,10 +344,7 @@ export default {
       } else { // 新增
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.postForm.startTime = this.postForm.deadTime[0]
-            this.postForm.endTime = this.postForm.deadTime[1]
-            this.postForm.admissionIds = this.postForm.admissionIds.toString()
-            this.$api.adminssionTask.add(this.postForm).then(res => {
+            this.$api.grant.add(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',

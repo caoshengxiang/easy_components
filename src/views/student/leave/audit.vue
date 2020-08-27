@@ -89,35 +89,9 @@
     },
     data() {
       return {
-        grantType: [  {
-          key: '',
-          label: '全部'
-        },{
-          key: 1,
-          label: '奖学金'
-        }, {
-          key: 2,
-          label: '助学金'
-        }],
-        areaInfo:[],
-        specialty: [],
-        gradeInfo: [],
-        studentInfo:[],
         type: 'detail',
         postForm: {},
-        rules: {
-          administrativeClbumId: [{ required: true, message: '班级', trigger: 'blur'}],
-          studentId: [{ required: true, message: '学生', trigger: 'blur'}],
-          startTime: [{ required: true, message: '开始时间', trigger: 'blur'}],
-          endTime: [{ required: true, message: '结束时间', trigger: 'blur'}],
-          leaveType: [{ required: true, message: '假别', trigger: 'blur'}],
-          reason: [{ required: true, message: '请假事由', trigger: 'blur'}]
-        },
-        departmentList: [],
-        staff: [],
         dataId: this.$route.query.id,
-        days:0,
-        hours:0,
         showState:''
       }
     },
@@ -133,7 +107,6 @@
       } else {
         this.getDetail()
       }
-      that.getClbumList()
     },
     methods: {
       handleCreate(){
@@ -157,75 +130,6 @@
               })
             })
             .catch(err => { console.error(err) })
-      },
-      calTime(){
-        if(this.postForm.endTime && this.postForm.startTime) {
-          var stamp = new Date(this.postForm.endTime).getTime() - new Date(this.postForm.startTime).getTime();
-          var time = (stamp / 1000);
-          if (null != time && "" != time) {
-
-            if (time > 60 && time < 60 * 60) {
-              this.days = 0
-              this.hours = 1
-            } else if (time >= 60 * 60 && time < 60 * 60 * 24) {
-              this.days = 0
-              this.hours = parseInt(time / 3600.0)
-              if(time % 3600.0 >0){
-                this.hours = this.hours + 1
-              }
-            } else if (time >= 60 * 60 * 24) {
-              this.days = parseInt(time / 3600.0 / 24)
-              this.hours = parseInt((parseFloat(time / 3600.0 / 24) - parseInt(time / 3600.0 / 24)) * 24)
-              if(time % 3600.0 % 24 >0){
-                this.hours = this.hours + 1
-              }
-            } else {
-              this.days = 0
-              this.hours = 1
-            }
-
-
-            this.postForm.days = this.days
-            this.postForm.hours =  this.hours
-          }
-        }
-      },
-      getClbumList() {
-        const that = this
-        that.$api.baseInfo.getClbumList({
-          gradeId: that.postForm.administrativeGradeId,
-          specialtyId: that.postForm.administrativeSpecialtyId
-        }).then(data => {
-          that.loading = false
-          if (data.code === 200) {
-            // 返回成功
-            that.gradeInfo = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      getStudent(){
-        const that = this
-        that.$api.student.getStudentList({
-          gradeId: that.postForm.administrativeGradeId,
-          specialtyId: that.postForm.administrativeSpecialtyId,
-          schoolClbumId: that.postForm.administrativeClbumId
-        }).then(data => {
-          that.loading = false
-          if (data.code === 200) {
-            // 返回成功
-            that.studentInfo = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
       },
       getDetail() {
         if (this.dataId) {

@@ -5,22 +5,48 @@
     </div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true">
       <el-tabs value="first">
-        <el-tab-pane label="请假信息录入" name="first">
+        <el-tab-pane label="基础信息" name="first">
           <el-form
             ref="postForm"
             :model="postForm"
             :rules="rules"
             class="form-container"
-            style="width: 600px;margin: auto"
+            style="width: 600px;margin: auto;"
           >
             <div class="createPost-main-container">
-              <div style="font-size: 20px;font-weight: 500;text-align: center;padding-left: 100px;margin-bottom: 20px">北京中思远信息科学研究院 <lable style="color: red">2020</lable> 学年  <lable style="color: red">春季</lable> 学生请假单</div>
-              <el-row>  <el-col :span="24">
-                <el-form-item  prop="year" label-width="150px" class="postInfo-container-item">
-                </el-form-item>
-              </el-col>
+              <el-row>
+                <el-col :span="24">
+                  <el-form-item label="年级：" prop="gradeId" label-width="150px" class="postInfo-container-item">
+                    <el-select
+                      v-model="postForm.administrativeGradeId"
+                      placeholder="年级"
+                      clearable
+                      style="width:100%"
+                      class="filter-item"
+                      @change="getClbumList"
+                    >
+                      <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="专业：" prop="gradeId" label-width="150px" class="postInfo-container-item">
+
+                    <el-select
+                      v-model="postForm.administrativeSpecialtyId"
+                      placeholder="专业"
+                      clearable
+                      class="filter-item"
+                      @change="getClbumList"
+                      style="width:100%"
+                    >
+                      <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="24">
                   <el-form-item label="班级：" prop="administrativeClbumId" label-width="150px" class="postInfo-container-item">
+
                     <el-select
                       v-model="postForm.administrativeClbumId"
                       placeholder="班级"
@@ -47,50 +73,9 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
-
-
                 <el-col :span="24">
-                  <el-form-item label="开始时间：" prop="startTime" label-width="150px" class="postInfo-container-item">
-                    <el-date-picker
-                      v-model="postForm.startTime"
-                      type="datetime"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      style="width: 100%"
-                      placeholder=""
-                      @change="calTime"
-                    />
-
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="结束时间：" prop="endTime" label-width="150px" class="postInfo-container-item">
-                    <el-date-picker
-                      v-model="postForm.endTime"
-                      type="datetime"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      style="width: 100%"
-                      placeholder=""
-                      @change="calTime"
-                    />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="请假总计：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
-                   <el-lable style="color: red">{{days}}</el-lable> 天  <el-lable  style="color: red">{{hours}}</el-lable> 小时
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="假别：" prop="leaveType" label-width="150px" class="postInfo-container-item">
-                    <el-radio-group v-model="postForm.leaveType">
-                      <el-radio :label="1">事假</el-radio>
-                      <el-radio :label="2">病假</el-radio>
-                      <el-radio :label="3">其他</el-radio>
-                    </el-radio-group>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                  <el-form-item label="请假事由：" prop="reason" label-width="150px" class="postInfo-container-item">
-                    <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.reason" show-word-limit />
+                  <el-form-item label="晨检描述：" prop="remark" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -132,21 +117,29 @@ export default {
         key: 2,
         label: '助学金'
       }],
+      areaInfo:[],
+      specialty: [],
       gradeInfo: [],
+      classInfo:[],
+      majorInfo:[],
       studentInfo:[],
       type: 'detail',
       postForm: {},
       rules: {
-        administrativeClbumId: [{ required: true, message: '班级', trigger: 'blur'}],
-        studentId: [{ required: true, message: '学生', trigger: 'blur'}],
-        startTime: [{ required: true, message: '开始时间', trigger: 'blur'}],
-        endTime: [{ required: true, message: '结束时间', trigger: 'blur'}],
-        leaveType: [{ required: true, message: '假别', trigger: 'blur'}],
-        reason: [{ required: true, message: '请假事由', trigger: 'blur'}]
+        studentId: [{
+          required: true,
+          message: '学生',
+          trigger: 'blur'
+        }],
+        remark: [{
+          required: true,
+          message: '描述',
+          trigger: 'change'
+        }]
       },
+      departmentList: [],
+      staff: [],
       dataId: this.$route.query.id,
-      days:0,
-      hours:0
     }
   },
   watch: {
@@ -161,40 +154,39 @@ export default {
     } else {
       this.getDetail()
     }
-    that.getClbumList()
+    that.getSpecialtyList()
+    that.getGradeList()
   },
   methods: {
-    calTime(){
-      if(this.postForm.endTime && this.postForm.startTime) {
-        var stamp = new Date(this.postForm.endTime).getTime() - new Date(this.postForm.startTime).getTime();
-        var time = (stamp / 1000);
-        if (null != time && "" != time) {
-
-          if (time > 60 && time < 60 * 60) {
-            this.days = 0
-            this.hours = 1
-          } else if (time >= 60 * 60 && time < 60 * 60 * 24) {
-            this.days = 0
-            this.hours = parseInt(time / 3600.0)
-            if(time % 3600.0 >0){
-              this.hours = this.hours + 1
-            }
-          } else if (time >= 60 * 60 * 24) {
-            this.days = parseInt(time / 3600.0 / 24)
-            this.hours = parseInt((parseFloat(time / 3600.0 / 24) - parseInt(time / 3600.0 / 24)) * 24)
-            if(time % 3600.0 % 24 >0){
-              this.hours = this.hours + 1
-            }
-          } else {
-            this.days = 0
-            this.hours = 1
-          }
-
-
-          this.postForm.days = this.days
-          this.postForm.hours =  this.hours
+    getGradeList() {
+      const that = this
+      that.$api.baseInfo.getGradeList().then(data => {
+        that.loading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.classInfo = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
         }
-      }
+      })
+    },
+    getSpecialtyList() {
+      const that = this
+      that.$api.baseInfo.getSpecialtyList().then(data => {
+        that.loading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.majorInfo = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
     },
     getClbumList() {
       const that = this
@@ -235,10 +227,8 @@ export default {
     },
     getDetail() {
       if (this.dataId) {
-        this.$api.grant.detail(this.dataId).then(res => {
+        this.$api.morningExam.detail(this.dataId).then(res => {
           this.postForm = res.data
-          this.days = this.postForm.days
-          this.hours =  this.postForm.hours
         })
       }
     },
@@ -246,7 +236,7 @@ export default {
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.leave.edit(this.postForm).then(res => {
+            this.$api.morningExam.edit(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
@@ -265,7 +255,7 @@ export default {
       } else { // 新增
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.leave.add(this.postForm).then(res => {
+            this.$api.morningExam.add(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
