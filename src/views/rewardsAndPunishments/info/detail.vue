@@ -4,15 +4,16 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus" @editStatusChange="editStatusChange">
-      <el-button round style="margin-top: 9px; margin-left: 9px" @click="printInfo" v-show="!isEdit" >打印</el-button>
-      <el-form
-        ref="postForm"
-        :model="postForm"
-        :rules="rules"
-        class="form-container"
-        style="padding-right: 15%; padding-top: 100px"
-        id="rewardsAndPunishmentsDetailInfo"
-      >
+      <el-tabs>
+        <el-tab-pane :label="!detailInfo && !$route.query.id ? '新增奖惩' : '奖惩详情'">
+          <el-form
+            ref="postForm"
+            :model="postForm"
+            :rules="rules"
+            class="form-container"
+            style="padding-right: 15%; padding-top: 100px"
+            id="rewardsAndPunishmentsDetailInfo"
+          >
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px;">
@@ -33,31 +34,33 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item ">
+                    <el-form-item label="专业：" prop="specialtyId" label-width="90px" class="postInfo-container-item ">
                       <el-select
                         v-model="postForm.specialtyId"
                         placeholder="专业"
                         clearable
                         class="filter-item"
                         @change="getClbumList"
+                        style="width: 100%;"
                       >
                         <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label=" 班级：" prop="clbumId" label-width="120px" class="postInfo-container-item">
+                    <el-form-item label=" 班级：" prop="clbumId" label-width="90px" class="postInfo-container-item">
                       <el-select v-model="postForm.clbumId" placeholder="班级" @change="getStdNoBedList" clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item"
+                                 style="width: 100%"
                       >
                         <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="姓名：" prop="studentId" label-width="120px" class="postInfo-container-item">
+                    <el-form-item label="姓名：" prop="studentId" label-width="90px" class="postInfo-container-item">
                       <el-select v-model="postForm.studentId" placeholder="姓名" clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item" style="width: 100%"
                       >
                         <el-option v-for="item in noBedStd" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
@@ -77,7 +80,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="奖/惩：" prop="oper" label-width="120px" class="postInfo-container-item">
+                    <el-form-item label="奖/惩：" prop="oper" label-width="90px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.oper"
                         placeholder="请选择奖/惩"
@@ -90,12 +93,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label=" 级别：" prop="level" label-width="120px" class="postInfo-container-item">
+                    <el-form-item label=" 级别：" prop="level" label-width="90px" class="postInfo-container-item">
                       <el-input v-model="postForm.level" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="6">
-                    <el-form-item label="处理时间：" prop="operateTime" label-width="120px" class="postInfo-container-item">
+                    <el-form-item label="处理时间：" prop="operateTime" label-width="90px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.operateTime"
                         type="datetime"
@@ -137,6 +140,9 @@
               </div>
             </div>
           </el-form>
+        </el-tab-pane>
+        <el-button round @click="printInfo" style="margin: auto; display: block" v-show="!isEdit" >打印</el-button>
+      </el-tabs>
     </y-detail-page-layout>
   </div>
 </template>
@@ -174,6 +180,7 @@
         noBedStd: [],
         AllEnum:{},
         loading:false,
+        originData:{}
       }
     },
     watch: {
@@ -186,6 +193,7 @@
 
       if (that.detailInfo) {
         that.postForm = that.detailInfo
+        this.originData = {...that.postForm}
         that.editStatus = false
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
@@ -287,7 +295,8 @@
         })
       },
       printInfo() {
-        printPdf('#rewardsAndPunishmentsDetailInfo', '撤销')
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxx')
+        printPdf('#rewardsAndPunishmentsDetailInfo', '奖惩')
       },
       getDetail() {
         const that = this
@@ -295,6 +304,7 @@
           that.loading = false
           if (data.code === 200) {
             that.postForm = data.data
+            that.originData = {...that.postForm}
           } else {
             this.$message({
               type: 'error',
@@ -304,6 +314,9 @@
         })
       },
       editStatusChange(value) {
+        if (!value) {
+          this.postForm = {...this.originData}
+        }
         this.isEdit = value
       },
       save() {
@@ -345,7 +358,7 @@
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
-                    message: '新增建筑物成功',
+                    message: '新增奖惩成功',
                     type: 'success',
                     duration: 2000
                   })
