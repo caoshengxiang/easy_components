@@ -49,6 +49,8 @@
         <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
         <!--          新增学期-->
         <!--        </el-button>-->
+
+
         <PermissionButton
           menu-no="_views_student_leave_add"
           class-name="filter-item"
@@ -177,6 +179,14 @@
               :page-query="{id: row.id}"
               round
             />
+            <PermissionButton
+            menu-no="_views_student_leave_audit"
+            type="success"
+            name=""
+            :page-jump="true"
+            :page-query="{id: row.id}"
+            round
+          />
             <PermissionButton
               menu-no="_views_student_leave_map"
               type="primary"
