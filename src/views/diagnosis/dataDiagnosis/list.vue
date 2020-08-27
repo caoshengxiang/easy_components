@@ -17,7 +17,7 @@
     <!--        <div/>-->
     <!--      </div>-->
     <!--    </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout>
       <template slot="left">
       </template>
       <template slot="right">
@@ -30,7 +30,7 @@
 <!--          round-->
 <!--        />-->
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" :data="pageData" slot="table" style="width: 100%;">
         <el-table-column label="年份" prop="id" align="center" width="150">
           <template slot-scope="{row}">
             <span>
@@ -45,13 +45,13 @@
         </el-table-column>
         <el-table-column label="创建人" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyName }}</span>
+            <span>{{ row.creatorName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="时间" align="center">
           <template slot-scope="{row}">
             <span>
-              {{ row.administrativeGradeName }}
+              {{ row.created }}
             </span>
           </template>
         </el-table-column>
@@ -71,7 +71,7 @@
       return {
         importance: [],
         listLoading: false,
-        pageData: { records: [] },
+        pageData: [],
         pagePara: {
           current: 0,
           size: 10
@@ -92,13 +92,12 @@
         that.getList()
       },
       getList() {
-        const that = this
-        that.listLoading = true
-        that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
-          that.listLoading = false
+        this.listLoading = true
+        this.$api.diagnosis.indicatorYearList({ ...this.pagePara, ...this.listQuery }).then(data => {
+          this.listLoading = false
           if (data.code === 200) {
             // 返回成功
-            that.pageData = data.data
+            this.pageData = data.data
           } else {
             this.$message({
               type: 'error',

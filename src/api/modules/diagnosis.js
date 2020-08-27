@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { fileDown } from '../../utils/file'
 /*
 * 诊改
 */
@@ -15,25 +16,28 @@ export default {
   indicatorEdit(params) {
     return request.put(`indicator/${params.id}`, params)
   },
-  // list(params) {
-  //   return request.get(`post`, { params: params })
-  // },
+  indicatorWarn(params) {
+    return request.put(`indicator/warn`, params)
+  },
+  indicatorYearList(params) {
+    return request.get(`indicatorYear`, { params: params })
+  },
+  indicatorYear(params) {
+    return request.get(`indicatorYear/year`, { params: params })
+  },
+  indicatorYearAdd(params) { // 新增
+    return request.post(`indicatorYear`, params)
+  },
+  indicatorExportExcel(params) {
+    return fileDown('indicatorYearData/download/exportExcel', params)
+  },
+  indicatorImportExcel(params) {
+    return request.post('staff/importExcel', params)
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },
-  // add(params) {
-  //   return request.post(`post`, params)
-  // },
-  // edit(params) {
-  //   return request.put(`post`, params)
-  // },
   // delete(params) {
   //   return request.delete(`post/${params}`)
-  // },
-  // simpleAll(params) { // 下拉
-  //   return request.get(`post/simpleAll`, { params: params })
-  // },
-  // copyPost(params) { // 下拉
-  //   return request.put(`post/copy/${params}`)
   // },
 }

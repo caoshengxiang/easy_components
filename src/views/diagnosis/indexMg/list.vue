@@ -28,7 +28,7 @@
         <!--          round-->
         <!--          @click="handleAdd"-->
         <!--        />-->
-        <el-button class="filter-item" round type="warning">
+        <el-button class="filter-item" round type="warning" @click="setAlert">
           预警设置
         </el-button>
         <el-select v-model="level1" style="width: 200px;margin-left: 20px;" clearable filterable
@@ -76,9 +76,12 @@
         <!--          round-->
         <!--        />-->
       </template>
-      <parentTable ref="multipleTable" @selectionChange="handleSelectionChange" v-loading="listLoading"
+      <parentTable ref="multipleTable" v-loading="listLoading"
                    :data="pageData" slot="table" style="width: 100%;">
-        <el-table-column align="center" type="selection" width="55">
+        <el-table-column align="center" width="55">
+          <template slot-scope="{row}">
+            <el-checkbox v-if="row.type === 3 || row.type === 2" v-model="row.hasWarining"></el-checkbox>
+          </template>
         </el-table-column>
         <el-table-column label="名称" prop="name" align="center" width="150">
           <template slot-scope="{row}">
@@ -361,6 +364,32 @@
         'indicatorTypeName',
         'indicatorFillWayName',
       ]),
+      setAlert() {
+        this.$confirm('确定保存预警设置, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let pa = this.pageData.map(item => {
+            return {
+              id: item.id,
+              hasWarining: item.hasWarining
+            }
+          })
+          this.$api.diagnosis.indicatorWarn(pa).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '设置成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
+          })
+        }).catch(() => {
+        })
+      },
       searchList() {
         this.pagePara.current = 0
         this.getList()
