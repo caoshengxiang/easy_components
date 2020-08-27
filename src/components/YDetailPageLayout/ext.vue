@@ -19,7 +19,7 @@
                           name="取消"
         />
         <template v-else>
-          <el-button v-if="editStatus" type="info" round @click="handleCancel">取消</el-button>
+          <el-button v-if="editStatus && showCancel" type="info" round @click="handleCancel">取消</el-button>
         </template>
       </template>
     </div>
@@ -42,6 +42,10 @@
       editStatus: {
         type: Boolean,
         required: true
+      },
+      showCancel: {
+        type: Boolean,
+        default: true
       }
     },
     watch: {
@@ -95,9 +99,11 @@
       },
       handleEdit() {
         this.$emit('update:editStatus', true);
+        this.$emit('edit');
       },
       handleCancel() {
         this.$emit('update:editStatus', false);
+        this.$emit('cancel');
       }
     }
   }

@@ -53,7 +53,7 @@
       </template>
       <template slot="right">
         <PermissionButton
-          menu-no="_views_leagueActivities_memberManage_import"
+          menu-no="_views_leagueActivities_leagueMember_import"
           name="导入"
           round
           type="text"
@@ -89,7 +89,7 @@
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_leagueMember_detail"
-              name="详情"
+              name="编辑"
               type="primary"
               :page-jump="true"
               :page-query="{ id: row.id }"

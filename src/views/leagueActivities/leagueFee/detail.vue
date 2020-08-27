@@ -97,14 +97,14 @@
     methods: {
       getData() {
         if (this.detailInfo) {
-          this.form = this.detailInfo
+          this.form = this.detailInfo;
+          this.editStatus = false;
         } else if (this.$route.query.id) {
           this.loading = true;
           this.$api.LALeagueFee.detail(this.$route.query.id)
             .then(res => {
               this.form = res.data;
               this.$nextTick(function() {
-                this.editStatus = false;
                 this.loading = false;
               });
             })
