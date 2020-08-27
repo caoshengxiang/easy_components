@@ -90,7 +90,6 @@
             <el-button type="text">同步数据</el-button>
           </template>
         </el-table-column>
-        <!--    </el-table>-->
       </parentTable>
     </y-page-list-layout>
   </div>
