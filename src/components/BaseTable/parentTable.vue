@@ -23,13 +23,19 @@
         default() {
           return []
         },
-        require: true
+        require: true,
+        type: Array,
       },
+      noPage: {
+        default: false,
+        type: Boolean
+      }
     },
     computed: {
       maxHeight() {
+        let plus = this.noPage ? 100 : 0
         let clientHeight = document.documentElement.clientHeight
-        return clientHeight-310
+        return clientHeight - 310 + plus
       }
     },
     methods: {
