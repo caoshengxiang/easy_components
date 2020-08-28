@@ -59,7 +59,14 @@
         </el-table-column>
         <el-table-column label="编辑" align="center">
           <template slot-scope="{row}">
-            <el-button type="text">编辑</el-button>
+            <PermissionButton
+              menu-no="_views_diagnosis_dataFilling_dataFill"
+              class-name="filter-item"
+              type="text"
+              round
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            />
           </template>
         </el-table-column>
         <el-table-column label="创建人" align="center">
@@ -144,7 +151,7 @@
         this.$api.diagnosis.indicatorYearAdd({
           year: this.year
         }).then(res => {
-          if(res.code === 200) {
+          if (res.code === 200) {
             this.getList()
           }
         })
@@ -170,7 +177,7 @@
         })
       },
       exportFile(row) {
-        this.$api.diagnosis.indicatorExportExcel({indicatorYearId: row.id})
+        this.$api.diagnosis.indicatorExportExcel({ indicatorYearId: row.id })
       },
       beforeUpload(file, row) {
         const param = new FormData()

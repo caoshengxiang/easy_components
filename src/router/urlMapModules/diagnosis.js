@@ -3,6 +3,7 @@ export default {
   _views_diagnosis_dataDiagnosis_list: () => import('../../views/diagnosis/dataDiagnosis/list'),
   _views_diagnosis_dataDownload_list: () => import('../../views/diagnosis/dataDownload/list'),
   _views_diagnosis_dataFilling_list: () => import('../../views/diagnosis/dataFilling/list'),
+  _views_diagnosis_dataFilling_dataFill: () => import('../../views/diagnosis/dataFilling/dataFill'),
   _views_diagnosis_indexMg_list: () => import('../../views/diagnosis/indexMg/list'),
   _views_diagnosis_indexMg_keyElements: () => import('../../views/diagnosis/indexMg/keyElements'),
   _views_diagnosis_questionnaire_list: () => import('../../views/diagnosis/questionnaire/list'),

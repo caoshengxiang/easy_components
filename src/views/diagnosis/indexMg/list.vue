@@ -77,6 +77,7 @@
         <!--        />-->
       </template>
       <parentTable ref="multipleTable" v-loading="listLoading"
+                   :no-page="true"
                    :data="pageData" slot="table" style="width: 100%;">
         <el-table-column align="center" width="55">
           <template slot-scope="{row}">

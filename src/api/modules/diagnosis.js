@@ -34,6 +34,12 @@ export default {
   indicatorImportExcel(params) {
     return request.post('indicatorYearData/importExcel', params)
   },
+  indicatorTree(params) {
+    return request.get(`indicator/tree`)
+  },
+  indicatorYearData(params) { // 指标年标准列表，数据填写
+    return request.get(`indicatorYearData`, { params: params })
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },
