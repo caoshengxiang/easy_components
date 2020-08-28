@@ -40,7 +40,7 @@
           round
         />
         <el-select
-          v-model="listQuery.gradeId"
+          v-model="listQuery.admissionIds"
           placeholder="请选择生源地"
           clearable
           style="margin-left:10px;width: 200px;margin-bottom: 10px;"
@@ -170,7 +170,9 @@ export default {
       total: 0,
       listLoading: false,
       listQuery: {
-        descs: 'id'
+        descs: 'id',
+        admissionIds: '1'
+
       },
       pagePara: {
         current: 0,

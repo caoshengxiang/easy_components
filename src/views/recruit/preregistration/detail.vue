@@ -252,7 +252,7 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="是否参加中考：" prop="zkJoined" label-width="150px" class="postInfo-container-item">
-                      <el-select v-model="postForm.zkJoined" placeholder="是否住校" clearable class="filter-item"
+                      <el-select v-model="postForm.zkJoined" placeholder="参加中考" clearable class="filter-item"
                                  style="width: 100%"
                       >
                         <el-option v-for="item in opt1" :key="item.key" :label="item.label" :value="item.key"/>

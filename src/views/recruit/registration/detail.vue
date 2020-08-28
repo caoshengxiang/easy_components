@@ -192,7 +192,7 @@
                 <el-form-item label="年级：" prop="administrativeGradeId" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.administrativeGradeId" placeholder="年级" clearable
+                  <el-select v-model="postForm.administrativeGradeId" @change="getClbumList()" placeholder="年级" clearable
                              style="margin-left:10px;width: 100%" class="filter-item"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -499,7 +499,7 @@
 
       that.getGradeList()//赛选框年级
       that.getSpecialtyList()
-      that.getClbumList()
+
       that.getAllEnum()
       that.areaList()
       that.admissionSource()
@@ -523,6 +523,9 @@
       },
       changeSpe(){
         let that = this
+        that.postForm.administrativeClbumId = ''
+        that.postForm.classType = ''
+        that.classTypes = []
         that.$api.admiisionPreApply.getClassTypesBySpId(that.postForm.administrativeSpecialtyId).then(data => {
           if (data.code === 200) {
             that.classTypes = data.data
@@ -533,6 +536,7 @@
             })
           }
         })
+        that.getClbumList()
       },
       handleChange(e) {
         console.log(e)
@@ -623,7 +627,11 @@
       },
       getClbumList() {
         let that = this
-        that.$api.baseInfo.getClbumList().then(data => {
+        that.gradeInfo = []
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.postForm.administrativeGradeId,
+          specialtyId: that.postForm.administrativeSpecialtyId
+        }).then(data => {
           that.loading = false
           if (data.code === 200) {
             //返回成功

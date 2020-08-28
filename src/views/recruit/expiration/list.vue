@@ -6,7 +6,7 @@
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
         <el-input
-          v-model="listQuery.schoolName"
+          v-model="listQuery.keyword"
           placeholder="请输入身份证或者姓名"
           prefix-icon="el-icon-search"
           style="width: 200px;"
