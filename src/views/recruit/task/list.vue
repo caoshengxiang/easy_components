@@ -171,7 +171,6 @@ export default {
       listLoading: false,
       listQuery: {
         descs: 'id',
-        admissionIds: '1'
 
       },
       pagePara: {
