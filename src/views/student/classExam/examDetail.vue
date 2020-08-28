@@ -420,7 +420,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/classExam/download/importTemplate?examType=' + this.listQuery.examType, null, '导出模板')
+      this.$utils.exportUtil('/classExam/download/importTemplate', {examType:this.listQuery.examType}, '导出模板')
     },
     getStatistics() {
       let that = this

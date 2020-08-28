@@ -145,7 +145,7 @@ const utils = {
     }
     return str;
   },
-  exportUtil(url, data, message) {
+  exportUtil(url, data, message,type) {
     let that = this
     MessageBox.confirm('确认导出' + message + '吗?', '提示', {
       confirmButtonText: '确定',
