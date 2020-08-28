@@ -5,18 +5,6 @@
     </div>
     <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
       <template slot="left">
-        <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
-        <!--          新增学期-->
-        <!--        </el-button>-->
-        <PermissionButton
-          menu-no="_views_student_classExam_detail"
-          class-name="filter-item"
-          type="primary"
-          icon="el-icon-plus"
-          name=""
-          :page-jump="true"
-          round
-        />
         <el-select
           v-model="listQuery.administrativeGradeId"
           placeholder="年级"
@@ -77,36 +65,203 @@
       </template>
       <template slot="right">
           <PermissionButton
-            menu-no="_views_student_classExam_export"
+            menu-no="_views_student_classExam_export_jw"
             class-name="filter-item"
-            type="primary"
-            icon="el-icon-plus"
-            name=""
-            @click="downloadTemplate"
+            type="text"
+            name="导入"
             round
+          >
+            <excelImport
+              ref="uploadControl"
+              :flag="flag"
+              :style-type="1"
+              title="导入"
+              @fath="getList"
+            />
+          </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_cc"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
           />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_cg"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_jc"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_zz"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_qs"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_rc"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+        <PermissionButton
+          menu-no="_views_student_classExam_export_ws"
+          class-name="filter-item"
+          type="text"
+          name="导入"
+          round
+        >
+          <excelImport
+            ref="uploadControl"
+            :flag="flag"
+            :style-type="1"
+            title="导入"
+            @fath="getList"
+          />
+        </PermissionButton>
+
+        <PermissionButton
+          menu-no="_views_student_classExam_temple_jw"
+          class-name="filter-item"
+          type="primary"
+          icon="el-icon-plus"
+          name=""
+          @click="downloadTemplate"
+          round
+        />  <PermissionButton
+        menu-no="_views_student_classExam_temple_cc"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_cg"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_jc"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_zz"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_qs"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_rc"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />  <PermissionButton
+        menu-no="_views_student_classExam_temple_ws"
+        class-name="filter-item"
+        type="primary"
+        icon="el-icon-plus"
+        name=""
+        @click="downloadTemplate"
+        round
+      />
         </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
-        <el-table-column label="年份" align="center">
+        <el-table-column label="学月" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.year }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="学期" align="center">
-        <template slot-scope="{row}">
-          <span>接口没有</span>
-        </template>
-      </el-table-column>
-        <el-table-column label="月份" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.month }} </span>
+            <span>{{ row.month }}</span>
           </template>
         </el-table-column>
         <el-table-column label="班级" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.administrativeClbumName }} </span>
-          </template>
-        </el-table-column>
+        <template slot-scope="{row}">
+          <span>{{ row.administrativeClbumName }}</span>
+        </template>
+      </el-table-column>
         <el-table-column label="班主任" align="center">
           <template slot-scope="{row}">
             <span>{{ row.headTeacherName }} </span>
@@ -132,94 +287,44 @@
             <span>{{ row.girls }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="教学管理" align="center">
+        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'">
           <template slot-scope="{row}">
-            <span>{{ row.jXsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="财产破坏" align="center">
+        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'">
           <template slot-scope="{row}">
-            <span>{{ row.cCsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="常规考核" align="center">
+        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'">
           <template slot-scope="{row}">
-            <span>{{ row.cGsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="纠察" align="center">
+        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'">
           <template slot-scope="{row}">
-            <span>{{ row.jCsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="值周考核" align="center">
+        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'">
           <template slot-scope="{row}">
-            <span>{{ row.zZsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="寝室管理" align="center">
+        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'">
           <template slot-scope="{row}">
-            <span>{{ row.qSsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="日常规范" align="center">
+        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'">
           <template slot-scope="{row}">
-            <span>{{ row.rCsocre }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="卫生" align="center">
+        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'">
           <template slot-scope="{row}">
-            <span>{{ row.WSsocre }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="得分" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.totalScore }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="排名1" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.rank1 }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="男生比例" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.boyRand }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="比例系数" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.rateNumer }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="男生系数得分" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.boyRateNumerScore }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="排名2" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.rank2 }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="人数系数" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.personNumer }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="乘系得分" align="center">
-          <template slot-scope="{row}">
-            <span>接口没有 </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="本周总分" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.weekScore }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="名次" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.rank }} </span>
+            <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
       </parentTable>
@@ -230,6 +335,7 @@
 import YPageListLayout from '@/components/YPageListLayout'
 import Breadcrumb from '@/components/Breadcrumb'
 import PermissionButton from '@/components/PermissionButton/PermissionButton'
+import excelImport from '@/components/excelImport.vue'
 
 export default {
   name: 'ViewsRecruitPlanList',
@@ -237,6 +343,7 @@ export default {
     Breadcrumb,
     YPageListLayout,
     PermissionButton,
+    excelImport
   },
   filters: {
     statusFilter(status) {
@@ -280,18 +387,23 @@ export default {
       total: 0,
       listLoading: false,
       listQuery: {
-        descs: 'id'
+        descs: 'id',
+        examType: ''
       },
       pagePara: {
         current: 0,
         size: 10
       },
       termOptions: [],
-      yearsOptions: []
+      yearsOptions: [],
+
+      flag:''
     }
   },
   created() {
     const that = this
+    that.listQuery.examType = this.$route.path.split('/').pop();
+    that.flag = '/classExam/importExcel?examType=' +  that.listQuery.examType
     that.getList()
     that.getGradeList()
     this.getSpecialtyList()
@@ -308,7 +420,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/classExam/download/exportExcel', null, '班级考核报表')
+      this.$utils.exportUtil('/classExam/download/importTemplate?examType=' + this.listQuery.examType, null, '导出模板')
     },
     getStatistics() {
       let that = this

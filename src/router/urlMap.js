@@ -84,6 +84,7 @@ import _views_student_loseStudent_detail from '../views/student/loseStudent/deta
 import _views_student_posPage_list from '../views/student/posPage/list'
 import _views_student_classExam_list from '../views/student/classExam/list'
 import _views_student_classExam_detail from '../views/student/classExam/detail'
+import _views_student_classExam_examDetail from '../views/student/classExam/examDetail'
 
 
 import _views_recruit_plan_list from '@/views/recruit/plan/list'
@@ -169,6 +170,7 @@ export default {
   _views_student_posPage_list,
   _views_student_classExam_list,
   _views_student_classExam_detail,
+  _views_student_classExam_examDetail,
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
   _views_recruit_birthplace_detail: () => import('../views/recruit/birthplace/detail'), // 生源地编辑/详情
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划

@@ -154,8 +154,7 @@
               menu-no="_views_student_morningExam_remove"
               type="primary"
               name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
+              @click="removeHandle(row)"
               round
             />
           </template>
