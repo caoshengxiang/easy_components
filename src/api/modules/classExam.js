@@ -1,0 +1,21 @@
+import request from '@/utils/request'
+/*
+* 招生计划
+*/
+export default {
+  list(params) {
+    return request.get(`classExam`, { params: params })
+  },
+  detail(params) {
+    return request.get(`classExam/${params}`)
+  },
+  add(params) {
+    return request.post(`classExam`, params)
+  },
+  edit(params) {
+    return request.put(`classExam`, params)
+  },
+  delete(params) {
+    return request.delete(`classExam/${params}`)
+  },
+}
