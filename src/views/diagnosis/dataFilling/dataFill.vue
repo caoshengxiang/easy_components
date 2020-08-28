@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleSave" :edit-status="true">
       <div class="data-fill">
         <div class="data-fill-l">
           <ul>
@@ -21,7 +21,7 @@
         </div>
         <div class="data-fill-r">
           <parentTable v-loading="listLoading" :data="pageData" :no-page="true" slot="table" style="width: 100%;">
-            <el-table-column label="指标编号" prop="id" align="center">
+            <el-table-column label="指标编号" prop="id" align="center" width="80">
               <template slot-scope="{row}">
                 {{ row.number }}
               </template>
@@ -33,7 +33,7 @@
             </el-table-column>
             <el-table-column label="当年指标值" prop="id" align="center">
               <template slot-scope="{row}">
-                {{ row.currentValue }}
+                <fill-type v-model="row.currentValue" :type="row.type" :remark="row.remark" :row="row"></fill-type>
               </template>
             </el-table-column>
             <el-table-column label="上年指标值" prop="id" align="center">
@@ -41,7 +41,7 @@
                 {{ row.lastValue }}
               </template>
             </el-table-column>
-            <el-table-column label="对比" prop="id" align="center">
+            <el-table-column label="对比" prop="id" align="center" width="90">
               <template slot-scope="{row}">
                 {{comparedYearData(row.type, row.currentValue, row.lastValue) }}
               </template>
@@ -56,12 +56,12 @@
                 {{ row.targetValue }}
               </template>
             </el-table-column>
-            <el-table-column label="类型" prop="id" align="center">
+            <el-table-column label="类型" prop="id" align="center" width="80">
               <template slot-scope="{row}">
                 {{ row.type && indicatorTypeName()(row.type) }}
               </template>
             </el-table-column>
-            <el-table-column label="帮助" prop="id" align="center">
+            <el-table-column label="帮助" prop="id" align="center" width="50">
               <template slot-scope="{row}">
                 <el-tooltip class="item" effect="dark" :content="row.remark || '请根据类型填写！'" placement="top-end">
                   <i class="el-icon-question"></i>
@@ -76,12 +76,14 @@
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
+  import fillType from './fillType'
   import { mapGetters } from 'vuex'
 
   export default {
     name: 'ComplexTable',
     components: {
       Breadcrumb,
+      fillType,
     },
     // props: {
     //   detailInfo: {
@@ -151,52 +153,81 @@
           }).catch(() => {
             this.listLoading = false
           })
+        } else {
+          this.$router.push('/views/diagnosis/dataFilling/list')
         }
       },
-      handleCreate() {
-        if (this.dataId) { // 编辑
-          this.$refs.postForm.validate(valid => {
-            if (valid) {
-              this.postForm.startTime = this.postForm.deadTime[0]
-              this.postForm.endTime = this.postForm.deadTime[1]
-              this.postForm.admissionIds = this.postForm.admissionIds.toString()
-              this.$api.adminssionTask.edit(this.postForm).then(res => {
-                if (res.code === 200) {
-                  this.$notify({
-                    title: '成功',
-                    message: '编辑成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
-                }
+      handleSave() {
+        const checkVal = (type, value) => {
+          let status = true
+          if (type === 1) {
+            // 字符串
+          } else if (type === 2) {
+            // 整数
+            if (!value || /^\+?[1-9][0-9]*$/.test(value)) {
+              //
+            } else {
+              status = false
+            }
+          } else if (type === 3) {
+            // 小数
+            if (!value || /^[0-9]+([.]{1}[0-9]+){0,1}$/.test(value)) {
+              //
+            } else {
+              status = false
+            }
+          } else if (type === 4) {
+            /*是/否,*/
+          } else if (type === 5) {
+            /*百分数*/
+            if (!value || /^[0-9]+([.]{1}[0-9]+){0,1}$/.test(value)) {
+              //
+            } else {
+              status = false
+            }
+          } else if (type === 6) {
+            /*表格*/
+          } else if (type === 7) {
+            /*文本*/
+          } else if (type === 8) {
+            /*下拉选项*/
+          }
+          return status
+        }
+        let vaild = true
+        let param = []
+        this.pageData.forEach(item => {
+          if (!checkVal(item.type, item.currentValue)) {
+            vaild = false
+          }
+          let p = {
+            id: item.id,
+            indicatorId: item.indicatorId,
+            indicatorYearId: this.dataId,
+            data: item.currentValue
+          }
+          if (p.data) {
+            param.push(p)
+          }
+        })
+        if (vaild) {
+          this.$api.diagnosis.indicatorYearDataModifyNum(param).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success',
+                duration: 2000
               })
             }
           })
-        } else { // 新增
-          this.$refs.postForm.validate(valid => {
-            if (valid) {
-              this.postForm.startTime = this.postForm.deadTime[0]
-              this.postForm.endTime = this.postForm.deadTime[1]
-              this.postForm.admissionIds = this.postForm.admissionIds.toString()
-              this.$api.adminssionTask.add(this.postForm).then(res => {
-                if (res.code === 200) {
-                  this.$notify({
-                    title: '成功',
-                    message: '添加成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
-                }
-              })
-            }
+        } else {
+          console.log('验证不通过！')
+          this.$notify({
+            title: '成功',
+            message: '请按类型填写',
+            type: 'error',
+            duration: 2000
           })
         }
       },

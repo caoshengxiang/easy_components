@@ -40,6 +40,15 @@ export default {
   indicatorYearData(params) { // 指标年标准列表，数据填写
     return request.get(`indicatorYearData`, { params: params })
   },
+  indicatorYearDataModifyNum(params) { // 填写数据保存
+    return request.post(`indicatorYearData/batch`, params)
+  },
+  indicatorYearDataModify(params) { // 填写数据保存
+    return request.post(`indicatorYearData`, params)
+  },
+  indicatorYearDataById(params) { // 指标年标准列表，数据填写
+    return request.get(`indicatorYearData/${params.id}`, { params: params })
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },
