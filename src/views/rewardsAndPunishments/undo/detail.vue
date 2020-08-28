@@ -47,7 +47,7 @@
                     <el-form-item label=" 班级：" prop="clbumId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.clbumId" placeholder="班级"
                                  @change="getStdNoBedList"
-                                 @clear="postForm.studentId = ''"
+                                 @clear="$set(postForm, 'studentId', '')"
                                  clearable
                                  class="filter-item" style="width: 200px"
                       >
@@ -173,27 +173,27 @@
           gradeId: [{
             required: true,
             message: '请选择年级',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           specialtyId: [{
             required: true,
             message: '请选择专业',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           clbumId: [{
             required: true,
             message: '请选择班级',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           studentId: [{
             required: true,
             message: '请选择姓名',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           oper: [{
             required: true,
             message: '请选择奖/惩',
-            trigger: 'change'
+            trigger: 'blur'
           }]
         },
         loading:false,
@@ -274,8 +274,8 @@
       getClbumList(row) {
         const that = this
         if (row) {
-          this.postForm.clbumId = ''
-          this.postForm.studentId = ''
+          this.$set(this.postForm, 'clbumId', '')
+          this.$set(this.postForm, 'studentId', '')
         }
         that.$api.baseInfo.getClbumList({
           gradeId: that.postForm.gradeId,

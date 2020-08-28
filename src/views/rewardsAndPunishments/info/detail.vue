@@ -53,8 +53,8 @@
                     <el-form-item label=" 班级：" prop="clbumId" label-width="90px" class="postInfo-container-item">
                       <el-select v-model="postForm.clbumId" placeholder="班级"
                                  @change="getStdNoBedList"
+                                 @clear="$set(postForm, 'studentId', '')"
                                  clearable
-                                 @clear="postForm.studentId = ''"
                                  class="filter-item"
                                  style="width: 100%"
                       >
@@ -64,8 +64,11 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="姓名：" prop="studentId" label-width="90px" class="postInfo-container-item">
-                      <el-select v-model="postForm.studentId" placeholder="姓名" clearable
-                                 class="filter-item" style="width: 100%"
+                      <el-select v-model="postForm.studentId"
+                                 placeholder="姓名"
+                                 clearable
+                                 class="filter-item"
+                                 style="width: 100%"
                       >
                         <el-option v-for="item in noBedStd" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
@@ -181,27 +184,27 @@
           gradeId: [{
             required: true,
             message: '请选择年级',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           specialtyId: [{
             required: true,
             message: '请选择专业',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           clbumId: [{
             required: true,
             message: '请选择班级',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           studentId: [{
             required: true,
             message: '请选择姓名',
-            trigger: 'change'
+            trigger: 'blur'
           }],
           oper: [{
             required: true,
             message: '请选择奖/惩',
-            trigger: 'change'
+            trigger: 'blur'
           }]
         },
         sysCfg: {},
@@ -283,8 +286,8 @@
       getClbumList(row) {
         const that = this
         if (row) {
-          that.postForm.clbumId = ''
-          that.postForm.studentId = ''
+          this.$set(this.postForm, 'clbumId', '')
+          this.$set(this.postForm, 'studentId', '')
         }
         that.$api.baseInfo.getClbumList({
           gradeId: that.postForm.gradeId,
@@ -304,7 +307,7 @@
       getStdNoBedList(row) {
         let that = this
         if (row) {
-          that.postForm.studentId = ''
+          this.$set(this.postForm, 'studentId', '')
         }
         let param = {}
         if (that.postForm.clbumId > 0) {
@@ -429,7 +432,7 @@
             }
           }
         })
-      }
+      },
     }
   }
 </script>
