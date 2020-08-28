@@ -3,21 +3,60 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <div class="statisticsInfo" v-loading="statisticsLoading">
+      <div class="menu-2-box">
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ branchTotal }}</span></div>
+            <div class="analysis-text-small">团支部总数</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center" v-for="(item, index) in statisticsData.list" :key="index">
+          <img src="../../../assets/a2.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ item.value || 0 }}</span></div>
+            <div class="analysis-text-small">{{ `${item.key}团员数` }}</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a2.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.incomeTotal || 0 }}</span></div>
+            <div class="analysis-text-small">收入合计</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a2.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.outComeTotal || 0 }}</span></div>
+            <div class="analysis-text-small">支出合计</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a2.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.restTotal || 0 }}</span></div>
+            <div class="analysis-text-small">当前结余</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <div class="top-container">
           <el-form inline :model="form">
             <el-form-item>
-              <PermissionButton round menu-no="_views_leagueActivities_branchManage_add" type="primary" name="新增团支部" :page-jump="true" />
+              <PermissionButton round menu-no="_views_leagueActivities_branchManage_add" type="primary" name="新增团支部" :page-jump="true"/>
             </el-form-item>
             <el-form-item>
-              <el-input v-model="form.name" placeholder="支部名称" />
+              <el-input v-model="form.name" placeholder="支部名称"/>
             </el-form-item>
             <el-form-item>
-              <el-date-picker v-model="form.buildDateStart" placeholder="成立时间开始" value-format="yyyy-MM-dd" />
+              <el-date-picker v-model="form.buildDateStart" placeholder="成立时间开始" value-format="yyyy-MM-dd"/>
             </el-form-item>
             <el-form-item label-width="20px" label="-">
-              <el-date-picker v-model="form.buildDateEnd" placeholder="成立时间结束" value-format="yyyy-MM-dd" />
+              <el-date-picker v-model="form.buildDateEnd" placeholder="成立时间结束" value-format="yyyy-MM-dd"/>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -35,52 +74,15 @@
               </el-button>
             </el-form-item>
           </el-form>
-          <div class="statistics-container" v-loading="statisticsLoading">
-            <div class="statistics-item">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">团支部总数</div>
-                <div class="item-data">{{ branchTotal }}</div>
-              </div>
-            </div>
-            <div class="statistics-item" v-for="(item, index) in statisticsData.list" :key="index">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">{{ `${item.key}团员数` }}</div>
-                <div class="item-data">{{ item.value || 0 }}</div>
-              </div>
-            </div>
-            <div class="statistics-item">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">收入合计</div>
-                <div class="item-data">{{ statisticsData.incomeTotal || 0 }}</div>
-              </div>
-            </div>
-            <div class="statistics-item">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">支出合计</div>
-                <div class="item-data">{{ statisticsData.outComeTotal || 0 }}</div>
-              </div>
-            </div>
-            <div class="statistics-item">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">当前结余</div>
-                <div class="item-data">{{ statisticsData.restTotal || 0 }}</div>
-              </div>
-            </div>
-          </div>
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="名称" prop="name" min-width="120" />
-        <el-table-column label="负责人" prop="principal" min-width="120" />
-        <el-table-column label="电话" align="center" prop="phone" min-width="120" />
-        <el-table-column label="成立日期" align="center" prop="buildDate" min-width="140" />
-        <el-table-column label="创建时间" align="center" prop="created" min-width="180" />
-        <el-table-column label="创建人" prop="creator" min-width="120" />
+        <el-table-column label="名称" prop="name" min-width="120"/>
+        <el-table-column label="负责人" prop="principal" min-width="120"/>
+        <el-table-column label="电话" align="center" prop="phone" min-width="120"/>
+        <el-table-column label="成立日期" align="center" prop="buildDate" min-width="140"/>
+        <el-table-column label="创建时间" align="center" prop="created" min-width="180"/>
+        <el-table-column label="创建人" prop="creator" min-width="120"/>
         <el-table-column label="操作" align="center" width="380" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
@@ -140,7 +142,7 @@
           size: 10,
           descs: 'id'
         },
-        tableData: { records: [] },
+        tableData: {records: []},
         form: {}, // 查询条件
         statisticsData: {
           list: []
@@ -148,7 +150,7 @@
         branchTotal: 0 // 团支部总数
       }
     },
-    created () {
+    created() {
       this.getData();
       this.getStatisticsData();
     },
@@ -201,39 +203,10 @@
 </script>
 
 <style lang="scss" scoped>
-.app-container {
-  .statistics-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    .statistics-item {
-      width: 240px;
-      display: flex;
-      align-items: center;
-      margin-right: 24px;
-      margin-bottom: 12px;
-      background-color: rgba(242, 242, 242, 1);
-      padding: 12px;
-      border-radius: 4px;
-      .item-img {
-        width: 80px;
-        height: 80px;
-      }
-      .item-info {
-        margin-left: 12px;
-        text-align: center;
-        font-size: 16px;
-        .item-head {
-          font-weight: bold;
-        }
-        .item-data {
-          margin-top: 6px;
-          font-size: 24px;
-          font-weight: bold;
-          color: #1890ff;
-        }
-      }
+  .app-container {
+    .item-img {
+      width: 50px;
+      height: 50px;
     }
   }
-}
 </style>

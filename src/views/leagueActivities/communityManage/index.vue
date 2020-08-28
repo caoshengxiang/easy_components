@@ -3,6 +3,24 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <div class="statisticsInfo" v-loading="statisticsLoading">
+      <div class="menu-2-box">
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.total || '无' }}</span></div>
+            <div class="analysis-text-small">社团总数</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center" v-for="(item, index) in statisticsData.list" :key="index">
+          <img src="../../../assets/a2.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ item.value || 0 }}</span></div>
+            <div class="analysis-text-small">{{ item.key }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <div class="top-container">
@@ -45,22 +63,6 @@
               </el-button>
             </el-form-item>
           </el-form>
-          <div class="statistics-container" v-loading="statisticsLoading">
-            <div class="statistics-item">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">社团总数</div>
-                <div class="item-data">{{ statisticsData.total || '无' }}</div>
-              </div>
-            </div>
-            <div class="statistics-item" v-for="(item, index) in statisticsData.list" :key="index">
-              <img class="item-img" src="../../../assets/a1.png" alt="" >
-              <div class="item-info">
-                <div class="item-head">{{ item.key }}</div>
-                <div class="item-data">{{ item.value }}</div>
-              </div>
-            </div>
-          </div>
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">

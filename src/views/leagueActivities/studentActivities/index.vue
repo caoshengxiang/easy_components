@@ -3,6 +3,24 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <div class="statisticsInfo" v-loading="statisticsLoading">
+      <div class="menu-2-box">
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div class="analysis-text-small">最近一个月总数</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text">{{ statisticsData.clubName || '无' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text-small">活动最多的社团及活动数量</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <PermissionButton
@@ -38,25 +56,6 @@
         <el-button class="filter-item" style="" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
           重置
         </el-button>
-        <div class="statistics-container" v-loading="statisticsLoading">
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">最近一个月总数</div>
-              <div class="item-data">{{ statisticsData.latestMonthNum || 0 }}</div>
-            </div>
-          </div>
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">活动最多的社团及活动数量</div>
-              <div class="item-data">
-                <span style="color: orange">{{statisticsData.clubName || ''}}</span>
-                <span> {{ statisticsData.maxNum || 0 }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="活动主题" prop="theme"/>

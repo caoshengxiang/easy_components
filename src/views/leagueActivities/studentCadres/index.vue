@@ -3,6 +3,17 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <div class="statisticsInfo" v-loading="loading">
+      <div class="menu-2-box">
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ studentLeaderTotal || 0 }}</span></div>
+            <div class="analysis-text-small">学生干部总数</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <PermissionButton
@@ -77,15 +88,6 @@
         <el-button class="filter-item" round type="warning" @click=" listQuery = {descs: 'id'}" size="mini">
           重置
         </el-button>
-        <div class="statistics-container" v-loading="statisticsLoading">
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">学生干部总数</div>
-              <div class="item-data">{{ studentLeaderTotal || 0 }}</div>
-            </div>
-          </div>
-        </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="学年" prop="year"/>
@@ -140,7 +142,6 @@
       return {
         tableData: {records: []},
         loading: false,
-        statisticsLoading:false,
         pageInfo: {
           page: 1,
           size: 10,
@@ -161,11 +162,10 @@
     methods: {
       getData() {
         this.loading = true;
-        // todo 对接口
         this.$api.studentCadres.getPage(Object.assign({}, this.pageInfo, this.listQuery))
           .then(res => {
             this.tableData = res.data;
-            if ( Object.keys(this.listQuery).length === 1 ) {
+            if (Object.keys(this.listQuery).length === 1) {
               this.studentLeaderTotal = res.data.total
             }
           })
@@ -180,14 +180,13 @@
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
             this.$api.studentCadres.remove(id).then(res=>{
               this.getData()
             })
           });
       },
       getClbumList() {
-        const that = this
+        const that = this;
         that.$api.baseInfo.getClbumList({
           gradeId: that.listQuery.gradeId,
           specialtyId: that.listQuery.specialtyId

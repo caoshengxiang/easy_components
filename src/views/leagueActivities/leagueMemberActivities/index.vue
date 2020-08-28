@@ -3,6 +3,24 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
+    <div class="statisticsInfo" v-loading="statisticsLoading">
+      <div class="menu-2-box">
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div class="analysis-text-small">近一月活动总数</div>
+          </div>
+        </div>
+        <div class="menu-2-item hvr-underline-from-center">
+          <img src="../../../assets/a1.png" class="item-img" alt="">
+          <div class="text">
+            <div class="analysis-text">{{ statisticsData.leagueName || '' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text-small">活动最多的团支部及活动数量</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <y-page-list-layout :page-list="tableData" :page-para="pageInfo" :get-page-list="getData">
       <template slot="left">
         <PermissionButton
@@ -46,22 +64,6 @@
                    size="mini">
           重置
         </el-button>
-        <div class="statistics-container" v-loading="statisticsLoading">
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">近一月活动总数</div>
-              <div class="item-data">{{ statisticsData.latestMonthNum || 0 }}</div>
-            </div>
-          </div>
-          <div class="statistics-item">
-            <img class="item-img" src="../../../assets/a1.png" alt="">
-            <div class="item-info">
-              <div class="item-head">活动最多的团支部及活动数量</div>
-              <div class="item-data">{{statisticsData.leagueName || ''}} {{ statisticsData.maxNum || 0 }}</div>
-            </div>
-          </div>
-        </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="团支部" prop="leagueName"/>
