@@ -19,7 +19,10 @@
                 <el-row style="margin-left: 150px">
                   <el-col :span="6">
                     <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item ">
-                      <el-select v-model="postForm.gradeId" @change="getClbumList" placeholder="年级" clearable
+                      <el-select v-model="postForm.gradeId" @change="getClbumList"
+                                 placeholder="年级"
+                                 @clear="clearClbumStd"
+                                 clearable
                                  style="width: 100px" class="filter-item"
                       >
                         <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -34,6 +37,7 @@
                         clearable
                         class="filter-item"
                         @change="getClbumList"
+                        @clear="clearClbumStd"
                       >
                         <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
@@ -41,7 +45,10 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label=" 班级：" prop="clbumId" label-width="120px" class="postInfo-container-item">
-                      <el-select v-model="postForm.clbumId" placeholder="班级" @change="getStdNoBedList" clearable
+                      <el-select v-model="postForm.clbumId" placeholder="班级"
+                                 @change="getStdNoBedList"
+                                 @clear="postForm.studentId = ''"
+                                 clearable
                                  class="filter-item" style="width: 200px"
                       >
                         <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -162,26 +169,60 @@
       return {
         editStatus: true,
         postForm: {},
-        rules: {},
+        rules: {
+          gradeId: [{
+            required: true,
+            message: '请选择年级',
+            trigger: 'change'
+          }],
+          specialtyId: [{
+            required: true,
+            message: '请选择专业',
+            trigger: 'change'
+          }],
+          clbumId: [{
+            required: true,
+            message: '请选择班级',
+            trigger: 'change'
+          }],
+          studentId: [{
+            required: true,
+            message: '请选择姓名',
+            trigger: 'change'
+          }],
+          oper: [{
+            required: true,
+            message: '请选择奖/惩',
+            trigger: 'change'
+          }]
+        },
         loading:false,
         gradeInfo:[],
         classInfo: [],
         majorInfo: [],
         noBedStd: [],
         sysCfg: {},
-        AllEnum: {}
+        AllEnum: {},
+        loadComplete:false
       }
     },
     watch: {
       detailInfo: function (value) {
         this.postForm = value
       },
+      loadComplete: function (value) {
+        if (value) {
+          this.getClbumList()
+          this.getStdNoBedList()
+        }
+      }
     },
     created() {
       const that = this
       if (that.detailInfo) {
         that.postForm = that.detailInfo
         that.editStatus = false
+        this.loadComplete = true
       } else if (that.$route.query.rewardPunishmnetId) {
         that.getRewardPunishmentDetail(that.$route.query.rewardPunishmnetId)
         // that.editStatus = false
@@ -192,8 +233,6 @@
       }
       that.getGradeList()
       that.getSpecialtyList()
-      that.getClbumList()
-      that.getStdNoBedList()
       that.getAllEnum()
       that.getSysCfg()
     },
@@ -232,8 +271,12 @@
           this.sysCfg = res.data
         })
       },
-      getClbumList() {
+      getClbumList(row) {
         const that = this
+        if (row) {
+          this.postForm.clbumId = ''
+          this.postForm.studentId = ''
+        }
         that.$api.baseInfo.getClbumList({
           gradeId: that.postForm.gradeId,
           specialtyId: that.postForm.specialtyId
@@ -249,8 +292,11 @@
           }
         })
       },
-      getStdNoBedList() {
+      getStdNoBedList(row) {
         let that = this
+        if (row) {
+          this.$set(this.postForm,'studentId', '')
+        }
         let param = {}
         if (that.postForm.clbumId > 0) {
           param.clbumId = that.postForm.clbumId
@@ -284,6 +330,10 @@
           }
         })
       },
+      clearClbumStd() {
+        this.$set(this.postForm, 'clbumId', '')
+        this.$set(this.postForm, 'studentId', '')
+      },
       getRewardPunishmentDetail(id){
         const that = this
         that.$api.rewardsAndPunishments.getDetail(id).then(data => {
@@ -305,6 +355,7 @@
           that.loading = false
           if (data.code === 200) {
             that.postForm = data.data
+            this.loadComplete = true
           } else {
             this.$message({
               type: 'error',

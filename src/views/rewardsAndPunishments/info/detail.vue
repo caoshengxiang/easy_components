@@ -27,6 +27,7 @@
                   <el-col :span="6">
                     <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item ">
                       <el-select v-model="postForm.gradeId" @change="getClbumList" placeholder="年级" clearable
+                                 @clear="clearClbumStd"
                                  style="width: 100px" class="filter-item"
                       >
                         <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -41,6 +42,7 @@
                         clearable
                         class="filter-item"
                         @change="getClbumList"
+                        @clear="clearClbumStd"
                         style="width: 100%;"
                       >
                         <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -49,7 +51,10 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label=" 班级：" prop="clbumId" label-width="90px" class="postInfo-container-item">
-                      <el-select v-model="postForm.clbumId" placeholder="班级" @change="getStdNoBedList" clearable
+                      <el-select v-model="postForm.clbumId" placeholder="班级"
+                                 @change="getStdNoBedList"
+                                 clearable
+                                 @clear="postForm.studentId = ''"
                                  class="filter-item"
                                  style="width: 100%"
                       >
@@ -172,7 +177,33 @@
         isEdit:false,
         editStatus: true,
         postForm: {},
-        rules: {},
+        rules: {
+          gradeId: [{
+            required: true,
+            message: '请选择年级',
+            trigger: 'change'
+          }],
+          specialtyId: [{
+            required: true,
+            message: '请选择专业',
+            trigger: 'change'
+          }],
+          clbumId: [{
+            required: true,
+            message: '请选择班级',
+            trigger: 'change'
+          }],
+          studentId: [{
+            required: true,
+            message: '请选择姓名',
+            trigger: 'change'
+          }],
+          oper: [{
+            required: true,
+            message: '请选择奖/惩',
+            trigger: 'change'
+          }]
+        },
         sysCfg: {},
         gradeInfo: [],
         classInfo: [],
@@ -190,8 +221,12 @@
       },
       loadComplete: function (value) {
         if (value) {
-          this.getGradeList()
-          this.getSpecialtyList()
+          this.getClbumList()
+          this.getStdNoBedList()
+        }
+      },
+      isEdit: function (value) {
+        if (!value) {
           this.getClbumList()
           this.getStdNoBedList()
         }
@@ -210,6 +245,8 @@
         that.getDetail()
         that.editStatus = false
       }
+      this.getGradeList()
+      this.getSpecialtyList()
       that.getSysCfg()
       that.getAllEnum()
     },
@@ -245,7 +282,6 @@
       },
       getClbumList(row) {
         const that = this
-        console.log(row)
         if (row) {
           that.postForm.clbumId = ''
           that.postForm.studentId = ''
@@ -302,6 +338,10 @@
             })
           }
         })
+      },
+      clearClbumStd() {
+        this.$set(this.postForm, 'clbumId', '')
+        this.$set(this.postForm, 'studentId', '')
       },
       getSysCfg(){
         this.$api.globalConfig.getSysCfg().then(res => {
