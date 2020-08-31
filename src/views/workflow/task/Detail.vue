@@ -33,7 +33,7 @@
           </el-row>
         </el-form>
       </el-card>
-      <el-card>
+      <el-card class="y-form-card">
         <div slot="header" class="clearfix">
           <span>申请内容</span>
         </div>
@@ -96,7 +96,7 @@
                          :detailInfo="this.formData"
         />
       </el-card>
-      <el-card v-if="show">
+      <el-card v-if="show" class="y-form-card">
         <div slot="header" class="clearfix">
           <span>申请历史</span>
         </div>
@@ -248,8 +248,8 @@
               that.form = res.data
               that.formData = res.data.formData
               that.originData = res.data.originData
-
               if (that.originData) {
+                that.checkDataContent(that.formData,that.originData)
                 that.show = true
               }
             } else {
@@ -268,6 +268,7 @@
               that.formData = res.data.formData
               that.originData = res.data.originData
               if (that.originData) {
+                that.checkDataContent(that.formData,that.originData)
                 that.show = true
               }
             } else {
@@ -277,6 +278,37 @@
               })
             }
           })
+        }
+      },
+      checkDataContent(form,orgForm){
+        const that = this
+        if (form && orgForm) {
+          setTimeout(function () {
+            let formList = document.querySelectorAll('.y-form-card .el-form')
+            if (!formList) {
+              that.checkDataContent(form,orgForm)
+            }else{
+              let fData = []
+              if (formList) {
+                let fDataKeys = Object.keys(form)
+                fDataKeys.forEach(function (key) {
+                  if (form[key] !== orgForm[key]){
+                    if (form[key])
+                      fData.push(form[key])
+                    if (orgForm[key])
+                      fData.push(orgForm[key])
+                  }
+                })
+                formList.forEach(function (form) {
+                  form.forEach(function (formItem) {
+                    if (fData.indexOf(formItem.value) > -1){
+                      formItem.classList.add('check-key-data')
+                    }
+                  })
+                })
+              }
+            }
+          },1000)
         }
       }
     }
@@ -299,5 +331,8 @@
 
   .task-detail >>> .el-card__body, .task-detail >>> .el-card__body .app-container {
     padding: 0;
+  }
+  .task-detail >>> .el-card__body .check-key-data{
+    color: red !important;
   }
 </style>
