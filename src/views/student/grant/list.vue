@@ -53,7 +53,7 @@
           style="margin-left:5px;width: 100px;margin-bottom: 10px;"
           class="filter-item"
         >
-          <el-option v-for="item in grantType" :key="item.key" :label="item.label" :value="item.key"/>
+          <el-option  v-for="item in AllEnum.奖学金类型" :key="item" :label="item" :value="item"/>
         </el-select>
 
         <el-select
@@ -254,6 +254,7 @@ export default {
         current: 0,
         size: 10
       },
+      AllEnum: {}// 全部枚举
     }
   },
   created() {
@@ -262,8 +263,22 @@ export default {
     that.getGradeList()
     this.getSpecialtyList()
     that.getStatistics()
+    that.getAllEnum()
   },
   methods: {
+    getAllEnum() {
+      const that = this
+      that.$api.globalConfig.getAllEnum().then(data => {
+        if (data.code === 200) {
+          that.AllEnum = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     downloadTemplate() {
       this.$utils.exportUtil('/grant/download/exportExcel', null, '助学金导出')
     },

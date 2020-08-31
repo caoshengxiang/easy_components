@@ -85,10 +85,7 @@
           class="filter-item"
           style="margin-left:5px;width: 100px;margin-bottom: 10px;"
         >
-          <el-option :key="0" label="全部学生" :value="0"/>
-          <el-option :key="1" label="正常" :value="1"/>
-          <el-option :key="2" label="流失" :value="2"/>
-          <el-option  :key="3" label="疑似流失" :value="3"/>
+          <el-option  v-for="item in AllEnum.流失状态" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-input
           v-model="listQuery.keyword"
@@ -168,7 +165,7 @@
               type="primary"
               name=""
               :page-jump="true"
-              :page-query="{id: row.id}"
+              :page-query="{id: row.loseId}"
               round
             />
           </template>
@@ -238,6 +235,7 @@ export default {
         current: 0,
         size: 10
       },
+      AllEnum: {}// 全部枚举
     }
   },
   created() {
@@ -246,8 +244,22 @@ export default {
     that.getGradeList()
     this.getSpecialtyList()
     that.getStatistics()
+    that.getAllEnum()
   },
   methods: {
+    getAllEnum() {
+      const that = this
+      that.$api.globalConfig.getAllEnum().then(data => {
+        if (data.code === 200) {
+          that.AllEnum = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     downloadTemplate() {
       this.$utils.exportUtil('/loseStudent/download/exportExcel', null, '疑似流失管理')
     },

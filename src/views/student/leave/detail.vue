@@ -14,7 +14,7 @@
             style="width: 600px;margin: auto"
           >
             <div class="createPost-main-container">
-              <div style="font-size: 20px;font-weight: 500;text-align: center;padding-left: 100px;margin-bottom: 20px">北京中思远信息科学研究院 <lable style="color: red">2020</lable> 学年  <lable style="color: red">春季</lable> 学生请假单</div>
+              <div style="font-size: 20px;font-weight: 500;text-align: center;padding-left: 100px;margin-bottom: 20px">北京中思远信息科学研究院 <lable style="color: red">{{postForm.leaveStudyYear}}</lable> 学年  <lable style="color: red">{{term.name}}</lable> 学生请假单</div>
               <el-row>  <el-col :span="24">
                 <el-form-item  prop="year" label-width="150px" class="postInfo-container-item">
                 </el-form-item>
@@ -82,9 +82,8 @@
                 <el-col :span="24">
                   <el-form-item label="假别：" prop="leaveType" label-width="150px" class="postInfo-container-item">
                     <el-radio-group v-model="postForm.leaveType">
-                      <el-radio :label="1">事假</el-radio>
-                      <el-radio :label="2">病假</el-radio>
-                      <el-radio :label="3">其他</el-radio>
+
+                      <el-radio  v-for="item in AllEnum.请假类型" :label="item">{{item}}</el-radio>
                     </el-radio-group>
                   </el-form-item>
                 </el-col>
@@ -122,6 +121,7 @@ export default {
   },
   data() {
     return {
+      term:{},
       grantType: [  {
         key: '',
         label: '全部'
@@ -146,7 +146,8 @@ export default {
       },
       dataId: this.$route.query.id,
       days:0,
-      hours:0
+      hours:0,
+      AllEnum: {}// 全部枚举
     }
   },
   watch: {
@@ -162,8 +163,23 @@ export default {
       this.getDetail()
     }
     that.getClbumList()
+    that.getcurrentTerm()
+    that.getAllEnum()
   },
   methods: {
+    getAllEnum() {
+      const that = this
+      that.$api.globalConfig.getAllEnum().then(data => {
+        if (data.code === 200) {
+          that.AllEnum = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     calTime(){
       if(this.postForm.endTime && this.postForm.startTime) {
         var stamp = new Date(this.postForm.endTime).getTime() - new Date(this.postForm.startTime).getTime();
@@ -235,12 +251,28 @@ export default {
     },
     getDetail() {
       if (this.dataId) {
-        this.$api.grant.detail(this.dataId).then(res => {
+        this.$api.leave.detail(this.dataId).then(res => {
           this.postForm = res.data
           this.days = this.postForm.days
           this.hours =  this.postForm.hours
+
+
+          if(this.postForm.studentSampleInfoDTO){
+            this.postForm.administrativeGradeId = this.postForm.studentSampleInfoDTO.administrativeGradeId
+            this.postForm.administrativeSpecialtyId = this.postForm.studentSampleInfoDTO.administrativeSpecialtyId
+            this.postForm.administrativeClbumId = this.postForm.studentSampleInfoDTO.administrativeClbumId
+            this.getStudent()
+          }
         })
       }
+    },
+    getcurrentTerm() {
+        this.$api.leave.currentTerm().then(res => {
+            this.term = res.data
+          this.postForm.leaveStudyYear = this.term.year
+          this.postForm.leaveStudyTermId = this.term.id
+
+        })
     },
     handleCreate() {
       if (this.dataId) { // 编辑

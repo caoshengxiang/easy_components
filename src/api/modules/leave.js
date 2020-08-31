@@ -21,4 +21,7 @@ export default {
   audit(params) {
     return request.get(`leave/audit/${params.id}`, { params: params })
   },
+  currentTerm(params) {
+    return request.get(`/leave/currentTerm`)
+  },
 }

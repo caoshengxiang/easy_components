@@ -133,7 +133,7 @@
       },
       getDetail() {
         if (this.dataId) {
-          this.$api.grant.detail(this.dataId).then(res => {
+          this.$api.leave.detail(this.dataId).then(res => {
             this.postForm = res.data
             this.days = this.postForm.days
             this.hours =  this.postForm.hours

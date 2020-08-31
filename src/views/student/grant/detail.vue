@@ -35,7 +35,7 @@
                       clearable
                       style="width:100%"
                       class="filter-item"
-                      @change="getClbumList"
+                      @change="getClbumList(true)"
                     >
                       <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                     </el-select>
@@ -49,7 +49,7 @@
                       placeholder="专业"
                       clearable
                       class="filter-item"
-                      @change="getClbumList"
+                      @change="getClbumList(true)"
                       style="width:100%"
                     >
                       <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -96,7 +96,7 @@
                       style="width:100%"
                       class="filter-item"
                     >
-                      <el-option v-for="item in grantType" :key="item.key" :label="item.label" :value="item.key"/>
+                      <el-option  v-for="item in AllEnum.奖学金类型" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -214,6 +214,7 @@ export default {
       departmentList: [],
       staff: [],
       dataId: this.$route.query.id,
+      AllEnum: {}// 全部枚举
     }
   },
   watch: {
@@ -231,8 +232,24 @@ export default {
     that.getDepartmentList() // //查询建筑物列表
     that.getSpecialtyList()
     that.getGradeList()
+    that.getAllEnum()
   },
   methods: {
+
+
+    getAllEnum() {
+      const that = this
+      that.$api.globalConfig.getAllEnum().then(data => {
+        if (data.code === 200) {
+          that.AllEnum = data.data
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     getDepartmentList() {
       const that = this
       that.$api.organization.simpleAll().then(data => {
@@ -277,8 +294,12 @@ export default {
         }
       })
     },
-    getClbumList() {
+    getClbumList(clean) {
       const that = this
+      if(clean){
+        this.postForm.administrativeClbumId = ''
+        this.postForm.studentId = ''
+      }
       that.$api.baseInfo.getClbumList({
         gradeId: that.postForm.administrativeGradeId,
         specialtyId: that.postForm.administrativeSpecialtyId
@@ -318,6 +339,15 @@ export default {
       if (this.dataId) {
         this.$api.grant.detail(this.dataId).then(res => {
           this.postForm = res.data
+          if(this.postForm.studentSampleInfoDTO){
+            this.postForm.administrativeGradeId = this.postForm.studentSampleInfoDTO.administrativeGradeId
+            this.postForm.administrativeSpecialtyId = this.postForm.studentSampleInfoDTO.administrativeSpecialtyId
+            this.postForm.administrativeClbumId = this.postForm.studentSampleInfoDTO.administrativeClbumId
+            this.getGradeList()
+            this.getSpecialtyList()
+            this.getClbumList()
+            this.getStudent()
+          }
         })
       }
     },

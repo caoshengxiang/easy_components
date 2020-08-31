@@ -83,9 +83,7 @@
                       class="filter-item"
                       style="width: 100%;"
                     >
-                      <el-option :key="1" label="正常" :value="1"/>
-                      <el-option :key="2" label="流失" :value="2"/>
-                      <el-option  :key="3" label="疑似流失" :value="3"/>
+                      <el-option  v-for="item in AllEnum.流失状态" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -103,7 +101,7 @@
                 <el-col :span="24">
                   <el-form-item label="原因描述：" prop="reason" label-width="150px" class="postInfo-container-item">
                     <el-checkbox-group v-model="reason">
-                      <el-checkbox :label="item" v-for="item in AllEnum.专业技术职务级别"/>
+                      <el-checkbox :label="item" v-for="item in AllEnum.流失原因描述"/>
                     </el-checkbox-group>
                   </el-form-item>
                 </el-col>
@@ -289,14 +287,25 @@ export default {
       })
     },
     getDetail() {
+      let that = this
       if (this.dataId) {
         this.$api.loseStudent.detail(this.dataId).then(res => {
           this.postForm = res.data
 
+          if(this.postForm.studentSampleInfoDTO){
+            this.postForm.administrativeGradeId = this.postForm.studentSampleInfoDTO.administrativeGradeId
+            this.postForm.administrativeSpecialtyId = this.postForm.studentSampleInfoDTO.administrativeSpecialtyId
+            this.postForm.administrativeClbumId = this.postForm.studentSampleInfoDTO.administrativeClbumId
+            this.getGradeList()
+            this.getSpecialtyList()
+            this.getClbumList()
+            this.getStudent()
+          }
           if(this.postForm.reason){
             this.postForm.reason.split(',').forEach(function (item) {
-              this.reason.push(item)
+              that.reason.push(item)
             })
+
           }
         })
       }

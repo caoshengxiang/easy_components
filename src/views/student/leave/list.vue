@@ -187,7 +187,7 @@
               type="primary"
               name=""
               :page-jump="true"
-              :page-query="{id: row.id}"
+              :page-query="{id: row.leaveId}"
               round
             />
             <PermissionButton
@@ -195,15 +195,14 @@
             type="success"
             name=""
             :page-jump="true"
-            :page-query="{id: row.id}"
+            :page-query="{id: row.leaveId}"
             round
           />
             <PermissionButton
               menu-no="_views_student_leave_map"
               type="primary"
               name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
+              @click="showMap(row)"
               round
             />
           </template>
@@ -213,22 +212,24 @@
         <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
+    <el-dialog title="定位" :visible.sync="dialogFormVisible"
+               v-loading="loading"
+    >
     <baidu-map :style="{width:map.width,height:map.height}"
                class="map"
                ak="QESRXGTH3unGiZpCnns1bep6hOCH7erg"
                :zoom="map.zoom"
                :center="{lng: map.center.lng, lat: map.center.lat}"
-               @ready="handler"
                :mapClick="false"
                :scroll-wheel-zoom="true">
-      <bm-marker :position="{lng: 119.8025089500, lat: 25.4890556400}" :dragging="true" >
-        <bm-info-window show="true">
+      <bm-marker :position="{lng: map.center.lng, lat: map.center.lat}" :dragging="false" >
+        <bm-info-window :show="true">
           <div style="font-size: 14px;color: #ff7a0e">位置信息</div>
-          <div style="font-size: 12px;color: #0a76a4;margin-top: 5px">四川省成都市金牛区</div>
+          <div style="font-size: 12px;color: #0a76a4;margin-top: 5px">{{posttion}}</div>
         </bm-info-window>
-
       </bm-marker>
     </baidu-map>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -262,15 +263,18 @@ export default {
   },
   data() {
     return {
+      posttion:'',
+      loading: false,
+      dialogFormVisible: false,
       infoWindows: [],
       map: {
-        width: '50vw',
+        width: '48vw',
         height: '50vh',
         center: {
-          lng: 119.8025089500,
-          lat: 25.4890556400,
+          lng: 104.07,
+          lat: 30.67,
         },
-        zoom: 14
+        zoom: 20,
       },
       opt: [
         {
@@ -321,43 +325,11 @@ export default {
 
   },
   methods: {
-    handler ({BMap, map}) {
-      // 初始化地图,设置中心点坐标
-      var point = new BMap.Point(119.8025089500, 25.4890556400)
-      map.centerAndZoom(point, 13)
-
-      // 添加鼠标滚动缩放
-      map.enableScrollWheelZoom();
-      // 添加缩略图控件
-      map.addControl(new BMap.OverviewMapControl({isOpen:false,anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
-      // 添加缩放平移控件
-      map.addControl(new BMap.NavigationControl());
-      //添加比例尺控件
-      map.addControl(new BMap.ScaleControl());
-      //添加地图类型控件
-      //map.addControl(new BMap.MapTypeControl());
-
-      //设置标注的图标
-      var icon = new BMap.Icon("./static/img/map.png",new BMap.Size(100,100));
-      //设置标注的经纬度
-      var marker = new BMap.Marker(new BMap.Point(121.160724,31.173277),{icon:icon});
-      //把标注添加到地图上
-
-      map.addOverlay(marker);
-      var content = "<table>";
-      content = content + "<tr><td> 编号：001</td></tr>";
-      content = content + "<tr><td> 地点：上海汉得信息技术股份有限公司</td></tr>";
-      content = content + "<tr><td> 时间：2018-1-3</td></tr>";
-      content += "</table>";
-      var infowindow = new BMap.InfoWindow(content);
-
-      // 图标点击的时候显示标注
-      marker.addEventListener("click",function(){
-        this.openInfoWindow(infowindow);
-      });
-      // 标注默认显示
-      // var infoWindow = new BMap.InfoWindow(content) // 创建信息窗口对象
-      // map.openInfoWindow(infoWindow, point)
+    showMap(row){
+      this.dialogFormVisible = true
+      this.posttion = row.position
+      this.map.center.lat = row.lat
+      this.map.center.lng = row.lon
     },
     exportStatics() {
       this.$utils.exportUtil('/leave/exportStatics', null, '学生请假汇总')
@@ -441,7 +413,7 @@ export default {
         type: 'warning'
       })
         .then(async () => {
-          this.$api.grant.delete(row.id).then(res => {
+          this.$api.leave.delete(row.id).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
@@ -464,7 +436,7 @@ export default {
         that.listQuery.startTime = ''
         that.listQuery.endTime = ''
       }
-      this.$api.grant.list({ ...that.listQuery, ...that.pagePara }).then(res => {
+      this.$api.leave.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
         setTimeout(() => {
           that.listLoading = false
