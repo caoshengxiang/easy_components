@@ -332,7 +332,7 @@
   .task-detail >>> .el-card__body, .task-detail >>> .el-card__body .app-container {
     padding: 0;
   }
-  .task-detail >>> .el-card__body .check-key-data{
+  .task-detail >>> .el-card__body .check-key-data,.task-detail >>> .el-card__body .check-key-data *{
     color: red !important;
   }
 </style>
