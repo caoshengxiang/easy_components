@@ -73,13 +73,61 @@
             </tbody>
           </table>
         </div>
-        <div slot="footer" class="dialog-footer" style="text-align: center">
+        <div slot="footer" class="dialog-footer" style="text-align: center;margin-top: 10px;">
           <el-button @click="dialogFormVisible = false">
             取消
           </el-button>
           <el-button type="primary" @click="editSave">
             保存
           </el-button>
+        </div>
+      </div>
+
+      <div v-if="row.number === 384 || row.number === 402">
+        <div style="width: 100%;overflow: auto;">
+          <table class="index381">
+            <tbody>
+            <tr>
+              <th>专业名称</th>
+              <th>专职教师人数</th>
+              <th>兼职教师人数</th>
+              <th>生师比例</th>
+            </tr>
+            <tr v-for="(item, i) in tableData" :key="i">
+              <td>{{item.name}}</td>
+              <td>{{item.fullTimeTeacher}}</td>
+              <td>{{item.partTimeTeacher}}</td>
+              <td>{{item.student}}</td>
+              <td>{{proportion(item.fullTimeTeacher, item.partTimeTeacher, item.student)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="row.number === 364">
+          <div style="width: 100%;overflow: auto;">
+            <table class="index381">
+              <tbody>
+              <tr>
+                <th rowspan="2">项目/专业</th>
+                <th colspan="4">在校人数</th>
+              </tr>
+              <tr>
+                <th>小计</th>
+                <th>一年级</th>
+                <th>二年级</th>
+                <th>三年级</th>
+              </tr>
+              <tr v-for="(item, i) in tableData" :key="i">
+                <td>{{item.name}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.name}}</td>
+                <td>{{}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </el-dialog>
@@ -189,27 +237,7 @@
               this.getDetail()
             } else {
               // 指标编号初始数据
-              if (va.number !== 381) {
-                this.tableData = [
-                  [],
-                  [],
-                  [],
-                  []
-                ]
-                for (let i = 0; i < this.weeksNum; i++) {
-                  this.tableData[0].push({ value: '' })
-                  this.tableData[1].push({ value: '' })
-                  this.tableData[2].push({ value: '' })
-                  this.tableData[3].push({ value: '' })
-                }
-              } else { // 专业人数统计表
-                this.tableData = {
-                  total: 0,
-                  grade1: 0,
-                  grade2: 0,
-                  grade3: 0,
-                }
-              }
+              this.initTable(va.number)
             }
           }
         }
@@ -219,6 +247,49 @@
       emitInput(val) {
         console.log('emitInput', val)
         this.$emit('input', val)
+      },
+      proportion(aa, bb, cc) {
+        function gcd(a, b) {
+          if (b === 0) {
+            return a
+          }
+          var r = parseInt(a % b)
+          return gcd(b, r)
+        }
+
+        if (aa && bb && cc) {
+          let ys = gcd(aa + bb, cc)
+          return (aa + bb) / ys + ':' + cc / ys
+        } else {
+          return ''
+        }
+      },
+      initTable(number) {
+        if (number === 381) { // 学生迟到、缺课率
+          this.tableData = [
+            [],
+            [],
+            [],
+            []
+          ]
+          for (let i = 0; i < this.weeksNum; i++) {
+            this.tableData[0].push({ value: '' })
+            this.tableData[1].push({ value: '' })
+            this.tableData[2].push({ value: '' })
+            this.tableData[3].push({ value: '' })
+          }
+        } else if (number === 384 || number === 402 || number === 364) {
+          // 各专业中教师数量
+          this.tableData = [
+            // {
+            // name: '',
+            // fullTimeTeacher: null,
+            // partTimeTeacher: null,
+            // student: null,
+            //   proportion: null
+            // }
+          ]
+        }
       },
       editSave() {
         console.log('表格数', this.tableData)
@@ -242,7 +313,11 @@
       getDetail() {
         this.$api.diagnosis.indicatorYearDataById({ id: this.row.id }).then(res => {
           this.temp = res.data
-          this.tableData = JSON.parse(res.data.jsonData)
+          if (res.data.jsonData) {
+            this.tableData = JSON.parse(res.data.jsonData)
+          } else { // 详情未返回number
+            this.initTable(this.row.number)
+          }
         })
       },
       showTable() {

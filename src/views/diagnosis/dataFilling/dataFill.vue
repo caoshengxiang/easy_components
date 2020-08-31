@@ -143,6 +143,7 @@
       getDetail() {
         if (this.dataId) {
           this.listLoading = true
+          this.pageData = []
           this.$api.diagnosis.indicatorYearData({
             indicatorId: this.level2Id,
             indicatorYearId: this.dataId,
