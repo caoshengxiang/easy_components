@@ -67,6 +67,15 @@ export default {
   indicatorYearStandardDataWarn(params) {
     return request.get(`indicatorYearStandardData/warn`, { params: params })
   },
+  diagnosisEleList(params) {
+    return request.get(`diagnosis`, { params: params })
+  },
+  diagnosisEleEdit(params) {
+    return request.put('diagnosis', params)
+  },
+  diagnosisEleAdd(params) {
+    return request.post('diagnosis', params)
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },

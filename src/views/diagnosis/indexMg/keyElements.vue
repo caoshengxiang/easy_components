@@ -17,32 +17,32 @@
     <!--        <div/>-->
     <!--      </div>-->
     <!--    </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout>
       <template slot="left">
         <el-select v-model="listQuery.level1" style="width: 200px;" clearable filterable
-                   placeholder="诊断项目" class="filter-item"
+                   placeholder="诊断项目" class="filter-item" @change="level1Change"
         >
           <el-option
-            v-for="item in indexOptions"
+            v-for="item in keyElement1"
             :key="item.id"
             :label="item.name"
-            :value="item.name"
+            :value="item.id"
           />
         </el-select>
-        <el-select v-model="listQuery.level1" style="width: 200px;margin-left: 20px;" clearable filterable
-                   placeholder="诊断要素" class="filter-item"
+        <el-select v-model="listQuery.level2" style="width: 200px;margin-left: 20px;" clearable filterable
+                   placeholder="诊断要素" class="filter-item" @change="level2Change"
         >
           <el-option
-            v-for="item in indexOptions"
+            v-for="item in keyElement2"
             :key="item.id"
             :label="item.name"
-            :value="item.name"
+            :value="item.id"
           />
         </el-select>
-        <el-button class="filter-item" round type="primary" style="margin-left: 10px;" @click="editHandle">
+        <el-button class="filter-item" round type="primary" style="margin-left: 10px;" @click="editHandle(null)">
           编辑
         </el-button>
-        <el-button class="filter-item" type="success" round @click="editHandle">
+        <el-button class="filter-item" type="success" round @click="addHandle">
           新增
         </el-button>
       </template>
@@ -56,22 +56,22 @@
         <!--          round-->
         <!--        />-->
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" :data="pageData" slot="table" style="width: 100%;">
         <el-table-column label="编号" prop="id" align="center" width="150">
           <template slot-scope="{row}">
             <span>
-              {{ row.year }}
+              {{ row.number }}
             </span>
           </template>
         </el-table-column>
         <el-table-column label="诊断点名称" width="150px" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.time }}</span>
+            <span>{{ row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="涉及指标编号" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyName }}</span>
+            <span>{{ row.indicatorNumbers }}</span>
           </template>
         </el-table-column>
         <el-table-column label="原因集合" align="center">
@@ -96,7 +96,7 @@
         </el-table-column>
         <el-table-column label="操作" class-name="status-col">
           <template slot-scope="{row}">
-            <el-button round type="primary" @click="editHandle">编辑</el-button>
+            <el-button round type="primary" @click="editHandle(row)">编辑</el-button>
           </template>
         </el-table-column>
         <!--    </el-table>-->
@@ -109,66 +109,67 @@
       :close-on-click-modal="false"
     >
       <el-form
-        ref="dataForm"
+        ref="ruleForm"
         label-position="right"
         label-width="120px"
         style="width: 400px; margin-left:50px;"
+        :model="temp" :rules="rules"
       >
-        <el-form-item label="诊断类型：" prop="code">
-          <el-select v-model="temp.level" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
+        <el-form-item label="诊断类型：" prop="type">
+          <el-select v-model="temp.type" class="filter-item" style="float: left;width: 100%;" placeholder="请选择">
             <el-option
-              v-for="item in indexLevelOptions"
+              v-for="item in diagnosisType"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="快速定位：" prop="parentId" v-if="temp.type === 2">
+          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="诊断项目">
+            <el-option
+              v-for="item in keyElement1"
               :key="item.id"
               :label="item.name"
               :value="item.id"
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="快速定位：" prop="name" v-if="temp.level === 2">
-          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 100%;" placeholder="诊断项目">
-            <!--            <el-option-->
-            <!--              v-for="item in partOptions"-->
-            <!--              :key="item.id"-->
-            <!--              :label="item.name"-->
-            <!--              :value="item.id"-->
-            <!--            />-->
-          </el-select>
-        </el-form-item>
-        <el-form-item label="快速定位：" prop="name" v-if="temp.level === 3">
-          <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 50%;" placeholder="诊断项目">
-            <!--            <el-option-->
-            <!--              v-for="item in partOptions"-->
-            <!--              :key="item.id"-->
-            <!--              :label="item.name"-->
-            <!--              :value="item.id"-->
-            <!--            />-->
+        <el-form-item label="快速定位：" prop="parentId" v-if="temp.type === 3">
+          <el-select v-model="dialogLevel1Id" @change="level1Change_dialog" class="filter-item" style="float: left;width: 50%;" placeholder="诊断项目">
+            <el-option
+              v-for="item in keyElement1"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
           </el-select>
           <el-select v-model="temp.parentId" class="filter-item" style="float: left;width: 50%;" placeholder="诊断要素">
-            <!--            <el-option-->
-            <!--              v-for="item in partOptions"-->
-            <!--              :key="item.id"-->
-            <!--              :label="item.name"-->
-            <!--              :value="item.id"-->
-            <!--            />-->
+            <el-option
+              v-for="item in level2List_dialog"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="诊断名称：" prop="name">
           <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
-        <el-form-item label="诊断编号：" prop="name">
-          <el-input v-model="temp.name" placeholder="多个指标编号请用英文逗号分隔" class="filter-item"/>
+        <el-form-item label="诊断编号：" prop="indicatorNumbers">
+          <el-input v-model="temp.indicatorNumbers" placeholder="多个指标编号请用英文逗号分隔" class="filter-item"/>
         </el-form-item>
         <el-form-item label="状态：">
-          <el-radio-group v-model="temp.resource">
-            <el-radio label="正常"></el-radio>
-            <el-radio label="禁用"></el-radio>
+          <el-radio-group v-model="temp.state">
+            <el-radio :label="true">正常</el-radio>
+            <el-radio :label="false">禁用</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="dialogFormVisible = false">
             取消
           </el-button>
-          <el-button type="primary">
+          <el-button type="primary" @click="editSave" :loading="editSaveLoading">
             保存
           </el-button>
         </el-form-item>
@@ -213,6 +214,7 @@
 </template>
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
+  import { mapGetters, mapState } from 'vuex'
 
   export default {
     name: 'ViewsDiagnosisIndexMgKeyElementsList',
@@ -220,36 +222,24 @@
       Breadcrumb,
     },
     data() {
+      var checkType = (rule, value, callback) => {
+        if (this.temp.level === 3 && !value) {
+          callback(new Error('请选择指标值类型'))
+        } else {
+          callback()
+        }
+      }
       return {
-        importance: [],
         listLoading: false,
-        pageData: { records: [] },
-        pagePara: {
-          current: 0,
-          size: 10
-        },
-        listQuery: {
-          descs: 'id',
-        },
-        indexOptions: [],
+        pageData: [],
         dialogFormVisible: false,
         temp: {
           level: ''
         },
-        indexLevelOptions: [
-          {
-            name: '诊断项目',
-            id: 1
-          },
-          {
-            name: '诊断要素',
-            id: 2
-          },
-          {
-            name: '诊断指标',
-            id: 3
-          },
-        ],
+        listQuery: {
+          level1: null,
+          level2: null,
+        },
         dialogFormVisible2: false,
         groupList: [
           {
@@ -264,40 +254,176 @@
             id: 3,
             text: 'c'
           },
-        ]
+        ],
+        keyElement1: [],
+        keyElement2: [],
+        editSaveLoading: false,
+        rules: {
+          type: [
+            {
+              required: true,
+              message: '请选择诊断类型',
+              trigger: 'change'
+            },
+          ],
+          name: [
+            {
+              required: true,
+              message: '请输入诊断名称',
+              trigger: 'blur'
+            },
+          ],
+        },
+        level2List_dialog: [],
+        dialogLevel1Id: null,
       }
     },
+    computed: {
+      ...mapState('enumerate', [
+        'diagnosisType',
+      ])
+    },
     created() {
-      const that = this
-      that.getList()
+      // const that = this
+      // that.getList()
+      this.getList({
+        type: 1,
+      }, () => {
+        //
+      })
     },
     methods: {
-      searchList() {
-        const that = this
-        that.pagePara.current = 0
-        that.getList()
-      },
-      getList() {
-        const that = this
-        // that.listLoading = true
-        // that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
-        //   that.listLoading = false
-        //   if (data.code === 200) {
-        //     // 返回成功
-        //     that.pageData = data.data
-        //   } else {
-        //     this.$message({
-        //       type: 'error',
-        //       message: data.msg
-        //     })
-        //   }
-        // })
-        that.pageData = {
-          records: [{ name: '' }],
-          total: 1
+      level1Change(va) {
+        this.keyElement2 = []
+        this.listQuery.level2 = null
+        if (va) {
+          console.log(va)
+          this.getList({
+            type: 2,
+            parentId: va
+          })
         }
       },
-      editHandle() {
+      level2Change(va) {
+        if (va) {
+          this.getList({
+            type: 3,
+            parentId: va
+          })
+        }
+      },
+      getList(params = {}, callback) {
+        const that = this
+        that.listLoading = true
+        that.$api.diagnosis.diagnosisEleList(params).then(data => {
+          that.listLoading = false
+          if (data.code === 200) {
+            // 返回成功
+            if (params.type === 1) {
+              that.keyElement1 = data.data
+            } else if (params.type === 2) {
+              that.keyElement2 = data.data
+            } else {
+              that.pageData = data.data
+            }
+            callback && callback()
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
+      editHandle(row) {
+        if (row) {
+          this.dialogLevel1Id = this.listQuery.level1
+          this.level1Change_dialog(this.dialogLevel1Id, this.temp.parentId)
+          this.temp = row
+        } else if (this.listQuery.level2) { // 二级
+          this.temp = this.keyElement2.find(item => item.id === this.listQuery.level2)
+        } else if (this.listQuery.level1) {
+          this.temp = this.keyElement1.find(item => item.id === this.listQuery.level1)
+        } else {
+          return
+        }
+        this.dialogFormVisible = true
+      },
+      editSave() {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.editSaveLoading = true
+            if (!this.temp.id) {
+              this.$api.diagnosis.diagnosisEleAdd(this.temp).then(res => {
+                if (res.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '添加成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  this.getList({
+                    type: 3,
+                    parentId: this.listQuery.level2
+                  })
+                }
+                this.editSaveLoading = false
+                this.dialogFormVisible = false
+              }).catch(() => {
+                this.editSaveLoading = false
+              })
+            } else {
+              this.$api.diagnosis.diagnosisEleEdit(this.temp).then(res => {
+                if (res.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '编辑成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  this.getList({
+                    type: 3,
+                    parentId: this.listQuery.level2
+                  })
+                }
+                this.editSaveLoading = false
+                this.dialogFormVisible = false
+              }).catch(() => {
+                this.editSaveLoading = false
+              })
+            }
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
+      },
+      level1Change_dialog(val, pid = null) {
+        this.temp.parentId = pid
+        this.getLevel2_dialog(val)
+      },
+      getLevel2_dialog(id) {
+        this.$api.diagnosis.diagnosisEleList({
+          type: 2,
+          parentId: id
+        }).then(res => {
+          if (res.code === 200) {
+            // 返回成功
+            this.level2List_dialog = res.data
+          }
+        })
+      },
+      tempInit() {
+        this.temp = {
+          type: null,
+          parentId: null,
+          state: true,
+          name: '',
+          indicatorNumbers: '',
+        }
+      },
+      addHandle() {
+        this.tempInit()
         this.dialogFormVisible = true
       },
       editHandle2() {
