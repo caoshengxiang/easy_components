@@ -79,7 +79,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'dcta.id'}">
+        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'dcta.id'};searchList()">
           重置
         </el-button>
       </template>
