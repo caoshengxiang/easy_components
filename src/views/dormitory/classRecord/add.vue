@@ -161,8 +161,13 @@
         } else { // 新增
           this.$refs.postForm.validate(valid => {
             if (valid) {
-              this.postForm.weeks = this.postForm.weeks.join()
-              this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentListAdd(this.postForm).then(res => {
+              // this.postForm.weeks = this.postForm.weeks.join()
+              this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentListAdd({
+                year: this.postForm.year,
+                time: this.postForm.time,
+                weeks: this.postForm.weeks.join(),
+                termId: this.postForm.termId,
+              }).then(res => {
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
