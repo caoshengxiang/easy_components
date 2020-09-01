@@ -142,7 +142,6 @@ export default {
         startTime: [{ required: true, message: '开始时间', trigger: 'blur'}],
         endTime: [{ required: true, message: '结束时间', trigger: 'blur'}],
         leaveType: [{ required: true, message: '假别', trigger: 'blur'}],
-        reason: [{ required: true, message: '请假事由', trigger: 'blur'}]
       },
       dataId: this.$route.query.id,
       days:0,

@@ -150,12 +150,12 @@
         </el-table-column>
         <el-table-column label="流失状态" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.loseTime }} </span>
+            <span>{{ row.loseState }} </span>
           </template>
         </el-table-column>
         <el-table-column label="流失时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.loseState }} </span>
+            <span>{{ row.loseTime }} </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="220">
@@ -356,6 +356,7 @@ export default {
       this.listLoading = true
       this.$api.loseStudent.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

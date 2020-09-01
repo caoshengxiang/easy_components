@@ -117,7 +117,7 @@
         <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning"   @click="resetSearch()">
           重置
         </el-button>
       </template>
@@ -424,6 +424,10 @@
       that.getStatistics()
     },
     methods: {
+      resetSearch() {
+        this.listQuery = { descs: 'id' }
+        this.getList()
+      },
       recoverStudentType(id){
         // console.log(data)
         const that = this

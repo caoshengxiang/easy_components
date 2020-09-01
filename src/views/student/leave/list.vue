@@ -194,6 +194,7 @@
             menu-no="_views_student_leave_audit"
             type="success"
             name=""
+            v-if="row.state == 1"
             :page-jump="true"
             :page-query="{id: row.leaveId}"
             round
@@ -438,6 +439,7 @@ export default {
       }
       this.$api.leave.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

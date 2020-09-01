@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="y-options" v-if="$slots.default">
-      <slot name="options">
+      <slot name="options" v-if="showBtn">
         <el-button v-if="saveBtnName" type="primary" round @click="save">{{saveBtnName}}</el-button>
       </slot>
     </div>
@@ -24,6 +24,11 @@
       editStatus: {
         type: Boolean,
         default: false
+      },
+      //编辑状态
+      showBtn: {
+        type: Boolean,
+        default: true
       },
       // 按钮名称
       saveBtnName: {

@@ -403,6 +403,7 @@ export default {
       this.listLoading = true
       this.$api.classExam.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)
