@@ -16,7 +16,7 @@
           <img src="../../../assets/a2.png" class="item-img" alt="">
           <div class="text">
             <div class="analysis-text"><span class="tag">{{ item.value || 0 }}</span></div>
-            <div class="analysis-text-small">{{ `${item.key}团员数` }}</div>
+            <div class="analysis-text-small">{{ `${item.key || ''}团员数` }}</div>
           </div>
         </div>
         <div class="menu-2-item hvr-underline-from-center">
@@ -53,10 +53,14 @@
               <el-input v-model="form.name" placeholder="支部名称"/>
             </el-form-item>
             <el-form-item>
-              <el-date-picker v-model="form.buildDateStart" placeholder="成立时间开始" value-format="yyyy-MM-dd"/>
-            </el-form-item>
-            <el-form-item label-width="20px" label="-">
-              <el-date-picker v-model="form.buildDateEnd" placeholder="成立时间结束" value-format="yyyy-MM-dd"/>
+              <el-date-picker
+                v-model="buildDate"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="成立日期开始"
+                value-format="yyyy-MM-dd"
+                end-placeholder="成立日期结束"
+              />
             </el-form-item>
             <el-form-item>
               <el-button
@@ -81,9 +85,9 @@
         <el-table-column label="负责人" prop="principal" min-width="120"/>
         <el-table-column label="电话" align="center" prop="phone" min-width="120"/>
         <el-table-column label="成立日期" align="center" prop="buildDate" min-width="140"/>
-        <el-table-column label="创建时间" align="center" prop="created" min-width="180"/>
+        <el-table-column label="创建时间" align="center" prop="created" min-width="140"/>
         <el-table-column label="创建人" prop="creator" min-width="120"/>
-        <el-table-column label="操作" align="center" width="380" fixed="right">
+        <el-table-column label="操作" align="center" width="360" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_leagueActivities_branchManage_detail"
@@ -144,6 +148,7 @@
         },
         tableData: {records: []},
         form: {}, // 查询条件
+        buildDate: null,
         statisticsData: {
           list: []
         }, // 统计信息
@@ -158,7 +163,12 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        this.$api.LABranchManage.page(Object.assign({}, this.pageInfo, this.form))
+        const sendData = Object.assign({}, this.pageInfo, this.form);
+        if (this.buildDate) {
+          sendData.buildDateStart = this.buildDate[0];
+          sendData.buildDateEnd = this.buildDate[1];
+        }
+        this.$api.LABranchManage.page(sendData)
           .then(res => {
             this.tableData = res.data;
             this.branchTotal = res.data.total;
@@ -178,6 +188,7 @@
             this.$api.LABranchManage.remove(id)
               .then(() => {
                 this.search();
+                this.getStatisticsData();
               })
           });
       },

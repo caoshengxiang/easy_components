@@ -71,7 +71,7 @@
         <el-table-column label="活动时间" align="center" prop="activityTime" min-width="160"/>
         <el-table-column label="活动类型" prop="cate"/>
 <!--        <el-table-column label="活动内容" prop="content"/>-->
-        <el-table-column label="创建时间" align="center" prop="createDate"/>
+        <el-table-column label="创建时间" align="center" prop="created"/>
         <el-table-column label="创建人" prop="creator"/>
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="{ row }">
@@ -148,9 +148,9 @@
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
             this.$api.leagueMemberActivities.remove(id).then(res=>{
-              this.getData()
+              this.getData();
+              this.getStatisticsData();
             })
           });
       },
@@ -167,40 +167,10 @@
 </script>
 
 <style lang="scss" scoped>
-  .statistics-container {
-    display: flex;
-    align-items: center;
-    margin-top: 16px;
-
-    .statistics-item {
-      display: flex;
-      align-items: center;
-      margin-right: 24px;
-      background-color: rgba(242, 242, 242, 1);
-      padding: 12px;
-      border-radius: 4px;
-
-      .item-img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .item-info {
-        margin-left: 12px;
-        text-align: center;
-        font-size: 16px;
-
-        .item-head {
-          font-weight: bold;
-        }
-
-        .item-data {
-          margin-top: 6px;
-          font-size: 24px;
-          font-weight: bold;
-          color: #1890ff;
-        }
-      }
+  .app-container {
+    .item-img {
+      width: 50px;
+      height: 50px;
     }
   }
 </style>

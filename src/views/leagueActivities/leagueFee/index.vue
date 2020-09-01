@@ -31,10 +31,14 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-date-picker v-model="form.occurTimeStart" placeholder="时间开始" value-format="yyyy-MM-dd" />
-          </el-form-item>
-          <el-form-item label-width="20px" label="-">
-            <el-date-picker v-model="form.occurTimeEnd" placeholder="时间结束" value-format="yyyy-MM-dd" />
+            <el-date-picker
+              v-model="occurTime"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="时间开始"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              end-placeholder="时间结束"
+            />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -55,11 +59,11 @@
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="团支部" prop="leagueName" min-width="120" />
-        <el-table-column label="收支类型" prop="fee" min-width="120" />
-        <el-table-column label="金额" prop="amount" min-width="120" />
+        <el-table-column label="收支类型" prop="cate" min-width="100" />
+        <el-table-column label="金额" prop="amount" min-width="100" />
         <el-table-column label="时间" align="center" prop="occurTime" min-width="180" />
-        <el-table-column label="备注" prop="remark" min-width="180" />
-        <el-table-column label="创建时间" align="center" prop="createDate" minx-width="180" />
+        <el-table-column label="备注" prop="remark" min-width="180" show-overflow-tooltip />
+        <el-table-column label="创建时间" align="center" prop="created" min-width="140" />
         <el-table-column label="创建人" prop="creator" min-width="120" />
         <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
@@ -110,7 +114,8 @@
         tableData: { records: [] },
         form: {
           youthLeagueBranchId: this.$route.query.youthLeagueBranchId
-        }
+        },
+        occurTime: null
       }
     },
     created() {
@@ -120,7 +125,12 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        this.$api.LALeagueFee.page(Object.assign({}, this.pageInfo, this.form))
+        const sendData = Object.assign({}, this.pageInfo, this.form);
+        if (this.occurTime) {
+          sendData.occurTimeStart = this.occurTime[0];
+          sendData.occurTimeStart = this.occurTime[1];
+        }
+        this.$api.LALeagueFee.page(sendData)
           .then(res => {
             this.tableData = res.data;
           })

@@ -42,10 +42,14 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-date-picker v-model="form.approvalDateStart" placeholder="批准日期开始" value-format="yyyy-MM-dd" />
-            </el-form-item>
-            <el-form-item label-width="20px" label="-">
-              <el-date-picker v-model="form.approvalDateEnd" placeholder="批准日期结束" value-format="yyyy-MM-dd" />
+              <el-date-picker
+                v-model="approvalDate"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="批准日期开始"
+                value-format="yyyy-MM-dd"
+                end-placeholder="批准日期结束"
+              />
             </el-form-item>
             <el-form-item>
               <el-button
@@ -66,14 +70,14 @@
         </div>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="名称" prop="name" width="120" />
+        <el-table-column label="名称" prop="name" width="160" show-overflow-tooltip />
         <el-table-column label="创始人" prop="founder" width="120" />
-        <el-table-column label="负责人" prop="principalName" width="120" />
+        <el-table-column label="负责人" prop="principalName" width="160" />
         <el-table-column label="电话" align="center" prop="phone" width="120" />
         <el-table-column label="性质" align="center" prop="character" width="120" />
         <el-table-column label="批准部门" prop="department" width="160" />
         <el-table-column label="批准日期" align="center" prop="approvalDate" width="140" />
-        <el-table-column label="宗旨" prop="purpose" width="180" />
+        <el-table-column label="宗旨" prop="purpose" width="180" show-overflow-tooltip />
         <el-table-column label="活动形式" prop="form" width="120" />
         <el-table-column label="编码" prop="code" width="120" />
         <el-table-column label="创建时间" align="center" prop="created" width="180" />
@@ -134,6 +138,7 @@
         },
         tableData: { records: [] },
         form: {}, // 查询条件
+        approvalDate: null,
         statisticsData: {
           list: []
         }, // 统计信息
@@ -147,7 +152,12 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        this.$api.LACommunityManage.page(Object.assign({}, this.pageInfo, this.form))
+        const sendData = Object.assign({}, this.pageInfo, this.form);
+        if (this.approvalDate) {
+          sendData.approvalDateStart = this.approvalDate[0];
+          sendData.approvalDateEnd = this.approvalDate[1];
+        }
+        this.$api.LACommunityManage.page(sendData)
           .then(res => {
             this.tableData = res.data;
           })
@@ -166,6 +176,7 @@
             this.$api.LACommunityManage.remove(id)
               .then(() => {
                 this.search();
+                this.getStatisticsData();
               })
           });
       },
@@ -192,38 +203,9 @@
 
 <style lang="scss" scoped>
   .app-container {
-    .statistics-container {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      .statistics-item {
-        width: 240px;
-        display: flex;
-        align-items: center;
-        margin-right: 24px;
-        margin-bottom: 12px;
-        background-color: rgba(242, 242, 242, 1);
-        padding: 12px;
-        border-radius: 4px;
-        .item-img {
-          width: 80px;
-          height: 80px;
-        }
-        .item-info {
-          margin-left: 12px;
-          text-align: center;
-          font-size: 16px;
-          .item-head {
-            font-weight: bold;
-          }
-          .item-data {
-            margin-top: 6px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1890ff;
-          }
-        }
-      }
+    .item-img {
+      width: 50px;
+      height: 50px;
     }
   }
 </style>
