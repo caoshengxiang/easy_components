@@ -59,6 +59,7 @@
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
+          filterable
           style="margin-left:5px;width: 120px"
           class="filter-item"
         >
@@ -69,6 +70,7 @@
           v-model="listQuery.administrativeSpecialtyId"
           placeholder="请选择专业"
           clearable
+          filterable
           class="filter-item"
           style="margin-left:5px;width: 120px"
         >

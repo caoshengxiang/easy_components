@@ -59,8 +59,10 @@
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
+          filterable
           style="width: 115px"
           class="filter-item"
+          @change="getClbumList"
         >
           <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -69,8 +71,10 @@
           v-model="listQuery.administrativeSpecialtyId"
           placeholder="请选择专业"
           clearable
+          filterable
           class="filter-item"
           style="margin-left:5px;width: 115px"
+          @change="getClbumList"
         >
           <el-option v-for="item in specialty" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -79,6 +83,7 @@
           v-model="listQuery.administrativeClbumId"
           placeholder="请选择班级"
           clearable
+          filterable
           class="filter-item"
           style="margin-left:5px;width: 115px"
         >
@@ -305,7 +310,7 @@
       that.getGradeList()
       that.getSpecialtyList()
       this.admissionSource()
-      this.getClbumList()
+     // this.getClbumList()
       that.getStatistics()
     },
     methods: {
@@ -327,6 +332,7 @@
 
       getClbumList() {
         const that = this
+        this.listQuery.administrativeClbumId = ''
         that.$api.baseInfo.getClbumList({
           gradeId: that.listQuery.administrativeGradeId,
           specialtyId: that.listQuery.administrativeSpecialtyId
