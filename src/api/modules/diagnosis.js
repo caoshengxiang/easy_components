@@ -37,7 +37,7 @@ export default {
   indicatorTree(params) {
     return request.get(`indicator/tree`)
   },
-  indicatorYearData(params) { // 指标年标准列表，数据填写
+  indicatorYearData(params) { // 指标年数据列表，数据填写
     return request.get(`indicatorYearData`, { params: params })
   },
   indicatorYearDataModifyNum(params) { // 填写数据保存
@@ -48,6 +48,24 @@ export default {
   },
   indicatorYearDataById(params) { // 指标年标准列表，数据填写
     return request.get(`indicatorYearData/${params.id}`, { params: params })
+  },
+  indicatorYearStandardList(params) { // 指标年标准列表，标准值与目标值
+    return request.get(`indicatorYearStandard/list`, { params: params })
+  },
+  indicatorYearStandardAdd(params) { // 标准值与目标值 编辑
+    return request.post(`indicatorYearStandardData/batch`, params)
+  },
+  indicatorYearStandardDownload(params) {
+    return fileDown('indicatorYearStandardData/download/exportExcel', params)
+  },
+  indicatorYearStandardImportExcel(params) {
+    return request.post('indicatorYearStandardData/importExcel', params)
+  },
+  indicatorYearStandardDetail(params) {
+    return request.get(`indicatorYearStandardData`, { params: params })
+  },
+  indicatorYearStandardDataWarn(params) {
+    return request.get(`indicatorYearStandardData/warn`, { params: params })
   },
   // detail(params) {
   //   return request.get(`post/${params}`)

@@ -14,4 +14,5 @@ export default {
   _views_diagnosis_reports_myReport: () => import('../../views/diagnosis/reports/myReport'),
   _views_diagnosis_reports_uploadAttachments: () => import('../../views/diagnosis/reports/uploadAttachments'),
   _views_diagnosis_valueSetting_list: () => import('../../views/diagnosis/valueSetting/list'),
+  _views_diagnosis_valueSetting_edit: () => import('../../views/diagnosis/valueSetting/edit'),
 }

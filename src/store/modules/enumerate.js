@@ -17,6 +17,11 @@ const state = {
     { value: 5, name: '求百分差'},
     { value: 6, name: '两年差'},
   ],
+  diagnosisType: [
+    { value: 1, name: '诊断项目'},
+    { value: 2, name: '诊断要素'},
+    { value: 3, name: '诊断指标'},
+  ]
 }
 const mutations = {}
 const actions = {}

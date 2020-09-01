@@ -81,7 +81,7 @@
                    :data="pageData" slot="table" style="width: 100%;">
         <el-table-column align="center" width="55">
           <template slot-scope="{row}">
-            <el-checkbox v-if="row.type === 3 || row.type === 2" v-model="row.hasWarining"></el-checkbox>
+            <el-checkbox v-if="row.type === 3 || row.type === 2 || row.type === 5" v-model="row.hasWarining"></el-checkbox>
           </template>
         </el-table-column>
         <el-table-column label="名称" prop="name" align="center" width="150">

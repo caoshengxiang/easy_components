@@ -17,52 +17,59 @@
     <!--        <div/>-->
     <!--      </div>-->
     <!--    </div>-->
-    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
+    <y-page-list-layout>
       <template slot="left">
       </template>
       <template slot="right">
         <!--导出-->
-<!--        <PermissionButton-->
-<!--          menu-no="_views_dormitory_classRecord_export"-->
-<!--          class-name="filter-item"-->
-<!--          @click="exportClassRecord"-->
-<!--          type="primary"-->
-<!--          round-->
-<!--        />-->
+        <!--        <PermissionButton-->
+        <!--          menu-no="_views_dormitory_classRecord_export"-->
+        <!--          class-name="filter-item"-->
+        <!--          @click="exportClassRecord"-->
+        <!--          type="primary"-->
+        <!--          round-->
+        <!--        />-->
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" :data="pageData" slot="table" style="width: 100%;">
         <el-table-column label="指标编号" prop="id" align="center">
           <template slot-scope="{row}">
             <span>
-              {{ row.year }}
+              {{ row.number }}
             </span>
           </template>
         </el-table-column>
         <el-table-column label="指标名称" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.time }}</span>
+            <span>{{ row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="标准值" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeSpecialtyName }}</span>
+            <span>{{ row.standardValue }}</span>
           </template>
         </el-table-column>
         <el-table-column label="目标值" align="center">
           <template slot-scope="{row}">
             <span>
-              {{ row.administrativeGradeName }}
+              {{ row.targetValue }}
             </span>
           </template>
         </el-table-column>
         <el-table-column label="指标值" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.administrativeClbumName }}</span>
+            <span>{{ row.currentValue }}</span>
           </template>
         </el-table-column>
         <el-table-column label="预警类型" align="center">
+          <!--
+          一旦出现低于标准值和目标值时就预警小于标准值红色预警
+          大于等于标准值且小于目标值黄色预警
+            大于等于目标值就不预警
+            手动修改或同步数据的时候就实时产生预警-->
           <template slot-scope="{row}">
-            <span>{{ row.headTeacherName }}</span>
+            <div v-if="alertType(row) === 1 || alertType(row) === null" style="width: 10px;height: 10px;background-color: red;border-radius: 50%;margin: auto;"></div>
+            <div v-if="alertType(row) === 2" style="width: 10px;height: 10px;background-color: yellow;border-radius: 50%;margin: auto;"></div>
+            <div v-if="alertType(row) === 3" style="width: 10px;height: 10px;background-color: green;border-radius: 50%;margin: auto;"></div>
           </template>
         </el-table-column>
       </parentTable>
@@ -79,16 +86,8 @@
     },
     data() {
       return {
-        importance: [],
         listLoading: false,
-        pageData: { records: [] },
-        pagePara: {
-          current: 0,
-          size: 10
-        },
-        listQuery: {
-          descs: 'id',
-        },
+        pageData: [],
       }
     },
     created() {
@@ -96,26 +95,35 @@
       that.getList()
     },
     methods: {
+      alertType(row) {
+        if (!row.currentValue || !row.standardValue || !row.targetValue) {
+          return null
+        }
+        if (row.currentValue < row.standardValue) {
+          return 1
+        } else if (row.currentValue >= row.standardValue && row.currentValue < row.targetValue) {
+          return 2
+        } else {
+          return 3
+        }
+      },
       searchList() {
         const that = this
         that.pagePara.current = 0
         that.getList()
       },
       getList() {
-        // const that = this
-        // that.listLoading = true
-        // that.$api.dormitoryCheck.dormitoryClbumTimeAssessmentList({ ...that.pagePara, ...that.listQuery }).then(data => {
-        //   that.listLoading = false
-        //   if (data.code === 200) {
-        //     // 返回成功
-        //     that.pageData = data.data
-        //   } else {
-        //     this.$message({
-        //       type: 'error',
-        //       message: data.msg
-        //     })
-        //   }
-        // })
+        const that = this
+        that.listLoading = true
+        that.$api.diagnosis.indicatorYearStandardDataWarn().then(data => {
+          that.listLoading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.pageData = data.data
+          }
+        }).catch(() => {
+          that.listLoading = false
+        })
       },
       // exportClassRecord() {
       //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })
