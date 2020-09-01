@@ -22,7 +22,10 @@
           <el-button type="text" @click="showTable">编辑表格</el-button>
         </span>
         <!--文本-->
-        <el-input v-if="type === 7" type="textarea" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <span v-if="type === 7">
+          <el-button type="text" @click="showTableText">编辑文本</el-button>
+        </span>
+
         <!--下拉选项-->
         <el-select v-if="type === 8" v-model="ruleForm.val" @change="emitInput">
           <el-option v-for="(item, index) in selectOptions" :key="index" :label="item" :value="item"/>
@@ -30,6 +33,24 @@
       </el-form-item>
     </el-form>
 
+    <el-dialog
+      width="40%"
+      :title="row.name"
+      :visible.sync="dialogFormVisibleText"
+      :close-on-click-modal="false"
+    >
+      <el-input v-if="type === 7" :rows="5" type="textarea" v-model="textCurrentValue" size="small"
+                @change="emitInput"/>
+
+      <div slot="footer" class="dialog-footer" style="text-align: center;margin-top: 10px;">
+        <el-button @click="dialogFormVisibleText = false">
+          取消
+        </el-button>
+        <el-button type="primary" @click="editSaveText">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
     <el-dialog
       width="90%"
       :title="row.name"
@@ -211,9 +232,11 @@
           ]
         },
         dialogFormVisible: false,
+        dialogFormVisibleText: false,
         temp: {},
         tableData: null,
         weeksNum: 20,
+        textCurrentValue: '', // 文本
       }
     },
     computed: {
@@ -232,13 +255,10 @@
         immediate: true,
         handler(va) {
           if (va.type === 6) { // 表格
-            console.log('表格类型')
-            if (va.id) {
-              this.getDetail()
-            } else {
-              // 指标编号初始数据
-              this.initTable(va.number)
-            }
+            // 指标编号初始数据
+            this.initTable(va.number)
+          } else if (va.type === 7) { // 文本
+            this.textCurrentValue = ''
           }
         }
       }
@@ -291,8 +311,28 @@
           ]
         }
       },
+      editSaveText() {
+        let p = {
+          id: this.row.id,
+          indicatorId: this.row.indicatorId,
+          indicatorYearId: this.$route.query.id,
+          data: this.textCurrentValue
+        }
+        this.$api.diagnosis.indicatorYearDataModify(p).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.dialogFormVisible = false
+            this.dialogFormVisibleText = false
+          }
+        })
+      },
       editSave() {
-        console.log('表格数', this.tableData)
+        // console.log('表格数', this.tableData)
         let p = {
           id: this.row.id,
           indicatorId: this.row.indicatorId,
@@ -307,21 +347,49 @@
               type: 'success',
               duration: 2000
             })
+            this.dialogFormVisible = false
+            this.dialogFormVisibleText = false
           }
         })
       },
       getDetail() {
         this.$api.diagnosis.indicatorYearDataById({ id: this.row.id }).then(res => {
           this.temp = res.data
-          if (res.data.jsonData) {
-            this.tableData = JSON.parse(res.data.jsonData)
-          } else { // 详情未返回number
-            this.initTable(this.row.number)
+          if (this.row.type === 6) {
+            if (res.data.jsonData) {
+              this.tableData = JSON.parse(res.data.jsonData)
+            } else { // 详情未返回number
+              this.initTable(this.row.number)
+            }
+          } else if (this.row.type === 7) {
+            this.textCurrentValue = res.data.data
           }
         })
       },
+      getDetailAll() {
+        if (this.row.type === 6) { // 表格
+          console.log('表格类型')
+          if (this.row.id) {
+            this.getDetail()
+          } else {
+            // 指标编号初始数据
+            this.initTable(this.row.number)
+          }
+        } else if (this.row.type === 7) { // 文本
+          if (this.row.id) {
+            this.getDetail()
+          } else {
+            this.textCurrentValue = ''
+          }
+        }
+      },
       showTable() {
+        this.getDetailAll()
         this.dialogFormVisible = true
+      },
+      showTableText() {
+        this.getDetailAll()
+        this.dialogFormVisibleText = true
       }
     }
   }
