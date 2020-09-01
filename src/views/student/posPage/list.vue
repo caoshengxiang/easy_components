@@ -128,8 +128,7 @@
               menu-no="_views_student_pos_map"
               type="primary"
               name=""
-              :page-jump="true"
-              :page-query="{id: row.id}"
+              @click="showMap(row)"
               round
             />
           </template>
@@ -137,12 +136,33 @@
         <!--      </el-table>-->
       </parentTable>
     </y-page-list-layout>
+    <el-dialog title="定位" :visible.sync="dialogFormVisible"
+               v-loading="loading"
+    >
+      <baidu-map :style="{width:map.width,height:map.height}"
+                 class="map"
+                 ak="QESRXGTH3unGiZpCnns1bep6hOCH7erg"
+                 :zoom="map.zoom"
+                 :center="{lng: map.center.lng, lat: map.center.lat}"
+                 :mapClick="false"
+                 :scroll-wheel-zoom="true">
+        <bm-marker :position="{lng: map.center.lng, lat: map.center.lat}" :dragging="false" >
+          <bm-info-window :show="true">
+            <div style="font-size: 14px;color: #ff7a0e">位置信息</div>
+            <div style="font-size: 12px;color: #0a76a4;margin-top: 5px">{{posttion}}</div>
+          </bm-info-window>
+        </bm-marker>
+      </baidu-map>
+    </el-dialog>
   </div>
 </template>
 <script>
 import YPageListLayout from '@/components/YPageListLayout'
 import Breadcrumb from '@/components/Breadcrumb'
 import PermissionButton from '@/components/PermissionButton/PermissionButton'
+import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+
+import { BmBoundary, BmInfoWindow,BmMarker, BmLabel, BmContextMenu, BmContextMenuItem } from 'vue-baidu-map'
 
 export default {
   name: 'ViewsRecruitPlanList',
@@ -150,6 +170,10 @@ export default {
     Breadcrumb,
     YPageListLayout,
     PermissionButton,
+    BaiduMap,
+    BmMarker,
+    BmLabel,
+    BmInfoWindow
   },
   filters: {
     statusFilter(status) {
@@ -163,6 +187,16 @@ export default {
   },
   data() {
     return {
+      dialogFormVisible:false,
+      map: {
+        width: '48vw',
+        height: '50vh',
+        center: {
+          lng: 104.07,
+          lat: 30.67,
+        },
+        zoom: 20,
+      },
       opt: [
         {
           key: '',
@@ -209,6 +243,12 @@ export default {
     this.getSpecialtyList()
   },
   methods: {
+    showMap(row){
+      this.dialogFormVisible = true
+      this.posttion = row.position
+      this.map.center.lat = row.lat
+      this.map.center.lng = row.lon
+    },
     getGradeList() {
       const that = this
       that.$api.baseInfo.getGradeList().then(data => {
