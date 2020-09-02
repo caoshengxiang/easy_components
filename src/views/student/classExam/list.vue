@@ -309,7 +309,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/classExam/download/exportExcel', null, '班级考核报表')
+      this.$utils.exportUtil('/classExam/download/exportExcel', this.listQuery, '班级考核报表')
     },
     getStatistics() {
       let that = this
