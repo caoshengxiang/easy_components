@@ -32,6 +32,7 @@ export default {
         importance:[],
         importance1:[]
       },
+      loading:false,
       classInfo:[],
       rules: {
         name: [{ required: true, message: '请填写类型名称', trigger: 'change' }],

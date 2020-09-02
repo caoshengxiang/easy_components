@@ -80,7 +80,6 @@
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
-
   </div>
 </template>
 <script>
@@ -111,7 +110,8 @@ export default {
       },
       statisticsInfo: {},
       useStatus: [],
-      purpose: []
+      purpose: [],
+      selectedId: null
     }
   },
   created() {
@@ -184,22 +184,26 @@ export default {
       }).catch(() => { that.listLoading = false })
     },
     open(id) {
+      this.selectedId = id
       this.$confirm('是否通过？', '确认信息', {
         distinguishCancelAndClose: true,
         confirmButtonText: '通过',
         cancelButtonText: '不通过',
-        center: true
+        center: true,
+        callback: this.confirmCallBack
       })
-        .then(() => {
-          // this.$message({
-          //   type: 'info',
-          //   message: '通过'
-          // });
-          this.audit({id,state:'审核通过'})
-        })
-        .catch(action => {
-          this.audit({id,state:'审核拒绝'})
-        });
+    },
+    confirmCallBack(action,instance) {
+      switch (action) {
+        case 'confirm':
+          this.audit({id: this.selectedId, state: '审核通过'})
+          break;
+        case 'cancel':
+          this.audit({id: this.selectedId, state: '审核拒绝'})
+          break;
+        default:
+          break
+      }
     },
     audit(params) {
       this.$api.conductScore.check(params).then(res => {
