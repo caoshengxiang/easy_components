@@ -6,6 +6,9 @@ export default {
   list(params) {
     return request.get(`classExam`, { params: params })
   },
+  listDetail(params) {
+    return request.get(`classExam/detailPage`, { params: params })
+  },
   detail(params) {
     return request.get(`classExam/${params}`)
   },

@@ -513,7 +513,7 @@ export default {
     getList() {
       const that = this
       this.listLoading = true
-      this.$api.classExam.list({ ...that.listQuery, ...that.pagePara }).then(res => {
+      this.$api.classExam.listDetail({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
         setTimeout(() => {
           that.listLoading = false

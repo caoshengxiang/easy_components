@@ -65,6 +65,7 @@
           v-model="listQuery.month"
           placeholder="月份"
           prefix-icon="el-icon-search"
+          type="number"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
         />
@@ -94,7 +95,7 @@
         </el-table-column>
         <el-table-column label="学期" align="center">
         <template slot-scope="{row}">
-          <span>接口没有</span>
+          <span>{{row.termName}}</span>
         </template>
       </el-table-column>
         <el-table-column label="月份" align="center">
@@ -209,7 +210,7 @@
         </el-table-column>
         <el-table-column label="乘系得分" align="center">
           <template slot-scope="{row}">
-            <span>接口没有 </span>
+            <span>{{ row.cxValue }} </span>
           </template>
         </el-table-column>
         <el-table-column label="本周总分" align="center">
