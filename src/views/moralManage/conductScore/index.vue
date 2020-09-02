@@ -51,15 +51,15 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="学号" prop="property" align="center" >
+        <el-table-column label="学号" prop="studyCode" align="center" >
         </el-table-column>
-        <el-table-column label="姓名" prop="property" align="center" >
+        <el-table-column label="姓名" prop="name" align="center" >
         </el-table-column>
-        <el-table-column label="操行分" prop="property" align="center" >
+        <el-table-column label="操行分" prop="score" align="center" >
         </el-table-column>
-        <el-table-column label="排名" prop="property" align="center" >
+        <el-table-column label="排名" prop="rank" align="center" >
         </el-table-column>
-        <el-table-column label="操作" fixed="right" align="center" width="220px">
+        <el-table-column label="操作" fixed="right" align="center" width="260px">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_moralManage_conductScore_view"
@@ -79,6 +79,15 @@
             >
               操行分设置
             </PermissionButton>
+            <PermissionButton
+              menu-no="_views_moralManage_conductScore_detail"
+              name=""
+              type="primary"
+              @click="showDetail(row)"
+              round
+            >
+              明细
+            </PermissionButton>
           </template>
         </el-table-column>
       </parentTable>
@@ -88,9 +97,8 @@
       </div>
     </el-dialog>
 
-
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible1">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px"
+      <el-form ref="dataForm" :model="temp" label-position="right" label-width="150px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="类型：">
@@ -128,6 +136,15 @@
         </el-button>
       </div>
     </el-dialog>
+    <el-dialog title="操行分变化列表" :visible.sync="detailVisible">
+      <y-page-list-layout :page-list="detailPageData || {}" :page-para="detailPagePara" :get-page-list="getConductScoreDetail">
+        <parentTable v-loading="detailListLoading" :data="detailPageData.records" slot="table" style="width: 100%;" >
+          <el-table-column label="时间" prop="updateTime" align="center" ></el-table-column>
+          <el-table-column label="原因" prop="reason" align="center" ></el-table-column>
+          <el-table-column label="分数变化" prop="score" align="center" ></el-table-column>
+        </parentTable>
+      </y-page-list-layout>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -156,17 +173,29 @@ export default {
         size: 10
       },
       listQuery: {
-        dormitoryId: 0,
         descs: 'id'
       },
       statisticsInfo: {},
       useStatus: [],
-      purpose: []
+      purpose: [],
+      detailVisible: false,
+      detailPageData: {},
+      detailListLoading: false,
+      detailPagePara: {
+        current: 0,
+        size: 10
+      },
+      selectedId: ''
     }
   },
   created() {
     const that = this
     that.getList()
+  },
+  watch:{
+    selectedId(){
+      this.getConductScoreDetail()
+    }
   },
   methods: {
     saveData(){
@@ -243,12 +272,12 @@ export default {
     getList() {
       const that = this
       that.listLoading = true
-      that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+      that.$api.conductScore.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
         that.listLoading = false
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
-          that.getStatistics()
+          // that.getStatistics()
         } else {
           this.$message({
             type: 'error',
@@ -256,6 +285,27 @@ export default {
           })
         }
       }).catch(() => { that.listLoading = false })
+    },
+    showDetail(row) {
+      this.detailVisible = true
+      this.selectedId = row.id
+    },
+    getConductScoreDetail() {
+      const that = this
+      that.detailListLoading = true
+      that.$api.conductScore.conductScoreDetail({  studentId:this.selectedId,...that.detailPagePara }).then(data => {
+        that.detailListLoading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.detailPageData = data.data
+          console.log(that.detailPageData)
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      }).catch(() => { that.detailListLoading = false })
     },
   }
 }

@@ -43,7 +43,7 @@
           clearable
         />
         <el-input
-          v-model="listQuery.addr"
+          v-model="listQuery.studentName"
           placeholder="姓名"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 150px;"
@@ -74,7 +74,7 @@
           round
           type="primary"
           name=""
-          :page-jump="true"
+          @click="downloadPkg"
         />
 
         <PermissionButton
@@ -83,7 +83,7 @@
           round
           type="primary"
           name=""
-          :page-jump="true"
+          @click="setNotice"
         />
         <PermissionButton
           menu-no="_views_moralManage_classNotice_setCommentCommon"
@@ -91,23 +91,24 @@
           round
           type="primary"
           name=""
-          :page-jump="true"
+          @click="setComment()"
         />
 
-      </template>  <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      </template>
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;" @selectionChange="onTableSelect">
       <el-table-column type="selection" align="center"  />
-      <el-table-column label="学期" align="center" prop="id" />
-      <el-table-column label="学生姓名" prop="name" />
-      <el-table-column label="年级" align="center" prop="grade" />
-      <el-table-column label="专业" align="center" prop="specialty" />
-      <el-table-column label="班级" align="center" prop="clbum" />
-      <el-table-column label="创建人" prop="creatorName" />
-      <el-table-column label="离校时间" align="center" prop="offTime" />
-      <el-table-column label="一、二年级报到时间" width="150px" align="center" prop="returnDateOneTwo" />
-      <el-table-column label="三年级报到时间" width="140px" align="center" prop="returnDateThree" />
-      <el-table-column label="通知书发放时间" width="140px" align="center" prop="noticeDate" />
-      <el-table-column label="创建时间" align="center" prop="createDate" />
-      <el-table-column label="操作" fixed="right" align="center" width="220px">
+      <el-table-column label="学期" align="center" prop="termName" min-width="140px"/>
+      <el-table-column label="学生姓名" prop="studentName" min-width="140px"/>
+      <el-table-column label="年级" align="center" prop="grade"/>
+      <el-table-column label="专业" align="center" prop="specialty" min-width="220px"/>
+      <el-table-column label="班级" align="center" prop="clbum" min-width="140px"/>
+      <el-table-column label="创建人" prop="creator" />
+      <el-table-column label="离校时间" align="center" prop="holidayDate" min-width="140px"/>
+      <el-table-column label="一、二年级报到时间" width="150px" align="center" prop="underGradeRegisterDate" />
+      <el-table-column label="三年级报到时间" width="140px" align="center" prop="seniorGradeRegisterDate" />
+      <el-table-column label="通知书发放时间" width="140px" align="center" prop="sendDate" min-width="140px"/>
+      <el-table-column label="创建时间" align="center" prop="created" min-width="140px"/>
+      <el-table-column label="操作" fixed="right" align="center" min-width="220px">
         <template v-slot="{ row }">
           <PermissionButton
             menu-no="_views_moralManage_classNotice_setComment"
@@ -144,7 +145,7 @@
     <el-dialog title="预览" :visible.sync="dialogFormVisible">
       <div style="height: 600px">
         <iframe
-          src='https://view.officeapps.live.com/op/view.aspx?src=http://cdpta.cdhrss.chengdu.gov.cn/frt/frtuploadfile/uploadaffix/link/bulletin2020/20200713215944137.docx'
+          :src="wordUrl"
           style="overflow: auto; position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
         ></iframe>
       </div>
@@ -156,7 +157,7 @@
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
   import Breadcrumb from '@/components/Breadcrumb'
   import YPageListLayout from '@/components/YPageListLayout'
-  import {setSate} from "@/views/moralManage/notice/noticeStore";
+  import {setSate} from "./noticeStore";
 
   export default {
     name: 'ViewsBaseinfoAssetinfoList',
@@ -176,45 +177,52 @@
           size: 10
         },
         listQuery: {
-          dormitoryId: 0,
           descs: 'id'
         },
         statisticsInfo: {},
         useStatus: [],
-        purpose: []
+        purpose: [],
+        selection:[],
+        wordUrl: null
       }
     },
     created() {
       const that = this
       that.getList()
-      that.getStatistics()
 
       that.getByTypeId('purpose')
       that.getByTypeId('useStatus')
     },
     methods: {
       setNotice() {
-        const query = this.$refs.queryForm.getData();
+        const query = this.listQuery;
         if (query.gradeId && query.specialtyId && query.termId && query.clbumId) {
           setSate('listSelection', query);
-          this.$router.push({ path: '/views/moralManage/setNotice' })
+          this.$router.push({
+            path: '/views/moralManage/classNotice/setNotice',
+            query: Object.assign({},query)
+          })
         } else {
           this.$message.warning('请确认年级、专业、班级及学期后进行通知书时间设置！');
         }
       },
       setComment(row) {
         if (row) {
-          this.$router.push({ path: '/views/moralManage/setComment', query: { id: row.id } });
+          setSate('listSelection', [row]);
+          this.$router.push({ path: '/views/moralManage/classNotice/setComment' });
         } else if (this.selection.length > 0) {
           setSate('listSelection', this.selection);
-          this.$router.push({ path: '/views/moralManage/setComment' })
+          this.$router.push({ path: '/views/moralManage/classNotice/setComment' })
         } else {
           this.$message.warning('请先选择至少一行数据！');
         }
       },
-      pre(){
+      pre(row){
         let that = this
-        that.dialogFormVisible = true
+        this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + row.wordUrl;
+        this.$nextTick(function () {
+          that.dialogFormVisible = true
+        })
       },
       getByTypeId(id) {
         const that = this
@@ -228,20 +236,6 @@
                 that.purpose = data.data
                 break
             }
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
-      getStatistics() {
-        let that = this
-        that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
-          that.loading = false
-          if (data.code === 200) {
-            that.statisticsInfo = data.data
           } else {
             this.$message({
               type: 'error',
@@ -265,7 +259,7 @@
           type: 'warning',
           center: true
         }).then(() => {
-          that.$api.assetinfo.deleteLand({ id: id }).then(data => {
+          that.$api.classNotice.delete({ id: id }).then(data => {
             that.loading = false
             if (data.code === 200) {
               that.getList()
@@ -301,12 +295,11 @@
       getList() {
         const that = this
         that.listLoading = true
-        that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+        that.$api.classNotice.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
           that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-            that.getStatistics()
           } else {
             this.$message({
               type: 'error',
@@ -315,6 +308,21 @@
           }
         }).catch(() => { that.listLoading = false })
       },
+      downloadPkg() {
+        const { clbumId,termId } = this.listQuery
+        if (!clbumId || !termId) {
+          this.$message({
+            type:'warning',
+            message: '请先选择班级和学期！'
+          })
+          return
+        }
+        this.$api.classNotice.downloadPkg({clbumId,
+          termId})
+      },
+      onTableSelect(selection) {
+        this.selection = selection;
+      }
     }
   }
 </script>

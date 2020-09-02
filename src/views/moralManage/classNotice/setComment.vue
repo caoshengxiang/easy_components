@@ -36,6 +36,7 @@
 
 <script>
 import YDetailPageLayout from '@/components/YDetailPageLayout'
+import {getState} from "./noticeStore";
 
 export default {
   name: 'setNotice',
@@ -55,7 +56,8 @@ export default {
         importance: [{ required: true, message: '请选择1S-整理', trigger: 'change' }],
         importance1: [{ required: true, message: '请选择评语', trigger: 'change' }],
         content: [{ required: true, message: '请输入评语内容', trigger: 'change' }],
-      }
+      },
+      loading: false
     }
   },
   created() {
@@ -80,8 +82,14 @@ export default {
       that.listLoading = false
     },
     save() {
+      const selection = getState('listSelection') || [];
+      let ids = selection.map(item=>item.id)
+      console.log(ids)
       this.$refs.postForm.validate(valid => {
         if (valid) {
+          const selection = getState('listSelection') || [];
+          let ids = selection.map(item=>item.id)
+          console.log(ids)
         } else {
           this.$message.warning('请完善表单信息！');
         }

@@ -16,21 +16,21 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="一二年级返校日期：" class="postInfo-container-item" label-width="200px" prop="returnDateOneTwo">
-                      <el-date-picker style="width: 100%" v-model="postForm.returnDateOneTwo" class="filter-item" value-format="yyyy-MM-dd" />
+                    <el-form-item label="一二年级返校日期：" class="postInfo-container-item" label-width="200px" prop="underGradeRegisterDate">
+                      <el-date-picker style="width: 100%" v-model="postForm.underGradeRegisterDate" class="filter-item" value-format="yyyy-MM-dd" />
                     </el-form-item>
                   </el-col>
 
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="三年级返校日期：" class="postInfo-container-item" label-width="200px" prop="returnDateThree">
-                      <el-date-picker style="width: 100%" v-model="postForm.returnDateThree" class="filter-item" value-format="yyyy-MM-dd" />
+                    <el-form-item label="三年级返校日期：" class="postInfo-container-item" label-width="200px" prop="seniorGradeRegisterDate">
+                      <el-date-picker style="width: 100%" v-model="postForm.seniorGradeRegisterDate" class="filter-item" value-format="yyyy-MM-dd" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="通知书发放日期：" class="postInfo-container-item" label-width="200px" prop="noticeDate">
-                      <el-date-picker style="width: 100%" v-model="postForm.noticeDate" class="filter-item" value-format="yyyy-MM-dd" />
+                    <el-form-item label="通知书发放日期：" class="postInfo-container-item" label-width="200px" prop="sendDate">
+                      <el-date-picker style="width: 100%" v-model="postForm.sendDate" class="filter-item" value-format="yyyy-MM-dd" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -59,9 +59,9 @@ export default {
       postForm:{},
       rules: {
         holidayDate: [{ required: true, message: '请输入放假日期', trigger: 'change' }],
-        returnDateOneTwo: [{ required: true, message: '请输入一二年级返校日期', trigger: 'change' }],
-        returnDateThree: [{ required: true, message: '请输入三年级返校日期', trigger: 'change' }],
-        noticeDate: [{ required: true, message: '请输入通知书发放日期', trigger: 'change' }]
+        underGradeRegisterDate: [{ required: true, message: '请输入一二年级返校日期', trigger: 'change' }],
+        seniorGradeRegisterDate: [{ required: true, message: '请输入三年级返校日期', trigger: 'change' }],
+        sendDate: [{ required: true, message: '请输入通知书发放日期', trigger: 'change' }]
       }
     }
   },
@@ -71,6 +71,21 @@ export default {
     save() {
       this.$refs.postForm.validate(valid => {
         if (valid) {
+          const { clbumId,termId } = this.$route.query
+          this.$api.classNotice.timeSet({...this.postForm,termId,clbumId}).then(res => {
+            this.$notify({
+              title: '成功',
+              message: '设置通知时间成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.$router.push({
+              path: '/views/moralManage/classNotice/list',
+              query: {
+                menuLevel1: this.$route.query.menuLevel1
+              }
+            })
+          })
         } else {
           this.$message.warning('请完善表单信息！');
         }

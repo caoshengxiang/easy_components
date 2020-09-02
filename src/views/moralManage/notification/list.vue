@@ -51,15 +51,15 @@
         />
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="班级" prop="property" align="center" >
+        <el-table-column label="班级" prop="clbum" align="center" >
         </el-table-column>
-        <el-table-column label="学期" prop="property" align="center" >
+        <el-table-column label="学期" prop="term" align="center" >
         </el-table-column>
-        <el-table-column label="姓名" prop="property" align="center" >
+        <el-table-column label="姓名" prop="studentName" align="center" >
       </el-table-column>
-        <el-table-column label="课程" prop="property" align="center" >
+        <el-table-column label="课程" prop="course" align="center" >
       </el-table-column>
-        <el-table-column label="分数" prop="property" align="center" >
+        <el-table-column label="分数" prop="score" align="center" >
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
@@ -191,12 +191,11 @@
       getList() {
         const that = this
         that.listLoading = true
-        that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+        that.$api.notification.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
           that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

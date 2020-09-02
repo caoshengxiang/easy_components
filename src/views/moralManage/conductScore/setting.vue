@@ -64,14 +64,22 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="类型" prop="property" align="center" >
+        <el-table-column label="类型" prop="name" align="center" >
         </el-table-column>
-        <el-table-column label="详情" prop="property" align="center" >
-        </el-table-column>
-        <el-table-column label="得分" prop="property" align="center" >
-        </el-table-column>
+<!--        <el-table-column label="详情" prop="property" align="center" >-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="得分" prop="property" align="center" >-->
+<!--        </el-table-column>-->
         <el-table-column label="操作" fixed="right" align="center" width="220px">
           <template v-slot="{ row }">
+            <PermissionButton
+              menu-no="_views_moralManage_conductScore_remove"
+              class-name="filter-item"
+              name="详情"
+              round
+              size="mini"
+              @click="detailInfo(row.id)"
+            />
             <PermissionButton
               menu-no="_views_moralManage_conductScore_remove"
               class-name="filter-item"
@@ -86,7 +94,7 @@
       </parentTable>
     </y-page-list-layout>
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px"
+      <el-form ref="dataForm" :model="temp" label-position="right" label-width="150px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="学生默认操行分：">
@@ -103,11 +111,17 @@
         <el-button type="primary" @click="saveData()">
           保存
         </el-button>
+        <el-button  type="primary" @click="dialogFormVisible = false">
+          重置学生操行分
+        </el-button>
+        <el-button type="primary" @click="saveData()">
+          生成学生操行分
+        </el-button>
       </div>
     </el-dialog>
 
     <el-dialog title="预警设置" :visible.sync="dialogFormVisible1">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="200px"
+      <el-form ref="dataForm" :model="temp" label-position="right" label-width="200px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="学生操行分预警分值：">
@@ -184,12 +198,16 @@ export default {
   created() {
     const that = this
     that.getList()
-    that.getStatistics()
-
+    this.getAllCfg()
     that.getByTypeId('purpose')
     that.getByTypeId('useStatus')
   },
   methods: {
+    getAllCfg() {
+      this.$api.globalConfig.detail('getAllCfg').then(res => {
+        console.log(res)
+      })
+    },
     saveDataOne(){
       alert('保存预警信息')
       this.dialogFormVisible1 = false
@@ -213,20 +231,6 @@ export default {
               that.purpose = data.data
               break
           }
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
-    },
-    getStatistics() {
-      let that = this
-      that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          that.statisticsInfo = data.data
         } else {
           this.$message({
             type: 'error',
@@ -273,7 +277,7 @@ export default {
         }
       })
     },
-    detail(id) {
+    detailInfo(id) {
       const that = this
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
@@ -286,12 +290,11 @@ export default {
     getList() {
       const that = this
       that.listLoading = true
-      that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+      that.$api.conductScore.conductType({ ...that.listQuery, ...that.pagePara }).then(data => {
         that.listLoading = false
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
-          that.getStatistics()
         } else {
           this.$message({
             type: 'error',

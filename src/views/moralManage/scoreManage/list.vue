@@ -10,14 +10,14 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">优：{{ statisticsInfo.manTotal }}人 </span></div>
+            <div class="analysis-text"><span class="tag">优：{{ statisticsInfo.excellentTotal || 0 }}人 </span></div>
           </div>
         </div>
         <div
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p2.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">良：{{ statisticsInfo.manTotal }}人 </span></div>
+            <div class="analysis-text"><span class="tag">良：{{ statisticsInfo.goodTotal || 0 }}人 </span></div>
           </div>
         </div>
 
@@ -25,7 +25,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p3.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">中：{{ statisticsInfo.manTotal }}人 </span></div>
+            <div class="analysis-text"><span class="tag">中：{{ statisticsInfo.mediumTotal || 0 }}人 </span></div>
           </div>
         </div>
 
@@ -33,7 +33,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/p4.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">差：{{ statisticsInfo.manTotal }}人 </span></div>
+            <div class="analysis-text"><span class="tag">差：{{ statisticsInfo.poorTotal || 0 }}人 </span></div>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
           class="filter-item"
           style="margin-left: 10px"
           type="primary"
-          @click="query"
+          @click="searchList"
           round
         >
           搜索
@@ -91,27 +91,27 @@
         </el-button>
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-      <el-table-column label="年份" align="center" prop="id" />
-      <el-table-column label="学期" prop="name" />
-      <el-table-column label="学号" align="center" prop="clbum" />
-      <el-table-column label="姓名" align="center" prop="grade" />
+      <el-table-column label="年份" align="center" prop="year" />
+      <el-table-column label="学期" prop="term" />
+      <el-table-column label="学号" align="center" prop="studyCode" />
+      <el-table-column label="姓名" align="center" prop="name" />
       <el-table-column label="专业" align="center" prop="specialty" />
-      <el-table-column label="年级" align="center" prop="specialty" />
-      <el-table-column label="班级" align="center" prop="specialty" />
-      <el-table-column label="操行分" align="center" prop="specialty" />
-      <el-table-column label="操行等级" align="center" prop="specialty" />
-      <el-table-column label="操作" fixed="right" align="center" width="220px">
-        <template v-slot="{ row }">
-          <PermissionButton
-            menu-no="_views_moralManage_scoreManage_userScore"
-            name=""
-            type="primary"
-            @click="detail(row.id)"
-            round
-          >
-          </PermissionButton>
-        </template>
-      </el-table-column>
+      <el-table-column label="年级" align="center" prop="grade" />
+      <el-table-column label="班级" align="center" prop="clbum" />
+      <el-table-column label="操行分" align="center" prop="score" />
+      <el-table-column label="操行等级" align="center" prop="rank" />
+<!--      <el-table-column label="操作" fixed="right" align="center" width="220px">-->
+<!--        <template v-slot="{ row }">-->
+<!--          <PermissionButton-->
+<!--            menu-no="_views_moralManage_scoreManage_userScore"-->
+<!--            name=""-->
+<!--            type="primary"-->
+<!--            @click="detail(row.id)"-->
+<!--            round-->
+<!--          >-->
+<!--          </PermissionButton>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
     </parentTable>
 
     </y-page-list-layout>
@@ -153,9 +153,26 @@
 
       getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/statistics/dormitory', { ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/conductAssessment/stat', { ...that.listQuery }).then(data => {
           if (data.code === 200) {
-            that.statisticsInfo = data.data
+            let { list = [] } = data.data
+            list.forEach( item => {
+              switch (item.key) {
+                case '优':
+                  that.statisticsInfo.excellentTotal = item.value
+                  break;
+                case '良':
+                  that.statisticsInfo.goodTotal = item.value
+                  break;
+                case '中':
+                  that.statisticsInfo.mediumTotal = item.value
+                  break;
+                case '差':
+                  that.statisticsInfo.poorTotal = item.value
+                  break;
+              }
+            })
+
           } else {
             this.$message({
               type: 'error',
@@ -168,28 +185,6 @@
         const that = this
         that.pagePara.current = 0
         that.getList()
-      },
-      deleteInfo(id) {
-        const that = this
-        that.$confirm('请确认是否删除该数据?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          that.$api.assetinfo.deleteLand({ id: id }).then(data => {
-            that.loading = false
-            if (data.code === 200) {
-              that.getList()
-            } else {
-              this.$message({
-                type: 'error',
-                message: data.msg
-              })
-            }
-          })
-        }).catch(() => {
-        })
       },
       add() {
         const that = this
@@ -214,12 +209,12 @@
       getList() {
         const that = this
         that.listLoading = true
-        that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+        that.$api.scoreManage.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
           that.listLoading = false
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-            that.getStatistics()
+            // that.getStatistics()
           } else {
             this.$message({
               type: 'error',

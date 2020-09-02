@@ -6,22 +6,23 @@
     </div>
     <y-detail-page-layout @save="save" :editStatus="editStatus">
       <el-tabs value="first">
-        <el-tab-pane label="评语设置" name="first">
+        <el-tab-pane label="操行记录" name="first">
           <el-form ref="postForm" class="form-container" :model="postForm" label-width="70px" :rules="rules" >
                 <el-row>
                   <el-col :span="24">
-                    <el-form-item label="年份："  class="postInfo-container-item " prop="area">
+                    <el-form-item label="年份："  class="postInfo-container-item " prop="year">
                       <el-date-picker
-                        v-model="postForm.id"
+                        v-model="postForm.year"
                         align="right"
                         type="year"
+                        value-format="yyyy"
                         style="width: 320px"
                         placeholder="选择年">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
-                    <el-form-item label="学期："  class="postInfo-container-item " prop="area" >
+                    <el-form-item label="学期："  class="postInfo-container-item " prop="termId" >
                       <service-select
                         style="width: 320px"
                         v-model="postForm.termId"
@@ -31,6 +32,34 @@
                         placeholder="学期"
                         clearable
                       />
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="优：" class="postInfo-container-item " prop="excellentLower" style="display: inline-block">
+                      <el-input v-model="postForm.excellentLower" class="filter-item" style="width: calc(50% - 5px)"/>
+                      <span style="display: inline-block;width: 10px;text-align: center">-</span>
+                      <el-input v-model="postForm.excellentUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="良：" class="postInfo-container-item " prop="goodLower" style="display: inline-block">
+                      <el-input v-model="postForm.goodLower" class="filter-item" style="width: calc(50% - 5px)"/>
+                      <span style="display: inline-block;width: 10px;text-align: center">-</span>
+                      <el-input v-model="postForm.goodUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="中：" class="postInfo-container-item " prop="middleLower" style="display: inline-block">
+                      <el-input v-model="postForm.middleLower" class="filter-item" style="width: calc(50% - 5px)"/>
+                      <span style="display: inline-block;width: 10px;text-align: center">-</span>
+                      <el-input v-model="postForm.middleUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="24">
+                    <el-form-item label="差：" class="postInfo-container-item " prop="poorLower" style="display: inline-block">
+                      <el-input v-model="postForm.poorLower" class="filter-item" style="width: calc(50% - 5px)"/>
+                      <span style="display: inline-block;width: 10px;text-align: center">-</span>
+                      <el-input v-model="postForm.poorUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -124,15 +153,11 @@
       },
       save() {
         const that = this
-        const back = this.$route.query.back
-        if (back) {
-          this.$router.push(back)
-        }
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if (that.$route.query.id) {
               // //编辑
-              that.$api.assetinfo.editLand({ ...that.postForm }).then(data => {
+              that.$api.scoreManage.edit({ ...that.postForm }).then(data => {
                 that.loading = false
                 if (data.code === 250) {
                   const back = this.$route.query.back
@@ -159,7 +184,7 @@
                 }
               })
             } else {
-              that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
+              that.$api.scoreManage.add({ ...that.postForm }).then(data => {
                 that.loading = false
                 if (data.code === 250) {
                   const back = this.$route.query.back

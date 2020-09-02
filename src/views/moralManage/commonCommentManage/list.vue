@@ -15,11 +15,11 @@
         />
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="标题" align="center" prop="id" />
-        <el-table-column label="正文" prop="name" />
-        <el-table-column label="类型" align="center" prop="clbum" />
-        <el-table-column label="创建人" align="center" prop="grade" />
-        <el-table-column label="创建时间" align="center" prop="specialty" />
+        <el-table-column label="标题" align="center" prop="title" />
+        <el-table-column label="正文" prop="content" />
+        <el-table-column label="类型" align="center" prop="cate" />
+        <el-table-column label="创建人" align="center" prop="creator" />
+        <el-table-column label="创建时间" align="center" prop="created" />
         <el-table-column label="操作" fixed="right" align="center" width="220px">
           <template v-slot="{ row }">
             <PermissionButton
@@ -69,12 +69,12 @@ export default {
       },
       listQuery: {
       },
+      cates:[]
     }
   },
   created() {
     const that = this
     that.getList()
-
   },
   methods: {
     searchList() {
@@ -90,7 +90,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        that.$api.assetinfo.deleteLand({ id: id }).then(data => {
+        that.$api.commonCommentManage.remove(id).then(data => {
           that.loading = false
           if (data.code === 200) {
             that.getList()
@@ -126,12 +126,11 @@ export default {
     getList() {
       const that = this
       that.listLoading = true
-      that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+      that.$api.commonCommentManage.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
         that.listLoading = false
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
-          that.getStatistics()
         } else {
           this.$message({
             type: 'error',
