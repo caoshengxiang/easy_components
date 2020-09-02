@@ -6,15 +6,18 @@ export default {
     return request.get('reviewsCommon', { params: params })
   },
   edit(params){
-    return request.put('reviewsCommon', params )
+    return request.put('reviewsCommon', params)
   },
   getDetail(params) {
     return request.get('/reviewsCommon/'+ params)
   },
   add(params){
-    return request.post('reviewsCommon' , params )
+    return request.post('reviewsCommon' , params)
   },
   remove(params){
-    return request.delete('reviewsCommon/' + params )
+    return request.delete('reviewsCommon/' + params)
+  },
+  list(params){
+    return request.get('reviewsCommon/list', { params: params })
   },
 }

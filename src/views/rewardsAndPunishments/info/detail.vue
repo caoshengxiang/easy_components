@@ -149,7 +149,7 @@
             </div>
           </el-form>
         </el-tab-pane>
-        <el-button round @click="printInfo" style="margin: auto; display: block" v-show="!isEdit" >打印</el-button>
+        <el-button round @click="printInfo" style="margin: auto; display: block" v-show="!isEdit && postForm.id" >打印</el-button>
       </el-tabs>
     </y-detail-page-layout>
   </div>
@@ -224,40 +224,40 @@
       },
       loadComplete: function (value) {
         if (value) {
-          this.getClbumList()
+          this.getClbumList();
           this.getStdNoBedList()
         }
       },
       isEdit: function (value) {
         if (!value) {
-          this.getClbumList()
+          this.getClbumList();
           this.getStdNoBedList()
         }
       }
     },
     created() {
-      const that = this
+      const that = this;
 
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
-        this.originData = {...that.postForm}
-        that.editStatus = false
+        that.postForm = that.detailInfo;
+        this.originData = {...that.postForm};
+        that.editStatus = false;
         that.loadComplete = true
       } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
-        that.getDetail()
+        that.id = that.$route.query.id;
+        that.getDetail();
         that.editStatus = false
       }
-      this.getGradeList()
-      this.getSpecialtyList()
-      that.getSysCfg()
+      this.getGradeList();
+      this.getSpecialtyList();
+      that.getSysCfg();
       that.getAllEnum()
     },
     methods: {
       getGradeList() {
-        let that = this
+        let that = this;
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             //返回成功
             that.classInfo = data.data
@@ -267,11 +267,11 @@
               message: data.msg
             })
           }
-        })
+        });
         that.listLoading = false
       },
       getAllEnum() {
-        const that = this
+        const that = this;
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -284,9 +284,9 @@
         })
       },
       getClbumList(row) {
-        const that = this
+        const that = this;
         if (row) {
-          this.$set(this.postForm, 'clbumId', '')
+          this.$set(this.postForm, 'clbumId', '');
           this.$set(this.postForm, 'studentId', '')
         }
         that.$api.baseInfo.getClbumList({
@@ -305,18 +305,18 @@
         })
       },
       getStdNoBedList(row) {
-        let that = this
+        let that = this;
         if (row) {
           this.$set(this.postForm, 'studentId', '')
         }
-        let param = {}
+        let param = {};
         if (that.postForm.clbumId > 0) {
-          param.clbumId = that.postForm.clbumId
+          param.schoolClbumId = that.postForm.clbumId
         } else {
           param = {}
         }
-        that.$api.student.getStdNoBedList({ ...param }).then(data => {
-          that.loading = false
+        that.$api.student.getStudentList({ ...param }).then(data => {
+          that.loading = false;
           if (data.code === 200) {
             //返回成功
             that.noBedStd = data.data
@@ -329,7 +329,7 @@
         })
       },
       getSpecialtyList() {
-        const that = this
+        const that = this;
         that.$api.baseInfo.getSpecialtyList().then(data => {
           if (data.code === 200) {
             // 返回成功
@@ -343,7 +343,7 @@
         })
       },
       clearClbumStd() {
-        this.$set(this.postForm, 'clbumId', '')
+        this.$set(this.postForm, 'clbumId', '');
         this.$set(this.postForm, 'studentId', '')
       },
       getSysCfg(){
@@ -355,12 +355,12 @@
         printPdf('#rewardsAndPunishmentsDetailInfo', '奖惩')
       },
       getDetail() {
-        const that = this
+        const that = this;
         that.$api.rewardsAndPunishments.getDetail(that.id).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
-            that.postForm = data.data
-            that.originData = {...that.postForm}
+            that.postForm = data.data;
+            that.originData = {...that.postForm};
             that.loadComplete = true
           } else {
             this.$message({
@@ -377,7 +377,7 @@
         this.isEdit = value
       },
       save() {
-        const that = this
+        const that = this;
         if (that.$refs.attachment.getFileList().length === 0 ) {
           that.postForm.attachment = ''//that.$refs.uploadCourseChapter1.getFileList()[0].url
         } else {
@@ -389,14 +389,14 @@
             if (that.$route.query.id) {
               // //编辑
               that.$api.rewardsAndPunishments.editRewardsAndPunishments({...that.postForm}).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑奖惩成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/rewardsAndPunishments/info',
                   })
@@ -411,14 +411,14 @@
               // //新增
               // //编辑
               that.$api.rewardsAndPunishments.addRewardsAndPunishments({...that.postForm}).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增奖惩成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/rewardsAndPunishments/info',
                   })

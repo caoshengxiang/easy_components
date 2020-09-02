@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 const state = Vue.observable({
   listSelection: [],
+  batch: false,
   query: null
 });
 
