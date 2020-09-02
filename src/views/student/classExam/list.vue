@@ -170,7 +170,7 @@
         </el-table-column>
         <el-table-column label="卫生" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.WSsocre }} </span>
+            <span>{{ row.wSsocre }} </span>
           </template>
         </el-table-column>
         <el-table-column label="得分" align="center">
