@@ -333,10 +333,10 @@ export default {
       this.map.center.lng = row.lon
     },
     exportStatics() {
-      this.$utils.exportUtil('/leave/exportStatics', null, '学生请假汇总')
+      this.$utils.exportUtil('/leave/exportStatics', this.listQuery, '学生请假汇总')
     },
     exportDetail() {
-      this.$utils.exportUtil('/leave/exportDetail', null, '学生请假详情')
+      this.$utils.exportUtil('/leave/exportDetail', this.listQuery, '学生请假详情')
     },
     getStatistics() {
       let that = this

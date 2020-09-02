@@ -7,7 +7,7 @@ export default {
     return request.get(`admiisionPreApply/applyvalidPage`, { params: params })
   },
   applyvalidDelete(params) {
-    return request.delete(`admiisionPreApply/deletewf/${params}`)
+    return request.get(`admiisionPreApply/deletewf/${params}`)
   },
   applyvalidRecover(params) {
     return request.get(`admiisionPreApply/recover/${params}`)

@@ -76,7 +76,7 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="招生目标数：" prop="targetCount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="招生目标数" v-model="postForm.targetCount" class="filter-item"/>
+                    <el-input placeholder="招生目标数" type="number" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}"  v-model="postForm.targetCount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -160,7 +160,8 @@ export default {
         }],
         targetCount: [{
           required: true,
-          message: '请选择招生目标数',
+          pattern: '^[0-9]*$',
+          message: '请选择招生目标数且为大于0',
           trigger: 'change'
         }],
         deadTime: [{

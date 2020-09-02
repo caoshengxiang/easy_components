@@ -44,6 +44,10 @@ const routes = [
     ]
   },
   {
+    path: '/registration',
+    component: () => import('@/views/recruit/preregistration/detail'),
+  },
+  {
     path: '/404',
     component: () => import('@/views/error-page/404')
   },

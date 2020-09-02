@@ -247,7 +247,7 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeGradeId" placeholder="年级" clearable
-                             style="margin-left:10px;" class="filter-item"
+                             style="margin-left:10px;" class="filter-item" @change="getClbumList(false)"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
@@ -257,7 +257,7 @@
                 <el-form-item label="专业：" prop="administrativeSpecialtyId" label-width="120px"
                               class="postInfo-container-item"
                 >
-                  <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业" clearable class="filter-item"
+                  <el-select v-model="postForm.administrativeSpecialtyId" placeholder="专业"  @change="getClbumList(false)" clearable class="filter-item"
                              style=" width: 200px"
                   >
                     <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -290,7 +290,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="年级：" prop="schoolGradeId" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.schoolGradeId" placeholder="年级" clearable style="margin-left:10px;"
+                  <el-select v-model="postForm.schoolGradeId" placeholder="年级"  @change="getClbumList1(false)" clearable style="margin-left:10px;"
                              class="filter-item"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -299,7 +299,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="专业：" prop="schoolSpecialtyId" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.schoolSpecialtyId" placeholder="专业" clearable class="filter-item"
+                  <el-select v-model="postForm.schoolSpecialtyId" placeholder="专业"  @change="getClbumList1(false)"  clearable class="filter-item"
                              style=" width: 200px"
                   >
                     <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -312,7 +312,7 @@
                   <el-select v-model="postForm.schoolClbumId" placeholder="班级" clearable class="filter-item"
                              style="width: 200px"
                   >
-                    <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
+                    <el-option v-for="item in gradeInfo1" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -684,6 +684,7 @@
         AllEnum: {}, //全部枚举
         activeName: 'first',
         gradeInfo: [],
+        gradeInfo1:[],
         classInfo: [],
         majorInfo: [],
         type: 'add',
@@ -792,7 +793,6 @@
       that.editStatus = false
       that.getGradeList()//赛选框年级
       that.getSpecialtyList()
-      that.getClbumList()
       that.getAllEnum()
       that.areaList()
     },
@@ -884,13 +884,41 @@
         })
         that.listLoading = false
       },
-      getClbumList() {
+      getClbumList(type) {
         let that = this
-        that.$api.baseInfo.getClbumList().then(data => {
+        if(!type) {
+          that.postForm.administrativeClbumId = ''
+        }
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.postForm.administrativeGradeId,
+          specialtyId: that.postForm.administrativeSpecialtyId
+        }).then(data => {
           that.loading = false
           if (data.code === 200) {
             //返回成功
             that.gradeInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+        that.listLoading = false
+      },
+      getClbumList1(type) {
+        let that = this
+        if(!type) {
+          that.postForm.schoolClbumId = ''
+        }
+        that.$api.baseInfo.getClbumList({
+          gradeId: that.postForm.schoolGradeId,
+          specialtyId: that.postForm.schoolSpecialtyId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            //返回成功
+            that.gradeInfo1 = data.data
           } else {
             this.$message({
               type: 'error',
@@ -918,6 +946,8 @@
             }
 
             that.postForm.countyName = temp
+            that.getClbumList(true)
+            that.getClbumList1(true)
           } else {
             this.$message({
               type: 'error',

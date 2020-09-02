@@ -261,7 +261,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/loseStudent/download/exportExcel', null, '疑似流失管理')
+      this.$utils.exportUtil('/loseStudent/download/exportExcel', this.listQuery, '疑似流失管理')
     },
     getStatistics() {
       let that = this

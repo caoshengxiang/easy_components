@@ -282,7 +282,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/grant/download/exportExcel', null, '助学金导出')
+      this.$utils.exportUtil('/grant/download/exportExcel', this.listQuery, '助学金导出')
     },
     getStatistics() {
       let that = this

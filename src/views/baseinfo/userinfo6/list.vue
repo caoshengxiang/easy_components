@@ -105,7 +105,7 @@
           class="filter-item"
           style="margin-left:10px;  width: 120px;margin-bottom: 10px;"
         >
-          <el-option v-for="item in AllEnum.学生类型" :key="item" :label="item" :value="item"/>
+          <el-option v-for="item in AllEnum.学生类型" v-if="item != '正常'" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-input
           v-model="listQuery.keyword"
@@ -129,64 +129,11 @@
         <!--          学籍号模板下载-->
         <!--        </el-button>-->
         <PermissionButton
-          menu-no="_views_baseinfo_userinfo_list_importInfo"
+          menu-no="_views_baseinfo_userinfo6_list_export"
           class-name="filter-item"
           round
           icon="el-icon-download"
-          name="学生信息模板下载"
           @click="downloadTemplate"
-        />
-        <PermissionButton
-          menu-no="_views_baseinfo_userinfo_list_importInfo"
-          class-name="filter-item"
-          round
-          type="text"
-          name=""
-          style="padding: 0;margin-bottom: 10px;"
-        >
-          <excelImport
-            ref="uploadControl"
-            flag="student/importExcel"
-            :style-type="1"
-            title="更新学生信息"
-            @fath="getList"
-          />
-        </PermissionButton>
-
-        <PermissionButton
-          menu-no="_views_baseinfo_userinfo_list_stuId"
-          class-name="filter-item"
-          round
-          icon="el-icon-download"
-          name="学籍号模板下载"
-          @click="downloadCodeTemplate"
-        />
-        <PermissionButton
-          menu-no="_views_baseinfo_userinfo_list_stuId"
-          class-name="filter-item"
-          type="text"
-          round
-          name="更新学籍号"
-          style="padding: 0;margin-bottom: 10px;"
-        >
-          <excelImport
-            ref="uploadControl"
-            flag="/student/importCodeExcel"
-            :style-type="1"
-            title="更新学籍号"
-            @fath="getList"
-          />
-        </PermissionButton>
-        <!--        <el-button class="filter-item" round style="float:right;margin-right: 10px" type="primary" @click="handleDownload">-->
-        <!--          导出-->
-        <!--        </el-button>-->
-        <PermissionButton
-          menu-no="_views_baseinfo_userinfo_export"
-          class-name="filter-item"
-          round
-          type="primary"
-          name=""
-          @click="handleDownload"
         />
       </template>
 
@@ -528,13 +475,7 @@
         return encodeUrl
       },
       downloadTemplate() {
-        this.$utils.exportUtil('/student/download/importTemplate', null, '学生信息模板')
-      },
-      downloadCodeTemplate() {
-        this.$utils.exportUtil('/student/download/codeImportTemplate', null, '学籍号模板下载')
-      },
-      handleDownload(url) {
-        this.$utils.exportUtil('/student/download/exportExcel', this.listQuery, '学生信息')
+        this.$utils.exportUtil('/student/exportSexStudentExcel', null, '六类学生导出')
       },
       objToString(obj) {
         var str = ''

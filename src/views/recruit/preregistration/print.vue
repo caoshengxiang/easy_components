@@ -3,10 +3,9 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
-      <el-tabs value="first">
-        <el-tab-pane label="基础信息" name="first">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+    <y-detail-page-layout  @save="save" saveBtnName="打印">
+
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"     style="position: relative;padding: 1px 20px;width: 1100px;margin: auto;"  id="studentInfo"    >
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-bottom: 30px">
@@ -273,19 +272,64 @@
                   </el-col>
                 </el-row>
 
+
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-bottom: 30px">
+                  <h3 class="title">
+                    <div class="avatar-wrapper icon-title" style="background:#9E9CF4">诺</div>
+                    <div class="icon-info">承诺书</div>
+                  </h3>
+                </div>
+
+                <div style="font-size: 10px;letter-spacing: 1px;color: grey;line-height: 20px">
+                  一、按国家的有关规定，中职学校在校学生全部免除学费，现向学校缴纳第一学年书本代管费600元（陆佰元整）；<br />
+                  二、学生必须按规定日到校报到注册，报到注册后将不能变更学籍；<br />
+                  三、学生一律不能纹身、衣着妆容必须符合学生身份，若发现纹身者将不予注册报到；若在校期间严重违反学校有关规章制度或触犯国家法律，收到国家法律的处理，情节严重者将予以 注销学籍，且不退还一切费用；<br />
+                  四、本人承诺，以上填写内容真实有效；<br />
+                  五、本人承诺，报名相关专业后，不再进行专业调换，不退还书本费。<br />
+                </div>
+
+                <div style="margin-top: 30px">
+                  <el-checkbox v-model="checked1" >我同意</el-checkbox>
+                </div>
+
+                <div style="margin-top: 30px">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="家长签字：" label-width="110px" :label-position="position" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="学校经办人签字：" label-width="150px" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="缴费发票编号：" label-width="110px" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="日期：" label-width="150px" class="postInfo-container-item">
+                        {{new Date().getFullYear()}}
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </div>
               </div>
             </div>
           </el-form>
-        </el-tab-pane>
-      </el-tabs>
+
     </y-detail-page-layout>
   </div>
 </template>
 <script>
 import Breadcrumb from '@/components/Breadcrumb'
 import { validURL } from '@/utils/validate'
-import YDetailPageLayout from '@/components/YDetailPageLayout'
+import YDetailPageLayout from '@/components/YDetailPageLayout/index_detail'
 import fileUpload from '@/components/FileUpload'
+import printPdf from '../../../utils/printPdf'
 
 export default {
   name: 'ComplexTable',
@@ -304,6 +348,8 @@ export default {
   },
   data() {
     return {
+      position:'left',
+      checked1:false,
       classTypes:[],
       opt2: [{
         key: 1,
@@ -378,6 +424,11 @@ export default {
     that.getAreaList()
   },
   methods: {
+    save() {
+      if (this.postForm.name) {
+        printPdf('#studentInfo', this.postForm.name + '-' + this.postForm.id)
+      }
+    },
     changeSpe(){
       let that = this
       if(that.postForm.administrativeSpecialtyId) {
