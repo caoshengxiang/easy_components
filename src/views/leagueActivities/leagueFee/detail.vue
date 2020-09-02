@@ -39,7 +39,7 @@
               </el-col>
               <el-col :span="24">
                 <el-form-item label="时间：" prop="occurTime">
-                  <el-date-picker v-model="form.occurTime" value-format="yyyy-MM-dd HH:mm:ss" />
+                  <el-date-picker type="datetime" v-model="form.occurTime" value-format="yyyy-MM-dd HH:mm:ss" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">

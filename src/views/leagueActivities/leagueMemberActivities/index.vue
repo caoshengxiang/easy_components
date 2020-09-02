@@ -15,7 +15,16 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">{{ statisticsData.leagueName || '' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text">
+              <el-tooltip v-if="statisticsData.leagueName && statisticsData.leagueName.length > 5" :content="statisticsData.leagueName">
+                <div class="analysis-text-label">
+                  {{ statisticsData.leagueName || '' }}
+                </div>
+              </el-tooltip>
+              <span v-else class="analysis-text-label">{{ statisticsData.leagueName || '' }}</span>
+              ：
+              <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
+            </div>
             <div class="analysis-text-small">活动最多的团支部及活动数量</div>
           </div>
         </div>
@@ -54,13 +63,13 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="getData"
+          @click="search"
           round
           size="mini"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}"
+        <el-button class="filter-item" round type="warning" @click="reset"
                    size="mini">
           重置
         </el-button>
@@ -149,8 +158,7 @@
         })
           .then(() => {
             this.$api.leagueMemberActivities.remove(id).then(res=>{
-              this.getData();
-              this.getStatisticsData();
+              this.search();
             })
           });
       },
@@ -161,6 +169,14 @@
             this.statisticsData = res.data;
             this.statisticsLoading = false;
           })
+      },
+      search() {
+        this.getData();
+        this.getStatisticsData();
+      },
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.search();
       }
     },
   }
@@ -171,6 +187,17 @@
     .item-img {
       width: 50px;
       height: 50px;
+    }
+    .analysis-text {
+      display: flex;
+      align-items: center;
+      .analysis-text-label {
+        font-size: 16px;
+        width: 80px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
   }
 </style>

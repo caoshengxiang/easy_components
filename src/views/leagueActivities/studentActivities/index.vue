@@ -15,7 +15,16 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">{{ statisticsData.clubName || '无' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text">
+              <el-tooltip v-if="statisticsData.clubName && statisticsData.clubName.length > 5" :content="statisticsData.clubName">
+                <div class="analysis-text-label">
+                  {{ statisticsData.clubName || '' }}
+                </div>
+              </el-tooltip>
+              <span v-else class="analysis-text-label">{{ statisticsData.clubName || '' }}</span>
+              ：
+              <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
+            </div>
             <div class="analysis-text-small">活动最多的社团及活动数量</div>
           </div>
         </div>
@@ -174,6 +183,17 @@
     .item-img {
       width: 50px;
       height: 50px;
+    }
+    .analysis-text {
+      display: flex;
+      align-items: center;
+      .analysis-text-label {
+        font-size: 16px;
+        width: 80px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
   }
 </style>

@@ -156,8 +156,7 @@
       }
     },
     created() {
-      this.getData();
-      this.getStatisticsData();
+      this.search();
     },
     methods: {
       // 获取列表数据
@@ -188,18 +187,18 @@
             this.$api.LABranchManage.remove(id)
               .then(() => {
                 this.search();
-                this.getStatisticsData();
               })
           });
       },
       // 查询
       search() {
         this.getData();
+        this.getStatisticsData();
       },
       // 重置
       reset() {
         this.form = {};
-        this.getData();
+        this.search();
       },
       getStatisticsData() {
         this.statisticsLoading = true;
