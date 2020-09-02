@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {fileDown} from "../../utils/file";
+import {fileDown} from '../../utils/file';
 
 export default {
   /*通用评语相关接口*/
@@ -7,16 +7,16 @@ export default {
     return request.get('adviceNote', { params: params })
   },
   edit(params){
-    return request.put('adviceNote', params )
+    return request.put('adviceNote', params)
   },
   getDetail(params) {
     return request.get('/adviceNote/'+ params)
   },
   add(params){
-    return request.post('adviceNote' , params )
+    return request.post('adviceNote', params)
   },
   remove(params){
-    return request.delete('adviceNote/' + params )
+    return request.delete('adviceNote/' + params)
   },
   /*打包下载*/
   downloadPkg(params){
@@ -24,6 +24,14 @@ export default {
   },
   /*设置通知书时间*/
   timeSet(params) {
-    return request.post('adviceNote/timeSet' , params )
+    return request.post('adviceNote/timeSet', params)
+  },
+  /*设置评语*/
+  setComment(data) {
+    return request.put('adviceNote/evaluate', data)
+  },
+  /*批量设置评语*/
+  batchSetComment(data) {
+    return request.put('adviceNote/batchEvaluate', data)
   }
 }

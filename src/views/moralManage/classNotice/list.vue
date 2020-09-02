@@ -187,10 +187,10 @@
       }
     },
     created() {
-      const that = this
-      that.getList()
+      const that = this;
+      that.getList();
 
-      that.getByTypeId('purpose')
+      that.getByTypeId('purpose');
       that.getByTypeId('useStatus')
     },
     methods: {
@@ -207,33 +207,38 @@
         }
       },
       setComment(row) {
+        const query = {
+          back: this.$route.fullPath
+        };
         if (row) {
           setSate('listSelection', [row]);
-          this.$router.push({ path: '/views/moralManage/classNotice/setComment' });
+          setSate('batch', false);
+          this.$router.push({ path: '/views/moralManage/classNotice/setComment', query });
         } else if (this.selection.length > 0) {
           setSate('listSelection', this.selection);
-          this.$router.push({ path: '/views/moralManage/classNotice/setComment' })
+          setSate('batch', true);
+          this.$router.push({ path: '/views/moralManage/classNotice/setComment', query })
         } else {
           this.$message.warning('请先选择至少一行数据！');
         }
       },
       pre(row){
-        let that = this
+        let that = this;
         this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + row.wordUrl;
         this.$nextTick(function () {
           that.dialogFormVisible = true
         })
       },
       getByTypeId(id) {
-        const that = this
+        const that = this;
         that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'useStatus':
-                that.useStatus = data.data
-                break
+                that.useStatus = data.data;
+                break;
               case 'purpose':
-                that.purpose = data.data
+                that.purpose = data.data;
                 break
             }
           } else {
@@ -245,14 +250,14 @@
         })
       },
       searchList() {
-        const that = this
-        that.pagePara.current = 0
+        const that = this;
+        that.pagePara.current = 0;
 
         that.getList()
       },
 
       deleteInfo(id) {
-        const that = this
+        const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -260,7 +265,7 @@
           center: true
         }).then(() => {
           that.$api.classNotice.delete({ id: id }).then(data => {
-            that.loading = false
+            that.loading = false;
             if (data.code === 200) {
               that.getList()
             } else {
@@ -274,7 +279,7 @@
         })
       },
       add() {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -283,7 +288,7 @@
         })
       },
       detail(id) {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -293,10 +298,10 @@
         })
       },
       getList() {
-        const that = this
-        that.listLoading = true
+        const that = this;
+        that.listLoading = true;
         that.$api.classNotice.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.listLoading = false
+          that.listLoading = false;
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
@@ -309,12 +314,12 @@
         }).catch(() => { that.listLoading = false })
       },
       downloadPkg() {
-        const { clbumId,termId } = this.listQuery
+        const { clbumId,termId } = this.listQuery;
         if (!clbumId || !termId) {
           this.$message({
             type:'warning',
             message: '请先选择班级和学期！'
-          })
+          });
           return
         }
         this.$api.classNotice.downloadPkg({clbumId,
