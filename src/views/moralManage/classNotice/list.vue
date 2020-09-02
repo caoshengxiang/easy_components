@@ -43,7 +43,7 @@
           clearable
         />
         <el-input
-          v-model="listQuery.studentName"
+          v-model="listQuery.name"
           placeholder="姓名"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 150px;"
