@@ -31,10 +31,13 @@
           placeholder="班级"
           style="margin-left: 10px;"
           clearable
+          :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
         />
-
         <el-input
-          v-model="listQuery.addr"
+          v-model="listQuery.name"
           placeholder="学生"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
@@ -65,7 +68,7 @@
               menu-no="_views_moralManage_conductScore_view"
               name=""
               type="primary"
-              @click="drawLine()"
+              @click="drawLine(row)"
               round
             >
               查看
@@ -74,7 +77,7 @@
               menu-no="_views_moralManage_conductScore_ussetting"
               name=""
               type="primary"
-              @click="dialogFormVisible1 = true"
+              @click="showConductScoreSetting(row)"
               round
             >
               操行分设置
@@ -98,15 +101,15 @@
     </el-dialog>
 
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible1">
-      <el-form ref="dataForm" :model="temp" label-position="right" label-width="150px"
+      <el-form ref="conductScoreForm" :model="conductScoreForm" label-position="right" label-width="150px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="类型：">
           <service-select
-            v-model="listQuery.gradeId"
+            v-model="conductScoreForm.typeId"
             name="name"
             field="id"
-            :data-service="$api.baseInfo.getGradeList"
+            :data-service="$api.conductScore.conductTypeSimpleAll"
             placeholder="请选择类型"
             style="margin-left: 10px;width: 100%"
             clearable
@@ -114,17 +117,18 @@
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="详情：">
           <service-select
-            v-model="listQuery.gradeId"
+            v-model="conductScoreForm.score"
             name="name"
-            field="id"
-            :data-service="$api.baseInfo.getGradeList"
+            field="score"
+            :data-service="$api.conductScore.getConductTypeItem"
             placeholder="请选择详情"
             style="margin-left: 10px;width: 100%"
+            :default-query="{ id: conductScoreForm.typeId }"
             clearable
           />
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="分数：">
-        -5
+          {{conductScoreForm.score}}
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -185,41 +189,70 @@ export default {
         current: 0,
         size: 10
       },
-      selectedId: ''
+      studentId: null,
+      xData:[],
+      yData:[],
+      conductScoreForm:{},
     }
   },
   created() {
     const that = this
     that.getList()
   },
-  watch:{
-    selectedId(){
-      this.getConductScoreDetail()
-    }
-  },
   methods: {
-    saveData(){
-      alert('保存数据')
-      this.dialogFormVisible1 = false
+    showConductScoreSetting(row) {
+      this.studentId = row.studentId
+      this.dialogFormVisible1 = true
+      this.conductScoreForm = {}
     },
-    drawLine () {
+    saveData(){
+      /*新增操行分*/
+      this.$api.conductScore.add({
+        studentId:this.studentId,
+        score:this.conductScoreForm.score
+      }).then(res => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '操行分设置成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.dialogFormVisible1 = false
+          this.conductScoreForm = {}
+        }else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    drawLine (row) {
+      let that = this
       this.dialogFormVisible = true
 
-      this.$nextTick(function(){
-        var echarts = require('echarts');
-        var myChart = echarts.init(this.$refs.mychart);
-        myChart.setOption({
-          tooltip: {},
-          xAxis: {
-            data: ['2020-2', '2020-2', '2020-2', '2020-2', '2020-2', '2020-2']
-          },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'line',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
-        });
+      this.$api.conductScore.conductPointMonthly({studentId:row.studentId}).then(res => {
+        const { data = [] } = res
+        that.xData = data.map(item => item.key)
+        that.yData = data.map(item => item.value)
+        that.$nextTick(() => {
+          var echarts = require('echarts');
+          var myChart = echarts.init(that.$refs.mychart);
+          myChart.setOption({
+            tooltip: {},
+            xAxis: {
+              data: that.xData
+            },
+            yAxis: {},
+            series: [{
+              name: '销量',
+              type: 'line',
+              data: that.yData
+            }]
+          });
+        })
+
       })
     },
     searchList() {
@@ -288,12 +321,13 @@ export default {
     },
     showDetail(row) {
       this.detailVisible = true
-      this.selectedId = row.id
+      this.studentId = row.studentId
+      this.getConductScoreDetail()
     },
     getConductScoreDetail() {
       const that = this
       that.detailListLoading = true
-      that.$api.conductScore.conductScoreDetail({  studentId:this.selectedId,...that.detailPagePara }).then(data => {
+      that.$api.conductScore.conductScoreDetail({ studentId:this.studentId,...that.detailPagePara }).then(data => {
         that.detailListLoading = false
         if (data.code === 200) {
           // 返回成功

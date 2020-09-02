@@ -15,18 +15,18 @@
           name=""
           :page-jump="true"
         />
-        <service-select
-          v-model="listQuery.clbumId"
-          name="name"
-          field="id"
-          :data-service="$api.baseInfo.getClbumList"
-          placeholder="类型（枚举？）"
-          style="margin-left: 10px"
-          clearable
-        />
+<!--        <service-select-->
+<!--          v-model="listQuery.clbumId"-->
+<!--          name="name"-->
+<!--          field="id"-->
+<!--          :data-service="$api.baseInfo.getClbumList"-->
+<!--          placeholder="类型（枚举？）"-->
+<!--          style="margin-left: 10px"-->
+<!--          clearable-->
+<!--        />-->
         <el-input
-          v-model="listQuery.addr"
-          placeholder="详情"
+          v-model="listQuery.name"
+          placeholder="类型"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 200px;"
           class="filter-item"
@@ -45,18 +45,20 @@
         <span style=" font-size: 14px;color: #999999;margin-right: 5px">自动审核：</span>
         <el-switch
           class="filter-item"
-          v-model="switchs"
+          v-model="conductPointForm.AUTO_AUDIT.value"
           on-color="#13ce66"
           off-color="#ff4949"
           on-text="aa"
+          active-value="true"
+          inactive-value="false"
           @change="changeSwitch()"
           off-text="bb">
         </el-switch>
 
-        <el-button class="filter-item" style="margin-left: 10px" round type="primary" @click="dialogFormVisible=true">
+        <el-button class="filter-item" style="margin-left: 10px" round type="primary" @click="conductPointSetting">
           操行分设置
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="dialogFormVisible1 = true">
+        <el-button class="filter-item" round type="warning" @click="warnSetting">
           预警设置
         </el-button>
 
@@ -73,12 +75,13 @@
         <el-table-column label="操作" fixed="right" align="center" width="220px">
           <template v-slot="{ row }">
             <PermissionButton
-              menu-no="_views_moralManage_conductScore_remove"
+              menu-no="_views_moralManage_conductScore_settingDetail"
               class-name="filter-item"
               name="详情"
               round
               size="mini"
-              @click="detailInfo(row.id)"
+              :page-jump="true"
+              :page-query="{id: row.id}"
             />
             <PermissionButton
               menu-no="_views_moralManage_conductScore_remove"
@@ -94,14 +97,14 @@
       </parentTable>
     </y-page-list-layout>
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :model="temp" label-position="right" label-width="150px"
+      <el-form ref="conductPointForm" :model="conductPointForm" label-position="right" label-width="150px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="学生默认操行分：">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="conductPointForm.DEFAULT_POINT.value" class="filter-item"/>
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="学生操行分标准：">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="conductPointForm.POINT_STANDARD.value" class="filter-item"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -111,40 +114,40 @@
         <el-button type="primary" @click="saveData()">
           保存
         </el-button>
-        <el-button  type="primary" @click="dialogFormVisible = false">
+        <el-button  type="primary" @click="conductPointReset">
           重置学生操行分
         </el-button>
-        <el-button type="primary" @click="saveData()">
+        <el-button type="primary" @click="conductPointGenerate">
           生成学生操行分
         </el-button>
       </div>
     </el-dialog>
 
     <el-dialog title="预警设置" :visible.sync="dialogFormVisible1">
-      <el-form ref="dataForm" :model="temp" label-position="right" label-width="200px"
+      <el-form ref="warnForm" :model="conductPointForm" label-position="right" label-width="200px"
                style="width: 80%; margin-left:50px;"
       >
         <el-form-item class="postInfo-container-item " label="学生操行分预警分值：">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="conductPointForm.ALERT_VALUE.value" class="filter-item"/>
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="操行分低于平均分是否预警：">
-          <el-radio-group v-model="radio">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="2">否</el-radio>
+          <el-radio-group v-model="conductPointForm.IF_ALERT.value">
+            <el-radio label="true">是</el-radio>
+            <el-radio label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item class="postInfo-container-item " label="一月减少操行分预警分值：">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="conductPointForm.DEDUCT_ALERT.value" class="filter-item"/>
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="操行分高于平均分是否表扬：">
-          <el-radio-group v-model="radio1">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="2">否</el-radio>
+          <el-radio-group v-model="conductPointForm.IF_PRAISE.value">
+            <el-radio label="true">是</el-radio>
+            <el-radio label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item class="postInfo-container-item " label="一月增加操行分表扬值：">
-          <el-input v-model="temp.code" class="filter-item"/>
+          <el-input v-model="conductPointForm.PRAISE_VALUE.value" class="filter-item"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -192,32 +195,119 @@ export default {
       statisticsInfo: {},
       useStatus: [],
       purpose: [],
-      temp:{}
+      temp:{},
+      conductPointForm:{
+        ALERT_VALUE: {value: null},
+        AUTO_AUDIT: {value: null},
+        DEDUCT_ALERT: {value: null},
+        DEFAULT_POINT: {value: null},
+        IF_ALERT: {value: null},
+        IF_PRAISE: {value: null},
+        POINT_STANDARD: {value: null},
+        PRAISE_VALUE: {value: null}
+      }
     }
   },
   created() {
     const that = this
     that.getList()
-    this.getAllCfg()
+    this.getConductPoint()
     that.getByTypeId('purpose')
     that.getByTypeId('useStatus')
   },
   methods: {
-    getAllCfg() {
-      this.$api.globalConfig.detail('getAllCfg').then(res => {
-        console.log(res)
+    conductPointSetting() {
+      this.getConductPoint()
+      this.dialogFormVisible = true
+    },
+    /*生成学生操行分*/
+    conductPointGenerate() {
+      this.$api.conductScore.conductPointGenerate().then(res => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '生成学生操行分成功',
+            type: 'success',
+            duration: 2000
+          })
+        }
+      })
+    },
+    /*重置学生操行分*/
+    conductPointReset() {
+      this.$api.conductScore.conductPointReset().then(res => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '重置学生操行分成功',
+            type: 'success',
+            duration: 2000
+          })
+        }
+      })
+    },
+    warnSetting() {
+      this.getConductPoint()
+      this.dialogFormVisible1 = true
+    },
+    getConductPoint() {
+      // CONDUCT_POINT_SETTING
+      this.$api.globalConfig.getValuesByKey({key:'CONDUCT_POINT_SETTING'}).then(res => {
+        this.conductPointForm = res.data.fieldValues
       })
     },
     saveDataOne(){
-      alert('保存预警信息')
-      this.dialogFormVisible1 = false
+      this.$refs.warnForm.validate(valid => {
+        if (valid) {
+          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+          this.$api.globalConfig.edit(params).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '设置成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.dialogFormVisible1 = false
+            }
+          })
+        }else {
+          this.$message.warning('请完善表单信息！');
+        }
+      })
     },
     saveData(){
-      alert('保存数据')
-      this.dialogFormVisible = false
+      this.$refs.conductPointForm.validate(valid => {
+        if (valid) {
+          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+          this.$api.globalConfig.edit(params).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '设置成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.dialogFormVisible = false
+            }
+          })
+        }else {
+          this.$message.warning('请完善表单信息！');
+        }
+      })
     },
     changeSwitch(){
-      alert(this.switchs)
+        let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+        this.$api.globalConfig.edit(params).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '设置成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+        })
     },
     getByTypeId(id) {
       const that = this
@@ -254,7 +344,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        that.$api.assetinfo.deleteLand({ id: id }).then(data => {
+        that.$api.conductScore.conductTypeRemove( id ).then(data => {
           that.loading = false
           if (data.code === 200) {
             that.getList()
