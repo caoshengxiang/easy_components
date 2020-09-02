@@ -76,6 +76,21 @@ export default {
   diagnosisEleAdd(params) {
     return request.post('diagnosis', params)
   },
+  diagnosisCollection(params) {
+    return request.get(`diagnosisCollection`, { params: params })
+  },
+  diagnosisCollectionEditBatch(params) {
+    return request.post('diagnosisCollection/batch', params)
+  },
+  diagnosisCollectionRemove(params) {
+    return request.delete(`diagnosisCollection/${params.id}`, {params: params})
+  },
+  diagnosisYearDataDetail(params) {
+    return request.get(`diagnosisYearData/detail`, {params: params})
+  },
+  diagnosisTree(params) {
+    return request.get(`diagnosis/tree`, {params: params})
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },

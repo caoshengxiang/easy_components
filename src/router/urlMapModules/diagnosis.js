@@ -1,6 +1,7 @@
 export default {
   _views_diagnosis_alert_list: () => import('../../views/diagnosis/alert/list'),
   _views_diagnosis_dataDiagnosis_list: () => import('../../views/diagnosis/dataDiagnosis/list'),
+  _views_diagnosis_dataDiagnosis_list_edit: () => import('../../views/diagnosis/dataDiagnosis/edit'),
   _views_diagnosis_dataDownload_list: () => import('../../views/diagnosis/dataDownload/list'),
   _views_diagnosis_dataFilling_list: () => import('../../views/diagnosis/dataFilling/list'),
   _views_diagnosis_dataFilling_dataFill: () => import('../../views/diagnosis/dataFilling/dataFill'),

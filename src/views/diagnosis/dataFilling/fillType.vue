@@ -3,19 +3,19 @@
     <el-form v-if="type" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
       <el-form-item prop="val">
         <!--字符型-->
-        <el-input v-if="type === 1" type="text" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 1" type="text" v-model="ruleForm.val" size="small" @change="emitInput"/>
         <!--整数-->
-        <el-input v-if="type === 2" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 2" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
         <!--小数-->
-        <el-input v-if="type === 3" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 3" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
         <!--是/否-->
-        <el-select v-if="type === 4" v-model="ruleForm.val" @change="emitInput">
+        <el-select :disabled="disabled" v-if="type === 4" v-model="ruleForm.val" @change="emitInput">
           <el-option label="是" value="是"/>
           <el-option label="否" value="否"/>
         </el-select>
         <!--百分数-->
         <span v-if="type === 5">
-          <el-input type="number" style="width: 90%" v-model="ruleForm.val" size="small" @change="emitInput"/>%
+          <el-input :disabled="disabled" type="number" style="width: 90%" v-model="ruleForm.val" size="small" @change="emitInput"/>%
         </span>
         <!--表格-->
         <span v-if="type === 6">
@@ -27,7 +27,7 @@
         </span>
 
         <!--下拉选项-->
-        <el-select v-if="type === 8" v-model="ruleForm.val" @change="emitInput">
+        <el-select :disabled="disabled" v-if="type === 8" v-model="ruleForm.val" @change="emitInput">
           <el-option v-for="(item, index) in selectOptions" :key="index" :label="item" :value="item"/>
         </el-select>
       </el-form-item>
@@ -39,14 +39,14 @@
       :visible.sync="dialogFormVisibleText"
       :close-on-click-modal="false"
     >
-      <el-input v-if="type === 7" :rows="5" type="textarea" v-model="textCurrentValue" size="small"
+      <el-input :disabled="disabled" v-if="type === 7" :rows="5" type="textarea" v-model="textCurrentValue" size="small"
                 @change="emitInput"/>
 
       <div slot="footer" class="dialog-footer" style="text-align: center;margin-top: 10px;">
         <el-button @click="dialogFormVisibleText = false">
           取消
         </el-button>
-        <el-button type="primary" @click="editSaveText">
+        <el-button :disabled="disabled" type="primary" @click="editSaveText">
           保存
         </el-button>
       </div>
@@ -69,26 +69,26 @@
               <th rowspan="2" style="width: 5vw">上学期</th>
               <th style="width: 5vw">迟到率(%)</th>
               <td v-for="(item, i) in tableData[0]" :key="i" style="width: 50px;">
-                <input type="number" v-model="item.value">
+                <input :disabled="disabled" type="number" v-model="item.value">
               </td>
             </tr>
             <tr>
               <th style="width: 5vw">缺课率(%)</th>
               <td v-for="(item, i) in tableData[1]" :key="i" style="width: 50px;">
-                <input type="number" v-model="item.value">
+                <input :disabled="disabled" type="number" v-model="item.value">
               </td>
             </tr>
             <tr>
               <th rowspan="2" style="width: 5vw">下学期</th>
               <th style="width: 5vw">迟到率(%)</th>
               <td v-for="(item, i) in tableData[2]" :key="i" style="width: 50px;">
-                <input type="number" v-model="item.value">
+                <input :disabled="disabled" type="number" v-model="item.value">
               </td>
             </tr>
             <tr>
               <th style="width: 5vw">缺课率(%)</th>
               <td v-for="(item, i) in tableData[3]" :key="i" style="width: 50px;">
-                <input type="number" v-model="item.value">
+                <input :disabled="disabled" type="number" v-model="item.value">
               </td>
             </tr>
             </tbody>
@@ -98,7 +98,7 @@
           <el-button @click="dialogFormVisible = false">
             取消
           </el-button>
-          <el-button type="primary" @click="editSave">
+          <el-button :disabled="disabled" type="primary" @click="editSave">
             保存
           </el-button>
         </div>
@@ -175,6 +175,10 @@
       },
       row: {
         default: {}
+      },
+      disabled:{
+        defalut: false,
+        type: Boolean,
       }
     },
     data() {

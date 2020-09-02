@@ -40,7 +40,14 @@
         </el-table-column>
         <el-table-column label="诊断编辑" width="150px" align="center">
           <template slot-scope="{row}">
-            <el-button type="text">诊断编辑</el-button>
+            <PermissionButton
+              menu-no="_views_diagnosis_dataDiagnosis_list_edit"
+              class-name="filter-item"
+              type="text"
+              round
+              :page-jump="true"
+              :page-query="{id: row.id}"
+            />
           </template>
         </el-table-column>
         <el-table-column label="创建人" align="center">

@@ -76,17 +76,17 @@
         </el-table-column>
         <el-table-column label="原因集合" align="center">
           <template slot-scope="{row}">
-            <el-button round type="text" @click="editHandle2">编辑</el-button>
+            <el-button round type="text" @click="editHandle2(row, 1)">编辑</el-button>
           </template>
         </el-table-column>
         <el-table-column label="措施集合" align="center">
           <template slot-scope="{row}">
-            <el-button round type="text" @click="editHandle2">编辑</el-button>
+            <el-button round type="text" @click="editHandle2(row, 2)">编辑</el-button>
           </template>
         </el-table-column>
         <el-table-column label="效果集合">
           <template slot-scope="{row}">
-            <el-button round type="text" @click="editHandle2">编辑</el-button>
+            <el-button round type="text" @click="editHandle2(row, 3)">编辑</el-button>
           </template>
         </el-table-column>
         <el-table-column label="状态" align="center">
@@ -156,7 +156,10 @@
         <el-form-item label="诊断名称：" prop="name">
           <el-input v-model="temp.name" class="filter-item"/>
         </el-form-item>
-        <el-form-item label="诊断编号：" prop="indicatorNumbers">
+        <el-form-item label="诊断编号：" prop="number">
+          <el-input v-model="temp.number" class="filter-item"/>
+        </el-form-item>
+        <el-form-item v-if="temp.type === 3" label="涉及指标编号：" prop="indicatorNumbers">
           <el-input v-model="temp.indicatorNumbers" placeholder="多个指标编号请用英文逗号分隔" class="filter-item"/>
         </el-form-item>
         <el-form-item label="状态：">
@@ -164,6 +167,9 @@
             <el-radio :label="true">正常</el-radio>
             <el-radio :label="false">禁用</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注：" prop="remark">
+          <el-input v-model="temp.remark" class="filter-item"/>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="dialogFormVisible = false">
@@ -191,17 +197,18 @@
         style="width: 520px;"
       >
         <el-form-item label="操作：">
-          <el-button type="success">新增集合</el-button>
+          <el-button type="success" @click="addCollect">新增集合</el-button>
+          <div v-if="!collectionList.length" style="color:#CCCCCC;">暂无数据</div>
         </el-form-item>
-        <el-form-item label="集合：" prop="name" v-for="(item, index) in groupList" :key="index">
-          <el-input v-model="temp.text" class="filter-item" style="width: 310px;margin-right: 10px;"/>
-          <el-button type="danger">删除</el-button>
+        <el-form-item label="集合：" prop="name" v-for="(item, index) in collectionList" :key="index">
+          <el-input v-model="item.content" class="filter-item" style="width: 310px;margin-right: 10px;"/>
+          <el-button type="danger" @click="removeCollect(item, index)">删除</el-button>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="dialogFormVisible2 = false">
             取消
           </el-button>
-          <el-button type="primary">
+          <el-button type="primary" @click="collectionSave" :loading="collectionLoading">
             保存
           </el-button>
         </el-form-item>
@@ -241,20 +248,6 @@
           level2: null,
         },
         dialogFormVisible2: false,
-        groupList: [
-          {
-            id: 1,
-            text: 'a'
-          },
-          {
-            id: 2,
-            text: 'b'
-          },
-          {
-            id: 3,
-            text: 'c'
-          },
-        ],
         keyElement1: [],
         keyElement2: [],
         editSaveLoading: false,
@@ -273,9 +266,20 @@
               trigger: 'blur'
             },
           ],
+          number: [
+            {
+              required: true,
+              message: '请输入诊断编号',
+              trigger: 'blur'
+            },
+          ],
         },
         level2List_dialog: [],
         dialogLevel1Id: null,
+        collectionType: null,
+        collectionRow:{},
+        collectionList:[],
+        collectionLoading:false,
       }
     },
     computed: {
@@ -297,7 +301,6 @@
         this.keyElement2 = []
         this.listQuery.level2 = null
         if (va) {
-          console.log(va)
           this.getList({
             type: 2,
             parentId: va
@@ -420,18 +423,75 @@
           state: true,
           name: '',
           indicatorNumbers: '',
+          number: '',
         }
       },
       addHandle() {
         this.tempInit()
         this.dialogFormVisible = true
       },
-      editHandle2() {
+      editHandle2(row, type) {
+        this.collectionList = []
+        this.collectionType = type
+        this.collectionRow = row
         this.dialogFormVisible2 = true
+        this.$api.diagnosis.diagnosisCollection({
+          diagnosisId: row.id,
+          type: type,
+        }).then(res => {
+          this.collectionList = res.data
+        })
       },
-      // exportClassRecord() {
-      //   this.$api.dormitoryCheck.dormitoryClbumTimeAssessmentExportExcel({ ...this.pagePara, ...this.listQuery })
-      // },
+      addCollect() {
+        this.collectionList.push({
+          diagnosisId: this.collectionRow.id,
+          type: this.collectionType,
+          content: '',
+        })
+      },
+      removeCollect(item, index) {
+        if (item.id) {
+          this.$confirm('确定删除该集合, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$api.diagnosis.diagnosisCollectionRemove({id: item.id}).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '删除成功',
+                  type: 'success',
+                  duration: 2000
+                })
+              }
+            })
+          }).catch(() => {
+//          this.$message({
+//            type: 'info',
+//            message: '已取消删除'
+//          });
+          })
+        }
+        this.collectionList.splice(index, 1)
+      },
+      collectionSave() {
+        this.collectionLoading = true
+        this.$api.diagnosis.diagnosisCollectionEditBatch(this.collectionList).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.dialogFormVisible2 = false
+          }
+          this.collectionLoading = false
+        }).catch(() => {
+          this.collectionLoading = false
+        })
+      },
     }
   }
 </script>

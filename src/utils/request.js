@@ -25,6 +25,10 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['token'] = getToken()
     }
+    // console.log('$route', window.app.$route.meta)
+    if (window.app.$route.meta) {
+      config.headers['menuCode'] =  window.app.$route.meta.menuCode
+    }
     if(config.params){
       config.params.nowDate = new Date()
     }
