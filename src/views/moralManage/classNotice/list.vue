@@ -28,6 +28,10 @@
           name="name"
           field="id"
           :data-service="$api.baseInfo.getClbumList"
+          :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
           placeholder="班级"
           style="margin-left: 10px;width: 100px;"
           clearable
