@@ -50,9 +50,11 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
 // Vue.mixin(mixin)
-new Vue({
+const app =new Vue({
   // mixins: [mixin],
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+})
+window.app = app
+app.$mount('#app')

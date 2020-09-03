@@ -187,4 +187,7 @@ export default {
   ...leagueActivities, //团学活动管理
   ...rewardsAndPunishments,
   /* 二期  end */
+  /* 三期  start */
+  ...diagnosis, // 诊改系统
+  /* 三期  end */
 }
