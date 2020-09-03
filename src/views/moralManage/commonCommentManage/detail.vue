@@ -65,24 +65,19 @@ export default {
       editStatus: true,
       postForm: {},
       rules: {
-        area: [{
+        cate: [{
           required: true,
-          message: '请填写平时成绩比例',
+          message: '请选择类型',
           trigger: 'change'
         }],
-        certificateNum: [{
+        title: [{
           required: true,
-          message: '请填写期中考试成绩比例',
+          message: '请填写标题',
           trigger: 'change'
         }],
-        price: [{
+        content: [{
           required: true,
-          message: '请填写期末考试成绩比例',
-          trigger: 'change'
-        }],
-        addr: [{
-          required: true,
-          message: '请填写实作成绩比例',
+          message: '请填写内容',
           trigger: 'change'
         }],
       },

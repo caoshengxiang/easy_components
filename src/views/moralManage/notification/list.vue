@@ -24,7 +24,7 @@
           clearable
         />
         <el-input
-          v-model="listQuery.addr"
+          v-model="listQuery.studentName"
           placeholder="姓名"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
@@ -98,24 +98,24 @@
       }
     },
     created() {
-      const that = this
-      that.getList()
-      that.getStatistics()
+      const that = this;
+      that.getList();
+      that.getStatistics();
 
-      that.getByTypeId('purpose')
+      that.getByTypeId('purpose');
       that.getByTypeId('useStatus')
     },
     methods: {
       getByTypeId(id) {
-        const that = this
+        const that = this;
         that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'useStatus':
-                that.useStatus = data.data
-                break
+                that.useStatus = data.data;
+                break;
               case 'purpose':
-                that.purpose = data.data
+                that.purpose = data.data;
                 break
             }
           } else {
@@ -127,9 +127,9 @@
         })
       },
       getStatistics() {
-        let that = this
+        let that = this;
         that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             that.statisticsInfo = data.data
           } else {
@@ -141,14 +141,14 @@
         })
       },
       searchList() {
-        const that = this
-        that.pagePara.current = 0
+        const that = this;
+        that.pagePara.current = 0;
 
         that.getList()
       },
 
       deleteInfo(id) {
-        const that = this
+        const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -156,7 +156,7 @@
           center: true
         }).then(() => {
           that.$api.assetinfo.deleteLand({ id: id }).then(data => {
-            that.loading = false
+            that.loading = false;
             if (data.code === 200) {
               that.getList()
             } else {
@@ -170,7 +170,7 @@
         })
       },
       add() {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -179,7 +179,7 @@
         })
       },
       detail(id) {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -189,10 +189,10 @@
         })
       },
       getList() {
-        const that = this
-        that.listLoading = true
+        const that = this;
+        that.listLoading = true;
         that.$api.notification.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.listLoading = false
+          that.listLoading = false;
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data

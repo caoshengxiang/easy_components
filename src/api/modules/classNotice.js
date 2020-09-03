@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import {fileDown} from '../../utils/file';
 
 export default {
-  /*通用评语相关接口*/
+  /*通知单相关接口*/
   getPage(params){
     return request.get('adviceNote', { params: params })
   },
@@ -33,5 +33,9 @@ export default {
   /*批量设置评语*/
   batchSetComment(data) {
     return request.put('adviceNote/batchEvaluate', data)
+  },
+  /*生成通知书*/
+  generateNote(params) {
+    return request.post('adviceNote/generateNote', params)
   }
 }

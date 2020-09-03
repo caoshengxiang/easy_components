@@ -95,24 +95,34 @@
         editStatus: true,
         postForm: {},
         rules: {
-          area: [{
+          year: [{
             required: true,
-            message: '请填写平时成绩比例',
+            message: '请选择年份',
             trigger: 'change'
           }],
-          certificateNum: [{
+          termId: [{
             required: true,
-            message: '请填写期中考试成绩比例',
+            message: '请选择学期',
             trigger: 'change'
           }],
-          price: [{
+          excellentLower: [{
             required: true,
-            message: '请填写期末考试成绩比例',
+            message: '请填写优范围',
             trigger: 'change'
           }],
-          addr: [{
+          goodLower: [{
             required: true,
-            message: '请填写实作成绩比例',
+            message: '请填写良范围',
+            trigger: 'change'
+          }],
+          middleLower: [{
+            required: true,
+            message: '请填写中范围',
+            trigger: 'change'
+          }],
+          poorLower: [{
+            required: true,
+            message: '请填写差范围',
             trigger: 'change'
           }],
         },

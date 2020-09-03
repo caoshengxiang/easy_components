@@ -28,6 +28,10 @@
           name="name"
           field="id"
           :data-service="$api.baseInfo.getClbumList"
+          :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
           placeholder="班级"
           style="margin-left: 10px;width: 100px;"
           clearable
@@ -43,7 +47,7 @@
           clearable
         />
         <el-input
-          v-model="listQuery.studentName"
+          v-model="listQuery.name"
           placeholder="姓名"
           prefix-icon="el-icon-search"
           style="margin-left: 10px;width: 150px;"
@@ -65,7 +69,7 @@
           round
           type="primary"
           name=""
-          :page-jump="true"
+          @click="generateNote"
         />
 
         <PermissionButton
@@ -327,6 +331,30 @@
       },
       onTableSelect(selection) {
         this.selection = selection;
+      },
+      /*生成通知书*/
+      generateNote() {
+        const { clbumId,termId } = this.listQuery;
+        if (!clbumId || !termId) {
+          this.$message({
+            type:'warning',
+            message: '请先选择班级和学期！'
+          });
+          return
+        }
+        this.$api.classNotice.generateNote({
+          clbumId,
+          termId
+        }).then(res => {
+          if (res.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '生成通知书成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+        })
       }
     }
   }
