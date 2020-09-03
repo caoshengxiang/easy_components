@@ -3,11 +3,14 @@
     <el-form v-if="type" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
       <el-form-item prop="val">
         <!--字符型-->
-        <el-input :disabled="disabled" v-if="type === 1" type="text" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 1" type="text" v-model="ruleForm.val" size="small"
+                  @change="emitInput"/>
         <!--整数-->
-        <el-input :disabled="disabled" v-if="type === 2" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 2" type="number" v-model="ruleForm.val" size="small"
+                  @change="emitInput"/>
         <!--小数-->
-        <el-input :disabled="disabled" v-if="type === 3" type="number" v-model="ruleForm.val" size="small" @change="emitInput"/>
+        <el-input :disabled="disabled" v-if="type === 3" type="number" v-model="ruleForm.val" size="small"
+                  @change="emitInput"/>
         <!--是/否-->
         <el-select :disabled="disabled" v-if="type === 4" v-model="ruleForm.val" @change="emitInput">
           <el-option label="是" value="是"/>
@@ -15,11 +18,12 @@
         </el-select>
         <!--百分数-->
         <span v-if="type === 5">
-          <el-input :disabled="disabled" type="number" style="width: 90%" v-model="ruleForm.val" size="small" @change="emitInput"/>%
+          <el-input :disabled="disabled" type="number" style="width: 90%" v-model="ruleForm.val" size="small"
+                    @change="emitInput"/>%
         </span>
         <!--表格-->
         <span v-if="type === 6">
-          <el-button type="text" @click="showTable">编辑表格</el-button>
+          <el-button type="text" @click="showTable" style="color: red;">编辑表格</el-button>
         </span>
         <!--文本-->
         <span v-if="type === 7">
@@ -57,13 +61,13 @@
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
-      <div v-if="row.number === 381">
+      <div v-if="row.number === 358">
         <div style="width: 100%;overflow: auto;">
           <table class="index381">
             <tbody>
             <tr>
               <th colspan="2" style="width: 50px;">周次</th>
-              <th v-for="i in weeksNum" :key="i">{{ i+1 }}</th>
+              <th v-for="i in weeksNum" :key="i">{{ i }}</th>
             </tr>
             <tr>
               <th rowspan="2" style="width: 5vw">上学期</th>
@@ -104,7 +108,7 @@
         </div>
       </div>
 
-      <div v-if="row.number === 384 || row.number === 402">
+      <div v-if="row.number === 361 || row.number === 379">
         <div style="width: 100%;overflow: auto;">
           <table class="index381">
             <tbody>
@@ -112,43 +116,101 @@
               <th>专业名称</th>
               <th>专职教师人数</th>
               <th>兼职教师人数</th>
+              <th>学生人数</th>
               <th>生师比例</th>
             </tr>
             <tr v-for="(item, i) in tableData" :key="i">
-              <td>{{item.name}}</td>
-              <td>{{item.fullTimeTeacher}}</td>
-              <td>{{item.partTimeTeacher}}</td>
-              <td>{{item.student}}</td>
-              <td>{{proportion(item.fullTimeTeacher, item.partTimeTeacher, item.student)}}</td>
+              <td>{{item.value1}}</td>
+              <td>{{item.value2}}</td>
+              <td>{{item.value3}}</td>
+              <td>{{item.value4}}</td>
+              <td>{{proportion(item.value2, item.value3, item.value4)}}</td>
             </tr>
             </tbody>
           </table>
         </div>
-
-        <div v-if="row.number === 364">
-          <div style="width: 100%;overflow: auto;">
-            <table class="index381">
-              <tbody>
-              <tr>
-                <th rowspan="2">项目/专业</th>
-                <th colspan="4">在校人数</th>
-              </tr>
-              <tr>
-                <th>小计</th>
-                <th>一年级</th>
-                <th>二年级</th>
-                <th>三年级</th>
-              </tr>
-              <tr v-for="(item, i) in tableData" :key="i">
-                <td>{{item.name}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.name}}</td>
-                <td>{{}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+      </div>
+      <div v-if="row.number === 324">
+        <div style="width: 100%;overflow: auto;">
+          <table class="index381">
+            <tbody>
+            <tr>
+              <th rowspan="2">项目/专业</th>
+              <th colspan="4">在校人数</th>
+            </tr>
+            <tr>
+              <th>小计</th>
+              <th>一年级</th>
+              <th>二年级</th>
+              <th>三年级</th>
+            </tr>
+            <tr v-for="(item, i) in tableData" :key="i">
+              <td>{{item.value1}}</td>
+              <td>{{getSum(item.value2 + item.value3 + item.value4)}}</td>
+              <td>{{item.value2}}</td>
+              <td>{{item.value3}}</td>
+              <td>{{item.value4}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div v-if="row.number === 325">
+        <div style="width: 100%;overflow: auto;">
+          <table class="index381">
+            <tbody>
+            <tr>
+              <th>专业名称</th>
+              <th>毕业人数</th>
+              <th>就业率(%)</th>
+              <th>对口就业率(%)</th>
+              <th>初次就业起薪(元)</th>
+            </tr>
+            <tr v-for="(item, i) in tableData" :key="i">
+              <td>{{item.value1}}</td>
+              <td>{{item.value2}}</td>
+              <td>{{item.value3}}</td>
+              <td>{{item.value4}}</td>
+              <td>{{item.value5}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div v-if="row.number === 326">
+        <div style="width: 100%;overflow: auto;">
+          <table class="index381">
+            <tbody>
+            <tr>
+              <th>类型</th>
+              <th>实训室名称</th>
+              <th>工位数</th>
+              <th>建成年月</th>
+            </tr>
+            <tr v-for="(item, i) in tableData" :key="i">
+              <td>{{item.value1}}</td>
+              <td>{{itemvalue2}}</td>
+              <td>{{item.value3}}</td>
+              <td>{{item.valuee4}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div v-if="row.number === 341">
+        <div style="width: 100%;overflow: auto;">
+          <table class="index381">
+            <tbody>
+            <tr>
+              <th>专业名称</th>
+              <th>录取数</th>
+            </tr>
+            <tr v-for="(item, i) in tableData" :key="i">
+              <td>{{item.value1}}</td>
+              <td>{{item.value2}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </el-dialog>
@@ -176,7 +238,7 @@
       row: {
         default: {}
       },
-      disabled:{
+      disabled: {
         defalut: false,
         type: Boolean,
       }
@@ -289,7 +351,7 @@
         }
       },
       initTable(number) {
-        if (number === 381) { // 学生迟到、缺课率
+        if (number === 358) { // 学生迟到、缺课率
           this.tableData = [
             [],
             [],
@@ -302,17 +364,9 @@
             this.tableData[2].push({ value: '' })
             this.tableData[3].push({ value: '' })
           }
-        } else if (number === 384 || number === 402 || number === 364) {
+        } else if (number === 361 || number === 379 || number === 324 || number === 325 || number === 326 || number === 341) {
           // 各专业中教师数量
-          this.tableData = [
-            // {
-            // name: '',
-            // fullTimeTeacher: null,
-            // partTimeTeacher: null,
-            // student: null,
-            //   proportion: null
-            // }
-          ]
+          this.tableData = []
         }
       },
       editSaveText() {
@@ -394,7 +448,20 @@
       showTableText() {
         this.getDetailAll()
         this.dialogFormVisibleText = true
-      }
+      },
+      getSum(s1, s2, s3){
+        let sum = 0
+        if (s1 && typeof s1 === 'number') {
+          sum += s1
+        }
+        if (s2 && typeof s2 === 'number') {
+          sum += s2
+        }
+        if (s3 && typeof s3 === 'number') {
+          sum += s3
+        }
+        return sum
+      },
     }
   }
 </script>

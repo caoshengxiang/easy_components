@@ -91,6 +91,15 @@ export default {
   diagnosisTree(params) {
     return request.get(`diagnosis/tree`, {params: params})
   },
+  diagnosisYearDataata(params) {
+    return request.get(`diagnosisYearData/data`, {params: params})
+  },
+  diagnosisYearDataAdd(params) {
+    return request.post('diagnosisYearData', params)
+  },
+  diagnosisYearDataModify(params) {
+    return request.put('diagnosisYearData', params)
+  },
   // detail(params) {
   //   return request.get(`post/${params}`)
   // },

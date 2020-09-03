@@ -20,69 +20,71 @@
           </ul>
         </div>
         <div class="data-fill-r">
-          <parentTable v-loading="listLoading" :data="pageData" :no-page="true" slot="table" style="width: 100%;">
-            <el-table-column label="指标编号" prop="id" align="center" width="80">
-              <template slot-scope="{row}">
-                {{ row.number }}
-              </template>
-            </el-table-column>
-            <el-table-column label="指标名称" prop="id" align="center">
-              <template slot-scope="{row}">
-                {{ row.name }}
-              </template>
-            </el-table-column>
-            <el-table-column label="当年指标值" prop="id" align="center">
-              <template slot-scope="{row}">
-                <fill-type :disabled="true" v-model="row.currentValue" :type="row.type" :remark="row.remark" :row="row"></fill-type>
-              </template>
-            </el-table-column>
-            <el-table-column label="上年指标值" prop="id" align="center">
-              <template slot-scope="{row}">
-                {{ row.lastValue }}
-              </template>
-            </el-table-column>
-            <el-table-column label="对比" prop="id" align="center" width="90">
-              <template slot-scope="{row}">
-                {{comparedYearData(row.type, row.currentValue, row.lastValue) }}
-              </template>
-            </el-table-column>
-            <el-table-column label="标准值" prop="id" align="center">
-              <template slot-scope="{row}">
-                {{ row.standardValue }}
-              </template>
-            </el-table-column>
-            <el-table-column label="目标值" prop="id" align="center">
-              <template slot-scope="{row}">
-                {{ row.targetValue }}
-              </template>
-            </el-table-column>
-            <el-table-column label="类型" prop="id" align="center" width="80">
-              <template slot-scope="{row}">
-                {{ row.type && indicatorTypeName()(row.type) }}
-              </template>
-            </el-table-column>
-            <!--<el-table-column label="帮助" prop="id" align="center" width="50">-->
+          <div v-for="(item, index) in pageData" :key="index" class="box-item">
+            <parentTable v-loading="listLoading" :data="item.indicatorDatas" :no-page="true" slot="table" style="width: 100%;">
+              <el-table-column label="指标编号" prop="id" align="center" width="80">
+                <template slot-scope="{row}">
+                  {{ row.number }}
+                </template>
+              </el-table-column>
+              <el-table-column label="指标名称" prop="id" align="center">
+                <template slot-scope="{row}">
+                  {{ row.name }}
+                </template>
+              </el-table-column>
+              <el-table-column label="当年指标值" prop="id" align="center">
+                <template slot-scope="{row}">
+                  <fill-type :disabled="true" v-model="row.currentValue" :type="row.type" :remark="row.remark" :row="row"></fill-type>
+                </template>
+              </el-table-column>
+              <el-table-column label="上年指标值" prop="id" align="center">
+                <template slot-scope="{row}">
+                  {{ row.lastValue }}
+                </template>
+              </el-table-column>
+              <el-table-column label="对比" prop="id" align="center" width="90">
+                <template slot-scope="{row}">
+                  {{comparedYearData(row.type, row.currentValue, row.lastValue) }}
+                </template>
+              </el-table-column>
+              <el-table-column label="标准值" prop="id" align="center">
+                <template slot-scope="{row}">
+                  {{ row.standardValue }}
+                </template>
+              </el-table-column>
+              <el-table-column label="目标值" prop="id" align="center">
+                <template slot-scope="{row}">
+                  {{ row.targetValue }}
+                </template>
+              </el-table-column>
+              <el-table-column label="类型" prop="id" align="center" width="80">
+                <template slot-scope="{row}">
+                  {{ row.type && indicatorTypeName()(row.type) }}
+                </template>
+              </el-table-column>
+              <!--<el-table-column label="帮助" prop="id" align="center" width="50">-->
               <!--<template slot-scope="{row}">-->
-                <!--<el-tooltip class="item" effect="dark" :content="row.remark || '请根据类型填写！'" placement="top-end">-->
-                  <!--<i class="el-icon-question"></i>-->
-                <!--</el-tooltip>-->
+              <!--<el-tooltip class="item" effect="dark" :content="row.remark || '请根据类型填写！'" placement="top-end">-->
+              <!--<i class="el-icon-question"></i>-->
+              <!--</el-tooltip>-->
               <!--</template>-->
-            <!--</el-table-column>-->
-          </parentTable>
-          <el-form ref="form" :model="form" label-width="180px" style="margin-top: 10px;">
-            <el-form-item label="存在问题与原因分析">
-              <el-input type="textarea" v-model="form.reason"></el-input>
-            </el-form-item>
-            <el-form-item label="改进措施">
-              <el-input type="textarea" v-model="form.measure"></el-input>
-            </el-form-item>
-            <el-form-item label="改进效果">
-              <el-input type="textarea" v-model="form.result"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSubmit" round>保存</el-button>
-            </el-form-item>
-          </el-form>
+              <!--</el-table-column>-->
+            </parentTable>
+            <el-form ref="form" :model="item.diagnosisYearData" label-width="180px" style="margin-top: 10px;">
+              <el-form-item label="存在问题与原因分析">
+                <el-input type="textarea" v-model="item.diagnosisYearData.reason"></el-input>
+              </el-form-item>
+              <el-form-item label="改进措施">
+                <el-input type="textarea" v-model="item.diagnosisYearData.measure"></el-input>
+              </el-form-item>
+              <el-form-item label="改进效果">
+                <el-input type="textarea" v-model="item.diagnosisYearData.result"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit(item)" round>保存</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
         </div>
       </div>
     </div>
@@ -164,22 +166,16 @@
         if (this.dataId) {
           this.listLoading = true
           this.pageData = []
-          this.$api.diagnosis.indicatorYearData({
-            indicatorId: this.level2Id,
+          this.$api.diagnosis.diagnosisYearDataata({
+            diagnosisId: this.level2Id, // 获取，by 二级
             indicatorYearId: this.dataId,
-            // diagnosisId: null,
           }).then(res => {
-            this.pageData = res.data
-            this.listLoading = false
-          }).catch(() => {
-            this.listLoading = false
-          })
-          this.$api.diagnosis.diagnosisYearDataDetail({
-            diagnosisId: this.level2Id,
-            indicatorYearId: this.dataId,
-            // diagnosisId: null,
-          }).then(res => {
-            this.pageData = res.data
+            this.pageData = res.data.map((item) => {
+              if (!item.diagnosisYearData) {
+                item.diagnosisYearData = {}
+              }
+              return item
+            })
             this.listLoading = false
           }).catch(() => {
             this.listLoading = false
@@ -188,8 +184,38 @@
           this.$router.push('/views/diagnosis/dataFilling/list')
         }
       },
-      onSubmit() {
-
+      onSubmit(data) {
+        if (data.id) {
+          this.$api.diagnosis.diagnosisYearDataModify({
+            ...data.diagnosisYearData,
+            indicatorYearId: this.dataId,
+            diagnosisId: data.id,
+          }).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success',
+                duration: 2000
+              })
+            }
+          })
+        } else {
+          this.$api.diagnosis.diagnosisYearDataAdd({
+            ...data.diagnosisYearData,
+            indicatorYearId: this.dataId,
+            diagnosisId: data.id,
+          }).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success',
+                duration: 2000
+              })
+            }
+          })
+        }
       },
       handleSave() {
         const checkVal = (type, value) => {
@@ -258,7 +284,7 @@
         } else {
           console.log('验证不通过！')
           this.$notify({
-            title: '成功',
+            title: '错误',
             message: '请按类型填写',
             type: 'error',
             duration: 2000
@@ -300,7 +326,7 @@
         color: #343434;
         padding-left: 20px;
         line-height: 35px;
-        /*cursor: pointer;*/
+        cursor: pointer;
       }
 
       .l2-name-active {
@@ -323,6 +349,10 @@
     .data-fill-r {
       flex: 1;
       box-shadow: 1px 2px 7px 0px rgba(190, 190, 190, 0.2);
+    }
+    .box-item{
+      margin-bottom: 20px;
+      border-bottom: 30px solid #f0f0f0;
     }
   }
 </style>
