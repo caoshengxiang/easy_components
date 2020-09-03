@@ -107,59 +107,8 @@
         <el-col>
           <el-row>
             <el-col :span="6">
-              <el-button @click="openLinkUrl(uploadConfig.previewImageUrl)">下载文件</el-button>
-            </el-col>
-            <el-col :span="18">
-              <el-alert
-                title="点击下载打开页面，右键保存即可！"
-                type="info"
-                show-icon
-                :closable="false">
-              </el-alert>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col>&nbsp;</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-button @click="showPlay = !showPlay" :disabled="!(showVideo || showAudio)">在线播放</el-button>
-            </el-col>
-            <el-col :span="18">
-              <el-alert
-                title="该文件支持在线播放！"
-                type="success"
-                show-icon
-                :closable="false"
-                v-if="showVideo || showAudio">
-              </el-alert>
-              <el-alert
-                title="该文件不支持在线播放！"
-                type="warning"
-                show-icon
-                :closable="false"
-                v-else>
-              </el-alert>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col>&nbsp;</el-col>
-          </el-row>
-          <el-row>
-            <el-col>
-              <transition name="el-fade-in">
-                <div v-show="showPlay" class="transition-box">
-                  <video width="100%" controls v-if="showVideo">
-                    <source :src="uploadConfig.previewImageUrl" type="video/mp4">
-                    <source :src="uploadConfig.previewImageUrl" type="video/ogg">
-                    <source :src="uploadConfig.previewImageUrl" type="video/webm">
-                    您的浏览器不支持 视频播放。
-                  </video>
-                  <audio :src="uploadConfig.previewImageUrl" controls v-if="showAudio">
-                    您的浏览器不支持 音频播放。
-                  </audio>
-                </div>
-              </transition>
+              {{uploadConfig.previewImageUrl}}}
+              <el-button @click="openLinkUrl(uploadConfig.previewImageUrl)">下载文件1</el-button>
             </el-col>
           </el-row>
         </el-col>
