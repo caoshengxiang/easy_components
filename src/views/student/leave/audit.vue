@@ -44,7 +44,7 @@
                 <tr>
                   <td rowspan="3" class="tdclass"> 审核</td>
                   <td  class="tdclass">
-                    <el-select v-model="postForm.state" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
+                    <el-select v-model="state" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
                       <el-option  v-for="item in AllEnum.审核状态" v-if="item !='待审核'" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </td>
@@ -92,7 +92,8 @@
         postForm: {},
         dataId: this.$route.query.id,
         showState:'',
-        AllEnum:[]
+        AllEnum:[],
+        state:''
       }
     },
     watch: {
@@ -133,7 +134,7 @@
             type: 'warning'
           })
             .then(async () => {
-              this.$api.leave.audit({id:this.postForm.id,state:this.postForm.state == '审核通过'?2:(this.postForm.state == '审核拒绝'?3:0),remark:this.postForm.remark}).then(res => {
+              this.$api.leave.audit({id:this.postForm.id,state:this.state == '审核通过'?2:(this.state == '审核拒绝'?3:0),remark:this.remark}).then(res => {
                 if (res.code === 200) {
                   this.$message({
                     type: 'success',
