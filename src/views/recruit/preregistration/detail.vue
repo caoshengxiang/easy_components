@@ -365,7 +365,12 @@ export default {
       specialty: [],
       gradeInfo: [],
       type: 'detail',
-      postForm: {},
+      postForm: {
+        birthday:'',
+        idNo:'',
+        homeAddr:'',
+        name:''
+      },
       rules: {
         name: [{ required: true,message: '姓名', trigger: 'blur' }],
         sex: [{ required: true,message: '性别', trigger: 'blur' }],
@@ -419,10 +424,11 @@ export default {
   },
   methods: {
     successAction(data){
-    console.log(data)
-    },
-    cert(){
-
+      this.postForm.birthday = data.words_result.birBean.words
+      this.postForm.idNo = data.words_result.numBean.words
+      this.postForm.homeAddr = data.words_result.addressBean.words
+      this.postForm.name = data.words_result.nameBean.words
+      this.postForm.birthday = this.postForm.birthday.substring(0, 4) + '-' + this.postForm.birthday.substring(4, 6)+ '-' +this.postForm.birthday.substring(6, 8)
     },
     countDown() {
       if(this.totalTime  < 60){
