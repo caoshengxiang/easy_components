@@ -28,6 +28,10 @@
             name="name"
             field="id"
             :data-service="$api.baseInfo.getClbumList"
+            :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
             placeholder="班级"
             style="margin-left: 10px;"
             clearable
@@ -115,22 +119,22 @@ export default {
     }
   },
   created() {
-    const that = this
-    that.getList()
-    that.getByTypeId('purpose')
+    const that = this;
+    that.getList();
+    that.getByTypeId('purpose');
     that.getByTypeId('useStatus')
   },
   methods: {
     getByTypeId(id) {
-      const that = this
+      const that = this;
       that.$api.dictData.getByCode({ code: id }).then(data => {
         if (data.code === 200) {
           switch (id) {
             case 'useStatus':
-              that.useStatus = data.data
-              break
+              that.useStatus = data.data;
+              break;
             case 'purpose':
-              that.purpose = data.data
+              that.purpose = data.data;
               break
           }
         } else {
@@ -142,14 +146,14 @@ export default {
       })
     },
     searchList() {
-      const that = this
-      that.pagePara.current = 0
+      const that = this;
+      that.pagePara.current = 0;
 
       that.getList()
     },
 
     add() {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -158,7 +162,7 @@ export default {
       })
     },
     detail(id) {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -168,10 +172,10 @@ export default {
       })
     },
     getList() {
-      const that = this
-      that.listLoading = true
+      const that = this;
+      that.listLoading = true;
       that.$api.conductScore.getConductDeductRecord({ ...that.listQuery, ...that.pagePara }).then(data => {
-        that.listLoading = false
+        that.listLoading = false;
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
@@ -184,7 +188,7 @@ export default {
       }).catch(() => { that.listLoading = false })
     },
     open(id) {
-      this.selectedId = id
+      this.selectedId = id;
       this.$confirm('是否通过？', '确认信息', {
         distinguishCancelAndClose: true,
         confirmButtonText: '通过',
@@ -196,10 +200,10 @@ export default {
     confirmCallBack(action,instance) {
       switch (action) {
         case 'confirm':
-          this.audit({id: this.selectedId, state: '审核通过'})
+          this.audit({id: this.selectedId, state: '审核通过'});
           break;
         case 'cancel':
-          this.audit({id: this.selectedId, state: '审核拒绝'})
+          this.audit({id: this.selectedId, state: '审核拒绝'});
           break;
         default:
           break
@@ -213,7 +217,7 @@ export default {
             message: '操作成功',
             type: 'success',
             duration: 2000
-          })
+          });
           this.getList()
         } else {
           this.$message({
