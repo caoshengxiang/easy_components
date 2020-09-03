@@ -91,6 +91,27 @@
                       </el-form-item>
                     </el-col>
                 </el-row>
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" v-if="type"/>
+                <div style="margin-bottom: 30px" v-if="type">
+                  <h3 class="title">
+                    <div class="avatar-wrapper icon-title" style="background:rgb(255,61,54)">验</div>
+                    <div class="icon-info">手机验证</div>
+                  </h3>
+                </div>
+                <el-row v-if="type">
+                  <el-col :span="6">
+                    <el-form-item label="手机号：" prop="mobile" label-width="150px" class="postInfo-container-item">
+                      <el-input v-model="postForm.mobile" class="filter-item"/>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-form-item label="验证码："  prop="code" label-width="150px" class="postInfo-container-item">
+                      <el-input v-model="postForm.code"class="filter-item" style="width: 50%"/>
+                      <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
+
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
                   <h3 class="title">
@@ -304,6 +325,9 @@ export default {
   },
   data() {
     return {
+      content: '发送验证码',  // 按钮里显示的内容
+      totalTime: 5,
+      canClick: true,
       classTypes:[],
       opt2: [{
         key: 1,
@@ -352,12 +376,15 @@ export default {
         zkJoined: [{ required: true,message: '是否参加中考', trigger: 'blur' }],
         ezJoined: [{ required: true,message: '是否参加二诊', trigger: 'blur' }],
         bsJoined: [{ required: true,message: '是否有病史', trigger: 'blur' }],
+        mobile: [{ required: true,message: '请输入手机号', trigger: 'blur' }],
+        code: [{ required: true,message: '请输入验证码', trigger: 'blur' }],
         //applyReason: [{ required: true,message: '报考原因', trigger: 'blur' }],
       },
       dataId: this.$route.query.id,
       AllEnum:[],
       areaInfo:[],
-      clbumInfo:[]
+      clbumInfo:[],
+      type:this.$route.path == '/registration'
     }
   },
   watch: {
@@ -372,12 +399,34 @@ export default {
     } else {
       this.getDetail()
     }
+
     that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
     that.getAreaList()
   },
   methods: {
+    countDown() {
+      if(this.totalTime  < 5){
+        return
+      }
+      this.$api.message.sendCode({ mobile:this.postForm.mobile }).then(res => {
+      })
+
+      if (!this.canClick) return  //改动的是这两行代码
+      this.canClick = false
+      this.content = this.totalTime + 's后重新发送'
+      let clock = window.setInterval(() => {
+        this.totalTime--
+        this.content = this.totalTime + 's后重新发送'
+        if (this.totalTime < 0) {
+          window.clearInterval(clock)
+          this.content = '重新发送验证码'
+          this.totalTime = 5
+          this.canClick = true  //这里重新开启
+        }
+      },1000)
+    },
     changeSpe(){
       let that = this
       if(that.postForm.administrativeSpecialtyId) {
@@ -490,20 +539,52 @@ export default {
       } else { // 新增
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            this.$api.admiisionPreApply.add(this.postForm).then(res => {
-              if (res.code === 200) {
-                this.$notify({
-                  title: '成功',
-                  message: '添加成功',
-                  type: 'success',
-                  duration: 2000
-                })
-                const back = this.$route.query.back
-                if (back) {
-                  this.$router.push(back)
+            if(!this.type){
+              this.$api.admiisionPreApply.add(this.postForm).then(res => {
+                if (res.code === 200) {
+                  this.$notify({
+                    title: '成功',
+                    message: '添加成功',
+                    type: 'success',
+                    duration: 2000
+                  })
+                  const back = this.$route.query.back
+                  if (back) {
+                    this.$router.push(back)
+                  }
                 }
-              }
-            })
+              })
+            }
+            else{
+              this.$api.message.checkSmsCode({ mobile:this.postForm.mobile,code:this.postForm.code }).then(res => {
+                if (res.code === 200) {
+                  if (res.data) {
+                    this.$api.admiisionPreApply.saveOnMobile(this.postForm).then(res => {
+                      if (res.code === 200) {
+                        this.$notify({
+                          title: '成功',
+                          message: '添加成功',
+                          type: 'success',
+                          duration: 2000
+                        })
+                        const back = this.$route.query.back
+                        if (back) {
+                          this.$router.push(back)
+                        }
+                      }
+                    })
+                  }
+                  else{
+                    this.$notify({
+                      title: '验证码错误',
+                      message: '验证码错误',
+                      type: 'error',
+                      duration: 2000
+                    })
+                  }
+                }
+              })
+            }
           }
         })
       }
