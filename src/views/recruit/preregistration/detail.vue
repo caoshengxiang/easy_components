@@ -53,7 +53,8 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item label="证件类型：" prop="certificateType" label-width="150px" class="postInfo-container-item">
+                        <el-form-item label="证件类型：" prop="certificateType" label-width="150px"
+                                     class="postInfo-container-item">
                           <el-select v-model="postForm.certificateType" placeholder="证件类型" clearable
                                      class="filter-item" style="width: 100%"
                           >
@@ -62,12 +63,23 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
+                          <fileUpload
+                              ref="uploadCourseChapter"
+                            :isdisabled="false"
+                            :file-list="[{path:postForm.avatar}]"
+                            :style-type="3"
+                            :cert-type="postForm.certificateType"
+                            @successAction="successAction"
+                          />
+                      </el-col>
+                    </el-row>
+                    <el-row>
+
+                      <el-col :span="8">
                         <el-form-item label="证件号码：" prop="idNo" label-width="150px" class="postInfo-container-item">
                           <el-input v-model="postForm.idNo" class="filter-item"/>
                         </el-form-item>
                       </el-col>
-                    </el-row>
-                    <el-row>
                       <el-col :span="8">
                         <el-form-item label="联系电话：" prop="homePhone" label-width="150px" class="postInfo-container-item">
                           <el-input v-model="postForm.homePhone" class="filter-item"/>
@@ -406,6 +418,12 @@ export default {
     that.getAreaList()
   },
   methods: {
+    successAction(data){
+    console.log(data)
+    },
+    cert(){
+
+    },
     countDown() {
       if(this.totalTime  < 5){
         return
