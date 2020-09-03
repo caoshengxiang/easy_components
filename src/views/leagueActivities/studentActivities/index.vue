@@ -15,7 +15,16 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">{{ statisticsData.clubName || '无' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text">
+              <el-tooltip v-if="statisticsData.clubName && statisticsData.clubName.length > 5" :content="statisticsData.clubName">
+                <div class="analysis-text-label">
+                  {{ statisticsData.clubName || '' }}
+                </div>
+              </el-tooltip>
+              <span v-else class="analysis-text-label">{{ statisticsData.clubName || '' }}</span>
+              ：
+              <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
+            </div>
             <div class="analysis-text-small">活动最多的社团及活动数量</div>
           </div>
         </div>
@@ -35,14 +44,15 @@
         />
         <el-input v-model="listQuery.theme" placeholder="主题"  style=" margin-left:10px;width: 180px"/>
         <el-input v-model="listQuery.addr" placeholder="地点" style=" margin-left:10px;width: 180px"/>
-        <el-date-picker v-model="listQuery.activityTimeStart" placeholder="活动时间开始"
-                        type="datetime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                        style="margin-left:10px; border-radius: 20px"/>
-        <span>-</span>
-        <el-date-picker v-model="listQuery.activityTimeEnd" placeholder="活动时间结束"
-                        type="datetime"
-                        value-format="yyyy-MM-dd HH:mm:ss"/>
+        <el-date-picker
+          style="margin-left: 12px;"
+          v-model="activityTime"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="任职日期开始"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          end-placeholder="任职日期结束"
+        />
         <el-button
           class="filter-item"
           style="margin-left: 10px;"
@@ -59,7 +69,7 @@
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
         <el-table-column label="活动主题" prop="theme"/>
-        <el-table-column label="社团" prop="clubName"/>
+        <el-table-column label="社团" prop="clubName" show-overflow-tooltip/>
         <el-table-column label="负责人" prop="principal"/>
         <el-table-column label="活动时间" align="center" prop="activityTime" min-width="160"/>
         <el-table-column label="活动地点" prop="addr"/>
@@ -120,6 +130,7 @@
           maxNum: '0'
         },
         gradeInfo: [],
+        activityTime: null
       }
     },
     created() {
@@ -129,7 +140,12 @@
     methods: {
       getData() {
         this.loading = true;
-        this.$api.studentActivities.getPage(Object.assign({}, this.pageInfo, this.listQuery))
+        const sendData = Object.assign({}, this.pageInfo, this.listQuery);
+        if (this.activityTime) {
+          sendData.activityTimeStart = this.activityTime[0];
+          sendData.activityTimeEnd = this.activityTime[1];
+        }
+        this.$api.studentActivities.getPage(sendData)
           .then(res => {
             this.tableData = res.data;
           })
@@ -144,9 +160,9 @@
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
             this.$api.studentActivities.remove(row.id).then(res=>{
-              this.getData()
+              this.getData();
+              this.getStatisticsData();
             })
           });
       },
@@ -163,39 +179,20 @@
 </script>
 
 <style scoped lang="scss">
-  .statistics-container {
-    display: flex;
-    margin-top: 16px;
-    align-items: center;
-
-    .statistics-item {
+  .app-container {
+    .item-img {
+      width: 50px;
+      height: 50px;
+    }
+    .analysis-text {
       display: flex;
       align-items: center;
-      margin-right: 24px;
-      background-color: rgba(242, 242, 242, 1);
-      padding: 12px;
-      border-radius: 4px;
-
-      .item-img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .item-info {
-        margin-left: 12px;
-        text-align: center;
+      .analysis-text-label {
         font-size: 16px;
-
-        .item-head {
-          font-weight: bold;
-        }
-
-        .item-data {
-          margin-top: 6px;
-          font-size: 24px;
-          font-weight: bold;
-          color: #1890ff;
-        }
+        width: 80px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
   }

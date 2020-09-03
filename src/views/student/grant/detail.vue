@@ -18,13 +18,13 @@
                 <el-col :span="24">
                   <el-form-item label="年份：" prop="year" label-width="150px" class="postInfo-container-item">
                     <el-input
-                      placeholder="年份" v-model="postForm.year" class="filter-item"/>
+                      placeholder="年份" v-model="postForm.year" type="number" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="月份：" prop="month" label-width="150px" class="postInfo-container-item">
                     <el-input
-                      placeholder="月份" v-model="postForm.month" class="filter-item"/>
+                      placeholder="月份" v-model="postForm.month" type="number" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -73,7 +73,6 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="学生：" prop="studentId" label-width="150px" class="postInfo-container-item">
-
                     <el-select
                       v-model="postForm.studentId"
                       placeholder="学生"
@@ -168,7 +167,9 @@ export default {
       majorInfo:[],
       studentInfo:[],
       type: 'detail',
-      postForm: {},
+      postForm: {
+        studentId:''
+      },
       rules: {
         year: [{
           required: true,

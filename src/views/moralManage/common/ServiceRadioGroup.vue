@@ -12,6 +12,7 @@
         v-for="(obj, index) in dataList"
         :key="index"
         :label="obj[field]"
+        :name="groupName"
         @click.native="$emit('after-select', obj)"
       >
         {{ getLabel(obj) }}
@@ -77,7 +78,14 @@
       // eslint-disable-next-line vue/require-default-prop
       format: {
         type: Function
-      }
+      },
+      /**
+       * radio对应的name 用以分组
+       */
+      groupName: {
+        type: String,
+        default: ''
+      },
     },
     data () {
       return {

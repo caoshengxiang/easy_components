@@ -33,14 +33,77 @@
       :headers="headers"
       ref="uploadCtl"
       :disabled="isdisabled"
+      :data=" {type:this.certType}"
     >
       <i class="el-icon-plus" v-show="styleType == 1"></i>
       <el-button size="small" type="primary" v-show="styleType == 2">点击上传</el-button>
+      <el-button size="small" type="primary" v-show="styleType == 3">证件识别</el-button>
     </el-upload>
     <div class="el-upload__tip">{{tipMessage}}</div>
     <el-dialog :visible.sync="uploadConfig.dialogVisible" :append-to-body="true">
       <el-row v-show="styleType == 1" style="text-align: center;"><img style="max-width: 100%;" :src="uploadConfig.previewImageUrl" alt=""></el-row>
       <el-row v-show="styleType == 2">
+        <el-col>
+          <el-row>
+            <el-col :span="6">
+              <el-button @click="openLinkUrl(uploadConfig.previewImageUrl)">下载文件</el-button>
+            </el-col>
+            <el-col :span="18">
+              <el-alert
+                title="点击下载打开页面，右键保存即可！"
+                type="info"
+                show-icon
+                :closable="false">
+              </el-alert>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>&nbsp;</el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="6">
+              <el-button @click="showPlay = !showPlay" :disabled="!(showVideo || showAudio)">在线播放</el-button>
+            </el-col>
+            <el-col :span="18">
+              <el-alert
+                title="该文件支持在线播放！"
+                type="success"
+                show-icon
+                :closable="false"
+                v-if="showVideo || showAudio">
+              </el-alert>
+              <el-alert
+                title="该文件不支持在线播放！"
+                type="warning"
+                show-icon
+                :closable="false"
+                v-else>
+              </el-alert>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>&nbsp;</el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <transition name="el-fade-in">
+                <div v-show="showPlay" class="transition-box">
+                  <video width="100%" controls v-if="showVideo">
+                    <source :src="uploadConfig.previewImageUrl" type="video/mp4">
+                    <source :src="uploadConfig.previewImageUrl" type="video/ogg">
+                    <source :src="uploadConfig.previewImageUrl" type="video/webm">
+                    您的浏览器不支持 视频播放。
+                  </video>
+                  <audio :src="uploadConfig.previewImageUrl" controls v-if="showAudio">
+                    您的浏览器不支持 音频播放。
+                  </audio>
+                </div>
+              </transition>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+      <el-row v-show="styleType == 3">
         <el-col>
           <el-row>
             <el-col :span="6">
@@ -117,7 +180,7 @@
         uploadConfig: {
           loading: false,
           prefixServerFileUrl: "",//this.$config.prefixServerFileUrl,
-          uploadFileApiUrl: process.env.VUE_APP_BASE_API + 'upload',//this.$config.uploadFileApiUrl,
+          uploadFileApiUrl: process.env.VUE_APP_BASE_API + (this.styleType == 3 ? 'identification': 'upload'),//this.$config.uploadFileApiUrl,
           previewImageUrl: "",
           succeedFileList: [],
           dialogVisible: false,
@@ -164,6 +227,12 @@
         required: false,
         default: 1
       },
+      //样式类型(1:图片类型 2.附件类型) 默认1
+      certType: {
+        type: String,
+        required: false,
+        default: ''
+      },
       //tip备注提示
       tipMessage: {
         type: String,
@@ -205,6 +274,11 @@
         if (res && res.code == 200){
           if (file.response.data) {
             that.uploadConfig.succeedFileList.push(file.response.data);
+
+            if(this.styleType == 3) {
+              this.$emit('successAction', file.response.data)
+            }
+
           }
         } else{
           that.$message.error(res.msg);
@@ -305,7 +379,7 @@
                 model.url = that.uploadConfig.prefixServerFileUrl + file.path;
               }
             }
-            model.response = {data: file};
+             model.response = {data: file};
             that.uploadConfig.initFileList.push(model);
             that.uploadConfig.succeedFileList.push(file);
           }

@@ -59,6 +59,7 @@
           v-model="listQuery.administrativeGradeId"
           placeholder="请选择年级"
           clearable
+          filterable
           style="margin-left:5px;width: 120px"
           class="filter-item"
         >
@@ -69,6 +70,7 @@
           v-model="listQuery.administrativeSpecialtyId"
           placeholder="请选择专业"
           clearable
+          filterable
           class="filter-item"
           style="margin-left:5px;width: 120px"
         >
@@ -198,6 +200,14 @@
               type="danger"
               name=""
               @click="removeHandle(row)"
+              round
+            />
+            <PermissionButton
+              menu-no="_views_recruit_preregistration_print"
+              type="success"
+              name=""
+              :page-jump="true"
+              :page-query="{id: row.id}"
               round
             />
           </template>

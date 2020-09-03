@@ -38,6 +38,7 @@
           prefix-icon="el-icon-search"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
+          type="number"
         />
         <el-input
           v-model="listQuery.month"
@@ -45,6 +46,7 @@
           prefix-icon="el-icon-search"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
+          type="number"
         />
         <el-select
           v-model="listQuery.grantType"
@@ -280,7 +282,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/grant/download/exportExcel', null, '助学金导出')
+      this.$utils.exportUtil('/grant/download/exportExcel', this.listQuery, '助学金导出')
     },
     getStatistics() {
       let that = this
@@ -375,6 +377,7 @@ export default {
       this.listLoading = true
       this.$api.grant.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

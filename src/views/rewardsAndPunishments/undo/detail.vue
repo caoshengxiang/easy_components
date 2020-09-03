@@ -212,35 +212,35 @@
       },
       loadComplete: function (value) {
         if (value) {
-          this.getClbumList()
+          this.getClbumList();
           this.getStdNoBedList()
         }
       }
     },
     created() {
-      const that = this
+      const that = this;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
-        that.editStatus = false
+        that.postForm = that.detailInfo;
+        that.editStatus = false;
         this.loadComplete = true
       } else if (that.$route.query.rewardPunishmnetId) {
         that.getRewardPunishmentDetail(that.$route.query.rewardPunishmnetId)
         // that.editStatus = false
       } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
+        that.id = that.$route.query.id;
         that.getDetail()
         // that.editStatus = false
       }
-      that.getGradeList()
-      that.getSpecialtyList()
-      that.getAllEnum()
+      that.getGradeList();
+      that.getSpecialtyList();
+      that.getAllEnum();
       that.getSysCfg()
     },
     methods: {
       getGradeList() {
-        let that = this
+        let that = this;
         that.$api.baseInfo.getGradeList().then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             //返回成功
             that.classInfo = data.data
@@ -250,11 +250,11 @@
               message: data.msg
             })
           }
-        })
+        });
         that.listLoading = false
       },
       getAllEnum() {
-        const that = this
+        const that = this;
         that.$api.globalConfig.getAllEnum().then(data => {
           if (data.code === 200) {
             that.AllEnum = data.data
@@ -272,9 +272,9 @@
         })
       },
       getClbumList(row) {
-        const that = this
+        const that = this;
         if (row) {
-          this.$set(this.postForm, 'clbumId', '')
+          this.$set(this.postForm, 'clbumId', '');
           this.$set(this.postForm, 'studentId', '')
         }
         that.$api.baseInfo.getClbumList({
@@ -293,18 +293,18 @@
         })
       },
       getStdNoBedList(row) {
-        let that = this
+        let that = this;
         if (row) {
           this.$set(this.postForm,'studentId', '')
         }
-        let param = {}
+        let param = {};
         if (that.postForm.clbumId > 0) {
-          param.clbumId = that.postForm.clbumId
+          param.schoolClbumId = that.postForm.clbumId
         } else {
           param = {}
         }
-        that.$api.student.getStdNoBedList({ ...param }).then(data => {
-          that.loading = false
+        that.$api.student.getStudentList({ ...param }).then(data => {
+          that.loading = false;
           if (data.code === 200) {
             //返回成功
             that.noBedStd = data.data
@@ -317,7 +317,7 @@
         })
       },
       getSpecialtyList() {
-        const that = this
+        const that = this;
         that.$api.baseInfo.getSpecialtyList().then(data => {
           if (data.code === 200) {
             // 返回成功
@@ -331,15 +331,15 @@
         })
       },
       clearClbumStd() {
-        this.$set(this.postForm, 'clbumId', '')
+        this.$set(this.postForm, 'clbumId', '');
         this.$set(this.postForm, 'studentId', '')
       },
       getRewardPunishmentDetail(id){
-        const that = this
+        const that = this;
         that.$api.rewardsAndPunishments.getDetail(id).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
-            let {specialtyId,gradeId,clbumId,studentId,oper,level} = data.data
+            let {specialtyId,gradeId,clbumId,studentId,oper,level} = data.data;
             that.postForm = {specialtyId,gradeId,clbumId,studentId,oper,level}
           } else {
             this.$message({
@@ -350,11 +350,11 @@
         })
       },
       getDetail() {
-        const that = this
+        const that = this;
         that.$api.rewardsAndPunishments.getCancelDetail(that.id).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
-            that.postForm = data.data
+            that.postForm = data.data;
             this.loadComplete = true
           } else {
             this.$message({
@@ -365,7 +365,7 @@
         })
       },
       save() {
-        const that = this
+        const that = this;
         if (that.$refs.cancelFile.getFileList().length === 0 ) {
           that.postForm.cancelFile = ''//that.$refs.uploadCourseChapter1.getFileList()[0].url
         } else {
@@ -376,14 +376,14 @@
             if (that.$route.query.id) {
               // //编辑
               that.$api.rewardsAndPunishments.editRewardsAndPunishmentsCancel({...that.postForm}).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑撤销成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/rewardsAndPunishments/undo',
                   })
@@ -398,14 +398,14 @@
               // //新增
               // //编辑
               that.$api.rewardsAndPunishments.addRewardsAndPunishmentsCancel({...that.postForm},this.$route.query.rewardPunishmnetId).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '撤销奖惩成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/rewardsAndPunishments/undo',
                   })

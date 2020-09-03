@@ -152,7 +152,7 @@
           <template slot-scope="{row}">
             <PermissionButton
               menu-no="_views_student_morningExam_remove"
-              type="primary"
+              type="danger"
               name=""
               @click="removeHandle(row)"
               round
@@ -236,7 +236,7 @@ export default {
   },
   methods: {
     downloadTemplate() {
-      this.$utils.exportUtil('/grant/download/exportExcel', null, '助学金导出')
+      this.$utils.exportUtil('/grant/download/exportExcel', this.listQuery, '晨检报表导出')
     },
     getStatistics() {
       let that = this
@@ -340,6 +340,7 @@ export default {
       }
       this.$api.morningExam.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

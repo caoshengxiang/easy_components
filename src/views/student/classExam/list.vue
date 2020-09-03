@@ -65,6 +65,7 @@
           v-model="listQuery.month"
           placeholder="月份"
           prefix-icon="el-icon-search"
+          type="number"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
         />
@@ -94,7 +95,7 @@
         </el-table-column>
         <el-table-column label="学期" align="center">
         <template slot-scope="{row}">
-          <span>接口没有</span>
+          <span>{{row.termName}}</span>
         </template>
       </el-table-column>
         <el-table-column label="月份" align="center">
@@ -169,7 +170,7 @@
         </el-table-column>
         <el-table-column label="卫生" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.WSsocre }} </span>
+            <span>{{ row.wSsocre }} </span>
           </template>
         </el-table-column>
         <el-table-column label="得分" align="center">
@@ -209,7 +210,7 @@
         </el-table-column>
         <el-table-column label="乘系得分" align="center">
           <template slot-scope="{row}">
-            <span>接口没有 </span>
+            <span>{{ row.cxValue }} </span>
           </template>
         </el-table-column>
         <el-table-column label="本周总分" align="center">
@@ -308,7 +309,7 @@ export default {
       })
     },
     downloadTemplate() {
-      this.$utils.exportUtil('/classExam/download/exportExcel', null, '班级考核报表')
+      this.$utils.exportUtil('/classExam/download/exportExcel', this.listQuery, '班级考核报表')
     },
     getStatistics() {
       let that = this
@@ -403,6 +404,7 @@ export default {
       this.listLoading = true
       this.$api.classExam.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

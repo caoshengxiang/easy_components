@@ -10,26 +10,26 @@
           <el-form ref="postForm" class="form-container" :model="postForm" label-width="70px" :rules="rules" >
             <el-row>
               <el-col :span="24">
-                <el-form-item label="类型：" prop="area" >
-                  <service-select
-                    v-model="postForm.specialtyId"
-                    name="name"
-                    field="id"
-                    :data-service="$api.baseInfo.getSpecialtyList"
-                    placeholder="专业"
-                    style="width: 100%;"
+                <el-form-item label="类型：" prop="cate" >
+                  <el-select
+                    v-model="postForm.cate"
+                    placeholder="类型"
                     clearable
-                  />
+                    class="filter-item"
+                    style="width: 100%"
+                  >
+                    <el-option v-for="item in cates" :key="item" :label="item" :value="item"/>
+                  </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="标题：" prop="area">
-                  <el-input v-model="postForm.id" class="filter-item"/>
+                <el-form-item label="标题：" prop="title">
+                  <el-input v-model="postForm.title" class="filter-item"/>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="内容：" prop="returnDateThree" >
-                  <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.id" show-word-limit />
+                <el-form-item label="内容：" prop="content" >
+                  <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.content" show-word-limit />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -65,27 +65,23 @@ export default {
       editStatus: true,
       postForm: {},
       rules: {
-        area: [{
+        cate: [{
           required: true,
-          message: '请填写平时成绩比例',
+          message: '请选择类型',
           trigger: 'change'
         }],
-        certificateNum: [{
+        title: [{
           required: true,
-          message: '请填写期中考试成绩比例',
+          message: '请填写标题',
           trigger: 'change'
         }],
-        price: [{
+        content: [{
           required: true,
-          message: '请填写期末考试成绩比例',
-          trigger: 'change'
-        }],
-        addr: [{
-          required: true,
-          message: '请填写实作成绩比例',
+          message: '请填写内容',
           trigger: 'change'
         }],
       },
+      cates: []
     }
   },
   watch: {
@@ -104,12 +100,12 @@ export default {
       that.getDetail()
       that.editStatus = true
     }
-
+    that.getAllEnum()
   },
   methods: {
     getDetail() {
       const that = this
-      that.$api.assetinfo.getLandDetail(that.id).then(data => {
+      that.$api.commonCommentManage.getDetail(that.id).then(data => {
         that.loading = false
         if (data.code === 200) {
           that.postForm = data.data
@@ -127,19 +123,19 @@ export default {
         if (valid) {
           if (that.$route.query.id) {
             // //编辑
-            that.$api.assetinfo.editLand({ ...that.postForm }).then(data => {
+            that.$api.commonCommentManage.edit({ ...that.postForm }).then(data => {
               that.loading = false
               if (data.code === 250) {
 
               } else if (data.code === 200) {
                 this.$notify({
                   title: '成功',
-                  message: '规则设置成功',
+                  message: '编辑通用评语成功',
                   type: 'success',
                   duration: 2000
                 })
                 that.$router.push({
-                  path: '/views/moralMange/notification/list',
+                  path: '/views/moralManage/commonCommentManage/list',
                   query: {
                     menuLevel1: this.$route.query.menuLevel1
                   }
@@ -152,7 +148,7 @@ export default {
               }
             })
           } else {
-            that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
+            that.$api.commonCommentManage.add({ ...that.postForm }).then(data => {
               that.loading = false
               if (data.code === 250) {
                 that.$router.push({
@@ -164,12 +160,12 @@ export default {
               } else if (data.code === 200) {
                 this.$notify({
                   title: '成功',
-                  message: '规则设置成功',
+                  message: '新增通用评语成功',
                   type: 'success',
                   duration: 2000
                 })
                 that.$router.push({
-                  path: '/views/baseinfo/assetinfo/list',
+                  path: '/views/moralManage/commonCommentManage/list',
                   query: {
                     menuLevel1: this.$route.query.menuLevel1
                   }
@@ -183,6 +179,11 @@ export default {
             })
           }
         }
+      })
+    },
+    getAllEnum() {
+      this.$api.globalConfig.getAllEnum().then(res=>{
+        this.cates = res.data['评语类型']
       })
     }
   }

@@ -15,7 +15,16 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">{{ statisticsData.leagueName || '' }}：<span class="tag">{{ statisticsData.maxNum || 0 }}</span></div>
+            <div class="analysis-text">
+              <el-tooltip v-if="statisticsData.leagueName && statisticsData.leagueName.length > 5" :content="statisticsData.leagueName">
+                <div class="analysis-text-label">
+                  {{ statisticsData.leagueName || '' }}
+                </div>
+              </el-tooltip>
+              <span v-else class="analysis-text-label">{{ statisticsData.leagueName || '' }}</span>
+              ：
+              <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
+            </div>
             <div class="analysis-text-small">活动最多的团支部及活动数量</div>
           </div>
         </div>
@@ -54,13 +63,13 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="getData"
+          @click="search"
           round
           size="mini"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}"
+        <el-button class="filter-item" round type="warning" @click="reset"
                    size="mini">
           重置
         </el-button>
@@ -71,7 +80,7 @@
         <el-table-column label="活动时间" align="center" prop="activityTime" min-width="160"/>
         <el-table-column label="活动类型" prop="cate"/>
 <!--        <el-table-column label="活动内容" prop="content"/>-->
-        <el-table-column label="创建时间" align="center" prop="createDate"/>
+        <el-table-column label="创建时间" align="center" prop="created"/>
         <el-table-column label="创建人" prop="creator"/>
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="{ row }">
@@ -148,9 +157,8 @@
           type: 'warning'
         })
           .then(() => {
-            // todo 对接口
             this.$api.leagueMemberActivities.remove(id).then(res=>{
-              this.getData()
+              this.search();
             })
           });
       },
@@ -161,45 +169,34 @@
             this.statisticsData = res.data;
             this.statisticsLoading = false;
           })
+      },
+      search() {
+        this.getData();
+        this.getStatisticsData();
+      },
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.search();
       }
     },
   }
 </script>
 
 <style lang="scss" scoped>
-  .statistics-container {
-    display: flex;
-    align-items: center;
-    margin-top: 16px;
-
-    .statistics-item {
+  .app-container {
+    .item-img {
+      width: 50px;
+      height: 50px;
+    }
+    .analysis-text {
       display: flex;
       align-items: center;
-      margin-right: 24px;
-      background-color: rgba(242, 242, 242, 1);
-      padding: 12px;
-      border-radius: 4px;
-
-      .item-img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .item-info {
-        margin-left: 12px;
-        text-align: center;
+      .analysis-text-label {
         font-size: 16px;
-
-        .item-head {
-          font-weight: bold;
-        }
-
-        .item-data {
-          margin-top: 6px;
-          font-size: 24px;
-          font-weight: bold;
-          color: #1890ff;
-        }
+        width: 80px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
   }

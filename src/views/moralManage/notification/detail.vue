@@ -12,31 +12,31 @@
               <div class="postInfo-container">
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="平时成绩（%）：" prop="area" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.area" class="filter-item"/>
+                    <el-form-item label="平时成绩（%）：" prop="usualRate" label-width="200px" class="postInfo-container-item">
+                      <el-input v-model="postForm.usualRate" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
                       label="期中考试成绩（%）："
-                      prop="certificateNum"
+                      prop="midtermRate"
                       label-width="200px"
                       class="postInfo-container-item"
                     >
-                      <el-input v-model="postForm.certificateNum" class="filter-item"/>
+                      <el-input v-model="postForm.midtermRate" class="filter-item"/>
                     </el-form-item>
                   </el-col>
 
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="期末考试成绩（%）：" prop="price" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.price" class="filter-item"/>
+                    <el-form-item label="期末考试成绩（%）：" prop="finalRate" label-width="200px" class="postInfo-container-item">
+                      <el-input v-model="postForm.finalRate" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="实作成绩（%）：" prop="addr" label-width="200px" class="postInfo-container-item">
-                      <el-input v-model="postForm.addr" class="filter-item"/>
+                    <el-form-item label="实作成绩（%）：" prop="praticalRate" label-width="200px" class="postInfo-container-item">
+                      <el-input v-model="postForm.praticalRate" class="filter-item"/>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -73,22 +73,22 @@
         postForm: {},
         rules: {
 
-          area: [{
+          usualRate: [{
             required: true,
             message: '请填写平时成绩比例',
             trigger: 'change'
           }],
-          certificateNum: [{
+          midtermRate: [{
             required: true,
             message: '请填写期中考试成绩比例',
             trigger: 'change'
           }],
-          price: [{
+          finalRate: [{
             required: true,
             message: '请填写期末考试成绩比例',
             trigger: 'change'
           }],
-          addr: [{
+          praticalRate: [{
             required: true,
             message: '请填写实作成绩比例',
             trigger: 'change'
@@ -107,83 +107,39 @@
       if (that.detailInfo) {
         that.postForm = that.detailInfo
         that.editStatus = false
-      } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
-        that.getDetail()
-        that.editStatus = false
       }
 
     },
     methods: {
-      getDetail() {
-        const that = this
-        that.$api.assetinfo.getLandDetail(that.id).then(data => {
-          that.loading = false
-          if (data.code === 200) {
-            that.postForm = data.data
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg
-            })
-          }
-        })
-      },
       save() {
         const that = this
         that.$refs.postForm.validate(valid => {
           if (valid) {
-            if (that.$route.query.id) {
-              // //编辑
-              that.$api.assetinfo.editLand({ ...that.postForm }).then(data => {
-                that.loading = false
-                if (data.code === 250) {
-
-                } else if (data.code === 200) {
-                  this.$notify({
-                    title: '成功',
-                    message: '规则设置成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
-                } else {
-                  this.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
+            that.$api.notification.setRule({...that.postForm}).then(data => {
+              that.loading = false
+              if (data.code === 250) {
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
                 }
-              })
-            } else {
-              that.$api.assetinfo.addLand({ ...that.postForm }).then(data => {
-                that.loading = false
-                if (data.code === 250) {
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
-                } else if (data.code === 200) {
-                  this.$notify({
-                    title: '成功',
-                    message: '规则设置成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
-                } else {
-                  this.$message({
-                    type: 'error',
-                    message: data.msg
-                  })
+              } else if (data.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '规则设置成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
                 }
-              })
-            }
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: data.msg
+                })
+              }
+            })
           }
         })
       }

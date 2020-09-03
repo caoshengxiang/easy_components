@@ -194,6 +194,7 @@
             menu-no="_views_student_leave_audit"
             type="success"
             name=""
+            v-if="row.state == 1"
             :page-jump="true"
             :page-query="{id: row.leaveId}"
             round
@@ -332,10 +333,10 @@ export default {
       this.map.center.lng = row.lon
     },
     exportStatics() {
-      this.$utils.exportUtil('/leave/exportStatics', null, '学生请假汇总')
+      this.$utils.exportUtil('/leave/exportStatics', this.listQuery, '学生请假汇总')
     },
     exportDetail() {
-      this.$utils.exportUtil('/leave/exportDetail', null, '学生请假详情')
+      this.$utils.exportUtil('/leave/exportDetail', this.listQuery, '学生请假详情')
     },
     getStatistics() {
       let that = this
@@ -438,6 +439,7 @@ export default {
       }
       this.$api.leave.list({ ...that.listQuery, ...that.pagePara }).then(res => {
         that.pageData = res.data
+        that.getStatistics()
         setTimeout(() => {
           that.listLoading = false
         }, 200)

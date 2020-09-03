@@ -42,7 +42,7 @@
                 <el-col :span="24">
                   <el-form-item label="考核学月：" prop="month" label-width="150px" class="postInfo-container-item">
                     <el-input
-                      placeholder="月份" v-model="postForm.month" class="filter-item"/>
+                      placeholder="月份" type="number" v-model="postForm.month" class="filter-item"/>
                   </el-form-item>
                 </el-col>
 

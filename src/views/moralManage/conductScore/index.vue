@@ -31,10 +31,13 @@
           placeholder="班级"
           style="margin-left: 10px;"
           clearable
+          :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
         />
-
         <el-input
-          v-model="listQuery.addr"
+          v-model="listQuery.name"
           placeholder="学生"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
@@ -51,21 +54,21 @@
       <template slot="right">
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="学号" prop="property" align="center" >
+        <el-table-column label="学号" prop="studyCode" align="center" >
         </el-table-column>
-        <el-table-column label="姓名" prop="property" align="center" >
+        <el-table-column label="姓名" prop="name" align="center" >
         </el-table-column>
-        <el-table-column label="操行分" prop="property" align="center" >
+        <el-table-column label="操行分" prop="score" align="center" >
         </el-table-column>
-        <el-table-column label="排名" prop="property" align="center" >
+        <el-table-column label="排名" prop="rank" align="center" >
         </el-table-column>
-        <el-table-column label="操作" fixed="right" align="center" width="220px">
+        <el-table-column label="操作" fixed="right" align="center" width="260px">
           <template v-slot="{ row }">
             <PermissionButton
               menu-no="_views_moralManage_conductScore_view"
               name=""
               type="primary"
-              @click="drawLine()"
+              @click="drawLine(row)"
               round
             >
               查看
@@ -74,10 +77,19 @@
               menu-no="_views_moralManage_conductScore_ussetting"
               name=""
               type="primary"
-              @click="dialogFormVisible1 = true"
+              @click="showConductScoreSetting(row)"
               round
             >
               操行分设置
+            </PermissionButton>
+            <PermissionButton
+              menu-no="_views_moralManage_conductScore_detail"
+              name=""
+              type="primary"
+              @click="showDetail(row)"
+              round
+            >
+              明细
             </PermissionButton>
           </template>
         </el-table-column>
@@ -88,35 +100,37 @@
       </div>
     </el-dialog>
 
-
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible1">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px"
+      <el-form ref="conductScoreForm" :model="conductScoreForm" label-position="right" label-width="150px"
+               :rules="rules"
                style="width: 80%; margin-left:50px;"
       >
-        <el-form-item class="postInfo-container-item " label="类型：">
+        <el-form-item class="postInfo-container-item " label="类型：" prop="typeId">
           <service-select
-            v-model="listQuery.gradeId"
+            v-model="conductScoreForm.typeId"
             name="name"
             field="id"
-            :data-service="$api.baseInfo.getGradeList"
+            :data-service="$api.conductScore.conductTypeSimpleAll"
             placeholder="请选择类型"
             style="margin-left: 10px;width: 100%"
             clearable
           />
         </el-form-item>
-        <el-form-item class="postInfo-container-item " label="详情：">
+        <el-form-item class="postInfo-container-item " label="详情：" prop="reason">
           <service-select
-            v-model="listQuery.gradeId"
+            v-model="conductScoreForm.reason"
             name="name"
-            field="id"
-            :data-service="$api.baseInfo.getGradeList"
+            field="name"
+            :data-service="$api.conductScore.getConductTypeItem"
             placeholder="请选择详情"
             style="margin-left: 10px;width: 100%"
+            :default-query="{ id: conductScoreForm.typeId }"
             clearable
+            @after-select="conductTypeItemSelect"
           />
         </el-form-item>
-        <el-form-item class="postInfo-container-item " label="分数：">
-        -5
+        <el-form-item class="postInfo-container-item " label="分数：" prop="score">
+          {{conductScoreForm.score}}
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align: center">
@@ -127,6 +141,15 @@
           保存
         </el-button>
       </div>
+    </el-dialog>
+    <el-dialog title="操行分变化列表" :visible.sync="detailVisible">
+      <y-page-list-layout :page-list="detailPageData || {}" :page-para="detailPagePara" :get-page-list="getConductScoreDetail">
+        <parentTable v-loading="detailListLoading" :data="detailPageData.records" slot="table" style="width: 100%;" >
+          <el-table-column label="时间" prop="updateTime" align="center" ></el-table-column>
+          <el-table-column label="原因" prop="reason" align="center" ></el-table-column>
+          <el-table-column label="分数变化" prop="score" align="center" ></el-table-column>
+        </parentTable>
+      </y-page-list-layout>
     </el-dialog>
   </div>
 </template>
@@ -156,12 +179,28 @@ export default {
         size: 10
       },
       listQuery: {
-        dormitoryId: 0,
         descs: 'id'
       },
       statisticsInfo: {},
       useStatus: [],
-      purpose: []
+      purpose: [],
+      detailVisible: false,
+      detailPageData: {},
+      detailListLoading: false,
+      detailPagePara: {
+        current: 0,
+        size: 10
+      },
+      studentId: null,
+      xData:[],
+      yData:[],
+      conductScoreForm:{
+        score: 0
+      },
+      rules: {
+        typeId: [{ required: true, message: '请选择类型', trigger: 'blur' }],
+        reason: [{ required: true, message: '请选择详情', trigger: 'blur' }],
+      }
     }
   },
   created() {
@@ -169,28 +208,67 @@ export default {
     that.getList()
   },
   methods: {
-    saveData(){
-      alert('保存数据')
-      this.dialogFormVisible1 = false
+    conductTypeItemSelect(row) {
+      this.conductScoreForm.score = row.score
     },
-    drawLine () {
+    showConductScoreSetting(row) {
+      this.studentId = row.studentId
+      this.dialogFormVisible1 = true
+      this.conductScoreForm = {
+        score: 0
+      }
+    },
+    saveData(){
+      /*操行分扣分记录新增*/
+      this.$api.conductScore.conductDeductRecordAdd({
+        studentId:this.studentId,
+        score:this.conductScoreForm.score,
+        reason:this.conductScoreForm.reason
+      }).then(res => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '操行分设置成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.dialogFormVisible1 = false
+          this.conductScoreForm = {
+            score: 0
+          }
+        }else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    drawLine (row) {
+      let that = this
       this.dialogFormVisible = true
 
-      this.$nextTick(function(){
-        var echarts = require('echarts');
-        var myChart = echarts.init(this.$refs.mychart);
-        myChart.setOption({
-          tooltip: {},
-          xAxis: {
-            data: ['2020-2', '2020-2', '2020-2', '2020-2', '2020-2', '2020-2']
-          },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'line',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
-        });
+      this.$api.conductScore.conductPointMonthly({studentId:row.studentId}).then(res => {
+        const { data = [] } = res
+        that.xData = data.map(item => item.key)
+        that.yData = data.map(item => item.value)
+        that.$nextTick(() => {
+          var echarts = require('echarts');
+          var myChart = echarts.init(that.$refs.mychart);
+          myChart.setOption({
+            tooltip: {},
+            xAxis: {
+              data: that.xData
+            },
+            yAxis: {},
+            series: [{
+              name: '销量',
+              type: 'line',
+              data: that.yData
+            }]
+          });
+        })
+
       })
     },
     searchList() {
@@ -243,12 +321,12 @@ export default {
     getList() {
       const that = this
       that.listLoading = true
-      that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+      that.$api.conductScore.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
         that.listLoading = false
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
-          that.getStatistics()
+          // that.getStatistics()
         } else {
           this.$message({
             type: 'error',
@@ -256,6 +334,28 @@ export default {
           })
         }
       }).catch(() => { that.listLoading = false })
+    },
+    showDetail(row) {
+      this.detailVisible = true
+      this.studentId = row.studentId
+      this.getConductScoreDetail()
+    },
+    getConductScoreDetail() {
+      const that = this
+      that.detailListLoading = true
+      that.$api.conductScore.conductScoreDetail({ studentId:this.studentId,...that.detailPagePara }).then(data => {
+        that.detailListLoading = false
+        if (data.code === 200) {
+          // 返回成功
+          that.detailPageData = data.data
+          console.log(that.detailPageData)
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      }).catch(() => { that.detailListLoading = false })
     },
   }
 }

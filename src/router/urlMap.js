@@ -179,6 +179,7 @@ export default {
   _views_recruit_task_detail: () => import('../views/recruit/task/detail'), // 招生任务编辑/详情
   _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
   _views_recruit_preregistration_detail: () => import('../views/recruit/preregistration/detail'), // 预报名编辑/详情
+  _views_recruit_preregistration_print: () => import('../views/recruit/preregistration/print'), // 预报名编辑/详情
   _views_recruit_registration_list: () => import('../views/recruit/registration/list'), // 报到注册
   _views_recruit_registration_detail: () => import('../views/recruit/registration/detail'), // 报到注册编辑/详情
   _views_recruit_expiration_list: () => import('../views/recruit/expiration/list'), // 预报名失效

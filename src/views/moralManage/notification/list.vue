@@ -24,7 +24,7 @@
           clearable
         />
         <el-input
-          v-model="listQuery.addr"
+          v-model="listQuery.studentName"
           placeholder="姓名"
           prefix-icon="el-icon-search"
           style="margin-left: 20px;width: 200px;"
@@ -51,15 +51,15 @@
         />
       </template>
       <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
-        <el-table-column label="班级" prop="property" align="center" >
+        <el-table-column label="班级" prop="clbum" align="center" >
         </el-table-column>
-        <el-table-column label="学期" prop="property" align="center" >
+        <el-table-column label="学期" prop="term" align="center" >
         </el-table-column>
-        <el-table-column label="姓名" prop="property" align="center" >
+        <el-table-column label="姓名" prop="studentName" align="center" >
       </el-table-column>
-        <el-table-column label="课程" prop="property" align="center" >
+        <el-table-column label="课程" prop="course" align="center" >
       </el-table-column>
-        <el-table-column label="分数" prop="property" align="center" >
+        <el-table-column label="分数" prop="score" align="center" >
         </el-table-column>
       </parentTable>
     </y-page-list-layout>
@@ -98,24 +98,24 @@
       }
     },
     created() {
-      const that = this
-      that.getList()
-      that.getStatistics()
+      const that = this;
+      that.getList();
+      that.getStatistics();
 
-      that.getByTypeId('purpose')
+      that.getByTypeId('purpose');
       that.getByTypeId('useStatus')
     },
     methods: {
       getByTypeId(id) {
-        const that = this
+        const that = this;
         that.$api.dictData.getByCode({ code: id }).then(data => {
           if (data.code === 200) {
             switch (id) {
               case 'useStatus':
-                that.useStatus = data.data
-                break
+                that.useStatus = data.data;
+                break;
               case 'purpose':
-                that.purpose = data.data
+                that.purpose = data.data;
                 break
             }
           } else {
@@ -127,9 +127,9 @@
         })
       },
       getStatistics() {
-        let that = this
+        let that = this;
         that.$api.statistics.getStatistics('/statistics/land/area', { ...that.listQuery }).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             that.statisticsInfo = data.data
           } else {
@@ -141,14 +141,14 @@
         })
       },
       searchList() {
-        const that = this
-        that.pagePara.current = 0
+        const that = this;
+        that.pagePara.current = 0;
 
         that.getList()
       },
 
       deleteInfo(id) {
-        const that = this
+        const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -156,7 +156,7 @@
           center: true
         }).then(() => {
           that.$api.assetinfo.deleteLand({ id: id }).then(data => {
-            that.loading = false
+            that.loading = false;
             if (data.code === 200) {
               that.getList()
             } else {
@@ -170,7 +170,7 @@
         })
       },
       add() {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -179,7 +179,7 @@
         })
       },
       detail(id) {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/baseinfo/assetinfo/detail',
           query: {
@@ -189,14 +189,13 @@
         })
       },
       getList() {
-        const that = this
-        that.listLoading = true
-        that.$api.assetinfo.getLandPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.listLoading = false
+        const that = this;
+        that.listLoading = true;
+        that.$api.notification.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
+          that.listLoading = false;
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data
-            that.getStatistics()
           } else {
             this.$message({
               type: 'error',

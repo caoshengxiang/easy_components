@@ -17,6 +17,7 @@
               :data-service="$api.LACommunityManage.simpleAll"
               placeholder="社团"
               clearable
+              :immediate="false"
             />
           </el-form-item>
           <el-form-item>
@@ -31,10 +32,14 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-date-picker v-model="form.employeeDateStart" placeholder="任职时间开始" value-format="yyyy-MM-dd" />
-          </el-form-item>
-          <el-form-item label-width="20px" label="-">
-            <el-date-picker v-model="form.employeeDateEnd" placeholder="任职时间结束" value-format="yyyy-MM-dd" />
+            <el-date-picker
+              v-model="employeeDate"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="任职日期开始"
+              value-format="yyyy-MM-dd"
+              end-placeholder="任职日期结束"
+            />
           </el-form-item>
           <el-form-item>
             <el-input v-model="form.studentName" placeholder="姓名" />
@@ -81,16 +86,16 @@
         />
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="社团名称" prop="clubName" width="160" />
+        <el-table-column label="社团名称" prop="clubName" width="160" show-overflow-tooltip />
         <el-table-column label="社员姓名" prop="studentName" width="120" />
         <el-table-column label="班级" prop="clbum" width="120" />
         <el-table-column label="年级" align="center" prop="grade" width="120" />
-        <el-table-column label="专业" prop="specialty" width="120" />
+        <el-table-column label="专业" prop="specialty" width="160" />
         <el-table-column label="社团职务" prop="dutyName" width="120" />
         <el-table-column label="任职日期" align="center" prop="employeeDate" width="160" />
         <el-table-column label="入社日期" align="center" prop="entryDate" width="160" />
-        <el-table-column label="工作内容" prop="content" width="180" />
-        <el-table-column label="社团评价" prop="evaluation" width="180" />
+        <el-table-column label="工作内容" prop="content" width="180" show-overflow-tooltip />
+        <el-table-column label="社团评价" prop="evaluation" width="180" show-overflow-tooltip />
         <el-table-column label="状态" align="center" prop="state" width="120" />
         <el-table-column label="备注" prop="remark" width="180" />
         <el-table-column label="操作" align="center" width="180" fixed="right">
@@ -143,8 +148,9 @@
         },
         tableData: { records: [] },
         form: {
-          clubId: this.$route.query.clubId
-        }
+          clubId: Number(this.$route.query.clubId)
+        },
+        employeeDate: null
       }
     },
     created() {
@@ -154,7 +160,12 @@
       // 获取列表数据
       getData() {
         this.loading = true;
-        this.$api.LAMemberManage.page(Object.assign({}, this.pageInfo, this.form))
+        const sendData = Object.assign({}, this.pageInfo, this.form);
+        if (this.employeeDate) {
+          sendData.employeeDateStart = this.employeeDate[0];
+          sendData.employeeDateEnd = this.employeeDate[1];
+        }
+        this.$api.LAMemberManage.page(sendData)
           .then(res => {
             this.tableData = res.data;
           })

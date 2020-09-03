@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="true" :showBtn="false">
       <el-tabs value="first">
         <el-tab-pane label="请假信息录入" name="first">
           <el-form
@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                   <td class="tdclass" style="width: 25%"> 学生</td>
-                  <td  class="tdclass"  style="color: grey"> {{postForm.studentId}} </td>
+                  <td  class="tdclass"  style="color: grey"> {{postForm.studentSampleInfoDTO.name}} </td>
                 </tr>
                 <tr>
                   <td class="tdclass"> 请假时间</td>
@@ -45,8 +45,7 @@
                   <td rowspan="3" class="tdclass"> 审核</td>
                   <td  class="tdclass">
                     <el-select v-model="postForm.state" class="filter-item" style="float: left; width: 100%" placeholder="请选择">
-                      <el-option key="2" label="通过" value="2"/>
-                      <el-option key="3" label="拒绝" value="3"/>
+                      <el-option  v-for="item in AllEnum.审核状态" v-if="item !='待审核'" :key="item" :label="item" :value="item"/>
                     </el-select>
                   </td>
                 </tr>
@@ -71,7 +70,7 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb'
   import { validURL } from '@/utils/validate'
-  import YDetailPageLayout from '@/components/YDetailPageLayout'
+  import YDetailPageLayout from '@/components/YDetailPageLayout/index_detail'
 
   export default {
     name: 'ComplexTable',
@@ -92,7 +91,8 @@
         type: 'detail',
         postForm: {},
         dataId: this.$route.query.id,
-        showState:''
+        showState:'',
+        AllEnum:[]
       }
     },
     watch: {
@@ -107,8 +107,23 @@
       } else {
         this.getDetail()
       }
+      that.getAllEnum()
     },
     methods: {
+
+      getAllEnum() {
+        const that = this
+        that.$api.globalConfig.getAllEnum().then(data => {
+          if (data.code === 200) {
+            that.AllEnum = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      },
       handleCreate(){
           // console.log(data)
           const that = this
@@ -118,7 +133,7 @@
             type: 'warning'
           })
             .then(async () => {
-              this.$api.leave.audit({...this.postForm}).then(res => {
+              this.$api.leave.audit({id:this.postForm.id,state:this.postForm.state == '审核通过'?2:(this.postForm.state == '审核拒绝'?3:0),remark:this.postForm.remark}).then(res => {
                 if (res.code === 200) {
                   this.$message({
                     type: 'success',

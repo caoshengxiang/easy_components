@@ -3,10 +3,9 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
-      <el-tabs value="first">
-        <el-tab-pane label="基础信息" name="first">
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+    <y-detail-page-layout  @save="save" saveBtnName="打印">
+
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"     style="position: relative;padding: 1px 20px;width: 1100px;margin: auto;"  id="studentInfo"    >
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-bottom: 30px">
@@ -53,8 +52,7 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item label="证件类型：" prop="certificateType" label-width="150px"
-                                     class="postInfo-container-item">
+                        <el-form-item label="证件类型：" prop="certificateType" label-width="150px" class="postInfo-container-item">
                           <el-select v-model="postForm.certificateType" placeholder="证件类型" clearable
                                      class="filter-item" style="width: 100%"
                           >
@@ -63,23 +61,12 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                          <fileUpload
-                              ref="uploadCourseChapter"
-                            :isdisabled="false"
-                            :file-list="[{path:postForm.avatar}]"
-                            :style-type="3"
-                            :cert-type="postForm.certificateType"
-                            @successAction="successAction"
-                          />
-                      </el-col>
-                    </el-row>
-                    <el-row>
-
-                      <el-col :span="8">
                         <el-form-item label="证件号码：" prop="idNo" label-width="150px" class="postInfo-container-item">
                           <el-input v-model="postForm.idNo" class="filter-item"/>
                         </el-form-item>
                       </el-col>
+                    </el-row>
+                    <el-row>
                       <el-col :span="8">
                         <el-form-item label="联系电话：" prop="homePhone" label-width="150px" class="postInfo-container-item">
                           <el-input v-model="postForm.homePhone" class="filter-item"/>
@@ -102,27 +89,6 @@
                         />
                       </el-form-item>
                     </el-col>
-                </el-row>
-                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);" v-if="type"/>
-                <div style="margin-bottom: 30px" v-if="type">
-                  <h3 class="title">
-                    <div class="avatar-wrapper icon-title" style="background:rgb(255,61,54)">验</div>
-                    <div class="icon-info">手机验证</div>
-                  </h3>
-                </div>
-                <el-row v-if="type">
-                  <el-col :span="6">
-                    <el-form-item label="手机号：" prop="mobile" label-width="150px" class="postInfo-container-item">
-                      <el-input v-model="postForm.mobile" class="filter-item"/>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-form-item label="验证码："  prop="code" label-width="150px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code"class="filter-item" style="width: 50%"/>
-                      <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
-
-                    </el-form-item>
-                  </el-col>
                 </el-row>
                 <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
                 <div style="margin-bottom: 30px">
@@ -306,19 +272,64 @@
                   </el-col>
                 </el-row>
 
+
+                <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
+                <div style="margin-bottom: 30px">
+                  <h3 class="title">
+                    <div class="avatar-wrapper icon-title" style="background:#9E9CF4">诺</div>
+                    <div class="icon-info">承诺书</div>
+                  </h3>
+                </div>
+
+                <div style="font-size: 10px;letter-spacing: 1px;color: grey;line-height: 20px">
+                  一、按国家的有关规定，中职学校在校学生全部免除学费，现向学校缴纳第一学年书本代管费600元（陆佰元整）；<br />
+                  二、学生必须按规定日到校报到注册，报到注册后将不能变更学籍；<br />
+                  三、学生一律不能纹身、衣着妆容必须符合学生身份，若发现纹身者将不予注册报到；若在校期间严重违反学校有关规章制度或触犯国家法律，收到国家法律的处理，情节严重者将予以 注销学籍，且不退还一切费用；<br />
+                  四、本人承诺，以上填写内容真实有效；<br />
+                  五、本人承诺，报名相关专业后，不再进行专业调换，不退还书本费。<br />
+                </div>
+
+                <div style="margin-top: 30px">
+                  <el-checkbox v-model="checked1" >我同意</el-checkbox>
+                </div>
+
+                <div style="margin-top: 30px">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="家长签字：" label-width="110px" :label-position="position" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="学校经办人签字：" label-width="150px" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="缴费发票编号：" label-width="110px" class="postInfo-container-item">
+                        <div style="margin-top:25px;width:200px;height:1px; background:black;"></div>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="日期：" label-width="150px" class="postInfo-container-item">
+                        {{new Date().getFullYear()}} - {{new Date().getMonth().toString().padStart(2, '0')}} - {{new Date().getDate().toString().padStart(2, '0')}}
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </div>
               </div>
             </div>
           </el-form>
-        </el-tab-pane>
-      </el-tabs>
+
     </y-detail-page-layout>
   </div>
 </template>
 <script>
 import Breadcrumb from '@/components/Breadcrumb'
 import { validURL } from '@/utils/validate'
-import YDetailPageLayout from '@/components/YDetailPageLayout'
+import YDetailPageLayout from '@/components/YDetailPageLayout/index_detail'
 import fileUpload from '@/components/FileUpload'
+import printPdf from '../../../utils/printPdf'
 
 export default {
   name: 'ComplexTable',
@@ -337,9 +348,8 @@ export default {
   },
   data() {
     return {
-      content: '发送验证码',  // 按钮里显示的内容
-      totalTime: 60,
-      canClick: true,
+      position:'left',
+      checked1:false,
       classTypes:[],
       opt2: [{
         key: 1,
@@ -388,15 +398,12 @@ export default {
         zkJoined: [{ required: true,message: '是否参加中考', trigger: 'blur' }],
         ezJoined: [{ required: true,message: '是否参加二诊', trigger: 'blur' }],
         bsJoined: [{ required: true,message: '是否有病史', trigger: 'blur' }],
-        mobile: [{ required: true,message: '请输入手机号', trigger: 'blur' }],
-        code: [{ required: true,message: '请输入验证码', trigger: 'blur' }],
         //applyReason: [{ required: true,message: '报考原因', trigger: 'blur' }],
       },
       dataId: this.$route.query.id,
       AllEnum:[],
       areaInfo:[],
-      clbumInfo:[],
-      type:this.$route.path == '/registration'
+      clbumInfo:[]
     }
   },
   watch: {
@@ -411,39 +418,16 @@ export default {
     } else {
       this.getDetail()
     }
-
     that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
     that.getAreaList()
   },
   methods: {
-    successAction(data){
-    console.log(data)
-    },
-    cert(){
-
-    },
-    countDown() {
-      if(this.totalTime  < 60){
-        return
+    save() {
+      if (this.postForm.name) {
+        printPdf('#studentInfo', this.postForm.name + '-' + this.postForm.id)
       }
-      this.$api.message.sendCode({ mobile:this.postForm.mobile }).then(res => {
-      })
-
-      if (!this.canClick) return  //改动的是这两行代码
-      this.canClick = false
-      this.content = this.totalTime + 's后重新发送'
-      let clock = window.setInterval(() => {
-        this.totalTime--
-        this.content = this.totalTime + 's后重新发送'
-        if (this.totalTime < 0) {
-          window.clearInterval(clock)
-          this.content = '重新发送验证码'
-          this.totalTime = 60
-          this.canClick = true  //这里重新开启
-        }
-      },1000)
     },
     changeSpe(){
       let that = this
@@ -557,52 +541,20 @@ export default {
       } else { // 新增
         this.$refs.postForm.validate(valid => {
           if (valid) {
-            if(!this.type){
-              this.$api.admiisionPreApply.add(this.postForm).then(res => {
-                if (res.code === 200) {
-                  this.$notify({
-                    title: '成功',
-                    message: '添加成功',
-                    type: 'success',
-                    duration: 2000
-                  })
-                  const back = this.$route.query.back
-                  if (back) {
-                    this.$router.push(back)
-                  }
+            this.$api.admiisionPreApply.add(this.postForm).then(res => {
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '添加成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                const back = this.$route.query.back
+                if (back) {
+                  this.$router.push(back)
                 }
-              })
-            }
-            else{
-              this.$api.message.checkSmsCode({ mobile:this.postForm.mobile,code:this.postForm.code }).then(res => {
-                if (res.code === 200) {
-                  if (res.data) {
-                    this.$api.admiisionPreApply.saveOnMobile(this.postForm).then(res => {
-                      if (res.code === 200) {
-                        this.$notify({
-                          title: '成功',
-                          message: '添加成功',
-                          type: 'success',
-                          duration: 2000
-                        })
-                        const back = this.$route.query.back
-                        if (back) {
-                          this.$router.push(back)
-                        }
-                      }
-                    })
-                  }
-                  else{
-                    this.$notify({
-                      title: '验证码错误',
-                      message: '验证码错误',
-                      type: 'error',
-                      duration: 2000
-                    })
-                  }
-                }
-              })
-            }
+              }
+            })
           }
         })
       }

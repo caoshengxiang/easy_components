@@ -5,18 +5,8 @@
         <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="160px">
           <el-row>
             <el-col :span="24">
-              <el-form-item label="项目名称：" prop="importance">
-                <el-input v-model="postForm.importance"  />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="详情：" prop="importance1">
-                <el-input v-model="postForm.importance1"  />
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="分值：" prop="content">
-                <el-input v-model="postForm.content"  />
+              <el-form-item label="类型名称：" prop="name">
+                <el-input v-model="postForm.name"  />
               </el-form-item>
             </el-col>
           </el-row>
@@ -42,11 +32,10 @@ export default {
         importance:[],
         importance1:[]
       },
+      loading:false,
       classInfo:[],
       rules: {
-        importance: [{ required: true, message: '请选择1S-整理', trigger: 'change' }],
-        importance1: [{ required: true, message: '请选择评语', trigger: 'change' }],
-        content: [{ required: true, message: '请输入评语内容', trigger: 'change' }],
+        name: [{ required: true, message: '请填写类型名称', trigger: 'change' }],
       }
     }
   },
@@ -75,10 +64,21 @@ export default {
       let that = this
       that.$refs.postForm.validate(valid => {
         if (valid) {
-          const back = this.$route.query.back
-          if (back) {
-            this.$router.push(back)
-          }
+          this.$api.conductScore.conductTypeAdd({...this.postForm}).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '新增类型成功',
+                type: 'success',
+                duration: 2000
+              })
+              const back = this.$route.query.back
+              if (back) {
+                this.$router.push(back)
+              }
+            }
+          })
+
         } else {
           this.$message.warning('请完善表单信息！');
         }

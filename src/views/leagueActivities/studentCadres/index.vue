@@ -51,12 +51,15 @@
         <service-select
           v-model="listQuery.clbumId"
           :data-service="$api.baseInfo.getClbumList"
+          :default-query="{
+            gradeId: listQuery.gradeId,
+            specialtyId: listQuery.specialtyId
+          }"
           name="name"
           field="id"
           placeholder="班级"
           clearable
           class="filter-item"
-          :immediate="false"
           style="margin-left: 10px; width: 180px"
         />
 <!--        <el-select v-model="listQuery.timestamp" class="filter-item"-->
@@ -66,6 +69,7 @@
 <!--          />-->
 <!--        </el-select>-->
         <service-select
+          style="margin-left: 12px;"
           v-model="listQuery.termId"
           name="name"
           field="id"
@@ -85,21 +89,21 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click=" listQuery = {descs: 'id'}" size="mini">
+        <el-button class="filter-item" round type="warning" @click="reset" size="mini">
           重置
         </el-button>
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="学年" prop="year"/>
-        <el-table-column label="学期" prop="termName"/>
-        <el-table-column label="学生姓名" prop="name"/>
-        <el-table-column label="年级" prop="grade"/>
-        <el-table-column label="专业" prop="specialty"/>
-        <el-table-column label="班级" prop="clbum"/>
-        <el-table-column label="学生干部岗位" prop="postName"/>
+        <el-table-column label="学年" prop="year" min-width="80"/>
+        <el-table-column label="学期" prop="termName" min-width="120"/>
+        <el-table-column label="学生姓名" prop="name" min-width="120"/>
+        <el-table-column label="年级" prop="grade" min-width="120"/>
+        <el-table-column label="专业" prop="specialty" min-width="160"/>
+        <el-table-column label="班级" prop="clbum" min-width="120"/>
+        <el-table-column label="学生干部岗位" prop="postName" min-width="160" show-overflow-tooltip/>
         <el-table-column label="创建人" prop="creator"/>
         <el-table-column label="创建时间" align="center" prop="created" min-width="160"/>
-        <el-table-column label="评价" prop="score"/>
+        <el-table-column label="评价" prop="score" min-width="180" show-overflow-tooltip/>
         <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
@@ -157,7 +161,7 @@
     },
     created() {
       this.getData();
-      this.getClbumList()
+      // this.getClbumList()
     },
     methods: {
       getData() {
@@ -185,6 +189,10 @@
             })
           });
       },
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.getData();
+      },
       getClbumList() {
         const that = this;
         that.$api.baseInfo.getClbumList({
@@ -207,40 +215,10 @@
 </script>
 
 <style lang="scss" scoped>
-  .statistics-container {
-    display: flex;
-    align-items: center;
-    margin-top: 16px;
-
-    .statistics-item {
-      display: flex;
-      align-items: center;
-      margin-right: 24px;
-      background-color: rgba(242, 242, 242, 1);
-      padding: 12px;
-      border-radius: 4px;
-
-      .item-img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .item-info {
-        margin-left: 12px;
-        text-align: center;
-        font-size: 16px;
-
-        .item-head {
-          font-weight: bold;
-        }
-
-        .item-data {
-          margin-top: 6px;
-          font-size: 24px;
-          font-weight: bold;
-          color: #1890ff;
-        }
-      }
+  .app-container {
+    .item-img {
+      width: 50px;
+      height: 50px;
     }
   }
 </style>
