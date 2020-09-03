@@ -66,4 +66,8 @@ export default {
   conductPointReset() {
     return request.put('conductPoint/reset')
   },
+  /*操行分扣分记录新增*/
+  conductDeductRecordAdd(params) {
+    return request.post('conductDeductRecord',params)
+  },
 }

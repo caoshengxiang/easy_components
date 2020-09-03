@@ -102,9 +102,10 @@
 
     <el-dialog title="操行分设置" :visible.sync="dialogFormVisible1">
       <el-form ref="conductScoreForm" :model="conductScoreForm" label-position="right" label-width="150px"
+               :rules="rules"
                style="width: 80%; margin-left:50px;"
       >
-        <el-form-item class="postInfo-container-item " label="类型：">
+        <el-form-item class="postInfo-container-item " label="类型：" prop="typeId">
           <service-select
             v-model="conductScoreForm.typeId"
             name="name"
@@ -115,19 +116,20 @@
             clearable
           />
         </el-form-item>
-        <el-form-item class="postInfo-container-item " label="详情：">
+        <el-form-item class="postInfo-container-item " label="详情：" prop="reason">
           <service-select
-            v-model="conductScoreForm.score"
+            v-model="conductScoreForm.reason"
             name="name"
-            field="score"
+            field="name"
             :data-service="$api.conductScore.getConductTypeItem"
             placeholder="请选择详情"
             style="margin-left: 10px;width: 100%"
             :default-query="{ id: conductScoreForm.typeId }"
             clearable
+            @after-select="conductTypeItemSelect"
           />
         </el-form-item>
-        <el-form-item class="postInfo-container-item " label="分数：">
+        <el-form-item class="postInfo-container-item " label="分数：" prop="score">
           {{conductScoreForm.score}}
         </el-form-item>
       </el-form>
@@ -192,7 +194,13 @@ export default {
       studentId: null,
       xData:[],
       yData:[],
-      conductScoreForm:{},
+      conductScoreForm:{
+        score: 0
+      },
+      rules: {
+        typeId: [{ required: true, message: '请选择类型', trigger: 'blur' }],
+        reason: [{ required: true, message: '请选择详情', trigger: 'blur' }],
+      }
     }
   },
   created() {
@@ -200,16 +208,22 @@ export default {
     that.getList()
   },
   methods: {
+    conductTypeItemSelect(row) {
+      this.conductScoreForm.score = row.score
+    },
     showConductScoreSetting(row) {
       this.studentId = row.studentId
       this.dialogFormVisible1 = true
-      this.conductScoreForm = {}
+      this.conductScoreForm = {
+        score: 0
+      }
     },
     saveData(){
-      /*新增操行分*/
-      this.$api.conductScore.add({
+      /*操行分扣分记录新增*/
+      this.$api.conductScore.conductDeductRecordAdd({
         studentId:this.studentId,
-        score:this.conductScoreForm.score
+        score:this.conductScoreForm.score,
+        reason:this.conductScoreForm.reason
       }).then(res => {
         if (res.code === 200) {
           this.$notify({
@@ -219,7 +233,9 @@ export default {
             duration: 2000
           })
           this.dialogFormVisible1 = false
-          this.conductScoreForm = {}
+          this.conductScoreForm = {
+            score: 0
+          }
         }else {
           this.$message({
             type: 'error',
