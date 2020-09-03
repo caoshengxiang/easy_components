@@ -338,7 +338,7 @@ export default {
   data() {
     return {
       content: '发送验证码',  // 按钮里显示的内容
-      totalTime: 5,
+      totalTime: 60,
       canClick: true,
       classTypes:[],
       opt2: [{
@@ -425,7 +425,7 @@ export default {
 
     },
     countDown() {
-      if(this.totalTime  < 5){
+      if(this.totalTime  < 60){
         return
       }
       this.$api.message.sendCode({ mobile:this.postForm.mobile }).then(res => {
@@ -440,7 +440,7 @@ export default {
         if (this.totalTime < 0) {
           window.clearInterval(clock)
           this.content = '重新发送验证码'
-          this.totalTime = 5
+          this.totalTime = 60
           this.canClick = true  //这里重新开启
         }
       },1000)
