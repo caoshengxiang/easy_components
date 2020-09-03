@@ -205,6 +205,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
   import Breadcrumb from '@/components/Breadcrumb'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import { fileDown } from '../../utils/file'
 
   export default {
     name: 'ViewsStaffList',
@@ -257,7 +258,7 @@
       beforeUpload(file) {
         const param = new FormData()
         param.append('file', file, file.name)
-        this.$api.staff.importExcel(param).then((res) => {
+        this.$api.staff.fileDown(param).then((res) => {
           if (res.code === 200) {
             this.$notify({
               title: '成功',
