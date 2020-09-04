@@ -683,7 +683,7 @@
         }
         that.listLoading = true
         that.listQuery.sexStudent = true;
-        that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
+        that.$api.student.get6Page({ ...that.pagePara, ...that.listQuery }).then(data => {
           that.listLoading = false
           if (data.code === 200) {
             // 返回成功
