@@ -239,7 +239,7 @@
         </el-table-column>
         <el-table-column label="联系电话" class-name="status-col" width="100px">
           <template slot-scope="{row}">
-            <span>{{ row.homePhone }}</span>
+            <span>{{ row.mobile }}</span>
           </template>
         </el-table-column>
         <el-table-column label="二维码" class-name="status-col">
