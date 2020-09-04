@@ -92,7 +92,7 @@
                   <el-form-item label="疑似/流失时间：" prop="loseTime" label-width="150px" class="postInfo-container-item">
                     <el-date-picker v-model="postForm.loseTime" placeholder="活动时间开始"
                                     type="date"
-                                    value-format="yyyy-MM-dd HH:mm:ss"
+                                    value-format="yyyy-MM-dd"
                                     style="width: 100%"/>
 
                   </el-form-item>
@@ -172,7 +172,8 @@ export default {
       majorInfo:[],
       studentInfo:[],
       type: 'detail',
-      postForm: {},
+      postForm: {
+      },
       rules: {
         studentId: [{required: true, message: '学生',  trigger: 'blur' }],
         loseState: [{required: true, message: '流失状态',  trigger: 'blur' }],

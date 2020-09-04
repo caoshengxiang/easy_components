@@ -475,7 +475,7 @@
         return encodeUrl
       },
       downloadTemplate() {
-        this.$utils.exportUtil('/student/exportSexStudentExcel', null, '六类学生导出')
+        this.$utils.exportUtil('/student/exportSexStudentExcel', this.listQuery, '六类学生导出')
       },
       objToString(obj) {
         var str = ''
