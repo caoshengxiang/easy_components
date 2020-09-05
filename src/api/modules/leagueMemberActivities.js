@@ -18,6 +18,6 @@ export default {
     return request.delete('leagueActivity/' + params )
   },
   stat(params){
-    return request.get('leagueActivity/stat/', { params })
+    return request.get('leagueActivity/stat', { params })
   },
 }
