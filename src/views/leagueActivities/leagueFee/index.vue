@@ -107,7 +107,7 @@
       return {
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -154,12 +154,13 @@
       },
       // 查询
       search() {
+        this.pageInfo.current = 1;
         this.getData();
       },
       // 重置
       reset() {
         this.form = {};
-        this.getData();
+        this.search();
       }
     }
   };

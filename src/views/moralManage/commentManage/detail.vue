@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus="editStatus">
+    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="评语设置" name="first">
           <el-form ref="postForm" class="form-container" :model="postForm" label-width="70px" :rules="rules" >
@@ -49,6 +49,7 @@
     },
     data() {
       return {
+        loading: false,
         editStatus: true,
         postForm: {},
         rules: {
@@ -71,23 +72,23 @@
       },
     },
     created() {
-      const that = this
-      that.type = that.$route.query.type
+      const that = this;
+      that.type = that.$route.query.type;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
+        that.postForm = that.detailInfo;
         that.editStatus = false
       } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
-        that.getDetail()
+        that.id = that.$route.query.id;
+        that.getDetail();
         that.editStatus = true
       }
 
     },
     methods: {
       getDetail() {
-        const that = this
+        const that = this;
         that.$api.commentManage.getDetail(that.id).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             that.postForm = data.data
           } else {
@@ -99,13 +100,14 @@
         })
       },
       save() {
-        const that = this
+        const that = this;
+        that.loading = true;
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if (that.$route.query.id) {
               // //编辑
               that.$api.commentManage.edit({ ...that.postForm }).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 250) {
 
                 } else if (data.code === 200) {
@@ -114,7 +116,7 @@
                     message: '编辑评语成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/moralManage/commentManage/list',
                     query: {
@@ -127,10 +129,10 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => that.loading = false)
             } else {
               that.$api.commentManage.add({ ...that.postForm }).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 250) {
                   that.$router.push({
                     path: '/views/moralMange/notification/list',
@@ -144,7 +146,7 @@
                     message: '新增评语成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   that.$router.push({
                     path: '/views/moralManage/commentManage/list',
                     query: {
@@ -157,7 +159,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => that.loading = false)
             }
           }
         })

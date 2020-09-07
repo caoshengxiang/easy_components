@@ -47,7 +47,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -204,7 +204,7 @@ export default {
     }
   },
   created() {
-    const that = this
+    const that = this;
     that.getList()
   },
   methods: {
@@ -212,8 +212,8 @@ export default {
       this.conductScoreForm.score = row.score
     },
     showConductScoreSetting(row) {
-      this.studentId = row.studentId
-      this.dialogFormVisible1 = true
+      this.studentId = row.studentId;
+      this.dialogFormVisible1 = true;
       this.conductScoreForm = {
         score: 0
       }
@@ -231,8 +231,8 @@ export default {
             message: '操行分设置成功',
             type: 'success',
             duration: 2000
-          })
-          this.dialogFormVisible1 = false
+          });
+          this.dialogFormVisible1 = false;
           this.conductScoreForm = {
             score: 0
           }
@@ -245,13 +245,13 @@ export default {
       })
     },
     drawLine (row) {
-      let that = this
-      this.dialogFormVisible = true
+      let that = this;
+      this.dialogFormVisible = true;
 
       this.$api.conductScore.conductPointMonthly({studentId:row.studentId}).then(res => {
-        const { data = [] } = res
-        that.xData = data.map(item => item.key)
-        that.yData = data.map(item => item.value)
+        const { data = [] } = res;
+        that.xData = data.map(item => item.key);
+        that.yData = data.map(item => item.value);
         that.$nextTick(() => {
           var echarts = require('echarts');
           var myChart = echarts.init(that.$refs.mychart);
@@ -272,13 +272,17 @@ export default {
       })
     },
     searchList() {
-      const that = this
-      that.pagePara.current = 0
+      const that = this;
+      that.pagePara.current = 0;
 
       that.getList()
     },
+    reset() {
+      this.listQuery = {descs: 'id'};
+      this.searchList();
+    },
     deleteInfo(id) {
-      const that = this
+      const that = this;
       that.$confirm('请确认是否删除该数据?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -286,9 +290,9 @@ export default {
         center: true
       }).then(() => {
         that.$api.assetinfo.deleteLand({ id: id }).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
-            that.getList()
+            that.searchList()
           } else {
             this.$message({
               type: 'error',
@@ -300,7 +304,7 @@ export default {
       })
     },
     add() {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -309,7 +313,7 @@ export default {
       })
     },
     detail(id) {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -319,10 +323,10 @@ export default {
       })
     },
     getList() {
-      const that = this
-      that.listLoading = true
+      const that = this;
+      that.listLoading = true;
       that.$api.conductScore.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-        that.listLoading = false
+        that.listLoading = false;
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data
@@ -336,18 +340,18 @@ export default {
       }).catch(() => { that.listLoading = false })
     },
     showDetail(row) {
-      this.detailVisible = true
-      this.studentId = row.studentId
+      this.detailVisible = true;
+      this.studentId = row.studentId;
       this.getConductScoreDetail()
     },
     getConductScoreDetail() {
-      const that = this
-      that.detailListLoading = true
+      const that = this;
+      that.detailListLoading = true;
       that.$api.conductScore.conductScoreDetail({ studentId:this.studentId,...that.detailPagePara }).then(data => {
-        that.detailListLoading = false
+        that.detailListLoading = false;
         if (data.code === 200) {
           // 返回成功
-          that.detailPageData = data.data
+          that.detailPageData = data.data;
           console.log(that.detailPageData)
         } else {
           this.$message({

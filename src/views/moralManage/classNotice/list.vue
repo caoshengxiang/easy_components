@@ -58,7 +58,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -228,7 +228,7 @@
       },
       pre(row){
         let that = this;
-        this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + row.wordUrl;
+        this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + location.origin + row.wordUrl;
         this.$nextTick(function () {
           that.dialogFormVisible = true
         })
@@ -259,7 +259,10 @@
 
         that.getList()
       },
-
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.searchList();
+      },
       deleteInfo(id) {
         const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
@@ -268,10 +271,11 @@
           type: 'warning',
           center: true
         }).then(() => {
-          that.$api.classNotice.delete({ id: id }).then(data => {
+          that.loading = true;
+          that.$api.classNotice.remove(id).then(data => {
             that.loading = false;
             if (data.code === 200) {
-              that.getList()
+              that.searchList()
             } else {
               this.$message({
                 type: 'error',
@@ -280,6 +284,7 @@
             }
           })
         }).catch(() => {
+          that.loading = false;
         })
       },
       add() {

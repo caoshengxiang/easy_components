@@ -121,7 +121,7 @@
         tableData: {records: []},
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -177,6 +177,7 @@
           })
       },
       search() {
+        this.pageInfo.current = 1;
         this.getData();
         this.getStatisticsData()
       },
