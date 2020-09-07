@@ -112,7 +112,7 @@
       <el-table-column label="三年级报到时间" width="140px" align="center" prop="seniorGradeRegisterDate" />
       <el-table-column label="通知书发放时间" width="140px" align="center" prop="sendDate" min-width="140px"/>
       <el-table-column label="创建时间" align="center" prop="created" min-width="140px"/>
-      <el-table-column label="操作" fixed="right" align="center" min-width="220px">
+      <el-table-column label="操作" fixed="right" align="center" min-width="280px">
         <template v-slot="{ row }">
           <PermissionButton
             menu-no="_views_moralManage_classNotice_setComment"
@@ -122,6 +122,16 @@
             round
           >
             预览
+          </PermissionButton>
+          <PermissionButton
+            :disabled="!row.wordUrl"
+            menu-no="_views_moralManage_classNotice_download"
+            name=""
+            type="primary"
+            @click="openLinkUrl(row.wordUrl)"
+            round
+          >
+            下载
           </PermissionButton>
           <PermissionButton
             menu-no="_views_moralManage_classNotice_setComment"
@@ -198,6 +208,9 @@
       that.getByTypeId('useStatus')
     },
     methods: {
+      openLinkUrl(url) {
+        location.href = url;
+      },
       setNotice() {
         const query = this.listQuery;
         if (query.gradeId && query.specialtyId && query.termId && query.clbumId) {
