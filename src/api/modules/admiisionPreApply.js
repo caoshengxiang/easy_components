@@ -21,6 +21,9 @@ export default {
   add(params) {
     return request.post(`admiisionPreApply`, params)
   },
+  saveOnMobile(params) {
+    return request.post(`/admiisionPreApply/saveOnMobile`, params)
+  },
   edit(params) {
     return request.put(`admiisionPreApply`, params)
   },

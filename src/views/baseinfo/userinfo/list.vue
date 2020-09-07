@@ -239,7 +239,7 @@
         </el-table-column>
         <el-table-column label="联系电话" class-name="status-col" width="100px">
           <template slot-scope="{row}">
-            <span>{{ row.homePhone }}</span>
+            <span>{{ row.mobile }}</span>
           </template>
         </el-table-column>
         <el-table-column label="二维码" class-name="status-col">
@@ -428,7 +428,7 @@
         const that = this
         that.$nextTick(() => {
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text: 'http://119.27.160.97:8532?id=' + row.id, // 需要转换为二维码的内容
+            text:'http://119.27.160.97:8534/adminm/student/detail?id=' + row.id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',

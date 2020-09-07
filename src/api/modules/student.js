@@ -5,6 +5,9 @@ export default {
   getPage(params){
     return request.get('student', { params: params })
   },
+  get6Page(params){
+    return request.get('student/u6Page', { params: params })
+  },
   getList(params){
     return request.get('system/user/info/front', { params: params })
   },

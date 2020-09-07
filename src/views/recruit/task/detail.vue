@@ -76,7 +76,7 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="招生目标数：" prop="targetCount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="招生目标数" type="number" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}"  v-model="postForm.targetCount" class="filter-item"/>
+                    <el-input placeholder="招生目标数"  type="number" :change="check_num()"  v-model="postForm.targetCount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -160,8 +160,7 @@ export default {
         }],
         targetCount: [{
           required: true,
-          pattern: '^[0-9]*$',
-          message: '请选择招生目标数且为大于0',
+          message: '请选择招生目标数',
           trigger: 'change'
         }],
         deadTime: [{
@@ -195,6 +194,15 @@ export default {
     that.getAreaList()
   },
   methods: {
+    check_num(){
+      var license_num = this.postForm.targetCount;
+      license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+      if (license_num.indexOf('.') < 0 && license_num != '') {
+        // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+        license_num = parseInt(license_num);
+      }
+      this.postForm.targetCount = license_num;
+    },
     getAreaList() {
       const that = this
       that.$api.admissionSource.listAll().then(data => {

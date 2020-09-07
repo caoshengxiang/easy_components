@@ -1,7 +1,7 @@
 <template>
   <div class="drawer">
     <div :class="maskClass" @click="closeByMask"></div>
-    <div :class="mainClass" :style="mainStyle" class="main">
+    <el-scrollbar :class="mainClass" :style="mainStyle" class="main">
       <div class="drawer-head" v-if="title">
         <span>{{ title }}</span>
         <span class="close-btn" v-show="closable" @click="closeByButton">X</span>
@@ -9,7 +9,7 @@
       <div class="drawer-body">
         <slot/>
       </div>
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 <script>
@@ -114,6 +114,7 @@
       position: fixed;
       z-index: 100000;
       top: 60px;
+      bottom: 0;
       height: calc(100% - 60px);
       background: #1890ff;
       transition: all 0.5s;
@@ -156,6 +157,7 @@
       /*padding: 15px;*/
       box-sizing: border-box;
       /*overflow-x: hidden;*/
+      max-height: 100%;
     }
   }
 </style>

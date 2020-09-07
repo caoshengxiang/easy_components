@@ -35,7 +35,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -99,8 +99,7 @@
     },
     created() {
       const that = this;
-      that.getList();
-      that.getStatistics();
+      that.searchList();
 
       that.getByTypeId('purpose');
       that.getByTypeId('useStatus')
@@ -144,9 +143,13 @@
         const that = this;
         that.pagePara.current = 0;
 
-        that.getList()
+        that.getList();
+        that.getStatistics();
       },
-
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.searchList();
+      },
       deleteInfo(id) {
         const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
@@ -158,7 +161,7 @@
           that.$api.assetinfo.deleteLand({ id: id }).then(data => {
             that.loading = false;
             if (data.code === 200) {
-              that.getList()
+              that.searchList()
             } else {
               this.$message({
                 type: 'error',

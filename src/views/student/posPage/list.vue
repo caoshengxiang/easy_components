@@ -109,7 +109,7 @@
         </el-table-column>
         <el-table-column label="发送时间" align="center">
           <template slot-scope="{row}">
-            <span>{{ row.applyTime }} </span>
+            <span>{{ row.dakaTime }} </span>
           </template>
         </el-table-column>
         <el-table-column label="经度" align="center">

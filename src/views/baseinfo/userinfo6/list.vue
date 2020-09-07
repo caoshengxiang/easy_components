@@ -475,7 +475,7 @@
         return encodeUrl
       },
       downloadTemplate() {
-        this.$utils.exportUtil('/student/exportSexStudentExcel', null, '六类学生导出')
+        this.$utils.exportUtil('/student/exportSexStudentExcel', this.listQuery, '六类学生导出')
       },
       objToString(obj) {
         var str = ''
@@ -683,7 +683,7 @@
         }
         that.listLoading = true
         that.listQuery.sexStudent = true;
-        that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {
+        that.$api.student.get6Page({ ...that.pagePara, ...that.listQuery }).then(data => {
           that.listLoading = false
           if (data.code === 200) {
             // 返回成功

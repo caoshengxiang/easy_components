@@ -83,7 +83,7 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="getData"
+          @click="search"
           round
           size="mini"
         >
@@ -147,7 +147,7 @@
         tableData: {records: []},
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -160,7 +160,7 @@
       }
     },
     created() {
-      this.getData();
+      this.search();
       // this.getClbumList()
     },
     methods: {
@@ -185,13 +185,17 @@
         })
           .then(() => {
             this.$api.studentCadres.remove(id).then(res=>{
-              this.getData()
+              this.search()
             })
           });
       },
+      search() {
+        this.pageInfo.current = 1;
+        this.getData();
+      },
       reset() {
         this.listQuery = {descs: 'id'};
-        this.getData();
+        this.search();
       },
       getClbumList() {
         const that = this;

@@ -86,19 +86,20 @@ import _views_student_classExam_list from '../views/student/classExam/list'
 import _views_student_classExam_detail from '../views/student/classExam/detail'
 import _views_student_classExam_examDetail from '../views/student/classExam/examDetail'
 
-
 import _views_recruit_plan_list from '@/views/recruit/plan/list'
 import _views_recruit_plan_detail from '@/views/recruit/plan/detail'
 import moralManage from './urlMapModules/moralManage'
 import leagueActivities from './urlMapModules/leagueActivities'
 import rewardsAndPunishments from "./urlMapModules/rewardsAndPunishments";
 import diagnosis from './urlMapModules/diagnosis'
+import QuestionnaireInvestigation from './urlMapModules/attainment'
 
 /*
 * 字段说明：
 * 页面全路径url: 对应的路由组件
 * */
 export default {
+  ...QuestionnaireInvestigation, //问卷调查
   _views_home_dataCenter, // 数据中心默认页
   _views_workflow_task_list, // 待办列表
   _views_workflow_task_Detail, // 任务详情
@@ -171,6 +172,7 @@ export default {
   _views_student_classExam_list,
   _views_student_classExam_detail,
   _views_student_classExam_examDetail,
+
   _views_recruit_birthplace_list: () => import('../views/recruit/birthplace/list'), // 生源地
   _views_recruit_birthplace_detail: () => import('../views/recruit/birthplace/detail'), // 生源地编辑/详情
   _views_recruit_plan_list: () => import('../views/recruit/plan/list'), // 招生计划
@@ -187,5 +189,9 @@ export default {
   ...moralManage, // 德育管理界面
   ...leagueActivities, //团学活动管理
   ...rewardsAndPunishments,
+
   /* 二期  end */
+  /* 三期  start */
+  ...diagnosis, // 诊改系统
+  /* 三期  end */
 }

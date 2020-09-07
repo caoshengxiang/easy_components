@@ -8,14 +8,15 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div class="analysis-text" v-if="statisticsData"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div class="analysis-text" v-else>暂无数据</div>
             <div class="analysis-text-small">最近一个月总数</div>
           </div>
         </div>
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">
+            <div class="analysis-text" v-if="statisticsData">
               <el-tooltip v-if="statisticsData.clubName && statisticsData.clubName.length > 5" :content="statisticsData.clubName">
                 <div class="analysis-text-label">
                   {{ statisticsData.clubName || '' }}
@@ -24,6 +25,9 @@
               <span v-else class="analysis-text-label">{{ statisticsData.clubName || '' }}</span>
               ：
               <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
+            </div>
+            <div class="analysis-text" v-else>
+              暂无数据
             </div>
             <div class="analysis-text-small">活动最多的社团及活动数量</div>
           </div>
@@ -57,13 +61,13 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="getData"
+          @click="search"
           round
           size="mini"
         >
           搜索
         </el-button>
-        <el-button class="filter-item" style="" round type="warning" @click="listQuery = {descs: 'id'}" size="mini">
+        <el-button class="filter-item" style="" round type="warning" @click="reset" size="mini">
           重置
         </el-button>
       </template>
@@ -117,7 +121,7 @@
         tableData: {records: []},
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -134,8 +138,7 @@
       }
     },
     created() {
-      this.getData();
-      this.getStatisticsData()
+      this.search();
     },
     methods: {
       getData() {
@@ -161,8 +164,7 @@
         })
           .then(() => {
             this.$api.studentActivities.remove(row.id).then(res=>{
-              this.getData();
-              this.getStatisticsData();
+              this.search();
             })
           });
       },
@@ -173,6 +175,15 @@
             this.statisticsData = res.data;
             this.statisticsLoading = false;
           })
+      },
+      search() {
+        this.pageInfo.current = 1;
+        this.getData();
+        this.getStatisticsData()
+      },
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.search();
       }
     },
   }

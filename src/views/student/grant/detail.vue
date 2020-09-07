@@ -73,7 +73,6 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="学生：" prop="studentId" label-width="150px" class="postInfo-container-item">
-
                     <el-select
                       v-model="postForm.studentId"
                       placeholder="学生"
@@ -168,7 +167,9 @@ export default {
       majorInfo:[],
       studentInfo:[],
       type: 'detail',
-      postForm: {},
+      postForm: {
+        studentId:''
+      },
       rules: {
         year: [{
           required: true,

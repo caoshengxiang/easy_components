@@ -132,7 +132,7 @@
         loading: false,
         statisticsLoading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -145,8 +145,7 @@
       }
     },
     created () {
-      this.getData();
-      this.getStatisticsData();
+      this.search();
     },
     methods: {
       // 获取列表数据
@@ -176,18 +175,19 @@
             this.$api.LACommunityManage.remove(id)
               .then(() => {
                 this.search();
-                this.getStatisticsData();
               })
           });
       },
       // 查询
       search() {
+        this.pageInfo.current = 1;
         this.getData();
+        this.getStatisticsData();
       },
       // 重置
       reset() {
         this.form = {};
-        this.getData();
+        this.search();
       },
       getStatisticsData() {
         this.statisticsLoading = true;

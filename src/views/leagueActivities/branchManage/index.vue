@@ -142,7 +142,7 @@
         loading: false,
         statisticsLoading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -192,6 +192,7 @@
       },
       // 查询
       search() {
+        this.pageInfo.current = 1;
         this.getData();
         this.getStatisticsData();
       },
