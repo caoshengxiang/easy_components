@@ -200,6 +200,7 @@
             round
           />
             <PermissionButton
+              v-if="row.dakaTime"
               menu-no="_views_student_leave_map"
               type="primary"
               name=""

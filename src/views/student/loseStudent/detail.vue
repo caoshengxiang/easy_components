@@ -270,22 +270,27 @@ export default {
     },
     getStudent(){
       const that = this
-      that.$api.student.getStudentList({
-        gradeId: that.postForm.administrativeGradeId,
-        specialtyId: that.postForm.administrativeSpecialtyId,
-        schoolClbumId: that.postForm.administrativeClbumId
-      }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.studentInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+      if(!that.postForm.administrativeClbumId){
+        that.studentInfo = []
+      }
+      else {
+        that.$api.student.getStudentList({
+          administrativeGradeId: that.postForm.administrativeGradeId,
+          administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
+          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.studentInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }
     },
     getDetail() {
       let that = this

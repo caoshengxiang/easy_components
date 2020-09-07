@@ -131,7 +131,9 @@ export default {
       specialty: [],
       gradeInfo: [],
       type: 'detail',
-      postForm: {},
+      postForm: {
+        admissionIds:[]
+      },
       rules: {
         gradeId: [{
           required: true,
@@ -195,13 +197,15 @@ export default {
   },
   methods: {
     check_num(){
-      var license_num = this.postForm.targetCount;
-      license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
-      if (license_num.indexOf('.') < 0 && license_num != '') {
-        // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
-        license_num = parseInt(license_num);
-      }
-      this.postForm.targetCount = license_num;
+     if(this.postForm.targetCount) {
+       var license_num = this.postForm.targetCount;
+       license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+       if (license_num.indexOf('.') < 0 && license_num != '') {
+         // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+         license_num = parseInt(license_num);
+       }
+       this.postForm.targetCount = license_num;
+     }
     },
     getAreaList() {
       const that = this

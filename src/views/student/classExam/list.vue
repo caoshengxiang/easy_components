@@ -56,11 +56,9 @@
         >
           <el-option v-for="item in termOptions" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <el-select v-model="listQuery.year" placeholder="年份" style="margin-left:5px;width: 100px" @change="getWeeks">
-          <el-option v-for="item in yearsOptions" :key="item" :label="item"
-                     :value="item"
-          />
-        </el-select>
+
+        <el-input
+          placeholder="年份" type="number" v-model="listQuery.year" class="filter-item" style="margin-left:5px;width: 100px"/>
         <el-input
           v-model="listQuery.month"
           placeholder="月份"

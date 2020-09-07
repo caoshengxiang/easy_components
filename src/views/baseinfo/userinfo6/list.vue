@@ -11,7 +11,7 @@
         ><img src="../../../assets/p7.png" height="50" width="50">
           <div class="text">
             <div class="analysis-text"><span class="tag">{{ statisticsInfo.hard }}</span>人</div>
-            <div class="analysis-text-small">学生困难</div>
+            <div class="analysis-text-small">学习困难</div>
           </div>
         </div>
         <div
@@ -208,7 +208,7 @@
         </el-table-column>
         <el-table-column label="联系电话" class-name="status-col" width="100px">
           <template slot-scope="{row}">
-            <span>{{ row.homePhone }}</span>
+            <span>{{ row.mobile }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" class-name="status-col" width="150">
@@ -293,16 +293,6 @@
         total: 0,
         listLoading: false,
         listQuery: {
-          state: '在读',
-          type: '',
-          schoolGradeId: '',
-          schoolSpecialtyId: '',
-          schoolClbumId: '',
-          administrativeGradeId: '',
-          administrativeSpecialtyId: '',
-          administrativeClbumId: '',
-          studentType: '',
-          keyword: '',
           descs: 'id'
         },
         gradeInfo: [],

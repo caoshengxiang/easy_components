@@ -98,11 +98,11 @@
         >
           <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <el-select v-model="listQuery.state" placeholder="是否缴费" clearable class="filter-item"
+        <!--<el-select v-model="listQuery.state" placeholder="是否缴费" clearable class="filter-item"
                    style="margin-top:3px;width: 115px;padding-left: 5px"
         >
           <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
-        </el-select>
+        </el-select>-->
         <el-input
           v-model="listQuery.keyword"
           placeholder="关键字"
@@ -297,6 +297,7 @@
         listLoading: false,
         listQuery: {
           // descs: 'id'
+          administrativeClbumId:''
         },
         pagePara: {
           current: 0,
@@ -428,6 +429,7 @@
                   message: '退费成功'
                 })
                 this.getList()
+                this.getStatistics()
               }
             })
           })
@@ -450,6 +452,7 @@
                   message: '操作成功'
                 })
                 this.getList()
+                this.getStatistics()
               }
             })
           })
@@ -472,6 +475,7 @@
                   message: '操作成功'
                 })
                 this.getList()
+                this.getStatistics()
               }
             })
           })
