@@ -122,6 +122,11 @@
             <span>{{ row.lat }} </span>
           </template>
         </el-table-column>
+        <el-table-column label="位置" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.position }} </span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
             <PermissionButton
