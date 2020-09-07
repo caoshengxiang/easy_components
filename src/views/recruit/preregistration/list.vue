@@ -11,7 +11,7 @@
           class="menu-2-item hvr-underline-from-center"
         ><img src="../../../assets/a1.png" height="50" width="50">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsInfo.currentPlanCount }}</span>人</div>
+            <div class="analysis-text"><span class="tag">{{ statisticsInfo.currentPlanCount }}</span>份</div>
             <div class="analysis-text-small">当前年份计划总数</div>
           </div>
         </div>

@@ -180,6 +180,15 @@ export default {
       })
     },
     calTime(){
+      if(this.postForm.endTime <= this.postForm.startTime){
+        this.$notify({
+          title: '时间错误',
+          message: '结束时间必须大于起始时间',
+          type: 'error',
+          duration: 2000
+        })
+        return
+      }
       if(this.postForm.endTime && this.postForm.startTime) {
         var stamp = new Date(this.postForm.endTime).getTime() - new Date(this.postForm.startTime).getTime();
         var time = (stamp / 1000);
@@ -231,22 +240,27 @@ export default {
     },
     getStudent(){
       const that = this
-      that.$api.student.getStudentList({
-        gradeId: that.postForm.administrativeGradeId,
-        specialtyId: that.postForm.administrativeSpecialtyId,
-        schoolClbumId: that.postForm.administrativeClbumId
-      }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.studentInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+      if(!that.postForm.administrativeClbumId){
+        that.studentInfo = []
+      }
+      else {
+        that.$api.student.getStudentList({
+          administrativeGradeId: that.postForm.administrativeGradeId,
+          administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
+          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.studentInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }
     },
     getDetail() {
       if (this.dataId) {
@@ -274,6 +288,15 @@ export default {
         })
     },
     handleCreate() {
+      if(this.postForm.endTime <= this.postForm.startTime){
+        this.$notify({
+          title: '时间错误',
+          message: '结束时间必须大于起始时间',
+          type: 'error',
+          duration: 2000
+        })
+        return
+      }
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {

@@ -38,7 +38,7 @@
         </el-select>
 
         <el-select
-          v-model="listQuery.administrativeGradeId"
+          v-model="administrativeGradeId"
           placeholder="请选择年级"
           clearable
           style="margin-left:10px;width: 100px;margin-bottom: 10px;"
@@ -49,7 +49,7 @@
         </el-select>
 
         <el-select
-          v-model="listQuery.administrativeSpecialtyId"
+          v-model="administrativeSpecialtyId"
           placeholder="请选择专业"
           clearable
           class="filter-item"
@@ -59,7 +59,7 @@
           <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-select
-          v-model="listQuery.administrativeClbumId"
+          v-model="administrativeClbumId"
           placeholder="请选择班级"
           clearable
           class="filter-item"
@@ -95,7 +95,7 @@
         <el-button class="filter-item" style="margin-left: 20px;" round type="primary" @click="searchList">
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning"  @click="resetSearch()">
           重置
         </el-button>
       </template>
@@ -397,7 +397,10 @@
           }],
         },
 
-        statisticsInfo: {}
+        statisticsInfo: {},
+        administrativeGradeId:'',
+        administrativeSpecialtyId :'',
+        administrativeClbumId:''
       }
     },
     mounted() {
@@ -414,6 +417,11 @@
       that.getStatistics()
     },
     methods: {
+      resetSearch() {
+        this.listQuery = {
+          state: '在读',descs: 'id' }
+        this.getList()
+      },
       productInnerQR1(row, down) {
 
         this.productInnerQR = true
@@ -699,11 +707,21 @@
       },
       getList() {
         const that = this
-
         if (that.listQuery.type === '学籍班') {
-          that.listQuery.administrativeGradeId = that.listQuery.schoolGradeId
-          that.listQuery.administrativeSpecialtyId = that.listQuery.schoolSpecialtyId
-          that.listQuery.administrativeClbumId = that.listQuery.schoolClbumId
+          that.listQuery.schoolGradeId = that.administrativeGradeId
+          that.listQuery.schoolSpecialtyId = that.administrativeSpecialtyId
+          that.listQuery.schoolClbumId = that.administrativeClbumId
+          that.listQuery.administrativeGradeId =''
+          that.listQuery.administrativeSpecialtyId = ''
+          that.listQuery.administrativeClbumId =''
+        }
+        else{
+          that.listQuery.schoolGradeId = ''
+          that.listQuery.schoolSpecialtyId = ''
+          that.listQuery.schoolClbumId = ''
+          that.listQuery.administrativeGradeId =that.administrativeGradeId
+          that.listQuery.administrativeSpecialtyId = that.administrativeSpecialtyId
+          that.listQuery.administrativeClbumId =that.administrativeClbumId
         }
         that.listLoading = true
         that.$api.student.getPage({ ...that.pagePara, ...that.listQuery }).then(data => {

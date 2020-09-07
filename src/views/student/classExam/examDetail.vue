@@ -486,6 +486,7 @@ export default {
     },
     resetSearch() {
       this.listQuery = { descs: 'id' }
+      this.listQuery.examType = this.$route.path.split('/').pop();
       this.getList()
     },
     removeHandle(row) {
