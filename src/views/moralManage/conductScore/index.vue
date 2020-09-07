@@ -236,6 +236,7 @@ export default {
           this.conductScoreForm = {
             score: 0
           }
+          this.getList()
         }else {
           this.$message({
             type: 'error',
