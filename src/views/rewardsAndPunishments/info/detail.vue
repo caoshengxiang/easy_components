@@ -311,7 +311,9 @@
         }
         let param = {};
         if (that.postForm.clbumId > 0) {
-          param.schoolClbumId = that.postForm.clbumId
+          param.administrativeClbumId = that.postForm.clbumId
+          param.administrativeSpecialtyId = that.postForm.specialtyId
+          param.administrativeGradeId = that.postForm.gradeId
         } else {
           param = {}
         }
