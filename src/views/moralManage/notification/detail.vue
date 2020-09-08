@@ -102,23 +102,23 @@
       },
     },
     created() {
-      const that = this
-      that.type = that.$route.query.type
+      const that = this;
+      that.type = that.$route.query.type;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
+        that.postForm = that.detailInfo;
         that.editStatus = false
       }
 
     },
     methods: {
       save() {
-        const that = this
+        const that = this;
         that.$refs.postForm.validate(valid => {
           if (valid) {
             that.$api.notification.setRule({...that.postForm}).then(data => {
-              that.loading = false
+              that.loading = false;
               if (data.code === 250) {
-                const back = this.$route.query.back
+                const back = this.$route.query.back;
                 if (back) {
                   this.$router.push(back)
                 }
@@ -128,8 +128,8 @@
                   message: '规则设置成功',
                   type: 'success',
                   duration: 2000
-                })
-                const back = this.$route.query.back
+                });
+                const back = this.$route.query.back;
                 if (back) {
                   this.$router.push(back)
                 }
@@ -139,7 +139,7 @@
                   message: data.msg
                 })
               }
-            })
+            }).catch(_ => this.loading = false);
           }
         })
       }

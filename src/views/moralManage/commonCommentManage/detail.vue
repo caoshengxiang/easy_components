@@ -90,23 +90,23 @@ export default {
     },
   },
   created() {
-    const that = this
-    that.type = that.$route.query.type
+    const that = this;
+    that.type = that.$route.query.type;
     if (that.detailInfo) {
-      that.postForm = that.detailInfo
+      that.postForm = that.detailInfo;
       that.editStatus = false
     } else if (that.$route.query.id) {
-      that.id = that.$route.query.id
-      that.getDetail()
+      that.id = that.$route.query.id;
+      that.getDetail();
       that.editStatus = true
     }
     that.getAllEnum()
   },
   methods: {
     getDetail() {
-      const that = this
+      const that = this;
       that.$api.commonCommentManage.getDetail(that.id).then(data => {
-        that.loading = false
+        that.loading = false;
         if (data.code === 200) {
           that.postForm = data.data
         } else {
@@ -118,13 +118,13 @@ export default {
       })
     },
     save() {
-      const that = this
+      const that = this;
       that.$refs.postForm.validate(valid => {
         if (valid) {
           if (that.$route.query.id) {
             // //编辑
             that.$api.commonCommentManage.edit({ ...that.postForm }).then(data => {
-              that.loading = false
+              that.loading = false;
               if (data.code === 250) {
 
               } else if (data.code === 200) {
@@ -133,7 +133,7 @@ export default {
                   message: '编辑通用评语成功',
                   type: 'success',
                   duration: 2000
-                })
+                });
                 that.$router.push({
                   path: '/views/moralManage/commonCommentManage/list',
                   query: {
@@ -146,10 +146,10 @@ export default {
                   message: data.msg
                 })
               }
-            })
+            }).catch(_ => this.loading = false);
           } else {
             that.$api.commonCommentManage.add({ ...that.postForm }).then(data => {
-              that.loading = false
+              that.loading = false;
               if (data.code === 250) {
                 that.$router.push({
                   path: '/views/moralMange/notification/list',
@@ -163,7 +163,7 @@ export default {
                   message: '新增通用评语成功',
                   type: 'success',
                   duration: 2000
-                })
+                });
                 that.$router.push({
                   path: '/views/moralManage/commonCommentManage/list',
                   query: {
@@ -176,7 +176,7 @@ export default {
                   message: data.msg
                 })
               }
-            })
+            }).catch(_ => this.loading = false);
           }
         }
       })

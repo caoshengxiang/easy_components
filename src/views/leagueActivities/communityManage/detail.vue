@@ -195,6 +195,7 @@
                   this.$router.push(back)
                 }
               })
+              .catch(_ => this.loading = false);
           } else {
             this.$message.warning('请完善表单信息！');
           }

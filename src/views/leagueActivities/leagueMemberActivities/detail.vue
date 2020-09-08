@@ -96,13 +96,13 @@
     methods: {
       getData() {
         if (this.detailInfo) {
-          this.form = this.detailInfo
+          this.form = this.detailInfo;
           this.editStatus = false
         } else if (this.$route.query.id) {
           this.loading = true;
           // todo 对接口
           this.$api.leagueMemberActivities.getDetail(this.$route.query.id).then(res => {
-            this.loading = false
+            this.loading = false;
             if (res.code === 200) {
               this.form = res.data
             } else {
@@ -120,14 +120,14 @@
             // todo 对接口
             if (this.$route.query.id) {
               this.$api.leagueMemberActivities.edit({...this.form}).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑团员活动成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/leagueMemberActivities',
                   })
@@ -137,17 +137,17 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               this.$api.leagueMemberActivities.add({...this.form}).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增团员活动成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/leagueMemberActivities',
                   })
@@ -157,7 +157,7 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           } else {
             this.$message.warning('请完善表单信息！');
