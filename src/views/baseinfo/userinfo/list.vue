@@ -420,6 +420,9 @@
       resetSearch() {
         this.listQuery = {
           state: '在读',descs: 'id' }
+        this.administrativeGradeId = ''
+        this.administrativeSpecialtyId = ''
+        this.administrativeClbumId = ''
         this.getList()
       },
       productInnerQR1(row, down) {
