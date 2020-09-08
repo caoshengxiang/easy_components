@@ -2,8 +2,9 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
-    </div>
+    </div>   <div style="width: 100%;text-align: center;font-size:30px"><label style="letter-spacing: 2px;color: #0e76a8">学生在线报名</label></div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true">
+
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -591,10 +592,8 @@ export default {
                           type: 'success',
                           duration: 2000
                         })
-                        const back = this.$route.query.back
-                        if (back) {
-                          this.$router.push(back)
-                        }
+
+                        location.reload()
                       }
                     })
                   }
