@@ -119,9 +119,13 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="验证码："  prop="code" label-width="150px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code"class="filter-item" style="width: 50%"/>
-                      <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
+                      <el-input v-model="postForm.code"class="filter-item" style="width: 100%"/>
 
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-form-item   prop="code" label-width="10px" class="postInfo-container-item">
+                  <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
                     </el-form-item>
                   </el-col>
                 </el-row>
