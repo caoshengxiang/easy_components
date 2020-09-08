@@ -397,7 +397,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               // //新增
               // //编辑
@@ -419,7 +419,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           }
         })

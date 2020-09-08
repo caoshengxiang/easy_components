@@ -40,14 +40,14 @@ export default {
     }
   },
   created() {
-    let that = this
+    let that = this;
     that.getGradeList()
   },
   methods: {
     getGradeList() {
-      let that = this
+      let that = this;
       that.$api.baseInfo.getGradeList().then(data => {
-        that.loading = false
+        that.loading = false;
         if (data.code === 200) {
           //返回成功
           that.classInfo = data.data
@@ -57,11 +57,11 @@ export default {
             message: data.msg
           })
         }
-      })
+      });
       that.listLoading = false
     },
     save() {
-      let that = this
+      let that = this;
       that.$refs.postForm.validate(valid => {
         if (valid) {
           this.$api.conductScore.conductTypeAdd({...this.postForm}).then(res => {
@@ -71,13 +71,13 @@ export default {
                 message: '新增类型成功',
                 type: 'success',
                 duration: 2000
-              })
-              const back = this.$route.query.back
+              });
+              const back = this.$route.query.back;
               if (back) {
                 this.$router.push(back)
               }
             }
-          })
+          }).catch(_ => this.loading = false);
 
         } else {
           this.$message.warning('请完善表单信息！');

@@ -311,8 +311,8 @@
         }
         let param = {};
         if (that.postForm.clbumId > 0) {
-          param.administrativeClbumId = that.postForm.clbumId
-          param.administrativeSpecialtyId = that.postForm.specialtyId
+          param.administrativeClbumId = that.postForm.clbumId;
+          param.administrativeSpecialtyId = that.postForm.specialtyId;
           param.administrativeGradeId = that.postForm.gradeId
         } else {
           param = {}
@@ -408,7 +408,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               // //新增
               // //编辑
@@ -430,7 +430,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           }
         })
