@@ -135,7 +135,7 @@
         },
         tableData: { records: [] },
         form: {
-          youthLeagueBranchId: this.$route.query.youthLeagueBranchId
+          youthLeagueBranchId: Number(this.$route.query.youthLeagueBranchId)
         }
       }
     },

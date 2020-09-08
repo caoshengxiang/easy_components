@@ -299,8 +299,8 @@
         }
         let param = {};
         if (that.postForm.clbumId > 0) {
-          param.administrativeClbumId = that.postForm.clbumId
-          param.administrativeSpecialtyId = that.postForm.specialtyId
+          param.administrativeClbumId = that.postForm.clbumId;
+          param.administrativeSpecialtyId = that.postForm.specialtyId;
           param.administrativeGradeId = that.postForm.gradeId
         } else {
           param = {}
@@ -342,7 +342,9 @@
           that.loading = false;
           if (data.code === 200) {
             let {specialtyId,gradeId,clbumId,studentId,oper,level} = data.data;
-            that.postForm = {specialtyId,gradeId,clbumId,studentId,oper,level}
+            that.postForm = {specialtyId,gradeId,clbumId,studentId,oper,level};
+            this.getClbumList();
+            this.getStdNoBedList();
           } else {
             this.$message({
               type: 'error',
