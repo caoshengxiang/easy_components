@@ -50,7 +50,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -151,7 +151,10 @@ export default {
 
       that.getList()
     },
-
+    reset() {
+      this.listQuery = {descs: 'id'};
+      this.searchList();
+    },
     add() {
       const that = this;
       that.$router.push({
