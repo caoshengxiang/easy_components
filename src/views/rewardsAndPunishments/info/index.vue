@@ -143,7 +143,7 @@
               :page-jump="true"
               :page-query="{rewardPunishmnetId: row.id,type:'add'}"
               round
-              :disabled="!row.canceled"
+              :disabled="row.canceled"
             />
           </template>
         </el-table-column>
