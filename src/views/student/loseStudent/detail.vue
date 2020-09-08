@@ -90,7 +90,7 @@
 
                 <el-col :span="24">
                   <el-form-item label="疑似/流失时间：" prop="loseTime" label-width="150px" class="postInfo-container-item">
-                    <el-date-picker v-model="postForm.loseTime" placeholder="活动时间开始"
+                    <el-date-picker v-model="postForm.loseTime" placeholder="疑似/流失时间"
                                     type="date"
                                     value-format="yyyy-MM-dd"
                                     style="width: 100%"/>

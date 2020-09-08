@@ -67,7 +67,7 @@
                           <fileUpload
                               ref="uploadCourseChapter"
                             :isdisabled="false"
-                            :file-list="[{path:postForm.avatar}]"
+                            :file-list="[]"
                             :style-type="3"
                             :cert-type="postForm.certificateType"
                             @successAction="successAction"
@@ -212,7 +212,7 @@
                       <el-select v-model="postForm.inschooled" placeholder="是否住校" clearable class="filter-item"
                                  style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+                        <el-option v-for="item in opt3" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -359,6 +359,13 @@ export default {
       }, {
         key: 0,
         label: '未参加'
+      }],
+      opt3: [{
+        key: 1,
+        label: '住校'
+      }, {
+        key: 0,
+        label: '走读'
       }],
       opt: [{
         key: 1,

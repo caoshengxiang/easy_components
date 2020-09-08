@@ -40,6 +40,15 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
+                  <el-form-item label="是否本省：" prop="localProvince " label-width="150px" class="postInfo-container-item">
+                    <el-select v-model="postForm.localProvince " placeholder="是否本省" clearable class="filter-item"
+                               style="width: 100%"
+                    >
+                      <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
                   <el-form-item label="排序：" prop="weight" label-width="150px" class="postInfo-container-item">
                     <el-input
                       placeholder="排序" v-model="postForm.weight" class="filter-item"/>
@@ -75,6 +84,13 @@ export default {
   },
   data() {
     return {
+      opt: [{
+        key: 1,
+        label: '是'
+      }, {
+        key: 0,
+        label: '否'
+      }],
       areaInfo:[],
       specialty: [],
       gradeInfo: [],

@@ -16,13 +16,13 @@
             <div class="createPost-main-container">
               <el-row>
                 <el-col :span="24">
-                  <el-form-item label="年份：" prop="year" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="年份：" type="number" :change="check_num()" prop="year" label-width="150px" class="postInfo-container-item">
                     <el-input
                       placeholder="年份" v-model="postForm.year" type="number" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="月份：" prop="month" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="月份：" type="number" :change="check_num()" prop="month" label-width="150px" class="postInfo-container-item">
                     <el-input
                       placeholder="月份" v-model="postForm.month" type="number" class="filter-item"/>
                   </el-form-item>
@@ -33,6 +33,7 @@
                       v-model="postForm.administrativeGradeId"
                       placeholder="年级"
                       clearable
+                      filterable
                       style="width:100%"
                       class="filter-item"
                       @change="getClbumList(true)"
@@ -48,6 +49,7 @@
                       v-model="postForm.administrativeSpecialtyId"
                       placeholder="专业"
                       clearable
+                      filterable
                       class="filter-item"
                       @change="getClbumList(true)"
                       style="width:100%"
@@ -63,6 +65,7 @@
                       v-model="postForm.administrativeClbumId"
                       placeholder="班级"
                       clearable
+                      filterable
                       class="filter-item"
                       style="width:100%"
                       @change="getStudent"
@@ -77,6 +80,7 @@
                       v-model="postForm.studentId"
                       placeholder="学生"
                       clearable
+                      filterable
                       class="filter-item"
                       style="width:100%"
                     >
@@ -106,8 +110,8 @@
                 </el-col>
 
                 <el-col :span="24">
-                  <el-form-item label="实发奖金：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="实发奖金" v-model="postForm.actualPayAmount" class="filter-item"/>
+                  <el-form-item label="打款奖金：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
+                    <el-input placeholder="打款奖金" v-model="postForm.actualPayAmount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
 
@@ -198,7 +202,7 @@ export default {
         }],
         actualPayAmount: [{
           required: true,
-          message: '实发金额',
+          message: '打款金额',
           trigger: 'change'
         }],
         bankCard: [{
@@ -234,9 +238,29 @@ export default {
     that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
+    this.getStudent()
   },
   methods: {
-
+    check_num(){
+      if(this.postForm.year) {
+        var license_num = this.postForm.year;
+        license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (license_num.indexOf('.') < 0 && license_num != '') {
+          // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+          license_num = parseInt(license_num);
+        }
+        this.postForm.year = license_num;
+      }
+      if(this.postForm.month) {
+        var license_num = this.postForm.month;
+        license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (license_num.indexOf('.') < 0 && license_num != '') {
+          // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+          license_num = parseInt(license_num);
+        }
+        this.postForm.month = license_num;
+      }
+    },
 
     getAllEnum() {
       const that = this
@@ -319,10 +343,6 @@ export default {
     },
     getStudent(){
       const that = this
-      if(!that.postForm.administrativeClbumId){
-        that.studentInfo = []
-      }
-      else {
         that.$api.student.getStudentList({
           administrativeGradeId: that.postForm.administrativeGradeId,
           administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
@@ -339,7 +359,6 @@ export default {
             })
           }
         })
-      }
     },
     getDetail() {
       if (this.dataId) {
