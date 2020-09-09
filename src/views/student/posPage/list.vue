@@ -77,7 +77,6 @@
             type="primary"
             icon="el-icon-plus"
             name=""
-            @click="downloadTemplate"
             round
           />
         </template>
@@ -192,6 +191,7 @@ export default {
   },
   data() {
     return {
+      posttion:'',
       dialogFormVisible:false,
       map: {
         width: '48vw',
@@ -249,6 +249,7 @@ export default {
   },
   methods: {
     sortTable(val){
+      console.log(val)
       this.listQuery.descs = val.descs
       this.listQuery.ascs = val.ascs
       this.getList()

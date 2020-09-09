@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { underscoreName } from '@/utils/index'
   export default {
     name: 'parentTable',
     props: {
@@ -46,16 +47,16 @@
       sortChange(val){
         let sortParam = {}
         if(val.order === "ascending"){
-          sortParam.ascs =  val.prop
-          sortParam.descs =  ''
+          sortParam.ascs =  underscoreName(val.prop)
+          sortParam.descs =  null
         }
         else if(val.order === "descending"){
-          sortParam.descs =  val.prop
-          sortParam.ascs =  ''
+          sortParam.descs =  underscoreName(val.prop)
+          sortParam.ascs =  null
         }
         else{
           sortParam.descs =  'id'
-          sortParam.ascs =  ''
+          sortParam.ascs =  null
         }
 
         this.$emit('sortTable', sortParam)
