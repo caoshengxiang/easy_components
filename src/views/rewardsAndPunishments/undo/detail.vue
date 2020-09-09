@@ -11,7 +11,7 @@
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px;">
                   <el-col :span="24" style="text-align: center; margin-bottom: 50px">
-                    {{sysCfg.SYS_NAME || ''}}
+                    {{sysCfg.SCHOOL_NAME.value || ''}}
                     <br/>
                     奖/惩撤销表
                   </el-col>
@@ -194,6 +194,11 @@
             required: true,
             message: '请选择奖/惩',
             trigger: 'blur'
+          }],
+          cancelReason: [{
+            required: true,
+            message: '请输入处理结果',
+            trigger: 'blur'
           }]
         },
         loading:false,
@@ -201,7 +206,9 @@
         classInfo: [],
         majorInfo: [],
         noBedStd: [],
-        sysCfg: {},
+        sysCfg: {
+          SCHOOL_NAME: {}
+        },
         AllEnum: {},
         loadComplete:false
       }
@@ -267,8 +274,8 @@
         })
       },
       getSysCfg(){
-        this.$api.globalConfig.getSysCfg().then(res => {
-          this.sysCfg = res.data
+        this.$api.globalConfig.getValuesByKey({ key: 'BASE_INFO' }).then(res => {
+          this.sysCfg = res.data.fieldValues;
         })
       },
       getClbumList(row) {

@@ -18,7 +18,7 @@
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px;">
                   <el-col :span="24" style="text-align: center; margin-bottom: 50px">
-                    {{sysCfg.SYS_NAME || ''}}
+                    {{sysCfg.SCHOOL_NAME.value || ''}}
                     <br/>
                     奖/惩登记表
                   </el-col>
@@ -205,9 +205,16 @@
             required: true,
             message: '请选择奖/惩',
             trigger: 'blur'
+          }],
+          operateResult: [{
+            required: true,
+            message: '请输入处理结果',
+            trigger: 'blur'
           }]
         },
-        sysCfg: {},
+        sysCfg: {
+          SCHOOL_NAME: {}
+        },
         gradeInfo: [],
         classInfo: [],
         majorInfo: [],
@@ -349,8 +356,8 @@
         this.$set(this.postForm, 'studentId', '')
       },
       getSysCfg(){
-        this.$api.globalConfig.getSysCfg().then(res => {
-          this.sysCfg = res.data
+        this.$api.globalConfig.getValuesByKey({ key: 'BASE_INFO' }).then(res => {
+          this.sysCfg = res.data.fieldValues;
         })
       },
       printInfo() {

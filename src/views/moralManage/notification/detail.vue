@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus="editStatus">
+    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="成绩设置编辑" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 15% ">
@@ -69,6 +69,7 @@
     },
     data() {
       return {
+        loading: false,
         editStatus: true,
         postForm: {},
         rules: {
@@ -107,10 +108,25 @@
       if (that.detailInfo) {
         that.postForm = that.detailInfo;
         that.editStatus = false
+      } else {
+        this.getData();
       }
 
     },
     methods: {
+      getData() {
+        this.loading = true;
+        this.$api.globalConfig.getValuesByKey({ key: 'ADVICE_ACHIEVEMENT_SETTING' }).then(res => {
+          const { fieldValues } = res.data;
+          this.postForm = {
+            usualRate: Number(fieldValues.USUAL_RATE.value).toString(),
+            midtermRate: Number(fieldValues.MIDTERM_RATE.value).toString(),
+            finalRate: Number(fieldValues.FINAL_RATE.value).toString(),
+            praticalRate: Number(fieldValues.PRATICAL_RATE.value).toString()
+          };
+          this.loading = false;
+        })
+      },
       save() {
         const that = this;
         that.$refs.postForm.validate(valid => {

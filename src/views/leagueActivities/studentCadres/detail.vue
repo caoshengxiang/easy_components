@@ -114,12 +114,9 @@
         termOptions:[],
         form: {},
         rules: {
-          // studentID: [{ required: true, message: '请输入学生身份证号', trigger: 'blur' }],
-          // level: [{ required: true, message: '请输入级别', trigger: 'blur' }],
-          // unit: [{ required: true, message: '请输入任职单位', trigger: 'blur' }],
-          // cadresName: [{ required: true, message: '请输入干部名称', trigger: 'blur' }],
-          // semester: [{ required: true, message: '请输入学期', trigger: 'blur' }],
-          // jobs: [{ required: true, message: '请输入学生干部岗位', trigger: 'blur' }],
+          name: [{ required: true, message: '请选择学生', trigger: 'change' }],
+          termId: [{ required: true, message: '请选择学期', trigger: 'change' }],
+          postIds: [{ required: true, message: '请选择学生干部岗位', trigger: 'change' }],
         }
       }
     },
