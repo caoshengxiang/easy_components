@@ -81,7 +81,7 @@
             round
           />
         </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
+      <parentTable v-loading="listLoading" @sortTable="sortTable"  :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年级" align="center">
           <template slot-scope="{row}">
             <span>{{ row.administrativeGradeName }} </span>
@@ -97,7 +97,7 @@
             <span>{{ row.administrativeClbumName }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="学号" align="center">
+        <el-table-column label="学号" align="center"  prop="studyCode" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.studyCode }} </span>
           </template>
@@ -248,6 +248,11 @@ export default {
     this.getSpecialtyList()
   },
   methods: {
+    sortTable(val){
+      this.listQuery.descs = val.descs
+      this.listQuery.ascs = val.ascs
+      this.getList()
+    },
     showMap(row){
       this.dialogFormVisible = true
       this.posttion = row.position

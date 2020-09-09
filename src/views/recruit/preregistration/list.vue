@@ -128,13 +128,10 @@
           @click="handleDownload3"
         />
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
-        <el-table-column label="年级" align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.gradeName }}</span>
-          </template>
+      <parentTable v-loading="listLoading" :data="pageData.records" @sortTable="sortTable" slot="table" style="width:100%" >
+        <el-table-column label="年级" align="center" prop="gradeName" sortable="custom">
         </el-table-column>
-        <el-table-column label="姓名" align="center">
+        <el-table-column label="姓名" align="center" prop="name"  sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>
@@ -267,6 +264,23 @@
       that.getStatistics()
     },
     methods: {
+      sortTable(val){
+        console.log(val)
+        if(val.order === "ascending"){
+          this.listQuery.ascs =  val.prop
+          this.listQuery.descs = ''
+        }
+        else if(val.order === "descending"){
+          this.listQuery.descs =  val.prop
+          this.listQuery.ascs = ''
+        }
+        else{
+          this.listQuery.descs = ''
+          this.listQuery.ascs =  ''
+        }
+
+        this.getList()
+      },
       handleDownload1(url) {
 
         if(!this.listQuery.administrativeGradeId){

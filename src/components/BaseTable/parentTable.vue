@@ -10,6 +10,7 @@
     :header-row-style="{color: '#333333'}"
     style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
     @selection-change="selectionChange"
+    @sort-change="sortChange"
   >
     <slot></slot>
   </el-table>
@@ -42,6 +43,23 @@
       selectionChange(val) {
         this.$emit('selectionChange', val)
       },
+      sortChange(val){
+        let sortParam = {}
+        if(val.order === "ascending"){
+          sortParam.ascs =  val.prop
+          sortParam.descs =  ''
+        }
+        else if(val.order === "descending"){
+          sortParam.descs =  val.prop
+          sortParam.ascs =  ''
+        }
+        else{
+          sortParam.descs =  'id'
+          sortParam.ascs =  ''
+        }
+
+        this.$emit('sortTable', sortParam)
+      }
     }
   }
 </script>
