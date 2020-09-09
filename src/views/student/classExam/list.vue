@@ -85,7 +85,7 @@
             round
           />
         </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
+      <parentTable v-loading="listLoading"  @sortTable="sortTable"  :data="pageData.records" slot="table" style="width:100%">
         <el-table-column label="年份" align="center">
           <template slot-scope="{row}">
             <span>{{ row.year }}</span>
@@ -176,7 +176,7 @@
             <span>{{ row.totalScore }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="排名1" align="center">
+        <el-table-column label="排名1" align="center" prop="rank1" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.rank1 }} </span>
           </template>
@@ -196,7 +196,7 @@
             <span>{{ row.boyRateNumerScore }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="排名2" align="center">
+        <el-table-column label="排名2" align="center" prop="rank2" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.rank2 }} </span>
           </template>
@@ -216,7 +216,7 @@
             <span>{{ row.weekScore }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="名次" align="center">
+        <el-table-column label="名次" align="center" prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.rank }} </span>
           </template>
@@ -298,6 +298,12 @@ export default {
     that.getTerm()
   },
   methods: {
+    sortTable(val){
+      console.log(val)
+      this.listQuery.descs = val.descs
+      this.listQuery.ascs = val.ascs
+      this.getList()
+    },
     getTerm() {
       this.$api.dormitoryCheck.terms().then(res => {
         this.termOptions = res.data

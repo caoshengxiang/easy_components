@@ -251,7 +251,7 @@
         round
       />
         </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
+      <parentTable v-loading="listLoading" :data="pageData.records" @sortTable="sortTable" slot="table" style="width:100%">
         <el-table-column label="学月" align="center">
           <template slot-scope="{row}">
             <span>{{ row.month }}</span>
@@ -287,42 +287,42 @@
             <span>{{ row.girls }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'">
+        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'">
+        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'"   prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'">
+        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'">
+        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'">
+        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'"  prop="rank" sortable="custom">"
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'">
+        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'">
+        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'">
+        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'"  prop="rank" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
@@ -411,6 +411,12 @@ export default {
     that.getTerm()
   },
   methods: {
+    sortTable(val){
+      console.log(val)
+      this.listQuery.descs = val.descs
+      this.listQuery.ascs = val.ascs
+      this.getList()
+    },
     getTerm() {
       this.$api.dormitoryCheck.terms().then(res => {
         this.termOptions = res.data

@@ -116,12 +116,12 @@
                 </el-col>
 
                 <el-col :span="24">
-                  <el-form-item label="银行卡号：" prop="bankCard" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="银行卡号：" label-width="150px" class="postInfo-container-item">
                     <el-input placeholder="银行卡号" v-model="postForm.bankCard" class="filter-item"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="申请描述：" prop="remark" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="申请描述：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
@@ -205,16 +205,6 @@ export default {
           message: '打款金额',
           trigger: 'change'
         }],
-        bankCard: [{
-          required: true,
-          message: '银行卡号',
-          trigger: 'change'
-        }],
-        remark: [{
-          required: true,
-          message: '描述',
-          trigger: 'change'
-        }]
       },
       departmentList: [],
       staff: [],

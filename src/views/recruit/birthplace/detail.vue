@@ -40,7 +40,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="是否本省：" prop="localProvince " label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="是否本省：" prop="localProvince" label-width="150px" class="postInfo-container-item">
                     <el-select v-model="postForm.localProvince " placeholder="是否本省" clearable class="filter-item"
                                style="width: 100%"
                     >
@@ -100,6 +100,11 @@ export default {
         schoolName: [{
           required: true,
           message: '请输入学校名称',
+          trigger: 'blur'
+        }],
+        localProvince: [{
+          required: true,
+          message: '请选择是否本省生源地',
           trigger: 'blur'
         }]
       },

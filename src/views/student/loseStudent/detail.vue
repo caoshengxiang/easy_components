@@ -111,17 +111,17 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="回流措施：" prop="huiliuWay" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="回流措施：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.huiliuWay" show-word-limit />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="效果：" prop="effect" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="效果：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.effect" show-word-limit />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="备注：" prop="remark" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="备注：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
@@ -180,9 +180,6 @@ export default {
         loseTime: [{required: true, message: '疑似/流失时间',  trigger: 'blur' }],
         reason: [{required: true, message: '原因描述',  trigger: 'blur' }],
         studentQx: [{required: true, message: '学生去向',  trigger: 'blur' }],
-        huiliuWay: [{required: true, message: '回流措施',  trigger: 'blur' }],
-        effect: [{required: true, message: '效果',  trigger: 'blur' }],
-        remark: [{required: true, message: '备注',  trigger: 'blur' }],
       },
       departmentList: [],
       staff: [],
