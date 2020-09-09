@@ -162,8 +162,9 @@
                 <el-form-item label="毕业学校：" prop="graduateSchool" label-width="120px" class="postInfo-container-item">
                   <el-select
                     v-model="postForm.graduateSchool"
-                    placeholder="生源地"
+                    placeholder="毕业学校"
                     clearable
+                    style="width: 100%"
                     class="filter-item"
                   >
                     <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -193,7 +194,7 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeGradeId" @change="getClbumList()" placeholder="年级" clearable
-                             style="margin-left:10px;width: 100%" class="filter-item"
+                             style="width: 100%" class="filter-item"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
