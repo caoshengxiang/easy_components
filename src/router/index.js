@@ -55,11 +55,11 @@ const routes = [
     path: '/401',
     component: () => import('@/views/error-page/401')
   },
-  // {
-  //   path: '/workflow/design',
-  //   component: () => import('@/views/workflow/Design'),
-  //   meta: { title: '流程设计' }
-  // },
+  {
+    path: '/icons',
+    component: () => import('../views/DEMO/icons'),
+    meta: { title: '流程设计' }
+  },
 ]
 
 const files = require.context('./modules', false, /\.js$/)
