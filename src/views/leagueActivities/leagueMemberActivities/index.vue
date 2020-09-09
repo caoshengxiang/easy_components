@@ -165,7 +165,7 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        this.$api.leagueMemberActivities.stat()
+        this.$api.leagueMemberActivities.stat(this.listQuery)
           .then(res => {
             this.statisticsData = res.data;
             this.statisticsLoading = false;

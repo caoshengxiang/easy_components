@@ -77,7 +77,7 @@
         <el-table-column label="性质" align="center" prop="character" width="120" />
         <el-table-column label="批准部门" prop="department" width="160" />
         <el-table-column label="批准日期" align="center" prop="approvalDate" width="140" />
-        <el-table-column label="宗旨" prop="purpose" width="180" show-overflow-tooltip />
+<!--        <el-table-column label="宗旨" prop="purpose" width="180" show-overflow-tooltip />-->
         <el-table-column label="活动形式" prop="form" width="120" />
         <el-table-column label="编码" prop="code" width="120" />
         <el-table-column label="创建时间" align="center" prop="created" width="180" />
@@ -191,7 +191,7 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        this.$api.LACommunityManage.stat()
+        this.$api.LACommunityManage.stat(this.form)
           .then(res => {
             this.statisticsData = res.data;
             this.statisticsLoading = false;

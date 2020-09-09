@@ -73,7 +73,7 @@
         <el-table-column label="学号" prop="id" align="center" width="150">
           <template slot-scope="{row}">
             <span>
-              {{ row.studentId }}
+              {{ row.studyCode }}
             </span>
           </template>
         </el-table-column>

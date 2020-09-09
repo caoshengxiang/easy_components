@@ -53,9 +53,9 @@
           v-model="activityTime"
           type="datetimerange"
           range-separator="至"
-          start-placeholder="任职日期开始"
+          start-placeholder="活动时间开始"
           value-format="yyyy-MM-dd HH:mm:ss"
-          end-placeholder="任职日期结束"
+          end-placeholder="活动时间结束"
         />
         <el-button
           class="filter-item"
@@ -170,7 +170,7 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        this.$api.studentActivities.stat()
+        this.$api.studentActivities.stat(this.listQuery)
           .then(res => {
             this.statisticsData = res.data;
             this.statisticsLoading = false;

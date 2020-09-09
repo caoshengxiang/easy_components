@@ -203,7 +203,7 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        this.$api.LABranchManage.stat()
+        this.$api.LABranchManage.stat(this.form)
           .then(res => {
             this.statisticsData = res.data;
             this.statisticsLoading = false;

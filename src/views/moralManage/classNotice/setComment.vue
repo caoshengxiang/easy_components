@@ -60,11 +60,31 @@ export default {
     }
   },
   created() {
-    let that = this;
+    const that = this;
+    const selection = getState('listSelection') || [];
+    that.type = that.$route.query.type;
+    if (selection.length === 1) {
+      that.getDetail(selection[0].id);
+    }
     that.getGradeList();
     this.getCommentList()
   },
   methods: {
+    getDetail(id) {
+      const that = this;
+      that.loading = true;
+      that.$api.classNotice.getDetail(id).then(data => {
+        that.loading = false;
+        if (data.code === 200) {
+          that.postForm = { content: data.data.evaluation }
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          })
+        }
+      })
+    },
     getGradeList() {
       let that = this;
       that.$api.commonCommentManage.list().then(data => {
