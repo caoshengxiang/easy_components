@@ -149,6 +149,7 @@
   import YPageListLayout from '@/components/YPageListLayout'
   import excelImport from '@/components/excelImport.vue'
   import PermissionButton from '@/components/PermissionButton/PermissionButton'
+  import { underscoreName } from '@/utils/index'
 
   export default {
     name: 'ViewsBaseinfoClassList',
@@ -179,6 +180,17 @@
     methods: {
       sortChange({ column, prop, order }) {
         console.log(column, prop, order)
+        if (order === 'ascending') {
+          this.listQuery.descs = null
+          this.listQuery.ascs = underscoreName(prop)
+        } else if (order === 'descending') {
+          this.listQuery.descs = underscoreName(prop)
+          this.listQuery.ascs = null
+        } else {
+          this.listQuery.descs = 'id'
+          this.listQuery.ascs = null
+        }
+        this.searchList()
       },
       handleDownload(url) {
         this.$utils.exportUtil('/clbum/download/importTemplate', this.listQuery, '导入模板下载')
