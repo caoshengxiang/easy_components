@@ -10,6 +10,7 @@
     :header-row-style="{color: '#333333'}"
     style="border-left: 1px solid #EBECED;border-right: 1px solid #EBECED;color: #333333;"
     @selection-change="selectionChange"
+    @sort-change="sortChange"
   >
     <slot></slot>
   </el-table>
@@ -41,6 +42,9 @@
     methods: {
       selectionChange(val) {
         this.$emit('selectionChange', val)
+      },
+      sortChange(val) {
+        this.$emit('sort-change', val)
       },
     }
   }

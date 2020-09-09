@@ -76,7 +76,8 @@
           @click="handleDownload"
         />
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" :data="pageData.records" @sort-change="sortChange" slot="table"
+                   style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
         <!--        v-loading="listLoading"-->
@@ -105,12 +106,12 @@
             <span>{{ row.operUrl }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="主机地址" align="center">
+        <el-table-column label="主机地址" align="center" prop="operIp">
           <template slot-scope="{row}">
             <span>{{ row.operIp }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作时间" align="center">
+        <el-table-column label="操作时间" align="center" prop="operTime" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.operTime }}</span>
           </template>
@@ -176,6 +177,9 @@
       that.getList()
     },
     methods: {
+      sortChange({ column, prop, order }) {
+        console.log(column, prop, order)
+      },
       handleDownload(url) {
         this.$utils.exportUtil('/clbum/download/importTemplate', this.listQuery, '导入模板下载')
       },
