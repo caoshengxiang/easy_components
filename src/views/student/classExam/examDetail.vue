@@ -287,42 +287,42 @@
             <span>{{ row.girls }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'"  prop="rank" sortable="custom">
+        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'"   prop="rank" sortable="custom">
+        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'"   prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'"  prop="rank" sortable="custom">
+        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'"  prop="rank" sortable="custom">
+        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'"  prop="rank" sortable="custom">"
+        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'"  prop="socre" sortable="custom">"
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'"  prop="rank" sortable="custom">
+        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'"  prop="rank" sortable="custom">
+        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'"  prop="rank" sortable="custom">
+        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'"  prop="socre" sortable="custom">
           <template slot-scope="{row}">
             <span>{{ row.socre }} </span>
           </template>
