@@ -104,14 +104,14 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="应发奖金：" prop="shouldPayAmount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="应发奖金" v-model="postForm.shouldPayAmount" class="filter-item"/>
+                  <el-form-item label="应发金额：" prop="shouldPayAmount" label-width="150px" class="postInfo-container-item">
+                    <el-input placeholder="应发金额" v-model="postForm.shouldPayAmount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="24">
-                  <el-form-item label="打款奖金：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
-                    <el-input placeholder="打款奖金" v-model="postForm.actualPayAmount" class="filter-item"/>
+                  <el-form-item label="打款金额：" prop="actualPayAmount" label-width="150px" class="postInfo-container-item">
+                    <el-input placeholder="打款金额" v-model="postForm.actualPayAmount" class="filter-item"/>
                   </el-form-item>
                 </el-col>
 

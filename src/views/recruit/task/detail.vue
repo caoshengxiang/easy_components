@@ -38,7 +38,7 @@
                   <el-form-item label="负责部门：" prop="respDeptId" label-width="150px" class="postInfo-container-item">
                     <el-select
                       v-model="postForm.respDeptId"
-                      placeholder="使用部门"
+                      placeholder="负责部门"
                       style="width: 100%"
                       clearable
                       class="filter-item"
@@ -51,7 +51,7 @@
                   <el-form-item label="招生宣讲人：" prop="speakerId" label-width="150px" class="postInfo-container-item">
                     <el-select
                       v-model="postForm.speakerId"
-                      placeholder="教室类型"
+                      placeholder="招生宣讲人"
                       clearable
                       class="filter-item"
                       style="width: 100%"
@@ -94,7 +94,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="招生内容：" prop="content" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="任务内容：" prop="content" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="6" maxlength="500" v-model="postForm.content" show-word-limit />
                   </el-form-item>
                 </el-col>
