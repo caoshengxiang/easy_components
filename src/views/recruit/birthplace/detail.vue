@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -84,6 +84,7 @@ export default {
   },
   data() {
     return {
+      editStatus: true,
       opt: [{
         key: 1,
         label: '是'
@@ -122,6 +123,7 @@ export default {
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
+      that.editStatus = false
     } else {
       this.getDetail()
     }
