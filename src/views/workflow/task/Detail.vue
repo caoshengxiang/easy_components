@@ -37,127 +37,13 @@
         <div slot="header" class="clearfix">
           <span>申请内容</span>
         </div>
-        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'"
-                              :detailInfo="this.formData"
-        />
-        <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'"
-                                 :detailInfo="this.formData"
-        />
-        <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'"
-                             :detailInfo="this.formData"
-        />
-        <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'"
-                                 :detailInfo="this.formData"
-        />
-        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'"
-                                   :detailInfo="this.formData"
-        />
-        <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'"
-                                   :detailInfo="this.formData"
-        />
-        <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'"
-                               :detailInfo="this.formData"
-        />
-        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'"
-                              :detailInfo="this.formData"
-        />
-        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'"
-                              :detailInfo="this.formData"
-        />
-        <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'"
-                              :detailInfo="this.formData"
-        />
-        <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'"
-                                 :detailInfo="this.formData"
-        />
-        <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'"
-                            :detailInfo="this.formData"
-        />
-        <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'"
-                                  :detailInfo="this.formData"
-        />
-        <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'"
-                                  :detailInfo="this.formData"
-        />
-        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'"
-                                :detailInfo="this.formData"
-        />
-        <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'"
-                                     :detailInfo="this.formData"
-        />
-        <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'"
-                                          :detailInfo="this.formData"
-        />
-        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.formData"/>
-        <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'"
-                        :detailInfo="this.formData"
-        />
-        <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'"
-                         :detailInfo="this.formData"
-        />
+        <component :is="componentsId(form.menuNo)" :detailInfo="formData"></component>
       </el-card>
       <el-card v-if="show" class="y-form-card">
         <div slot="header" class="clearfix">
           <span>申请历史</span>
         </div>
-        <base-info-asset-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_list'"
-                              :detailInfo="this.originData"
-        />
-        <base-info-building-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_buildinglist'"
-                                 :detailInfo="this.originData"
-        />
-        <base-info-room-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_roomlist'"
-                             :detailInfo="this.originData"
-        />
-        <base-info-training-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_traininglist'"
-                                 :detailInfo="this.originData"
-        />
-        <base-info-facilities-info v-if="this.form.menuNo === '_views_baseinfo_assetinfo_facilitieslist'"
-                                   :detailInfo="this.originData"
-        />
-        <base-info-department-info v-if="this.form.menuNo === '_views_baseinfo_department_list'"
-                                   :detailInfo="this.originData"
-        />
-        <base-info-course-info v-if="this.form.menuNo === '_views_baseinfo_course_list'"
-                               :detailInfo="this.originData"
-        />
-        <base-info-major-info v-if="this.form.menuNo === '_views_baseinfo_major_list'"
-                              :detailInfo="this.originData"
-        />
-        <base-info-grade-info v-if="this.form.menuNo === '_views_baseinfo_grade_list'"
-                              :detailInfo="this.originData"
-        />
-        <base-info-class-info v-if="this.form.menuNo === '_views_baseinfo_class_list'"
-                              :detailInfo="this.originData"
-        />
-        <base-info-userInfo-info v-if="this.form.menuNo === '_views_baseinfo_userinfo_list'"
-                                 :detailInfo="this.originData"
-        />
-        <base-info-std-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList'"
-                            :detailInfo="this.originData"
-        />
-        <base-info-dormitory-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_list'"
-                                  :detailInfo="this.originData"
-        />
-        <base-info-stdDelete-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_remove'"
-                                  :detailInfo="this.originData"
-        />
-        <base-info-stdMove-info v-if="this.form.menuNo === '_views_dormitory_dormitoryInfo_dormitoryStdList_move'"
-                                :detailInfo="this.originData"
-        />
-        <TeachingAffairsSemesterEdit v-if="this.form.menuNo === '_views_teachingAffairs_semester_list'"
-                                     :detailInfo="this.originData"
-        />
-        <TeachingAffairsSemesterClassTime v-if="this.form.menuNo === '_views_teachingAffairs_semester_classTime'"
-                                          :detailInfo="this.originData"
-        />
-        <staffDetail v-if="this.form.menuNo === '_views_staff_list'" :detailInfo="this.originData"/>
-        <staffEduDetail v-if="this.form.menuNo === '_views_staff_eduDetail'"
-                        :detailInfo="this.originData"
-        />
-        <staffwageDetail v-if="this.form.menuNo === '_views_staff_wageDetail'"
-                         :detailInfo="this.originData"
-        />
+        <component :is="componentsId(form.menuNo)" :detailInfo="originData"></component>
       </el-card>
     </y-detail-page-layout>
   </div>
@@ -168,7 +54,7 @@
   import YDetailPageLayout from '@/components/YDetailPageLayout'
 
   //功能详情列表
-  //姚备注，需要用的列表加到list里面，components里面注意声明，参考
+  //姚备注，需要用的列表加到list里面
   const detailList = {
     baseInfoAssetInfo: () => import('@/views/baseinfo/assetinfo/detail'),
     baseInfoAssetInfoBuilding: () => import('@/views/baseinfo/assetinfo/buildingdetail'),
@@ -196,21 +82,21 @@
     components: {
       Breadcrumb,
       YDetailPageLayout,
-      'base-info-asset-info': detailList.baseInfoAssetInfo,
-      'base-info-building-info': detailList.baseInfoAssetInfoBuilding,
-      'base-info-room-info': detailList.baseInfoAssetInfoRoom,
-      'base-info-training-info': detailList.baseInfoAssetInfoTraining,
-      'base-info-facilities-info': detailList.baseInfoAssetInfoFacilities,
-      'base-info-department-info': detailList.baseInfoAssetInfoDepartment,
-      'base-info-course-info': detailList.baseInfoAssetInfoCourse,
-      'base-info-major-info': detailList.baseInfoAssetInfoMajor,
-      'base-info-grade-info': detailList.baseInfoAssetInfoGrade,
-      'base-info-class-info': detailList.baseInfoAssetInfoClass,
-      'base-info-userInfo-info': detailList.baseInfoAssetInfoUserInfo,
-      'base-info-std-info': detailList.baseInfoAssetInfoStdInfo,
-      'base-info-dormitory-info': detailList.baseInfoAssetInfoDormitory,
-      'base-info-stdDelete-info': detailList.baseInfoAssetInfoStdDeleteInfo,
-      'base-info-stdMove-info': detailList.baseInfoAssetInfoStdMoveInfo,
+      'baseInfoAssetInfo': detailList.baseInfoAssetInfo,
+      'baseInfoAssetInfoBuilding': detailList.baseInfoAssetInfoBuilding,
+      'baseInfoAssetInfoRoom': detailList.baseInfoAssetInfoRoom,
+      'baseInfoAssetInfoTraining': detailList.baseInfoAssetInfoTraining,
+      'baseInfoAssetInfoFacilities': detailList.baseInfoAssetInfoFacilities,
+      'baseInfoAssetInfoDepartment': detailList.baseInfoAssetInfoDepartment,
+      'baseInfoAssetInfoCourse': detailList.baseInfoAssetInfoCourse,
+      'baseInfoAssetInfoMajor': detailList.baseInfoAssetInfoMajor,
+      'baseInfoAssetInfoGrade': detailList.baseInfoAssetInfoGrade,
+      'baseInfoAssetInfoClass': detailList.baseInfoAssetInfoClass,
+      'baseInfoAssetInfoUserInfo': detailList.baseInfoAssetInfoUserInfo,
+      'baseInfoAssetInfoStdInfo': detailList.baseInfoAssetInfoStdInfo,
+      'baseInfoAssetInfoDormitory': detailList.baseInfoAssetInfoDormitory,
+      'baseInfoAssetInfoStdDeleteInfo': detailList.baseInfoAssetInfoStdDeleteInfo,
+      'baseInfoAssetInfoStdMoveInfo': detailList.baseInfoAssetInfoStdMoveInfo,
       'TeachingAffairsSemesterEdit': detailList.TeachingAffairsSemesterEdit,
       'TeachingAffairsSemesterClassTime': detailList.TeachingAffairsSemesterClassTime,
       'staffDetail': detailList.staffDetail,
@@ -224,12 +110,83 @@
         default: {}
       }
     },
+    computed:{
+      componentsId:function () {
+        return function (menuNo) {
+          switch (menuNo) {
+            case '_views_baseinfo_assetinfo_list':
+              return this.componentsAuditList.baseInfoAssetInfo
+            case '_views_baseinfo_assetinfo_buildinglist':
+              return this.componentsAuditList.baseInfoAssetInfoBuilding
+            case '_views_baseinfo_assetinfo_roomlist':
+              return this.componentsAuditList.baseInfoAssetInfoRoom
+            case '_views_baseinfo_assetinfo_traininglist':
+              return this.componentsAuditList.baseInfoAssetInfoTraining
+            case '_views_baseinfo_assetinfo_facilitieslist':
+              return this.componentsAuditList.baseInfoAssetInfoFacilities
+            case '_views_baseinfo_department_list':
+              return this.componentsAuditList.baseInfoAssetInfoDepartment
+            case '_views_baseinfo_course_list':
+              return this.componentsAuditList.baseInfoAssetInfoCourse
+            case '_views_baseinfo_major_list':
+              return this.componentsAuditList.baseInfoAssetInfoMajor
+            case '_views_baseinfo_grade_list':
+              return this.componentsAuditList.baseInfoAssetInfoGrade
+            case '_views_baseinfo_class_list':
+              return this.componentsAuditList.baseInfoAssetInfoClass
+            case '_views_baseinfo_userinfo_list':
+              return this.componentsAuditList.baseInfoAssetInfoUserInfo
+            case '_views_dormitory_dormitoryInfo_dormitoryStdList':
+              return this.componentsAuditList.baseInfoAssetInfoStdInfo
+            case '_views_dormitory_dormitoryInfo_list':
+              return this.componentsAuditList.baseInfoAssetInfoDormitory
+            case '_views_dormitory_dormitoryInfo_dormitoryStdList_remove':
+              return this.componentsAuditList.baseInfoAssetInfoStdDeleteInfo
+            case '_views_dormitory_dormitoryInfo_dormitoryStdList_move':
+              return this.componentsAuditList.baseInfoAssetInfoStdMoveInfo
+            case '_views_teachingAffairs_semester_list':
+              return this.componentsAuditList.TeachingAffairsSemesterEdit
+            case '_views_teachingAffairs_semester_classTime':
+              return this.componentsAuditList.TeachingAffairsSemesterClassTime
+            case '_views_staff_list':
+              return this.componentsAuditList.staffDetail
+            case '_views_staff_eduDetail':
+              return this.componentsAuditList.staffEduDetail
+            case '_views_staff_wageDetail':
+              return this.componentsAuditList.staffwageDetail
+          }
+          return ''
+        }
+      }
+    },
     data() {
       return {
         form: {},
         formData: {},
         originData: {},
         show: false,
+        componentsAuditList:{
+          baseInfoAssetInfo:'baseInfoAssetInfo',
+          baseInfoAssetInfoBuilding:'baseInfoAssetInfoBuilding',
+          baseInfoAssetInfoRoom:'baseInfoAssetInfoRoom',
+          baseInfoAssetInfoTraining:'baseInfoAssetInfoTraining',
+          baseInfoAssetInfoFacilities:'baseInfoAssetInfoFacilities',
+          baseInfoAssetInfoDepartment:'baseInfoAssetInfoDepartment',
+          baseInfoAssetInfoCourse:'baseInfoAssetInfoCourse',
+          baseInfoAssetInfoMajor:'baseInfoAssetInfoMajor',
+          baseInfoAssetInfoGrade:'baseInfoAssetInfoGrade',
+          baseInfoAssetInfoClass:'baseInfoAssetInfoClass',
+          baseInfoAssetInfoUserInfo:'baseInfoAssetInfoUserInfo',
+          baseInfoAssetInfoStdInfo:'baseInfoAssetInfoStdInfo',
+          baseInfoAssetInfoDormitory:'baseInfoAssetInfoDormitory',
+          baseInfoAssetInfoStdDeleteInfo:'baseInfoAssetInfoStdDeleteInfo',
+          baseInfoAssetInfoStdMoveInfo:'baseInfoAssetInfoStdMoveInfo',
+          TeachingAffairsSemesterEdit:'TeachingAffairsSemesterEdit',
+          TeachingAffairsSemesterClassTime:'TeachingAffairsSemesterClassTime',
+          staffDetail:'staffDetail',
+          staffEduDetail:'staffEduDetail',
+          staffwageDetail:'staffwageDetail',
+        }
       }
     },
     created() {
