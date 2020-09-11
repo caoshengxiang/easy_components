@@ -152,7 +152,7 @@
   import { underscoreName } from '@/utils/index'
 
   export default {
-    name: 'ViewsBaseinfoClassList',
+    name: 'ViewsSetLogsList',
     components: {
       Breadcrumb,
       PermissionButton,

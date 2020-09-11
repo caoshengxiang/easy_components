@@ -130,7 +130,6 @@
         })
       },
       getWeeks() {
-        alert(123)
         this.postForm.weeks = ''
         this.$api.dormitoryCheck.weeks({
           year: this.postForm.year,

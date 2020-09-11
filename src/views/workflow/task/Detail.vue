@@ -76,6 +76,8 @@
     staffDetail: () => import('../../../views/staff/detail_approve'),
     staffEduDetail: () => import('../../../views/staff/eduDetail'),
     staffwageDetail: () => import('../../../views/staff/wageDetail'),
+    dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
+    dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
   }
   export default {
     name: 'WorkflowDetail',
@@ -102,6 +104,8 @@
       'staffDetail': detailList.staffDetail,
       'staffEduDetail': detailList.staffEduDetail,
       'staffwageDetail': detailList.staffwageDetail,
+      'dormitoryBatchApprove': detailList.dormitoryBatchApprove,
+      'dormitoryApprove': detailList.dormitoryApprove,
     },
     props: {
       //保存方法
@@ -154,6 +158,10 @@
               return this.componentsAuditList.staffEduDetail
             case '_views_staff_wageDetail':
               return this.componentsAuditList.staffwageDetail
+            case '_views_dormitory_dormitoryCheck_checkRecord':
+              return this.componentsAuditList.dormitoryApprove
+            case '_views_dormitory_dormitoryCheck_list_dormitoryDeduction':
+              return this.componentsAuditList.dormitoryBatchApprove
           }
           return ''
         }
@@ -186,6 +194,8 @@
           staffDetail:'staffDetail',
           staffEduDetail:'staffEduDetail',
           staffwageDetail:'staffwageDetail',
+          dormitoryBatchApprove:'dormitoryBatchApprove',
+          dormitoryApprove:'dormitoryApprove',
         }
       }
     },
