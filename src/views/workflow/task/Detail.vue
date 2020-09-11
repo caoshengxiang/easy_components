@@ -76,6 +76,12 @@
     staffDetail: () => import('../../../views/staff/detail_approve'),
     staffEduDetail: () => import('../../../views/staff/eduDetail'),
     staffwageDetail: () => import('../../../views/staff/wageDetail'),
+    recruitTaskDetail: () => import('@/views/recruit/task/detail'),
+    recruitTaskPlan: () => import('@/views/recruit/plan/detail'),
+    recruitBirthPalce: () => import('@/views/recruit/birthplace/detail'),
+    studentMorningExam: () => import('@/views/student/morningExam/detail'),
+    studentLoseStudent: () => import('@/views/student/loseStudent/detail'),
+    baseInfoAssetInfoUserInfo6: () => import('@/views/baseinfo/userinfo6/detailInfo'),
     dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
     dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
   }
@@ -106,6 +112,12 @@
       'staffwageDetail': detailList.staffwageDetail,
       'dormitoryBatchApprove': detailList.dormitoryBatchApprove,
       'dormitoryApprove': detailList.dormitoryApprove,
+      'recruitTaskDetail':detailList.recruitTaskDetail,
+      'recruitTaskPlan': detailList.recruitTaskPlan,
+      'recruitBirthPalce':  detailList.recruitBirthPalce,
+      'studentMorningExam': detailList.studentMorningExam,
+      'studentLoseStudent': detailList.studentLoseStudent,
+      'baseInfoAssetInfoUserInfo6': detailList.baseInfoAssetInfoUserInfo6
     },
     props: {
       //保存方法
@@ -158,6 +170,18 @@
               return this.componentsAuditList.staffEduDetail
             case '_views_staff_wageDetail':
               return this.componentsAuditList.staffwageDetail
+            case '_views_recruit_task_list':
+              return this.componentsAuditList.recruitTaskDetail
+            case '_views_recruit_plan_list':
+              return this.componentsAuditList.recruitTaskPlan
+            case '_views_recruit_birthplace_list':
+              return this.componentsAuditList.recruitBirthPalce
+            case '_views_student_morningExam_list':
+              return this.componentsAuditList.studentMorningExam
+            case '_views_student_loseStudent_list':
+              return this.componentsAuditList.studentLoseStudent
+            case '_views_baseinfo_userinfo6_list':
+              return this.componentsAuditList.baseInfoAssetInfoUserInfo6
             case '_views_dormitory_dormitoryCheck_checkRecord':
               return this.componentsAuditList.dormitoryApprove
             case '_views_dormitory_dormitoryCheck_list_dormitoryDeduction':
@@ -194,6 +218,12 @@
           staffDetail:'staffDetail',
           staffEduDetail:'staffEduDetail',
           staffwageDetail:'staffwageDetail',
+          recruitTaskDetail:'recruitTaskDetail',
+          recruitTaskPlan: 'recruitTaskPlan',
+          recruitBirthPalce: 'recruitBirthPalce',
+          studentMorningExam: 'studentMorningExam',
+          studentLoseStudent: 'studentLoseStudent',
+          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6'
           dormitoryBatchApprove:'dormitoryBatchApprove',
           dormitoryApprove:'dormitoryApprove',
         }

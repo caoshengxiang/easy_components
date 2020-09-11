@@ -53,6 +53,14 @@ export default {
     YDetailPageLayout,
     Breadcrumb
   },
+  props: {
+    detailInfo: {
+      type: Object,
+      default() {
+        return null
+      }
+    }
+  },
   data() {
     return {
       editStatus:true,
@@ -65,7 +73,17 @@ export default {
       }
     }
   },
+  watch: {
+    detailInfo: function (value) {
+      this.postForm = value
+    },
+  },
   created() {
+    let that = this
+    if (this.detailInfo) {
+      this.postForm = this.detailInfo
+      that.editStatus = false
+    }
   },
   methods: {
     save() {
