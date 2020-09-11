@@ -99,12 +99,16 @@
     leagueMemberActivities: () => import('@/views/leagueActivities/leagueMemberActivities/detail'),
     dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
     dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
+    dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/list/add'),
+    classRecord: () => import('@/views/dormitory/classRecord/list/add'),
   }
   export default {
     name: 'WorkflowDetail',
     components: {
       Breadcrumb,
       YDetailPageLayout,
+      'dormitoryCheck': detailList.dormitoryCheck,
+      'classRecord': detailList.classRecord,
       'communityManage': detailList.communityManage,
       'memberManage': detailList.memberManage,
       'branchManage': detailList.branchManage,
@@ -160,6 +164,10 @@
       componentsId:function () {
         return function (menuNo) {
           switch (menuNo) {
+            case '_views_dormitory_dormitoryCheck_list':
+              return this.componentsAuditList.dormitoryCheck
+            case '_views_dormitory_classRecord_list':
+              return this.componentsAuditList.classRecord
             case '_views_leagueActivities_communityManage_list':
               return this.componentsAuditList.communityManage
             case '_views_leagueActivities_memberManage_list':
@@ -259,6 +267,8 @@
         originData: {},
         show: false,
         componentsAuditList:{
+          dormitoryCheck:'dormitoryCheck',
+          classRecord:'classRecord',
           rewardsAndPunishmentsInfoDetail:'rewardsAndPunishmentsInfoDetail',
           rewardsAndPunishmentsUndoDetail:'rewardsAndPunishmentsUndoDetail',
           baseInfoAssetInfo:'baseInfoAssetInfo',
