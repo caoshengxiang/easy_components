@@ -223,7 +223,7 @@
           recruitBirthPalce: 'recruitBirthPalce',
           studentMorningExam: 'studentMorningExam',
           studentLoseStudent: 'studentLoseStudent',
-          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6'
+          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6',
           dormitoryBatchApprove:'dormitoryBatchApprove',
           dormitoryApprove:'dormitoryApprove',
         }
