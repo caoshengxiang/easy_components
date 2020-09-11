@@ -99,8 +99,8 @@
     leagueMemberActivities: () => import('@/views/leagueActivities/leagueMemberActivities/detail'),
     dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
     dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
-    dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/list/add'),
-    classRecord: () => import('@/views/dormitory/classRecord/list/add'),
+    dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/add'),
+    classRecord: () => import('@/views/dormitory/classRecord/add'),
   }
   export default {
     name: 'WorkflowDetail',
