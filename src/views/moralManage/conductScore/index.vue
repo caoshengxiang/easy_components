@@ -53,14 +53,14 @@
       </template>
       <template slot="right">
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" @sortTable="sortTable" :data="pageData.records" slot="table" style="width: 100%;">
         <el-table-column label="学号" prop="studyCode" align="center" >
         </el-table-column>
         <el-table-column label="姓名" prop="name" align="center" >
         </el-table-column>
         <el-table-column label="操行分" prop="score" align="center" >
         </el-table-column>
-        <el-table-column label="排名" prop="rank" align="center" >
+        <el-table-column label="排名" prop="rank" align="center" sortable="custom">
         </el-table-column>
         <el-table-column label="操作" fixed="right" align="center" width="260px">
           <template v-slot="{ row }">
@@ -208,6 +208,11 @@ export default {
     that.getList()
   },
   methods: {
+    sortTable(val){
+      this.listQuery.descs = val.descs
+      this.listQuery.ascs = val.ascs
+      this.getList()
+    },
     conductTypeItemSelect(row) {
       this.conductScoreForm.score = row.score
     },
