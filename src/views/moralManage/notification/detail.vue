@@ -67,6 +67,11 @@
         }
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     data() {
       return {
         loading: false,
@@ -96,11 +101,6 @@
           }],
         },
       }
-    },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
     },
     created() {
       const that = this;

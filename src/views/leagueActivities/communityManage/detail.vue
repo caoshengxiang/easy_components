@@ -148,8 +148,20 @@
         }
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.form = value
+      },
+    },
     created() {
-     this.getData();
+      let that = this
+      if (this.detailInfo) {
+        this.form = this.detailInfo
+        that.editStatus = false
+      }
+      else{
+        this.getData();
+      }
     },
     methods: {
       // 详情
