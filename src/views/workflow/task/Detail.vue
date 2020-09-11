@@ -76,12 +76,47 @@
     staffDetail: () => import('../../../views/staff/detail_approve'),
     staffEduDetail: () => import('../../../views/staff/eduDetail'),
     staffwageDetail: () => import('../../../views/staff/wageDetail'),
+    recruitTaskDetail: () => import('@/views/recruit/task/detail'),
+    recruitTaskPlan: () => import('@/views/recruit/plan/detail'),
+    recruitBirthPalce: () => import('@/views/recruit/birthplace/detail'),
+    studentMorningExam: () => import('@/views/student/morningExam/detail'),
+    studentLoseStudent: () => import('@/views/student/loseStudent/detail'),
+    baseInfoAssetInfoUserInfo6: () => import('@/views/baseinfo/userinfo6/detailInfo'),
+    moralManageSetNotice: () => import('@/views/moralManage/classNotice/setNotice'),
+    moralManageRule: () => import('@/views/moralManage/notification/detail'),
+    moralManageCommentManage: () => import('@/views/moralManage/commentManage/detail'),
+    moralManageCommonCommentManage: () => import('@/views/moralManage/commonCommentManage/detail'),
+    moralManageScoreManage: () => import('@/views/moralManage/scoreManage/detail'),
+    rewardsAndPunishmentsInfoDetail: () => import('@/views/rewardsAndPunishments/info/detail'),
+    rewardsAndPunishmentsUndoDetail: () => import('@/views/rewardsAndPunishments/undo/detail'),
+    communityManage: () => import('@/views/leagueActivities/communityManage/detail'),
+    memberManage: () => import('@/views/leagueActivities/memberManage/detail'),
+    branchManage: () => import('@/views/leagueActivities/branchManage/detail'),
+    leagueMember: () => import('@/views/leagueActivities/leagueMember/detail'),
+    leagueFee: () => import('@/views/leagueActivities/leagueFee/detail'),
+    studentCadres: () => import('@/views/leagueActivities/studentCadres/detail'),
+    studentActivities: () => import('@/views/leagueActivities/studentActivities/detail'),
+    leagueMemberActivities: () => import('@/views/leagueActivities/leagueMemberActivities/detail'),
+    dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
+    dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
+    dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/add'),
+    classRecord: () => import('@/views/dormitory/classRecord/add'),
   }
   export default {
     name: 'WorkflowDetail',
     components: {
       Breadcrumb,
       YDetailPageLayout,
+      'dormitoryCheck': detailList.dormitoryCheck,
+      'classRecord': detailList.classRecord,
+      'communityManage': detailList.communityManage,
+      'memberManage': detailList.memberManage,
+      'branchManage': detailList.branchManage,
+      'leagueMember': detailList.leagueMember,
+      'leagueFee': detailList.leagueFee,
+      'studentCadres': detailList.studentCadres,
+      'studentActivities': detailList.studentActivities,
+      'leagueMemberActivities': detailList.leagueMemberActivities,
       'baseInfoAssetInfo': detailList.baseInfoAssetInfo,
       'baseInfoAssetInfoBuilding': detailList.baseInfoAssetInfoBuilding,
       'baseInfoAssetInfoRoom': detailList.baseInfoAssetInfoRoom,
@@ -102,6 +137,21 @@
       'staffDetail': detailList.staffDetail,
       'staffEduDetail': detailList.staffEduDetail,
       'staffwageDetail': detailList.staffwageDetail,
+      'dormitoryBatchApprove': detailList.dormitoryBatchApprove,
+      'dormitoryApprove': detailList.dormitoryApprove,
+      'recruitTaskDetail':detailList.recruitTaskDetail,
+      'recruitTaskPlan': detailList.recruitTaskPlan,
+      'recruitBirthPalce':  detailList.recruitBirthPalce,
+      'studentMorningExam': detailList.studentMorningExam,
+      'studentLoseStudent': detailList.studentLoseStudent,
+      'baseInfoAssetInfoUserInfo6': detailList.baseInfoAssetInfoUserInfo6,
+      'moralManageSetNotice': detailList.moralManageSetNotice,
+      'moralManageRule': detailList.moralManageRule,
+      'moralManageCommentManage': detailList.moralManageCommentManage,
+      'moralManageCommonCommentManage': detailList.moralManageCommonCommentManage,
+      'moralManageScoreManage': detailList.moralManageScoreManage,
+      'rewardsAndPunishmentsInfoDetail': detailList.rewardsAndPunishmentsInfoDetail,
+      'rewardsAndPunishmentsUndoDetail': detailList.rewardsAndPunishmentsUndoDetail
     },
     props: {
       //保存方法
@@ -114,6 +164,30 @@
       componentsId:function () {
         return function (menuNo) {
           switch (menuNo) {
+            case '_views_dormitory_dormitoryCheck_list':
+              return this.componentsAuditList.dormitoryCheck
+            case '_views_dormitory_classRecord_list':
+              return this.componentsAuditList.classRecord
+            case '_views_leagueActivities_communityManage_list':
+              return this.componentsAuditList.communityManage
+            case '_views_leagueActivities_memberManage_list':
+              return this.componentsAuditList.memberManage
+            case '_views_leagueActivities_branchManage_list':
+              return this.componentsAuditList.branchManage
+            case '_views_leagueActivities_leagueMember_list':
+              return this.componentsAuditList.leagueMember
+            case '_views_leagueActivities_leagueFee_list':
+              return this.componentsAuditList.leagueFee
+            case '_views_leagueActivities_studentCadres_list':
+              return this.componentsAuditList.studentCadres
+            case '_views_rewardsAndPunishments_info_list':
+              return this.componentsAuditList.studentActivities
+            case '_views_leagueActivities_leagueMemberActivities_list':
+              return this.componentsAuditList.leagueMemberActivities
+            case '_views_leagueActivities_studentActivities_list':
+              return this.componentsAuditList.rewardsAndPunishmentsInfoDetail
+            case '_views_rewardsAndPunishments_undo_list':
+              return this.componentsAuditList.rewardsAndPunishmentsUndoDetail
             case '_views_baseinfo_assetinfo_list':
               return this.componentsAuditList.baseInfoAssetInfo
             case '_views_baseinfo_assetinfo_buildinglist':
@@ -154,6 +228,33 @@
               return this.componentsAuditList.staffEduDetail
             case '_views_staff_wageDetail':
               return this.componentsAuditList.staffwageDetail
+            case '_views_recruit_task_list':
+              return this.componentsAuditList.recruitTaskDetail
+            case '_views_recruit_plan_list':
+              return this.componentsAuditList.recruitTaskPlan
+            case '_views_recruit_birthplace_list':
+              return this.componentsAuditList.recruitBirthPalce
+            case '_views_student_morningExam_list':
+              return this.componentsAuditList.studentMorningExam
+            case '_views_student_loseStudent_list':
+              return this.componentsAuditList.studentLoseStudent
+            case '_views_baseinfo_userinfo6_list':
+              return this.componentsAuditList.baseInfoAssetInfoUserInfo6
+            case '_views_moralManage_classNotice_setNotice':
+              return this.componentsAuditList.moralManageSetNotice
+            case '_views_moralManage_notification_list':
+              return this.componentsAuditList.moralManageRule
+            case '_views_moralManage_commentManage_list':
+              return this.componentsAuditList.moralManageCommentManage
+            case '_views_moralManage_commonCommentManage_list':
+              return this.componentsAuditList.moralManageCommonCommentManage
+            case '_views_moralManage_scoreManage_list':
+              return this.componentsAuditList.moralManageScoreManage
+
+            case '_views_dormitory_dormitoryCheck_checkRecord':
+              return this.componentsAuditList.dormitoryApprove
+            case '_views_dormitory_dormitoryCheck_list_dormitoryDeduction':
+              return this.componentsAuditList.dormitoryBatchApprove
           }
           return ''
         }
@@ -166,6 +267,10 @@
         originData: {},
         show: false,
         componentsAuditList:{
+          dormitoryCheck:'dormitoryCheck',
+          classRecord:'classRecord',
+          rewardsAndPunishmentsInfoDetail:'rewardsAndPunishmentsInfoDetail',
+          rewardsAndPunishmentsUndoDetail:'rewardsAndPunishmentsUndoDetail',
           baseInfoAssetInfo:'baseInfoAssetInfo',
           baseInfoAssetInfoBuilding:'baseInfoAssetInfoBuilding',
           baseInfoAssetInfoRoom:'baseInfoAssetInfoRoom',
@@ -186,6 +291,28 @@
           staffDetail:'staffDetail',
           staffEduDetail:'staffEduDetail',
           staffwageDetail:'staffwageDetail',
+          recruitTaskDetail:'recruitTaskDetail',
+          recruitTaskPlan: 'recruitTaskPlan',
+          recruitBirthPalce: 'recruitBirthPalce',
+          studentMorningExam: 'studentMorningExam',
+          studentLoseStudent: 'studentLoseStudent',
+          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6',
+          moralManageSetNotice: 'moralManageSetNotice',
+          moralManageRule: 'moralManageRule',
+          moralManageCommentManage: 'moralManageCommentManage',
+          moralManageCommonCommentManage: 'moralManageCommonCommentManage',
+          moralManageScoreManage: 'moralManageScoreManage',
+          communityManage: 'communityManage',
+          memberManage: 'memberManage',
+          branchManage: 'branchManage',
+          leagueMember: 'leagueMember',
+          leagueFee: 'leagueFee',
+          studentCadres: 'studentCadres',
+          studentActivities: 'studentActivities',
+          leagueMemberActivities: 'leagueMemberActivities',
+          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6',
+          dormitoryBatchApprove:'dormitoryBatchApprove',
+          dormitoryApprove:'dormitoryApprove',
         }
       }
     },

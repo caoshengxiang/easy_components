@@ -80,7 +80,7 @@
                     <!--                删除-->
                     <!--              </el-button>-->
                     <PermissionButton
-                      v-if="(!data.children || data.children.length===0) && isFEBuilder === '17358684442'"
+                      v-if="(!data.children || data.children.length===0) && isFEBuilder"
                       menu-no="_views_set_menu_remove"
                       type="text"
                       size="mini"
@@ -130,12 +130,12 @@
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="外部系统：">
-                      <el-radio-group v-model="temp.external" :disabled="isFEBuilder !== '17358684442'">
+                      <el-radio-group v-model="temp.external" :disabled="isFEBuilder">
                         <el-radio :label="true">外部系统</el-radio>
                         <el-radio :label="false">内部系统</el-radio>
                       </el-radio-group>
                       <el-alert
-                        v-if="isFEBuilder === '17358684442'"
+                        v-if="isFEBuilder"
                         :closable="false"
                         title="警告："
                         description="谨慎选择 “内部系统” 选项。 选择“内部系统”选项保存后该菜单将只能编辑名称、状态信息。不能删除。"
@@ -155,7 +155,7 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-radio-group v-model="temp.menuType" :disabled="!temp.external & isFEBuilder!=='17358684442'">
+                      <el-radio-group v-model="temp.menuType" :disabled="!temp.external & isFEBuilder">
                         <el-radio label="目录">目录</el-radio>
                         <el-radio label="菜单">菜单</el-radio>
                         <el-radio label="按钮" v-if="!temp.external">按钮</el-radio> <!--内部系统才有-->
@@ -188,7 +188,7 @@
                     <el-form-item
                       label="编码："
                       prop="menuNo"
-                      v-if="isFEBuilder === '17358684442'"
+                      v-if="isFEBuilder"
                     >
                       <span slot="label">编码
                         <el-tooltip
@@ -209,7 +209,7 @@
                     <el-form-item
                       label="组件映射："
                       prop="menuCode"
-                      v-if="isFEBuilder === '17358684442'"
+                      v-if="isFEBuilder"
                     >
                       <span slot="label">组件映射
                         <el-tooltip
@@ -240,7 +240,8 @@
                           <i class="el-icon-question"/></el-tooltip>
                         ：
                       </span>
-                      <el-input :disabled="!temp.external & isFEBuilder!=='17358684442'" v-model="temp.pcUrl" class="filter-item"
+                      <el-input :disabled="!temp.external & isFEBuilder" v-model="temp.pcUrl"
+                                class="filter-item"
                                 @change="autoFormat"
                       />
                     </el-form-item>
@@ -261,7 +262,7 @@
                         </div>
                       </el-popover>
                     </el-form-item>
-                    <el-form-item v-if="port_pc && temp.menuCode && isFEBuilder === '17358684442'" label="是否缓存：">
+                    <el-form-item v-if="port_pc && temp.menuCode && isFEBuilder" label="是否缓存：">
                       <span slot="label">缓存页面
                         <el-tooltip
                           class="item"
@@ -290,13 +291,13 @@
                       <y-select-ico v-model="temp.mobileIcon"/>
                     </el-form-item>
                     <div style="height: 1px;border-bottom: 1px dashed #ccc;margin-bottom: 5px;"/>
-                    <el-form-item label="是否有数据权限：" v-if="isFEBuilder === '17358684442'">
+                    <el-form-item label="是否有数据权限：" v-if="isFEBuilder">
                       <el-radio-group v-model="temp.hasDataPrivilege">
                         <el-radio :label="false">无</el-radio>
                         <el-radio :label="true">有</el-radio>
                       </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="工作流：">
+                    <el-form-item label="工作流：" v-if="temp.menuType==='菜单'">
                       <el-switch
                         v-model="temp.hasWorkflow"
                         style="margin-right: 20px;"
@@ -356,7 +357,7 @@
                 <el-radio :label="false">禁用</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="外部系统：" v-if="isFEBuilder === '17358684442'">
+            <el-form-item label="外部系统：" v-if="isFEBuilder">
               <el-radio-group v-model="temp.external">
                 <el-radio :label="true">外部系统</el-radio>
                 <el-radio :label="false">内部系统</el-radio>
@@ -545,7 +546,17 @@
         menuItem: {},
         treeListData: [],
         vloading: false,
-        isFEBuilder: this.$route.query.isFEBuilder, // true 17358684442
+        builders: ['17358684442', 'fe'],
+      }
+    },
+    computed: {
+      isFEBuilder() {
+        let fe = this.$route.query.isFEBuilder
+        if (fe && this.builders.includes(fe)) {
+          return true
+        } else {
+          return false
+        }
       }
     },
     created() {

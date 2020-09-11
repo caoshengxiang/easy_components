@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleSave" :edit-status="true">
+    <y-detail-page-layout @save="handleSave" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -65,6 +65,7 @@
     },
     data() {
       return {
+        editStatus: false,
         type: 'detail',
         yearsOptions: [],
         termOptions: [],
@@ -108,6 +109,7 @@
     created() {
       if (this.detailInfo) {
         this.postForm = this.detailInfo
+        this.editStatus = false
       } else {
         this.getDetail()
       }
@@ -130,7 +132,6 @@
         })
       },
       getWeeks() {
-        alert(123)
         this.postForm.weeks = ''
         this.$api.dormitoryCheck.weeks({
           year: this.postForm.year,
