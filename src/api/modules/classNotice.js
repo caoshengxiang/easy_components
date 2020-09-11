@@ -37,5 +37,5 @@ export default {
   /*生成通知书*/
   generateNote(params) {
     return request.post('adviceNote/generateNote', params)
-  }
+  },
 }

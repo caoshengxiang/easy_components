@@ -6,6 +6,7 @@ import _views_moralManage_notification_detail from '@/views/moralManage/notifica
 import _views_moralManage_classNotice_list from '@/views/moralManage/classNotice/list';
 import _views_moralManage_classNotice_detail from '@/views/moralManage/classNotice/detail';
 import _views_moralManage_classNotice_setComment from '@/views/moralManage/classNotice/setComment';
+import _views_moralManage_classNotice_detailForFlow from '@/views/moralManage/classNotice/detailForFlow';
 import _views_moralManage_classNotice_setNotice from '@/views/moralManage/classNotice/setNotice';
 import _views_moralManage_conductScore_list from '@/views/moralManage/conductScore/index';
 import _views_moralManage_conductScore_setting from '@/views/moralManage/conductScore/setting';
@@ -32,6 +33,7 @@ export default {
   _views_moralManage_classNotice_detail,
   _views_moralManage_classNotice_setComment,
   _views_moralManage_classNotice_setNotice,
+  _views_moralManage_classNotice_detailForFlow,
   _views_moralManage_conductScore_add,
   _views_moralManage_conductScore_check,
   _views_moralManage_commentManage_list,
