@@ -97,6 +97,8 @@
     studentCadres: () => import('@/views/leagueActivities/studentCadres/detail'),
     studentActivities: () => import('@/views/leagueActivities/studentActivities/detail'),
     leagueMemberActivities: () => import('@/views/leagueActivities/leagueMemberActivities/detail'),
+    dormitoryBatchApprove: ()=>import('../../../views/dormitory/dormitoryCheck/listBatch_approve'),
+    dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
   }
   export default {
     name: 'WorkflowDetail',
@@ -131,6 +133,8 @@
       'staffDetail': detailList.staffDetail,
       'staffEduDetail': detailList.staffEduDetail,
       'staffwageDetail': detailList.staffwageDetail,
+      'dormitoryBatchApprove': detailList.dormitoryBatchApprove,
+      'dormitoryApprove': detailList.dormitoryApprove,
       'recruitTaskDetail':detailList.recruitTaskDetail,
       'recruitTaskPlan': detailList.recruitTaskPlan,
       'recruitBirthPalce':  detailList.recruitBirthPalce,
@@ -239,6 +243,10 @@
             case '_views_moralManage_scoreManage_list':
               return this.componentsAuditList.moralManageScoreManage
 
+            case '_views_dormitory_dormitoryCheck_checkRecord':
+              return this.componentsAuditList.dormitoryApprove
+            case '_views_dormitory_dormitoryCheck_list_dormitoryDeduction':
+              return this.componentsAuditList.dormitoryBatchApprove
           }
           return ''
         }
@@ -292,6 +300,9 @@
           studentCadres: 'studentCadres',
           studentActivities: 'studentActivities',
           leagueMemberActivities: 'leagueMemberActivities',
+          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6',
+          dormitoryBatchApprove:'dormitoryBatchApprove',
+          dormitoryApprove:'dormitoryApprove',
         }
       }
     },
