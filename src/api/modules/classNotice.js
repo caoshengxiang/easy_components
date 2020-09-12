@@ -38,4 +38,8 @@ export default {
   generateNote(params) {
     return request.post('adviceNote/generateNote', params)
   },
+  /*通知书预览*/
+  preview(params) {
+    return request.get('adviceNote/preview/' + params)
+  },
 }

@@ -114,12 +114,22 @@
       <el-table-column label="创建时间" align="center" prop="created" min-width="140px"/>
       <el-table-column label="操作" fixed="right" align="center" min-width="280px">
         <template v-slot="{ row }">
+<!--          <PermissionButton-->
+<!--            menu-no="_views_moralManage_classNotice_previewDetail"-->
+<!--            name=""-->
+<!--            type="primary"-->
+<!--            @click="pre(row)"-->
+<!--            round-->
+<!--          >-->
+<!--            预览-->
+<!--          </PermissionButton>-->
           <PermissionButton
             menu-no="_views_moralManage_classNotice_setComment"
             name=""
             type="primary"
-            @click="pre(row)"
             round
+            :page-jump="true"
+            :page-query="{id: row.id}"
           >
             预览
           </PermissionButton>
@@ -134,7 +144,7 @@
             下载
           </PermissionButton>
           <PermissionButton
-            menu-no="_views_moralManage_classNotice_setComment"
+            menu-no="_views_moralManage_classNotice_previewDetail"
             name=""
             type="primary"
             @click="setComment(row)"
