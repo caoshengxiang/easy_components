@@ -13,7 +13,7 @@
           <span class="title-weight">{{info.studentName}} </span>家长同志：
         </div>
         <div style="margin-bottom: 49px">
-          <p>根据上级教育部门的通知精神，本期我校学生放假离校时间为{{info.holidayDate}}。下期开学报到时间，一、二年级为{{info.underGradeRegisterDate}}，三年级为{{info.seniorGradeRegisterDate}}，现将有关注意事项通知于后，希望家长同志密切配合，使学生度过一个充实愉快、健康有益的假期。</p>
+          <p>根据上级教育部门的通知精神，本期我校学生放假离校时间为{{info.holidayDate && $moment(info.holidayDate, 'yyyy年MM月DD日')}}。下期开学报到时间，一、二年级为{{info.underGradeRegisterDate && $moment(info.underGradeRegisterDate, 'yyyy年MM月DD日')}}，三年级为{{info.seniorGradeRegisterDate && $moment(info.seniorGradeRegisterDate, 'yyyy年MM月DD日')}}，现将有关注意事项通知于后，希望家长同志密切配合，使学生度过一个充实愉快、健康有益的假期。</p>
           <p>一、教育学生在假期要严格遵守《中学生日常行为规范》、《四川省中职学校学生行为“十不准”纪律规定》、《四川省中职学校学生“三禁两不”纪律规定》，严禁参与赌博和封建迷信活动，做遵纪守法好学生、好公民。</p>
           <p>二、积极参加自我保健活动，做到勤洗手，勤洗脸，勤饮水，勤通风，预防季节性传染疾病。</p>
           <p>三、严禁进入营业性歌厅、舞厅，不进网吧、电子游戏室、台球室，不在人口密集的公共场所逗留。</p>
@@ -43,17 +43,23 @@
           <span class="head-icon"></span>
           <span class="head-icon icon-light"></span>
           <span class="title-weight title-lineHeight" style="margin-bottom: 15px">操行评语</span>
-          <p>
-            {{info.evaluation}}
-<!--            能完全做到认真学习、主动学习，有强烈的求知欲和端正的学习态度，能兼顾每门学科，各科成绩都较为均衡，全面发展。-->
-          </p>
+          <el-input type="textarea" class="filter-item input-textarea" disabled :value="info.evaluation" :rows="4" style="padding: 0 20px;"/>
+<!--          <p>-->
+<!--            {{info.evaluation}}-->
+<!--&lt;!&ndash;            能完全做到认真学习、主动学习，有强烈的求知欲和端正的学习态度，能兼顾每门学科，各科成绩都较为均衡，全面发展。&ndash;&gt;-->
+<!--          </p>-->
         </div>
         <div style="padding-bottom: 15px">
           <span class="head-icon"></span>
           <span class="head-icon icon-light"></span>
           <span class="title-weight title-lineHeight" style="margin-bottom: 15px">家长意见或建议</span>
+          <el-input type="textarea" :rows="4" class="filter-item input-textarea" disabled style="padding: 0 20px"/>
         </div>
-        <div style="text-align: center"><el-button size="mini" @click="goBack">返回</el-button></div>
+        <div style="text-align: right;padding: 0 20px">
+          <p>{{info.schoolName}}</p>
+          <p>{{info.sendDate && $moment(info.sendDate, 'yyyy年MM月DD日')}}</p>
+        </div>
+        <div style="text-align: center; margin-top: 50px"><el-button size="mini" @click="goBack">返回</el-button></div>
       </div>
     </div>
   </div>
@@ -113,7 +119,6 @@
           that.loading = false;
           if (data.code === 200) {
             that.info = data.data
-
           } else {
             this.$message({
               type: 'error',
@@ -174,6 +179,9 @@
         margin-left: 3px;
         margin-right: 12px;
       }
+    }
+    /deep/.input-textarea > textarea{
+      color: black;
     }
   }
 </style>
