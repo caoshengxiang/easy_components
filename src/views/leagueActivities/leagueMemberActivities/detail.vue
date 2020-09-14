@@ -49,8 +49,7 @@
                     v-model="form.content"
                     :config="{
                       initialFrameWidth: null,
-                      initialFrameHeight: 250,
-                      UEDITOR_HOME_URL: '/ueditor/'
+                      initialFrameHeight: 250
                     }"
                   />
                 </el-form-item>
