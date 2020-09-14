@@ -50,6 +50,7 @@
                     :config="{
                       initialFrameWidth: null,
                       initialFrameHeight: 250,
+                      UEDITOR_HOME_URL: '/ueditor/'
                     }"
                   />
                 </el-form-item>
@@ -103,9 +104,9 @@
       },
     },
     created() {
-      let that = this
+      let that = this;
       if (this.detailInfo) {
-        this.form = this.detailInfo
+        this.form = this.detailInfo;
         that.editStatus = false
       }
       else{
