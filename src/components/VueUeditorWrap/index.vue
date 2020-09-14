@@ -16,7 +16,7 @@ export default {
       initValue: '',
       defaultConfig: {
         // VUE CLI 3 会添加 process.env.BASE_URL 的环境变量，而 VUE CLI 2 没有，所以借此设置 UEDITOR_HOME_URL，能涵盖大部分 Vue 开发者的使用场景
-        UEDITOR_HOME_URL: '/admin/ueditor/',
+        UEDITOR_HOME_URL: process.env.NODE_ENV === 'production' ? '/admin/ueditor/' : '/ueditor/',
         enableAutoSave: false
       }
     };
