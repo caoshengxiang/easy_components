@@ -19,14 +19,14 @@
             </el-form-item>
 
             <el-form-item label="学期：" prop="termId">
-              <el-select v-model="postForm.termId" placeholder="请选择" style="width: 300px" @change="getWeeks">
+              <el-select v-model="postForm.termId" placeholder="请选择" style="width: 300px">
                 <el-option v-for="item in termOptions" :key="item.id" :label="item.name"
                            :value="item.id"
                 />
               </el-select>
             </el-form-item>
             <el-form-item label="年份：" prop="year">
-              <el-select v-model="postForm.year" placeholder="请选择" style="width: 300px" @change="getWeeks">
+              <el-select v-model="postForm.year" placeholder="请选择" style="width: 300px">
                 <el-option v-for="item in yearsOptions" :key="item" :label="item"
                            :value="item"
                 />

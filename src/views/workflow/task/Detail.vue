@@ -81,6 +81,7 @@
     recruitBirthPalce: () => import('@/views/recruit/birthplace/detail'),
     studentMorningExam: () => import('@/views/student/morningExam/detail'),
     studentLoseStudent: () => import('@/views/student/loseStudent/detail'),
+    studentClassExam: () => import('@/views/student/classExam/detail'),
     baseInfoAssetInfoUserInfo6: () => import('@/views/baseinfo/userinfo6/detailInfo'),
     moralManageSetNotice: () => import('@/views/moralManage/classNotice/setNotice'),
     moralManageRule: () => import('@/views/moralManage/notification/detail'),
@@ -101,12 +102,14 @@
     dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
     dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/add'),
     classRecord: () => import('@/views/dormitory/classRecord/add'),
+    classNotice:() =>('@/views/moralManage/classNotice/detailForFlow')
   }
   export default {
     name: 'WorkflowDetail',
     components: {
       Breadcrumb,
       YDetailPageLayout,
+      'studentClassExam':detailList.studentClassExam,
       'dormitoryCheck': detailList.dormitoryCheck,
       'classRecord': detailList.classRecord,
       'communityManage': detailList.communityManage,
@@ -151,7 +154,8 @@
       'moralManageCommonCommentManage': detailList.moralManageCommonCommentManage,
       'moralManageScoreManage': detailList.moralManageScoreManage,
       'rewardsAndPunishmentsInfoDetail': detailList.rewardsAndPunishmentsInfoDetail,
-      'rewardsAndPunishmentsUndoDetail': detailList.rewardsAndPunishmentsUndoDetail
+      'rewardsAndPunishmentsUndoDetail': detailList.rewardsAndPunishmentsUndoDetail,
+      'classNotice':detailList.classNotice
     },
     props: {
       //保存方法
@@ -164,6 +168,8 @@
       componentsId:function () {
         return function (menuNo) {
           switch (menuNo) {
+            case '_views_student_classExam_list':
+              return this.componentsAuditList.studentClassExam
             case '_views_dormitory_dormitoryCheck_list':
               return this.componentsAuditList.dormitoryCheck
             case '_views_dormitory_classRecord_list':
@@ -240,6 +246,9 @@
               return this.componentsAuditList.studentLoseStudent
             case '_views_baseinfo_userinfo6_list':
               return this.componentsAuditList.baseInfoAssetInfoUserInfo6
+
+            case '_views_moralManage_classNotice_list':
+              return this.componentsAuditList.classNotice
             case '_views_moralManage_classNotice_setNotice':
               return this.componentsAuditList.moralManageSetNotice
             case '_views_moralManage_notification_list':
@@ -267,6 +276,8 @@
         originData: {},
         show: false,
         componentsAuditList:{
+          classNotice:'classNotice',
+          studentClassExam:'studentClassExam',
           dormitoryCheck:'dormitoryCheck',
           classRecord:'classRecord',
           rewardsAndPunishmentsInfoDetail:'rewardsAndPunishmentsInfoDetail',
@@ -310,7 +321,6 @@
           studentCadres: 'studentCadres',
           studentActivities: 'studentActivities',
           leagueMemberActivities: 'leagueMemberActivities',
-          baseInfoAssetInfoUserInfo6: 'baseInfoAssetInfoUserInfo6',
           dormitoryBatchApprove:'dormitoryBatchApprove',
           dormitoryApprove:'dormitoryApprove',
         }
