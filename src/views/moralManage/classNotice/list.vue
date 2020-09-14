@@ -124,7 +124,7 @@
 <!--            预览-->
 <!--          </PermissionButton>-->
           <PermissionButton
-            menu-no="_views_moralManage_classNotice_setComment"
+            menu-no="_views_moralManage_classNotice_previewDetail"
             name=""
             type="primary"
             round
