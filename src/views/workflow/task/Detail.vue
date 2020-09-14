@@ -102,7 +102,7 @@
     dormitoryApprove: ()=>import('../../../views/dormitory/dormitoryCheck/checkRecord_approve'),
     dormitoryCheck: () => import('@//views/dormitory/dormitoryCheck/add'),
     classRecord: () => import('@/views/dormitory/classRecord/add'),
-    classNotice:() =>('@/views/moralManage/classNotice/detailForFlow')
+    classNotice:() => import('@/views/moralManage/classNotice/detailForFlow')
   }
   export default {
     name: 'WorkflowDetail',

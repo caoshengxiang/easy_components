@@ -144,7 +144,7 @@
             下载
           </PermissionButton>
           <PermissionButton
-            menu-no="_views_moralManage_classNotice_previewDetail"
+            menu-no="_views_moralManage_classNotice_setComment"
             name=""
             type="primary"
             @click="setComment(row)"
