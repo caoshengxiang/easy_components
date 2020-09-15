@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <!--        <el-button class="filter-item" style="margin-left: 0px;" type="primary" icon="el-icon-plus" @click="handleAdd">-->
         <!--          新增学期-->

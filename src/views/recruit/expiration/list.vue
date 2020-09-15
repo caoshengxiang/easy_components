@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-input
           v-model="listQuery.keyword"

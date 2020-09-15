@@ -317,6 +317,13 @@
         </el-tab-pane>
       </el-tabs>
     </y-detail-page-layout>
+    <el-dialog style=" text-align: center" :title="title"
+               :visible.sync="productInnerQR"
+    >
+      <div style="text-align: left;letter-spacing: 2px;line-height: 25px" v-html="configInfo.PROMISE_LETTER.value"></div>
+      <el-button type="primary" @click="productInnerQR = !productInnerQR">同意</el-button>
+
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -342,6 +349,8 @@ export default {
   },
   data() {
     return {
+      title:'',
+      productInnerQR:false,
       content: '发送验证码',  // 按钮里显示的内容
       totalTime: 60,
       canClick: true,
@@ -413,7 +422,8 @@ export default {
       AllEnum:[],
       areaInfo:[],
       clbumInfo:[],
-      type:this.$route.path == '/registration'
+      type:this.$route.path == '/registration',
+      configInfo:{}
     }
   },
   watch: {
@@ -429,12 +439,23 @@ export default {
       this.getDetail()
     }
 
+    if(this.type){
+      this.productInnerQR = true
+    }
+    this.getConfig()
     that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
     that.getAreaList()
   },
   methods: {
+    getConfig() {
+      this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+        this.configInfo = res.data.fieldValues
+        this.title =   this.configInfo.SYS_NAME.value + '就读协议、承诺书'
+        this.configInfo.PROMISE_LETTER.value = this.configInfo.PROMISE_LETTER.value.replace("600元（陆佰元整）", this.configInfo.PAYMENT.value)
+      })
+    },
     successAction(data){
       this.postForm.birthday = data.words_result.birBean.words
       this.postForm.idNo = data.words_result.numBean.words

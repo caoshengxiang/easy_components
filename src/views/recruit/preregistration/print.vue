@@ -5,7 +5,7 @@
     </div>
     <y-detail-page-layout  @save="save" saveBtnName="打印">
 
-          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"     style="position: relative;padding: 1px 20px;width: 1100px;margin: auto;"  id="studentInfo"    >
+          <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container"   style="position: relative;padding: 1px 20px;width: 1100px;margin: auto;"  id="studentInfo"    >
             <div class="createPost-main-container">
               <div class="postInfo-container">
                 <div style="margin-bottom: 30px">
@@ -281,13 +281,7 @@
                   </h3>
                 </div>
 
-                <div style="font-size: 10px;letter-spacing: 1px;color: grey;line-height: 20px">
-                  一、按国家的有关规定，中职学校在校学生全部免除学费，现向学校缴纳第一学年书本代管费600元（陆佰元整）；<br />
-                  二、学生必须按规定日到校报到注册，报到注册后将不能变更学籍；<br />
-                  三、学生一律不能纹身、衣着妆容必须符合学生身份，若发现纹身者将不予注册报到；若在校期间严重违反学校有关规章制度或触犯国家法律，收到国家法律的处理，情节严重者将予以 注销学籍，且不退还一切费用；<br />
-                  四、本人承诺，以上填写内容真实有效；<br />
-                  五、本人承诺，报名相关专业后，不再进行专业调换，不退还书本费。<br />
-                </div>
+                <div style="font-size: 10px;letter-spacing: 1px;color: grey;line-height: 20px" v-html="configInfo.PROTOCOL.value"></div>
 
                 <div style="margin-top: 30px">
                   <el-checkbox v-model="checked1" >我同意</el-checkbox>
@@ -330,6 +324,8 @@ import { validURL } from '@/utils/validate'
 import YDetailPageLayout from '@/components/YDetailPageLayout/index_detail'
 import fileUpload from '@/components/FileUpload'
 import printPdf from '../../../utils/printPdf'
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default {
   name: 'ComplexTable',
@@ -348,6 +344,7 @@ export default {
   },
   data() {
     return {
+      administrativeSpecialtyName:'',
       position:'left',
       checked1:false,
       classTypes:[],
@@ -403,7 +400,8 @@ export default {
       dataId: this.$route.query.id,
       AllEnum:[],
       areaInfo:[],
-      clbumInfo:[]
+      clbumInfo:[],
+      configInfo:{}
     }
   },
   watch: {
@@ -415,19 +413,77 @@ export default {
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
+
+      that.getSpecialtyList()
     } else {
       this.getDetail()
     }
-    that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
     that.getAreaList()
   },
   methods: {
+    getConfig() {
+      let that = this
+      this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+        this.configInfo = res.data.fieldValues
+        this.configInfo.PROTOCOL.value = this.configInfo.PROTOCOL.value.replace("600元（陆佰元整）", this.configInfo.PAYMENT.value)
+        this.configInfo.PROTOCOL.value = this.configInfo.PROTOCOL.value.replace("name", this.postForm.name)
+        this.specialty.forEach(function (item) {
+          if(item.id === that.postForm.administrativeSpecialtyId){
+            that.administrativeSpecialtyName = item.name
+          }
+        })
+        this.configInfo.PROTOCOL.value = this.configInfo.PROTOCOL.value.replace("major", that.administrativeSpecialtyName)
+      })
+    },
     save() {
-      if (this.postForm.name) {
-        printPdf('#studentInfo', this.postForm.name + '-' + this.postForm.id)
-      }
+      // console.log(printPdf('#rewardsAndPunishmentsDetailInfo', '奖惩'))
+      // console.log(psf)
+      html2canvas(document.querySelector('#studentInfo'), {
+        // 背景设为白色（默认为黑色）
+        background: '#fff',
+        dpi: 400, // 导出pdf清晰度,DPI越低，扫描的清晰度越低
+        scale: 3
+      }).then(canvas => {
+        // document.body.appendChild(canvas)
+        const contentWidth = canvas.width
+        const contentHeight = canvas.height
+        // 一页pdf显示html页面生成的canvas高度;
+        var pageHeight = contentWidth / 592.28 * 841.89
+        // 未生成pdf的html页面高度
+        var leftHeight = contentHeight
+        // pdf页面偏移
+        var position = 0
+        // html页面生成的canvas在pdf中图片的宽高（a4纸的尺寸[595.28,841.89]）
+        var imgWidth = 595.28
+        var imgHeight = 592.28 / contentWidth * contentHeight
+        var pageData = canvas.toDataURL('image/jpeg', 1.0)
+        // eslint-disable-next-line
+        var pdf = new jsPDF('', 'pt', 'a4')
+        // 有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+        // 当内容未超过pdf一页显示的范围，无需分页
+        if (leftHeight < pageHeight) {
+          pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
+        } else {
+          while (leftHeight > 0) {
+            pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+            leftHeight -= pageHeight
+            position -= 841.89
+            // 避免添加空白页
+            if (leftHeight > 0) {
+              pdf.addPage()
+            }
+          }
+        }
+        // pdf.save(`${name}.pdf`)
+        this.urlStr = pdf.output('dataurlstring')
+        localStorage.setItem('r-print-url', this.urlStr);
+        window.open('/pdf/web/viewer.html')
+      })
+   //   if (this.postForm.name) {
+     //   printPdf('#studentInfo', this.postForm.name + '-' + this.postForm.id)
+    //  }
     },
     changeSpe(){
       let that = this
@@ -479,6 +535,7 @@ export default {
         if (data.code === 200) {
           // 返回成功
           that.specialty = data.data
+          this.getConfig()
         } else {
           this.$message({
             type: 'error',
@@ -506,7 +563,7 @@ export default {
       if (this.dataId) {
         this.$api.admiisionPreApply.detail(this.dataId).then(res => {
           this.postForm = res.data
-
+          this.getSpecialtyList()
           this.changeSpe()
         })
       }
