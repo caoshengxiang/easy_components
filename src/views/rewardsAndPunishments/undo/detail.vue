@@ -17,19 +17,19 @@
                   </el-col>
                 </el-row>
                 <el-row style="margin-left: 150px">
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item ">
                       <el-select v-model="postForm.gradeId" @change="getClbumList"
                                  placeholder="年级"
                                  @clear="clearClbumStd"
                                  clearable
-                                 style="width: 100px" class="filter-item"
+                                 style="width: 100%;" class="filter-item"
                       >
                         <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item ">
                       <el-select
                         v-model="postForm.specialtyId"
@@ -38,36 +38,37 @@
                         class="filter-item"
                         @change="getClbumList"
                         @clear="clearClbumStd"
+                        style="width: 100%;"
                       >
                         <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label=" 班级：" prop="clbumId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.clbumId" placeholder="班级"
                                  @change="getStdNoBedList"
                                  @clear="$set(postForm, 'studentId', '')"
                                  clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item" style="width: 100%;"
                       >
                         <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="姓名：" prop="studentId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.studentId" placeholder="姓名" clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item" style="width: 100%;"
                       >
                         <el-option v-for="item in noBedStd" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row style="margin-left: 150px">
-                  <el-col :span="6">
-                    <el-form-item label="撤销文件：" prop="cancelFile" label-width="120px" class="postInfo-container-item ">
+<!--                </el-row>-->
+<!--                <el-row style="margin-left: 150px">-->
+                  <el-col :span="6" :xs="8" :sm="8">
+                    <el-form-item label="撤销文件：" prop="cancelFile" label-width="120px" style="height: 20px" class="postInfo-container-item ">
                       <fileUpload
                         :limit="1"
                         :file-list="[{path:postForm.cancelFile}]"
@@ -79,7 +80,7 @@
                         v-if="!loading"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="奖/惩：" prop="oper" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.oper"
@@ -92,12 +93,12 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label=" 级别：" prop="level" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.level" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="处理时间：" prop="cancelTime" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.cancelTime"

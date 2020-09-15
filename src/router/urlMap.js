@@ -92,14 +92,16 @@ import moralManage from './urlMapModules/moralManage'
 import leagueActivities from './urlMapModules/leagueActivities'
 import rewardsAndPunishments from "./urlMapModules/rewardsAndPunishments";
 import diagnosis from './urlMapModules/diagnosis'
-import QuestionnaireInvestigation from './urlMapModules/attainment'
+// import _views_attainment_questionnaire_Administration from '@/views/attainment/questionnaire/Administration'
+import attainment from './urlMapModules/attainment'
 
 /*
 * 字段说明：
 * 页面全路径url: 对应的路由组件
 * */
 export default {
-  ...QuestionnaireInvestigation, //问卷调查
+  ...attainment, //问卷调查
+  // _views_attainment_questionnaire_Administration,
   _views_home_dataCenter, // 数据中心默认页
   _views_workflow_task_list, // 待办列表
   _views_workflow_task_Detail, // 任务详情
