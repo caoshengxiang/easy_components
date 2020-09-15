@@ -36,7 +36,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -209,15 +209,15 @@ export default {
     }
   },
   created() {
-    const that = this
-    that.getList()
-    this.getConductPoint()
-    that.getByTypeId('purpose')
+    const that = this;
+    that.getList();
+    this.getConductPoint();
+    that.getByTypeId('purpose');
     that.getByTypeId('useStatus')
   },
   methods: {
     conductPointSetting() {
-      this.getConductPoint()
+      this.getConductPoint();
       this.dialogFormVisible = true
     },
     /*生成学生操行分*/
@@ -247,7 +247,7 @@ export default {
       })
     },
     warnSetting() {
-      this.getConductPoint()
+      this.getConductPoint();
       this.dialogFormVisible1 = true
     },
     getConductPoint() {
@@ -259,7 +259,7 @@ export default {
     saveDataOne(){
       this.$refs.warnForm.validate(valid => {
         if (valid) {
-          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm};
           this.$api.globalConfig.edit(params).then(res => {
             if (res.code === 200) {
               this.$notify({
@@ -267,7 +267,7 @@ export default {
                 message: '设置成功',
                 type: 'success',
                 duration: 2000
-              })
+              });
               this.dialogFormVisible1 = false
             }
           })
@@ -279,7 +279,7 @@ export default {
     saveData(){
       this.$refs.conductPointForm.validate(valid => {
         if (valid) {
-          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+          let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm};
           this.$api.globalConfig.edit(params).then(res => {
             if (res.code === 200) {
               this.$notify({
@@ -287,7 +287,7 @@ export default {
                 message: '设置成功',
                 type: 'success',
                 duration: 2000
-              })
+              });
               this.dialogFormVisible = false
             }
           })
@@ -297,7 +297,7 @@ export default {
       })
     },
     changeSwitch(){
-        let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm}
+        let params = {key:'CONDUCT_POINT_SETTING',fieldValues:this.conductPointForm};
         this.$api.globalConfig.edit(params).then(res => {
           if (res.code === 200) {
             this.$notify({
@@ -310,15 +310,15 @@ export default {
         })
     },
     getByTypeId(id) {
-      const that = this
+      const that = this;
       that.$api.dictData.getByCode({ code: id }).then(data => {
         if (data.code === 200) {
           switch (id) {
             case 'useStatus':
-              that.useStatus = data.data
-              break
+              that.useStatus = data.data;
+              break;
             case 'purpose':
-              that.purpose = data.data
+              that.purpose = data.data;
               break
           }
         } else {
@@ -330,14 +330,18 @@ export default {
       })
     },
     searchList() {
-      const that = this
-      that.pagePara.current = 0
+      const that = this;
+      that.pagePara.current = 0;
 
       that.getList()
     },
-
+    reset() {
+      this.listQuery = {descs: 'id'};
+      this.searchList();
+    },
     deleteInfo(id) {
-      const that = this
+      const that = this;
+      that.loading = true;
       that.$confirm('请确认是否删除该数据?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -345,9 +349,9 @@ export default {
         center: true
       }).then(() => {
         that.$api.conductScore.conductTypeRemove( id ).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
-            that.getList()
+            that.searchList()
           } else {
             this.$message({
               type: 'error',
@@ -356,10 +360,11 @@ export default {
           }
         })
       }).catch(() => {
+        that.loading = false
       })
     },
     add() {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -368,7 +373,7 @@ export default {
       })
     },
     detailInfo(id) {
-      const that = this
+      const that = this;
       that.$router.push({
         path: '/views/baseinfo/assetinfo/detail',
         query: {
@@ -378,10 +383,10 @@ export default {
       })
     },
     getList() {
-      const that = this
-      that.listLoading = true
+      const that = this;
+      that.listLoading = true;
       that.$api.conductScore.conductType({ ...that.listQuery, ...that.pagePara }).then(data => {
-        that.listLoading = false
+        that.listLoading = false;
         if (data.code === 200) {
           // 返回成功
           that.pageData = data.data

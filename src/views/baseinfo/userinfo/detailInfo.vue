@@ -176,15 +176,6 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="学习形式：" prop="studyStyle" label-width="120px" class="postInfo-container-item">
-                  <el-select v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item"
-                             style="width: 100%"
-                  >
-                    <el-option v-for="item in AllEnum.学习形式" :key="item" :label="item" :value="item"/>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
                 <el-form-item label="当前状态：" prop="state" label-width="120px" class="postInfo-container-item">
                   <el-select v-model="postForm.state" placeholder="当前状态" clearable class="filter-item"
                              style="width: 100%"
@@ -193,9 +184,27 @@
                   </el-select>
                 </el-form-item>
               </el-col>
+              <el-col :span="6">
+                <el-form-item label="学习形式：" prop="studyStyle" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.studyStyle" placeholder="学习形式" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.学习形式" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
             </el-row>
 
             <el-row>
+              <el-col :span="6" v-if="postForm.studyStyle == '非全日制'">
+                <el-form-item label="学生来源类型：" prop="studentSourceType" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="postForm.studentSourceType" placeholder="学生来源类型" clearable class="filter-item"
+                             style="width: 100%"
+                  >
+                    <el-option v-for="item in AllEnum.学生来源类型" :key="item" :label="item" :value="item"/>
+                  </el-select>
+                </el-form-item>
+              </el-col>
               <el-col :span="6">
                 <el-form-item label="乘火车区间：" prop="railwayRange" label-width="120px" class="postInfo-container-item">
                   <el-input v-model="postForm.railwayRange" class="filter-item"/>

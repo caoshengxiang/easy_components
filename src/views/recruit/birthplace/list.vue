@@ -59,6 +59,11 @@
             <span>{{ row.weight }} </span>
           </template>
         </el-table-column>
+        <el-table-column label="是否本省" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.localProvince == 1?'是':'否'}} </span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template slot-scope="{row}">
             <PermissionButton

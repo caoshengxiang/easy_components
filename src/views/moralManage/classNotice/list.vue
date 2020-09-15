@@ -58,7 +58,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -112,16 +112,36 @@
       <el-table-column label="三年级报到时间" width="140px" align="center" prop="seniorGradeRegisterDate" />
       <el-table-column label="通知书发放时间" width="140px" align="center" prop="sendDate" min-width="140px"/>
       <el-table-column label="创建时间" align="center" prop="created" min-width="140px"/>
-      <el-table-column label="操作" fixed="right" align="center" min-width="220px">
+      <el-table-column label="操作" fixed="right" align="center" min-width="280px">
         <template v-slot="{ row }">
+<!--          <PermissionButton-->
+<!--            menu-no="_views_moralManage_classNotice_previewDetail"-->
+<!--            name=""-->
+<!--            type="primary"-->
+<!--            @click="pre(row)"-->
+<!--            round-->
+<!--          >-->
+<!--            预览-->
+<!--          </PermissionButton>-->
           <PermissionButton
-            menu-no="_views_moralManage_classNotice_setComment"
+            menu-no="_views_moralManage_classNotice_previewDetail"
             name=""
             type="primary"
-            @click="pre(row)"
             round
+            :page-jump="true"
+            :page-query="{id: row.id}"
           >
             预览
+          </PermissionButton>
+          <PermissionButton
+            :disabled="!row.wordUrl"
+            menu-no="_views_moralManage_classNotice_download"
+            name=""
+            type="primary"
+            @click="openLinkUrl(row.wordUrl)"
+            round
+          >
+            下载
           </PermissionButton>
           <PermissionButton
             menu-no="_views_moralManage_classNotice_setComment"
@@ -198,6 +218,9 @@
       that.getByTypeId('useStatus')
     },
     methods: {
+      openLinkUrl(url) {
+        location.href = url;
+      },
       setNotice() {
         const query = this.listQuery;
         if (query.gradeId && query.specialtyId && query.termId && query.clbumId) {
@@ -228,7 +251,7 @@
       },
       pre(row){
         let that = this;
-        this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + row.wordUrl;
+        this.wordUrl = "https://view.officeapps.live.com/op/view.aspx?src=" + location.origin + row.wordUrl;
         this.$nextTick(function () {
           that.dialogFormVisible = true
         })
@@ -259,7 +282,10 @@
 
         that.getList()
       },
-
+      reset() {
+        this.listQuery = {descs: 'id'};
+        this.searchList();
+      },
       deleteInfo(id) {
         const that = this;
         that.$confirm('请确认是否删除该数据?', '提示', {
@@ -268,10 +294,11 @@
           type: 'warning',
           center: true
         }).then(() => {
-          that.$api.classNotice.delete({ id: id }).then(data => {
+          that.loading = true;
+          that.$api.classNotice.remove(id).then(data => {
             that.loading = false;
             if (data.code === 200) {
-              that.getList()
+              that.searchList()
             } else {
               this.$message({
                 type: 'error',
@@ -280,6 +307,7 @@
             }
           })
         }).catch(() => {
+          that.loading = false;
         })
       },
       add() {

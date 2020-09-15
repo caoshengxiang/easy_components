@@ -2,8 +2,9 @@
   <div class="app-container">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
-    </div>
+    </div>   <div v-if="type" style="width: 100%;text-align: center;font-size:30px"><label style="letter-spacing: 2px;color: #0e76a8">学生在线报名</label></div>
     <y-detail-page-layout @save="handleCreate" :edit-status="true">
+
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
@@ -66,7 +67,7 @@
                           <fileUpload
                               ref="uploadCourseChapter"
                             :isdisabled="false"
-                            :file-list="[{path:postForm.avatar}]"
+                            :file-list="[]"
                             :style-type="3"
                             :cert-type="postForm.certificateType"
                             @successAction="successAction"
@@ -118,9 +119,13 @@
                   </el-col>
                   <el-col :span="6">
                     <el-form-item label="验证码："  prop="code" label-width="150px" class="postInfo-container-item">
-                      <el-input v-model="postForm.code"class="filter-item" style="width: 50%"/>
-                      <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
+                      <el-input v-model="postForm.code"class="filter-item" style="width: 100%"/>
 
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-form-item   prop="code" label-width="10px" class="postInfo-container-item">
+                  <el-button  @click="countDown"  type="success" plain> {{content}}</el-button>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -207,7 +212,7 @@
                       <el-select v-model="postForm.inschooled" placeholder="是否住校" clearable class="filter-item"
                                  style="width: 100%"
                       >
-                        <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+                        <el-option v-for="item in opt3" :key="item.key" :label="item.label" :value="item.key"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -354,6 +359,13 @@ export default {
       }, {
         key: 0,
         label: '未参加'
+      }],
+      opt3: [{
+        key: 1,
+        label: '住校'
+      }, {
+        key: 0,
+        label: '走读'
       }],
       opt: [{
         key: 1,
@@ -591,10 +603,8 @@ export default {
                           type: 'success',
                           duration: 2000
                         })
-                        const back = this.$route.query.back
-                        if (back) {
-                          this.$router.push(back)
-                        }
+
+                        location.reload()
                       }
                     })
                   }

@@ -114,28 +114,37 @@
         termOptions:[],
         form: {},
         rules: {
-          // studentID: [{ required: true, message: '请输入学生身份证号', trigger: 'blur' }],
-          // level: [{ required: true, message: '请输入级别', trigger: 'blur' }],
-          // unit: [{ required: true, message: '请输入任职单位', trigger: 'blur' }],
-          // cadresName: [{ required: true, message: '请输入干部名称', trigger: 'blur' }],
-          // semester: [{ required: true, message: '请输入学期', trigger: 'blur' }],
-          // jobs: [{ required: true, message: '请输入学生干部岗位', trigger: 'blur' }],
+          name: [{ required: true, message: '请选择学生', trigger: 'change' }],
+          termId: [{ required: true, message: '请选择学期', trigger: 'change' }],
+          postIds: [{ required: true, message: '请选择学生干部岗位', trigger: 'change' }],
         }
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.form = value
+      },
+    },
     created() {
-      this.getData();
+      let that = this
+      if (this.detailInfo) {
+        this.form = this.detailInfo
+        that.editStatus = false
+      }
+      else{
+        this.getData();
+      }
     },
     methods: {
       getData() {
         if (this.detailInfo) {
-          this.form = this.detailInfo
+          this.form = this.detailInfo;
           this.editStatus = false
         } else if (this.$route.query.id) {
           this.loading = true;
           // todo 对接口
           this.$api.studentCadres.getDetail(this.$route.query.id).then(res => {
-            this.loading = false
+            this.loading = false;
             if (res.code === 200) {
               if (res.data.postList && res.data.postList.length > 0) {
                 res.data.postIds = res.data.postList.map( item => {
@@ -157,7 +166,7 @@
           if (valid) {
             // todo 对接口
             let { postIds = [], ...formData } = this.form;
-            formData.removeIds = []
+            formData.removeIds = [];
             if (this.$route.query.id) {
               formData.postList.forEach(item => {
                 if (!postIds.includes(item.id)) {
@@ -173,14 +182,14 @@
             if (this.$route.query.id) {
 
               this.$api.studentCadres.edit(formData).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑学生干部成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/studentCadres',
                   })
@@ -190,17 +199,17 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               this.$api.studentCadres.add(formData).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增学生干部成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/studentCadres',
                   })
@@ -210,7 +219,7 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           } else {
             this.$message.warning('请完善表单信息！');

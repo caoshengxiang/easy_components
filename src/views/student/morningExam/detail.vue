@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -107,6 +107,7 @@ export default {
   },
   data() {
     return {
+      editStatus: true,
       grantType: [  {
         key: '',
         label: '全部'
@@ -151,6 +152,7 @@ export default {
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
+      that.editStatus = false
     } else {
       this.getDetail()
     }
@@ -208,22 +210,27 @@ export default {
     },
     getStudent(){
       const that = this
-      that.$api.student.getStudentList({
-        gradeId: that.postForm.administrativeGradeId,
-        specialtyId: that.postForm.administrativeSpecialtyId,
-        schoolClbumId: that.postForm.administrativeClbumId
-      }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.studentInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+      if(!that.postForm.administrativeClbumId){
+        that.studentInfo = []
+      }
+      else {
+        that.$api.student.getStudentList({
+          administrativeGradeId: that.postForm.administrativeGradeId,
+          administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
+          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.studentInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }
     },
     getDetail() {
       if (this.dataId) {

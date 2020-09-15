@@ -86,7 +86,7 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery={}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
@@ -145,30 +145,29 @@
       }
     },
     created() {
-      const that = this
-      that.getList()
-      that.getStatistics()
+      const that = this;
+      that.searchList()
     },
     methods: {
 
       getStatistics() {
-        let that = this
+        let that = this;
         that.$api.statistics.getStatistics('/conductAssessment/stat', { ...that.listQuery }).then(data => {
           if (data.code === 200) {
-            let { list = [] } = data.data
+            let { list = [] } = data.data;
             list.forEach( item => {
               switch (item.key) {
                 case '优':
-                  that.statisticsInfo.excellentTotal = item.value
+                  that.statisticsInfo.excellentTotal = item.value;
                   break;
                 case '良':
-                  that.statisticsInfo.goodTotal = item.value
+                  that.statisticsInfo.goodTotal = item.value;
                   break;
                 case '中':
-                  that.statisticsInfo.mediumTotal = item.value
+                  that.statisticsInfo.mediumTotal = item.value;
                   break;
                 case '差':
-                  that.statisticsInfo.poorTotal = item.value
+                  that.statisticsInfo.poorTotal = item.value;
                   break;
               }
             })
@@ -182,12 +181,17 @@
         })
       },
       searchList() {
-        const that = this
-        that.pagePara.current = 0
-        that.getList()
+        const that = this;
+        that.pagePara.current = 0;
+        that.getList();
+        that.getStatistics()
+      },
+      reset() {
+        this.listQuery = {};
+        this.searchList();
       },
       add() {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/moralManage/commentManage/detail',
           query: {
@@ -197,7 +201,7 @@
         })
       },
       detail(id) {
-        const that = this
+        const that = this;
         that.$router.push({
           path: '/views/moralManage/scoreManage/userScore',
           query: {
@@ -207,10 +211,10 @@
         })
       },
       getList() {
-        const that = this
-        that.listLoading = true
+        const that = this;
+        that.listLoading = true;
         that.$api.scoreManage.getPage({ ...that.listQuery, ...that.pagePara }).then(data => {
-          that.listLoading = false
+          that.listLoading = false;
           if (data.code === 200) {
             // 返回成功
             that.pageData = data.data

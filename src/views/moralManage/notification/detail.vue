@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus="editStatus">
+    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="成绩设置编辑" name="first">
           <el-form ref="postForm" :model="postForm" :rules="rules" style="padding-right: 15% ">
@@ -67,8 +67,14 @@
         }
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.postForm = value
+      },
+    },
     data() {
       return {
+        loading: false,
         editStatus: true,
         postForm: {},
         rules: {
@@ -96,29 +102,39 @@
         },
       }
     },
-    watch: {
-      detailInfo: function (value) {
-        this.postForm = value
-      },
-    },
     created() {
-      const that = this
-      that.type = that.$route.query.type
+      const that = this;
+      that.type = that.$route.query.type;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
+        that.postForm = that.detailInfo;
         that.editStatus = false
+      } else {
+        this.getData();
       }
 
     },
     methods: {
+      getData() {
+        this.loading = true;
+        this.$api.globalConfig.getValuesByKey({ key: 'ADVICE_ACHIEVEMENT_SETTING' }).then(res => {
+          const { fieldValues } = res.data;
+          this.postForm = {
+            usualRate: Number(fieldValues.USUAL_RATE.value).toString(),
+            midtermRate: Number(fieldValues.MIDTERM_RATE.value).toString(),
+            finalRate: Number(fieldValues.FINAL_RATE.value).toString(),
+            praticalRate: Number(fieldValues.PRATICAL_RATE.value).toString()
+          };
+          this.loading = false;
+        })
+      },
       save() {
-        const that = this
+        const that = this;
         that.$refs.postForm.validate(valid => {
           if (valid) {
             that.$api.notification.setRule({...that.postForm}).then(data => {
-              that.loading = false
+              that.loading = false;
               if (data.code === 250) {
-                const back = this.$route.query.back
+                const back = this.$route.query.back;
                 if (back) {
                   this.$router.push(back)
                 }
@@ -128,8 +144,8 @@
                   message: '规则设置成功',
                   type: 'success',
                   duration: 2000
-                })
-                const back = this.$route.query.back
+                });
+                const back = this.$route.query.back;
                 if (back) {
                   this.$router.push(back)
                 }
@@ -139,7 +155,7 @@
                   message: data.msg
                 })
               }
-            })
+            }).catch(_ => this.loading = false);
           }
         })
       }

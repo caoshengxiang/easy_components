@@ -18,6 +18,6 @@ export default {
     return request.delete('studentActivity/' + params )
   },
   stat(params){
-    return request.get('studentActivity/stat/', { params })
+    return request.get('studentActivity/stat', { params })
   },
 }

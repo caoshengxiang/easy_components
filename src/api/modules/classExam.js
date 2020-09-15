@@ -21,4 +21,7 @@ export default {
   delete(params) {
     return request.delete(`classExam/${params}`)
   },
+  editScore(params) {
+    return request.put(`/classExam/editDetail`, params)
+  },
 }

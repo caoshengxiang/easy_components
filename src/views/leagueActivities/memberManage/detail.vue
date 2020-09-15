@@ -76,8 +76,8 @@
                   <service-select
                     v-model="form.state"
                     :data-service="$api.LACommunityManage.characterList"
-                    :default-query="{ key: '当前状态' }"
-                    placeholder="性质"
+                    :default-query="{ key: '社员状态' }"
+                    placeholder="状态"
                     clearable
                     pureList
                     style="width: 100%"
@@ -135,19 +135,31 @@
         form: {},
         rules: {
           clubName: [{ required: true, message: '请输入社团名称', trigger: 'blur' }],
-          dutyName: [{ required: true, message: '请输入职务', trigger: 'blur' }],
+          // dutyName: [{ required: true, message: '请输入职务', trigger: 'blur' }],
           studentName: [{ required: true, message: '请输入学生', trigger: 'blur' }],
-          employeeDate: [{ required: true, message: '请输入任职日期', trigger: 'change' }],
+          // employeeDate: [{ required: true, message: '请输入任职日期', trigger: 'change' }],
           entryDate: [{ required: true, message: '请输入入社日期', trigger: 'change' }],
           state: [{ required: true, message: '请输入状态', trigger: 'blur' }],
-          evaluation: [{ required: true, message: '请输入社团评价', trigger: 'blur' }],
-          content: [{ required: true, message: '请输入工作内容', trigger: 'blur' }],
+          // evaluation: [{ required: true, message: '请输入社团评价', trigger: 'blur' }],
+          // content: [{ required: true, message: '请输入工作内容', trigger: 'blur' }],
         },
         studentOptions: []
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.form = value
+      },
+    },
     created() {
-     this.getData();
+      let that = this
+      if (this.detailInfo) {
+        this.form = this.detailInfo
+        that.editStatus = false
+      }
+      else{
+        this.getData();
+      }
     },
     methods: {
       getData() {
@@ -187,6 +199,7 @@
                   this.$router.push(back)
                 }
               })
+              .catch(_ => this.loading = false);
           } else {
             this.$message.warning('请完善表单信息！');
           }

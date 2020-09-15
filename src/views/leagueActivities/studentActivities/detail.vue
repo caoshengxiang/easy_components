@@ -50,7 +50,14 @@
               </el-col>
               <el-col :span="24">
                 <el-form-item label="活动内容：" prop="content">
-                  <el-input v-model="form.content" type="textarea"/>
+                  <vue-ueditor-wrap
+                    ref="contentUEditor1"
+                    v-model="form.content"
+                    :config="{
+                      initialFrameWidth: null,
+                      initialFrameHeight: 250
+                    }"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -65,13 +72,15 @@
   import YDetailPageLayout from '@/components/YDetailPageLayout'
   import Breadcrumb from '@/components/Breadcrumb'
   import ServiceSelect from '@/components/ServiceSelect'
+  import VueUeditorWrap from '@/components/VueUeditorWrap';
 
   export default {
     communityName: 'studentActivitiesDetail',
     components: {
       YDetailPageLayout,
       Breadcrumb,
-      ServiceSelect
+      ServiceSelect,
+      VueUeditorWrap
     },
     props: {
       detailInfo: {
@@ -89,28 +98,38 @@
           jobs: []
         },
         rules: {
-          studentID: [{ required: true, message: '请输入学生身份证号', trigger: 'blur' }],
-          level: [{ required: true, message: '请输入级别', trigger: 'blur' }],
-          unit: [{ required: true, message: '请输入任职单位', trigger: 'blur' }],
-          cadresName: [{ required: true, message: '请输入干部名称', trigger: 'blur' }],
-          semester: [{ required: true, message: '请输入学期', trigger: 'blur' }],
-          jobs: [{ required: true, message: '请输入学生干部岗位', trigger: 'blur' }],
+          clubName: [{ required: true, message: '请选择社团名称', trigger: 'change' }],
+          theme: [{ required: true, message: '请输入活动主题', trigger: 'blur' }],
+          principal: [{ required: true, message: '请选择负责人', trigger: 'change' }],
+          activityTime: [{ required: true, message: '请选择活动时间', trigger: 'change' }],
+          content: [{ required: true, message: '请输入活动内容', trigger: 'change' }],
         }
       }
     },
+    watch: {
+      detailInfo: function (value) {
+        this.form = value
+      },
+    },
     created() {
-      this.getData();
+      let that = this;
+      if (this.detailInfo) {
+        this.form = this.detailInfo;
+        that.editStatus = false
+      }
+      else{
+        this.getData();
+      }
     },
     methods: {
       getData() {
         if (this.detailInfo) {
-          this.form = this.detailInfo
+          this.form = this.detailInfo;
           this.editStatus = false
         } else if (this.$route.query.id) {
           this.loading = true;
-          // todo 对接口
           this.$api.studentActivities.getDetail(this.$route.query.id).then(res => {
-            this.loading = false
+            this.loading = false;
             if (res.code === 200) {
               this.form = res.data
             } else {
@@ -128,17 +147,16 @@
       save() {
         this.$refs.form.validate(valid => {
           if (valid) {
-            // todo 对接口
             if (this.$route.query.id) {
               this.$api.studentActivities.editStudentActivity({...this.form}).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '编辑学生活动成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/studentActivities',
                   })
@@ -148,17 +166,17 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               this.$api.studentActivities.addStudentActivity({...this.form}).then(res => {
-                this.loading = false
+                this.loading = false;
                 if (res.code === 200) {
                   this.$notify({
                     title: '成功',
                     message: '新增学生活动成功',
                     type: 'success',
                     duration: 2000
-                  })
+                  });
                   this.$router.push({
                     path: '/views/leagueActivities/studentActivities',
                   })
@@ -168,7 +186,7 @@
                     message: res.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           } else {
             this.$message.warning('请完善表单信息！');
@@ -181,7 +199,7 @@
 
 <style lang="scss" scoped>
   .form-container {
-    width: 460px;
+    width: 820px;
     margin: auto;
     .job-row {
       margin: 12px 0;

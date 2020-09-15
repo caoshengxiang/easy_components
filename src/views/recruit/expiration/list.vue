@@ -61,6 +61,11 @@
             <span>{{ row.classType }} </span>
           </template>
         </el-table-column>
+        <el-table-column label="缴费状态" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.feeState == 1 ?'超时':'已退费'}} </span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作人" align="center">
           <template slot-scope="{row}">
             <span>{{ row.operatorName }} </span>

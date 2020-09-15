@@ -9,7 +9,7 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/auth-redirect', '/404', '/401'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect','/registration', '/404', '/401'] // no redirect whitelist
 export function getList(tree) {
   const list = []
 

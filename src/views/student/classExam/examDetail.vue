@@ -44,7 +44,7 @@
         >
           <el-option v-for="item in termOptions" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <el-select v-model="listQuery.year" placeholder="年份" style="margin-left:5px;width: 100px" @change="getWeeks">
+        <el-select v-model="listQuery.year" placeholder="年份" style="margin-left:5px;width: 100px" >
           <el-option v-for="item in yearsOptions" :key="item" :label="item"
                      :value="item"
           />
@@ -251,7 +251,7 @@
         round
       />
         </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width:100%">
+      <parentTable v-loading="listLoading" :data="pageData.records" @sortTable="sortTable" slot="table" style="width:100%">
         <el-table-column label="学月" align="center">
           <template slot-scope="{row}">
             <span>{{ row.month }}</span>
@@ -287,44 +287,300 @@
             <span>{{ row.girls }} </span>
           </template>
         </el-table-column>
-        <el-table-column label="教学管理得分" align="center" v-if="listQuery.examType === 'jw'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="教学管理得分"  align="left" v-if="listQuery.examType === 'jw'"  prop="socre"  sortable="custom" show-overflow-tooltip>
+            <template v-slot="{ row }">
+              <div v-if="row.id === editRowKey">
+                <el-row  style="display: flex;align-items: center;">
+                    <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                    <el-col :span="10" :offset="1">
+                      <PermissionButton
+                        menu-no="_views_student_classExam_editScore"
+                        type="text"
+                        @click="saveRow(row)"
+                      >
+                        <el-icon name="check" />
+                      </PermissionButton>
+                      <PermissionButton
+                        menu-no="_views_student_classExam_editScore"
+                        type="text"
+                        @click="cancelRow(row)"
+                      >
+                        <el-icon name="close" />
+                      </PermissionButton>
+                    </el-col>
+                </el-row>
+              </div>
+              <el-row v-else style="display: flex;align-items: center;">
+                <el-col :span="13">{{ row.socre }}</el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore"
+                    type="text"
+                    @click="editRow(row)"
+                  >
+                    <el-icon name="edit" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </template>
+        </el-table-column>
+        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'"   prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore1"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore1"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore1"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore2"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore2"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore2"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="常规考核" align="center" v-if="listQuery.examType === 'cg'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore3"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore3"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore3"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="纠察打分" align="center" v-if="listQuery.examType === 'jc'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore4"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore4"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore4"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="值周考核打分" align="center" v-if="listQuery.examType === 'zz'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore5"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore5"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore5"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="寝室管理打分" align="center" v-if="listQuery.examType === 'qs'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore6"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore6"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore6"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
-        <el-table-column label="日常规范打分" align="center" v-if="listQuery.examType === 'rc'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
-          </template>
-        </el-table-column>
-        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'">
-          <template slot-scope="{row}">
-            <span>{{ row.socre }} </span>
+        <el-table-column label="卫生打分" align="center" v-if="listQuery.examType === 'ws'"  prop="socre" sortable="custom" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-row  style="display: flex;align-items: center;">
+                <el-col :span="13"><el-input type="number" v-model="row.socre" /></el-col>
+                <el-col :span="10" :offset="1">
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore7"
+                    type="text"
+                    @click="saveRow(row)"
+                  >
+                    <el-icon name="check" />
+                  </PermissionButton>
+                  <PermissionButton
+                    menu-no="_views_student_classExam_editScore7"
+                    type="text"
+                    @click="cancelRow(row)"
+                  >
+                    <el-icon name="close" />
+                  </PermissionButton>
+                </el-col>
+              </el-row>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.socre }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_student_classExam_editScore7"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
           </template>
         </el-table-column>
       </parentTable>
@@ -357,6 +613,7 @@ export default {
   },
   data() {
     return {
+      editRowKey: null,
       opt: [
         {
           key: '',
@@ -396,7 +653,7 @@ export default {
       },
       termOptions: [],
       yearsOptions: [],
-
+      classInfo:[],
       flag:''
     }
   },
@@ -411,6 +668,47 @@ export default {
     that.getTerm()
   },
   methods: {
+    editRow(row) {
+      if (this.editRowKey) {
+        this.$message.warning('请先保存其他列改动！');
+        return;
+      }
+      this.editRowKey = row.id;
+
+    },
+    saveRow(row) {
+      let editForm = {
+        examType: this.listQuery.examType,
+        id: row.id,
+        socre: row.socre
+      }
+          this.$api.classExam.editScore(editForm).then(res => {
+            if (res.code === 200) {
+              this.$notify({
+                title: '成功',
+                message: '编辑分数成功',
+                type: 'success',
+                duration: 2000
+              });
+              this.editRowKey = null;
+              this.getList();
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
+          }).catch(_ => this.loading = false);
+    },
+    cancelRow() {
+      this.editRowKey = null;
+    },
+    sortTable(val){
+      console.log(val)
+      this.listQuery.descs = val.descs
+      this.listQuery.ascs = val.ascs
+      this.getList()
+    },
     getTerm() {
       this.$api.dormitoryCheck.terms().then(res => {
         this.termOptions = res.data
@@ -486,6 +784,7 @@ export default {
     },
     resetSearch() {
       this.listQuery = { descs: 'id' }
+      this.listQuery.examType = this.$route.path.split('/').pop();
       this.getList()
     },
     removeHandle(row) {

@@ -162,8 +162,9 @@
                 <el-form-item label="毕业学校：" prop="graduateSchool" label-width="120px" class="postInfo-container-item">
                   <el-select
                     v-model="postForm.graduateSchool"
-                    placeholder="生源地"
+                    placeholder="毕业学校"
                     clearable
+                    style="width: 100%"
                     class="filter-item"
                   >
                     <el-option v-for="item in areaInfo" :key="item.id" :label="item.name" :value="item.id"/>
@@ -193,7 +194,7 @@
                               class="postInfo-container-item"
                 >
                   <el-select v-model="postForm.administrativeGradeId" @change="getClbumList()" placeholder="年级" clearable
-                             style="margin-left:10px;width: 100%" class="filter-item"
+                             style="width: 100%" class="filter-item"
                   >
                     <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                   </el-select>
@@ -393,7 +394,8 @@
         classInfo: [],
         majorInfo: [],
         type: 'add',
-        postForm: {},
+        postForm: {
+        },
         rules: {
 
           name: [{
@@ -478,18 +480,6 @@
       that.type = that.$route.query.type
       if (that.detailInfo) {
         that.postForm = that.detailInfo
-        let temp = []
-        if (that.postForm.provinceId) {
-          temp.push(that.postForm.provinceId)
-        }
-        if (that.postForm.cityId) {
-          temp.push(that.postForm.cityId)
-        }
-        if (that.postForm.countyId) {
-          temp.push(that.postForm.countyId)
-        }
-
-        that.postForm.countyName = temp
         that.editStatus = false
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id
@@ -521,10 +511,12 @@
           }
         })
       },
-      changeSpe(){
+      changeSpe(opt){
         let that = this
-        that.postForm.administrativeClbumId = ''
-        that.postForm.classType = ''
+        if(!opt) {
+          that.postForm.administrativeClbumId = ''
+          that.postForm.classType = ''
+        }
         that.classTypes = []
         that.$api.admiisionPreApply.getClassTypesBySpId(that.postForm.administrativeSpecialtyId).then(data => {
           if (data.code === 200) {
@@ -627,6 +619,7 @@
       },
       getClbumList() {
         let that = this
+
         that.gradeInfo = []
         that.$api.baseInfo.getClbumList({
           gradeId: that.postForm.administrativeGradeId,
@@ -651,19 +644,7 @@
           that.loading = false
           if (data.code === 200) {
             that.postForm = data.data
-            let temp = []
-            if (that.postForm.provinceId) {
-              temp.push(that.postForm.provinceId)
-            }
-            if (that.postForm.cityId) {
-              temp.push(that.postForm.cityId)
-            }
-            if (that.postForm.countyId) {
-              temp.push(that.postForm.countyId)
-            }
-
-            that.changeSpe()
-
+            that.changeSpe(true)
           } else {
             this.$message({
               type: 'error',

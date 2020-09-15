@@ -62,7 +62,7 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item label="证件号码：" prop="idNo" label-width="150px" class="postInfo-container-item">
-                          <el-input v-model="postForm.idNo" class="filter-item"/>
+                       {{postForm.idNo}}
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -312,7 +312,7 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item label="日期：" label-width="150px" class="postInfo-container-item">
-                        {{new Date().getFullYear()}} - {{new Date().getMonth().toString().padStart(2, '0')}} - {{new Date().getDate().toString().padStart(2, '0')}}
+                        {{new Date().getFullYear()}} - {{(new Date().getMonth()+1).toString().padStart(2, '0')}} - {{new Date().getDate().toString().padStart(2, '0')}}
                       </el-form-item>
                     </el-col>
                   </el-row>

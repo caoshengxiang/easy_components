@@ -35,6 +35,7 @@
         <el-input
           v-model="listQuery.year"
           placeholder="年份"
+         :change="check_num()"
           prefix-icon="el-icon-search"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
@@ -43,6 +44,7 @@
         <el-input
           v-model="listQuery.month"
           placeholder="月份"
+          :change="check_num()"
           prefix-icon="el-icon-search"
           style="margin-left: 5px;width: 100px;"
           class="filter-item"
@@ -268,6 +270,26 @@ export default {
     that.getAllEnum()
   },
   methods: {
+    check_num(){
+      if(this.listQuery.year) {
+        var license_num = this.listQuery.year;
+        license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (license_num.indexOf('.') < 0 && license_num != '') {
+          // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+          license_num = parseInt(license_num);
+        }
+        this.listQuery.year = license_num;
+      }
+      if(this.listQuery.month) {
+        var license_num = this.listQuery.month;
+        license_num = license_num.toString().replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (license_num.indexOf('.') < 0 && license_num != '') {
+          // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+          license_num = parseInt(license_num);
+        }
+        this.listQuery.month = license_num;
+      }
+    },
     getAllEnum() {
       const that = this
       that.$api.globalConfig.getAllEnum().then(data => {

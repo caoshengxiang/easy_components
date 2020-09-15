@@ -34,7 +34,9 @@ export default {
   check(params) {
     return request.put('conductDeductRecord/audit', params)
   },
-
+  batchCheck(params) {
+    return request.put('conductDeductRecord/batchAudit', params)
+  },
   /*操行分类型*/
   conductType(params) {
     return request.get('conductType', {params})

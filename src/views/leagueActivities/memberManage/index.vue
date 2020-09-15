@@ -94,10 +94,10 @@
         <el-table-column label="社团职务" prop="dutyName" width="120" />
         <el-table-column label="任职日期" align="center" prop="employeeDate" width="160" />
         <el-table-column label="入社日期" align="center" prop="entryDate" width="160" />
-        <el-table-column label="工作内容" prop="content" width="180" show-overflow-tooltip />
-        <el-table-column label="社团评价" prop="evaluation" width="180" show-overflow-tooltip />
+<!--        <el-table-column label="工作内容" prop="content" width="180" show-overflow-tooltip />-->
+<!--        <el-table-column label="社团评价" prop="evaluation" width="180" show-overflow-tooltip />-->
         <el-table-column label="状态" align="center" prop="state" width="120" />
-        <el-table-column label="备注" prop="remark" width="180" />
+<!--        <el-table-column label="备注" prop="remark" width="180" />-->
         <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
@@ -142,7 +142,7 @@
       return {
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -154,7 +154,7 @@
       }
     },
     created() {
-      this.getData();
+      this.search();
     },
     methods: {
       // 获取列表数据
@@ -193,12 +193,13 @@
       },
       // 查询
       search() {
+        this.pageInfo.current = 1;
         this.getData();
       },
       // 重置
       reset() {
         this.form = {};
-        this.getData();
+        this.search();
       }
     }
   };

@@ -134,23 +134,23 @@
       },
     },
     created() {
-      const that = this
-      that.type = that.$route.query.type
+      const that = this;
+      that.type = that.$route.query.type;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
+        that.postForm = that.detailInfo;
         that.editStatus = false
       } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
-        that.getDetail()
+        that.id = that.$route.query.id;
+        that.getDetail();
         that.editStatus = true
       }
 
     },
     methods: {
       getDetail() {
-        const that = this
+        const that = this;
         that.$api.assetinfo.getLandDetail(that.id).then(data => {
-          that.loading = false
+          that.loading = false;
           if (data.code === 200) {
             that.postForm = data.data
           } else {
@@ -162,15 +162,15 @@
         })
       },
       save() {
-        const that = this
+        const that = this;
         that.$refs.postForm.validate(valid => {
           if (valid) {
             if (that.$route.query.id) {
               // //编辑
               that.$api.scoreManage.edit({ ...that.postForm }).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 250) {
-                  const back = this.$route.query.back
+                  const back = this.$route.query.back;
                   if (back) {
                     this.$router.push(back)
                   }
@@ -181,8 +181,8 @@
                     message: '规则设置成功',
                     type: 'success',
                     duration: 2000
-                  })
-                  const back = this.$route.query.back
+                  });
+                  const back = this.$route.query.back;
                   if (back) {
                     this.$router.push(back)
                   }
@@ -192,12 +192,12 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               that.$api.scoreManage.add({ ...that.postForm }).then(data => {
-                that.loading = false
+                that.loading = false;
                 if (data.code === 250) {
-                  const back = this.$route.query.back
+                  const back = this.$route.query.back;
                   if (back) {
                     this.$router.push(back)
                   }
@@ -207,8 +207,8 @@
                     message: '规则设置成功',
                     type: 'success',
                     duration: 2000
-                  })
-                  const back = this.$route.query.back
+                  });
+                  const back = this.$route.query.back;
                   if (back) {
                     this.$router.push(back)
                   }
@@ -218,7 +218,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           }
         })

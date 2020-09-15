@@ -83,7 +83,7 @@
           class="filter-item"
           style="margin-left: 10px;"
           type="primary"
-          @click="getData"
+          @click="search"
           round
           size="mini"
         >
@@ -103,7 +103,45 @@
         <el-table-column label="学生干部岗位" prop="postName" min-width="160" show-overflow-tooltip/>
         <el-table-column label="创建人" prop="creator"/>
         <el-table-column label="创建时间" align="center" prop="created" min-width="160"/>
-        <el-table-column label="评价" prop="score" min-width="180" show-overflow-tooltip/>
+        <el-table-column label="评分" prop="score" min-width="160" show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <div v-if="row.id === editRowKey">
+              <el-form ref="form" :model="form" :rules="rules">
+                <el-form-item prop="score">
+                  <el-col :span="13"><el-input v-model="form.score" /></el-col>
+                  <el-col :span="10" :offset="1">
+                    <PermissionButton
+                      menu-no="_views_leagueActivities_studentCadres_editScore"
+                      type="text"
+                      @click="saveRow(row)"
+                    >
+                      <el-icon name="check" />
+                    </PermissionButton>
+                    <PermissionButton
+                      menu-no="_views_leagueActivities_studentCadres_editScore"
+                      type="text"
+                      @click="cancelRow(row)"
+                    >
+                      <el-icon name="close" />
+                    </PermissionButton>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+            </div>
+            <el-row v-else style="display: flex;align-items: center;">
+              <el-col :span="13">{{ row.score }}</el-col>
+              <el-col :span="10" :offset="1">
+                <PermissionButton
+                  menu-no="_views_leagueActivities_studentCadres_editScore"
+                  type="text"
+                  @click="editRow(row)"
+                >
+                  <el-icon name="edit" />
+                </PermissionButton>
+              </el-col>
+            </el-row>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
             <PermissionButton
@@ -147,7 +185,7 @@
         tableData: {records: []},
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -156,11 +194,19 @@
           descs: 'id',
         },
         gradeInfo: [],
-        studentLeaderTotal: 0
+        studentLeaderTotal: 0,
+        form: {},
+        rules: {
+          score: [
+            { required: true, message: '请输入评价', trigger: 'blur' },
+            { pattern: /^[1-9]\d*|0$/, message: '请输入整数', trigger: 'blur' }
+          ]
+        },
+        editRowKey: null
       }
     },
     created() {
-      this.getData();
+      this.search();
       // this.getClbumList()
     },
     methods: {
@@ -169,13 +215,47 @@
         this.$api.studentCadres.getPage(Object.assign({}, this.pageInfo, this.listQuery))
           .then(res => {
             this.tableData = res.data;
-            if (Object.keys(this.listQuery).length === 1) {
-              this.studentLeaderTotal = res.data.total
-            }
+            this.studentLeaderTotal = res.data.total
           })
           .finally(() => {
             this.loading = false;
           });
+      },
+      editRow(row) {
+        if (this.editRowKey) {
+          this.$message.warning('请先保存其他列改动！');
+          return;
+        }
+        this.editRowKey = row.id;
+        this.form = {...row};
+      },
+      saveRow() {
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            this.loading = true;
+            this.$api.studentCadres.edit(this.form).then(res => {
+              this.loading = false;
+              if (res.code === 200) {
+                this.$notify({
+                  title: '成功',
+                  message: '编辑评价成功',
+                  type: 'success',
+                  duration: 2000
+                });
+                this.editRowKey = null;
+                this.search();
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: res.msg
+                })
+              }
+            }).catch(_ => this.loading = false);
+          }
+        });
+      },
+      cancelRow() {
+        this.editRowKey = null;
       },
       deleteRow(id) {
         this.$confirm('此操作将删除该行记录, 是否继续?', '提示', {
@@ -185,13 +265,17 @@
         })
           .then(() => {
             this.$api.studentCadres.remove(id).then(res=>{
-              this.getData()
+              this.search()
             })
           });
       },
+      search() {
+        this.pageInfo.current = 1;
+        this.getData();
+      },
       reset() {
         this.listQuery = {descs: 'id'};
-        this.getData();
+        this.search();
       },
       getClbumList() {
         const that = this;

@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -90,7 +90,7 @@
 
                 <el-col :span="24">
                   <el-form-item label="疑似/流失时间：" prop="loseTime" label-width="150px" class="postInfo-container-item">
-                    <el-date-picker v-model="postForm.loseTime" placeholder="活动时间开始"
+                    <el-date-picker v-model="postForm.loseTime" placeholder="疑似/流失时间"
                                     type="date"
                                     value-format="yyyy-MM-dd"
                                     style="width: 100%"/>
@@ -111,17 +111,17 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="回流措施：" prop="huiliuWay" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="回流措施：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.huiliuWay" show-word-limit />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="效果：" prop="effect" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="效果：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.effect" show-word-limit />
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item label="备注：" prop="remark" label-width="150px" class="postInfo-container-item">
+                  <el-form-item label="备注：" label-width="150px" class="postInfo-container-item">
                     <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.remark" show-word-limit />
                   </el-form-item>
                 </el-col>
@@ -154,6 +154,7 @@ export default {
   },
   data() {
     return {
+      editStatus:true,
       grantType: [  {
         key: '',
         label: '全部'
@@ -180,9 +181,6 @@ export default {
         loseTime: [{required: true, message: '疑似/流失时间',  trigger: 'blur' }],
         reason: [{required: true, message: '原因描述',  trigger: 'blur' }],
         studentQx: [{required: true, message: '学生去向',  trigger: 'blur' }],
-        huiliuWay: [{required: true, message: '回流措施',  trigger: 'blur' }],
-        effect: [{required: true, message: '效果',  trigger: 'blur' }],
-        remark: [{required: true, message: '备注',  trigger: 'blur' }],
       },
       departmentList: [],
       staff: [],
@@ -199,6 +197,7 @@ export default {
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
+      that.editStatus = false
     } else {
       this.getDetail()
     }
@@ -270,22 +269,27 @@ export default {
     },
     getStudent(){
       const that = this
-      that.$api.student.getStudentList({
-        gradeId: that.postForm.administrativeGradeId,
-        specialtyId: that.postForm.administrativeSpecialtyId,
-        schoolClbumId: that.postForm.administrativeClbumId
-      }).then(data => {
-        that.loading = false
-        if (data.code === 200) {
-          // 返回成功
-          that.studentInfo = data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          })
-        }
-      })
+      if(!that.postForm.administrativeClbumId){
+        that.studentInfo = []
+      }
+      else {
+        that.$api.student.getStudentList({
+          administrativeGradeId: that.postForm.administrativeGradeId,
+          administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
+          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+        }).then(data => {
+          that.loading = false
+          if (data.code === 200) {
+            // 返回成功
+            that.studentInfo = data.data
+          } else {
+            this.$message({
+              type: 'error',
+              message: data.msg
+            })
+          }
+        })
+      }
     },
     getDetail() {
       let that = this

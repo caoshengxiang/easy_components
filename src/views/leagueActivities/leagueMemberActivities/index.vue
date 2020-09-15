@@ -8,14 +8,15 @@
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div v-if="statisticsData" class="analysis-text"><span class="tag">{{ statisticsData.latestMonthNum || 0 }}</span></div>
+            <div v-else class="analysis-text">暂无数据</div>
             <div class="analysis-text-small">近一月活动总数</div>
           </div>
         </div>
         <div class="menu-2-item hvr-underline-from-center">
           <img src="../../../assets/a1.png" class="item-img" alt="">
           <div class="text">
-            <div class="analysis-text">
+            <div v-if="statisticsData" class="analysis-text">
               <el-tooltip v-if="statisticsData.leagueName && statisticsData.leagueName.length > 5" :content="statisticsData.leagueName">
                 <div class="analysis-text-label">
                   {{ statisticsData.leagueName || '' }}
@@ -25,6 +26,7 @@
               ：
               <span class="tag">{{ statisticsData.maxNum || 0 }}</span>
             </div>
+            <div v-else class="analysis-text">暂无数据</div>
             <div class="analysis-text-small">活动最多的团支部及活动数量</div>
           </div>
         </div>
@@ -125,7 +127,7 @@
         tableData: {records: []},
         loading: false,
         pageInfo: {
-          page: 1,
+          current: 1,
           size: 10,
           descs: 'id'
         },
@@ -136,8 +138,7 @@
       }
     },
     created() {
-      this.getData();
-      this.getStatisticsData()
+      this.search();
     },
     methods: {
       getData() {
@@ -164,13 +165,14 @@
       },
       getStatisticsData() {
         this.statisticsLoading = true;
-        this.$api.leagueMemberActivities.stat()
+        this.$api.leagueMemberActivities.stat(this.listQuery)
           .then(res => {
             this.statisticsData = res.data;
             this.statisticsLoading = false;
           })
       },
       search() {
+        this.pageInfo.current = 1;
         this.getData();
         this.getStatisticsData();
       },

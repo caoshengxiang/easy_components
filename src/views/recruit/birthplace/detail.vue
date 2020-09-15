@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -37,6 +37,15 @@
                   <el-form-item label="预计招生人数：" prop="personCount" label-width="150px" class="postInfo-container-item">
                     <el-input
                       placeholder="预计招生人数" v-model="postForm.personCount" class="filter-item"/>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="是否本省：" prop="localProvince" label-width="150px" class="postInfo-container-item">
+                    <el-select v-model="postForm.localProvince " placeholder="是否本省" clearable class="filter-item"
+                               style="width: 100%"
+                    >
+                      <el-option v-for="item in opt" :key="item.key" :label="item.label" :value="item.key"/>
+                    </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -75,6 +84,14 @@ export default {
   },
   data() {
     return {
+      editStatus: true,
+      opt: [{
+        key: 1,
+        label: '是'
+      }, {
+        key: 0,
+        label: '否'
+      }],
       areaInfo:[],
       specialty: [],
       gradeInfo: [],
@@ -84,6 +101,11 @@ export default {
         schoolName: [{
           required: true,
           message: '请输入学校名称',
+          trigger: 'blur'
+        }],
+        localProvince: [{
+          required: true,
+          message: '请选择是否本省生源地',
           trigger: 'blur'
         }]
       },
@@ -101,6 +123,7 @@ export default {
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
+      that.editStatus = false
     } else {
       this.getDetail()
     }

@@ -4,7 +4,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="save" :editStatus="editStatus">
+    <y-detail-page-layout @save="save" :editStatus="editStatus" v-loading="loading">
       <el-tabs value="first">
         <el-tab-pane label="操行类型详情" name="first">
           <el-form ref="postForm" class="form-container" :model="postForm" inline>
@@ -68,6 +68,7 @@
     },
     data() {
       return {
+        loading: false,
         editStatus: true,
         postForm: {
           list: [{name: '', score: ''}],
@@ -88,23 +89,23 @@
       },
     },
     created() {
-      const that = this
-      that.type = that.$route.query.type
+      const that = this;
+      that.type = that.$route.query.type;
       if (that.detailInfo) {
-        that.postForm = that.detailInfo
+        that.postForm = that.detailInfo;
         that.editStatus = false
       } else if (that.$route.query.id) {
-        that.id = that.$route.query.id
-        that.getDetail()
+        that.id = that.$route.query.id;
+        that.getDetail();
         that.editStatus = true
       }
 
     },
     methods: {
       getDetail() {
-        const that = this
+        const that = this;
         that.$api.conductScore.getConductTypeItem({id:that.id}).then(res => {
-          that.loading = false
+          that.loading = false;
           if (res.code === 200) {
             that.postForm.list = res.data
             // console.log(res.data,that.id)
@@ -117,21 +118,23 @@
         })
       },
       save() {
-        const that = this
+        const that = this;
+        that.loading = true;
         that.$refs.postForm.validate(valid => {
           if (valid) {
-            console.log(that.postForm.list)
+            console.log(that.postForm.list);
             this.$api.conductScore.conductTypeItemAdd({
               id: that.id,
               ...that.postForm
             }).then(res => {
+              that.loading = false;
               if (res.code === 200) {
                 this.$notify({
                   title: '成功',
                   message: '更新成功',
                   type: 'success',
                   duration: 2000
-                })
+                });
                 that.$router.push({
                   path: '/views/moralManage/conductScore/setting',
                   query: {
@@ -139,7 +142,7 @@
                   }
                 })
               }
-            })
+            }).catch(_ => that.loading = false)
           }
         })
       },

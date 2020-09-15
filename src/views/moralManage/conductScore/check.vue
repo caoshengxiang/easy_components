@@ -50,13 +50,22 @@
         >
           搜索
         </el-button>
-        <el-button class="filter-item" round type="warning" @click="listQuery = {descs: 'id'}">
+        <el-button class="filter-item" round type="warning" @click="reset">
           重置
         </el-button>
       </template>
       <template slot="right">
+        <PermissionButton
+          menu-no="_views_moralManage_conductScore_batchAudit"
+          class-name="filter-item"
+          round
+          type="primary"
+          name=""
+          @click="batchOpen"
+        />
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;">
+      <parentTable v-loading="listLoading" :data="pageData.records" slot="table" style="width: 100%;" @selectionChange="onTableSelect">
+        <el-table-column type="selection" align="center" />
         <el-table-column label="学号" prop="studyCode" align="center" >
         </el-table-column>
         <el-table-column label="姓名" prop="name" align="center" >
@@ -72,6 +81,7 @@
         <el-table-column label="操作" fixed="right" align="center" width="220px">
           <template v-slot="{ row }">
             <PermissionButton
+              v-if="row.state === '待审核'"
               menu-no="_views_moralManage_conductScore_audit"
               name=""
               type="primary"
@@ -115,7 +125,8 @@ export default {
       statisticsInfo: {},
       useStatus: [],
       purpose: [],
-      selectedId: null
+      selectedId: null,
+      selection: []
     }
   },
   created() {
@@ -125,6 +136,9 @@ export default {
     that.getByTypeId('useStatus')
   },
   methods: {
+    onTableSelect(selection) {
+      this.selection = selection;
+    },
     getByTypeId(id) {
       const that = this;
       that.$api.dictData.getByCode({ code: id }).then(data => {
@@ -151,7 +165,10 @@ export default {
 
       that.getList()
     },
-
+    reset() {
+      this.listQuery = {descs: 'id'};
+      this.searchList();
+    },
     add() {
       const that = this;
       that.$router.push({
@@ -187,6 +204,36 @@ export default {
         }
       }).catch(() => { that.listLoading = false })
     },
+    batchOpen() {
+      if (!this.selection || this.selection.length === 0) {
+        this.$message.warning('请先选择至少一行数据！');
+        return;
+      }
+      const flag = this.selection.find(item => item.state !== '待审核');
+      if (flag) {
+        this.$message.warning('只能勾选待审核数据！');
+        return;
+      }
+      this.$confirm('是否通过？', '确认信息', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '通过',
+        cancelButtonText: '不通过',
+        center: true,
+        callback: this.batchConfirmCallBack
+      })
+    },
+    batchConfirmCallBack(action) {
+      switch (action) {
+        case 'confirm':
+          this.batchAudit({ids: this.selection.map(item => item.id).join(','), state: '审核通过'});
+          break;
+        case 'cancel':
+          this.batchAudit({ids: this.selection.map(item => item.id).join(','), state: '审核拒绝'});
+          break;
+        default:
+          break
+      }
+    },
     open(id) {
       this.selectedId = id;
       this.$confirm('是否通过？', '确认信息', {
@@ -211,6 +258,24 @@ export default {
     },
     audit(params) {
       this.$api.conductScore.check(params).then(res => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success',
+            duration: 2000
+          });
+          this.getList()
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    batchAudit(params) {
+      this.$api.conductScore.batchCheck(params).then(res => {
         if (res.code === 200) {
           this.$notify({
             title: '成功',

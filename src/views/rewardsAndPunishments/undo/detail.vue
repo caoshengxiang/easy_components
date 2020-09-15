@@ -11,25 +11,25 @@
               <div class="postInfo-container">
                 <el-row style="margin-left: 150px;">
                   <el-col :span="24" style="text-align: center; margin-bottom: 50px">
-                    {{sysCfg.SYS_NAME || ''}}
+                    {{sysCfg.SCHOOL_NAME.value || ''}}
                     <br/>
                     奖/惩撤销表
                   </el-col>
                 </el-row>
                 <el-row style="margin-left: 150px">
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="年级：" prop="gradeId" label-width="120px" class="postInfo-container-item ">
                       <el-select v-model="postForm.gradeId" @change="getClbumList"
                                  placeholder="年级"
                                  @clear="clearClbumStd"
                                  clearable
-                                 style="width: 100px" class="filter-item"
+                                 style="width: 100%;" class="filter-item"
                       >
                         <el-option v-for="item in classInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="专业：" prop="specialtyId" label-width="120px" class="postInfo-container-item ">
                       <el-select
                         v-model="postForm.specialtyId"
@@ -38,36 +38,37 @@
                         class="filter-item"
                         @change="getClbumList"
                         @clear="clearClbumStd"
+                        style="width: 100%;"
                       >
                         <el-option v-for="item in majorInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label=" 班级：" prop="clbumId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.clbumId" placeholder="班级"
                                  @change="getStdNoBedList"
                                  @clear="$set(postForm, 'studentId', '')"
                                  clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item" style="width: 100%;"
                       >
                         <el-option v-for="item in gradeInfo" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="姓名：" prop="studentId" label-width="120px" class="postInfo-container-item">
                       <el-select v-model="postForm.studentId" placeholder="姓名" clearable
-                                 class="filter-item" style="width: 200px"
+                                 class="filter-item" style="width: 100%;"
                       >
                         <el-option v-for="item in noBedStd" :key="item.id" :label="item.name" :value="item.id"/>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row style="margin-left: 150px">
-                  <el-col :span="6">
-                    <el-form-item label="撤销文件：" prop="cancelFile" label-width="120px" class="postInfo-container-item ">
+<!--                </el-row>-->
+<!--                <el-row style="margin-left: 150px">-->
+                  <el-col :span="6" :xs="8" :sm="8">
+                    <el-form-item label="撤销文件：" prop="cancelFile" label-width="120px" style="height: 20px" class="postInfo-container-item ">
                       <fileUpload
                         :limit="1"
                         :file-list="[{path:postForm.cancelFile}]"
@@ -79,7 +80,7 @@
                         v-if="!loading"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="奖/惩：" prop="oper" label-width="120px" class="postInfo-container-item">
                       <el-select
                         v-model="postForm.oper"
@@ -92,12 +93,12 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label=" 级别：" prop="level" label-width="120px" class="postInfo-container-item">
                       <el-input v-model="postForm.level" class="filter-item"/>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="6" :xs="8" :sm="8">
                     <el-form-item label="处理时间：" prop="cancelTime" label-width="120px" class="postInfo-container-item">
                       <el-date-picker
                         v-model="postForm.cancelTime"
@@ -194,6 +195,11 @@
             required: true,
             message: '请选择奖/惩',
             trigger: 'blur'
+          }],
+          cancelReason: [{
+            required: true,
+            message: '请输入处理结果',
+            trigger: 'blur'
           }]
         },
         loading:false,
@@ -201,7 +207,9 @@
         classInfo: [],
         majorInfo: [],
         noBedStd: [],
-        sysCfg: {},
+        sysCfg: {
+          SCHOOL_NAME: {}
+        },
         AllEnum: {},
         loadComplete:false
       }
@@ -267,8 +275,8 @@
         })
       },
       getSysCfg(){
-        this.$api.globalConfig.getSysCfg().then(res => {
-          this.sysCfg = res.data
+        this.$api.globalConfig.getValuesByKey({ key: 'BASE_INFO' }).then(res => {
+          this.sysCfg = res.data.fieldValues;
         })
       },
       getClbumList(row) {
@@ -299,7 +307,9 @@
         }
         let param = {};
         if (that.postForm.clbumId > 0) {
-          param.schoolClbumId = that.postForm.clbumId
+          param.administrativeClbumId = that.postForm.clbumId;
+          param.administrativeSpecialtyId = that.postForm.specialtyId;
+          param.administrativeGradeId = that.postForm.gradeId
         } else {
           param = {}
         }
@@ -340,7 +350,9 @@
           that.loading = false;
           if (data.code === 200) {
             let {specialtyId,gradeId,clbumId,studentId,oper,level} = data.data;
-            that.postForm = {specialtyId,gradeId,clbumId,studentId,oper,level}
+            that.postForm = {specialtyId,gradeId,clbumId,studentId,oper,level};
+            this.getClbumList();
+            this.getStdNoBedList();
           } else {
             this.$message({
               type: 'error',
@@ -393,7 +405,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             } else {
               // //新增
               // //编辑
@@ -415,7 +427,7 @@
                     message: data.msg
                   })
                 }
-              })
+              }).catch(_ => this.loading = false);
             }
           }
         })

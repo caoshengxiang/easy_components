@@ -73,7 +73,7 @@
         <el-table-column label="学号" prop="id" align="center" width="150">
           <template slot-scope="{row}">
             <span>
-              {{ row.studentId }}
+              {{ row.studyCode }}
             </span>
           </template>
         </el-table-column>
@@ -143,7 +143,7 @@
               :page-jump="true"
               :page-query="{rewardPunishmnetId: row.id,type:'add'}"
               round
-              :disabled="!row.canceled"
+              :disabled="row.canceled"
             />
           </template>
         </el-table-column>
