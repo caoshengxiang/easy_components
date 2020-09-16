@@ -62,7 +62,7 @@
             <el-tag v-if="row.state === '通过'" type="success">{{ row.state }}</el-tag>
             <el-tag v-else-if="row.state === '拒绝'" type="danger">{{ row.state }}</el-tag>
             <!--            <el-tag type="info">{{ row.state }}</el-tag>-->
-            <span v-else>{{ row.state }}</span>
+            <el-tag v-else >{{ row.state }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center">

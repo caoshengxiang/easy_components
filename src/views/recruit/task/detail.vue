@@ -187,6 +187,18 @@ export default {
     if (this.detailInfo) {
       this.postForm = this.detailInfo
       that.editStatus = false
+      let temp = []
+      if(this.postForm.admissionIds) {
+        this.postForm.admissionIds.split(',').forEach(function (item) {
+          temp.push(parseInt(item))
+        })
+      }else{
+        this.postForm.admissionIds = []
+      }
+      this.postForm.admissionIds = temp
+      this.postForm.deadTime = []
+      this.postForm.deadTime.push(this.postForm.startTime)
+      this.postForm.deadTime.push(this.postForm.endTime)
     } else {
 
       if(!this.$route.query.id){
