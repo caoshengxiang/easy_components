@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>   <div v-if="type" style="width: 100%;text-align: center;font-size:30px"><label style="letter-spacing: 2px;color: #0e76a8">学生在线报名</label></div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
 
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
@@ -317,6 +317,13 @@
         </el-tab-pane>
       </el-tabs>
     </y-detail-page-layout>
+    <el-dialog style=" text-align: center" :title="title"
+               :visible.sync="productInnerQR"
+    >
+      <div style="text-align: left;letter-spacing: 2px;line-height: 25px" v-html="configInfo.PROMISE_LETTER.value"></div>
+      <el-button type="primary" @click="productInnerQR = !productInnerQR">同意</el-button>
+
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -342,6 +349,9 @@ export default {
   },
   data() {
     return {
+      editStatus:false,
+      title:'',
+      productInnerQR:false,
       content: '发送验证码',  // 按钮里显示的内容
       totalTime: 60,
       canClick: true,
@@ -413,7 +423,8 @@ export default {
       AllEnum:[],
       areaInfo:[],
       clbumInfo:[],
-      type:this.$route.path == '/registration'
+      type:this.$route.path == '/registration',
+      configInfo:{}
     }
   },
   watch: {
@@ -426,15 +437,30 @@ export default {
     if (this.detailInfo) {
       this.postForm = this.detailInfo
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
 
+    if(this.type){
+      this.productInnerQR = true
+      this.editStatus  = true
+    }
+    this.getConfig()
     that.getSpecialtyList()
     that.getGradeList()
     that.getAllEnum()
     that.getAreaList()
   },
   methods: {
+    getConfig() {
+      this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+        this.configInfo = res.data.fieldValues
+        this.title =   this.configInfo.SYS_NAME.value + '就读协议、承诺书'
+        this.configInfo.PROMISE_LETTER.value = this.configInfo.PROMISE_LETTER.value.replace("600元（陆佰元整）", this.configInfo.PAYMENT.value)
+      })
+    },
     successAction(data){
       this.postForm.birthday = data.words_result.birBean.words
       this.postForm.idNo = data.words_result.numBean.words

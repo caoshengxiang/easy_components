@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <el-select
           v-model="listQuery.administrativeGradeId"

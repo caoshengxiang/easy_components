@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <y-page-list-layout :pageList="pageData" :pagePara="listQuery" :getPageList="getList">
+    <y-page-list-layout :pageList="pageData" :pagePara="pagePara" :getPageList="getList">
       <template slot="left">
         <PermissionButton
           menu-no="_views_recruit_preregistration_detail"
@@ -131,7 +131,7 @@
       <parentTable v-loading="listLoading" :data="pageData.records" @sortTable="sortTable" slot="table" style="width:100%" >
         <el-table-column label="年级" align="center" prop="gradeName" sortable="custom">
         </el-table-column>
-        <el-table-column label="姓名" align="center" prop="name"  sortable="custom">
+        <el-table-column label="姓名" align="center" prop="name"  >
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>

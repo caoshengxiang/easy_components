@@ -43,6 +43,11 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
+                  <el-form-item label="缴费金额：" prop="PAYMENT" class="postInfo-container-item">
+                    <el-input v-model="postForm.PAYMENT.value" class="filter-item"/>
+                  </el-form-item>
+                </el-col>
+                  <el-col :span="24">
                     <el-form-item label="左上角logo：" prop="LOGO" class="postInfo-container-item">
                       <div>
                         <el-upload

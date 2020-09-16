@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
           <el-form
@@ -154,6 +154,7 @@ export default {
   },
   data() {
     return {
+      editStatus:false,
       grantType: [  {
         key: '',
         label: '全部'
@@ -222,6 +223,9 @@ export default {
     if (this.detailInfo) {
       this.postForm = this.detailInfo
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
     that.getDepartmentList() // //查询建筑物列表
@@ -336,7 +340,7 @@ export default {
         that.$api.student.getStudentList({
           administrativeGradeId: that.postForm.administrativeGradeId,
           administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
-          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+          administrativeClbumId: that.postForm.administrativeClbumId
         }).then(data => {
           that.loading = false
           if (data.code === 200) {

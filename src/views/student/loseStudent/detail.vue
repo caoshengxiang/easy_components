@@ -154,7 +154,7 @@ export default {
   },
   data() {
     return {
-      editStatus:true,
+      editStatus:false,
       grantType: [  {
         key: '',
         label: '全部'
@@ -199,6 +199,9 @@ export default {
       this.postForm = this.detailInfo
       that.editStatus = false
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
     that.getAllEnum()
@@ -276,7 +279,7 @@ export default {
         that.$api.student.getStudentList({
           administrativeGradeId: that.postForm.administrativeGradeId,
           administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
-          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+          administrativeClbumId: that.postForm.administrativeClbumId
         }).then(data => {
           that.loading = false
           if (data.code === 200) {

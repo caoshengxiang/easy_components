@@ -53,7 +53,7 @@
               >
                 <el-table-column
                   prop="name"
-                  label="审核人"
+                  label="审核人/岗位"
                 />
                 <el-table-column
                   prop="result"
