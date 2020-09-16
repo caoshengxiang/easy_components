@@ -405,7 +405,8 @@
           // pdf.save(`${name}.pdf`)
           this.urlStr = pdf.output('dataurlstring')
           localStorage.setItem('r-print-url', this.urlStr);
-          window.open('/pdf/web/viewer.html')
+          let url = process.env.VUE_APP_BASE_WEB + '/pdf/web/viewer.html'
+          window.open(url)
         })
       },
       getDetail() {

@@ -439,7 +439,7 @@
         const that = this
         that.$nextTick(() => {
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text:'http://119.27.160.97:8534/adminm/student/detail?id=' + row.id, // 需要转换为二维码的内容
+            text:process.env.VUE_APP_BASE_WEB_URL+'/student/detail?id=' + row.id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',
