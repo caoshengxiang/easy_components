@@ -276,7 +276,7 @@ export default {
         that.$api.student.getStudentList({
           administrativeGradeId: that.postForm.administrativeGradeId,
           administrativeSpecialtyId: that.postForm.administrativeSpecialtyId,
-          administrativeSchoolClbumId: that.postForm.administrativeClbumId
+          administrativeClbumId: that.postForm.administrativeClbumId
         }).then(data => {
           that.loading = false
           if (data.code === 200) {
