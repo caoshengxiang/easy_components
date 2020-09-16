@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      editStatus: true,
+      editStatus: false,
       opt: [{
         key: 1,
         label: '是'
@@ -125,6 +125,9 @@ export default {
       this.postForm = this.detailInfo
       that.editStatus = false
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
   },

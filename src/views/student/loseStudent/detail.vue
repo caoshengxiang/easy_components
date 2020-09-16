@@ -154,7 +154,7 @@ export default {
   },
   data() {
     return {
-      editStatus:true,
+      editStatus:false,
       grantType: [  {
         key: '',
         label: '全部'
@@ -199,6 +199,9 @@ export default {
       this.postForm = this.detailInfo
       that.editStatus = false
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
     that.getAllEnum()

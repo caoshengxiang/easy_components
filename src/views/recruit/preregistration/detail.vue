@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>   <div v-if="type" style="width: 100%;text-align: center;font-size:30px"><label style="letter-spacing: 2px;color: #0e76a8">学生在线报名</label></div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
 
       <el-tabs value="first">
         <el-tab-pane label="基础信息" name="first">
@@ -349,6 +349,7 @@ export default {
   },
   data() {
     return {
+      editStatus:false,
       title:'',
       productInnerQR:false,
       content: '发送验证码',  // 按钮里显示的内容
@@ -436,11 +437,15 @@ export default {
     if (this.detailInfo) {
       this.postForm = this.detailInfo
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
 
     if(this.type){
       this.productInnerQR = true
+      this.editStatus  = true
     }
     this.getConfig()
     that.getSpecialtyList()

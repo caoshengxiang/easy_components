@@ -3,7 +3,7 @@
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
-    <y-detail-page-layout @save="handleCreate" :edit-status="true">
+    <y-detail-page-layout @save="handleCreate" :edit-status="editStatus">
       <el-tabs value="first">
         <el-tab-pane label="请假信息录入" name="first">
           <el-form
@@ -121,6 +121,7 @@ export default {
   },
   data() {
     return {
+      editStatus:false,
       term:{},
       grantType: [  {
         key: '',
@@ -159,6 +160,9 @@ export default {
     if (this.detailInfo) {
       this.postForm = this.detailInfo
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
     that.getClbumList()

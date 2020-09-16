@@ -127,7 +127,7 @@ export default {
   },
   data() {
     return {
-      editStatus: true,
+      editStatus: false,
       areaInfo:[],
       specialty: [],
       gradeInfo: [],
@@ -188,6 +188,10 @@ export default {
       this.postForm = this.detailInfo
       that.editStatus = false
     } else {
+
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
 

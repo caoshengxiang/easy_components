@@ -91,7 +91,7 @@
     },
     data() {
       return {
-        editStatus: true,
+        editStatus: false,
         specialty: [],
         gradeInfo: [],
         type: 'detail',
@@ -132,6 +132,9 @@
         this.postForm = this.detailInfo
         that.editStatus = false
       } else {
+        if(!this.$route.query.id){
+          this.editStatus = true
+        }
         this.getDetail()
       }
 
