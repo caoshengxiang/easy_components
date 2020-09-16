@@ -437,9 +437,10 @@
       },
       creatQrCode(row, down) {
         const that = this
+        console.log(location.host)
         that.$nextTick(() => {
           var qrcode = new QRCode(that.$refs.qrCodeUrl, {
-            text:process.env.VUE_APP_BASE_WEB_URL+'/student/detail?id=' + row.id, // 需要转换为二维码的内容
+            text: location.host + process.env.VUE_APP_BASE_WEB_URL+'/student/detail?id=' + row.id, // 需要转换为二维码的内容
             width: 100,
             height: 100,
             colorDark: '#000000',

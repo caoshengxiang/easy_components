@@ -14,7 +14,7 @@
             style="width: 600px;margin: auto"
           >
             <div class="createPost-main-container">
-              <div style="font-size: 20px;font-weight: 500;text-align: center;padding-left: 100px;margin-bottom: 20px">北京中思远信息科学研究院 <lable style="color: red">{{postForm.leaveStudyYear}}</lable> 学年  <lable style="color: red">{{term.name}}</lable> 学生请假单</div>
+              <div style="font-size: 20px;font-weight: 500;text-align: center;padding-left: 100px;margin-bottom: 20px">{{ this.configInfo.SYS_NAME.value }}<lable style="color: red">{{postForm.leaveStudyYear}}</lable> 学年  <lable style="color: red">{{term.name}}</lable> 学生请假单</div>
               <el-row>  <el-col :span="24">
                 <el-form-item  prop="year" label-width="150px" class="postInfo-container-item">
                 </el-form-item>
@@ -147,7 +147,9 @@ export default {
       dataId: this.$route.query.id,
       days:0,
       hours:0,
-      AllEnum: {}// 全部枚举
+      AllEnum: {},// 全部枚举
+
+      configInfo:{}
     }
   },
   watch: {
@@ -165,12 +167,19 @@ export default {
       }
       this.getDetail()
     }
+    this.getConfig()
     that.getClbumList()
     that.getcurrentTerm()
     that.getAllEnum()
   },
   methods: {
-    getAllEnum() {
+    getConfig() {
+      let that = this
+      this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+        this.configInfo = res.data.fieldValues
+      })
+    },
+    getAllEnum(){
       const that = this
       that.$api.globalConfig.getAllEnum().then(data => {
         if (data.code === 200) {
