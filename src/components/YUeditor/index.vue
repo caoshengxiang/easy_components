@@ -28,7 +28,10 @@
     data() {
       return {
         editor: null,
-        loading: false
+        loading: false,
+        defaultConfig: {
+          UEDITOR_HOME_URL: process.env.NODE_ENV === 'production' ? '/admin/ueditor/' : '/ueditor/',
+        }
       }
     },
     computed: {
@@ -54,7 +57,7 @@
     },
     mounted() {
       const _this = this
-      _this.editor = UE.getEditor(this.id, _this.config) // 初始化UE
+      _this.editor = UE.getEditor(this.id, {..._this.defaultConfig, ..._this.config}) // 初始化UE
       _this.editor.addListener('ready', function () {
         _this.loading = true
         if (_this.content) {
