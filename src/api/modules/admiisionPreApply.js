@@ -3,6 +3,9 @@ import request from '@/utils/request'
 * 招生计划
 */
 export default {
+  mylist(params) {
+    return request.get(`admiisionPreApply/mypreApplypage`, { params: params })
+  },
   applyvalidPage(params) {
     return request.get(`admiisionPreApply/applyvalidPage`, { params: params })
   },

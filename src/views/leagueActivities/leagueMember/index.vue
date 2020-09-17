@@ -7,7 +7,14 @@
       <template slot="left">
         <el-form inline :model="form">
           <el-form-item>
-            <PermissionButton round menu-no="_views_leagueActivities_leagueMember_add" type="primary" name="新增团员" :page-jump="true" />
+            <PermissionButton
+              round
+              menu-no="_views_leagueActivities_leagueMember_add"
+              type="primary"
+              name="新增团员"
+              :page-jump="true"
+              :page-query="initQuery"
+            />
           </el-form-item>
           <el-form-item>
             <service-select
@@ -80,7 +87,6 @@
         <el-table-column label="团员" prop="memberName" min-width="120" />
         <el-table-column label="职位" prop="duty" min-width="120" />
         <el-table-column label="任职日期" align="center" prop="employeeDate" min-width="140" />
-        <el-table-column label="工作内容" prop="content" min-width="180" show-overflow-tooltip />
         <el-table-column label="入团时间" align="center" prop="entryDate" min-width="140" />
         <el-table-column label="创建时间" align="center" prop="created" min-width="180" />
         <el-table-column label="创建人" prop="creator" min-width="120" />
@@ -136,6 +142,10 @@
         tableData: { records: [] },
         form: {
           youthLeagueBranchId: Number(this.$route.query.youthLeagueBranchId)
+        },
+        initQuery: {
+          youthLeagueBranchId: this.$route.query.youthLeagueBranchId,
+          leagueName: this.$route.query.leagueName,
         }
       }
     },

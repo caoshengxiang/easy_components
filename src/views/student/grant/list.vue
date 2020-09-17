@@ -12,7 +12,7 @@
         ><img src="../../../assets/a1.png" height="50" width="50">
           <div class="text">
             <div class="analysis-text"><span class="tag">{{ statisticsInfo }}</span>元</div>
-            <div class="analysis-text-small">近三月发放奖金数</div>
+            <div class="analysis-text-small">近三月发放金额数</div>
           </div>
         </div>
       </div>

@@ -791,8 +791,9 @@
         if (that.postForm.countyId) {
           temp.push(that.postForm.countyId)
         }
-
         that.postForm.countyName = temp
+        that.getClbumList(true)
+        that.getClbumList1(true)
         that.editStatus = false
       } else if (that.$route.query.id) {
         that.id = that.$route.query.id

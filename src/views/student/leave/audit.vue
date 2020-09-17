@@ -140,8 +140,11 @@
                     type: 'success',
                     message: '审核成功'
                   })
-                  this.getList()
-                  this.getStatistics()
+
+                  const back = this.$route.query.back
+                  if (back) {
+                    this.$router.push(back)
+                  }
                 }
               })
             })

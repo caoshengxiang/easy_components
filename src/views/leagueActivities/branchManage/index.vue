@@ -108,14 +108,14 @@
               menu-no="_views_leagueActivities_leagueMember_list"
               name="团员管理"
               :page-jump="true"
-              :page-query="{ youthLeagueBranchId: row.id }"
+              :page-query="{ youthLeagueBranchId: row.id, leagueName: row.name }"
               round
             />
             <PermissionButton
               menu-no="_views_leagueActivities_leagueFee_list"
               name="团费管理"
               :page-jump="true"
-              :page-query="{ youthLeagueBranchId: row.id }"
+              :page-query="{ youthLeagueBranchId: row.id, leagueName: row.name }"
               round
             />
           </template>

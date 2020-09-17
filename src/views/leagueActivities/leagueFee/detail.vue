@@ -79,7 +79,10 @@
       return {
         loading: false,
         editStatus: true,
-        form: {},
+        form: {
+          youthLeagueBranchId: Number(this.$route.query.youthLeagueBranchId),
+          leagueName: this.$route.query.leagueName,
+        },
         rules: {
           leagueName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
           cate: [{ required: true, message: '请输入收支', trigger: 'change' }],
@@ -97,9 +100,9 @@
       },
     },
     created() {
-      let that = this
+      let that = this;
       if (this.detailInfo) {
-        this.form = this.detailInfo
+        this.form = this.detailInfo;
         that.editStatus = false
       }
       else{

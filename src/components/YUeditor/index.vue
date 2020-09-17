@@ -28,24 +28,28 @@
     data() {
       return {
         editor: null,
-        loading: false
+        loading: false,
+        defaultConfig: {
+          UEDITOR_HOME_URL: process.env.NODE_ENV === 'production' ? '/admin/ueditor/' : '/ueditor/',
+          serverUrl: process.env.VUE_APP_BASE_API2 + '/ueditor/exec'
+        }
       }
     },
     computed: {
       id() {
-        const ram = Math.random()
+        const ram = Math.random();
         return 'editor' + ram
       }
     },
     watch: {
       'content': function (value) {
-        const that = this
+        const that = this;
         if (value) {
           if (that.loading) {
             that.editor.setContent(value) // 确保UE加载完成后，放入内容。
           } else {
             that.editor.addListener('ready', function () {
-              that.loading = true
+              that.loading = true;
               that.editor.setContent(value) // 确保UE加载完成后，放入内容。
             })
           }
@@ -53,10 +57,10 @@
       }
     },
     mounted() {
-      const _this = this
-      _this.editor = UE.getEditor(this.id, _this.config) // 初始化UE
+      const _this = this;
+      _this.editor = UE.getEditor(this.id, {..._this.defaultConfig, ..._this.config}); // 初始化UE
       _this.editor.addListener('ready', function () {
-        _this.loading = true
+        _this.loading = true;
         if (_this.content) {
           _this.editor.setContent(_this.content)
         }

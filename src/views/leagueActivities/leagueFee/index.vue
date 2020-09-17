@@ -7,7 +7,14 @@
       <template slot="left">
         <el-form inline :model="form">
           <el-form-item>
-            <PermissionButton round menu-no="_views_leagueActivities_leagueFee_add" type="primary" name="新增团费" :page-jump="true" />
+            <PermissionButton
+              round
+              menu-no="_views_leagueActivities_leagueFee_add"
+              type="primary"
+              name="新增团费"
+              :page-jump="true"
+              :page-query="initQuery"
+            />
           </el-form-item>
           <el-form-item>
             <service-select
@@ -114,6 +121,10 @@
         tableData: { records: [] },
         form: {
           youthLeagueBranchId: Number(this.$route.query.youthLeagueBranchId)
+        },
+        initQuery: {
+          youthLeagueBranchId: this.$route.query.youthLeagueBranchId,
+          leagueName: this.$route.query.leagueName,
         },
         occurTime: null
       }

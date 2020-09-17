@@ -68,7 +68,7 @@
 <!--                </el-row>-->
 <!--                <el-row style="margin-left: 150px">-->
                   <el-col :span="6" :xs="8" :sm="8">
-                    <el-form-item label="撤销文件：" prop="cancelFile" label-width="120px" style="height: 20px" class="postInfo-container-item ">
+                    <el-form-item label="撤销文件(word或excel)：" prop="cancelFile" label-width="120px" style="height: 20px" class="postInfo-container-item ">
                       <fileUpload
                         :limit="1"
                         :file-list="[{path:postForm.cancelFile}]"

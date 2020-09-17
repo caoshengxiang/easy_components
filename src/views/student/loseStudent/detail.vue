@@ -66,6 +66,7 @@
                       v-model="postForm.studentId"
                       placeholder="学生"
                       clearable
+                      filterable
                       class="filter-item"
                       style="width:100%"
                     >
@@ -154,7 +155,7 @@ export default {
   },
   data() {
     return {
-      editStatus:true,
+      editStatus:false,
       grantType: [  {
         key: '',
         label: '全部'
@@ -199,6 +200,9 @@ export default {
       this.postForm = this.detailInfo
       that.editStatus = false
     } else {
+      if(!this.$route.query.id){
+        this.editStatus = true
+      }
       this.getDetail()
     }
     that.getAllEnum()

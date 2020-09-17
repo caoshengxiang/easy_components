@@ -7,7 +7,14 @@
       <template slot="left">
         <el-form inline :model="form">
           <el-form-item>
-            <PermissionButton round menu-no="_views_leagueActivities_memberManage_add" type="primary" name="新增社员" :page-jump="true" />
+            <PermissionButton
+              round
+              menu-no="_views_leagueActivities_memberManage_add"
+              type="primary"
+              name="新增社员"
+              :page-jump="true"
+              :page-query="initQuery"
+            />
           </el-form-item>
           <el-form-item>
             <service-select
@@ -86,17 +93,17 @@
         />
       </template>
       <parentTable v-loading="loading" :data="tableData.records" slot="table" style="width: 100%;">
-        <el-table-column label="社团名称" prop="clubName" width="160" show-overflow-tooltip />
-        <el-table-column label="社员姓名" prop="studentName" width="120" />
-        <el-table-column label="班级" prop="clbum" width="120" />
-        <el-table-column label="年级" align="center" prop="grade" width="120" />
-        <el-table-column label="专业" prop="specialty" width="160" />
-        <el-table-column label="社团职务" prop="dutyName" width="120" />
-        <el-table-column label="任职日期" align="center" prop="employeeDate" width="160" />
-        <el-table-column label="入社日期" align="center" prop="entryDate" width="160" />
+        <el-table-column label="社团名称" prop="clubName" min-width="160" show-overflow-tooltip />
+        <el-table-column label="社员姓名" prop="studentName" min-width="120" />
+        <el-table-column label="班级" prop="clbum" min-width="120" />
+        <el-table-column label="年级" align="center" prop="grade" min-width="120" />
+        <el-table-column label="专业" prop="specialty" min-width="160" />
+        <el-table-column label="社团职务" prop="dutyName" min-width="120" />
+        <el-table-column label="任职日期" align="center" prop="employeeDate" min-width="160" />
+        <el-table-column label="入社日期" align="center" prop="entryDate" min-width="160" />
 <!--        <el-table-column label="工作内容" prop="content" width="180" show-overflow-tooltip />-->
 <!--        <el-table-column label="社团评价" prop="evaluation" width="180" show-overflow-tooltip />-->
-        <el-table-column label="状态" align="center" prop="state" width="120" />
+        <el-table-column label="状态" align="center" prop="state" min-width="120" />
 <!--        <el-table-column label="备注" prop="remark" width="180" />-->
         <el-table-column label="操作" align="center" width="180" fixed="right">
           <template v-slot="{ row }">
@@ -149,6 +156,10 @@
         tableData: { records: [] },
         form: {
           clubId: Number(this.$route.query.clubId)
+        },
+        initQuery: {
+          clubId: this.$route.query.clubId,
+          clubName: this.$route.query.clubName,
         },
         employeeDate: null
       }
