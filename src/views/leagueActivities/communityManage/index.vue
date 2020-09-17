@@ -103,7 +103,7 @@
               menu-no="_views_leagueActivities_memberManage_list"
               name="社员管理"
               :page-jump="true"
-              :page-query="{ clubId: row.id }"
+              :page-query="{ clubId: row.id, clubName: row.name }"
               round
             />
           </template>

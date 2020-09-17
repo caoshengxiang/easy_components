@@ -132,7 +132,10 @@
         loading: false,
         studentLoading: false,
         editStatus: true,
-        form: {},
+        form: {
+          clubId: Number(this.$route.query.clubId),
+          clubName: this.$route.query.clubName,
+        },
         rules: {
           clubName: [{ required: true, message: '请输入社团名称', trigger: 'blur' }],
           // dutyName: [{ required: true, message: '请输入职务', trigger: 'blur' }],
@@ -152,9 +155,9 @@
       },
     },
     created() {
-      let that = this
+      let that = this;
       if (this.detailInfo) {
-        this.form = this.detailInfo
+        this.form = this.detailInfo;
         that.editStatus = false
       }
       else{

@@ -109,7 +109,9 @@
         studentLoading: false,
         editStatus: true,
         form: {
-          jobs: ['']
+          jobs: [''],
+          youthLeagueBranchId: Number(this.$route.query.youthLeagueBranchId),
+          leagueName: this.$route.query.leagueName,
         },
         rules: {
           leagueName: [{ required: true, message: '请选择团支部', trigger: 'change' }],
@@ -128,9 +130,9 @@
       },
     },
     created() {
-      let that = this
+      let that = this;
       if (this.detailInfo) {
-        this.form = this.detailInfo
+        this.form = this.detailInfo;
         that.editStatus = false
       }
       else{
