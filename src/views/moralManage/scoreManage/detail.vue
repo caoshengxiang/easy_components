@@ -38,28 +38,28 @@
                     <el-form-item label="优：" class="postInfo-container-item " prop="excellentLower" style="display: inline-block">
                       <el-input v-model="postForm.excellentLower" class="filter-item" style="width: calc(50% - 5px)"/>
                       <span style="display: inline-block;width: 10px;text-align: center">-</span>
-                      <el-input v-model="postForm.excellentUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                      <el-input v-model="postForm.excellentUpper" class="filter-item" style="width: calc(50% - 5px)" @blur="validateField('excellentLower')"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="良：" class="postInfo-container-item " prop="goodLower" style="display: inline-block">
                       <el-input v-model="postForm.goodLower" class="filter-item" style="width: calc(50% - 5px)"/>
                       <span style="display: inline-block;width: 10px;text-align: center">-</span>
-                      <el-input v-model="postForm.goodUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                      <el-input v-model="postForm.goodUpper" class="filter-item" style="width: calc(50% - 5px)" @blur="validateField('goodLower')"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="中：" class="postInfo-container-item " prop="middleLower" style="display: inline-block">
                       <el-input v-model="postForm.middleLower" class="filter-item" style="width: calc(50% - 5px)"/>
                       <span style="display: inline-block;width: 10px;text-align: center">-</span>
-                      <el-input v-model="postForm.middleUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                      <el-input v-model="postForm.middleUpper" class="filter-item" style="width: calc(50% - 5px)" @blur="validateField('middleLower')"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
                     <el-form-item label="差：" class="postInfo-container-item " prop="poorLower" style="display: inline-block">
                       <el-input v-model="postForm.poorLower" class="filter-item" style="width: calc(50% - 5px)"/>
                       <span style="display: inline-block;width: 10px;text-align: center">-</span>
-                      <el-input v-model="postForm.poorUpper" class="filter-item" style="width: calc(50% - 5px)"></el-input>
+                      <el-input v-model="postForm.poorUpper" class="filter-item" style="width: calc(50% - 5px)" @blur="validateField('poorLower')"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -91,6 +91,56 @@
       }
     },
     data() {
+      const validateExcellentLower = (rule, value, callback) => {
+        if (value && this.postForm.excellentUpper && (Number(value) > Number(this.postForm.excellentUpper))) {
+          callback(new Error('左值不能大于右值！'));
+        } else {
+          callback();
+        }
+      };
+
+      const validateGoodLowerLower = (rule, value, callback) => {
+        if (
+          this.postForm.excellentLower &&
+          this.postForm.goodUpper &&
+          (Number(this.postForm.excellentLower) <= Number(this.postForm.goodUpper))
+        ) {
+          callback(new Error('良范围右值应小于优范围左值！'));
+        } else if (value && this.postForm.goodUpper && (Number(value) > Number(this.postForm.goodUpper))) {
+          callback(new Error('左值不能大于右值！'));
+        } else {
+          callback();
+        }
+      };
+
+      const validateMiddleLower = (rule, value, callback) => {
+        if (
+          this.postForm.goodLower &&
+          this.postForm.middleUpper &&
+          (Number(this.postForm.goodLower) <= Number(this.postForm.middleUpper))
+        ) {
+          callback(new Error('中范围右值应小于良范围左值！'));
+        } else if (value && this.postForm.middleUpper && (Number(value) > Number(this.postForm.middleUpper))) {
+          callback(new Error('左值不能大于右值！'));
+        } else {
+          callback();
+        }
+      };
+
+      const validatePoorLower = (rule, value, callback) => {
+        if (
+          this.postForm.middleLower &&
+          this.postForm.poorUpper &&
+          (Number(this.postForm.middleLower) <= Number(this.postForm.poorUpper))
+        ) {
+          callback(new Error('差范围右值应小于中范围左值！'));
+        } else if (value && this.postForm.poorUpper && (Number(value) > Number(this.postForm.poorUpper))) {
+          callback(new Error('左值不能大于右值！'));
+        } else {
+          callback();
+        }
+      };
+
       return {
         editStatus: true,
         postForm: {},
@@ -105,26 +155,38 @@
             message: '请选择学期',
             trigger: 'change'
           }],
-          excellentLower: [{
-            required: true,
-            message: '请填写优范围',
-            trigger: 'change'
-          }],
-          goodLower: [{
-            required: true,
-            message: '请填写良范围',
-            trigger: 'change'
-          }],
-          middleLower: [{
-            required: true,
-            message: '请填写中范围',
-            trigger: 'change'
-          }],
-          poorLower: [{
-            required: true,
-            message: '请填写差范围',
-            trigger: 'change'
-          }],
+          excellentLower: [
+            {
+              required: true,
+              message: '请填写优范围',
+              trigger: 'change'
+            },
+            { validator: validateExcellentLower, trigger: 'blur' }
+          ],
+          goodLower: [
+            {
+              required: true,
+              message: '请填写良范围',
+              trigger: 'change'
+            },
+            { validator: validateGoodLowerLower, trigger: 'blur' }
+          ],
+          middleLower: [
+            {
+              required: true,
+              message: '请填写中范围',
+              trigger: 'change'
+            },
+            { validator: validateMiddleLower, trigger: 'blur' }
+          ],
+          poorLower: [
+            {
+              required: true,
+              message: '请填写差范围',
+              trigger: 'change'
+            },
+            { validator: validatePoorLower, trigger: 'blur' }
+          ],
         },
       }
     },
@@ -147,6 +209,9 @@
 
     },
     methods: {
+      validateField(prop) {
+        this.$refs.postForm.validateField(prop)
+      },
       getDetail() {
         const that = this;
         that.$api.assetinfo.getLandDetail(that.id).then(data => {
