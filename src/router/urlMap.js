@@ -76,6 +76,7 @@ import _views_student_grant_list from '../views/student/grant/list'
 import _views_student_grant_detail from '../views/student/grant/detail'
 import _views_student_leave_list from '../views/student/leave/list'
 import _views_student_leave_detail from '../views/student/leave/detail'
+import _views_student_leave_detailAudit from '../views/student/leave/detailAudit'
 import _views_student_leave_audit from '../views/student/leave/audit'
 import _views_student_morningExam_list from '../views/student/morningExam/list'
 import _views_student_morningExam_detail from '../views/student/morningExam/detail'
@@ -165,6 +166,7 @@ export default {
   _views_student_grant_detail, // 助学金详情
   _views_student_leave_list, // 请假
   _views_student_leave_detail, // 请假详情
+  _views_student_leave_detailAudit, // 请假详情
   _views_student_leave_audit,//请假审核
   _views_student_morningExam_list,
   _views_student_morningExam_detail,
@@ -182,6 +184,7 @@ export default {
   _views_recruit_task_list: () => import('../views/recruit/task/list'), // 招生任务
   _views_recruit_task_detail: () => import('../views/recruit/task/detail'), // 招生任务编辑/详情
   _views_recruit_preregistration_list: () => import('../views/recruit/preregistration/list'), // 预报名
+  _views_recruit_preregistration_mylist: () => import('../views/recruit/preregistration/mylist'), // 预报名
   _views_recruit_preregistration_detail: () => import('../views/recruit/preregistration/detail'), // 预报名编辑/详情
   _views_recruit_preregistration_print: () => import('../views/recruit/preregistration/print'), // 预报名编辑/详情
   _views_recruit_registration_list: () => import('../views/recruit/registration/list'), // 报到注册

@@ -324,7 +324,7 @@
               </el-row>
             </template>
         </el-table-column>
-        <el-table-column label="财产破坏打分" align="center" v-if="listQuery.examType === 'cc'"   prop="socre" sortable="custom" show-overflow-tooltip>
+        <el-table-column label="安全管理打分" align="center" v-if="listQuery.examType === 'cc'"   prop="socre" sortable="custom" show-overflow-tooltip>
           <template v-slot="{ row }">
             <div v-if="row.id === editRowKey">
               <el-row  style="display: flex;align-items: center;">

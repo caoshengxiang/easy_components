@@ -457,8 +457,13 @@ export default {
     getConfig() {
       this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
         this.configInfo = res.data.fieldValues
-        this.title =   this.configInfo.SYS_NAME.value + '就读协议、承诺书'
         this.configInfo.PROMISE_LETTER.value = this.configInfo.PROMISE_LETTER.value.replace("600元（陆佰元整）", this.configInfo.PAYMENT.value)
+      })
+
+
+      this.$api.globalConfig.getValuesByKey({ key: 'sys' }).then(res => {
+        let temp = res.data.fieldValues
+        this.title =   temp.SCHOOL_NAME.value + '就读协议、承诺书'
       })
     },
     successAction(data){

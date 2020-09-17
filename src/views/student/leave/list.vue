@@ -188,6 +188,16 @@
               name=""
               :page-jump="true"
               :page-query="{id: row.leaveId}"
+              v-if="row.state == 1"
+              round
+            />
+            <PermissionButton
+              menu-no="_views_student_leave_detailAudit"
+              type="primary"
+              name=""
+              :page-jump="true"
+              :page-query="{id: row.leaveId}"
+              v-if="row.state > 1"
               round
             />
             <PermissionButton

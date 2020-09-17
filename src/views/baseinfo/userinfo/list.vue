@@ -86,6 +86,13 @@
           <el-option v-for="item in AllEnum.当前状态" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-input
+          v-model="listQuery.dormitoryCode"
+          placeholder="宿舍编号"
+          prefix-icon="el-icon-search"
+          style="margin-left:10px;width: 120px;margin-bottom: 10px;"
+          class="filter-item"
+        />
+        <el-input
           v-model="listQuery.keyword"
           placeholder="学号或者姓名"
           prefix-icon="el-icon-search"
@@ -215,6 +222,11 @@
         <el-table-column label="学籍班级" align="center">
           <template slot-scope="{row}">
             <span>{{ row.schoolClbumName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="宿舍编号" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.dormitoryCode }}</span>
           </template>
         </el-table-column>
         <el-table-column label="就读方式" class-name="status-col">

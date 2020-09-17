@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container leave-detail">
     <div class="title-container">
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
     </div>
@@ -25,6 +25,7 @@
                       v-model="postForm.administrativeClbumId"
                       placeholder="班级"
                       clearable
+                      disabled
                       class="filter-item"
                       style="width:100%"
                       @change="getStudent"
@@ -38,6 +39,9 @@
 
                     <el-select
                       v-model="postForm.studentId"
+                      disabled
+                      readonly="true"
+
                       placeholder="学生"
                       clearable
                       filterable
@@ -59,6 +63,7 @@
                       style="width: 100%"
                       placeholder=""
                       @change="calTime"
+                      disabled
                     />
 
                   </el-form-item>
@@ -72,6 +77,7 @@
                       style="width: 100%"
                       placeholder=""
                       @change="calTime"
+                      disabled
                     />
                   </el-form-item>
                 </el-col>
@@ -82,7 +88,7 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="假别：" prop="leaveType" label-width="150px" class="postInfo-container-item">
-                    <el-radio-group v-model="postForm.leaveType">
+                    <el-radio-group v-model="postForm.leaveType"    disabled>
 
                       <el-radio  v-for="item in AllEnum.请假类型" :label="item">{{item}}</el-radio>
                     </el-radio-group>
@@ -90,25 +96,44 @@
                 </el-col>
                 <el-col :span="24">
                   <el-form-item label="请假事由：" prop="reason" label-width="150px" class="postInfo-container-item">
-                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.reason" />
+                    <el-input type="textarea"    disabled :rows="2" maxlength="500" v-model="postForm.reason" />
                   </el-form-item>
                 </el-col>
 
-                <el-col :span="24" v-if="postForm.state>1">
+                <el-col :span="24" >
                   <el-form-item label="审核状态：" prop="reason" label-width="150px" class="postInfo-container-item">
                     <span style="color: red">{{ postForm.state == 1?'审核中':(postForm.state == 2?'审核通过 ':(postForm.state == 3?'审核拒绝':'')) }}</span>
                   </el-form-item>
                 </el-col>
-                <el-col :span="24"  v-if="postForm.state>1">
+                <el-col :span="24" >
                   <el-form-item label="审核时间：" prop="reason" label-width="150px" class="postInfo-container-item">
                      <span>{{postForm.auditTime}}</span>
                   </el-form-item>
                 </el-col>
+                <el-col :span="24" >
+                  <el-form-item label="审核状态修改：" v-if="postForm.state == 2" prop="reason" label-width="150px" class="postInfo-container-item">
 
-                <el-col :span="24"  v-if="postForm.state>1">
-                  <el-form-item label="审核意见：" prop="reason" label-width="150px" class="postInfo-container-item">
-                    <el-input type="textarea" :rows="3" maxlength="500" v-model="postForm.remark" />
+                    <el-select
+                      v-model="state"
+                      placeholder="审核状态"
+                      clearable
+                      class="filter-item"
+                      style="width:100%"
+                    >
+                      <el-option  v-for="item in AllEnum.审核状态" :key="item" :label="item" :value="item"/>
+                    </el-select>
                   </el-form-item>
+                </el-col>
+
+                <el-col :span="24" >
+                  <el-form-item label="审核意见：" prop="reason" label-width="150px" class="postInfo-container-item">
+                    <el-input type="textarea" disabled v-if="postForm.state == 3"   :rows="2" maxlength="500" v-model="postForm.remark" />
+                    <el-input type="textarea"  v-else :rows="2" maxlength="500" v-model="postForm.remark" />
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="24" style="text-align: center" >
+                  <el-button type="primary" size="mini"  v-if="postForm.state == 2"  round @click="handleCreate()" >修改审核状态 </el-button>
                 </el-col>
               </el-row>
             </div>
@@ -139,7 +164,8 @@ export default {
   },
   data() {
     return {
-      editStatus:false,
+      state:'',
+      editStatus:true,
       term:{},
       grantType: [  {
         key: '',
@@ -176,6 +202,7 @@ export default {
     },
   },
   created() {
+
     let that = this
     if (this.detailInfo) {
       this.postForm = this.detailInfo
@@ -211,7 +238,7 @@ export default {
       })
     },
     calTime(){
-      if(this.postForm.endTime <= this.postForm.startTime){
+      if(this.postForm.endTime < this.postForm.startTime){
         this.$notify({
           title: '时间错误',
           message: '结束时间必须大于起始时间',
@@ -300,6 +327,7 @@ export default {
           this.days = this.postForm.days
           this.hours =  this.postForm.hours
 
+          this.state = this.postForm.state == 1?'待审核':(this.postForm.state == 2?'审核通过':'审核拒绝')
 
           if(this.postForm.studentSampleInfoDTO){
             this.postForm.administrativeGradeId = this.postForm.studentSampleInfoDTO.administrativeGradeId
@@ -319,7 +347,7 @@ export default {
         })
     },
     handleCreate() {
-      if(this.postForm.endTime <= this.postForm.startTime){
+      if(this.postForm.endTime < this.postForm.startTime){
         this.$notify({
           title: '时间错误',
           message: '结束时间必须大于起始时间',
@@ -328,9 +356,16 @@ export default {
         })
         return
       }
+      this.$confirm('确认修改审核状态?', '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async () => {
       if (this.dataId) { // 编辑
         this.$refs.postForm.validate(valid => {
           if (valid) {
+            this.postForm.state = this.state == '审核通过'?2:(this.state == '审核拒绝'?3:1)
             this.$api.leave.edit(this.postForm).then(res => {
               if (res.code === 200) {
                 this.$notify({
@@ -347,30 +382,23 @@ export default {
             })
           }
         })
-      } else { // 新增
-        this.$refs.postForm.validate(valid => {
-          if (valid) {
-            this.$api.leave.add(this.postForm).then(res => {
-              if (res.code === 200) {
-                this.$notify({
-                  title: '成功',
-                  message: '添加成功',
-                  type: 'success',
-                  duration: 2000
-                })
-                const back = this.$route.query.back
-                if (back) {
-                  this.$router.push(back)
-                }
-              }
-            })
-          }
-        })
       }
+        })
+        .catch(err => { console.error(err) })
     },
   }
 }
 </script>
 <style lang="scss" scoped>
 /*@import "~@/styles/mixin.scss";*/
+</style>
+<style scoped>
+  .leave-detail >>> .title-container:not(.task-title) {
+    display: none !important;
+  }
+
+  .leave-detail >>> .y-options {
+    display: none !important;
+  }
+
 </style>

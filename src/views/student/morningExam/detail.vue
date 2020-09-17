@@ -66,6 +66,7 @@
                       v-model="postForm.studentId"
                       placeholder="学生"
                       clearable
+                      filterable
                       class="filter-item"
                       style="width:100%"
                     >
