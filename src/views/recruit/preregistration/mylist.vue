@@ -101,7 +101,7 @@
       </template>
       <template slot="right">
         <PermissionButton
-          menu-no="_views_recruit_pre_export1"
+          menu-no="_views_recruit_pre_export4"
           class-name="filter-item"
           round
           type="primary"
@@ -110,7 +110,7 @@
           @click="handleDownload1"
         />
         <PermissionButton
-          menu-no="_views_recruit_pre_export2"
+          menu-no="_views_recruit_pre_export5"
           class-name="filter-item"
           round
           type="primary"
@@ -119,7 +119,7 @@
           @click="handleDownload2"
         />
         <PermissionButton
-          menu-no="_views_recruit_pre_export3"
+          menu-no="_views_recruit_pre_export6"
           class-name="filter-item"
           round
           style="margin-left:5px;margin-top:3px;"
