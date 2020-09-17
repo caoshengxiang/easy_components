@@ -15,7 +15,12 @@
             label-width="140px"
           >
             <el-form-item label="年份：" prop="type">
-              <el-input v-model="postForm.year" style="width: 300px;"/>
+<!--              <el-input v-model="postForm.year" style="width: 300px;"/>-->
+              <el-select v-model="postForm.year" placeholder="请选择" style="width: 300px">
+                <el-option v-for="(item) in 10" :key="item" :label="(fullYear+item-2)"
+                           :value="(fullYear+item-2)"
+                />
+              </el-select>
             </el-form-item>
 
             <el-form-item label="学期：">
@@ -80,6 +85,7 @@
         },
         termOptions: [],
         dataId: this.$route.query.id,
+        fullYear: new Date().getFullYear()
       }
     },
     watch: {

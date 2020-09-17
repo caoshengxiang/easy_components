@@ -76,7 +76,7 @@
           @click="handleDownload"
         />
       </template>
-      <parentTable v-loading="listLoading" :data="pageData.records" @sort-change="sortChange" slot="table"
+      <parentTable v-loading="listLoading" :data="pageData.records" @sortTable="sortChange" slot="table"
                    style="width: 100%;">
         <!--      <el-table-->
         <!--        slot="table"-->
@@ -178,18 +178,9 @@
       that.getList()
     },
     methods: {
-      sortChange({ column, prop, order }) {
-        console.log(column, prop, order)
-        if (order === 'ascending') {
-          this.listQuery.descs = null
-          this.listQuery.ascs = underscoreName(prop)
-        } else if (order === 'descending') {
-          this.listQuery.descs = underscoreName(prop)
-          this.listQuery.ascs = null
-        } else {
-          this.listQuery.descs = 'id'
-          this.listQuery.ascs = null
-        }
+      sortChange(obj) {
+        this.listQuery.descs = obj.descs
+        this.listQuery.ascs = obj.ascs
         this.searchList()
       },
       handleDownload(url) {

@@ -18,6 +18,7 @@
 
 <script>
   import { underscoreName } from '@/utils/index'
+
   export default {
     name: 'parentTable',
     props: {
@@ -44,19 +45,17 @@
       selectionChange(val) {
         this.$emit('selectionChange', val)
       },
-      sortChange(val){
+      sortChange(val) {
         let sortParam = {}
-        if(val.order === "ascending"){
-          sortParam.ascs =  underscoreName(val.prop)
-          sortParam.descs =  null
-        }
-        else if(val.order === "descending"){
-          sortParam.descs =  underscoreName(val.prop)
-          sortParam.ascs =  null
-        }
-        else{
-          sortParam.descs =  'id'
-          sortParam.ascs =  null
+        if (val.order === 'ascending') {
+          sortParam.ascs = underscoreName(val.prop)
+          sortParam.descs = null
+        } else if (val.order === 'descending') {
+          sortParam.descs = underscoreName(val.prop)
+          sortParam.ascs = null
+        } else {
+          sortParam.descs = 'id'
+          sortParam.ascs = null
         }
 
         this.$emit('sortTable', sortParam)

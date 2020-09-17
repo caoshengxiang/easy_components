@@ -435,6 +435,20 @@
                         </el-select>
                       </el-form-item>
                     </el-col>
+                    <el-col :xs="24" :sm="12" :lg="6" :span="6">
+                      <el-form-item label="是否省特级教师：" label-width="180px" class="postInfo-container-item">
+                        <el-select
+                          v-model="postForm.staff.provinceSpecial"
+                          placeholder=""
+                          clearable
+                          class="filter-item"
+                          style=" width: 100%"
+                        >
+                          <el-option label="是" :value="true"/>
+                          <el-option label="否" :value="false"/>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
                   </el-row>
 
                   <div style="margin-top:20px;width:100%;height:1px;background:rgba(242,242,242,1);"/>
@@ -1232,6 +1246,15 @@
                       >
                         <template slot-scope="{row}">
                           <el-input v-model="row.name" autosize type="textarea" class="filter-item"/>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        prop="name"
+                        label="单位名称"
+                        width="220"
+                      >
+                        <template slot-scope="{row}">
+                          <el-input v-model="row.unitName" autosize type="textarea" class="filter-item"/>
                         </template>
                       </el-table-column>
                       <el-table-column
