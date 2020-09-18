@@ -293,7 +293,7 @@
 
           return
         }
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySourceExcel', this.listQuery, '导出学生生源地预招人数对比')
+        this.$utils.exportUtil('/admiisionPreApply/myexportPreApplySourceExcel', this.listQuery, '导出学生生源地预招人数对比')
       },
       handleDownload2(url) {
 
@@ -306,7 +306,7 @@
 
           return
         }
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
+        this.$utils.exportUtil('/admiisionPreApply/myexportPreApplySpExcel', this.listQuery, '导出各专业预报名人数')
       },
       handleDownload3(url) {
 
@@ -318,11 +318,11 @@
 
           return
         }
-        this.$utils.exportUtil('/admiisionPreApply/exportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
+        this.$utils.exportUtil('/admiisionPreApply/myexportPreApplyDetailStuExcel', this.listQuery, '导出学生详细')
       },
       getStatistics() {
         let that = this
-        that.$api.statistics.getStatistics('/admiisionPreApply/preApplypageStatics', { ...that.listQuery }).then(data => {
+        that.$api.statistics.getStatistics('/admiisionPreApply/mypreApplypageStatics', { ...that.listQuery }).then(data => {
           that.loading = false
           if (data.code === 200) {
             that.statisticsInfo = data.data

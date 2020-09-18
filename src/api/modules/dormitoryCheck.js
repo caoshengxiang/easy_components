@@ -53,6 +53,9 @@ export default {
   terms(params) {
     return request.get(`dormitoryWeeklyAssessment/terms`, { params: params })
   },
+  termslist(params) {
+    return request.get(`dormitoryWeeklyAssessment/terms`, { params: params })
+  },
   weeks(params) {
     return request.get(`dormitoryWeeklyAssessment/weeks`, { params: params })
   },
