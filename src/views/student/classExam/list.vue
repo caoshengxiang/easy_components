@@ -305,7 +305,7 @@ export default {
       this.getList()
     },
     getTerm() {
-      this.$api.dormitoryCheck.terms().then(res => {
+      this.$api.term.simpleAll().then(res => {
         this.termOptions = res.data
       })
       this.$api.dormitoryCheck.years().then(res => {
