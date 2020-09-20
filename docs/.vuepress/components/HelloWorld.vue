@@ -1,6 +1,11 @@
 <template>
   <div class="hello">
     <p>你好，{{ msg }}</p>
+    <el-button>按钮</el-button>
+    <el-button type="primary">按钮</el-button>
+    <el-button type="info">按钮</el-button>
+    <el-button type="danger">按钮</el-button>
+    <el-button type="warning">按钮</el-button>
   </div>
 </template>
 
@@ -9,14 +14,14 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      msg: '组件'
+      msg: '这是一个组件!'
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
 h3 {
   margin: 40px 0 0;
 }

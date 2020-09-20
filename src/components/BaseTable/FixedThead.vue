@@ -7,7 +7,7 @@ props:
 
 1. total 分页总数, undefined 或小于0 不显示分页
 
-1. defaultFormThead [{}] 表头数据，必填项， todo bug解决第一项自动跳到最后一项问题,零时解决目前只能最后一项放在第一项,引起原因是引入template 逻辑，使用template formater 会失效
+1. defaultFormThead [{}] 表头数据，必填项， bug解决第一项自动跳到最后一项问题,零时解决目前只能最后一项放在第一项,引起原因是引入template 逻辑，使用template formater 会失效(解决方案：将el-table-column 封装成组件遍历)
   item：
   {
     key: '', // 字段， 【必填】
@@ -71,47 +71,12 @@ slot:
       @sort-change="sortChange"
     >
       <!--使用slot判断不兼容formatter-->
-      <span
+      <column-formatter
         v-for="(item,index) in formThead"
         :key="index"
-        class="test"
-      >
-        <el-table-column
-          v-if="item.slot"
-          :label="item.name"
-          :sortable="item.sortable"
-          :prop="item.key"
-          :width="item.width || 'auto'"
-          :min-width="item.minWidth || '140px'"
-          :class-name="item.className"
-          :label-class-name="item.labelClassName"
-          :show-overflow-tooltip="item.showOverflowTooltip === undefined ? true : item.showOverflowTooltip"
-          @sort-change="sortChange"
-        >
-          <template slot-scope="scope">
-            <div v-if="item.state_type" :style="item.styleObject">
-              <span v-for="(type, index_t) in item.state_type" :key="index_t">
-                <span v-if="scope.row[item.key] === type.value" :style="item.type_style[scope.row[item.key]]">{{ type.label }}</span>
-              </span>
-            </div>
-            <div v-else :style="item.styleObject">
-              <span :style="item.type_style[scope.row[item.key]]">{{ scope.row[item.key] }} </span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else
-          :label="item.name"
-          :sortable="item.sortable"
-          :prop="item.key"
-          :width="item.width || 'auto'"
-          :min-width="item.minWidth || '140px'"
-          :formatter="item.formatter"
-          :class-name="item.className"
-          :label-class-name="item.labelClassName"
-          :show-overflow-tooltip="item.showOverflowTooltip === undefined ? true : item.showOverflowTooltip"
-        />
-      </span>
+        :item="item"
+      />
+
       <!--slot 最后添加 一般用于操作列-->
       <slot />
 
@@ -133,8 +98,12 @@ slot:
 </template>
 
 <script>
+  import columnFormatter from './components/columnFormatter'
 
   export default {
+    components: {
+      columnFormatter
+    },
     props: {
       colCanConfig: {
         default: false,

@@ -113,6 +113,7 @@
     methods: {
       /**/
       search() {
+        this.pageForm.current = 1
         this.getList()
       },
       pageQueryChange(pageForm) {
