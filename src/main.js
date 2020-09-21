@@ -31,6 +31,20 @@ import './router/permission' // permission control
 // vueConfig
 import './VueConfig'
 
+/**
+ * If you don't want to use mock-server
+ * you want to use MockJs for mock api
+ * you can execute: mockXHR()
+ *
+ * Currently MockJs will be used in the production environment,
+ * please remove it before going online ! ! !
+ */
+// development production
+if (process.env.NODE_ENV === 'development') {
+  const { mockXHR } = require('../mock')
+  mockXHR()
+}
+
 // 混入
 import mixin from '@/VueConfig/mixin'
 

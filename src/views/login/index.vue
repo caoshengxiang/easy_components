@@ -129,6 +129,10 @@
       }
     },
     created() {
+      this.$api.devApi.login({ username: 'admin' }).then(res => {
+        console.log('mock', res)
+      })
+
       this.$api.globalConfig.getSysCfg().then(res => {
         this.sysCfg = res.data
       })

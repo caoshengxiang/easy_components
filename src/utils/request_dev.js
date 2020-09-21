@@ -22,11 +22,8 @@ service.interceptors.request.use(
       config.headers['token'] = getToken()
     }
     // console.log('$route', window.app.$route.meta)
-    if (window.app.$route.meta) { // 获取￥route.mata数据
-      config.headers['menuCode'] = window.app.$route.meta.menuCode
-    }
-    if(config.params){ // 时间
-      config.params.nowDate = new Date()
+    if (window.app.$route.meta) { // 获取$route.mata数据
+      // config.headers['menuCode'] = window.app.$route.meta.menuCode
     }
     return config
   },
@@ -52,37 +49,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // console.log(res)
-    // 进入审批
-    if (res.code && res.code === 250) {
-      const href = window.location.href
-      const obj = {}
-
-      if (href.indexOf('?') > -1) {
-        const qy = href.split('?')[1]
-        const qyi = qy.split('&')
-        qyi.forEach(item => {
-          const pa = item.split('=')
-          obj[pa[0]] = pa[1]
-        })
-      }
-
-      MessageBox.confirm('操作成功，可在我的申请查看，或返回列表', '提示', {
-        confirmButtonText: '我的申请',
-        cancelButtonText: '返回列表',
-        type: 'success',
-        closeOnClickModal: false
-      }).then(() => {
-        $router.push('/views/workflow/task/MyTaskList')
-      }).catch(() => {
-        if (obj.back) {
-          // console.log(obj.back)
-          $router.push(decodeURIComponent(obj.back))
-        }
-      })
-      // eslint-disable-next-line brace-style
-    }
-    // if the custom code is not 20000, it is judged as an error.
-    else if (res.code && res.code !== 200) {
+    if (res.code && res.code !== 200) {
       Message({
         message: res.msg || 'Error',
         type: 'error',

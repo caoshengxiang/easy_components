@@ -91,7 +91,7 @@ service.interceptors.response.use(
       // })
       // eslint-disable-next-line brace-style
     }
-    // if the custom code is not 20000, it is judged as an error.
+    // if the custom code is not 200, it is judged as an error.
     else if (res.code && res.code !== 200) {
       Message({
         message: res.msg || 'Error',

@@ -41,7 +41,7 @@ export default [
       }
 
       return {
-        code: 20000,
+        code: 200,
         data: token
       }
     }
@@ -53,7 +53,7 @@ export default [
     type: 'get',
     response: config => {
       return {
-        code: 20000,
+        code: 200,
         data: {
           roles: ['admin'],
           introduction: 'I am a super administrator',
@@ -84,7 +84,7 @@ export default [
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: 200,
         data: 'success'
       }
     }

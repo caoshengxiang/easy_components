@@ -1,7 +1,7 @@
-import request from '@/utils/request'
+import request from '@/utils/request_dev'
 
 export default {
   login(params) {
-    return request.get(`vue-element-admin/user/login`, { params: params })
+    return request.post(`vue-element-admin/user/login`, params)
   },
 }
