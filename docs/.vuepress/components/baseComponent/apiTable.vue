@@ -29,6 +29,10 @@
       tableBody: Array,
       tableHead: String
     },
+    data() {
+      return {
+      }
+    },
     computed: {
       tableHeader () {
         return this.tableHead.split('|').map(s => s.replace(/^\s*|\s*$/g, ''))

@@ -18,7 +18,9 @@
          class="code--button">
       <div @click="handleToggleShow"
            class="code--show">
-        {{codeTextBtn}}
+        <i v-if="isShow" class="el-icon-arrow-up"></i>
+        <i v-if="!isShow" class="el-icon-arrow-down"></i>
+        <span class="code--show-text">{{codeTextBtn}}</span>
       </div>
       <div v-if="onlineLink"
            class="code--online"
@@ -89,27 +91,39 @@ export default {
       box-sizing: border-box;
       padding: 4%;
       border-bottom: 1px solid #ddd;
+      overflow: auto;
+      width: 100%;
     }
   }
   .code--button {
-    // display: flex;
-    position: relative;
-    background: #fafbfc;
-    color: #409eff;
-    font-weight: 400;
-    line-height: 40px;
+    height: 44px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
     text-align: center;
+    margin-top: -1px;
+    color: #d3dce6;
     cursor: pointer;
-    box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+    position: relative;
+    border: 1px solid #ebebeb;
+
+    &:hover {
+      color: #409eff;
+      background-color: #f9fafc;
+      box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
       0 2px 4px 0 rgba(232, 237, 250, 0.5);
+    }
 
     .code--show {
       // flex: 3;
       display: flex;
       justify-content: center;
-    }
-    .code--show:hover {
-      font-size: 17px;
+      align-items: center;
+      height: 44px;
+      .code--show-text {
+        margin-left: 10px;
+      }
     }
     .code--online {
       position: absolute;

@@ -29,136 +29,34 @@ Vue.component('FixedThead', FixedThead)
 
 ## 使用
 
-### 1.基础用法
-
-<table-generateTable/>
-
-```vue
-<template>
-  <div class="container" v-loading="loading">
-    <fixed-thead
-      :total="total"
-      :table-data="tableData"
-      :default-form-thead="defaultFormThead"
-      @pageQueryChange="pageQueryChange"
-    >
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="160"
-      >
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handle(scope.row, '编辑')">编辑</el-button>
-          <el-button type="text" size="small" @click="handle(scope.row, '删除')">删除</el-button>
-        </template>
-      </el-table-column>
-    </fixed-thead>
-  </div>
-</template>
-
-<script>
-  import FixedThead from '../../../../src/components/BaseTable/FixedThead'
-  import defaultFormThead from './tableSet'
-
-  export default {
-    name: 'generateTable',
-    components: { FixedThead },
-    data() {
-      return {
-        loading: false,
-        defaultFormThead: defaultFormThead,
-        pageForm: {
-          size: 20,
-          current: 1
-        },
-        total: 200,
-        tableData: [{
-          t1: 'xx001',
-          t2: '166',
-          t3: 'xx',
-          t4: '正常',
-          t5: 'A',
-          t6: '红色',
-          t7: '2020-10-11',
-        }]
-      }
-    },
-    methods: {
-      pageQueryChange(pageForm) {
-        this.pageForm = pageForm
-        this.getList()
-      },
-      getList() {
-        // 列表api
-        this.loading = true
-        setTimeout(() => {
-          this.loading = false
-        }, 3000)
-      },
-      handle(row, type) {
-        this.$message.success(type)
-      }
-    }
-  }
-</script>
-
-<style scoped lang="scss">
-</style>
+<baseComponent-codeBox
+  title="基础用法"
+  description="通过配置tableSet.js,不引入。生成表格，也可以直接吧配置写在组件data内"
+  onlineLink="">
+  <table-generateTable/>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="vue">
+<<< @/docs/.vuepress/components/table/generateTable.vue
+  </highlight-code>
+</baseComponent-codeBox>
 
 
 
-```
-### tableSet.js
-```js
-
-import moment from 'moment'
-
-const defaultFormThead = [{
-  key: 't1',
-  name: '单车编号',
-  disabled: true,
-  sortable: true,
-  width: '200px',
-  className: 'com-el-talble-col-name',
-  labelClassName: 'com-el-talble-col-title-name',
-  styleObject: {
-    color: 'red'
-  }
-}, {
-  key: 't2',
-  name: '电子牌照'
-}, {
-  key: 't3',
-  name: '蓝牙标识'
-}, {
-  key: 't4',
-  name: '车况'
-}, {
-  key: 't5',
-  name: '车辆型号'
-}, {
-  key: 't6',
-  name: '颜色'
-}, {
-  key: 't7',
-  name: '注册时间',
-  formatter: (row, column, cellValue, index) => {
-    return moment(row.t7).format('YYYY-MM-DD') // 时间处理
-  }
-}]
-export default defaultFormThead
-
-```
-
+<baseComponent-codeBox
+  title="tableSet.js"
+  description=""
+  onlineLink="">
+    <div>展开查看配置</div>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="js">
+<<< @/docs/.vuepress/components/table/tableSet.js
+  </highlight-code>
+</baseComponent-codeBox>
 
 ## 属性 props
 
-|参数|说明|类型|可选值|	默认值|
-|---|----|---|---|---|
-|colCanConfig|是否能配置（提供用户选项字段的显示隐藏）el-table-column 单元格的显示隐藏|boolean|true/false|默认false|
-|tableData|必须，表单数据，接口获取到数据|Array|--|--|
-|total|必须，总数|number|--|--|
-|defaultFormThead|必须， 表单配置|Array 对象数组\[{col}]每个col代表一个域配置|--|--|
+<baseComponent-apiTable title="" :tableBody="tableBody" :tableHead="tableHead">
+</baseComponent-apiTable>
 
 ### defaultFormThead 说明
 
@@ -187,22 +85,15 @@ export default defaultFormThead
 ```
 
 
-|参数|说明|类型|可选值|	默认值|
-|---|----|---|---|---|
-
-
 ## 事件
-|事件名称  |    说明	| 回调参数 |
-|-------- |---------| --------|
-|cell-click|单元格的点击事件||
-|row-dblclick|行 双击事件||
-|pageQueryChange|分页参数改变||
+
+<baseComponent-apiTable title="" :tableBody="tableBody2" :tableHead="tableHead2">
+</baseComponent-apiTable>
 
 ## slots
-|名称|说明|
-|------|-------|
-|默认|最后添加el-table-column ， 一般用于操作列|
 
+<baseComponent-apiTable title="" :tableBody="tableBody3" :tableHead="tableHead3">
+</baseComponent-apiTable>
 
 ## 方法
 
@@ -213,3 +104,30 @@ export default defaultFormThead
 
 高新区共享单车项目
 
+
+
+<script>
+  export default {
+    data() {
+      return {
+        tableHead: `参数|说明|类型|可选值|	默认值`,
+        tableBody: [
+            `colCanConfig|是否能配置（提供用户选项字段的显示隐藏）el-table-column 单元格的显示隐藏|boolean|true/false|默认false`,
+            `tableData|必须，表单数据，接口获取到数据|Array|--|--`,
+            `total|必须，总数|number|--|--`,
+            `defaultFormThead|必须， 表单配置|Array 对象数组\[{col}]每个col代表一个域配置|--|--`,
+        ],
+        tableHead2: `事件名称  |    说明\t| 回调参数`,
+        tableBody2: [
+              `cell-click|单元格的点击事件|--`,
+              `row-dblclick|行 双击事件|--`,
+              `pageQueryChange|分页参数改变|--`,
+        ],
+        tableHead3: `名称|说明`,
+        tableBody3: [
+               `默认|最后添加el-table-column ， 一般用于操作列`,
+        ]
+      }
+    },
+  }
+</script>

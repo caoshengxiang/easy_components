@@ -10,7 +10,7 @@
 <baseComponent-codeBox
   title="按钮类型"
   description="按钮类型通过设置type为primary、success、info、warning、danger、text创建不同样式的按钮，不设置为默认样式。"
-  onlineLink="https://codepen.io/1011cat/pen/KjEOWO">
+  onlineLink="">
   <HelloWorld></HelloWorld>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">

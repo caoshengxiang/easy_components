@@ -49,82 +49,28 @@ Vue.component('fenerateForm', fenerateForm)
 
 ## 使用
 
-### 1.基础用法
-
-<form-elFormCustom></form-elFormCustom>
-
-```vue
-<template>
-  <div class="com-pages">
-    <fenerate-form
-      @getFormList="getFormList"
-      :initList="initList"
-      :uploadOptions="{
-            action: 'http://' + '/file/upload',
-            headers: {authKey: userInfo.authKey},
-            key: 'data.url',
-            callback: callback
-          }">
-    </fenerate-form>
-  </div>
-</template>
-
-<script>
-  import fenerateForm from '../../../../src/components/generateForm/index'
-
-  export default {
-    name: 'elFormCustom',
-    data () {
-      return {
-        userInfo: {
-          authKey: 123,
-        },
-        initList: [],
-      }
-    },
-    components: {
-      fenerateForm,
-    },
-    methods: {
-      callback (response, item, formConfig) {
-        console.log(response, item, formConfig)
-        item.bindValue = response.data.z
-        formConfig.formField[item.tempFieldName] = item.bindValue
-        formConfig.names[item.name] = item.bindValue
-      },
-      getFormList (da) {
-        console.log(da)
-      }
-    }
-  }
-</script>
-
-<style scoped>
-
-</style>
-```
-
-
+<baseComponent-codeBox
+  title="基础用法"
+  description="由于项目是在比较宽得屏幕运行，小屏幕未做兼容，文档得展示效果不是很理想"
+  onlineLink="">
+  <form-elFormCustom></form-elFormCustom>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="vue">
+<<< @/docs/.vuepress/components/form/elFormCustom.vue
+  </highlight-code>
+</baseComponent-codeBox>
 
 ## 属性 props
 
-|参数|说明|类型|可选值|	默认值|
-|---|----|---|---|---|
-|uploadOptions          | 上传配置  | object | -- |--|
-|initList               | 初始表单，如编辑需要传入| Array| --| --|
+<baseComponent-apiTable title="" :tableBody="tableBody" :tableHead="tableHead">
+</baseComponent-apiTable>
 
-### uploadOptions 对象说明
-|参数|说明|类型|可选值|	默认值|
-|---|----|---|---|---|
-|action          | 上传接口地址  | string | -- |--|
-|headers               | 上传接口需要携带的请求头，如token | Object| --| --|
-|key               | 接口返回的字段(目前不支持配置) | String| --| data.url |
-|callback               | 上传接口的返回回调 | function | --| --|
+<baseComponent-apiTable title="uploadOptions 对象说明" :tableBody="tableBody2" :tableHead="tableHead2">
+</baseComponent-apiTable>
 
 ## 事件
-|事件名称  |    说明	| 回调参数 |
-|-------- |---------| --------|
-|getFormList| 获取 表单数据 | data：返回表单列表|
+<baseComponent-apiTable title="" :tableBody="tableBody3" :tableHead="tableHead3">
+</baseComponent-apiTable>
 
 ## slots
 
@@ -138,3 +84,30 @@ Vue.component('fenerateForm', fenerateForm)
 ## 组件源
 
 [遂企云项目](http://www.snsme.cn/)
+
+
+
+<script>
+  export default {
+    data() {
+      return {
+        tableHead: `参数|说明|类型|可选值|	默认值`,
+        tableBody: [
+          `uploadOptions          | 上传配置  | object | -- |--`,
+          `initList               | 初始表单，如编辑需要传入| Array| --| --`
+        ],
+        tableHead2: `参数|说明|类型|可选值|	默认值`,
+        tableBody2: [
+        `action          | 上传接口地址  | string | -- |--`,
+        `headers               | 上传接口需要携带的请求头，如token | Object| --| --`,
+        `key               | 接口返回的字段(目前不支持配置) | String| --| data.url `,
+        `callback               | 上传接口的返回回调 | function | --| --|`,
+        ],
+        tableHead3: `事件名称  |    说明	| 回调参数 `,
+        tableBody3: [
+               `getFormList| 获取 表单数据 | data：返回表单列表`,
+        ]
+      }
+    },
+  }
+</script>

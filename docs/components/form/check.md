@@ -19,136 +19,17 @@
 
 ## 使用
 
-### 1.基础用法
+<baseComponent-codeBox
+  title="基础用法"
+  description=""
+  onlineLink="">
+  <form-elFormFieldValidation/>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="vue">
+<<< @/docs/.vuepress/components/form/elFormFieldValidation.vue
+  </highlight-code>
+</baseComponent-codeBox>
 
-<form-elFormFieldValidation/>
-
-```vue
-<template>
-  <div class="com-pages">
-    <h1 class="com-h1">表单校验 demo</h1>
-    <div class="com-page-con">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="170px">
-        <el-form-item label="活动名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域" prop="region">
-          <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="活动性质" prop="type">
-          <el-checkbox-group v-model="ruleForm.type">
-            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-            <el-checkbox label="地推活动" name="type"></el-checkbox>
-            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="特殊资源" prop="resource">
-          <el-radio-group v-model="ruleForm.resource">
-            <el-radio label="线上品牌商赞助"></el-radio>
-            <el-radio label="线下场地免费"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="活动时间" required>
-          <el-col :span="11">
-            <el-form-item prop="date1">
-              <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"
-                              style="width: 100%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="date2">
-              <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-            </el-form-item>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="年龄" prop="age">
-          <!--type="age"  不能输入小数点-->
-          <el-input type="age" v-model.number="ruleForm.age" autocomplete="off"></el-input>
-        </el-form-item>
-
-        <el-form-item label="电话" prop="phone">
-          <el-input v-model="ruleForm.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="test" prop="test">
-          <el-input v-model="ruleForm.test"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">保 存</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
-</template>
-
-<script>
-  /* 表单验证 */
-  import { filedRequired, filedType, filedLength, filedValidator, validate } from '../../../utils/fieldValidation'
-
-  export default {
-    name: 'elFormFieldValidation',
-    data () {
-      let validateNumOneToNine = (rule, value, callback) => { // 1-9 整数
-        if (Number.isInteger(Number(value)) && Number(value) > 0 && Number(value) < 10) {
-          callback()
-        } else {
-          callback(new Error('请输入1-10的整数'))
-        }
-      }
-      return {
-        /* 表单验证 */
-        ruleForm: {
-          name: '',
-          region: '',
-          type: [], // 注意：数组类型得时候数据也必须为数组
-          resource: '',
-          date1: '',
-          date2: '',
-          age: '',
-          phone: '',
-          test: '',
-        },
-        rules: { // 规则验证是有先后顺序
-          name: [filedRequired(), filedLength(3, 20)],
-          region: [filedRequired('change')],
-          type: [validate.filedType('array'), validate.filedRequired('change', '活动性质', '请至少选择一个')],
-          resource: [validate.filedRequired('change', '活动资源')],
-          date1: [filedType('date'), validate.filedRequired('change', '日期')],
-          date2: [filedType('date'), validate.filedRequired('change', '时间')],
-          age: [filedValidator(validateNumOneToNine), validate.filedRequired()],
-          phone: [validate.validatePhone],
-          test: [validate.validateIdCard],
-        },
-      }
-    },
-    methods: {
-      submitForm (formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!')
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      resetForm (formName) {
-        this.$refs[formName].resetFields()
-      },
-    }
-  }
-</script>
-
-<style scoped lang="scss">
-</style>
-
-```
-### 案例2
 
 
 ## 属性 props
@@ -171,25 +52,35 @@
 
 无
 
-## 方法
+##方法
 
-|方法  |    说明	| 回调参数 |
-|-------- |---------| --------|
-|filedRequired| 验证必填| --|
-|filedLength| 验证长度| --|
-|filedType| 验证数据类型| --|
-|filedValidator| 自定义规则函数| --|
-|validatePhone| 自定义规则验证手机号| --|
-|validateBeforeTime| 不能选以前的时间验证| --|
-|validateInteger| 验证大于零的整数| --|
-|validateChinese| 验证中文| --|
-|validateZm| 验证英文字母| --|
-|validateEmail| 验证邮箱| --|
-|validateIdCard| 验证省份证| --|
-|validateMoney| 验证金额，精确到2位小数| --|
-
+<baseComponent-apiTable title="" :tableBody="tableBody" :tableHead="tableHead">
+</baseComponent-apiTable>
 
 ## 组件源
 
 [遂企云项目](http://www.snsme.cn/)
 
+<script>
+  export default {
+    data() {
+      return {
+        tableHead: `方法  |    说明\t| 回调参数 `,
+        tableBody: [
+          `filedRequired| 验证必填| --`,
+          `filedLength| 验证长度| --`,
+          `filedType| 验证数据类型| --`,
+          `filedValidator| 自定义规则函数| --`,
+          `validatePhone| 自定义规则验证手机号| --`,
+          `validateBeforeTime| 不能选以前的时间验证| --`,
+          `validateInteger| 验证大于零的整数| --`,
+          `validateChinese| 验证中文| --`,
+          `validateZm| 验证英文字母| --`,
+          `validateEmail| 验证邮箱| --`,
+          `validateIdCard| 验证省份证| --`,
+          `validateMoney| 验证金额，精确到2位小数| --`,
+        ],
+      }
+    },
+  }
+</script>

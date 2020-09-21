@@ -11,11 +11,11 @@
     <!--</el-col>-->
     <!--</el-row>-->
     <div style="display: flex">
-      <div style="width: 540px;box-sizing: border-box;">
+      <div style="flex: 1;box-sizing: border-box;">
         <h3 class="view-form-t">表单控件:</h3>
         <original-form></original-form>
       </div>
-      <div style="flex: 1">
+      <div style="flex: 1;min-width: 400px;">
         <h3 class="view-form-t">请将表单控件拖至下方灰色区域并配置:</h3>
         <dev-form @getData="getDataHandle" :initList="initList"></dev-form>
       </div>

@@ -63,51 +63,29 @@ Vue.component('UploadImage', UploadImage)
 
 ### 1.基础用法
 
-<upload-sampleImage/>
 
-```vue
-<template>
-  <div>
-    <UploadImage v-model="img"/>
-  </div>
-</template>
+<baseComponent-codeBox
+  title="基础用法"
+  description="只能上传一张图"
+  onlineLink="">
+  <upload-sampleImage/>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="vue">
+<<< @/docs/.vuepress/components/upload/sampleImage.vue
+  </highlight-code>
+</baseComponent-codeBox>
 
-<script>
-  import UploadImage from '../../../../src/components/Upload/UploadImage'
-
-  export default {
-    name: 'sampleImage',
-    components: {
-      UploadImage
-    },
-    data() {
-      return{
-        img: ''
-      }
-    }
-  }
-</script>
-
-<style scoped>
-
-</style>
-
-```
-### 案例2
 
 
 ## 属性 props
 
-|参数|说明|类型|可选值|	默认值|
-|---|----|---|---|---|
-|value / v-model|绑定值|String|--|--|
-|imageSize|文件不超过的大小， 单位MB|number|--|10|
+<baseComponent-apiTable title="" :tableBody="tableBody" :tableHead="tableHead">
+</baseComponent-apiTable>
 
 
 
 ## 事件
-|事件名称  |    说明	| 回调参数 |
-|-------- |---------| --------|
+无
 
 
 ## slots
@@ -123,3 +101,17 @@ Vue.component('UploadImage', UploadImage)
 
 [学校项目](http://www.snsme.cn/)
 
+
+<script>
+  export default {
+    data() {
+      return {
+        tableHead: `参数|说明|类型|可选值|	默认值`,
+        tableBody: [
+          `value / v-model|绑定值|String|--|--`,
+          `imageSize|文件不超过的大小， 单位MB|number|--|10 (单位MB)`
+        ],
+      }
+    },
+  }
+</script>
