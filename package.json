@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint",
     "deploy:test": "npm run build && cross-env NODE_ENV=test node ./deploy",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "deploy-gh": "bash deploy/deploy-gh.sh"
   },
   "husky": {
     "hooks": {

@@ -1,4 +1,5 @@
 module.exports = {
+  // base: '/easy_components/', // 仓库名字要和config.js 里 的 base 属性值一样
   title: 'EASY COMPONENTS',
   description: '网站快速成型、项目中不断积累组件、每个组件能轻松使用',
   markdown: {
@@ -11,7 +12,7 @@ module.exports = {
     //官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
     ['@vuepress/medium-zoom', { selector: 'img' }],
 
-    // vssue 一个借助issue的评论插件 具体配置见https://vssue.js.org/zh/
+    // https://vssue.js.org/zh/guide/vuepress.html#vuepress-%E6%8F%92%E4%BB%B6
     ['@vssue/vuepress-plugin-vssue', {
       // 设置 `platform` 而不是 `api` 我这里是在github平台
       platform: 'github',
@@ -25,8 +26,8 @@ module.exports = {
       clientId: '2a2845479160aa064e19',
       clientSecret: 'a03cb0f5aab08772efdbd02e339a8962be05c0e3',
       locale: 'zh', //使用的语言  这里是简体中文
-      baseURL: 'https://github.com'
-    }] //平台的 base URL
+      baseURL: 'https://github.com', //平台的 base URL
+    }]
   ],
   themeConfig: {
     logo: '/heart.png',
