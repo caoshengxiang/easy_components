@@ -4,7 +4,7 @@
        @click="starGithub">
     <div class="word glitch">
       <div class="flash is-off">
-        <span class="text">给个star!</span>
+        <span class="text">献上你的star!</span>
       </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 export default {
   methods: {
     starGithub () {
-      window.open("https://github.com/1011cat/shotCat_doc")
+      window.open("https://github.com/caoshengxiang/easy_components")
     }
   }
 }

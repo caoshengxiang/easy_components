@@ -41,6 +41,8 @@
     "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
     "jspdf": "^2.0.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.1",
     "mockjs": "^1.1.0",
     "moment": "^2.27.0",
     "normalize.css": "^8.0.1",

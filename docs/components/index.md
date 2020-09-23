@@ -5,5 +5,3 @@
 通用组件 
 
 <HelloWorld/>
-
-<el-button>el 按钮</el-button>

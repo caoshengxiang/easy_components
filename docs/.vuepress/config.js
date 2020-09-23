@@ -45,6 +45,19 @@ module.exports = {
         link: '/components/',
       },
       {
+        text: '移动端',
+        link: '/mobile/',
+      },
+      {
+        text: '小程序',
+        items: [
+          {
+            text: 'colorUI 文档',
+            link: '/applets/',
+          }
+        ]
+      },
+      {
         text: 'css 库',
         link: '/css/',
       },
@@ -52,52 +65,44 @@ module.exports = {
         text: 'js 工具库',
         link: '/js/',
       },
-      {
-        text: '移动端',
-        link: '/mobile/',
-      },
-      {
-        text: '小程序',
-        link: '/applets/',
-      },
     ],
     sidebar: {
       '/guide/': [
         {
           title: '文档模板',
-          collapsable: true,
+          collapsable: false,
           path: 'template'
         },
         {
           title: '代码块',
-          collapsable: true,
+          collapsable: false,
           path: 'codeBox'
         },
         {
           title: '文档表格',
-          collapsable: true,
+          collapsable: false,
           path: 'table'
         },
         {
           title: '评论',
-          collapsable: true,
+          collapsable: false,
           path: 'comment'
         },
         {
           title: 'start',
-          collapsable: true,
+          collapsable: false,
           path: 'start'
         },
       ],
       '/components/': [
         {
           title: '首页',
-          collapsable: true, //侧边栏的每个子组默认是可折叠
-          path: 'hello',
+          collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
+          path: 'index',
         },
         {
           title: '表单',
-          collapsable: true, //侧边栏的每个子组默认是可折叠
+          collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
           children: [
             { title: '自定义表单', path: 'form/generateForm' },
             { title: '表单验证', path: 'form/check' },
@@ -105,7 +110,7 @@ module.exports = {
         },
         {
           title: '表格',
-          collapsable: true, //侧边栏的每个子组默认是可折叠
+          collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
           children: [
             { title: '生成表格', path: 'table/baseTable' },
             // { title: "表单验证", path: "form/check" },
@@ -113,19 +118,63 @@ module.exports = {
         },
         {
           title: '图片上传',
-          collapsable: true, //侧边栏的每个子组默认是可折叠
+          collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
           path: 'upload/sampleImage',
         },
       ],
       '/css/': [
         {
           title: 'css 动画',
-          collapsable: true, //侧边栏的每个子组默认是可折叠
+          collapsable: false, //侧边栏的每个子组默认是可折叠
           children: [
             { title: 'animate.css', path: 'animate/animate' },
             { title: 'hover.css', path: 'animate/hover' },
           ],
         }
+      ],
+      '/applets/': [
+        {
+          title: '元素',
+          collapsable: false, //侧边栏的每个子组默认是可折叠
+          children: [
+            {title: '布局', path: 'colorui/basics/layout'},
+            {title: '背景', path: 'colorui/basics/background'},
+            {title: '文本', path: 'colorui/basics/text'},
+            {title: '图标', path: 'colorui/basics/icon'},
+            {title: '按钮', path: 'colorui/basics/button'},
+            {title: '标签', path: 'colorui/basics/tag'},
+            {title: '头像', path: 'colorui/basics/avatar'},
+            {title: '进度跳', path: 'colorui/basics/progress'},
+            {title: '边框阴影', path: 'colorui/basics/shadow'},
+            {title: '加载', path: 'colorui/basics/loading'},
+          ],
+        },
+        {
+          title: '组件',
+          collapsable: false, //侧边栏的每个子组默认是可折叠
+          children: [
+            {title: '操作条', path: 'colorui/component/bar'},
+            {title: '导航栏', path: 'colorui/component/nav'},
+            {title: '列表', path: 'colorui/component/list'},
+            {title: '卡片', path: 'colorui/component/card'},
+            {title: '表单', path: 'colorui/component/form'},
+            {title: '时间轴', path: 'colorui/component/timeline'},
+            {title: '聊天', path: 'colorui/component/chat'},
+            {title: '轮播', path: 'colorui/component/swiper'},
+            {title: '状态框', path: 'colorui/component/modal'},
+            {title: '步骤条', path: 'colorui/component/steps'},
+          ],
+        },
+        {
+          title: '扩展',
+          collapsable: false, //侧边栏的每个子组默认是可折叠
+          children: [
+            {title: '索引列表', path: 'colorui/plugin/indexList'},
+            {title: '微动画', path: 'colorui/plugin/ani'},
+            {title: '全屏抽屉', path: 'colorui/plugin/drawer'},
+            {title: '垂直导航', path: 'colorui/plugin/verticalNav'},
+          ],
+        },
       ],
     },
     sidebarDepth: 1,
