@@ -1,8 +1,12 @@
 <template>
   <div class="action">
-    <button class="cu-btn bg-green shadow" @tap="LoadProgress">
+    <button class="cu-btn bg-green shadow" @click="LoadProgress">
       点我
     </button>
+    <div class="load-progress" :class="loadProgress!=0?'show':'hide'">
+      <div class="load-progress-bar bg-green" :style="[{transform: 'translate3d(-' + (100-loadProgress) + '%, 0px, 0px)'}]"></div>
+      <div class="load-progress-spinner text-green"></div>
+    </div>
   </div>
 </template>
 

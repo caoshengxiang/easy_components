@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'tab_1'
+    name: 'tab_2'
   }
 </script>
 

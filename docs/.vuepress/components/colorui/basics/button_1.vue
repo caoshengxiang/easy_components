@@ -15,5 +15,5 @@
 </script>
 
 <style scoped>
-
+  @import url('../../../../../public/colorui/icon.css');
 </style>

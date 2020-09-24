@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <view class="cu-load bg-red erro"></view>
+  <div style="width: 100%;">
+    <div class="cu-load bg-red erro"></div>
   </div>
 </template>
 

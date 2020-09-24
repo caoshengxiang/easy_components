@@ -16,7 +16,8 @@ import 'highlight.js/styles/atom-one-light.css';
 import vDialogs from 'v-dialogs' //弹窗组件
 
 import cuCustom from '../../public/colorui/components/cu-custom'
-import '../../public/colorui/coloruipx.less'
+import '../../public/colorui/coloruipx.less' // 样式库
+import '../../public/colorui/icon.css'; // 图标
 
 export default ({
   Vue, // VuePress 正在使用的 Vue 构造函数

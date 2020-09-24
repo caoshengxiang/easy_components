@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  style="width: 100%">
     <div class="cu-bar bg-white solid-bottom margin-top" @click="showModal" data-target="ColorModal">
       <div class="action">
         <text class="cuIcon-title text-blue"></text>进度条颜色
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="grid col-5 padding">
-          <div class="padding-xs" v-for="(item,index) in ColorList" :key="index" @tap="SetColor" :data-color="item.name" v-if="item.name!='gray' && item.name!='white'">
+          <div class="padding-xs" v-for="(item,index) in ColorList" :key="index" @click="SetColor" :data-color="item.name" v-if="item.name!='gray' && item.name!='white'">
             <div class="padding-tb radius" :class="'bg-' + item.name"> {{item.title}} </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
     data() {
       return {
         color: 'red',
-        loading: false,
+        loading: true,
         modalName: '',
         ColorList: [
             {

@@ -10,6 +10,15 @@
 /* ==================
         初始化
  ==================== */
+
+
+/*
+修改
+1. 单位  upx 改为 px
+2. view 标签改为 div
+2. text 标签改为 span
+
+*/
 body {
 	background-color: #f1f1f1;
 	font-size: 28px;
@@ -17,7 +26,7 @@ body {
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 }
 
-view,
+div,
 scroll-view,
 swiper,
 button,
@@ -945,8 +954,8 @@ button.cuIcon.lg {
 	width: 100%;
 }
 
-.cu-progress+view,
-.cu-progress+text {
+.cu-progress+div,
+.cu-progress+span {
 	line-height: 1;
 }
 
@@ -958,7 +967,7 @@ button.cuIcon.lg {
 	height: 20px;
 }
 
-.cu-progress view {
+.cu-progress div {
 	width: 0;
 	height: 100%;
 	align-items: center;
@@ -970,7 +979,7 @@ button.cuIcon.lg {
 	transition: width 0.6s ease;
 }
 
-.cu-progress text {
+.cu-progress span {
 	align-items: center;
 	display: flex;
 	font-size: 20px;
@@ -982,12 +991,12 @@ button.cuIcon.lg {
 	padding-right: 60px;
 }
 
-.cu-progress.striped view {
+.cu-progress.striped div {
 	background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 	background-size: 72px 72px;
 }
 
-.cu-progress.active view {
+.cu-progress.active div {
 	animation: progress-stripes 2s linear infinite;
 }
 
@@ -1197,7 +1206,7 @@ button.cuIcon.lg {
 	transform: translateX(100%)
 }
 
-.cu-list>.cu-item .move view {
+.cu-list>.cu-item .move div {
 	display: flex;
 	flex: 1;
 	justify-content: center;
@@ -1238,7 +1247,7 @@ button.cuIcon.lg {
 	width: calc(100% - 96px - 60px - 20px);
 }
 
-.cu-list.menu-avatar>.cu-item .content>view:first-child {
+.cu-list.menu-avatar>.cu-item .content>div:first-child {
 	font-size: 30px;
 	display: flex;
 	align-items: center
@@ -1257,7 +1266,7 @@ button.cuIcon.lg {
 	text-align: center
 }
 
-.cu-list.menu-avatar>.cu-item .action view+view {
+.cu-list.menu-avatar>.cu-item .action div+div {
 	margin-top: 10px
 }
 
@@ -1350,12 +1359,12 @@ button.cuIcon.lg {
 	border-color: #ffffff
 }
 
-.cu-list.menu>.cu-item .content>view:first-child {
+.cu-list.menu>.cu-item .content>div:first-child {
 	display: flex;
 	align-items: center
 }
 
-.cu-list.menu>.cu-item .content>text[class*=cuIcon] {
+.cu-list.menu>.cu-item .content>span[class*=cuIcon] {
 	display: inline-block;
 	margin-right: 10px;
 	width: 1.6em;
@@ -1422,7 +1431,7 @@ button.cuIcon.lg {
 	pointer-events: none
 }
 
-.cu-list.grid>.cu-item text {
+.cu-list.grid>.cu-item span {
 	display: block;
 	margin-top: 10px;
 	color: #888;
@@ -1501,7 +1510,7 @@ button.cuIcon.lg {
 	top: -10px;
 }
 
-.cu-bar .action.border-title text[class*="bg-"]:last-child {
+.cu-bar .action.border-title span[class*="bg-"]:last-child {
 	position: absolute;
 	bottom: -0.5rem;
 	min-width: 2rem;
@@ -1514,12 +1523,12 @@ button.cuIcon.lg {
 	top: -0.2rem;
 }
 
-.cu-bar .action.sub-title text {
+.cu-bar .action.sub-title span {
 	position: relative;
 	z-index: 1;
 }
 
-.cu-bar .action.sub-title text[class*="bg-"]:last-child {
+.cu-bar .action.sub-title span[class*="bg-"]:last-child {
 	position: absolute;
 	display: inline-block;
 	bottom: -0.2rem;
@@ -1531,7 +1540,7 @@ button.cuIcon.lg {
 	z-index: 0;
 }
 
-.cu-bar .action.sub-title text[class*="text-"]:last-child {
+.cu-bar .action.sub-title span[class*="text-"]:last-child {
 	position: absolute;
 	display: inline-block;
 	bottom: -0.7rem;
@@ -1543,8 +1552,8 @@ button.cuIcon.lg {
 	font-size: 36px;
 }
 
-.cu-bar.justify-center .action.border-title text:last-child,
-.cu-bar.justify-center .action.sub-title text:last-child {
+.cu-bar.justify-center .action.border-title span:last-child,
+.cu-bar.justify-center .action.sub-title span:last-child {
 	left: 0;
 	right: 0;
 	margin: auto;
@@ -1556,7 +1565,7 @@ button.cuIcon.lg {
 	font-size: 30px;
 }
 
-.cu-bar .action text.text-cut {
+.cu-bar .action span.text-cut {
 	text-align: left;
 	width: 100%;
 }
@@ -1565,7 +1574,7 @@ button.cuIcon.lg {
 	margin-left: 20px;
 }
 
-.cu-bar .action:first-child>text[class*="cuIcon-"] {
+.cu-bar .action:first-child>span[class*="cuIcon-"] {
 	margin-left: -0.3em;
 	margin-right: 0.3em;
 }
@@ -1574,12 +1583,12 @@ button.cuIcon.lg {
 	margin-right: 30px;
 }
 
-.cu-bar .action>text[class*="cuIcon-"],
-.cu-bar .action>view[class*="cuIcon-"] {
+.cu-bar .action>span[class*="cuIcon-"],
+.cu-bar .action>div[class*="cuIcon-"] {
 	font-size: 36px;
 }
 
-.cu-bar .action>text[class*="cuIcon-"]+text[class*="cuIcon-"] {
+.cu-bar .action>span[class*="cuIcon-"]+span[class*="cuIcon-"] {
 	margin-left: 0.5em;
 }
 
@@ -1928,7 +1937,7 @@ button.cuIcon.lg {
 	background-color: #ffffff;
 }
 
-.cu-custom .cu-bar .border-custom text {
+.cu-custom .cu-bar .border-custom span {
 	display: block;
 	flex: 1;
 	margin: auto !important;
@@ -2344,7 +2353,7 @@ button.cuIcon.lg {
 	padding-right: 20px;
 }
 
-.cu-form-group>text[class*="cuIcon-"] {
+.cu-form-group>span[class*="cuIcon-"] {
 	font-size: 36px;
 	padding: 0;
 	box-sizing: border-box;
@@ -2910,7 +2919,7 @@ scroll-view.cu-steps .cu-item {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.grid.grid-square>view>text[class*="cuIcon-"] {
+.grid.grid-square>div>span[class*="cuIcon-"] {
 	font-size: 52px;
 	position: absolute;
 	color: #8799a3;
@@ -2925,72 +2934,72 @@ scroll-view.cu-steps .cu-item {
 	flex-direction: column;
 }
 
-.grid.grid-square>view {
+.grid.grid-square>div {
 	margin-right: 20px;
 	margin-bottom: 20px;
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
 }
-.grid.grid-square>view.bg-img image {
+.grid.grid-square>div.bg-img image {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 }
-.grid.col-1.grid-square>view {
+.grid.col-1.grid-square>div {
 	padding-bottom: 100%;
 	height: 0;
 	margin-right: 0;
 }
 
-.grid.col-2.grid-square>view {
+.grid.col-2.grid-square>div {
 	padding-bottom: calc((100% - 20px)/2);
 	height: 0;
 	width: calc((100% - 20px)/2);
 }
 
-.grid.col-3.grid-square>view {
+.grid.col-3.grid-square>div {
 	padding-bottom: calc((100% - 40px)/3);
 	height: 0;
 	width: calc((100% - 40px)/3);
 }
 
-.grid.col-4.grid-square>view {
+.grid.col-4.grid-square>div {
 	padding-bottom: calc((100% - 60px)/4);
 	height: 0;
 	width: calc((100% - 60px)/4);
 }
 
-.grid.col-5.grid-square>view {
+.grid.col-5.grid-square>div {
 	padding-bottom: calc((100% - 80px)/5);
 	height: 0;
 	width: calc((100% - 80px)/5);
 }
 
-.grid.col-2.grid-square>view:nth-child(2n),
-.grid.col-3.grid-square>view:nth-child(3n),
-.grid.col-4.grid-square>view:nth-child(4n),
-.grid.col-5.grid-square>view:nth-child(5n) {
+.grid.col-2.grid-square>div:nth-child(2n),
+.grid.col-3.grid-square>div:nth-child(3n),
+.grid.col-4.grid-square>div:nth-child(4n),
+.grid.col-5.grid-square>div:nth-child(5n) {
 	margin-right: 0;
 }
 
-.grid.col-1>view {
+.grid.col-1>div {
 	width: 100%;
 }
 
-.grid.col-2>view {
+.grid.col-2>div {
 	width: 50%;
 }
 
-.grid.col-3>view {
+.grid.col-3>div {
 	width: 33.33%;
 }
 
-.grid.col-4>view {
+.grid.col-4>div {
 	width: 25%;
 }
 
-.grid.col-5>view {
+.grid.col-5>div {
 	width: 20%;
 }
 
@@ -3719,7 +3728,7 @@ scroll-view.cu-steps .cu-item {
 	top: 0;
 }
 
-.bg-mask view,
+.bg-mask div,
 .bg-mask cover-view {
 	z-index: 5;
 	position: relative;

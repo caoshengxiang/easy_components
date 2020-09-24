@@ -1,10 +1,10 @@
 <template>
   <div class="padding">
     <div class="cu-avatar radius">
-      <text class="cuIcon-people"></text>
+      <span class="cuIcon-people"></span>
     </div>
     <div class="cu-avatar radius margin-left">
-      <text>港</text>
+      <span>港</span>
     </div>
   </div>
 </template>

@@ -98,7 +98,7 @@ module.exports = {
         {
           title: '首页',
           collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
-          path: 'index',
+          path: 'hello',
         },
         {
           title: '表单',

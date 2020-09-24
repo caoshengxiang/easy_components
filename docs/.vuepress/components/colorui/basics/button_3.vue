@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <span class="text-df margin-right-sm">阴影</span>
+      <span>阴影</span>
       <el-switch v-model="shadow" :class="shadow?'checked':''" color="#39B54A"></el-switch>
     </div>
     <div class="grid col-5 padding-sm">

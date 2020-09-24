@@ -1,5 +1,5 @@
 <template>
-  <div class="padding bg-white">
+  <div class="padding bg-white" style="width: 100%">
     <div class="cu-progress">
       <div class="bg-red" :style="[{ width:loading?'61.8%':''}]">61.8%</div>
     </div>
@@ -14,7 +14,12 @@
 
 <script>
   export default {
-    name: 'progress_1'
+    name: 'progress_1',
+    data() {
+      return {
+        loading: true,
+      };
+    },
   }
 </script>
 

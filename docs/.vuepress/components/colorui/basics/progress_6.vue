@@ -1,5 +1,5 @@
 <template>
-  <div class="padding bg-white ">
+  <div class="padding bg-white " style="width: 100%;">
     <div class="flex">
       <div class="cu-progress round">
         <div class="bg-green" :style="[{ width:loading?'100%':''}]"></div>
@@ -17,7 +17,12 @@
 
 <script>
   export default {
-    name: 'progress_6'
+    name: 'progress_6',
+    data() {
+      return {
+        loading: true,
+      }
+    },
   }
 </script>
 

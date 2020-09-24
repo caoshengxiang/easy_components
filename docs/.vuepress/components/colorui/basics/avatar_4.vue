@@ -1,7 +1,7 @@
 <template>
   <div class="padding-sm">
     <div class="cu-avatar round lg margin-xs" :class="'bg-' + item.name" v-for="(item,index) in ColorList" :key="index">
-      <text class="avatar-text">{{item.name}}</text>
+      <sapn class="avatar-text">{{item.name}}</sapn>
     </div>
   </div>
 </template>

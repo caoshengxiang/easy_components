@@ -5,11 +5,19 @@
 <el-alert
     title="tips："
     type="warning"
-    description="colorUI提供得项目是基于uni-app, 所以使用 mpvue 调用微信接口时需要改为 wx. 引入得css文件单位需要修改. 因为colorui是css 库适当修改用于移动端一样可以。文档运行在pc因此使用得是px ,移动端或小程序我是改为vw. "
+    description="colorUI提供得项目是基于uni-app, 所以使用 mpvue 调用微信接口时需要改为 wx. 引入得css文件单位需要修改. 因为colorui是css 库适当修改用于移动端一样可以。文档运行在pc因此使用得是px ,移动端或小程序我是改为vw.为了再pc演示css做了些修改"
     :closable="false"
     show-icon>
   </el-alert>
   
+> 修改项：
+>1. 单位  upx 改为 px
+>2. 页面和css文件view 标签改为 div
+>3. 页面和css文件text 标签改为 span 
+>4. 事件绑定改为vue 的绑定形式
+>5. switch, radio-group等与colorUI 无关的选项使用了elementUi 做为文档辅助功能
+>6. block标签改为div
+>7. image标签改为src
   
 ## 前言
 ColorUI是一个css库！！！在你引入样式后可以根据class来调用组件，一些含有交互的操作我也有简单写，可以为你开发提供一些思路。插件市场版本如果和更新日志不一样，请移步Github下载。有组件需求或者Bug提交也可以移步到issues。

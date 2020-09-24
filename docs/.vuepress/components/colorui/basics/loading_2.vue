@@ -1,6 +1,8 @@
 <template>
-<div>
-  <switch @change="isLoading" :class="isLoad?'checked':''"></switch>
+<div style="width: 100%;">
+  <div style="margin-bottom: 10px;text-align: right;">
+    <el-switch v-model="isLoad"></el-switch>
+  </div>
   <div class="cu-load bg-grey" :class="!isLoad?'loading':'over'"></div>
 </div>
 </template>
@@ -13,11 +15,6 @@
         isLoad: false,
       }
     },
-    methods: {
-      isLoading(e) {
-        this.isLoad = e.detail.value;
-      },
-    }
   }
 </script>
 

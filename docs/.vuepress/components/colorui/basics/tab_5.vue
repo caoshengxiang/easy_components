@@ -2,7 +2,7 @@
   <div class="padding">
     <div class="cu-capsule">
       <div class='cu-tag bg-red'>
-        <text class='cuIcon-likefill'></text>
+        <span class='cuIcon-likefill'></span>
       </div>
       <div class="cu-tag line-red">
         12
@@ -10,7 +10,7 @@
     </div>
     <div class="cu-capsule round">
       <div class='cu-tag bg-blue '>
-        <text class='cuIcon-likefill'></text>
+        <span class='cuIcon-likefill'></span>
       </div>
       <div class="cu-tag line-blue">
         23
@@ -26,7 +26,7 @@
     </div>
     <div class="cu-capsule radius">
       <div class='cu-tag bg-grey '>
-        <text class='cuIcon-likefill'></text>
+        <span class='cuIcon-likefill'></span>
       </div>
       <div class="cu-tag line-grey">
         23
@@ -34,7 +34,7 @@
     </div>
     <div class="cu-capsule radius">
       <div class='cu-tag bg-brown sm'>
-        <text class='cuIcon-likefill'></text>
+        <span class='cuIcon-likefill'></span>
       </div>
       <div class="cu-tag line-brown sm">
         23

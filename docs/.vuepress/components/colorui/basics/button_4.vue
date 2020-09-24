@@ -1,10 +1,11 @@
 <template>
   <div>
     <div>
-      <span class="text-df margin-right-sm">阴影</span>
+      <span class="">阴影</span>
       <el-switch v-model="shadow" :class="shadow?'checked':''" color="#39B54A"></el-switch>
     </div>
     <div class="action">
+      <span>边框</span>
       <el-radio-group v-model="bordersize">
         <el-radio label="">小</el-radio>
         <el-radio label="s">大</el-radio>

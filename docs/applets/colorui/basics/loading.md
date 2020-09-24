@@ -56,7 +56,7 @@
 
 <baseComponent-codeBox
   title=""
-  description=""
+  description="进度条在页头，如果有页头需要修改top位置，(div class=load-progress)"
   onlineLink="">
   <colorui-basics-loading_5/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->

@@ -1,17 +1,17 @@
 <template>
-  <view class='padding-sm flex flex-wrap'>
-    <view class="padding-xs" v-for="(item,index) in ColorList" :key="index" v-if="item.name!='gray'">
-      <view class='cu-tag' :class="'bg-' + item.name">{{item.title}}</view>
-    </view>
-    <view class="padding-xs" v-for="(item,index) in ColorList" :key="index" v-if="item.name!='gray' && item.name!='black' && item.name!='white'">
-      <view class='cu-tag light' :class="'bg-' + item.name">{{item.title}}</view>
-    </view>
-  </view>
+  <div class='padding-sm flex flex-wrap'>
+    <div class="padding-xs" v-for="(item,index) in ColorList" :key="index+'a'" v-if="item.name!='gray'">
+      <div class='cu-tag' :class="'bg-' + item.name">{{item.title}}</div>
+    </div>
+    <div class="padding-xs" v-for="(item,index) in ColorList" :key="index" v-if="item.name!='gray' && item.name!='black' && item.name!='white'">
+      <div class='cu-tag light' :class="'bg-' + item.name">{{item.title}}</div>
+    </div>
+  </div>
 </template>
 
 <script>
   export default {
-    name: 'tab_1',
+    name: 'tab_3',
     data() {
       return {
         ColorList: [
@@ -97,5 +97,4 @@
 </script>
 
 <style scoped>
-
 </style>

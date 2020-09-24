@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">
         <span class="cuIcon-title text-blue"></span>
         进度条条纹
       </div>
-      <switch class="margin-right-sm" :class="active?'checked':''" @change="SetActive"></switch>
+      <el-switch v-model="active"></el-switch>
     </div>
     <div class="padding bg-white">
       <div class="cu-progress round sm striped" :class="active?'active':''">
@@ -23,7 +23,7 @@
     name: 'progress_4',
     data() {
       return {
-        loading: false,
+        loading: true,
         active: false
       }
     },
