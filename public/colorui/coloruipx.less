@@ -34,7 +34,7 @@ input,
 textarea,
 label,
 navigator,
-image {
+img {
 	box-sizing: border-box;
 }
 
@@ -50,14 +50,14 @@ image {
           图片
  ==================== */
 
-image {
+img {
 	max-width: 100%;
 	display: inline-block;
 	position: relative;
 	z-index: 0;
 }
 
-image.loading::before {
+img.loading::before {
 	content: "";
 	background-color: #f5f5f5;
 	display: block;
@@ -67,7 +67,7 @@ image.loading::before {
 	z-index: -2;
 }
 
-image.loading::after {
+img.loading::after {
 	content: "\e7f1";
 	font-family: "cuIcon";
 	position: absolute;
@@ -1088,7 +1088,7 @@ button.cuIcon.lg {
 	font-size: 60px;
 }
 
-.cu-load.load-modal image {
+.cu-load.load-modal img {
 	width: 70px;
 	height: 70px;
 }
@@ -1371,7 +1371,7 @@ button.cuIcon.lg {
 	text-align: center
 }
 
-.cu-list.menu>.cu-item .content>image {
+.cu-list.menu>.cu-item .content>img {
 	display: inline-block;
 	margin-right: 10px;
 	width: 1.6em;
@@ -1791,7 +1791,7 @@ button.cuIcon.lg {
 	margin: 0 auto;
 }
 
-.cu-bar.tabbar .action .cuIcon-cu-image image {
+.cu-bar.tabbar .action .cuIcon-cu-image img {
 	width: 50px;
 	height: 50px;
 	display: inline-block;
@@ -1880,7 +1880,7 @@ button.cuIcon.lg {
 
 /* #endif */
 
-.cu-custom .cu-bar .content image {
+.cu-custom .cu-bar .content img {
 	height: 60px;
 	width: 240px;
 }
@@ -2082,7 +2082,7 @@ button.cuIcon.lg {
 	align-items: center;
 }
 
-.cu-chat .cu-item>image {
+.cu-chat .cu-item>img {
 	height: 320px;
 }
 
@@ -2217,7 +2217,7 @@ button.cuIcon.lg {
 	position: relative;
 }
 
-.cu-card.case .image image {
+.cu-card.case .image img {
 	width: 100%;
 }
 
@@ -2299,7 +2299,7 @@ button.cuIcon.lg {
 	padding: 0 30px;
 }
 
-.cu-card.article>.cu-item .content>image {
+.cu-card.article>.cu-item .content>img {
 	width: 240px;
 	height: 6.4em;
 	margin-right: 20px;
@@ -2587,9 +2587,9 @@ swiper.round-dot .uni-swiper-dot.uni-swiper-dot-active {
 	min-height: 375px;
 }
 
-.screen-swiper image,
+.screen-swiper img,
 .screen-swiper video,
-.swiper-item image,
+.swiper-item img,
 .swiper-item video {
 	width: 100%;
 	display: block;
@@ -2941,7 +2941,7 @@ scroll-view.cu-steps .cu-item {
 	position: relative;
 	overflow: hidden;
 }
-.grid.grid-square>div.bg-img image {
+.grid.grid-square>div.bg-img img {
 	width: 100%;
 	height: 100%;
 	position: absolute;

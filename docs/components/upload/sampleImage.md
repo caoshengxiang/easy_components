@@ -68,10 +68,10 @@ Vue.component('UploadImage', UploadImage)
   title="基础用法"
   description="只能上传一张图"
   onlineLink="">
-  <upload-sampleImage/>
+  <demo-upload-sampleImage/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/upload/sampleImage.vue
+<<< @/docs/.vuepress/components/demo/upload/sampleImage.vue
   </highlight-code>
 </baseComponent-codeBox>
 

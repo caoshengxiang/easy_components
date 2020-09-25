@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import FixedThead from '../../../../src/components/BaseTable/FixedThead'
+  import FixedThead from '../../../../../src/components/BaseTable/FixedThead'
   import defaultFormThead from './tableSet'
 
   export default {

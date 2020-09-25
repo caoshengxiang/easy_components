@@ -33,10 +33,10 @@ Vue.component('FixedThead', FixedThead)
   title="基础用法"
   description="通过配置tableSet.js,不引入。生成表格，也可以直接吧配置写在组件data内"
   onlineLink="">
-  <table-generateTable/>
+  <demo-table-generateTable/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/table/generateTable.vue
+<<< @/docs/.vuepress/components/demo/table/generateTable.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -49,7 +49,7 @@ Vue.component('FixedThead', FixedThead)
     <div>展开查看配置</div>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="js">
-<<< @/docs/.vuepress/components/table/tableSet.js
+<<< @/docs/.vuepress/components/demo/table/tableSet.js
   </highlight-code>
 </baseComponent-codeBox>
 

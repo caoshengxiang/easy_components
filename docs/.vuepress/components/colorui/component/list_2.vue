@@ -18,7 +18,7 @@
             </div>
             <div class="action">
 <!--              <switch @change="MenuBorder" :class="menuBorder?'checked':''" :checked="menuBorder?true:false"></switch>-->
-              <el-switch v-model="MenuBorder"></el-switch>
+              <el-switch v-model="menuBorder"></el-switch>
             </div>
           </div>
           <div class="cu-item">
@@ -27,7 +27,7 @@
             </div>
             <div class="action">
 <!--              <switch @change="MenuArrow" :class="menuArrow?'checked':''" :checked="menuArrow?true:false"></switch>-->
-              <el-switch v-model="MenuArrow"></el-switch>
+              <el-switch v-model="menuArrow"></el-switch>
             </div>
           </div>
           <div class="cu-item">
@@ -36,7 +36,7 @@
             </div>
             <div class="action">
 <!--              <switch @change="MenuCard" :class="menuCard?'checked':''" :checked="menuCard?true:false"></switch>-->
-              <el-switch v-model="MenuCard"></el-switch>
+              <el-switch v-model="menuCard"></el-switch>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
       </div>
       <div class="cu-item" :class="menuArrow?'arrow':''">
         <div class="content">
-          <img src="heart.png" class="png" mode="aspectFit">
+          <img src="/heart.png" style="width: 30px;" class="png" mode="aspectFit">
           <span class="text-grey">图片 + 标题</span>
         </div>
       </div>
@@ -62,10 +62,14 @@
         </button>
       </div>
       <div class="cu-item" :class="menuArrow?'arrow':''">
-        <navigator class="content" hover-class="none" url="../list/list" open-type="redirect">
+<!--        <navigator class="content" hover-class="none" url="../list/list" open-type="redirect">-->
+<!--          <span class="cuIcon-discoverfill text-orange"></span>-->
+<!--          <span class="text-grey">Navigator 跳转</span>-->
+<!--        </navigator>-->
+        <a class="content" hover-class="none" url="../list/list" open-type="redirect">
           <span class="cuIcon-discoverfill text-orange"></span>
           <span class="text-grey">Navigator 跳转</span>
-        </navigator>
+        </a>
       </div>
       <div class="cu-item" :class="menuArrow?'arrow':''">
         <div class="content">
@@ -215,5 +219,7 @@
 </script>
 
 <style scoped>
-
+  .cu-list.menu > .cu-item.arrow {
+    width: 100%;
+  }
 </style>

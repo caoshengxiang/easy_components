@@ -23,10 +23,10 @@
   title="基础用法"
   description=""
   onlineLink="">
-  <form-elFormFieldValidation/>
+  <demo-form-elFormFieldValidation/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/form/elFormFieldValidation.vue
+<<< @/docs/.vuepress/components/demo/form/elFormFieldValidation.vue
   </highlight-code>
 </baseComponent-codeBox>
 

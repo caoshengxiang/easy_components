@@ -2,6 +2,8 @@
 
 ## 说明
 
+无
+
 ## 依赖
  * element-ui
  * vuedraggable
@@ -53,10 +55,10 @@ Vue.component('fenerateForm', fenerateForm)
   title="基础用法"
   description="由于项目是在比较宽得屏幕运行，小屏幕未做兼容，文档得展示效果不是很理想"
   onlineLink="">
-  <form-elFormCustom></form-elFormCustom>
+  <demo-form-elFormCustom/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/form/elFormCustom.vue
+<<< @/docs/.vuepress/components/demo/form/elFormCustom.vue
   </highlight-code>
 </baseComponent-codeBox>
 

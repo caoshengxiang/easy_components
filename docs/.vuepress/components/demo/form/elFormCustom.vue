@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import fenerateForm from '../../../../src/components/generateForm/index'
+  import fenerateForm from '../../../../../src/components/generateForm/index'
 
   export default {
     name: 'elFormCustom',

@@ -61,7 +61,7 @@
 
 <script>
   /* 表单验证 */
-  import { filedRequired, filedType, filedLength, filedValidator, validate } from '../../../../src/utils/fieldValidation'
+  import { filedRequired, filedType, filedLength, filedValidator, validate } from '../../../../../src/utils/fieldValidation'
 
   export default {
     name: 'elFormFieldValidation',

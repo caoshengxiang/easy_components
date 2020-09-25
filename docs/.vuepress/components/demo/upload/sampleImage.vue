@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import UploadImage from '../../../../src/components/Upload/UploadImage'
+  import UploadImage from '../../../../../src/components/Upload/UploadImage'
 
   export default {
     name: 'sampleImage',
