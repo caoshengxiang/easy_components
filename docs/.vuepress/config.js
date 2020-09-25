@@ -2,8 +2,8 @@ module.exports = {
   // base: '/easy_components/', // 仓库名字要和config.js 里 的 base 属性值一样
   // dest: './dist', //打包位置
   port: 9000, //端口号
-  title: 'EASY COMPONENTS',
-  description: '网站快速成型、项目中不断积累组件、每个组件能轻松使用',
+  title: 'i COMPONENTS',
+  description: '助你快速搬砖、维护项目组件、每个组件能轻松使用',
   markdown: {
     lineNumbers: true
   },

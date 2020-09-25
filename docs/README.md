@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /heart.png
-actionText: 快速上手 →
+actionText: 写文档先看看指导 →
 actionLink: /guide/
 features:
 - title: 开箱即用
