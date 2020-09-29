@@ -1,4 +1,4 @@
-# 单图上传
+# 多图上传
 ## 说明
 <el-alert
     title="注意："
@@ -8,30 +8,9 @@
     show-icon>
   </el-alert>
   
-修改方法：找到@/components/Upload/UploadImage.vue 文件， 修改beforeAvatarUpload函数
+修改方法：找到@/components/Upload/UploadImage2.vue 文件， 修改beforeAvatarUpload函数
 ```js
-       beforeAvatarUpload(file, key) {
-         // const isJPG = file.type === 'image/jpeg'
-         // const isPNG = file.type === 'image/png'
-         const isImg = file.type.indexOf('image') > -1
-         const isLt10M = file.size / 1024 / 1024 < this.imageSize
- 
-         if (!isImg) {
-           this.$message.error('上传图片只能是 图片 格式!')
-           return false
-         }
-         if (!isLt10M) {
-           this.$message.error(`上传图片大小不能超过 ${this.imageSize}MB!`)
-           return false
-         }
- 
-         const param = new FormData()
-         param.append('file', file, file.name)
-         this.$api.common.upload(param).then((res) => {
-           this.emitInput(res.data.url)
-         })
-         return false
-       }
+
 
 // 1.this.$api.common.upload 接口改为你的，
 // 2.并把 this.emitInput(res.data.url) 中 `res.data.url` 改为你的接口返回的url字段
@@ -45,18 +24,12 @@
 1. 使用时引入
 ```js
 // 页面
-  import UploadImage from '@/components/Upload/UploadImage'
+  import UploadImage from '@/components/Upload/UploadImage2'
 export default {
     components: {
       UploadImage,
     },
 }
-```
-2. 全局引入
-```js
-// main.js文件中引入
-  import UploadImage from '@/components/Upload/UploadImage'
-Vue.component('UploadImage', UploadImage)
 ```
 
 ## 使用
@@ -65,13 +38,26 @@ Vue.component('UploadImage', UploadImage)
 
 
 <baseComponent-codeBox
-  title="基础用法"
-  description="只能上传一张图,案例未接入上传接口因此数量限制不会生效"
+  title=""
+  description="只能上传一张图"
   onlineLink="">
-  <demo-upload-sampleImage/>
+  <demo-upload-uploadImage2_limit1/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/demo/upload/sampleImage.vue
+<<< @/docs/.vuepress/components/demo/upload/uploadImage2_limit1.vue
+  </highlight-code>
+</baseComponent-codeBox>
+
+### 2.支持多文件
+
+<baseComponent-codeBox
+  title=""
+  description="设置limit，可限制图片个数(案例未接入上传接口因此数量限制不会生效)"
+  onlineLink="">
+  <demo-upload-uploadImage2_limit4/>
+  <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
+  <highlight-code slot="codeText" lang="vue">
+<<< @/docs/.vuepress/components/demo/upload/uploadImage2_limit4.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -110,7 +96,7 @@ Vue.component('UploadImage', UploadImage)
         tableBody: [
           `value / v-model|绑定值|String|--|--`,
           `imageSize|文件不超过的大小， 单位MB|number|--|10 (单位MB)`,
-          `preview| 是否展示预览 | Boolean|--| true`,
+          `limit| 上传文件个数 | Number|--| 1`,
           `prefix| 需要添加的前缀，用于接口返回的相对地址的情况|String|--|''`,
         ],
       }

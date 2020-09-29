@@ -119,9 +119,14 @@ module.exports = {
           ],
         },
         {
-          title: '图片上传',
+          title: '上传',
           collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
-          path: 'upload/sampleImage',
+          // path: 'upload/sampleImage',
+          children: [
+            { title: '单图上传', path: 'upload/sampleImage' },
+            { title: "多图上传", path: "upload/uploadImage2" },
+            { title: "文件上传", path: "upload/uploadFile" },
+          ],
         },
       ],
       '/css/': [

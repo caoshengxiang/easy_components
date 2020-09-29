@@ -1,31 +1,17 @@
-<!--单图上传  通过v-model绑定-->
+<!--多图上传  通过v-model绑定-->
+
+<!--      :on-preview="handlePictureCardPreview"-->
 <template>
   <div class="upload-container">
     <el-upload
-      v-if="preview"
       class="avatar-uploader"
-      :class="{'uploadDisabled': value}"
+      :class="{'uploadDisabled': fileList.length >= limit}"
       list-type="picture-card"
       :show-file-list="true"
-      :limit="1"
-      :file-list="fileList"
-      :on-preview="handlePictureCardPreview"
-      :before-upload="beforeAvatarUpload"
-      :on-remove="rmImage"
-      action="/"
-    >
-      <i class="el-icon-plus avatar-uploader-icon"/>
-    </el-upload>
-    <el-upload
-      v-if="!preview"
-      class="avatar-uploader"
-      :class="{'uploadDisabled': value}"
-      list-type="picture-card"
-      :show-file-list="true"
-      :limit="1"
+      :limit="limit"
       :file-list="fileList"
       :before-upload="beforeAvatarUpload"
-      :on-remove="rmImage"
+      :on-remove="handleRemove"
       action="/"
     >
       <i class="el-icon-plus avatar-uploader-icon"/>
@@ -37,12 +23,12 @@
 </template>
 
 <script>
-  // import common from '../../api/modules/common'
+
   export default {
-    name: 'SingleImageUpload',
+    name: 'ImageUpload2',
     props: {
       value: {
-        type: String,
+        type: String | Array, // 数组接口必须是 和elementUI 一致，[{url: '', name: ''}]
         default: ''
       },
       prefix: { // 相对路径的地址，展示图片需添加的前缀
@@ -53,15 +39,15 @@
         type: Number,
         default: 10
       },
-      preview: {
-        type: Boolean,
-        default: true
+      limit: {
+        type: Number,
+        default: 1
       },
     },
     data() {
       return {
         tempUrl: '',
-        dataObj: {token: ''},
+        dataObj: { token: '' },
         dialogVisible: false,
       }
     },
@@ -71,15 +57,35 @@
       },
       fileList() {
         if (this.value) {
-          return [{url: this.prefix + this.value}]
+          if (typeof this.value === 'string') {
+            let arr = this.value.split(',')
+            return arr.map(item => {
+              let urlVal = this.prefix.indexOf(item) > -1 ? item : this.prefix + item
+              return { url: urlVal, name: urlVal }
+            })
+          } else { // 数组
+            return this.value
+          }
         } else {
           return []
         }
       }
     },
     methods: {
-      rmImage() {
-        this.emitInput('')
+      handleRemove(file, fileList) {
+        // console.log(file, fileList)
+        let reg = new RegExp(this.prefix, 'g')
+        if (typeof this.value === 'string') {
+          let str = fileList.map(item => {
+            return item.url
+            // eslint-disable-next-line no-eval
+          }).join(',').replace(eval(reg), '')
+
+          console.log(str)
+          this.emitInput(str)
+        } else {
+          this.emitInput(fileList)
+        }
       },
       emitInput(val) {
         this.$emit('input', val)
@@ -98,12 +104,32 @@
           this.$message.error(`上传图片大小不能超过 ${this.imageSize}MB!`)
           return false
         }
+
         const param = new FormData()
         param.append('file', file, file.name)
         this.$api.common.upload(param).then((res) => {
-          this.emitInput(res.data.url)
+          let urlVal = this.prefix.indexOf() > -1 ? res.data.url : this.prefix + res.data.url
+
+          let fileList = JSON.parse(JSON.stringify(this.fileList))
+          fileList.push({ url: urlVal, name: urlVal })
+          this.handleAdd(fileList)
         })
         return false
+      },
+      handleAdd(fileList) {
+        // console.log(file, fileList)
+        let reg = new RegExp(this.prefix, 'g')
+        if (typeof this.value === 'string') {
+          let str = fileList.map(item => {
+            return item.url
+            // eslint-disable-next-line no-eval
+          }).join(',').replace(eval(reg), '')
+
+          console.log(str)
+          this.emitInput(str)
+        } else {
+          this.emitInput(fileList)
+        }
       },
       handlePictureCardPreview(file) {
         this.dialogVisible = true
@@ -120,7 +146,7 @@
 <style lang="scss" scoped>
 
   .upload-container {
-    width: 146px;
+    width: 100%;
     position: relative;
   }
 </style>
