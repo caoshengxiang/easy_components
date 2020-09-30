@@ -16,7 +16,7 @@ import vDialogs from 'v-dialogs' //弹窗组件
 
 import cuCustom from '../../public/colorui/components/cu-custom'
 
-import '../../public/colorui/coloruivw.less'
+import '../../public/colorui/coloruipx.less'
 
 import '../../public/colorui/icon.css' // 图标
 
