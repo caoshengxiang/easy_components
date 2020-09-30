@@ -9,7 +9,7 @@
     </div>
     <div class='cu-avatar xl radius'>
       <div class='cu-tag badge'>99</div>
-      <text class='cuIcon-people'></text>
+      <span class='cuIcon-people'></span>
     </div>
     <div class='cu-avatar xl radius'>
       <div class='cu-tag badge'>99+</div>

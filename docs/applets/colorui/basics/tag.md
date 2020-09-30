@@ -7,10 +7,10 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_1/>
+  <colorui-basics-tag_1/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_1.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_1.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -21,10 +21,10 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_2/>
+  <colorui-basics-tag_2/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_2.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_2.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -34,10 +34,10 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_3/>
+  <colorui-basics-tag_3/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_3.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_3.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -47,10 +47,10 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_4/>
+  <colorui-basics-tag_4/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_4.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_4.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -60,10 +60,10 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_5/>
+  <colorui-basics-tag_5/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_5.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_5.vue
   </highlight-code>
 </baseComponent-codeBox>
 
@@ -73,9 +73,9 @@
   title=""
   description=""
   onlineLink="">
-  <colorui-basics-tab_6/>
+  <colorui-basics-tag_6/>
   <!-- 这里直接设置 引入的展示代码 ；注意引入代码一定不能缩进！！！否则不能生效！-->
   <highlight-code slot="codeText" lang="vue">
-<<< @/docs/.vuepress/components/colorui/basics/tab_6.vue
+<<< @/docs/.vuepress/components/colorui/basics/tag_6.vue
   </highlight-code>
 </baseComponent-codeBox>
