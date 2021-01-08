@@ -128,6 +128,16 @@ module.exports = {
             { title: "文件上传", path: "upload/uploadFile" },
           ],
         },
+        {
+          title: '图标',
+          collapsable: false, //默认值是 true,设置 collapsable: false 来让一个组永远都是展开状态
+          // path: 'upload/sampleImage',
+          children: [
+            { title: '折线图', path: 'echarts/echarts-line' },
+            { title: "饼图", path: "echarts/echarts-bar" },
+            { title: "柱状图", path: "echarts/echarts-zhu" },
+          ],
+        },
       ],
       '/css/': [
         {

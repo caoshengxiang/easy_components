@@ -28,6 +28,12 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+### vuepress
+```
+npm run docs:dev
+npm run docs:build
+```
+
 
 ### 文档
 #### 1.接口

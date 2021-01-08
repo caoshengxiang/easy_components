@@ -7,6 +7,7 @@
 >
 
 
+##  使用组件 codeBox
 <baseComponent-codeBox
   title="按钮类型"
   description="按钮类型通过设置type为primary、success、info、warning、danger、text创建不同样式的按钮，不设置为默认样式。"
@@ -17,3 +18,8 @@
 <<< @/docs/.vuepress/components/HelloWorld.vue
   </highlight-code>
 </baseComponent-codeBox>
+
+
+## 未使用组件 codeBox
+<HelloWorld></HelloWorld>
+<<< @/docs/.vuepress/components/HelloWorld.vue

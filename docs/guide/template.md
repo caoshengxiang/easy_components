@@ -60,11 +60,12 @@ Vue.component('fenerateForm', fenerateForm)
 》<br/>
 》 》》》》这里是组件效果<br/>
 》<br/>
-》<br/>
+<el-button type='primary'>这是一个效果</el-button>
+
 
 ```vue
 <template>
- 
+ <el-button type='primary'>这是一个效果</el-button>
 </template>
 
 <script>
@@ -103,7 +104,7 @@ Vue.component('fenerateForm', fenerateForm)
 无
 
 
-## 组件源
+## 组件源/ 组件在项目案例
 
 [遂企云项目](http://www.snsme.cn/)
 
