@@ -87,3 +87,7 @@ option.legend.data = []
 option.xAxis.data = []
 option.series = [] // 单一柱子 option.series[0].data = []
 ```
+
+
+1. x轴文字倾斜或者垂直
+https://blog.csdn.net/yijiupingfan0914/article/details/80346465

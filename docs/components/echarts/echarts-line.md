@@ -137,11 +137,16 @@ option = {
       /*修改折线颜色  */
       itemStyle: {
         normal: {
+          color: '#E41B2F',
           lineStyle: {
             color: '#E41B2F' // 单独修改折线的颜色，legend 颜色不会修改
+            //width: 2,
           }
         }
       },
+      smooth: true,
+      animationDuration: 2800,
+      animationEasing: 'cubicInOut'
     },
     {
       name: '联盟广告',
